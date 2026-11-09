@@ -1,0 +1,107 @@
+\section{Dirac equation and Foldy--Wouthuysen reduction}\label{app:C.15}
+
+A 1s electron of germanium moves at $Z\alpha = 0.23$ of the speed of light, and its relativistic corrections are a few percent of its binding energy. \Cref{sec:10.6} bounds what such corrections do to the response at large $q$, \cref{sec:12.5} needs the electron density at a nucleus with its relativistic correction, and \cref{sec:10.9} writes the spinor algebra of a fermion absorbed on an electron. All three start from the Dirac equation and its expansion in $1/m_e$. We use natural units, Heaviside--Lorentz charges with the electron charge $-e$ (\cref{app:A.2}) and the metric $(+,-,-,-)$ of \cref{app:C.9}.
+
+\subsection{The Dirac equation in a potential}
+
+The free Dirac field $\psi$, a four-component spinor, obeys $(\ii\gamma^\mu\partial_\mu - m_e)\psi = 0$, with the Dirac matrices $\gamma^\mu$ satisfying $\gamma^\mu\gamma^\nu + \gamma^\nu\gamma^\mu = 2g^{\mu\nu}$. We work in the Dirac representation,
+\begin{equation}
+  \gamma^0 = \beta_{\mathrm{D}} = \begin{pmatrix} 1 & 0\\ 0 & -1 \end{pmatrix}, \qquad
+  \gamma^i = \beta_{\mathrm{D}}\alpha_{\mathrm{D}}^i, \qquad
+  \alpha_{\mathrm{D}}^i = \begin{pmatrix} 0 & \sigma^i\\ \sigma^i & 0 \end{pmatrix}, \qquad
+  \gamma^5 = \ii\gamma^0\gamma^1\gamma^2\gamma^3 = \begin{pmatrix} 0 & 1\\ 1 & 0 \end{pmatrix},
+  \label{eq:C.15-gamma}
+\end{equation}
+in $2\times2$ blocks, with $\sigma^i$ the Pauli matrices. The subscript D keeps $\boldsymbol{\alpha}_{\mathrm{D}}$ and $\beta_{\mathrm{D}}$ apart from the fine-structure constant and the inverse temperature. The matrices obey $(\alpha_{\mathrm{D}}^i)^2 = \beta_{\mathrm{D}}^2 = 1$, and any two of $\alpha_{\mathrm{D}}^1, \alpha_{\mathrm{D}}^2, \alpha_{\mathrm{D}}^3, \beta_{\mathrm{D}}$ anticommute.
+
+The electron couples to the electromagnetic potential through $\mathcal{L} \supset -eA_\mu J^\mu_{\mathrm{em}}$ with $J^\mu_{\mathrm{em}} = -\bar\psi\gamma^\mu\psi$ for the electron (\cref{eq:C.9-mix}), $\bar\psi = \psi^\dagger\gamma^0$. The Lagrangian density $\bar\psi(\ii\gamma^\mu\partial_\mu - m_e)\psi + eA_\mu\bar\psi\gamma^\mu\psi$ gives the field equation $[\ii\gamma^\mu(\partial_\mu - \ii eA_\mu) - m_e]\psi = 0$. Multiplying by $\gamma^0$ and solving for the time derivative, with $\vect{p} = -\ii\nabla$, $A_\mu = (A^0, -\vect{A})$ and $\gamma^0\gamma^i = \alpha_{\mathrm{D}}^i$,
+\begin{equation}
+  \ii\partial_t\psi = H_{\mathrm{D}}\psi, \qquad
+  H_{\mathrm{D}} = \boldsymbol{\alpha}_{\mathrm{D}}\cdot\boldsymbol{\pi} + \beta_{\mathrm{D}}m_e + V, \qquad
+  \boldsymbol{\pi} = \vect{p} + e\vect{A}, \quad V = -eA^0 .
+  \label{eq:C.15-HD}
+\end{equation}
+For an electron in the field of a nucleus of charge $Ze$, $A^0 = Ze/(4\pi r)$ and $V = -Z\alpha/r$, with $e^2 = 4\pi\alpha$. A particle of charge $+e$ has $\boldsymbol{\pi} = \vect{p} - e\vect{A}$ and $V = +eA^0$.
+
+The free equation has plane-wave solutions $\psi = u\,\ee^{-\ii E t + \ii\vect{p}\cdot\vect{x}}$. Writing $u = (u_{\mathrm{A}}, u_{\mathrm{B}})$ in upper and lower two-component blocks, \cref{eq:C.15-HD} with $\vect{A} = 0$, $V = 0$ reads $(E - m_e)u_{\mathrm{A}} = \boldsymbol{\sigma}\cdot\vect{p}\,u_{\mathrm{B}}$ and $(E + m_e)u_{\mathrm{B}} = \boldsymbol{\sigma}\cdot\vect{p}\,u_{\mathrm{A}}$. With $(\boldsymbol{\sigma}\cdot\vect{p})^2 = p^2$, nonzero solutions need $E^2 = p^2 + m_e^2$. For $E = +(p^2 + m_e^2)^{1/2}$ and a two-component spinor $\xi_s$ of spin $s$,
+\begin{equation}
+  u(\vect{p}, s) = \sqrt{E + m_e}\begin{pmatrix} \xi_s\\ \dfrac{\boldsymbol{\sigma}\cdot\vect{p}}{E + m_e}\,\xi_s \end{pmatrix}, \qquad
+  u^\dagger u = 2E, \qquad \bar uu = 2m_e .
+  \label{eq:C.15-spinor}
+\end{equation}
+The lower, or small, component is smaller than the upper by $p/(E + m_e) \simeq v/2$. The solutions with $E = -(p^2 + m_e^2)^{1/2}$ describe positrons in field theory; in a bound-state calculation they are the states that a no-pair projection removes. The relativistic 1s state of a point nucleus behaves as $r^{\gamma_{\mathrm{D}} - 1}$ near the origin, with $\gamma_{\mathrm{D}} = [1 - (Z\alpha)^2]^{1/2}$~\cite{bjorken1964relativistic}, so its density diverges at $r = 0$, weakly: $\gamma_{\mathrm{D}} - 1 = -0.005$ for silicon and $-0.028$ for germanium. A nucleus of finite size removes the divergence.
+
+\subsection{Bilinears and their non-relativistic limits}
+
+Couplings of dark matter to electrons are written with four bilinears, as in \cref{sec:1.4}: the scalar $\bar\psi\psi$, the vector $\bar\psi\gamma^\mu\psi$, the axial vector $\bar\psi\gamma^\mu\gamma^5\psi$ and the pseudoscalar $\bar\psi\ii\gamma^5\psi$. Their non-relativistic forms follow from $\psi = (\psi_{\mathrm{A}}, \psi_{\mathrm{B}})$ with the small component $\psi_{\mathrm{B}} \simeq (\boldsymbol{\sigma}\cdot\vect{p}/2m_e)\psi_{\mathrm{A}}$, the low-energy limit of \cref{eq:C.15-spinor}. With the blocks of \cref{eq:C.15-gamma}, $\gamma^0\gamma^0 = 1$, $\gamma^0\gamma^i = \alpha^i_{\mathrm{D}}$, $\gamma^0\gamma^i\gamma^5 = \operatorname{diag}(\sigma^i, \sigma^i)$ and $\gamma^0\ii\gamma^5 = \ii\begin{psmallmatrix} 0 & 1\\ -1 & 0 \end{psmallmatrix}$, so
+\begin{align}
+  \bar\psi\psi &= \psi_{\mathrm{A}}^\dagger\psi_{\mathrm{A}} - \psi_{\mathrm{B}}^\dagger\psi_{\mathrm{B}} \simeq \psi_{\mathrm{A}}^\dagger\psi_{\mathrm{A}}, &
+  \bar\psi\gamma^0\psi &= \psi_{\mathrm{A}}^\dagger\psi_{\mathrm{A}} + \psi_{\mathrm{B}}^\dagger\psi_{\mathrm{B}} \simeq \psi_{\mathrm{A}}^\dagger\psi_{\mathrm{A}},
+  \nonumber\\
+  \bar\psi\gamma^i\gamma^5\psi &= \psi_{\mathrm{A}}^\dagger\sigma^i\psi_{\mathrm{A}} + \psi_{\mathrm{B}}^\dagger\sigma^i\psi_{\mathrm{B}} \simeq \psi_{\mathrm{A}}^\dagger\sigma^i\psi_{\mathrm{A}}, &
+  \bar\psi\ii\gamma^5\psi &= \ii(\psi_{\mathrm{A}}^\dagger\psi_{\mathrm{B}} - \psi_{\mathrm{B}}^\dagger\psi_{\mathrm{A}}) \simeq \frac{1}{2m_e}\nabla\cdot(\psi_{\mathrm{A}}^\dagger\boldsymbol{\sigma}\psi_{\mathrm{A}}) .
+  \label{eq:C.15-bilinears}
+\end{align}
+The last form uses $\boldsymbol{\sigma}\cdot\vect{p} = -\ii\boldsymbol{\sigma}\cdot\nabla$: $\ii[\psi_{\mathrm{A}}^\dagger(-\ii\boldsymbol{\sigma}\cdot\nabla\psi_{\mathrm{A}}) - (-\ii\boldsymbol{\sigma}\cdot\nabla\psi_{\mathrm{A}})^\dagger\psi_{\mathrm{A}}]/2m_e = [\psi_{\mathrm{A}}^\dagger\boldsymbol{\sigma}\cdot\nabla\psi_{\mathrm{A}} + (\nabla\psi_{\mathrm{A}}^\dagger)\cdot\boldsymbol{\sigma}\psi_{\mathrm{A}}]/2m_e$. The scalar and the time component of the vector both reduce to the number density, the limit used in \cref{sec:1.4} and \cref{app:C.9}; they differ at order $v^2$, where the scalar acquires the kinetic-energy term of \cref{sec:1.4}. The axial vector reduces to the spin density. The pseudoscalar is suppressed by $1/m_e$ and becomes the divergence of the spin density, so a coupling $g\phi\bar\psi\ii\gamma^5\psi$ becomes, after integration by parts, $-(g/2m_e)(\nabla\phi)\cdot\psi_{\mathrm{A}}^\dagger\boldsymbol{\sigma}\psi_{\mathrm{A}}$, the first term of the axion-like coupling in \cref{sec:1.4}. The spatial vector $\bar\psi\gamma^i\psi = \psi_{\mathrm{A}}^\dagger\sigma^i\psi_{\mathrm{B}} + \psi_{\mathrm{B}}^\dagger\sigma^i\psi_{\mathrm{A}}$ reduces, by $\sigma^i\sigma^j = \delta^{ij} + \ii\epsilon^{ijk}\sigma^k$, to the convection current $(2\ii m_e)^{-1}(\psi_{\mathrm{A}}^\dagger\nabla\psi_{\mathrm{A}} - \nabla\psi_{\mathrm{A}}^\dagger\,\psi_{\mathrm{A}})$ plus the spin current $(2m_e)^{-1}\nabla\times(\psi_{\mathrm{A}}^\dagger\boldsymbol{\sigma}\psi_{\mathrm{A}})$, the Gordon decomposition.
+
+\subsection{The Foldy--Wouthuysen transformation}
+
+The large and small components are coupled by $\boldsymbol{\alpha}_{\mathrm{D}}\cdot\boldsymbol{\pi}$, the only part of $H_{\mathrm{D}}$ that mixes them. Foldy and Wouthuysen removed it order by order in $1/m_e$ by unitary transformations~\cite{foldy1950dirac}. Call an operator \emph{even} if it commutes with $\beta_{\mathrm{D}}$ (block diagonal) and \emph{odd} if it anticommutes (block off-diagonal). We take static fields and $\vect{A} = 0$, the case \cref{sec:10.6,sec:12.5} need, so that
+\begin{equation}
+  H_{\mathrm{D}} = \beta_{\mathrm{D}}m_e + \mathsf{E} + \mathsf{O}, \qquad \mathsf{E} = V, \qquad \mathsf{O} = \boldsymbol{\alpha}_{\mathrm{D}}\cdot\vect{p} .
+  \label{eq:C.15-split}
+\end{equation}
+The rules are $\beta_{\mathrm{D}}\mathsf{O} = -\mathsf{O}\beta_{\mathrm{D}}$, $\beta_{\mathrm{D}}\mathsf{E} = \mathsf{E}\beta_{\mathrm{D}}$, and $\mathsf{O}^2$, a product of two odd operators, is even. Let $X = \beta_{\mathrm{D}}\mathsf{O}/(2m_e)$, which is anti-Hermitian, so $\ee^{X}$ is unitary, and transform $H' = \ee^{X}H_{\mathrm{D}}\ee^{-X} = H_{\mathrm{D}} + [X, H_{\mathrm{D}}] + \tfrac{1}{2!}[X,[X,H_{\mathrm{D}}]] + \tfrac{1}{3!}[X,[X,[X,H_{\mathrm{D}}]]] + \dots$ (\cref{app:C.6}). The commutators of $\beta_{\mathrm{D}}\mathsf{O}$ with the parts of $H_{\mathrm{D}}$ follow from these rules:
+\begin{gather*}
+  [\beta_{\mathrm{D}}\mathsf{O}, \beta_{\mathrm{D}}] = \beta_{\mathrm{D}}\mathsf{O}\beta_{\mathrm{D}} - \mathsf{O} = -2\mathsf{O}, \qquad
+  [\beta_{\mathrm{D}}\mathsf{O}, \mathsf{O}] = \beta_{\mathrm{D}}\mathsf{O}^2 - \mathsf{O}\beta_{\mathrm{D}}\mathsf{O} = 2\beta_{\mathrm{D}}\mathsf{O}^2,\\
+  [\beta_{\mathrm{D}}\mathsf{O}, \mathsf{E}] = \beta_{\mathrm{D}}[\mathsf{O}, \mathsf{E}] .
+\end{gather*}
+In each, $\beta_{\mathrm{D}}$ was moved to the left with its anticommutation or commutation rule. The first-order term is then
+\begin{equation*}
+  [X, H_{\mathrm{D}}] = -\mathsf{O} + \frac{\beta_{\mathrm{D}}\mathsf{O}^2}{m_e} + \frac{\beta_{\mathrm{D}}[\mathsf{O}, \mathsf{E}]}{2m_e} .
+\end{equation*}
+Its first term cancels the odd operator of $H_{\mathrm{D}}$; this fixes the choice of $X$. The commutator of $X$ with each of the three new terms follows from the same rules, using that $\mathsf{O}^2$ is even and $[\mathsf{O}, \mathsf{E}]$ is odd: $[X, -\mathsf{O}] = -\beta_{\mathrm{D}}\mathsf{O}^2/m_e$, $[X, \beta_{\mathrm{D}}\mathsf{O}^2/m_e] = (\beta_{\mathrm{D}}\mathsf{O}\beta_{\mathrm{D}}\mathsf{O}^2 - \beta_{\mathrm{D}}\mathsf{O}^2\beta_{\mathrm{D}}\mathsf{O})/(2m_e^2) = -\mathsf{O}^3/m_e^2$, and $[X, \beta_{\mathrm{D}}[\mathsf{O},\mathsf{E}]/2m_e] = -[\mathsf{O},[\mathsf{O},\mathsf{E}]]/(4m_e^2)$. The same rules give the next orders, $[X, -\beta_{\mathrm{D}}\mathsf{O}^2/m_e] = \mathsf{O}^3/m_e^2$, $[X, -\mathsf{O}^3/m_e^2] = -(\beta_{\mathrm{D}}\mathsf{O}^4 - \mathsf{O}^3\beta_{\mathrm{D}}\mathsf{O})/(2m_e^3) = -\beta_{\mathrm{D}}\mathsf{O}^4/m_e^3$ and $[X, \mathsf{O}^3/m_e^2] = \beta_{\mathrm{D}}\mathsf{O}^4/m_e^3$, so that, up to terms of higher order in $1/m_e$, $\tfrac{1}{3!}[X,[X,[X,H_{\mathrm{D}}]]] = \mathsf{O}^3/(6m_e^2) - \beta_{\mathrm{D}}\mathsf{O}^4/(6m_e^3)$ and $\tfrac{1}{4!}[X,[X,[X,[X,H_{\mathrm{D}}]]]] = \beta_{\mathrm{D}}\mathsf{O}^4/(24m_e^3)$. Collecting,
+\begin{equation}
+  H' = \beta_{\mathrm{D}}\Bigl(m_e + \frac{\mathsf{O}^2}{2m_e} - \frac{\mathsf{O}^4}{8m_e^3}\Bigr) + \mathsf{E} - \frac{[\mathsf{O},[\mathsf{O},\mathsf{E}]]}{8m_e^2} + \mathsf{O}', \qquad
+  \mathsf{O}' = \frac{\beta_{\mathrm{D}}[\mathsf{O},\mathsf{E}]}{2m_e} - \frac{\mathsf{O}^3}{3m_e^2} .
+  \label{eq:C.15-Hprime}
+\end{equation}
+The coefficients are $1 - \tfrac12 = \tfrac12$ for $\beta_{\mathrm{D}}\mathsf{O}^2/m_e$, $-\tfrac16 + \tfrac1{24} = -\tfrac18$ for $\beta_{\mathrm{D}}\mathsf{O}^4/m_e^3$, and $-\tfrac12 + \tfrac16 = -\tfrac13$ for $\mathsf{O}^3/m_e^2$.
+
+The power counting is in the electron velocity $v$: $\mathsf{O} \sim p \sim m_ev$ and $\mathsf{E} \sim m_ev^2$. The even terms of \cref{eq:C.15-Hprime} are of order $m_e$, $m_ev^2$ and $m_ev^4$, while the remaining odd operator $\mathsf{O}'$ is of order $m_ev^3$. A second transformation with $X' = \beta_{\mathrm{D}}\mathsf{O}'/(2m_e)$ removes $\mathsf{O}'$ in the same way. By the first-order formula it adds $\beta_{\mathrm{D}}\mathsf{O}'^2/(2m_e)$, of order $m_ev^6$, to the even part, and leaves an odd remainder $\beta_{\mathrm{D}}[\mathsf{O}',\mathsf{E}]/(2m_e)$ of order $m_ev^5$, which a third transformation removes with even changes of still higher order. To order $m_ev^4$, the even part of \cref{eq:C.15-Hprime} is the final Hamiltonian, and it acts on the upper components alone.
+
+\subsection{Mass--velocity, Darwin and spin--orbit terms}
+
+The three operators of \cref{eq:C.15-Hprime} are evaluated with the identity $\alpha_{\mathrm{D}}^i\alpha_{\mathrm{D}}^j = \delta^{ij} + \ii\epsilon^{ijk}\Sigma^k$, where $\boldsymbol{\Sigma} = \operatorname{diag}(\boldsymbol{\sigma}, \boldsymbol{\sigma})$ is twice the spin. It gives $\mathsf{O}^2 = p^2$ and $\mathsf{O}^4 = p^4$. For the double commutator, let $\vect{W} = \nabla V$. Then $[\mathsf{O}, V] = \alpha_{\mathrm{D}}^j[p^j, V] = -\ii\alpha_{\mathrm{D}}^jW^j$, and
+\begin{equation*}
+  [\mathsf{O}, [\mathsf{O}, V]] = -\ii\sum_{ij}\bigl(\alpha_{\mathrm{D}}^i\alpha_{\mathrm{D}}^j\,p^iW^j - \alpha_{\mathrm{D}}^j\alpha_{\mathrm{D}}^i\,W^jp^i\bigr) .
+\end{equation*}
+Moving $p^i$ to the right, $p^iW^j = W^jp^i - \ii\,\partial_iW^j$, the bracket becomes $(\alpha_{\mathrm{D}}^i\alpha_{\mathrm{D}}^j - \alpha_{\mathrm{D}}^j\alpha_{\mathrm{D}}^i)W^jp^i - \ii\alpha_{\mathrm{D}}^i\alpha_{\mathrm{D}}^j\partial_iW^j$. The antisymmetric combination is $2\ii\epsilon^{ijk}\Sigma^k$, and the sum $\sum_{ij}\alpha_{\mathrm{D}}^i\alpha_{\mathrm{D}}^j\partial_iW^j = \nabla^2V + \ii\boldsymbol{\Sigma}\cdot(\nabla\times\nabla V) = \nabla^2V$. With $\epsilon^{ijk}W^jp^i = -(\vect{W}\times\vect{p})^k$,
+\begin{equation}
+  [\mathsf{O}, [\mathsf{O}, V]] = -\nabla^2V - 2\boldsymbol{\Sigma}\cdot(\nabla V\times\vect{p}) .
+  \label{eq:C.15-double}
+\end{equation}
+On the upper components, with $\boldsymbol{\Sigma} \to \boldsymbol{\sigma} = 2\vect{S}$, the Hamiltonian to order $m_ev^4$ is therefore
+\begin{equation}
+  H_{\mathrm{FW}} = m_e + \frac{p^2}{2m_e} + V - \frac{p^4}{8m_e^3} + \frac{\nabla^2V}{8m_e^2} + \frac{1}{4m_e^2}\,\boldsymbol{\sigma}\cdot(\nabla V\times\vect{p}) .
+  \label{eq:C.15-HFW}
+\end{equation}
+The fourth term is the \emph{mass--velocity} correction, the next term of $(p^2 + m_e^2)^{1/2}$. The fifth is the \emph{Darwin} term, a smearing of the potential over the Compton wavelength $1/m_e$. The last is the \emph{spin--orbit} coupling; for a central potential, $\nabla V = (\vect{r}/r)\,\dd V/\dd r$ and $\vect{r}\times\vect{p} = \vect{L}$, so it equals $(2m_e^2)^{-1}(r^{-1}\dd V/\dd r)\,\vect{S}\cdot\vect{L}$. \Cref{eq:C.15-HFW} is the result of Refs.~\cite{foldy1950dirac,bjorken1964relativistic} at $\vect{A} = 0$.
+
+\subsection{The contact density at a nucleus}
+
+For the Coulomb potential $V = -Z\alpha/r$, the identity $\nabla^2(1/r) = -4\pi\delta^3(\vect{r})$ gives $\nabla^2V = 4\pi Z\alpha\,\delta^3(\vect{r})$. The Darwin term becomes a contact interaction,
+\begin{equation}
+  H_{\mathrm{Dar}} = \frac{\pi Z\alpha}{2m_e^2}\,\delta^3(\vect{r}), \qquad
+  \langle H_{\mathrm{Dar}}\rangle = \frac{\pi Z\alpha}{2m_e^2}\,|\psi(0)|^2 .
+  \label{eq:C.15-darwin}
+\end{equation}
+Its expectation value is fixed by the \emph{contact density} $|\psi(0)|^2$, the electron density at the nucleus, which only s states have. For a hydrogenic $ns$ state of nuclear charge $Z$, $|\psi_{ns}(0)|^2 = (Z\alpha m_e)^3/(\pi n^3)$, the $n = 1$ value being $1/(\pi a_0^3)$ at $Z = 1$ (\cref{sec:2.2}). The 1s Darwin shift is then $m_e(Z\alpha)^4/2$, a fraction $(Z\alpha)^2$ of the hydrogenic binding energy $m_e(Z\alpha)^2/2$: \SI{0.72}{meV}, or \num{5.3e-5} of the binding, for hydrogen; \SI{28}{eV}, or 0.010, for $Z = 14$; and \SI{0.76}{keV}, or 0.055, for $Z = 32$. The relative size $(Z\alpha)^2$ is that of each relativistic term. The mass--velocity term, $-\tfrac58 m_e(Z\alpha)^4$ for 1s, nearly cancels the Darwin term, and the net 1s shift is about a quarter of $(Z\alpha)^2$ of the binding energy, \SI{0.26}{\percent} for silicon and \SI{1.46}{\percent} for germanium in all-electron calculations of the atoms (\cref{we:3-Zalpha}). Every operator of the response that probes the electron density near the nucleus, such as the third energy moment of \cref{sec:12.5}, picks up corrections of this relative size, $(Z\alpha)^2$, from the core shells.
+
+The density vertex itself changes under the transformation. Since $\ee^{\ii\vect{q}\cdot\vect{r}}$ is even, its transform is $\ee^{X}\ee^{\ii\vect{q}\cdot\vect{r}}\ee^{-X} = \ee^{\ii\vect{q}\cdot\vect{r}} + \beta_{\mathrm{D}}[\mathsf{O}, \ee^{\ii\vect{q}\cdot\vect{r}}]/(2m_e) - [\mathsf{O},[\mathsf{O}, \ee^{\ii\vect{q}\cdot\vect{r}}]]/(8m_e^2) + \dots$, by the same algebra with $V$ replaced by $\ee^{\ii\vect{q}\cdot\vect{r}}$. The odd term connects positive- and negative-energy states and contributes to positive-energy matrix elements only at higher order. \Cref{eq:C.15-double} with $\nabla\ee^{\ii\vect{q}\cdot\vect{r}} = \ii\vect{q}\,\ee^{\ii\vect{q}\cdot\vect{r}}$ and $\nabla^2\ee^{\ii\vect{q}\cdot\vect{r}} = -q^2\ee^{\ii\vect{q}\cdot\vect{r}}$ gives, on the upper components,
+\begin{equation}
+  \ee^{\ii\vect{q}\cdot\vect{r}} \;\to\; \ee^{\ii\vect{q}\cdot\vect{r}}\Bigl[1 - \frac{q^2}{8m_e^2} + \frac{\ii}{4m_e^2}\,\boldsymbol{\sigma}\cdot(\vect{q}\times\vect{p})\Bigr] .
+  \label{eq:C.15-vertex}
+\end{equation}
+The scalar correction is $q^2/(8m_e^2) = \num{4.8e-5}$ at $q = \SI{10}{keV}$. The spin-dependent term is of order $qp/m_e^2$, larger for core electrons, whose momenta reach $Z\alpha m_e$; \cref{sec:10.6} bounds both for silicon and germanium.

@@ -1,0 +1,1406 @@
+                                                     Electron-Phonon Beyond Fröhlich: Dynamical Quadrupoles in Polar and Covalent Solids
+
+                                                        Guillaume Brunin1 , Henrique Pereira Coutada Miranda1 , Matteo Giantomassi1 , Miquel Royo2 , Massimiliano
+                                                          Stengel2,3 , Matthieu J. Verstraete4,5 , Xavier Gonze1,6 , Gian-Marco Rignanese1 , and Geoffroy Hautier1∗
+                                                                              1
+                                                                                  UCLouvain, Institute of Condensed Matter and Nanosciences (IMCN),
+                                                                                        Chemin des Étoiles 8, B-1348 Louvain-la-Neuve, Belgium
+                                                               2
+                                                                 Institut de Ciència de Materials de Barcelona (ICMAB-CSIC), Campus UAB, 08193 Bellaterra, Spain
+                                                                          3
+                                                                            ICREA-Institució Catalana de Recerca i Estudis Avançats, 08010 Barcelona, Spain
+                                                                              4
+                                                                                NanoMat/Q-Mat/CESAM, Université de Liège (B5), B-4000 Liège, Belgium
+                                                             5
+                                                               Catalan Institute of Nanoscience and Nanotechnology (ICN2), Campus UAB, 08193 Bellaterra, Spain and
+                                                                                     6
+                                                                                       Skolkovo Institute of Science and Technology, Moscow, Russia
+                                                                                                        (Dated: September 23, 2020)
+arXiv:2002.00628v2 [cond-mat.mtrl-sci] 21 Sep 2020
+
+
+
+
+                                                                     We include the treatment of quadrupolar fields beyond the Fröhlich interaction in the first-
+                                                                  principles electron-phonon vertex in semiconductors. Such quadrupolar fields induce long-range
+                                                                  interactions that have to be taken into account for accurate physical results. We apply our formal-
+                                                                  ism to Si (nonpolar), GaAs, and GaP (polar) and demonstrate that electron mobilities show large
+                                                                  errors if dynamical quadrupoles are not properly treated.
+
+
+                                                        The electron-phonon (e-ph) interaction plays a key role         In this Letter, we go beyond these seminal contribu-
+                                                     in the description of various physical phenomena (e.g.,         tions, demonstrate the importance of the next-to-leading
+                                                     electronic transport, phonon-assisted light absorption,         order terms derived by Vogl [12], and explain their phys-
+                                                     phonon-mediated superconductivity) [1]. In state-of-the-        ical origin. In this new approach, the LR contribu-
+                                                     art ab initio methods, the e-ph coupling is described           tions are expressed in terms of the high-frequency di-
+                                                     within density functional theory (DFT) by expanding the         electric tensor, Born effective charges (dipole potential),
+                                                     Kohn-Sham (KS) effective potential [2] in the nuclear dis-      dynamical quadrupoles [13, 14] (quadrupole potential)
+                                                     placements, while vibrational properties are obtained us-       and the response to a homogeneous static electric field
+                                                     ing density-functional perturbation theory (DFPT) [3, 4].       (local-field potential, also quadrupolar) [3, 4]. Despite
+                                                     This DFPT-based computational scheme enables the cal-           their importance in describing certain piezoelectric prop-
+                                                     culation of screened e-ph matrix elements at a micro-           erties [13, 15], quadrupolar interactions have never been
+                                                     scopic level with ab initio quality [1]. However, accurate      considered in first-principles e-ph calculations. In nonpo-
+                                                     e-ph related properties require a description of the cou-       lar materials, dynamical quadrupoles represent the lead-
+                                                     pling on very dense reciprocal-space wave vector grids          ing contribution to the LR potential. Even in polar
+                                                     across the full Brillouin zone (BZ) thus making direct          materials, where the focus has been on the divergent
+                                                     ab initio e-ph computations in real materials costly and        Fröhlich interaction for LO modes [11], the quadrupolar
+                                                     sometimes even impracticable.                                   field dominates the LR potential for the TO and acoustic
+                                                                                                                     modes [12].
+                                                        Despite formal differences in the treatment of the elec-
+                                                                                                                        We first describe the physical origin and LR nature
+                                                     tron wave function, all approaches proposed so far rely
+                                                                                                                     of the quadrupolar interaction. We then demonstrate
+                                                     on the spatial localization of the e-ph coupling to inter-
+                                                                                                                     that substantial errors in carrier mobility in well-known
+                                                     polate it with respect to the phonon wave vector q [5–8].
+                                                                                                                     polar and nonpolar semiconductors are introduced if
+                                                     The fundamental physical assumption is that a relatively
+                                                                                                                     the quadrupolar interaction is not properly accounted
+                                                     small real-space supercell can capture the full strength
+                                                                                                                     for. We show results for the classical semiconductors Si,
+                                                     of the coupling. For metals this is trivial as screening
+                                                                                                                     GaAs, and GaP. As quadrupolar interactions have not
+                                                     lengths are very short. However, in semiconductors and
+                                                                                                                     been considered so far, our analysis indicates that many
+                                                     insulators, the incomplete screening of the potential gen-
+                                                                                                                     previous ab initio e-ph calculations for semiconductors
+                                                     erated by the atomic displacements leads to long-range
+                                                                                                                     should be critically reconsidered.
+                                                     (LR) interactions. For polar materials, these interactions
+                                                                                                                        The key ingredients in e-ph computations are the cou-
+                                                     show up in the long-wavelength limit (q → 0) for instance
+                                                                                                                     pling matrix elements gmnν (k, q) = hψmk+q |∆qν V |ψnk i
+                                                     in the LO-TO splitting of the optical frequencies [9] and
+                                                                                                                     with ψnk the nk Bloch state and ∆qν V the first-order
+                                                     the Fröhlich divergence of the e-ph matrix elements [10].
+                                                                                                                     variation of the KS potential V due to a phonon mode
+                                                     The analytical treatment of the LR dipole-dipole interac-
+                                                                                                                     of wave vector q and branch index ν [1]. The scattering
+                                                     tion to obtain a reliable long-wavelength dynamical ma-
+                                                                                                                     potential is defined as
+                                                     trix was developed in the early days of DFPT [3, 4]. More
+                                                     recently the Fröhlich contribution to the LR e-ph matrix                               1   X eκα,ν (q)
+                                                                                                                               ∆qν V = p            √        Vκα,q (r)      (1)
+                                                     elements was generalized to anisotropic materials [6, 11],                             2ωqν κα   Mκ
+                                                     opening up a first avenue for computations of e-ph effects
+                                                     in polar materials [1].                                         with ωqν the phonon frequency and eκα,ν (q) the α-
+                                                                                                                              2
+
+th Cartesian component of the phonon eigenvector for             with Ω the unit cell volume, G the reciprocal lattice vec-
+atom κ of mass Mκ in the unit cell. Vκα,q (r) is the             tors, Z∗κ the Born effective charge tensor, ∞ the high-
+potential obtained from DFPT [16]. Following the ap-             frequency dielectric tensor, and τκ the position of the
+proach adopted in the literature [6, 11], Vκα,q is sepa-         κ-th atom in the unit cell. The summation over repeated
+rated into short-range (SR, S) and LR (L) contributions:         indices (β, η, δ, and δ 0 ) is implied in Eq. (2) and in the
+              S           L
+Vκα,q (r) = Vκα,q (r) + Vκα,q (r). The latter, V L , is sup-     following, unless the sum is explicitly written.
+posed to include all the LR components so that V S is               Most investigations so far have focused on the treat-
+smooth in q space and therefore tractable with Fourier           ment of Eq. (2). However, as discussed by Vogl [12]
+interpolation. In the interpolation algorithm, V L is first      and derived in a DFPT context in our accompanying pa-
+subtracted from the DFPT potentials, then the Fourier            per [17], a careful analysis of the asymptotic behavior of
+interpolation is performed on the SR part only. V L evalu-       the scattering potential in the long-wavelength limit re-
+ated at the arbitrary q point is finally added back [17]. In     veals the presence of additional LR terms besides Eq. (2).
+polar materials, the leading contribution to the LR part         To the contrary of the 1/q nature of Eq. (2), these addi-
+stems from the diverging Fröhlich-like potential [6, 11]:       tional terms are finite for q → 0 but their nonanalytic be-
+                                                                 havior (angular discontinuities) yields LR scattering po-
+                                                                 tentials and associated e-ph matrix elements even when
+                                                                 the dipole interaction given by Eq. (2) is properly ac-
+ L(F )         4π X i(qβ + Gβ )Zκα,β
+                                ∗
+                                      ei(qη +Gη )(rη −τκη )
+Vκα,q  (r) =                                                     counted for. Both dipole and quadrupole terms can be
+               Ω         (qδ + Gδ )∞
+                                    δδ 0 (qδ + Gδ )
+                                            0      0
+                                                                 included in the LR potential using the generalized ex-
+                  G6=−q
+                                                          (2)    pression [17]:
+
+
+
+        L            4π X i(qβ + Gβ )Zκα,β
+                                      ∗                             ∗
+                                           + (qβ + Gβ )(qγ + Gγ )(Zκα,β v Hxc,Eγ (r) + 21 Qβγ
+                                                                                           κα ) i(qη +Gη )(rη −τκη )
+       Vκα,q (r) =                                       ∞                                     e                     ,      (3)
+                     Ω                        (qδ + Gδ )δδ0 (qδ + Gδ )
+                                                                0     0
+                        G6=−q
+
+
+
+
+where Qκα is the dynamical quadrupole tensor and                     (a)                          (b)
+v Hxc,E is the change of the Hartree and exchange-
+correlation potential with respect to the electric field E
+in Cartesian coordinates. In Eq. (3), the term related to
+Qκα is nonzero even in nonpolar semiconductors while
+                                                                 [001]
+
+
+
+
+the contribution associated with E is present only in sys-
+tems with nonzero Born effective charges. A quadrupole
+can indeed appear even in nonpolar situations: when mir-
+ror and/or inversion symmetries are broken at a given
+atomic site, the charge induced by atomic motion can ac-
+quire an inversion-even and hence quadrupolar contribu-                         [010]
+tion. This quadrupolar effect is even present in elemental
+crystals with vanishing dipoles. This effect is illustrated      FIG. 1. (a) Electronic charge density variation induced by a
+in Fig. 1(a) reporting the variation of the charge density       single atomic displacement in Si, along the [100] direction of
+induced by a single atomic displacement in a 250-atoms           the conventional cell (perpendicular to the represented plane).
+supercell of Si. Such dynamical quadrupoles should not           Negative (positive) variations are shown in red (blue), while
+be confused with the static quadrupolar moment that              green regions correspond to absolute values smaller than 10%
+                                                                 of the in-plane maximum. (b) Scattering potential induced
+characterizes certain molecules, e.g., CO2 [19]. Regard-
+                                                                 by the atomic displacement with the same color map as in
+less of its static or dynamic nature, a localized charge         (a). SR dipolelike contributions are absent in this plane [18].
+quadrupole results in a LR scattering potential that ex-
+tends over many unit cells of the unperturbed crystal,
+see Fig. 1(b). In the region around the displaced atom,          v Hxc,E contribution is a secondary, indirect effect of the
+this term is relatively small compared to the SR part            Fröhlich interaction: a local-field potential modification
+but it becomes the dominant contribution at large dis-           due to the charge density change induced by the Fröhlich
+tances. Its anisotropic and macroscopic character in real        dipolar electric field. Thus, it vanishes when Z∗κ vanishes.
+space determines the q → 0 behavior of the e-ph matrix
+                                                                    There is no a priori rigorous justification for ignor-
+elements in nonpolar materials, and constitutes an im-
+                                                                 ing LR anisotropic contributions to the e-ph scattering
+portant contribution in polar materials. By contrast, the
+                                                                 generated by the quadrupolar terms. This is especially
+                                                                                                                                 3
+
+critical because e-ph properties are rather sensitive to the              (a) 0.6
+                                                                                                Re VDFPT          Im VDFPT
+behavior of the potential in the macroscopic regime. We                                         Re V              Im V
+first gauge the importance of these effects on the e-ph                               0.4       Re V (F)          Im V (F)
+scattering potentials. The effects on electron mobilities
+
+
+
+
+                                                                         VSi1 x, q
+are discussed afterwards. Our study is based on a new                                 0.2
+e-ph implementation in Abinit detailed in our accompa-
+nying paper [17]. The numerical values of Qκα are com-
+puted using the recent implementation of Royo et al. [13],                    0.0
+now integrated with the e-ph part of Abinit [17, 20–22].                  (b) 0.6
+Following previous works [23, 24], we treat the electron
+wave functions exactly and employ a Fourier-transform-                                0.4
+based scheme for the scattering potentials [23]. This
+
+
+
+
+                                                                         VGax, q
+avoids a transformation to localized orbitals, and has the
+important advantage of being systematic and automatic.
+                                                                                      0.2
+   In Figs. 2(a) and 2(b) we plot the unit-cell averaged
+lattice-periodic part of the scattering potential,                                    0.0
+                      1
+                        Z                                                 (c)
+             V̄κα,q =       dr Vκα,q (r)e−iq · r ,       (4)                 0.15                          DFPT
+                      Ω Ω                                                                                  FI
+                                                                                                           FI+Q
+                                                                                     0.10
+
+
+
+
+                                                                      Re VSi1 x, q
+for selected atomic perturbations in Si and GaAs, along
+a high-symmetry q path. The exact DFPT results (blue
+                                                                                     0.05
+lines) are compared with those obtained with the models
+with (green) or without (red) quadrupole corrections in                              0.00
+Eq. (3) [18]. In Si, the Born effective charges are zero
+and the imaginary part of the potential does not diverge                                    L       X W K                    W
+for q → 0 (see dashed lines in Fig. 2(a)). In GaAs, the                                              q path
+Fröhlich-like model in Eq. (2) correctly describes the di-
+                                                               FIG. 2. Comparison of the unit-cell averaged exact DFPT
+vergence of the imaginary part of the potential close to                       DFPT
+Γ (see red dashed line in Fig. 2(b)). In both materi-          potentials (V         , blue lines) with the models of Eqs. (2)
+                                                                  L(F )                            L
+als, however, the real part of the potential (solid lines)     (V       , red lines) and (3) (V , green lines) in (a) Si and
+presents discontinuities for q → 0. Note that the Fröhlich    (b) GaAs. We consider the first reduced component x̂ of
+                                                               the DFPT potentials for (a) the Si and (b) the Ga atoms
+term alone completely misses this nonanalytic behav-           located at (0,0,0). In (a), the red lines have been slightly
+ior. On the contrary, if the quadrupolar contributions         shifted upwards and downwards for readability. (c) Fourier
+are included through Eq. (3), the LR model reproduces          interpolation of the potentials shown in (a) with (FI+Q) or
+these discontinuities as shown by the solid green lines in     without (FI) the treatment of the quadrupolar interaction, as
+Figs. 2(a) and 2(b). Figure 2(c) shows the real part of        explained in the text. The potentials are given in Hartree.
+the average of the scattering potential in Si interpolated     The path has been sampled with 278 q points. The gray
+from a 9 × 9 × 9 q-point grid onto the same q path as          areas around Γ represent the regions relevant for intravalley
+                                                               scattering, as dictated by Eq. (5).
+in Fig. 2(a). If the LR quadrupolar terms are not re-
+moved from the input DFPT potentials, Fourier aliasing
+introduces unphysical sharp oscillations for small q (see
+red line, FI). The correct behavior is obtained only when      ered harmless under the assumption that it is always pos-
+quadrupolar contributions are properly treated (see green      sible to improve the accuracy of the Fourier interpolation
+line, FI+Q). In the latter case, small oscillations between    by densifying the initial ab initio q mesh [8]. Unfortu-
+the ab initio q points are still visible when a 9 × 9 × 9      nately, this assumption does not hold in the presence of
+q mesh is used. However, convergence studies [18] re-          such LR behavior: using a denser DFPT mesh localizes
+veal that these wiggles have a limited effect on the final     the sharp oscillations of the potential in a slightly smaller
+electron mobility (less than 0.5% difference between the       region around q = Γ (see red curve in Fig. 2(c)), but their
+mobility obtained for a 9 × 9 × 9 and an 18 × 18 × 18 ab       amplitude is proportional to the discontinuity [18]. In
+initio q mesh) and they can be converged away.                 the Supplementary Material, we show that treating the
+   It is worth stressing that these considerations hold        quadrupole interaction is also important when using a
+for any approach employing Fourier-based interpolations.       Wannier-based interpolation scheme. This has also been
+The discontinuity of the matrix elements at Γ and the dis-     recently confirmed by Jhalani et al. [25].
+crepancy between the interpolant and the exact DFPT               At this point, we can quantify the error introduced by
+results in the region around Γ have already been noticed       these spurious oscillations in the final physical results,
+for Si and diamond [8]. The resulting error was consid-        and the importance of the quadrupolar interactions. Be-
+                                                                                                                                                          4
+
+                                                                                                modes. The effect on acoustic modes is much smaller, as
+ Error on single-mode-limited mobility [%]                                Acoustic Optical      expected from the quadrupole acoustic sum rule for non-
+                                             150                                1        1      polar semiconductors and already stressed by Vogl [12].
+                                                                                2        2      In contrast, in GaP and particularly in GaAs, the acous-
+                                             100                                3        3      tic modes are the most affected. This is also expected
+                                                                                   Total        since these modes are dominated by the piezoelectric cou-
+                                              50                                                pling related to acoustic modes [12]. When considering
+                                                            9%                                  the scattering by all phonon modes, the error on the total
+                                               0                                                mobility is around 10% in Si and goes up to 32% in GaAs.
+                                                                                                The larger error in GaAs is linked to its smaller effective
+                                             50                           28 %           32 %   mass and the presence of a single valley at Γ hence most
+                                                                                                of the scattering for electrons close to the band edge is
+                                                                                                intravalley with small q, see Fig. 2. This shows the im-
+                                                       Si           GaP           GaAs          portance of the quadrupole interaction in understanding
+                                                                                                the physics of all classes of e-ph scattering. These errors
+FIG. 3. Error on the single-phonon-mode limited mobility                                        on mobilities can be even more significant than many-
+when the quadrupole interaction is not correctly treated in                                     body effects (within the transport formalism used in this
+Si, GaP and GaAs, for acoustic (blue) and optical (green)                                       work). Indeed, according to Poncé et al. GW corrections
+modes. The error on the total mobility is given in black.                                       of the KS band energies of Si increase the electron mobil-
+                                                                                                ity by 5% [27]. Electron-phonon calculations are usually
+cause of intravalley transitions, the region around Γ                                           performed starting from coarse q meshes in order to limit
+(where the LR interactions dominate) is usually one of                                          both the number of DFPT computations and the cost of
+the most important for the description of e-ph scattering                                       the interpolation itself, which quickly increases with the
+processes [17, 18]. In Fig. 2, the region around Γ relevant                                     number of q points in the initial ab initio mesh. It is
+for intravalley scattering is represented by gray areas. An                                     thus not surprising that this behavior has been largely
+accurate description in this region is crucial for reliable                                     overlooked so far.
+calculations of the phonon-induced electron linewidths,                                            We can also gauge the relative importance of the
+                                                                                                dynamical quadrupole and the electric-field terms in
+           XZ        dq                                                                         Eq. (3). In nonpolar systems, Qκα is the only additional
+   −1
+  τnk  =2π               |gmnν (k, q)|2
+           m,ν   BZ Ω BZ                                                                        quadrupolar term in the LR scattering potential. In the
+                                                         (5)                                    polar systems investigated so far, we observe that Qκα
+         × [(nqν + fmk+q )δ(εnk − εmk+q + ωqν )
+                                                                                                gives a larger contribution to Eq. (3) than the E term [18].
+                                               +(nqν + 1 − fmk+q )δ(εnk − εmk+q − ωqν )] ,      For instance, ignoring the E term changes the electron
+                                                                                                mobility in GaAs (GaP) by 0.1% (0.01%). In GaAs and
+with ΩBZ the BZ volume, nqν and fmk+q the Bose-
+                                                                                                GaP, one could speculate that the E term is negligible for
+Einstein and Fermi-Dirac occupation functions and εnk
+                                                                                                acoustic modes, where the Fröhlich contribution exactly
+the energy of the electronic state nk. These linewidths
+                                                                                                vanishes. Additionally, v Hxc,E (r) oscillates on the scale
+are needed to compute (phonon-limited) carrier mobil-
+                                                                                                of the interatomic distances, and couples more weakly
+ities within the self-energy relaxation time approxima-
+                                                                                                to the electronic orbitals than a macroscopic potential
+tion [1, 17, 26, 27]:
+                                                                                                shift. In the ionic limit, for example, one can expect
+                      Z
+              −1 X       dk                 ∂f                                                  v Hxc,E (r) to be antisymmetric around each atomic site,
+    µe,αβ =                 vnk,α vnk,β τnk        , (6)                                        with a vanishing diagonal matrix element for the corre-
+             Ωne n      ΩBZ                 ∂ε εnk
+                                                                                                sponding symmetric electronic orbitals. Generalizations
+where ne is the electron concentration and vnk,α is the                                         of the predominance of Qκα to other systems should be
+α-th component of the velocity operator [17]. Splitting                                         done with care. For example, in many crystals with-
+the sum over ν in Eq. (5), one can obtain the partial mo-                                       out free Wyckoff parameters (e.g., rocksalt or cubic per-
+bility limited by a single phonon mode. Figure 3 reports                                        ovskite) the quadrupole tensor vanishes identically; thus,
+the error made on these single-phonon-mode limited mo-                                          in such materials the E term remains the only source of
+bilities in Si, GaP, and GaAs if quadrupole interactions                                        nonanalytic behavior in the first-order potential besides
+are not properly treated when interpolating the poten-                                          Fröhlich, and could lead to interesting physics. Note that
+tials on the fine q mesh necessary for convergence [18].                                        this term is absent in the contemporaneous analysis by
+The initial DFPT q meshes are 9 × 9 × 9 for Si and GaP,                                         Jhalani et al. [25].
+and 6 × 6 × 6 for GaAs. We note that these errors are                                              We also note that Qκα introduces additional dipole-
+not significantly reduced by densifying the initial mesh if                                     quadrupole and quadrupole-quadrupole terms at the dy-
+quadrupole interactions are not treated [18]. In Si, the                                        namical matrix level, which have to be considered for ac-
+quadrupole interaction mainly affects one of the optical                                        curate phonon spectra, especially for small q where arti-
+                                                                                                                             5
+
+ficial vibrational instabilities may appear [14, 28]. These     Note added – Recently, we became aware of a related
+higher-order terms have also been included in our cal-        work by another group that reaches similar conclusions
+culations. In Si, GaAs and GaP, they only change the          about the importance of the dynamical quadrupole term
+mobility by ∼1%, which is smaller than the effect of the      to obtain an accurate physical description of e-ph inter-
+quadrupole potential, but still larger than the effect of     actions [25, 29].
+the electric-field induced local potential. However, we
+cannot exclude that these contributions might be larger
+for piezoelectric materials, in which spurious instabili-
+ties may appear in the phonon dispersion [28]. More de-
+tails about the effects associated with the electric-field      ∗
+                                                                   Corresponding author: geoffroy.hautier@uclouvain.be
+induced local potential, to the dipole-quadrupole and          [1] F. Giustino, Rev. Mod. Phys. 89, 015003 (2017).
+the quadrupole-quadrupole interactions in the dynamical        [2] W. Kohn and L. Sham, Phys. Rev. 140, A1133 (1965).
+matrix are discussed in the Supplemental Material [18].        [3] X. Gonze and C. Lee, Phys. Rev. B 55, 10355 (1997).
+                                                               [4] S. Baroni, S. de Gironcoli, A. Dal Corso, and P. Gian-
+   In conclusion, we have included the treatment of                nozzi, Rev. Mod. Phys. 73, 515 (2001).
+quadrupolar fields, beyond the Fröhlich interaction, in       [5] F. Giustino, M. L. Cohen, and S. G. Louie, Phys. Rev. B
+the first-principles electron-phonon vertex for semicon-           76, 165108 (2007).
+                                                               [6] J. Sjakste, N. Vast, M. Calandra, and F. Mauri,
+ductors. By their LR nature, a proper treatment of the             Phys. Rev. B 92, 054307 (2015).
+quadrupolar fields is necessary for the accurate descrip-      [7] S. Poncé, E. R. Margine, C. Verdi, and F. Giustino,
+tion of e-ph quantities such as the scattering potential           Comput. Phys. Commun. 209, 116 (2016).
+and carrier mobilities. Without treating quadrupolar in-       [8] L. A. Agapito and M. Bernardi, Phys. Rev. B 97, 235146
+teractions, large errors from 10 to 30% can be obtained in         (2018).
+evaluating the mobilities of polar and nonpolar semicon-       [9] M. Born and K. Huang, Dynamical Theory of Crystal
+ductors such as Si, GaP, or GaAs. Taking into account              Lattices (Oxford University Press, Oxford, 1954).
+                                                              [10] H. Fröhlich, Adv. Phys. 3, 325 (1954).
+very recent results on GaN and PbTiO3 [25], we expect         [11] C. Verdi and F. Giustino, Phys. Rev. Lett. 115, 176401
+these additional contributions to be relevant in a wide            (2015).
+variety of materials. For instance, the quadrupolar re-       [12] P. Vogl, Phys. Rev. B 13, 694 (1976).
+sponse is always present in piezoelectric materials [13],     [13] M. Royo and M. Stengel, Phys. Rev. X 9, 021050 (2019).
+where the piezoelectric constants are uniquely defined        [14] M. Stengel, Phys. Rev. B 88, 174106 (2013).
+by the dipole and quadrupole moments [15]. These LR           [15] R. M. Martin, Phys. Rev. B 5, 1607 (1972).
+physical effects lead to important corrections which can      [16] More specifically, Vκα,q (r) ≡ eiq · r ∂κα,q v KS (r), with
+                                                                   ∂κα,q v KS (r) the lattice-periodic part computed with
+be even more significant than quasiparticle corrections.           DFPT [17].
+Since LR macroscopic interactions play a key role in semi-    [17] G. Brunin, H. P. C. Miranda, M. Giantomassi, M. Royo,
+conductor physics, we believe that the quest for accurate          M. Stengel, M. J. Verstraete, X. Gonze, G.-M. Rignanese,
+ab initio descriptions of phonon-limited carrier mobili-           and G. Hautier, Phys. Rev. B 00, 004300 (2020).
+ties and other e-ph related properties should start from      [18] See Supplemental Material for more information about
+a proper treatment of these physical phenomena.                    computational details and results, which includes
+                                                                   Refs. [30–32],.
+   G. B., G.-M. R. and G. H. acknowledge financial sup-       [19] C. Graham, J. Pierrus, and R. Raab, Mol. Phys. 67, 939
+port from F.R.S.-FNRS. H. P. C. M. acknowledges fi-                (1989).
+nancial support from F.R.S.-FNRS through the PDR              [20] X. Gonze, F. Jollet, F. A. Araujo, D. Adams, B. Amadon,
+                                                                   T. Applencourt, C. Audouze, J.-M. Beuken, J. Bieder,
+Grants HTBaSE (T.1071.15). M. G., M. J. V. and
+                                                                   A. Bokhanchuk, et al., Comput. Phys. Commun. 205,
+X. G. acknowledge financial support from F.R.S.-FNRS               106 (2016).
+through the PDR Grants AIXPHO (T.0238.13) and                 [21] X. Gonze, B. Amadon, G. Antonius, F. Arnardi,
+ALPS (T.0103.19). M. J. V thanks FNRS and ULiege                   L. Baguet, J.-M. Beuken, J. Bieder, F. Bottin,
+for a sabbatical grant in ICN2. M. S. and M. R. ac-                J. Bouchet, E. Bousquet, et al., Comput. Phys. Com-
+knowledge the support of Ministerio de Economia, Indus-            mun. 248, 107042 (2020).
+tria y Competitividad (MINECO-Spain) through Grants           [22] A. H. Romero, D. C. Allan, B. Amadon, G. Anto-
+                                                                   nius, T. Applencourt, L. Baguet, J. Bieder, F. Bottin,
+No. MAT2016-77100-C2-2-P and No. SEV-2015-0496; of
+                                                                   J. Bouchet, E. Bousquet, et al., J. Chem. Phys. 152,
+Generalitat de Catalunya (Grant No. 2017 SGR1506);                 124102 (2020).
+and of the European Research Council (ERC) under the          [23] A. Eiguren and C. Ambrosch-Draxl, Phys. Rev. B 78,
+European Union’s Horizon 2020 research and innovation              045124 (2008).
+program (Grant Agreement No. 724529). The present             [24] L. Chaput, A. Togo, and I. Tanaka, Phys. Rev. B 100,
+research benefited from computational resources made               174304 (2019).
+available on the Tier-1 supercomputer of the Fédération     [25] V. A. Jhalani, J.-J. Zhou, J. Park, C. E.
+                                                                   Dreyer,        and M. Bernardi, arXiv                (2020),
+Wallonie-Bruxelles, infrastructure funded by the Walloon
+                                                                   https://arxiv.org/abs/2002.08351.
+Region under grant agreement no 1117545.
+                                                                                                                        6
+
+[26] G. K. H. Madsen, J. Carrete, and M. J. Verstraete, Com-         https://arxiv.org/abs/2003.13782.
+     put. Phys. Commun. 231, 140 (2018).                        [30] M. J. Van Setten, M. Giantomassi, E. Bousquet, M. J.
+[27] S. Poncé, E. R. Margine, and F. Giustino, Phys. Rev. B         Verstraete, D. R. Hamann, X. Gonze, and G.-M. Rig-
+     97, 121201 (2018).                                              nanese, Comput. Phys. Commun. 226, 39 (2018).
+[28] M. Royo, K. R. Hahn, and M. Stengel, arXiv (2020),         [31] D. R. Hamann, Phys. Rev. B 88, 085117 (2013).
+     https://arxiv.org/abs/2004.08875.                          [32] N. Troullier and J. L. Martins, Phys. Rev. B 43, 1993
+[29] J. Park, J.-J. Zhou, V. A. Jhalani, C. E.                       (1991); J. P. Perdew and Y. Wang, Phys. Rev. B
+     Dreyer,       and M. Bernardi, arXiv             (2020),        45, 13244 (1992); D. M. Ceperley and B. Alder,
+                                                                     Phys. Rev. Lett. 45, 566 (1980).
+                                                     Electron-phonon beyond Fröhlich: dynamical quadrupoles in polar and covalent solids
+                                                                                    Supplemental Material
+                                                        Guillaume Brunin1 , Henrique Pereira Coutada Miranda1 , Matteo Giantomassi1 , Miquel Royo2 , Massimiliano
+                                                          Stengel2,3 , Matthieu J. Verstraete4,5 , Xavier Gonze1,6 , Gian-Marco Rignanese1 , and Geoffroy Hautier1
+                                                                              1
+                                                                                  UCLouvain, Institute of Condensed Matter and Nanosciences (IMCN),
+                                                                                        Chemin des Étoiles 8, B-1348 Louvain-la-Neuve, Belgium
+                                                               2
+                                                                 Institut de Ciència de Materials de Barcelona (ICMAB-CSIC), Campus UAB, 08193 Bellaterra, Spain
+                                                                          3
+                                                                            ICREA-Institució Catalana de Recerca i Estudis Avançats, 08010 Barcelona, Spain
+                                                                              4
+                                                                                NanoMat/Q-Mat/CESAM, Université de Liège (B5), B-4000 Liège, Belgium
+                                                             5
+                                                               Catalan Institute of Nanoscience and Nanotechnology (ICN2), Campus UAB, 08193 Bellaterra, Spain and
+arXiv:2002.00628v2 [cond-mat.mtrl-sci] 21 Sep 2020
+
+
+
+
+                                                                                     6
+                                                                                       Skolkovo Institute of Science and Technology, Moscow, Russia
+                                                                                                        (Dated: September 23, 2020)
+
+
+
+                                                                                                I.    COMPUTATIONAL DETAILS
+
+                                                        Ground-state and DFPT phonon computations are performed using norm-conserving pseudopotentials of the
+                                                     Troullier-Martins type [1], in the local-density approximation from Perdew and Wang [2] parametrized by Ceper-
+                                                     ley and Alder [3], with a plane-wave kinetic energy cutoff of 20 Ha for Si and 30 Ha for GaAs and GaP. For phonon
+                                                     computations, the BZ is sampled using 18 × 18 × 18 Γ-centered k-point grids to obtain a good representation of the
+                                                     scattering potentials and a correct convergence of the Born effective charges, dielectric and quadrupolar tensors.
+
+
+                                                                                          II.        REAL-SPACE REPRESENTATION
+
+                                                       Additional information related to Fig. 1 is given in the present section. The goal is to visualize properly, in real
+                                                     space, the potential created when a Si atom is displaced along the [100] direction of the conventional cell, and to focus
+                                                     on its quadrupolar component.
+                                                       The local effect due to the ionic charge displacement and the one due to the electronic charge density combine to
+                                                     give a zero Born effective charge, hence there is no long-range total dipolar potential. The quadrupole survives and
+                                                     dominates the long-range behavior of the potential. However, even if the Born effective charge vanishes, the potentials
+                                                     induced separately by the ionic displacement and by the electronic charge density change have a large long-range dipole
+                                                     component, only their sum vanish. Moreover, in pseudopotential calculations, the meaning of the potential inside the
+                                                     cut-off radius is obscure. Hence, special care must be taken to visualize properly the resulting potential. Since the
+                                                     ionic (pseudo)potential is spherically symmetric (`=0), the corresponding change due to [100] atomic displacement
+                                                     has only an `=1 (dipole) component. Such change vanish in the plane perpendicular to [100]. Similarly, in the plane
+                                                     normal to [100], the `=1 dipole component associated to the charge density change vanishes. Thus, the quadrupolar
+                                                     change of potential dominates in this plane, and clearly appears in Fig. 1. In all the other regions of space, the local
+                                                     `=1 dipole component does not vanish. This is illustrated in Figs. S1 (density) and S3 (potential).
+                                                       The `=1 dipole component can however be eliminated, for the purpose of visualisation, by projecting out the odd
+                                                     component of the potential. For this purpose, the charge density change and scattering potential is decomposed into
+                                                     odd (o) and even (e) contributions:
+
+                                                                                                       ∆n(r) = ∆ne (r) + ∆no (r)                                         (S1)
+
+                                                     with
+                                                                                                                   ∆n(r) + ∆n(−r)
+                                                                                                       ∆ne (r) =                                                         (S2)
+                                                                                                                          2
+
+
+                                                                                                                   ∆n(r) − ∆n(−r)
+                                                                                                      ∆no (r) =                   .                                      (S3)
+                                                                                                                          2
+                                                     The same can be written for the real-space scattering potential. The even parts of the charge density change and the
+                                                     scattering potential are represented in Figs. S2 and S4. The even part of the density change presents characteristics
+                                                     similar to d orbitals, as expected from quadrupolar interactions.
+                                                                                                                               2
+
+                       (a)                                             (b)
+
+
+
+                  [001]
+
+
+
+
+                                                                  [001]
+                                        [010]                                                 [100]
+FIG. S1. (a) Electronic charge density variation induced by a single atomic displacement in Si, along the [100] direction and at
+the center of the conventional cell (perpendicular to the represented plane). Negative (positive) variations are represented in
+red and yellow (blue and cyan), while values smaller in absolute value than 10% of the maximum in the plane are represented
+in green. (b) Side view of (a).
+
+
+                       (a)                                             (b)
+                  [001]
+
+
+
+
+                                                                  [001]
+
+
+
+
+                                        [010]                                                 [100]
+FIG. S2. (a) Even part of the electronic charge density variation induced by a single atomic displacement in Si, along the [100]
+direction and at the center of the conventional cell (perpendicular to the represented plane). Negative (positive) variations are
+represented in red and yellow (blue and cyan), while values smaller in absolute value than 10% of the maximum in the plane
+are represented in green. (b) Side view of (a).
+
+
+
+     III.   CONTRIBUTION OF THE ELECTRIC-FIELD PERTURBATION TO THE LONG-RANGE
+                                     POTENTIALS
+
+
+   In this section, we discuss the relative importance of the different terms in the LR model with particular emphasis
+on the effect associated to the response to the electric field E. Figures S5–S8 show the average over the unit cell of the
+long-range model including different contributions: V L includes Fröhlich, dynamical quadrupoles Qκα and electric-
+field contributions, V L(F ) includes only the Fröhlich-like part, V L(F +Q) includes all but the electric-field perturbation
+while V L(F +E) includes all but the dynamical quadrupoles. The potentials are plotted along a q path, for a given
+atom (Ga, As, or Si) displaced along the first reduced direction (x̂). The average of the model is compared to the
+average of the exact DFPT potentials obtained along the same q path. Comparing the different subplots produced
+with different models allows one to have a qualitative understanding of the importance of the different terms and of
+their effect on the Fourier interpolation of the short-range part. More specifically, the plots show that the Fröhlich
+                                                                                                                                3
+
+                       (a)                                             (b)
+
+
+
+                  [001]
+
+
+
+
+                                                                  [001]
+                                         [010]                                                 [100]
+FIG. S3. (a) Scattering potential induced by a single atomic displacement in Si, along the [100] direction and at the center of
+the conventional cell (perpendicular to the represented plane). Negative (positive) variations are represented in red and yellow
+(blue and cyan), while values smaller in absolute value than 10% of the maximum in the plane are represented in green. (b)
+Side view of (a).
+
+
+
+                       (a)                                             (b)
+                  [001]
+
+
+
+
+                                                                  [001]
+
+
+
+
+                                         [010]                                                 [100]
+FIG. S4. (a) Even part of the scattering potential induced by a single atomic displacement in Si, along the [100] direction and
+at the center of the conventional cell (perpendicular to the represented plane). Negative (positive) variations are represented in
+red and yellow (blue and cyan), while values smaller in absolute value than 10% of the maximum in the plane are represented
+in green. (b) Side view of (a).
+
+
+
+dipolar term alone is not able to capture the jump discontinuities around the Γ point, and that quadrupolar fields
+are necessary (in particular the term stemming from Qκα as the contribution given by the electric-field perturbation
+is much smaller).
+   Figures S9–S12 show the average over the unit cell of the periodic part of the Fourier interpolated potentials
+including the same contributions as in Figs. S5–S8, and compared again to the exact DFPT potentials. These figures
+reveal that, without Qκα , the interpolated scattering potentials are affected by unphysical Gibbs oscillations around
+Γ because the discontinuity in q space is not removed when a model containing only the dipolar term is subtracted
+from the initial DFPT potentials before computing the Fourier transform.
+  As mentioned before, the term associated to E plays a very minor role if we focus on the average of the potential
+over the unit cell that corresponds to the G = 0 Fourier component. To appreciate the effect of the electric-field term,
+                                                                                                                               4
+
+                                                       Re VDFPT               Im VDFPT
+                                                       Re V                   Im V
+                                           (a)
+                                           1.0
+                                           0.8
+                                           0.6
+
+                               VSi1 x, q
+                                           0.4
+                                           0.2
+                                           0.0
+
+                                           (b)
+                                           1.0
+                                                                                   Re V (F)
+                                           0.8                                     Im V (F)
+                                           0.6
+                               VSi1 x, q
+
+
+
+
+                                           0.4
+                                           0.2
+                                           0.0
+                                                 L           X W K                            W
+                                                              q path
+FIG. S5. (a) Average over the unit cell of the x̂ component of the DFPT (full lines) and long-range (dashed) e-ph potentials
+in Si, for the first atom located at (0,0,0). (b) Same as (a) but with the Fröhlich interaction only (equivalent to zero in Si).
+
+
+we need to focus on the q dependence of the Fourier components of the scattering potentials
+                                                   Z
+                                                 1
+                                    V̄κα,q (G) =      dr Vκα,q (r)e−i(q+G) · r ,                                            (S4)
+                                                 Ω Ω
+
+for small G 6= 0. In our tests we found that, for particular G vectors, the quantity in Eq. S4 as a function of q presents
+(small) jump discontinuities for q → 0 and that the discontinuity is better described when the E term is included
+in the LR model. The results are summarized in Figs. S13 and S14. We performed the same analysis for GaP (not
+shown) and found very similar behavior. At the level of the mobility, the inclusion of the electric-field perturbation
+in the LR model changes the final results by 0.1% in GaAs and 0.01% in GaP when compared to calculations in
+which only dipoles and Qκα are included. These results corroborate our affirmation done in the main text about the
+predominance of the dynamical quadrupoles over the electric field term in the case of GaAs and GaP.
+
+
+                  IV.   EFFECTS OF QUADRUPOLES ON THE MATRIX ELEMENTS IN SI
+
+  To confirm the important effects of the quadrupoles in Wannier-based interpolation schemes, we modified the EPW
+code [4] to include the Qκα terms in the interpolation of the e-ph matrix elements in the Wannier representation
+in Si. These results have been obtained with Quantum Espresso (QE) and EPW. We used the Perdew-Burke-
+Ernzerhof generalized-gradient approximation (GGA) for the exchange correlation functional and norm-conserving
+                                                                                                                              5
+
+                                                         Re VDFPT             Im VDFPT
+                                                         Re V                 Im V
+                                           (a)
+                                          0.75
+                                          0.50
+                                          0.25
+
+                              VSi2 x, q
+                                          0.00
+                                          0.25
+                                          0.50
+                                           (b)
+                                          0.75
+                                          0.50
+                                          0.25
+                              VSi2 x, q
+
+
+
+
+                                          0.00
+                                          0.25       Re V (F)
+                                                     Im V (F)
+                                          0.50
+                                                 L              X W K                        W
+                                                                 q path
+FIG. S6. (a) Average over the unit cell of the x̂ component of the DFPT (full lines) and long-range (dashed) e-ph potentials
+in Si, for the second atom located at (1/4,1/4,1/4). (b) Same as (a) but with the Fröhlich interaction only (equivalent to zero
+in Si).
+
+
+
+pseudopotentials from the PseudoDojo project [5, 6]. We used an energy cutoff of 25 Ry for the plane-wave basis set
+and a lattice parameter of 5.47 Å. The matrix elements are interpolated starting from coarse Γ-centered 12 × 12 × 12
+k-point and 6 × 6 × 6 q-point meshes. For the implementation of the quadrupolar corrections in EPW, we employed
+the quadrupole tensors computed by Abinit as the same computation is not available in QE. Because of the different
+pseudopotentials, lattice parameters, and computational settings, we had to adjust the value of Qκα to better describe
+the discontinuity, from 13.67 with LDA FHI [7] to 15.75 with GGA-PBE. Figure S15 shows the e-ph matrix elements
+connecting the electron state at the valence band maximum at k = Γ to the other highest states of the valence band
+through the highest phonon mode at L as in Ref. [8]. The DFPT results (blue solid line) and the Wannier-interpolated
+results (red and green dashed lines) are compared in this figure. The interpolation of the matrix elements using the
+standard approach (i.e. without Qκα ) leads to systematic errors in the region around the Γ point associated to
+electronic transitions with small momentum transfer. Including the dynamical quadrupoles in the model significantly
+improves the quality of the interpolant around the Γ point. Similar behavior is also expected in e-ph calculations
+based on supercells and finite differences [9].
+
+
+ V.   EFFECT OF DYNAMICAL QUADRUPOLES ON THE INTERPOLATED PHONON DISPERSION
+
+  E-ph calculations are quite sensitive to the fine details of the electron and phonon dispersions. As discussed in
+more details in Ref. [15] of the main text, an expansion of the dynamical matrix for q → 0 contains additional LR
+terms beyond the dipole-dipole interaction. These corrections are supposed to improve the quality and the stability
+                                                                                                                          6
+
+                                                      Re VDFPT              Im VDFPT
+                                           (a)        Re V                  Im V
+                                           2.0
+                                           1.5
+                                           1.0
+
+
+
+                                 VGax, q
+                                           0.5
+                                           0.0
+
+                                           (b)
+                                           2.0
+                                                                 Re V (F)
+                                           1.5                   Im V (F)
+                                           1.0
+                                 VGax, q
+
+
+
+
+                                           0.5
+                                           0.0
+
+                                           (c)
+                                           2.0
+                                                              Re V (F + Q)
+                                           1.5                Im V (F + Q)
+                                           1.0
+                                 VGax, q
+
+
+
+
+                                           0.5
+                                           0.0
+
+                                           (d)
+                                           2.0
+                                                              Re V (F + )
+                                           1.5                Im V (F + )
+                                           1.0
+                                 VGax, q
+
+
+
+
+                                           0.5
+                                           0.0
+                                                 L         X W K                       W
+                                                            q path
+FIG. S7. (a) Average over the unit cell of the x̂ component of the DFPT (full lines) and long-range (dashed) e-ph potentials
+in GaAs for the Ga atom located at (0,0,0). (b), (c) and (d) show the decomposition of the different contributions to the
+long-range model.
+                                                                                                                          7
+
+                                                       Re VDFPT              Im VDFPT
+                                           (a)         Re V                  Im V
+                                           1.0
+                                           0.5
+                                           0.0
+
+
+
+
+                                VAs x, q
+                                           0.5
+                                           1.0
+                                           1.5
+                                           2.0
+                                           (b)
+                                           1.0
+                                           0.5
+                                           0.0
+                                VAs x, q
+
+
+
+
+                                           0.5
+                                           1.0
+                                                                  Re V (F)
+                                           1.5                    Im V (F)
+                                           2.0
+                                           (c)
+                                           1.0
+                                           0.5
+                                           0.0
+                                VAs x, q
+
+
+
+
+                                           0.5
+                                           1.0
+                                                               Re V (F + Q)
+                                           1.5                 Im V (F + Q)
+                                           2.0
+                                           (d)
+                                           1.0
+                                           0.5
+                                           0.0
+                                VAs x, q
+
+
+
+
+                                           0.5
+                                           1.0
+                                                              Re V (F + )
+                                           1.5                Im V (F + )
+                                           2.0
+                                                 L          X W K                       W
+                                                             q path
+FIG. S8. (a) Average over the unit cell of the x̂ component of the DFPT (full lines) and long-range (dashed) e-ph potentials
+in GaAs, for the As atom located at (1/4,1/4,1/4). (b), (c) and (d) show the decomposition of the different contributions to
+the long-range model.
+                                                                                                                                8
+
+
+                                                     Re VDFPT                    Im VDFPT
+                                                     Re VFI(Q)                   Im VFI(Q)
+                                    (a)
+                                    1.0
+                                    0.8
+                        VSi1 x, q   0.6
+                                    0.4
+                                    0.2
+                                    0.0
+
+                                    (b)
+                                    1.0
+                                                                                          Re VFI
+                                    0.8                                                   Im VFI
+                                    0.6
+                        VSi1 x, q
+
+
+
+
+                                    0.4
+                                    0.2
+                                    0.0
+                                          L                  X W K                                  W
+                                                              q path
+FIG. S9. (a) Average over of the unit cell of the x̂ component of the DFPT (full lines) and Fourier-interpolated (dashed) e-ph
+potentials in Si, for the first Si atom located at (0,0,0). (b) Same as (a) but with the Fröhlich interaction only (equivalent to
+zero in Si).
+
+
+
+
+of the Fourier interpolation of the phonon frequencies. It is therefore interesting to analyze the effect of the Qκα on
+the convergence rate of the vibrational spectra for the three systems considered in this work.
+
+   Figure S16 shows the influence of the dipole-quadrupole and quadrupole-quadrupole interactions on the Fourier
+interpolation of the dynamical matrix in Si. The effects are small on the scale of the graph nevertheless the inclusion
+of these higher-order terms accelerates the convergence of the interpolation of the phonon spectrum with respect to
+the ab initio q grid. As mentioned in the main article, the effect on the mobility is estimated to be of the order of
+1%, value that is anyway larger than the one observed from the E term. We speculate that, in more “complicated”
+materials, the inclusion of these higher-order terms will play a more important role for the accurate description of the
+phonon dispersion in the long-wavelength limit. Figures S17 and S18 show the same comparison for GaP and GaAs.
+                                                                                                                                 9
+
+
+                                                         Re VDFPT                  Im VDFPT
+                                                         Re VFI(Q)                 Im VFI(F)
+                                     (a)
+                                    0.75
+                                    0.50
+                        VSi2 x, q   0.25
+                                    0.00
+                                    0.25
+                                    0.50
+                                     (b)
+                                    0.75
+                                    0.50
+                                    0.25
+                        VSi2 x, q
+
+
+
+
+                                    0.00
+                                    0.25            Re VFI
+                                                    Im VFI
+                                    0.50
+                                           L                   X W K                                 W
+                                                                q path
+FIG. S10. (a) Average over the unit cell of the x̂ component of the DFPT (full lines) and Fourier-interpolated (dashed) e-ph
+potentials in Si, for the second atom located at (1/4,1/4,1/4). (b) Same as (a) but with the Fröhlich interaction only (equivalent
+to zero in Si).
+
+
+
+                         VI.        CONVERGENCE WITH RESPECT TO THE DFPT MESH
+
+  Figure S19 shows the interpolated potential in Si, as in Fig. S9, computed from different DFPT q meshes of
+increasing density. This shows that the wiggles observed when interpolating from a 9 × 9 × 9 q mesh disappear when a
+denser mesh is used. However, as shown in the following, these wiggles do not play an important role on the electron
+mobility.
+  Figures S20(a), (b) and (c) report the electron mobilities in Si, GaAs and GaP computed using plane waves with
+Abinit as described in Ref. [7], as a function of the initial q grid. For each initial ab initio DFPT mesh, we interpolate
+the scattering potentials to obtain the lifetimes on k- and q-point meshes that are dense enough to reach convergence
+in the mobility within 5%. Fig. S21 gives, for these materials and for each DFPT q mesh, the error made when the
+quadrupole interaction is not treated correctly. If the terms associated to the dynamical quadrupoles are included in
+the LR part of the potentials, a 9 × 9 × 9 (6 × 6 × 6) q mesh is already sufficiently dense in Si and GaP (GaAs) for
+the correct interpolation of the potentials (green lines) whereas without Qκα the convergence is much slower and not
+even reached with a 21 × 21 × 21 q mesh (red lines). Using q grids typically reported in the literature (8 × 8 × 8) can
+                                                                                                                          10
+
+                                                     Re VDFPT                       Im VDFPT
+                                           (a)       Re VFI(F + Q + )               Im VFI(F + Q + )
+                                           2.0
+                                           1.5
+                                           1.0
+
+
+
+                                 VGax, q
+                                           0.5
+                                           0.0
+
+                                           (b)
+                                           2.0
+                                                                        Re VFI(F)
+                                           1.5                          Im VFI(F)
+                                           1.0
+                                 VGax, q
+
+
+
+
+                                           0.5
+                                           0.0
+
+                                           (c)
+                                           2.0
+                                                                    Re VFI(F + Q)
+                                           1.5                      Im VFI(F + Q)
+                                           1.0
+                                 VGax, q
+
+
+
+
+                                           0.5
+                                           0.0
+
+                                           (d)
+                                           2.0
+                                                                    Re VFI(F + )
+                                           1.5                      Im VFI(F + )
+                                           1.0
+                                 VGax, q
+
+
+
+
+                                           0.5
+                                           0.0
+                                                 L              X W K                              W
+                                                                 q path
+FIG. S11. (a) Average over the unit cell of the x̂ component of the DFPT (full lines) and Fourier-interpolated (dashed) e-ph
+potentials in GaAs for the Ga atom located at (0,0,0). (b), (c) and (d) show the decomposition of the different contributions
+to the long-range model.
+                                                                                                                        11
+
+                                                     Re VDFPT                       Im VDFPT
+                                           (a)       Re VFI(F + Q + )               Im VFI(F + Q + )
+                                           1.0
+                                           0.5
+                                           0.0
+
+
+
+                                VAs x, q
+                                           0.5
+                                           1.0
+                                           1.5
+                                           2.0
+                                           (b)
+                                           1.0
+                                           0.5
+                                           0.0
+                                VAs x, q
+
+
+
+
+                                           0.5
+                                           1.0
+                                                                        Re VFI(F)
+                                           1.5                          Im VFI(F)
+                                           2.0
+                                           (c)
+                                           1.0
+                                           0.5
+                                           0.0
+                                VAs x, q
+
+
+
+
+                                           0.5
+                                           1.0
+                                                                    Re VFI(F + Q)
+                                           1.5                      Im VFI(F + Q)
+                                           2.0
+                                           (d)
+                                           1.0
+                                           0.5
+                                           0.0
+                                VAs x, q
+
+
+
+
+                                           0.5
+                                           1.0
+                                                                  Re VFI(F + )
+                                           1.5                    Im VFI(F + )
+                                           2.0
+                                                 L              X W K                              W
+                                                                 q path
+FIG. S12. (a) Average over the unit cell of the x̂ component of the DFPT (full lines) and Fourier-interpolated (dashed)
+e-ph potentials in GaAs, for the As atom located at (1/4,1/4,1/4). (b), (c) and (d) show the decomposition of the different
+contributions to the long-range model.
+                                                                                                                          12
+
+                                         (a)                G = [2 2 2]
+                                         0.0
+
+                                         0.1
+                                                                       Re (VDFPT V )
+
+
+
+
+                               VGax, q
+                                         0.2                           Im (VDFPT V )
+
+                                         0.3
+
+                                         (b)
+                                         0.0
+
+                                         0.1
+                                                                     Re (VDFPT V (F))
+                               VGax, q
+
+
+
+
+                                         0.2                         Im (VDFPT V (F))
+
+                                         0.3
+
+                                         (c)
+                                         0.0
+
+                                         0.1
+                                                                  Re (VDFPT V (F + Q))
+                               VGax, q
+
+
+
+
+                                         0.2                      Im (VDFPT V (F + Q))
+
+                                         0.3
+
+                                         (d)
+                                         0.0
+
+                                         0.1
+                                                                  Re (VDFPT V (F + ))
+                               VGax, q
+
+
+
+
+                                         0.2                      Im (VDFPT V (F + ))
+
+                                         0.3
+                                               L            X W K                        W
+                                                             q path
+FIG. S13. (a) Fourier component of the x̂ component of the DFPT (full lines) and long-range (dashed) e-ph potentials in GaAs,
+for the Ga atom located at (0,0,0). (b), (c) and (d) show the decomposition of the different contributions to the long-range
+model. Only a specific G component of the potential is shown.
+                                                                                                                           13
+
+                                          (a)                  G = [2 2 2]
+
+                                       0.0000
+
+
+
+
+                             VGax, q
+                                       0.0002
+                                                                  Re (VDFPT VFI(F + Q + ))
+                                       0.0004                     Im (VDFPT VFI(F + Q + ))
+
+                                          (b)
+                                       0.0020
+                                                                        Re (VDFPT VFI(F))
+                                       0.0015                           Im (VDFPT VFI(F))
+                                       0.0010
+                             VGax, q
+
+
+
+
+                                       0.0005
+                                       0.0000
+                                       0.0005
+                                          (c)
+                                       0.0020
+                                                                    Re (VDFPT VFI(F + Q))
+                                       0.0015                       Im (VDFPT VFI(F + Q))
+                                       0.0010
+                             VGax, q
+
+
+
+
+                                       0.0005
+                                       0.0000
+                                       0.0005
+                                          (d)
+
+                                       0.0000
+                             VGax, q
+
+
+
+
+                                       0.0002
+                                                                   Re (VDFPT VFI(F + ))
+                                       0.0004                      Im (VDFPT VFI(F + ))
+                                                L              X W K                    W
+                                                                q path
+FIG. S14. (a) Fourier component of the x̂ component of the DFPT (full lines) and Fourier-interpolated (dashed) e-ph potentials
+in GaAs, for the Ga atom located at (0,0,0). (b), (c) and (d) show the decomposition of the different contributions to the
+long-range model. Only a specific G component of the potential is shown.
+                                                                                                                   14
+
+
+                                                        DFPT
+                                           160          WF
+                                                        WF+Q
+                                           140
+
+
+                      |g(q, k = )| (meV)
+                                           120
+                                           100
+                                            80
+                                            60
+                                                 L              X    W K                   W
+                                                                    q path
+FIG. S15. E-ph matrix elements in Si computed with QE, and interpolated using Wannier functions with the standard EPW
+approach (WF) or including the quadrupolar corrections (WF+Q).
+
+
+therefore lead to significant errors at the level of the mobility.
+  We have also computed the same errors for each single-mode-limited mobilities in Si, GaP and GaAs as in Fig. 3,
+but starting from 18 × 18 × 18 DFPT q meshes. The results are given here in Fig. S22. The errors are slightly smaller
+but still far from negligible, and the conclusions on the most affected modes are the same.
+
+
+                                            VII.     IMPORTANCE OF THE REGION AROUND Γ
+
+   Figures S23 and S24 show the number of q points included in the computation of the imaginary part of the e-ph
+self-energy and the sum of the absolute value of the e-ph matrix elements as a function of the length of the q point.
+An important fraction of phonon-mediated transitions involve small momentum transfer with significant probability
+amplitude. In GaAs (Fig. S24) the e-ph matrix elements show a sudden increase for small |q| because of the Fröhlich
+divergence. Note that the analysis of the e-ph matrix elements takes into account crystal momentum conservation
+but not energy conservation in the sense that all the phonon modes ν are included in the sum of the absolute value
+of the e-ph matrix elements.
+
+
+
+
+[1] N. Troullier and J. L. Martins, Phys. Rev. B 43, 1993 (1991).
+[2] J. P. Perdew and Y. Wang, Phys. Rev. B 45, 13244 (1992).
+[3] D. M. Ceperley and B. Alder, Phys. Rev. Lett. 45, 566 (1980).
+[4] S. Poncé, E. R. Margine, C. Verdi, and F. Giustino, Comput. Phys. Commun. 209, 116 (2016).
+[5] M. J. Van Setten, M. Giantomassi, E. Bousquet, M. J. Verstraete, D. R. Hamann, X. Gonze, and G.-M. Rignanese,
+    Comput. Phys. Commun. 226, 39 (2018).
+[6] D. R. Hamann, Phys. Rev. B 88, 085117 (2013).
+[7] G. Brunin, H. P. C. Miranda, M. Giantomassi, M. Royo, M. Stengel, M. J. Verstraete, X. Gonze, G.-M. Rignanese, and
+    G. Hautier, Phys. Rev. B 00, 004300 (2020).
+[8] L. A. Agapito and M. Bernardi, Phys. Rev. B 97, 235146 (2018).
+[9] L. Chaput, A. Togo, and I. Tanaka, Phys. Rev. B 100, 174304 (2019).
+                                                                                                                              15
+
+                                         6x6x6                12x12x12                  18x18x18
+                                         9x9x9                15x15x15                  21x21x21
+            (a)                                                  (b)
+            60
+
+            40
+    (meV)
+
+
+
+
+            20
+
+              0
+            (c)       X WK                L UW L K X (d)                       X WK                 L UW L K X
+            64
+    (meV)
+
+
+
+
+            57
+                  K                                                     K
+FIG. S16. Phonon dispersion in Si without (a) and with (b) the inclusion of dipole-quadrupole and quadrupole-quadrupole
+interactions in the Fourier interpolation of the dynamical matrix. (c), (d) Zoom over the regions in (a), (b) containing the most
+important changes.
+                                                                                                                          16
+
+                                          6x6x6               12x12x12                 18x18x18
+                                          9x9x9               15x15x15                 21x21x21
+                (a)                                              (b)
+                50
+                40
+                30
+        (meV)
+
+
+
+
+                20
+                10
+                 0
+               (c)        X WK              L UW L K X (d)                    X WK                L UW L K X
+            50.75
+    (meV)
+
+
+
+
+            49.50
+                      K                                                K
+FIG. S17. Phonon dispersion in GaP without (a) and with (b) the inclusion of dipole-quadrupole and quadrupole-quadrupole
+interactions in the Fourier interpolation of the dynamical matrix. (c), (d) Zooms over the regions in (a), (b) containing the
+most important changes.
+                                                                                                                              17
+
+                                           6x6x6               12x12x12                  18x18x18
+                                           9x9x9               15x15x15                  21x21x21
+               (a)                                                (b)
+
+               30
+       (meV)
+
+
+
+               20
+
+               10
+
+               0
+             (c)         X WK               L UW L K X (d)                      X WK                 L UW L K X
+            36.5
+    (meV)
+
+
+
+
+            32.0
+                     K                                                   K
+FIG. S18. Phonon dispersion in GaAs without (a) and with (b) the inclusion of dipole-quadrupole and quadrupole-quadrupole
+interactions in the Fourier interpolation of the dynamical matrix. (c), (d) Zoom over the regions in (a), (b) containing the most
+important changes.
+                                                                                                                            18
+
+
+                                         (a)
+                                        0.15
+
+
+                         Re VSi1 x, q
+                                        0.10                                             DFPT
+                                                                                         FI
+                                                                                         FI+Q
+                                        0.05
+                                         (b)
+                                        0.15
+                         Re VSi1 x, q
+
+
+
+                                        0.10
+
+                                        0.05
+                                         (c)
+                                        0.15
+                         Re VSi1 x, q
+
+
+
+
+                                        0.10
+
+                                        0.05
+                                         (d)
+                                        0.15
+                         Re VSi1 x, q
+
+
+
+
+                                        0.10
+
+                                        0.05
+                                               L
+                                                                q path
+FIG. S19. Close-up on the L−Γ region of Fig. 2(c) of the main text. The average over the unit cell of the exact DFPT potentials
+and the Fourier interpolated result obtained with (FI+Q) and without (FI) quadrupolar contribution. The interpolation is
+performed starting from a (a) 9 × 9 × 9, (b) 12 × 12 × 12, (c) 15 × 15 × 15 and (d) 18 × 18 × 18 DFPT q mesh.
+                                                                                                                           19
+
+                                  (a) Si
+                                 1650        Nqx, y, z = 2Nkx, y, z = 144
+
+
+                 e (cm2/(V s))
+                                 1600
+                                          FI
+                                 1550     FI+Q
+                                 1500
+                                 1450
+                                  (b) GaAs Nqx, y, z = 2Nkx, y, z = 288
+                                 7000                                                        FI+F
+                 e (cm2/(V s))
+
+
+
+
+                                                                                             FI+Q
+                                 6000
+
+                                 5000
+                                  (c) GaP        Nqx, y, z = 2Nkx, y, z = 156
+                                  275                                            FI+F
+                     e (cm2/(V s))
+
+
+
+
+                                                                                 FI+Q
+                                  250
+                                  225
+                                  200
+                                      6       9           12         15       18      21
+                                        Initial Nq × Nq × Nq DFPT q-point grid
+FIG. S20. Convergence of the electron mobility in (a) Si, (b) GaAs and (c) GaP as a function of the initial DFPT q-point grid.
+The linewidths and the mobilities are obtained by interpolating from these DFPT grids to (a) 72×72×72 k- and 144×144×144
+q-point grids, (b) 144 × 144 × 144 k- and 288 × 288 × 288 q-point grids and (c) 78 × 78 × 78 k- and 156 × 156 × 156 q-point
+grids [7]. The red lines (FI for Si and FI+F for GaAs and GaP) include the special treatment of the Fröhlich contribution in
+the LR component of the potentials. The green line (FI+Q) includes the special treatment of both Fröhlich and dynamical
+quadrupoles.
+                                                                                                                           20
+
+
+
+
+                Error (%) on the mobility evaluated
+                without the quadrupolar correction
+                                                                  10
+
+                                                                      0
+                                                                                                              Si
+                                                                  10                                          GaAs
+                                                                                                              GaP
+                                                                  20
+
+                                                                  30
+                                                                          6        9        12       15      18      21
+                                                                              Initial Nq × Nq × Nq DFPT q-point grid
+        FIG. S21. Error on the electron mobility in Si, GaAs and GaP evaluated without the quadrupolar correction.
+                     Error on single-mode-limited mobility [%]
+
+
+
+
+                                                                 60                                Acoustic Optical
+                                                                                                         1        1
+                                                                 40                                      2        2
+                                                                 20                                      3        3
+                                                                                     5%                     Total
+                                                                  0
+                                                                 20
+                                                                 40                                24 %           28 %
+                                                                 60
+                                                                 80
+                                                                                Si           GaP           GaAs
+FIG. S22. Error on the single-phonon-mode limited mobility when the quadrupole interaction is not correctly treated in Si,
+GaP and GaAs, for acoustic (blue) and optical (green) modes. The error on the total mobility is given in black. We interpolate
+starting from a 18 × 18 × 18 DFPT mesh.
+                                                                                                                           21
+
+
+
+
+FIG. S23. (a) Distribution of the number of q points used in the integration of the electron lifetimes in Si as a function of
+|q|. (b) Values of the e-ph matrix elements gmnν (k, q) summed over m and ν, for all the nk states considered relevant for the
+computation of the mobility. The weight of the q points are also taken into account. This figure reveals that the sampling of
+the region around Γ significantly contributes to the final results.
+                                                                                                                            22
+
+
+
+
+FIG. S24. (a) Distribution of the number of q points used in the integration of the electron lifetimes in GaAs as a function of
+|q|. (b) Values of the e-ph matrix elements gmnν (k, q) summed over m and ν, for all the nk states relevant for the computation
+of the mobility. The weight of the q point is also taken into account. These show that the the sampling of the region around
+Γ is very important.
+

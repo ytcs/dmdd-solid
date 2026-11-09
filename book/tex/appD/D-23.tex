@@ -1,0 +1,73 @@
+\section{Effective-mass theory of shallow donors}\label{app:D.23}
+
+A phosphorus atom on a silicon site has one more valence electron than the host. Its core charge, screened by the static dielectric constant of the crystal, binds that electron in an orbit tens of ångströms across, many lattice constants, so the electron feels the crystal only through its conduction band near the minimum. This section derives the envelope equation of Kohn and Luttinger~\cite{kohn1955theory}, solves it for an isotropic band, and solves it variationally for the anisotropic valleys of silicon. It then treats the coupling of the six valleys by the potential near the core, which splits the ground state. The results are used in \cref{sec:7.4} and \cref{sec:16.5}; the hydrogenic solution itself is that of \cref{sec:4.9}.
+
+\subsection*{The envelope equation}
+
+The donor adds to the crystal Hamiltonian the potential $U(\vect{r})$ of its excess charge. Far from the core, at distances large compared with the lattice constant, it is the Coulomb potential of a unit charge, $-e^2/(4\pi r)$ in Heaviside--Lorentz units ($e^2 = 4\pi\alpha$). The host screens it by its static dielectric constant $\varepsilon$:
+\begin{equation*}
+  U(\vect{r}) = -\frac{e^2}{4\pi\varepsilon\,r} = -\frac{\alpha}{\varepsilon\,r} .
+\end{equation*}
+The dielectric constant is a pure number. For silicon, which being nonpolar has no lattice contribution, it is $\varepsilon = \varepsilon_0 = \varepsilon_\infty = 11.7$ (\cref{sec:5.5}), and from here on we write it $\varepsilon_0$, the static constant, as in \cref{sec:7.4}. Expand the donor state in the Bloch states of \cref{sec:3.2}, $\psi = \sum_{n\vect{k}}A_n(\vect{k})\,\psi_{n\vect{k}}$. The Schrödinger equation becomes
+\begin{equation*}
+  \bigl(\varepsilon_{n\vect{k}} - E\bigr)A_n(\vect{k}) + \sum_{n'\vect{k}'}\langle\psi_{n\vect{k}}|U|\psi_{n'\vect{k}'}\rangle\,A_{n'}(\vect{k}') = 0 .
+\end{equation*}
+A slowly varying $U$ simplifies the matrix element. Its Fourier components are concentrated at $|\vect{k} - \vect{k}'| \sim 1/a^*$, small compared with the zone, so for the cell-periodic parts $u_{n\vect{k}}$ of \cref{eq:3.2-bloch}, $\langle\psi_{n\vect{k}}|U|\psi_{n'\vect{k}'}\rangle \simeq \tilde U(\vect{k} - \vect{k}')\,\langle u_{n\vect{k}}|u_{n'\vect{k}'}\rangle_{\mathrm{cell}}$, where $\tilde U(\vect{p}) = \Vol^{-1}\int\dd^3r\,\ee^{-\ii\vect{p}\cdot\vect{r}}U(\vect{r})$ and the cell average is normalized to $\delta_{nn'}$ at $\vect{k} = \vect{k}'$. For $\vect{k}'$ close to $\vect{k}$ the overlap of different bands is of order $|\vect{k} - \vect{k}'|$ times a ratio of a velocity matrix element to an energy gap, by \cref{eq:3.2-dudk}, and it couples bands only at the next order in $1/(a^*k_{\mathrm{zone}})$. To leading order the bands decouple, and the conduction-band amplitude obeys
+\begin{equation*}
+  \bigl(\varepsilon_{c\vect{k}} - E\bigr)A(\vect{k}) + \sum_{\vect{k}'}\tilde U(\vect{k} - \vect{k}')\,A(\vect{k}') = 0 .
+\end{equation*}
+
+Near one conduction minimum $\vect{k}_j$, write $\vect{k} = \vect{k}_j + \delta\vect{k}$ and define the envelope $F_j(\vect{r}) = \Vol^{-1/2}\sum_{\delta\vect{k}}\ee^{\ii\delta\vect{k}\cdot\vect{r}}A(\vect{k}_j + \delta\vect{k})$. Multiplying by $\delta\vect{k}$ becomes $-\ii\nabla$ acting on $F_j$, and the convolution with $\tilde U$ becomes multiplication by $U(\vect{r})$. With the band near the minimum from \cref{sec:3.3}, $\varepsilon_{c,\vect{k}_j+\delta\vect{k}} = \Eg + \delta k_\parallel^2/2m^*_\parallel + \delta k_\perp^2/2m^*_\perp$ (energies from the valence maximum), and $z$ along the valley axis,
+\begin{equation}
+  \Bigl[-\frac{1}{2m^*_\perp}\Bigl(\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}\Bigr) - \frac{1}{2m^*_\parallel}\frac{\partial^2}{\partial z^2} - \frac{\alpha}{\varepsilon_0 r}\Bigr]F_j(\vect{r}) = -E_{\mathrm{b}}^{\mathrm{D}}\,F_j(\vect{r}), \qquad
+  \psi(\vect{r}) \simeq F_j(\vect{r})\,\psi_{c\vect{k}_j}(\vect{r}) ,
+  \label{eq:D.23-EMT}
+\end{equation}
+with $E = \Eg - E_{\mathrm{b}}^{\mathrm{D}}$. The wavefunction is the Bloch function at the minimum, modulated by a hydrogen-like envelope. The derivation assumed three things: that the envelope extends over many cells, $a^* \gg a$; that the binding is small compared with the energy over which the band departs from its quadratic form; and that the potential is the screened Coulomb potential everywhere that matters. The third fails within a cell or two of the core, which is the central-cell region treated below.
+
+\subsection*{Isotropic band}
+
+For $m^*_\parallel = m^*_\perp = m^*$, \cref{eq:D.23-EMT} is the hydrogen atom with $m_e \to m^*$ and $\alpha \to \alpha/\varepsilon_0$. The energies and the length scale follow from the hydrogenic ones by the same substitution: with $a_0 = 1/(\alpha m_e)$,
+\begin{equation}
+  E_{\mathrm{b}}^{\mathrm{D}} = \frac{m^*\alpha^2}{2\varepsilon_0^2} = \frac{m^*/m_e}{\varepsilon_0^2}\,\mathrm{Ry}, \qquad
+  a^* = \frac{\varepsilon_0}{m^*\alpha} = \varepsilon_0\,\frac{m_e}{m^*}\,a_0 ,
+  \label{eq:D.23-hydrogenic}
+\end{equation}
+with $\mathrm{Ry} = \SI{13.606}{eV}$ and $a_0 = \SI{0.529}{\angstrom}$~\cite{mohr2025codata}, and the excited levels at $E_{\mathrm{b}}^{\mathrm{D}}/n^2$. The factor $m^*/m_e\varepsilon_0^2$ is of order $10^{-3}$ in common semiconductors, and the orbit is $\varepsilon_0m_e/m^*$ times larger than that of hydrogen, which justifies the envelope picture. For silicon the two masses of \cref{tab:3-materials} differ by a factor of five, and the isotropic formula yields \SI{19.0}{meV} with $m^*_\perp = 0.191\,m_e$ and \SI{91.0}{meV} with $m^*_\parallel = 0.916\,m_e$ (\cref{sec:7.4}).
+
+\subsection*{Anisotropic valleys}
+
+With unequal masses, \cref{eq:D.23-EMT} does not separate, and Kohn and Luttinger solved it variationally with an envelope squeezed along the heavy axis~\cite{kohn1955theory},
+\begin{equation*}
+  F(\vect{r}) = (\pi r_\perp^2r_\parallel)^{-1/2}\exp\Bigl[-\Bigl(\frac{x^2 + y^2}{r_\perp^2} + \frac{z^2}{r_\parallel^2}\Bigr)^{1/2}\Bigr] ,
+\end{equation*}
+with the radii $r_\perp$ across the valley axis and $r_\parallel$ along it, normalized to one. In the scaled coordinates $(x/r_\perp, y/r_\perp, z/r_\parallel)$ it is the hydrogen ground state $\ee^{-r}/\sqrt\pi$, for which each Cartesian component of $\langle|\nabla F|^2\rangle$ is $\frac13$. The kinetic energy is therefore $(2/3)(2m^*_\perp r_\perp^2)^{-1} + (1/3)(2m^*_\parallel r_\parallel^2)^{-1}$. For the potential, write $r = R\,(r_\perp^2\sin^2\theta + r_\parallel^2\cos^2\theta)^{1/2}$ in the scaled spherical coordinates $(R,\theta)$. The radial integral $\int_0^\infty R\,\ee^{-2R}\,\dd R = \frac14$ separates, and for $r_\parallel < r_\perp$
+\begin{equation*}
+  \Bigl\langle\frac1r\Bigr\rangle = \int_0^1\frac{\dd\mu}{\bigl[r_\perp^2 - (r_\perp^2 - r_\parallel^2)\mu^2\bigr]^{1/2}} = \frac{\arcsin e_{\mathrm{ecc}}}{r_\perp e_{\mathrm{ecc}}}, \qquad e_{\mathrm{ecc}} = \Bigl(1 - \frac{r_\parallel^2}{r_\perp^2}\Bigr)^{1/2} ,
+\end{equation*}
+Measuring lengths in units of $a^*_\perp = \varepsilon_0/(m^*_\perp\alpha)$ and energies in units of $\mathrm{Ry}^*_\perp = m^*_\perp\alpha^2/2\varepsilon_0^2$, with $e_{\mathrm{ecc}}$ the eccentricity of the spheroid, the energy is
+\begin{equation}
+  \frac{E(r_\perp,r_\parallel)}{\mathrm{Ry}^*_\perp} = \frac{2}{3r_\perp^2} + \frac{\gamma_m}{3r_\parallel^2} - \frac{2\arcsin e_{\mathrm{ecc}}}{r_\perp e_{\mathrm{ecc}}}, \qquad \gamma_m = \frac{m^*_\perp}{m^*_\parallel} .
+  \label{eq:D.23-variational}
+\end{equation}
+For $\gamma_m = 1$ the minimum is at $r_\perp = r_\parallel = 1$ with $E = -1$, the hydrogenic result. For silicon, $\gamma_m = 0.191/0.916 = 0.209$, $\mathrm{Ry}^*_\perp = \SI{18.98}{meV}$ and $a^*_\perp = \SI{32.4}{\angstrom}$. Minimizing \cref{eq:D.23-variational} numerically gives $E = -1.564\,\mathrm{Ry}^*_\perp$ at $r_\perp = \SI{24.3}{\angstrom}$ and $r_\parallel = \SI{14.0}{\angstrom}$:
+\begin{equation}
+  E_{\mathrm{b}}^{\mathrm{D}}(\mathrm{Si}) = \SI{29.7}{meV} \qquad\text{(effective-mass theory, variational)} .
+  \label{eq:D.23-Si}
+\end{equation}
+The orbit is an oblate spheroid, flattened along the heavy axis, with radii of four and a half and two and a half lattice constants. The variational energy is an upper bound on the exact effective-mass energy. It applies equally to every shallow donor in silicon, since nothing in \cref{eq:D.23-EMT} depends on the chemical species. The measured ground states of phosphorus, arsenic and antimony are all deeper and differ from one another (\cref{sec:7.4}), which locates the missing physics near the core.
+
+\subsection*{Valleys and the central cell}
+
+Silicon has six equivalent minima on the $\langle100\rangle$ axes. At the order of \cref{eq:D.23-EMT} each valley carries its own envelope, rotated with its axis, and the ground state is sixfold degenerate (twelvefold with spin): $\psi = \sum_{j=1}^6c_jF_j(\vect{r})\psi_{c\vect{k}_j}(\vect{r})$ with any coefficients $c_j$. The valleys couple through the part $\delta U$ of the donor potential that the envelope equation leaves out, which differs from $-\alpha/\varepsilon_0r$ only within about a lattice constant of the core, where the screening is incomplete and the ion has its own chemistry. Since $\delta U$ is short-ranged and each envelope is nearly constant over its range, the matrix elements between valley states are $\langle j|\delta U|j'\rangle \simeq F_j(0)F_{j'}(0)\int\dd^3r\,\psi^*_{c\vect{k}_j}\delta U\,\psi_{c\vect{k}_{j'}}$. Their Fourier components at $\vect{k}_j - \vect{k}_{j'}$, a large fraction of the zone, are not small for a potential concentrated in one cell.
+
+The tetrahedral symmetry of the site leaves three distinct elements: $\Delta_0$ on the diagonal, $\Delta_{\mathrm{g}}$ between opposite valleys and $\Delta_{\mathrm{f}}$ between perpendicular ones. The $6\times6$ matrix has the eigenvectors
+\begin{equation}
+  \begin{aligned}
+  A_1:&\quad (1,1,1,1,1,1)/\sqrt6, & E &= \Delta_0 + \Delta_{\mathrm{g}} + 4\Delta_{\mathrm{f}} ,\\
+  E:&\quad (1,1,-1,-1,0,0)/2 \text{ and } (1,1,1,1,-2,-2)/\sqrt{12}, & E &= \Delta_0 + \Delta_{\mathrm{g}} - 2\Delta_{\mathrm{f}} ,\\
+  T_2:&\quad (1,-1,0,0,0,0)/\sqrt2 \text{ and its two partners}, & E &= \Delta_0 - \Delta_{\mathrm{g}} ,
+  \end{aligned}
+  \label{eq:D.23-vo}
+\end{equation}
+with the valleys ordered as $(+x,-x,+y,-y,+z,-z)$. In the $T_2$ states each pair of opposite valleys enters with opposite signs, and the four perpendicular couplings cancel. In the $A_1$ state all six valleys add in phase, so its density at the core is the largest, $|\psi(0)|^2 = 6|F(0)|^2|u_c(0)|^2$, and an attractive central-cell correction lowers it most. This is the ground state of the group-V donors in silicon, deeper than \cref{eq:D.23-Si} by an amount that depends on the species. The $E$ and $T_2$ levels have nodes at the core and lie close to the effective-mass value. The excited states with $l \ge 1$ envelopes, which vanish at the core, are almost unaffected by $\delta U$; the effective-mass theory accounts for them well, and the central-cell correction is a property of the $s$-like ground state alone.

@@ -1,0 +1,68 @@
+\section{Likelihoods, intervals and profiling}\label{app:C.14}
+
+A search that sees no events with no expected background excludes, at \SI{90}{\percent} confidence, every signal expectation above $N_{90} = 2.303$ (\cref{eq:1.5-N90}). Real searches add backgrounds, several bins and uncertain inputs, and \cref{sec:8.8,sec:21.4,sec:21.5} handle them with likelihoods: the Poisson and Gaussian likelihoods, the likelihood ratio and the intervals it defines, nuisance parameters and their profiling, and, in \cref{sec:17.6}, Monte Carlo propagation of input widths. The meaning of a confidence level, a statement about the procedure in repeated experiments, is that of \cref{sec:1.5}.
+
+\subsection{Poisson and Gaussian likelihoods}
+
+The \emph{likelihood} $\mathsf{L}$ is the probability of the observed data, read as a function of the parameters. A counting experiment that observes $N_{\mathrm{obs}}$ events, with expected signal $N_{\mathrm{sig}}$ and background $N_{\mathrm{bkg}}$, has by \cref{eq:1.5-poisson}
+\begin{equation}
+  \mathsf{L}(N_{\mathrm{sig}}) = \frac{(N_{\mathrm{sig}} + N_{\mathrm{bkg}})^{N_{\mathrm{obs}}}}{N_{\mathrm{obs}}!}\,\ee^{-(N_{\mathrm{sig}} + N_{\mathrm{bkg}})} .
+  \label{eq:C.14-poisson}
+\end{equation}
+Independent bins multiply, so a spectrum in bins $j$ has the product of factors of this form, one per bin, with expectations $N_{\mathrm{sig},j} + N_{\mathrm{bkg},j}$~\cite[Eq.~(6)]{cowan2011asymptotic}. Only ratios of likelihoods enter what follows, and factors independent of the parameters, such as $1/N_{\mathrm{obs}}!$, drop out.
+
+When a parameter is measured with a Gaussian error, for example an estimate $\hat N$ of $N_{\mathrm{sig}}$ with standard deviation $\sigma_{\hat N}$ from many events, the likelihood is Gaussian,
+\begin{equation}
+  \mathsf{L}(N_{\mathrm{sig}}) \propto \exp\Bigl[-\frac{(\hat N - N_{\mathrm{sig}})^2}{2\sigma_{\hat N}^2}\Bigr] .
+  \label{eq:C.14-gauss}
+\end{equation}
+The Poisson likelihood takes this form at large counts. Expanding $\ln\mathsf{L}$ of \cref{eq:C.14-poisson} to second order about its maximum, at $N_{\mathrm{sig}} + N_{\mathrm{bkg}} = N_{\mathrm{obs}}$, gives $\ln\mathsf{L} = \mathrm{const} - (N_{\mathrm{sig}} + N_{\mathrm{bkg}} - N_{\mathrm{obs}})^2/(2N_{\mathrm{obs}})$, a Gaussian of width $N_{\mathrm{obs}}^{1/2}$. The cubic term of the expansion is smaller by a factor of order $N_{\mathrm{obs}}^{-1/2}$ at one standard deviation from the maximum, so the Gaussian form needs tens of events, not a few.
+
+\subsection{The likelihood ratio and intervals}
+
+The \emph{likelihood ratio} compares a hypothesized value with the best one,
+\begin{equation}
+  \mathsf{t}(N_{\mathrm{sig}}) = -2\ln\frac{\mathsf{L}(N_{\mathrm{sig}})}{\mathsf{L}(\hat N_{\mathrm{sig}})} \ge 0 ,
+  \label{eq:C.14-ratio}
+\end{equation}
+where $\hat N_{\mathrm{sig}}$ maximizes $\mathsf{L}$~\cite[Eq.~(8)]{cowan2011asymptotic}. Large $\mathsf{t}$ means poor agreement. For the Gaussian likelihood \cref{eq:C.14-gauss}, $\hat N_{\mathrm{sig}} = \hat N$ and $\mathsf{t} = (\hat N - N_{\mathrm{sig}})^2/\sigma_{\hat N}^2$ exactly. If the data are repeated, $\hat N$ scatters as a Gaussian about the true value, and $\mathsf{t}$ at the true value is the square of a standard normal variable, a $\chi^2$ variable with one degree of freedom. The set of $N_{\mathrm{sig}}$ with $\mathsf{t}(N_{\mathrm{sig}}) \le z^2$, the interval $\hat N \pm z\sigma_{\hat N}$, then covers the true value with probability $2\Phi(z) - 1$, with $\Phi$ the standard normal distribution function. For a likelihood that is not Gaussian, Wilks' theorem states that $\mathsf{t}$ at the true value approaches the same $\chi^2$ distribution as the sample grows~\cite{wilks1938large}, \cite[Sect.~3.1]{cowan2011asymptotic}, and the same rule applies. The thresholds are
+\begin{equation}
+  \mathsf{t} \le 1.00,\ 2.71,\ 3.84 \qquad \text{for } \SI{68.27}{\percent},\ \SI{90}{\percent},\ \SI{95}{\percent}\ \text{(two-sided)},
+  \label{eq:C.14-thresholds}
+\end{equation}
+the squares of $z = 1$, 1.645 and 1.960. A $1\sigma$ interval is the \SI{68.27}{\percent} interval, written ``\SI{68}{\percent}'' throughout the book.
+
+An upper limit is one-sided. Data with $\hat N_{\mathrm{sig}}$ above the tested value are not counted as evidence against it, so the statistic is set to zero there~\cite[Eq.~(14)]{cowan2011asymptotic}, and all of the rejected probability lies on one side. For a Gaussian likelihood the upper limit at confidence level $\mathrm{CL}$ is $\hat N + z_{\mathrm{CL}}\sigma_{\hat N}$ with $\Phi(z_{\mathrm{CL}}) = \mathrm{CL}$: $z = 1.282$ at \SI{90}{\percent} and $z = 1.645$ at \SI{95}{\percent}, which correspond to $\mathsf{t} = 1.64$ and 2.71. The same number, 2.71, thus marks a two-sided \SI{90}{\percent} interval and a one-sided \SI{95}{\percent} limit.
+
+The asymptotic rule fails at small counts, the regime of dark-matter limits. With $N_{\mathrm{obs}} = 0$ and $N_{\mathrm{bkg}} = 0$, \cref{eq:C.14-poisson} gives $\mathsf{L} = \ee^{-N_{\mathrm{sig}}}$, maximal at $\hat N_{\mathrm{sig}} = 0$, and $\mathsf{t} = 2N_{\mathrm{sig}}$. The one-sided \SI{90}{\percent} threshold 1.64 would give $N_{\mathrm{sig}} < 0.82$, while the exact construction of \cref{sec:1.5} gives 2.303. Limits from a few events must therefore be built from the exact Poisson probabilities, by the classical construction of \cref{sec:1.5} or by its generalization that orders outcomes by the likelihood ratio and yields one- or two-sided intervals as the data demand~\cite{feldman1998unified}; \cref{sec:21.4} does so.
+
+\subsection{Nuisance parameters and the profile likelihood}
+
+The predicted counts depend on quantities that are not of interest but are not known exactly: a background normalization, an efficiency, or the size of a truncation in the theory (\cref{sec:8.8}). Each becomes a \emph{nuisance parameter} $\vartheta$ in the likelihood, usually with a constraint term that encodes what is known about it from a calibration or from a computed next order. The \emph{profile likelihood} replaces each nuisance by its best value at fixed $N_{\mathrm{sig}}$,
+\begin{equation}
+  \mathsf{t}_{\mathrm{p}}(N_{\mathrm{sig}}) = -2\ln\frac{\mathsf{L}\bigl(N_{\mathrm{sig}}, \hat{\hat\vartheta}(N_{\mathrm{sig}})\bigr)}{\mathsf{L}(\hat N_{\mathrm{sig}}, \hat\vartheta)} ,
+  \label{eq:C.14-profile}
+\end{equation}
+where $\hat{\hat\vartheta}(N_{\mathrm{sig}})$ maximizes $\mathsf{L}$ at fixed $N_{\mathrm{sig}}$ and the denominator is the overall maximum~\cite[Eq.~(7)]{cowan2011asymptotic}. Wilks' theorem holds for $\mathsf{t}_{\mathrm{p}}$ as well, with one degree of freedom per parameter of interest, so \cref{eq:C.14-thresholds} still applies.
+
+A Gaussian example shows what profiling does. Let the estimate be shifted by an unknown offset, so that $\hat N$ is Gaussian with mean $N_{\mathrm{sig}} + \vartheta$ and width $\sigma_{\hat N}$, and let a calibration constrain the offset by a Gaussian of mean 0 and width $\sigma_\vartheta$. Then
+\begin{equation*}
+  -2\ln\mathsf{L}(N_{\mathrm{sig}}, \vartheta) = \frac{(\hat N - N_{\mathrm{sig}} - \vartheta)^2}{\sigma_{\hat N}^2} + \frac{\vartheta^2}{\sigma_\vartheta^2} + \mathrm{const} .
+\end{equation*}
+Write $r = \hat N - N_{\mathrm{sig}}$. Setting the derivative with respect to $\vartheta$ to zero, $-(r - \vartheta)/\sigma_{\hat N}^2 + \vartheta/\sigma_\vartheta^2 = 0$, gives $\hat{\hat\vartheta} = r\sigma_\vartheta^2/(\sigma_{\hat N}^2 + \sigma_\vartheta^2)$. Inserting it, the two terms become $r^2\sigma_{\hat N}^2/(\sigma_{\hat N}^2 + \sigma_\vartheta^2)^2$ and $r^2\sigma_\vartheta^2/(\sigma_{\hat N}^2 + \sigma_\vartheta^2)^2$, and their sum is $r^2/(\sigma_{\hat N}^2 + \sigma_\vartheta^2)$. The overall minimum is zero, at $N_{\mathrm{sig}} = \hat N$ and $\vartheta = 0$. Hence
+\begin{equation}
+  \mathsf{t}_{\mathrm{p}}(N_{\mathrm{sig}}) = \frac{(\hat N - N_{\mathrm{sig}})^2}{\sigma_{\hat N}^2 + \sigma_\vartheta^2} .
+  \label{eq:C.14-quadrature}
+\end{equation}
+The profiled interval is that of a Gaussian of width $(\sigma_{\hat N}^2 + \sigma_\vartheta^2)^{1/2}$: statistical and systematic widths add in quadrature. A normalization nuisance, $N_{\mathrm{sig}} \to N_{\mathrm{sig}}(1 + \vartheta)$, gives the same result for the relative widths to first order in $\vartheta$. Profiling broadens the likelihood, and the broadening is the information about $N_{\mathrm{sig}}$ lost to the nuisance. A nuisance that the data constrain better than the calibration does is pulled towards the value the data prefer, which a fixed-width envelope would miss; \cref{sec:21.4} uses this to set limit bands.
+
+\subsection{Monte Carlo propagation}
+
+When a derived quantity depends on many inputs through a formula that is not linear, its distribution is obtained by sampling. Each input $x_j$ is given a distribution, for example lognormal, with $\ln x_j$ Gaussian of mean $\ln x_j^{(0)}$ and width $\sigma_j$, a width set by how the input was obtained (\cref{sec:17.6}). We draw $N_{\mathrm{MC}}$ sets of inputs, evaluate the output $y$ on each, and read off percentiles. The 16th and 84th percentiles bound the central \SI{68}{\percent} interval, because $\Phi(-1) = 0.159$; for a Gaussian output they are the mean minus and plus one standard deviation, and for any output they define an interval of the same coverage that need not be symmetric.
+
+Comparisons follow from the same draws. The probability that material $A$ outperforms $B$ is the fraction of draws in which $y_A > y_B$. For lognormal outputs with log-widths $\sigma_A$, $\sigma_B$ and correlation $r$ between their errors, $\ln y_A - \ln y_B$ is Gaussian with mean $\Delta = \ln y_A^{(0)} - \ln y_B^{(0)}$ and variance $\sigma_A^2 + \sigma_B^2 - 2r\sigma_A\sigma_B$, and
+\begin{equation}
+  P(A \succ B) = \Phi\Bigl(\frac{\Delta}{(\sigma_A^2 + \sigma_B^2 - 2r\sigma_A\sigma_B)^{1/2}}\Bigr) .
+  \label{eq:C.14-pairwise}
+\end{equation}
+With $\Delta = 0.3$, $\sigma_A = 0.2$, $\sigma_B = 0.25$ and $r = 0$, $P(A \succ B) = \Phi(0.94) = 0.83$. A positive correlation, as arises when both materials are computed with the same method and share its error, shrinks the variance of the difference and sharpens the comparison; a ratio of two such outputs is more certain than either. The sampling error of an estimated probability $p$ is $[p(1 - p)/N_{\mathrm{MC}}]^{1/2}$, at most 0.0035 for $N_{\mathrm{MC}} = 2\times10^4$. All such probabilities are conditional on the input distributions: they propagate the assigned widths faithfully, but they cannot be more reliable than the widths themselves.

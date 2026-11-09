@@ -1,0 +1,77 @@
+\section{One- and two-body operators}\label{app:D.2}
+
+This section proves the second-quantized forms of one- and two-body operators used in \cref{sec:2.3}, \cref{eq:2.3-onebody,eq:2.3-twobody}, and the rule for changing the single-particle basis, \cref{eq:2.3-basis}. The treatment follows Refs.~\cite[Chap.~1]{bruus2004many} and \cite[Chap.~1]{fetter1971quantum}. We work with fermions first and state the changes for bosons at the end.
+
+\subsection*{States}
+
+Let $\{|\gamma\rangle\}$ be an orthonormal single-particle basis, spin included. The antisymmetrized $N$-particle state with orbitals $\gamma_1,\dots,\gamma_N$ is
+\begin{equation}
+  |\gamma_1\dots\gamma_N\rangle = \frac{1}{\sqrt{N!}}\sum_P(-1)^P\,|\gamma_{P1}\rangle\otimes|\gamma_{P2}\rangle\otimes\cdots\otimes|\gamma_{PN}\rangle ,
+  \label{eq:D.2-state}
+\end{equation}
+where the $k$th factor of each product is the state of particle $k$; its wave function is the Slater determinant of \cref{eq:2.3-slater}. Exchanging two labels in the list changes the sign of the state, and two equal labels give zero. If all labels differ, the state has unit norm, since the $N!$ products are orthonormal. \Cref{sec:2.3} identifies this state with $c^\dagger_{\gamma_1}\cdots c^\dagger_{\gamma_N}|0\rangle$, which defines $c^\dagger_\gamma$ through \cref{eq:2.3-cdag}. A first-quantized operator that treats all particles alike commutes with every permutation of the particles, so it maps antisymmetric states to antisymmetric states, and it is enough to know its action on the states of \cref{eq:D.2-state}.
+
+\subsection*{Replacing one orbital}
+
+The proofs rest on one lemma. Let the labels $\gamma_1,\dots,\gamma_N$ be distinct and let $\gamma$ be any label. Then
+\begin{equation}
+  c^\dagger_\gamma c_{\gamma_j}\,|\gamma_1\dots\gamma_j\dots\gamma_N\rangle = |\gamma_1\dots\gamma\dots\gamma_N\rangle ,
+  \label{eq:D.2-lemma}
+\end{equation}
+where on the right $\gamma$ stands in place $j$ and the other labels are unchanged. To prove it, write the state as $c^\dagger_{\gamma_1}\cdots c^\dagger_{\gamma_N}|0\rangle$. By \cref{eq:2.3-anticomm}, $c_{\gamma_j}$ anticommutes with each $c^\dagger_{\gamma_k}$, $k \ne j$, because the labels differ. Moving it to the right past the $j - 1$ operators in front of $c^\dagger_{\gamma_j}$ gives a sign $(-1)^{j-1}$. There $c_{\gamma_j}c^\dagger_{\gamma_j} = 1 - c^\dagger_{\gamma_j}c_{\gamma_j}$, and the second term gives zero, because $c_{\gamma_j}$ can then be moved through the remaining creation operators to the vacuum, which it annihilates. So $c_{\gamma_j}$ deletes $c^\dagger_{\gamma_j}$ from the string at the cost $(-1)^{j-1}$. Next, $c^\dagger_\gamma$ stands at the front of a string of $N - 1$ creation operators; moving it back to place $j$ passes $j - 1$ of them, each pass costing a sign by $\{c^\dagger_\gamma, c^\dagger_{\gamma_k}\} = 0$. The two signs cancel. If $\gamma$ equals one of the other labels $\gamma_k$, $k \ne j$, both sides of \cref{eq:D.2-lemma} vanish: the left because $(c^\dagger_{\gamma_k})^2 = 0$, the right because a label is repeated. If $\gamma = \gamma_j$, both sides return the original state. A bilinear $c^\dagger_\gamma c_{\gamma'}$ with $\gamma'$ not in the list gives zero, since $c_{\gamma'}$ moves through all creation operators and annihilates the vacuum.
+
+\subsection*{One-body operators}
+
+Let $\op{O}_1 = \sum_{i=1}^N\op{o}_i$, with $\op{o}_i$ the one-particle operator $\op{o}$ acting on the $i$th factor of each tensor product. Acting on one product in \cref{eq:D.2-state}, $\op{o}_i$ changes only the factor $|\gamma_{Pi}\rangle$. After the sums over $i$ and over permutations, each orbital $\gamma_j$ of the list is replaced in turn by $\op{o}|\gamma_j\rangle$:
+\begin{equation*}
+  \op{O}_1|\gamma_1\dots\gamma_N\rangle = \sum_{j=1}^N|\gamma_1\dots(\op{o}\gamma_j)\dots\gamma_N\rangle
+  = \sum_{j=1}^N\sum_\gamma\langle\gamma|\op{o}|\gamma_j\rangle\,|\gamma_1\dots\gamma\dots\gamma_N\rangle ,
+\end{equation*}
+where $|\gamma_1\dots(\op{o}\gamma_j)\dots\gamma_N\rangle$ is \cref{eq:D.2-state} with $|\gamma_j\rangle$ replaced by $\op{o}|\gamma_j\rangle$, and the second step expands $\op{o}|\gamma_j\rangle$ in the basis, using that \cref{eq:D.2-state} is linear in each orbital. By \cref{eq:D.2-lemma} each term on the right is $c^\dagger_\gamma c_{\gamma_j}$ acting on the original state. The bilinear $c^\dagger_\gamma c_{\gamma'}$ gives zero for every $\gamma'$ not in the list. So the sum over $j$ extends to a sum over all labels $\gamma'$:
+\begin{equation*}
+  \op{O}_1|\gamma_1\dots\gamma_N\rangle = \sum_{\gamma\gamma'}\langle\gamma|\op{o}|\gamma'\rangle\,c^\dagger_\gamma c_{\gamma'}\,|\gamma_1\dots\gamma_N\rangle .
+\end{equation*}
+The two operators agree on a basis of every $N$-particle space, so they are equal on Fock space. This is \cref{eq:2.3-onebody}. The right-hand side does not refer to $N$: the same operator acts on states of any particle number.
+
+\subsection*{Two-body operators}
+
+Let $\op{O}_2 = \tfrac12\sum_{i\ne j}\op{u}_{ij}$, where $\op{u}_{ij}$ is a two-particle operator acting on the factors $i$ and $j$, symmetric under the exchange of the two particles. Expand it in products of single-particle operators,
+\begin{equation*}
+  \op{u} = \sum_{\gamma_1\gamma_2\gamma_3\gamma_4}\langle\gamma_1\gamma_2|\op{u}|\gamma_3\gamma_4\rangle\;\bigl(|\gamma_1\rangle\langle\gamma_3|\bigr)\otimes\bigl(|\gamma_2\rangle\langle\gamma_4|\bigr),
+\end{equation*}
+with $\langle\gamma_1\gamma_2|\op{u}|\gamma_3\gamma_4\rangle = (\langle\gamma_1|\otimes\langle\gamma_2|)\,\op{u}\,(|\gamma_3\rangle\otimes|\gamma_4\rangle)$ the matrix element between product states, the first factor belonging to the first particle. For a local potential $U_2(\vect{r} - \vect{r}')$ it is the integral given in the caption of \cref{tab:2-operators}. For fixed labels, write $\op{x}_i = (|\gamma_1\rangle\langle\gamma_3|)_i$ and $\op{y}_j = (|\gamma_2\rangle\langle\gamma_4|)_j$ for these single-particle operators acting on particles $i$ and $j$. The sum over pairs with $i \ne j$ is the full double sum minus the diagonal,
+\begin{equation*}
+  \sum_{i\ne j}\op{x}_i\op{y}_j = \Bigl(\sum_i\op{x}_i\Bigr)\Bigl(\sum_j\op{y}_j\Bigr) - \sum_i(\op{x}\op{y})_i ,
+\end{equation*}
+and each term on the right is a one-body operator or a product of two. By the one-body result, $\sum_i\op{x}_i = c^\dagger_{\gamma_1}c_{\gamma_3}$ and $\sum_j\op{y}_j = c^\dagger_{\gamma_2}c_{\gamma_4}$, while $\op{x}\op{y} = |\gamma_1\rangle\langle\gamma_3|\gamma_2\rangle\langle\gamma_4| = \delta_{\gamma_3\gamma_2}|\gamma_1\rangle\langle\gamma_4|$ gives $\sum_i(\op{x}\op{y})_i = \delta_{\gamma_2\gamma_3}c^\dagger_{\gamma_1}c_{\gamma_4}$. With \cref{eq:2.3-anticomm},
+\begin{equation*}
+  c^\dagger_{\gamma_1}c_{\gamma_3}c^\dagger_{\gamma_2}c_{\gamma_4} - \delta_{\gamma_2\gamma_3}c^\dagger_{\gamma_1}c_{\gamma_4}
+  = -c^\dagger_{\gamma_1}c^\dagger_{\gamma_2}c_{\gamma_3}c_{\gamma_4}
+  = c^\dagger_{\gamma_1}c^\dagger_{\gamma_2}c_{\gamma_4}c_{\gamma_3} .
+\end{equation*}
+Multiplying by the matrix element, summing over the four labels and including the factor $\tfrac12$ gives
+\begin{equation}
+  \op{O}_2 = \frac12\sum_{\gamma_1\gamma_2\gamma_3\gamma_4}\langle\gamma_1\gamma_2|\op{u}|\gamma_3\gamma_4\rangle\,c^\dagger_{\gamma_1}c^\dagger_{\gamma_2}c_{\gamma_4}c_{\gamma_3} ,
+  \label{eq:D.2-twobody}
+\end{equation}
+which is \cref{eq:2.3-twobody}. The proof uses no property of $\op{u}$ other than its expansion, so it holds for spin-dependent interactions as well. The subtraction of the diagonal is what turns the product of two bilinears into a normal-ordered product; it removes the interaction of each particle with itself, as in the field-operator argument of \cref{sec:2.3}.
+
+\subsection*{Change of basis}
+
+Let $\{|\tilde\gamma\rangle\}$ be a second orthonormal basis, with the unitary matrix $\mathcal{U}_{\gamma\tilde\gamma} = \langle\gamma|\tilde\gamma\rangle$. The antisymmetrized state \cref{eq:D.2-state} is linear in each orbital, so substituting $|\tilde\gamma_k\rangle = \sum_\gamma \mathcal{U}_{\gamma\tilde\gamma_k}|\gamma\rangle$ for every $k$ gives
+\begin{equation*}
+  |\tilde\gamma_1\dots\tilde\gamma_N\rangle = \sum_{\gamma'_1\dots\gamma'_N}\mathcal{U}_{\gamma'_1\tilde\gamma_1}\cdots \mathcal{U}_{\gamma'_N\tilde\gamma_N}\,|\gamma'_1\dots\gamma'_N\rangle .
+\end{equation*}
+Written with creation operators, this is $c^\dagger_{\tilde\gamma_1}\cdots c^\dagger_{\tilde\gamma_N}|0\rangle$ with $c^\dagger_{\tilde\gamma} = \sum_\gamma \mathcal{U}_{\gamma\tilde\gamma}c^\dagger_\gamma$, the rule of \cref{eq:2.3-basis}; its adjoint gives $c_{\tilde\gamma}$. Collect the terms in which the labels $\gamma'_k$ are a permutation of a fixed ordered set $\{\gamma_1 < \dots < \gamma_N\}$, and reorder each to the standard order at the sign of the permutation. This shows that the coefficient of $|\gamma_1\dots\gamma_N\rangle$ is the determinant of the $N\times N$ submatrix $\mathcal{U}_{\gamma_j\tilde\gamma_k}$. A single determinant in one basis is thus a sum of determinants in the other, with minors of $\mathcal{U}$ as coefficients; the two-orbital bond of \cref{sec:2.3} is the smallest example.
+
+The anticommutators are preserved, $\{c_{\tilde\gamma}, c^\dagger_{\tilde\gamma'}\} = \sum_{\gamma\gamma'}\mathcal{U}^*_{\gamma\tilde\gamma}\mathcal{U}_{\gamma'\tilde\gamma'}\delta_{\gamma\gamma'} = (\mathcal{U}^\dagger\mathcal{U})_{\tilde\gamma\tilde\gamma'} = \delta_{\tilde\gamma\tilde\gamma'}$. The other two vanish, because the new operators are linear combinations of the old annihilation (or creation) operators alone, which anticommute among themselves. Inserting $c^\dagger_\gamma = \sum_{\tilde\gamma}\mathcal{U}^*_{\gamma\tilde\gamma}c^\dagger_{\tilde\gamma}$ and $c_{\gamma'} = \sum_{\tilde\gamma'}\mathcal{U}_{\gamma'\tilde\gamma'}c_{\tilde\gamma'}$ into \cref{eq:2.3-onebody},
+\begin{equation*}
+  \sum_{\gamma\gamma'}\langle\gamma|\op{o}|\gamma'\rangle c^\dagger_\gamma c_{\gamma'}
+  = \sum_{\tilde\gamma\tilde\gamma'}\Bigl[\sum_{\gamma\gamma'}\langle\tilde\gamma|\gamma\rangle\langle\gamma|\op{o}|\gamma'\rangle\langle\gamma'|\tilde\gamma'\rangle\Bigr]c^\dagger_{\tilde\gamma}c_{\tilde\gamma'}
+  = \sum_{\tilde\gamma\tilde\gamma'}\langle\tilde\gamma|\op{o}|\tilde\gamma'\rangle\,c^\dagger_{\tilde\gamma}c_{\tilde\gamma'} ,
+\end{equation*}
+by completeness of the old basis, used twice. The same substitution in \cref{eq:D.2-twobody} transforms each of the four labels with its own factor of $\mathcal{U}$ or $\mathcal{U}^*$, and completeness turns the matrix element into $\langle\tilde\gamma_1\tilde\gamma_2|\op{u}|\tilde\gamma_3\tilde\gamma_4\rangle$. Both forms are therefore the same in every orthonormal basis. For a continuous basis, such as position, the sums become integrals and the Kronecker deltas Dirac deltas; with $\langle\vect{r}s|\gamma\rangle = \psi_\gamma(\vect{r}, s)$ this gives the field operator of \cref{eq:2.3-field} and the field-operator form \cref{eq:2.3-twobody-field}.
+
+\subsection*{Bosons}
+
+For bosons, \cref{eq:D.2-state} has all signs positive and a repeated label is allowed; the state with occupation numbers $n_\gamma$ then has norm $\prod_\gamma n_\gamma!$, which is why the normalized states carry the factor $(\prod_\gamma n_\gamma!)^{-1/2}$ and $d^\dagger_\gamma$ acts with $\sqrt{n_\gamma + 1}$ (\cref{eq:2.3-boson}). The lemma \cref{eq:D.2-lemma} holds for the unnormalized states $d^\dagger_{\gamma_1}\cdots d^\dagger_{\gamma_N}|0\rangle$ without any sign, with $\gamma_j$ replaced in one of its occurrences and a sum over the occurrences when the label is repeated, which matches the sum over particles in $\op{O}_1$. The one-body proof then goes through unchanged with $c \to d$. In the two-body proof the commutator $[d_{\gamma_3}, d^\dagger_{\gamma_2}] = \delta_{\gamma_2\gamma_3}$ replaces the anticommutator, and $d^\dagger_{\gamma_1}d_{\gamma_3}d^\dagger_{\gamma_2}d_{\gamma_4} - \delta_{\gamma_2\gamma_3}d^\dagger_{\gamma_1}d_{\gamma_4} = d^\dagger_{\gamma_1}d^\dagger_{\gamma_2}d_{\gamma_3}d_{\gamma_4}$. Annihilation operators commute, so the order of the last two is immaterial and \cref{eq:D.2-twobody} holds with $c \to d$. The change of basis preserves the commutators by the same unitarity argument, and the coefficients of the new states are permanents instead of determinants.

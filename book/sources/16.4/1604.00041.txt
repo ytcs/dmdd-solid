@@ -1,0 +1,1360 @@
+                                                                                                                           ,
+                                                        Structural and excited-state properties of oligoacene crystals from first principles
+
+                                                                  Tonatiuh Rangel,1, 2, ∗ Kristian Berland,3 Sahar Sharifzadeh,4, 1 Florian Brown-Altvater,1, 5
+                                                                         Kyuho Lee,1 Per Hyldgaard,6, 7 Leeor Kronik,8 and Jeffrey B. Neaton1, 2, 9
+                                                                    1
+                                                                      Molecular Foundry, Lawrence Berkeley National Laboratory, Berkeley, California 94720,USA
+                                                                        2
+                                                                          Department of Physics, University of California, Berkeley, California 94720-7300, USA
+                                                                    3
+                                                                      Centre for Material Science and Nanotechnology, University of Oslo, NO-0316 Oslo, Norway
+                                                                             4
+                                                                               Department of Electrical and Computer Engineering and Division of Materials
+                                                                                  Science and Engineering, Boston University, Boston, MA 02215, USA
+                                                                      5
+arXiv:1604.00041v1 [cond-mat.mtrl-sci] 31 Mar 2016
+
+
+
+
+                                                                        Department of Chemistry, University of California, Berkeley, California 94720-7300, USA
+                                                                                         6
+                                                                                           Department of Microtechnology and Nanoscience, MC2,
+                                                                                      Chalmers University of Technology,SE-41296 Göteborg, Sweden
+                                                                     7
+                                                                       Materials Science and Applied Mathematics, Malmö University, Malmö SE-205 06, Sweden
+                                                                  8
+                                                                    Department of Materials and Interfaces, Weizmann Institute of Science, Rehovoth 76100, Israel
+                                                                        9
+                                                                          Kavli Energy NanoSciences Institute at Berkeley, Berkeley, California 94720-7300, USA
+                                                                                                         (Dated: March 27, 2018)
+                                                                     Molecular crystals are a prototypical class of van der Waals (vdW)-bound organic materials
+                                                                  with excited state properties relevant for optoelectronics applications. Predicting the structure and
+                                                                  excited state properties of molecular crystals presents a challenge for electronic structure theory,
+                                                                  as standard approximations to density functional theory (DFT) do not capture long-range vdW
+                                                                  dispersion interactions and do not yield excited-state properties. In this work, we use a combination
+                                                                  of DFT including vdW forces– using both non-local correlation functionals and pair-wise correction
+                                                                  methods – together with many-body perturbation theory (MBPT) to study the geometry and excited
+                                                                  states, respectively, of the entire series of oligoacene crystals, from benzene to hexacene. We find that
+                                                                  vdW methods can predict lattice constants within 1% of the experimental measurements, on par
+                                                                  with the previously reported accuracy of pair-wise approximations for the same systems. We further
+                                                                  find that excitation energies are sensitive to geometry, but if optimized geometries are used MBPT
+                                                                  can yield excited state properties within a few tenths of an eV from experiment. We elucidate trends
+                                                                  in MBPT-computed charged and neutral excitation energies across the acene series and discuss the
+                                                                  role of common approximations used in MBPT.
+
+
+                                                                        I.   INTRODUCTION                                  As shown in Fig. 1, acene crystals consist of aromatic
+                                                                                                                        monomers packed in ordered arrangements. Their con-
+                                                        Organic solids are promising candidates for optoelec-           stituent monomers possess strong intramolecular cova-
+                                                     tronics applications due to their strong absorption, chem-         lent bonds, but weak intermolecular dispersive interac-
+                                                     ical tunability, flexibility, and relatively inexpensive pro-      tions govern the crystal structure. Because the approx-
+                                                     cessing costs, among other reasons. The acene crys-                imate exchange-correlation functionals most commonly
+                                                     tals, a specific class of organic semiconductors, are              used in DFT calculations do not account for dispersive in-
+                                                     well-characterized, known to possess relatively high car-          teractions, the above-mentioned theoretical calculations
+                                                     rier mobilities,1 and exhibit a propensity for unique              have nearly always made use of experimental data for in-
+                                                     excited-state transport phenomena, notably singlet fis-            termolecular distances and orientation. This limits pre-
+                                                     sion (SF).2–7 The larger acenes in particular have re-             dictive power, because experimental lattice parameters
+                                                     ceived recent attention because SF was reported to be              can be scarce or conflicting. In particular, different poly-
+                                                     exothermic, or nearly so, for tetracene, pentacene, and            morphs of the same material may exist, sometimes even
+                                                     hexacene.8–12                                                      coexisting in the same sample.22,27–3326
+                                                        The interesting optoelectronic properties of acene crys-           Fortunately, the last decade has seen rapid develop-
+                                                     tals, combined with the potential for materials design             ment of DFT-based methods that can capture disper-
+                                                     via functionalization at the monomer level, have gener-            sive interactions and several studies have demonstrated
+                                                     ated significant fundamental theoretical interest in these         that addressing these interactions allows for predicting
+                                                     systems. Theoretical studies of excited state proper-              accurate geometries and cohesive energies of molecular
+                                                     ties of acene crystals have often been performed with              solids in general and acenes in particular – see, e.g., Refs.
+                                                     small molecular clusters, using wavefuction-based meth-            22, 34–46. Specifically, Ambrosch-Draxl et al.22 have sug-
+                                                     ods7,13–18 , or with extended systems, using density func-         gested that a combination of dispersion-inclusive DFT
+                                                     tional theory (DFT) and many-body perturbation theory              methods – which they found to predict lattice parame-
+                                                     (MBPT).19–26 These calculations have often yielded ex-             ters in agreement with experiments for acene crystals –
+                                                     cellent agreement with experiment and new insights into            followed by MBPT calculations, can be used to explore
+                                                     excited-state properties of acene crystals.                        quantitative differences in optical properties of pentacene
+                                                                                                                          2
+
+polymorphs. Their work suggests that a broader study of         the-art methods.
+the entire acene family with MBPT methods, especially              The manuscript is organized as follows. First, we sum-
+their recent refinements, would be highly desirable.            marize the computational methods used in this work in
+                                                                Section. II. Next, in Section. III A we provide a detailed
+                                                                account of our calculations for the structural properties of
+ a)             n 1              b)                             the acene crystals, demonstrating and reviewing the ac-
+         [    [                                                 curacy of several different vdW-corrected DFT methods.
+                                                                We then turn to presenting MBPT results for charged
+                                                                and neutral excitations. We start with charged and neu-
+                                                                tral excitations in gas-phase acene molecules, given in
+ c)                                                             Section III B, followed by similar results for the solid-
+                                                                state in Sections III C and III D, where we provide calcu-
+                                                                lations for charged and neutral excitations, respectively,
+                                                                at the experimental Geometry. In Section III E we crit-
+                                                                ically examine the sensitivity of GW and GW-BSE cal-
+                                                                culations to structures optimized with different DFT-
+                                                                based approaches. Finally, we present conclusions in Sec-
+                                                                tion IV.
+FIG. 1. (Color online) The acene family. a) General formula.
+b) Herringbone structure, taken up by most acenes in the
+solid state, with space group P21/a for naphthalene and an-
+                                                                        II.    COMPUTATIONAL METHODS
+thracene and P1 for larger acenes. c) Benzene crystallizes in
+an orthorhombic unit cell with four molecules per unit cell,
+with space group Pbca.                                                A.      Treatment of dispersive interactions
+
+
+   In this article, we combine dispersion-inclusive DFT            As mentioned above, great strides have been made
+and MBPT to study the geometry and excited states of            over the past decade in the treatment of dispersive in-
+the entire series of acene crystals, from benzene to hex-       teractions within DFT – see, e.g., Refs. 52 and 53 for
+acene. In each case, we compare the computed geometry,          overviews. Of the many approaches suggested, one
+electronic structure, and optical excitations with experi-      commonly used method is the augmentation of exist-
+ment, for both the gas-phase and solid-state. To account        ing (typically semi-local or hybrid) exchange-correlation
+for long-range vdW dispersive interactions, we use pri-         (xc) functionals by pairwise corrections to the inter-
+marily non-local vdW density functionals (vdW-DFs),             nuclear energy expression, which are damped at short
+but also employ Grimme ”D2” pair-wise corrections47             range but provide the desired long-range asymptotic
+and compare our results where possible with previ-              behavior.47,48,54–59 The most widely used examples of
+ously reported data computed with the Tkatchenko-               this idea are the D247 and D357 corrections due to
+Scheffler (TS)48 pair-wise correction approach.37,49 We         Grimme and the Tkatchenko-Scheffler (TS)48 correction
+find that the new consistent-exchange (cx) vdW density          scheme. A different commonly used approach, known
+functional (vdW-DF-cx)50,51 can predict acene lattice pa-       as vdW-DF, includes dispersion interactions via an ex-
+rameters within 1% of low-temperature measurements,             plicit non-local correlation functional.60–62 Several vdW-
+as can the TS method. For optimized acene crystal               DF versions are in use, starting with the original vdW-
+structures, our MBPT calculations within the GW ap-             DF163 functional. These include, e.g., an improved ver-
+proximation and using the Bethe-Salpeter equation ap-           sion, vdW-DF264 , making use of a more accurate semilo-
+proach lead to gas-phase ionization potential energies,         cal exchange functional and an updated vdW kernel; the
+solid-state electronic band structures, and low-lying sin-      simplified yet accurate form of Vydrov and van Voorhis,
+glet and triplet excitations in good quantitative agree-        VV1065 ; and the more recently developed vdW-DF-cx50
+ment with experiments. For larger acene crystals, we            functional, an update with improved performance for lat-
+demonstrate that a standard G0 W0 approach based on             tice constants and bulk moduli of layered materials and
+a semi-local DFT starting point is insufficient, and that       dense solids. In the following, we abbreviate vdW-DF1
+eigenvalue-self-consistent GW calculations are required.        as DF1, etc., for functionals in the vdW-DF class.
+Interestingly, we find that low lying excited states are
+sensitive to crystal geometry, particularly so for singlets,
+which are significantly more delocalized than triplets.                  B.    Many-body perturbation theory
+This work constitutes a comprehensive survey and val-
+idation study of both crystal structure and excited state          As mentioned above, our first principles MBPT calcu-
+electronic structure for this important class of molecular      lations are based on the GW approach for charged exci-
+crystals. Furthermore, it suggests strategies for accu-         tations and on the GW-BSE approach for neutral ones.
+rate predictive modeling and design of excited states in        GW calculations proceed pertubatively based on a DFT
+less-explored molecular systems, using current state-of-        starting point, which for solids is usually computed using
+                                                                                                                          3
+
+the Kohn-Sham equation within the local density approx-       corrections are not compatible with USPPs in the present
+imation (LDA) or the generalized gradient approximation       version of QE. Following a prior successful approach
+(GGA). The Kohn-Sham eigenvalues and eigenfunctions           with vdW density functionals,84 we use Perdew-Burke-
+are used to evaluate approximatel, the self-energy op-        Ernzerhof (PBE)85 PPs for DF2 and DF and PBEsol86
+erator, Σ, as iGW , where G is the one-electron Green         PPs for DF-cx.62 In principle, native vdW-PPs have be-
+function of the system and W = −1 v is the dynamically       gun to be explored with vdW-DFs, and we relegate the
+screened Coulomb interaction; v is the Coulomb poten-         evaluation of such pseudopotentials for acenes to future
+tial and  is the wave-vector and frequency-dependent         work.87 The latter choice is based on the fact that the
+dielectric function.66,67 The DFT eigenvalues are then        exchange functional of DF-cx is much closer in form to
+updated via first-order perturbation theory. This ap-         PBEsol than to PBE. A test study reveals that the results
+proach is known as the G0 W0 approximation. This              are not significantly affected by this choice: for naphtha-
+method is often very successful, but nevertheless it is       lene, the lattice parameters (and volume) obtained using
+somewhat dependent on the DFT starting point. GW              DF-cx with PBE PPs differ by no more than 1.2% (0.2%)
+can be evaluated, in principle, self-consistently by dif-     from standard DF-cx calculations.
+ferent approaches68–74 , mitigating the starting point de-       To test the reliability of our PP choice, we bench-
+pendence by iterating over eigenenergies and eigenvalues.     marked our calculations of solid naphthalene (see Sec-
+Given the computational demands associated with acene         tion III A below for details) against other codes and
+crystals, in the following we limit our study to the diago-   pseudopotentials. The lattice parameters obtained with
+nal part of Σ and, if going beyond G0 W0 , we only update     our USPPs, the FHI NC-PPs available at the QE site88 ,
+the eigenvalues in G and W , retaining the original DFT       and Garrity-Bennett-Rabe-Vanderbilt (GBRV)89 USPPs
+wavefunctions under the assumption that they are close        agree within 0.3%. Additionally, we relaxed the struc-
+to the true QP wavefunctions.66,75–77 We denote this sort     ture of benzene with the VASP code, using projector-
+of partial self-consistency as evGW, where “ev” empha-        augmented waves 90 with vdW-DF2, obtaining lattice
+sizes that self-consistency is achieved only with respect     parameters in agreement with those obtained from Quan-
+to the eigenvalues.                                           tum Espresso to within 0.4%. Note that a higher, 110 Ry
+   Given the GW-computed quasi-particle energies, as          cutoff was used for the FHI-NC-PPs calculations. The
+well as the static inverse dielectric function computed       GBRV-USPPs were constructed to be exceptionally hard
+within the random phase approximation, we compute             and required a plane wave cutoff of 350 Ry to achieve a
+neutral excitation energies by solving the Bethe-Salpeter     convergence threshold of 1 meV/atom.
+equation (BSE).78–80 We use an approximate form of               For each acene crystal, using any of the DFT approxi-
+the BSE, developed within a first principles framework        mations mentioned above, following geometry optimiza-
+by Rohlfing and Louie,80 which involves solving a new         tion we compute cohesive energies (Ecoh ) via the stan-
+eigenvalue problem obtained from an electron-hole in-         dard relation,
+teraction matrix. We perform the solution within the                                             1
+Tamm-Dancoff approximation (TDA) and limit our cal-                             Ecoh = E gas − E solid ,                 (1)
+                                                                                                N
+culations to low-lying singlet and triplet excitations.
+                                                              where E gas is the total energy of an isolated monomer,
+                                                              E solid is the total energy of the solid phase unit cell, and
+                                                              N is the number of molecules per unit cell in the solid.
+              C.   Computational details                         Our MBPT calculations are performed with the
+                                                              BerkeleyGW package.91 Capitalizing on its efficient
+   Our DFT calculations are performed with the Quan-          and highly-parallel diagonalization techniques, Kohn-
+tum Espresso (QE) package81 , unless otherwise in-            Sham starting-point wavefunctions and eigenenergies for
+dicated. Γ-centered Monkhorst-Pack k-point grids are          input into MBPT are generated with the ABINIT soft-
+used for all calculations.82 For geometry optimizations,      ware suite.92
+where Hellmann-Feynman forces and stress tensor com-             In some of the calculations given below, we deliber-
+ponents are minimized, we use a number of k-points            ately use experimental lattice constants to study the ac-
+along each crystallographic direction corresponding to a      curacy of the GW-BSE appproach independent of geom-
+spacing of ∼3.3 Bohr−1 between neighboring points in          etry. For consistency, we use room-temperature experi-
+reciprocal space. All Hellmann-Feynman forces are con-        mental data for all acenes93–97 except for hexacene, where
+verged to 10−5 Ry/Bohr and total energies are converged       crystallographic data are only available at T = 123 K 98 .
+to 10−5 Ry. We use a plane-wave basis kinetic energy cut-     For pentacene, we simulate the thin-film polymorph (de-
+off of 55 Ry. Taken together, these choices lead to total     noted below as P3 ), because it is the one most commonly
+energies converged to 1 meV per atom.                         measured in experiment (see Sect.III A). In other calcu-
+   For calculations with vdW-DF functionals, we use           lations, meant to explore the impact of the geometry,
+the ultrasoft pseudopotentials (USPPs) given in Ref. 50;      we use the optimized geometry obtained from the DFT
+for vdW approaches based on inter-atomic pairwise             calculation.
+potentials, we use Fritz-Haber-Institut (FHI) norm-              We note that BerkeleyGW requires NC-PPs as in-
+conserving (NC) pseudopotentials (PPs),83 because these       put, but we use USPPs for lattice optimizations. Prior
+                                                                                                                       4
+
+to the MBPT calculations, we relaxed the internal coor-       cx approaches. A similar comparison for cohesive ener-
+dinates using NC-PPs within PBE, with the lattice pa-         gies is given in Fig. 2b. A complete set of structural
+rameters held fixed at their optimized value. This was        data, along with error estimates, is given in Appendix A.
+found to result in negligible differences for both geometry   For tetracene, its polymorph 1 (P1 ) also called high-
+and excited state properties. We followed the same inter-     temperature polymorph,97,106 referred to as TETCEN
+nal relaxation procedure when using experimental lattice      in the Cambridge Structural Database (CSD),107
+vectors, following Ref. 23.                                   is considered. This crystal is known to undergo a
+   Our GW calculations involve a number of convergence        pressure-assisted transition to a different high-pressure
+parameters, which are set to assure that quasiparticle        or low-temperature polymorph (P2 ),29,108–112 the study
+gaps, highest-occupied molecular orbitals (HOMOs), and        of which is beyond the scope of this work. This low-
+band edge energies for crystals and gas-phase molecules       temperature polymorph has been successfully described
+are converged to ∼0.1 eV. Our dielectric function is ex-      within the TS method in Ref. 49. For pentacene, three
+tended to finite frequency using the generalized plasmon-     well-known polymorphs are considered, using experimen-
+pole (GPP) model of Hybertsen and Louie,66 , modified         tal structures available in the CSD.107 These are:
+to handle non-centrosymmetric systems by Zhang et al.99
+For solids, we use an energy cutoff of 10 Ry to truncate         • P1 : the Campbell structure, referred to as PEN-
+the sums in G-space used for the calculation of the po-            CEN in the CSD. It is also known as the high-
+larizability. We sum over a number of unoccupied bands             temperature polymorph. Found first by Campbell
+equivalent to an energy range of 30 eV. Response func-             in 1962,97 it had been lost until reported again in
+tions and Σ are evaluated on k-point meshes selected to            2007.113
+lead to a spacing of ∼1.6 Bohr−1 in reciprocal space. For        • P2 : a common bulk-phase polymorph, referred to
+gas-phase molecules, we use an energy cutoff of 25 Ry              as PENCEN04 in the CSD.28,114
+for the polarizability and sum over a number of unoc-
+cupied bands equivalent to 52 eV above the lowest un-            • P3 : a common thin-film polymorph, referred to as
+occupied molecular orbital (LUMO) energy. Molecules                PENCEN10 in the CSD.94,114 Most experimental
+are modeled in a large supercell with dimensions cho-              data correspond to this polymorph.
+sen to contain 99% of the HOMO (see Supplemental
+                                                                 Fig. 2 shows, as expected, that standard (semi-)local
+Material for details), with the internal coordinates re-
+                                                              functionals do not agree well with experimental results.
+laxed using PBE. We use the static-remainder technique
+                                                              PBE significantly overestimates lattice constants and un-
+to accelerate the convergence with number of bands,100
+                                                              derestimates cohesive energies. This can be attributed di-
+using the version of Deslippe et al.101 A Wigner-Seitz
+                                                              rectly to the lack of treatment of dispersive interactions
+Coulomb truncation scheme is used to eliminate interac-
+                                                              in PBE.40 LDA lattice constants are underestimated by
+tions between molecules of neighboring cells in the peri-
+                                                              ∼3%, but this binding is spurious, rather than reflecting
+odic lattice.91 These convergence criteria and parameters
+                                                              a successful treatment of dispersive interactions.40 The
+have been tested and used in Ref. 102.
+                                                              spurious binding is attributable to the insufficient treat-
+   For our BSE calculations, the BSE coupling matrix is
+                                                              ment of exchange.115,116
+constructed with 8 valence × 8 conduction bands, suf-
+                                                                 Turning to explicit vdW functionals, Fig. 2a clearly
+ficient to converge the transition energies involving the
+                                                              shows that DF1 overestimates lattice constants essen-
+lowest states, as shown explicitly in the supplemental ma-
+                                                              tially as much as LDA underestimates them. This is
+terial. Two k-point meshes are used: a coarse k-point
+                                                              because DF1 is based on the exchange of revPBE,117 a
+mesh for the BSE kernel and a fine k-point mesh to cal-
+                                                              variant of PBE with exchange that is too repulsive for the
+culate the low-lying excited states. Coarse k-meshes are
+                                                              systems studied here. At the same time, Fig. 2b shows
+chosen to be the same as those used in the GW step,
+                                                              that it still overestimates binding energies. We note that
+while fine meshes are the same as in the geometry opti-
+                                                              cohesive energies of acene crystals have been calculated
+mization. These k-meshes are explicitly provided in the
+                                                              with DF1 prior to this work,22,34,37 with differing con-
+Supplemental Material.
+                                                              clusions. While DF1 results for Ecoh are in agreement
+                                                              with experiment to better than 5% in Refs. 22 and 34,
+                                                              Ref. 37 reports DF1 results that deviate from experiment
+         III.   RESULTS AND DISCUSSION
+                                                              by as much as ∼ 17%. These differences can be partially
+                                                              explained by the different choices these studies made for
+    A.    Lattice Geometry and Cohesive Energy                the experimental reference data. Some differences re-
+                                                              main even if we use the experimental values of Ref. 41,
+  We begin our discussion by considering the effect of        in which the contributions due to vibrations are carefully
+the chosen DFT approximation on the crystal geome-            taken into account, throughout. Despite having carefully
+try and cohesive energy. Experimental unit cell vol-          ruled out lack of convergence in our calculations, the av-
+umes for the acene crystals are compared in Fig. 2a           erage percentage error (see Table. VI in the Appendix)
+with volumes calculated using the LDA, PBE, PBE-D2,           in Ecoh is then somewhat larger in the present study, be-
+PBE-TS (from Refs. 37 and 49), DF1, DF2, and DF-              ing 16%, 10% and 9% in the data of our work, Ref. 37,
+                                                                                                                                      5
+
+                                              Pentacene
+    a) 500                                                          b)                      3
+                                             P1    P2   P3
+                                                                                                  Exp    TS†
+                                                                                           2.5   LDA     DF1
+
+
+
+
+                                                                    Cohesive energy (eV)
+    Volume / mol. (Å3 )
+
+                           400                                                                   PBE     DF2
+                                                                                            2      D2   DF-cx
+
+
+                           300                                                             1.5
+                                                                                                                      Pentacene
+                                            Exp.         TS†                                1                   2.1
+                                                                                                                      P1   P2   P3
+
+                           200             Exp.∗         DF1                                                    1.9
+                                            LDA          DF2                               0.5                  1.7
+                                            PBE         DF-cx
+                           100               D2                                             0
+                                 1   2 3 4 5 5 5                6                                 1     2   3     4     5         6
+                                     Number of rings                                                    Number of rings
+FIG. 2. (Color online) (a) Volume per molecule for the acene crystals, calculated using different approximations within DFT
+– LDA (black empty-circles), PBE (pink stars), DF1 (blue crosses), DF2 (green empty-circles), DF-cx (red filled-triangles),
+PBE-D2 (orange empty-triangles), and PBE-TS (brown squares). These are compared to low temperature experimental data,
+for T≤ 16 K from Refs. 95, 103, and 104 and extrapolated to 0 K as indicated in Appendix A (in black filled-circles). For two
+pentacene polymorphs and hexacene, only experimental data at T≥ 90 K is available94,97,98 (in dark-grey stars). (b) Cohesive
+energies Ecoh for the acene series, obtained with the same set of approximations as in (a). Experimental Ecoh (black filled-
+circles) are obtained from enthalpies of sublimation (Ref. 105 see text). Inset: calculated Ecoh for three pentacene polymorphs.
+† PBE-TS cohesive energies are taken from Ref. 41 and PBE-TS volumes from Refs. 37 and 49.
+
+
+and Ref. 22, respectively. For the lattice parameters,                 Turning to pair-wise correction methods, Fig. 2a shows
+however, we find good agreement (within 2%) with those              that lattice vectors calculated with D2 and TS correc-
+reported previously.                                                tions, added to an underlying PBE calculations, are
+                                                                    within 3% and 1% of experimental data, respectively,
+  Fig. 2a clearly shows that DF2 improves geometries                whereas cohesive energies are within 30% to 40% of ex-
+with respect to DF1, in agreement with the findings in              periment. Thus, they perform as well as DF methods in
+Ref. 37, with further improvement gained from DF-cx.                terms for geometries prediction but somewhat worse for
+Specifically, lattice constants are within 2% and 1%, re-           cohesive energies.
+spectively, of experiment. Fortuitously, DF2 values for
+the lattice parameters are similar to the thermally ex-
+panded lattice parameters obtained at room tempera-
+ture. This is attributable to a cancellation of errors, as
+we model the structure at zero Kelvin. Recent work45 re-
+ported that a DF2 variant, called rev-vdW-DF2,118 pre-
+dicts lattice constants for benzene, naphthalene, and an-              To summarize, both the latest pair-wise approaches
+thracene that are in remarkable agreement with low tem-             and the latest DF methods can provide lattice param-
+perature experiments (within 0.5%). For tetracene and               eters in outstanding agreement with experimental data
+P2 pentacene, good agreement with room temperature                  (within ∼1%) across the acene series, illustrating the pre-
+experiments is found,45 but the reported volumes over-              dictive power of vdW methods and allowing for an excel-
+estimate structures extrapolated to zero Kelvin by ∼2%              lent geometrical starting point for MBPT calculations.
+for pentacene P2 and 8% for tetracene.                              However, errors in cohesive energy are still on the order
+                                                                    of 10% to 30%. In future work, it would be interesting to
+   For cohesive energies, Fig. 2b shows that neither DF2            examine whether techniques which add non-locality be-
+nor DF-cx improve meaningfully upon DF1 cohesive en-                yond pair-wise interactions, particularly the many-body
+ergies. Specifically, the values obtained for DF2 are in            dispersion method41,43 can reduce the error in the co-
+excellent agreement (within 0.05 eV) with those reported            hesive energy. It would also be interesting to examine
+in Ref. 37, as is the conclusion regarding lack of improve-         Grimme’s “D3” method57 , which also attempts to mimic
+ment over DF1. Interestingly, rev-vdW-DF2 reduces the               many-body terms and other features that may improve
+error in cohesive energies with respect to experiments by           calculated lattice constants and energies with respect to
+half.45                                                             the “D2” approach.119
+                                                                                                                                       6
+
+    Exp.                   GW          GW-BSE                                                 Number of rings
+                         Number of rings                                               1         2     3      4                 5     6
+                                                                          GW         9.2       8.0    7.1    6.6               6.4   6.1
+                    1     2      3     4      5     6                  IP
+                                                                          Exp.    9.0 – 9.3 8.0 – 8.2 7.4 7.0 – 7.2            6.6   6.4
+         10                                                               GW         -1.2       0.1   0.7    1.2               1.8   2.1
+                                                                       EA
+          8    a)                                             0.6
+                                                                          Exp.   -1.2 – -1.4   -0.2   0.5    1.0               1.3
+                                                                          GW-BSE     4.9        4.0   3.4    2.7               2.2   1.9
+   IP
+
+
+
+
+                                                                       S1
+          6                                                   0.3         Exp.        4.8       4.0   3.5    2.7               2.2   1.9
+                                                              0.0         GW-BSE     4.0        2.8   1.8    1.1               0.7   0.5
+                                                                       T1
+          2                                                               Exp.        3.7       2.6   1.9    1.3               0.9
+               b)                                             0.6
+   EA
+
+
+
+
+          0
+                                                              0.3      TABLE I. Charged and neutral excitation energies for gas-
+         -2                                                            phase acene molecules. Theoretical and experimental ioniza-
+                                                              0.0      tion potential (IP), electron affinity (EA), lowest singlet (S1 )
+          6                                                            and lowest triplet (T1 ) energies are tabulated, in eV. IP and
+               c)                                             0.6      EA are calculated within G0 W0 , as described in the text. S1
+          4
+   S1
+
+
+
+
+                                                                       and T1 are calculated within the G0 W0 -BSE approach. Ex-
+                                                              0.3      perimental data are taken from Refs. 120–122.
+          2
+                                                              0.0
+          4
+               d)                                             0.6      use of the PPM, as elaborated in Ref. 123. For the largest
+   T1
+
+
+
+
+          2                                                            acenes, the deviations of the IP and EA values from ex-
+                                                              0.3      periment possess opposite signs, leading to a larger error
+          0                                                   0.0      (up to 0.7 eV) in the fundamental gap, i.e., the differ-
+                    1     2      3     4      5     6                  ence between the IP and the EA. Many recent studies –
+                                                                       see, e.g., Refs. 68, 77, 124–129 – indicate that a different
+                         Number of rings                               starting point for the G0 W0 calculation, or use of self-
+                                                                       consistent GW scheme, will improve agreement with ex-
+FIG. 3. (Color online) Excited-state energetics, in eV, of the         periment. Based on the results of, e.g., Refs. 23, 68, and
+gas-phase acene molecules. (a) Ionization potentials (IPs)             130 for some of the acenes, we expect the same here, but
+and (b) electron affinities (EAs) calculated within GW (solid          do not pursue this point further as we wish to facilitate
+orange [light-grey] lines [circles]), as well as the (c) lowest sin-   the comparison to the solid-state data given below.
+glet (S1 ) and (d) lowest triplet (T1 ) excitation energies calcu-       The neutral singlet and triplet excitation energies, S1
+lated within GW-BSE (solid pink [grey] lines [triangles]). All         and T1 , computed with G0 W0 -BSE, are close to exper-
+results are compared with experimental data (dashed black              imental values, deviating by 0.3 eV at most across the
+lines [squares]),120–122 . The absolute deviation from exper-          entire series. Given that, as mentioned above, the funda-
+iment is given in eV in grey dashed-lines (right axis). As             mental gap exhibits larger discrepancies between theory
+discussed in the text, G0 W0 based on a PBE starting point
+                                                                       and experiment, the accuracy of the neutral excitation
+and the GPP approximation is used throughout.
+                                                                       energies is likely to be partly due to a cancellation of er-
+                                                                       rors between the G0 W0 gaps and BSE binding energies.
+
+ B.     Charged and neutral excitations of gas-phase
+                      molecules                                              C.    Charged excitations in acene crystals
+
+   Before discussing excitations in acene solids, it is in-               We begin our MBPT analysis of the acene series by
+structive to consider charged and neutral excitations                  intentionally using the experimental geometries 93–98 as
+in the constituent gas-phase molecules. Computed re-                   our starting point. This is done to isolate errors associ-
+sults for the ionization potential (IP) and electron affin-            ated with the particular flavor of the GW-BSE method
+ity (EA), computed with the GW approach, as well as                    used here from errors related to structural deviations (the
+lowest-energy singlet (S1 ) and triplet (T1 ) excitation en-           latter are analyzed below, in Section III E).
+ergies, computed within the GW-BSE approach, of gas-                      GW results for the fundamental gap, compared wher-
+phase acene molecules, are given in Fig. 3. The same                   ever possible to experiment, are summarized in Table II.
+data are presented in Table I.                                         GW bandstructures are provided in the Supplemental
+   We find that calculated G0 W0 -computed IPs and EAs                 Material. Table II shows that the G0 W0 results fully
+are within 0.4 eV of experiment, with an average error of              capture the quantum-size effect, i.e., the reduction of the
+only 0.2 eV. The agreement is particularly good for the                fundamental gap value with increasing acene size. Fur-
+smallest acenes,102 for reasons that have to do with our               thermore, for most acenes G0 W0 yields fundamental gaps
+                                                                                                                             7
+
+
+# of                                ∆g                         # of                T1                           S1
+rings           G0 W0            evGW                Exp.      rings    G0 W0     evGW      Exp.     G0 W0     evGW      Exp.
+  1              7.3               8.2             7.6 – 8.0     1       4.1        4.3      3.8      5.0        5.4      4.7
+  2              5.5               6.1             5.0 – 5.5     2       2.9        3.1      2.6      4.2        4.5      3.9
+  3              4.0               4.5             3.9 – 4.2     3       2.0        2.2      1.9      3.3        3.7      3.1
+  4              2.9               3.5             2.9 – 3.4     4       1.4        1.5      1.3      2.4        2.8      2.4
+  5              2.2               2.8             2.2 – 2.4     5       1.0        1.1      0.9      1.8        2.1      1.9
+  6              1.3               1.8                           6       0.6        0.7      0.6      1.0        1.4      1.4
+
+
+TABLE II. Fundamental gaps of the acene crystal series,        TABLE III. Lowest singlet, S1 , and triplet, T1 , excitation en-
+computed within the G0 W0 and evGW approximations, com-        ergies of the acene crystals, computed within the G0 W0 and
+pared to experimental data, taken from Refs. 131–140. Exper-   evGW-BSE approximations, compared to experimental data,
+imental lattice constants have been used in the calculations   taken from Refs. 122, 149, 150 and references therein. Exper-
+throughout. All quantities are in eV.                          imental lattice constants have been used in the calculations
+                                                               throughout. All quantities are in eV.
+
+
+in good agreement with experimental data. The com-
+puted data somewhat underestimate experimental val-            employ the same rigid shift procedure here, as follows.
+ues for n=3 to n=5, an effect partly compensated for by        First, because absolute potentials are never defined in pe-
+gap reduction owing to thermal expansion in the exper-         riodic boundary calculations, we align the top of the GW-
+imental data, which was taken at higher temperatures,          computed valence band with experimental values from
+mostly room temperature. However, our G0 W0 values             Refs.143,144 . To compare with experiment, each photoe-
+decrease too rapidly with size. Thus for naphthalene the       mission and inverse photoemission curve is aligned with
+fundamental gap is somewhat overestimated but for pen-         the GW valence and conduction band DOS, respectively.
+tacene it is somewhat underestimated. For hexacene, the        Based on the results of Table II, this procedure is per-
+G0 W0 is no longer acceptable. While we are not aware of       formed using G0 W0 values for benzene to pentacene and
+an experimental fundamental gap value, the G0 W0 value         evGW values for hexacene. The resulting comparison,
+we compute is smaller than the singlet excitation energy       across the entire acene series, is shown in Fig. 4, with
+(see Section III D below) and therefore certainly under-       the rigid shift employed indicated on the figure. In per-
+estimates the fundamental gap.                                 fect agreement with the findings of Ref. 23, the rigid shift
+                                                               is very significant, with a combined PES and IPES shift
+   As in the gas-phase data, we attribute the discrepancy      of ∼1 eV. But after employing it, we find excellent agree-
+in hexacene to a starting point effect. We note that for       ment, in both energy position and line-shape, for all the-
+pentacene, it was shown in Ref. 23 that the QP gaps            oretical and experimental spectra across the entire acene
+obtained with the plasmon-pole model and with a full-          series in a region up to ∼6 eV from the Fermi level.
+frequency integration are essentially identical. Therefore,
+we do not believe that use of the plasmon-pole approx-
+imation plays a major role here. The evGW method
+partly compensates for starting point effects. However,                D.   Neutral excitations in acene crystals
+as also shown in Table II, evGW tends to overestimate
+the experimental gaps. For hexacene, however, we prefer           Having discussed charged excitations, we now turn to
+the evGW value as it offers a compensation for the un-         analyzing lowest-energy singlet and triplet excitation en-
+derestimate of the G0 W0 -computed value (an issue con-        ergies in the acene crystals. As in the previous sub-
+firmed by optical data presented in Section III D below).      section, we use experimental lattice parameters in order
+   Beyond bandgap values, it is very instructive to com-       to avoid errors associated with geometry.
+pare the GW-calculated electronic density of states               Lowest neutral excitation energies, computed with
+(DOS) to measured photoemission and inverse photoe-            both G0 W0 -BSE and evGW-BSE, are compared with ex-
+mission spectroscopy (PES and IPES, respectively) data.        perimental data in Fig. 5. The same comparison is also
+Such a comparison is not straightforward. Experimen-           summarized in Table III. Importantly, no significant tem-
+tally, it is challenging to pinpoint absolute conduction       perature dependence of low-lying excitation energies is
+and valence band energies.141,142 As discussed in detail       observed experimentally,151,152 allowing for comparison
+in Ref. 23, agreement between theory and experiment is         to experiments performed at higher temperatures. Both
+often observed only after a rigid shift (of valence and        calculations correctly predict the experimental quantum-
+conduction bands separately). This rigid shift has been        size-effect trend, i.e., the decrease of S1 and T1 excitation
+attributed to a combination of several physical effects,       energies with increasing acene size. However, for the S1
+including surface polarization, vibrational contributions,     excitations the computed slope is somewhat too large.
+and a dynamical lattice, and to some extent also to resid-     Thus, the G0 W0 -BSE calculation overestimates experi-
+ual errors of both theory and experiment. We therefore         ment by 0.25 eV for benzene, agrees perfectly with ex-
+                                                                                                                                             8
+
+
+                            a) Benzene                                                               b) Naphthalene
+   Intensity (arb. units)
+
+
+
+
+                                                                            Intensity (arb. units)
+                                              a
+                                        PES + 0.8 eV IPESc + 0.5 eV                                            PESa + 1.2 eV
+
+
+
+                                          PESb
+                                                           IPESd − 0.3 eV                                                       IPESc
+                                                                                                                         b
+                                                                                                                   PES
+                                      G0 W0
+                                                                                                          G0 W0     val. thresholde
+                                                                e
+                                               val. threshold
+
+
+                            -6   -4      -2   0    2  4                 6                            -6   -4      -2   0    2  4            6
+                                          Energy (eV)                                                              Energy (eV)
+                            c) Anthracene                                                            d) Tetracene
+   Intensity (arb. units)
+
+
+
+
+                                                                            Intensity (arb. units)
+                                              a
+                                        PES + 0.9 eV                                                           PESa + 0.6 eV
+
+                                                                                                                                IPESc − 0.5 eV
+                                                                    c
+                                                           IPES − 0.2 eV
+                                                                                                                   PESb
+                                 PESb
+                                                                                                          G0 W0
+                                 G0 W0                          e
+                                               val. threshold                                                       val. thresholde
+
+
+
+
+                            -6   -4      -2   0    2  4                 6                            -6   -4      -2   0    2  4            6
+                                          Energy (eV)                                                              Energy (eV)
+                            e) Pentacene
+   Intensity (arb. units)
+
+
+
+
+                                                                            Intensity (arb. units)
+
+
+
+
+                                                           IPESh − 1.0 eV                            f) Hexacene
+                                                  h
+                                          PES
+
+
+                                              PESg
+
+                                                           IPESg − 0.6 eV                                 evGW
+                                              PESa + 0.8 eV
+
+                                  G0 W0
+                                               val. thresholde
+
+
+
+                            -6   -4      -2   0    2  4                 6                            -6   -4      -2   0    2  4            6
+                                          Energy (eV)                                                              Energy (eV)
+FIG. 4. Quasiparticle DOS, calculated using GW, compared with experimental photoemission (PES) and inverse photoemis-
+sion (IPES) spectra. Two different GW approximations are used: G0 W0 for benzene through pentacene and evGW for hexacene
+– see text for details. The calculations are based on experimental lattice parameters93–98 to avoid errors related to geometry.
+    In each case, the DOS is interpolated on a dense mesh of k-points using maximally-localized Wannier functions,145 and
+      broadened by convolution with a 0.4 eV Gaussian. Bandstructures and DOS with lower broadening are given in the
+supplemental material. Experimental PES data have been rigidly shifted, by an amount indicated in the figure, so as to match
+   reference ionization potential data of Refs. 143 and 144 (pink stars) and PES data of Ref. 146 (orange points). The GW
+valence band edge has been set to the same position. IPES data have then been shifted to match the GW-computed position
+  of the conduction band edge. See text for full details. a Ref. 147. b Ref. 146. c Ref. 120. d Ref. 148. e Refs. 143 and 144.
+                                                                                                                                     9
+
+                                               Number of rings
+                                                                                                        G0 W0
+                                          1    2    3    4    5       6
+      Excited State Energetics (eV)   6                                                    using lattice-parameters from:
+                                                                                  LDA      PBE     DF1      DF2     DF-cx     Exp.
+
+                                      4                                   Benzene
+                                                                          ∆g      6.6      7.9      7.3     7.1      7.1      7.3
+                                      2                                   vbw     0.7      0.2      0.4     0.5      0.5      0.4
+                                          S1                              cbw     0.7      0.4      0.5     0.5      0.5      0.5
+
+                                                               Exp.       Naphthalene
+                                      4                                   ∆g     4.9       6.0      5.6     5.5      5.3      5.5
+                                                        G0 W0 -BSE
+                                                                          vbw    0.7       0.2      0.4     0.5      0.5      0.5
+                                                        evGW -BSE
+                                                                          cbw    0.7       0.2      0.3     0.3      0.4      0.3
+                                      2
+                                          T1                              Anthracene
+                                                                          ∆g      3.6      4.5      4.3     4.1      4.0      4.0
+                                          1    2   3    4    5        6   vbw     0.6      0.2      0.3     0.4      0.4      0.3
+                                                                          cbw     1.0      0.3      0.5     0.6      0.7      0.6
+                                               Number of rings
+                                                                          Tetracene
+FIG. 5. (Color online) Lowest lying excitation energies                   ∆g      2.4      3.6      3.1     2.9      2.7      2.9
+of acene the crystals, computed within the G0 W0 (pink                    vbw     0.7      0.1      0.3     0.4      0.6      0.4
+(medium-grey) lines (triangles)) and evGW-BSE orange                      cbw     0.9      0.3      0.5     0.7      0.8      0.7
+((grey) lines (circles)) approximations, compared to exper-
+imental data (black dotted lines (squares)), taken from                   Pentacene P3
+Refs. 122, 149, 150 and references therein. Experimental lat-             ∆g      1.5      2.9      2.3     2.1      1.8      2.2
+tice constants have been used throughout. Lowest singlet (S1 )            vbw     1.2      0.3      0.6     0.7      0.9      0.7
+and triplet (T1 ) energies are shown at the top and bottom                cbw     1.1      0.3      0.6     0.7      0.9      0.7
+panels, respectively.
+
+                                                                          TABLE IV. Effect of structure on the k-point averaged fun-
+                                                                          damental gap, ∆g , along with the valence band width (vbw)
+periment for tetracene, and underestimates experiment                     and the conduction band width (cbw), all calculated in the
+by 0.4 eV for hexacene. Once again, we view this pri-                     G0 W0 approximation. All values were obtained from lat-
+marily as a starting point issue. For the larger acenes,                  tice parameters fully relaxed within the LDA, PBE, DF1,
+the PBE gap is very small (only 0.2 eV for hexacene).                     DF2 and DF-cx functionals, as well as from experimental
+                                                                          parameters.93–95,104,106 All energies are in eV.
+Likely this results in increasingly worse over-screening, as
+in a simple model the dielectric constant is inversely pro-
+portional to the square of the quasi-particle gap.153 This
+assertion is supported by the fact that for hexacene, a
+GW0 approach,71,100 in which self-consistency in G alone
+is performed, results in a singlet energy of S1 =1.06 eV,
+which is almost equivalent to the G0 W0 -BSE value of                        As mentioned above, all BSE calculations we have pre-
+1.00 eV. A starting point with a larger gap, as in evGW-                  sented use the Tamm Dancoff approximation (TDA).
+BSE, leads to reduced screening and may therefore yield                   The TDA was found to be accurate in describing the
+better neutral excited states for this system. In particu-                lowest-lying excitations of molecules and small silicon
+lar, the evGW-BSE value for hexacene is in perfect agree-                 clusters,128,155,156 although this does not necessarily hold
+ment with experiment. However, as with the charged                        for larger chemical entities.157,158 The applicability of
+excitations, evGW-BSE is not a panacea.71,154 it shifts                   the TDA in three-dimensional solids has not been ex-
+the G0 W0 -BSE results by an almost uniform 0.3-0.4 eV,                   plored as much. Nevertheless, as an example we find for
+leading to an overestimate of S1 for the smaller acenes.                  the tetracene crystal that the S1 value obtained within
+   The lowest triplet excitation energies, T1 , obtained                  G0 W0 -BSE is negligibly affected (by only 0.02 eV) upon
+from G0 W0 -BSE show a generally similar trend, but                       relaxing the TDA.
+agree well with experiment for hexacene and show a mod-
+est overestimate for the smaller acenes, up to 0.3 eV for
+benzene and naphthalene. As with the singlet excita-                        To summarize, within our other assumptions – a PBE
+tions, evGW-BSE calculations predict T1 values in good                    starting point, the GPP model, and the Tamm-Dancoff
+agreement with experiments (within 0.2 eV) for pen-                       approximation, G0 W0 -BSE is the optimal choice for the
+tacene and hexacene, but overestimate T1 for the smaller                  smaller acenes, up to tetracene, but evGW is better for
+systems, by as much as 0.5 eV for benzene.                                the largest acenes – hexacene and perhaps pentacene.
+                                                                                                                          10
+
+  E.   Effects of structure on charged and neutral                                       Number of rings
+                      excitations
+                                                                                     1      2     3      4       5
+   Having discussed the need for adequate treatment of                       0.8
+vdW interactions for predicting geometry and indepen-                                                        E = S1
+dently the accuracy of approximations within the GW                          0.4
+and BSE schemes, we now turn to question of the sensi-                       0.0
+
+
+
+
+                                                                 E − E Exp. (eV)
+tivity of the calculated excitations to structural parame-                  -0.4
+ters.
+   We start by considering charged excitations obtained                     -0.8
+within the GW approximations and assessing their de-                         0.6
+pendence on the geometry obtained from LDA, GGA, the                                                         E = T1
+                                                                             0.3
+three van-der-Waals functionals (DF1, DF2, and DF-cx)
+used in Section III A above, and experiment. The cal-                        0.0
+                                                                                   LDA        DF2
+culated k-point averaged G0 W0 -calculated fundamental                      -0.3   PBE       DF-cx
+gap, ∆g , along with the valence band width (vbw) and
+the conduction band width (cbw), for each of the geome-                     -0.6   DF1
+tries, is given in Table IV. Hexacene is excluded here                               1      2     3      4       5
+and below so that we can restrict our attention to G0 W0
+and avoid additional differences arising from comparison                                 Number of rings
+between G0 W0 and evGW.
+   As shown in Section III A above, and in more detail in     FIG. 6. (Color online) Effect of structure on the lowest sin-
+Appendix A below, lattice parameters increase with func-      glet (S1 ) and triplet (T1 ) excitation energies, calculated in
+tional in the following sequence: LDA/DF1/DF2/DF-             the G0 W0 -BSE approximation, given as deviation from ex-
+cx/PBE. Interestingly, Table IV shows that ∆g follows         perimental data (see Refs. in Table. III). All computed val-
+                                                              ues were obtained from lattice parameters fully relaxed within
+the same trend, while vbw and cbw follow the oppo-
+                                                              the LDA (black empty circles), PBE (pink stars), DF1 (blue
+site trend. These trends can be rationalized as follows:      crosses), DF2 (green empty squares), and DF-cx (red trian-
+the larger the lattice parameters, the smaller the inter-     gles) functionals, and are given as differences from experimen-
+molecular hybridization and the smaller the band-width.       tal values. All energies are in eV.
+Naturally, the smaller the hybridization, the larger the
+bandgap. However, quantitatively the change in band
+widths explains only part of the gap increase with in-
+creasing lattice parameters. A second effect is that the      cant temperature dependence of low-lying excitation en-
+solid-state gap is renormalized from the much larger          ergies is observed,151,152 which facilitates the comparison
+molecular gap (compare with the molecular gaps given          to experimental excitation energies measured at higher
+in Table III B of Section III B because the neighboring       temperatures.
+molecules serve as a dielectric medium whose response            Clearly, the dependence of T1 excitation energies on
+creates a polarization field that reduces the gap.159 As      geometry is quite minimal (±0.1 eV at most across the
+discussed in detail in Refs. 21, 23, 25, this phenomenon,     entire acene series). The same is true for the S1 excita-
+which is well-captured by GW calculation, itself depends      tions in the smaller acenes (benzene and naphthalene),
+on the unit-cell volume. This is because a larger inter-      but the dependence on geometry increases with acene
+molecular separation reduces the polarization field and       size. For pentacene it is already quite significant, with
+therefore the renormalization, thereby increasing the gap.    the S1 excitation values changing by 0.9 eV by switching
+   Finally, we note that the although GW gaps calcu-          from LDA to PBE geometry. As before, agreement with
+lated from the experimental geometry are within 0.1 eV        experiment is much improved by using DF-based geom-
+(0.2 eV for benzene) of those obtained with DF2 lattice       etry, with best results obtained using DF2 and DF-cx
+parameters, it should be taken into account that this is      (with differences between the two being too small to be
+due to the accidental agreement of zero-temperature DF2       physically meaningful), based on which S1 energies are
+volumes with room temperature experimental values (see        found to be within 4%-5% of experimental values. The
+Section III A).                                               remaining discrepancy may be due to terms not included
+   We now turn to the discussion of structure on neu-         in this work, such as zero-point and finite-temperature
+tral excitations. G0 W0 -BSE calculated low-lying excita-     effects associated with lattice vibrations, as well as the
+tions, based on the same geometries used in Table IV          remaining limitations of the GW-BSE approach in gen-
+above, are given in Fig. 6 and in Table V. For compar-        eral and its approximations used here in particular.
+ison, Table V also reports neutral excitations calculated        The sensitivity of excitation energies to geometry, or
+using experimental lattice parameters and shown above         lack thereof, is directly related to the degree of spatial
+to be in good agreement with experimental excitation en-      localization of these states. For large acenes, notably
+ergies (see section III D). As discussed above, no signifi-   pentacene, singlet states have been shown to extend over
+                                                                                                                           11
+
+                                                                     Finally, we note that the calculated neutral excita-
+                             G0 W0 -BSE                           tion energies are not strongly affected by temperature,
+                   using lattice-parameters from: Exp.            at least as reflected by the crystal structure used in our
+                 LDA PBE DF1 DF2 DF-cx Exp.                       calculations. For benzene, naphthalene, and anthracene,
+                                                                  the calculated singlet and triplet energies do not depend
+Benzene                                                           significantly on geometry. For the larger acenes, singlet
+       S1         5.1   5.0    5.0   5.0    5.0    5.0    4.7     energies change by at most 0.15 eV, while triplet ener-
+       T1         4.2   4.0    4.1   4.0    4.1    4.1    3.7     gies change by even less, when varying the volume by
+                                                                  ∼3% (similar to thermal expansion at room tempera-
+Naphthalene
+      S1          4.1   4.2    4.2   4.2    4.1    4.2    3.9     ture). This agrees with the experimentally observed ab-
+      T1          2.9   2.9    2.9   2.9    2.9    2.9    2.6     sence of significant temperature dependence of low-lying
+                                                                  excitation energies.151,152
+Anthracene
+       S1         3.1   3.6    3.5   3.4    3.3    3.4    3.1
+       T1         2.0   2.0    2.1   2.0    2.0    2.0    1.9                      IV.   CONCLUSIONS
+
+Tetracene
+                                                                     In summary, we have studied the structure and excited
+       S1         2.0   2.9    2.5   2.4    2.2    2.4    2.4
+       T1         1.3   1.4    1.4   1.4    1.3    1.4    1.3
+                                                                  state properties of the series of acene-based crystals, from
+                                                                  benzene to hexacene, from first principles using vdW-
+Pentacene P3                                                      corrected-DFT and MBPT. Both vdW-DF and pair-wise
+       S1         1.3   2.1    1.9   1.7    1.5    1.7    1.9     correction methods were found to predict lattice param-
+       T1         0.8   0.9    0.9   0.9    0.8    0.9    0.9     eters in excellent agreement with experimental data. We
+                                                                  find that DF1 overestimates volumes but DF2 improves
+      MAE         0.3   0.4    0.2   0.2    0.3    0.2            over DF1, consistent with the general trends for these
+S1    MA%E        12    12      7     7     10      7             functionals. DF-cx further improves lattice parameters,
+      MAXE        0.6   0.5    0.4   0.3    0.4    0.4            with a residual discrepancy of < 1%). Furthermore, the
+                                                                  relatively simple TS pair-wise approach performs as well
+      MAE         0.2   0.2    0.2   0.2    0.2    0.2
+                                                                  as the best DF methods.
+T1    MA%E         8     9     10     7      6      8
+      MAXE        0.5   0.4    0.4   0.3    0.4    0.4               For acenes in the solid-state, charged excitations are
+                                                                  generally well-described by the G0 W0 method, but par-
+                                                                  tial self-consistency – in the form of the evGW method
+TABLE V. Effect of structure on the lowest singlet (S1 ) and      – is needed for hexacene, likely owing to the PBE start-
+triplet (T1 ) excitation energies, calculated in the G0 W0 -BSE   ing point employed in this study. The results are found
+approximation. All computed values were obtained from lat-        to be sensitive to the geometry used owing to a combi-
+tice parameters fully relaxed within the LDA, PBE, DF1,           nation of inter-molecular hybridization and polarization-
+DF2, and DF-cx functionals, as well as from experimental
+                                                                  induced level renormalization. Neutral low-lying sin-
+values. All energies are in eV. For comparison, experimen-
+tal values, taken from Refs. 122, 149, 150 and references
+                                                                  glet and triplet excitation energies are generally well-
+therein, are also given. Also given are the mean absolute er-     described using the G0 W0 -BSE method. They are gener-
+ror (MAE), defined as i m |Xi − XiExp. |/Nm , with X being
+                         PN                                       ally less sensitive to structure, except for the important
+the excitation energy, the maximum absolute error (MAXE),         case of singlet excitations in larger acenes. There, large
+and the mean absolute percentge error (MA%E), defined as          structural sensitivity is found owing to significant delo-
+MA%E= i m |Xi − XiExp. |/XiExp. /Nm × 100.
+          PN                                                      calization of the singlet state.
+                                                                     Our study reveals the importance of an accurate ac-
+                                                                  count of dispersive interactions as a prerequisite to pre-
+                                                                  dictive calculations of excited states properties in the
+several molecules.19,24,149,160 The degree of delocalization      acene crystals. Furthermore, it suggests routes for pre-
+is larger for smaller unit cell volumes, an effect related        dictive calculations, in which both structures and ex-
+to the increased inter-molecular hybridization161 Delocal-        cited states are calculated entirely from first-principles,
+ization decreases the excitation energy, which is therefore       for broader classes of molecular solids.
+larger the smaller the unit cell is. For short acenes this is
+a much smaller effect and indeed no significant structure-
+dependence is observed. Triplets, however, are always                            ACKNOWLEDGMENTS
+predominantly localized on a single monomer.160,161 , ex-
+plaining their weak dependence on the geometry. Owing               T. Rangel thanks Marc Torrent and Muriel Delaveau
+to this negligible delocalization, triplet energies calcu-        for addressing technical issues in ABINIT, related to
+lated in the gas- and solid-state are within 0.2 eV (com-         the calculation of a large number of bands needed for
+pare with Table I), i.e., the triplet is largely independent      GW calculations. This research was supported by the
+of the solid state environment.                                   SciDAC Program on Excited State Phenomena in En-
+                                                                                                                        12
+
+                       Cohesive energy [eV]                      162 to zero Kelvin, as shown in Fig. 7. Note that we
+             LDA PBE D2 TS∗ DF1 DF2 DF-cx Exp.                   assign the tetracene structures of Ref. 162 to its P1
+  Benzene    0.59 0.12 0.73 0.69 0.64 0.60 0.61 0.52             polymorph.164 For other pentacene polymorphs and hex-
+Naphthalene 0.76 0.15 1.16 1.04 0.93 0.86 0.92 0.82              acene, in the absence of sufficient low-temperature data
+ Anthracene 0.97 0.19 1.61 1.39 1.24 1.16 1.23 1.13              that would allow for extrapolation to 0 K, we compare to
+ Tetracene   1.21 0.25 2.10      1.56 1.42 1.56                  the lowest-temperature experimental data available from
+Pentacene P1 1.46 0.30 2.61      1.88 1.76 1.87                  Refs. 94, 97, and 98, also found in the CSD as PENCEN,
+Pentacene P2 1.48 0.30 2.63      1.88 1.76 1.92                  PENCEN10, and ZZZDKE01. We emphasize that only
+Pentacene P3 1.42 0.31 2.61      1.88 1.79 1.87                  by extrapolating experimental data to 0 K do we observe
+  Hexacene   1.82 0.36 2.18      2.21 2.09 2.30                  consistent trends in the comparison of our relaxed geome-
+                                                                 tries for the various DFT methods used here. In the main
+  MAE [Å]     0.09 0.66 0.35 0.22 0.11 0.05      0.10           text, we have also compared our data to experimental co-
+  MA%E          11   80 42 28 16         8         13            hesive energies. These are taken from Ref. 41, in which
+                                                                 temperature contributions have been removed. A com-
+                                                                 plete set of experimental and calculated lattice parame-
+TABLE VI.       Cohesive energies of the acenes.       Cal-      ters and cohesive energies is given in Tables VII and VI,
+                                      Exp.
+culated (Ecoh. ) and experimental (Ecoh.   ) cohesive ener-      respectively. Lattice parameters are usually found in lit-
+gies are tabulated.   Experimental cohesive energies are         erature following old conventions. However, recent data
+taken from Ref. 41. MAE PN andExp.MA%E are shown for             use the so called Niggli165 (or reduced-) lattice parame-
+all functionals: MAE= i m |Ecoh.   ,i
+                                       − Ecoh.,i |/Nm and        ters. For completeness, we present both conventions in
+         PN       Exp.
+MA%E= i m |Ecoh.     ,i
+                        −Ecoh.,i |/Ecoh.,i /Nm ×100, where Nm    Table VII. Finally, in Fig. 8 we present a comparison of
+is the total number of crystals. ∗ TS data taken from Ref. 41.   theory and experiment for the angles that characterize
+                                                                 the herringbone structure in the three pentacene poly-
+                                                                 morphs. Here, all DF approximations predict angles in
+ergy Materials funded by the U.S. Department of En-              good agreement with experiment. At the experimental
+ergy, Office of Basic Energy Sciences and of Advanced            resolution and temperature, we cannot conclude defini-
+Scientific Computing Research, under Contract No. DE-            tively which DF version performs best for angle predic-
+AC02-05CH11231 at Lawrence Berkeley National Labo-               tion, but see no reason for trends different from those
+ratory. Work at the Molecular Foundry was supported by           reported in the main text.
+the Office of Science, Office of Basic Energy Sciences, of
+the U.S. Department of Energy under Contract No. DE-
+AC02-05CH11231. This research used resources of the
+National Energy Research Scientific Computing Center,
+which is supported by the Office of Science of the U.S.
+Department of Energy. Work in Sweden supported by the
+Swedish Research Council and the Chalmers Nanoscience
+Area of Advance. Work in Israel was supported by the
+US-Israel Binational Science Foundation, the molecular
+foundry, and the computational resources of the National
+Energy Research Scientific Computing center.
+
+
+ Appendix A: Structural properties: benchmarking
+              of vdWs functionals
+
+   In this Appendix we provide detailed information on
+the structural data obtained with different methods for
+the acene family of crystals. As in the main text, we
+consider standard DFT methods (LDA and PBE) and
+different vdW methods: D2, TS, DF1, DF2 and DF-cx.
+   Throughout, we make use of CSD107 data to bench-
+mark our results. For the smallest acenes, low tempera-
+ture data (T ≤ 14 K) is available in the CSD under the
+entries BENZEN14, NAPHTA31, and ANTCEN16,
+from Refs. 95, 103, and 104. Ref. 163 also reports
+low temperature data for benzene, consistent with the
+data of Ref. 103. For tetracene P1 and pentacene-P2,
+we extrapolate experimental data from Refs. 113 and
+                                                                                                                                              13
+
+
+
+
+                        15                                                                            α
+
+
+
+
+                                                                         α, β, γ (degree)
+                        14                                                                  100
+                                        c                                                             β
+                        13
+         a, b, c (Å)
+
+
+
+
+                                                                                            95        γ
+                        12                                                                            β
+                            8           b
+                                                                                            85        γ
+                            7
+                                        a                                                   80        α
+                            6
+                                                                                            75
+                                    0       100    200       300   400                            0        100        200        300    400
+                                             Temperature (K)                                                   Temperature (K)
+
+FIG. 7. (Color online) Extrapolation of unit cell geometry to 0 K: Experimental lattice parameters and angles of
+tetracene P1 (blue) are extracted from Ref. 162 and those of pentacene P2 (orange) are extracted from Refs. 113, also la-
+beled as PENCEN06 - PENCEN08 in the CSD. These are fitted to linear functions of the temperature (dashed lines). The
+fits possess an average root mean square of of 7 × 10−3 and 0.05 Å and 0.02 and 0.05 ◦ for tetracene P1 and pentacene P2 ,
+respectively.
+
+
+
+
+                                                                                                          Pentacene:
+   a) ab plane                                    b) bc plane                                                 DF1 DF2 DF-cx Exp.
+
+                                                                                                               θ 50   47    47     53
+                                                                                                          P1
+                                                                                                               δ 12   12    12     12
+                                        ✓
+                        a                                                                                 P2
+                                                                                                               θ 53   51    50     51
+                                                         b                                                     δ 15   14    16     14
+                                                             c
+                                b
+                                                                                                               θ 55   55    53     54
+                                                                                                          P3
+                                                                                                               δ 5     4    4       4
+
+
+FIG. 8. Angles characterizing the pentacene herringbone structure: (a) Along the ab plane, the herringbone angle, θ, is the
+angle between the two distinct molecules. (b) Along the bc plane, δ is the angle between the c axis and the long axis of the
+molecule. (Right Table) Angles calculated by different DF methods are compared to experimental data from Refs. 94, 97, and
+113, labeled as PENCEN, PENCEN06, and PENCEN10 in the CSD, and measured at 205 K, 120 K and 293 K for pentacene
+P1 , P2 , and P3 , respectively. While θ is almost constant for all polymorphs (θ ∼ 50 − 54◦ ), δ is not. We use Niggli unit-cell
+conventions and all angles are in degrees.
+                                                                                                                             14
+
+TABLE VII: Structural parameters for the acene crystal series. Lattice parameters (using old conventions) a, b and c (in Å),
+lattice angles α, β and γ (in degrees) and unit cell volumes Ω (in Å3 ) are calculated from force and stress relaxation within
+different DFT approximations. Niggli lattice parameters (0 ) are also shown wherever they differ from old-convention ones.
+Experimental lattice parameters measured at low temperature T are also shown. For pentacene, three different polymorphs
+are considered, labeled as P1 , P2 and P3 . ∗ Where possible, lattice parameters are extrapolated to 0 K (see text for details).
+Mean absolute errors (MAE) and mean absolute percentage errors (MA%E) with respect to experimental lattice parameters
+are also shown: In the error evaluation, we only considered experimental data with T ≤ 16 K or data extrapolated to 0 K. For
+brevity, symmetry-imposed angles are omitted. TS data taken from Ref. 37 for benzene and from Ref. 49, 95, 103, and 104 for
+longer acenes. Experimental data are taken from Refs. 94, 95, 97, 98, 103, 104, and 162.
+
+                   LDA        PBE         D2          TS∗        DF1         DF2         DF-cx               Exp.
+
+     Benzene                                                                                         T =4K
+     a             6.37       7.46        6.43        6.95       7.01        6.87        6.73        6.70
+     b             7.06       8.11        7.12        7.58       7.49        7.39        7.40        7.36
+     c             8.96       9.93        9.05        9.51       9.89        9.41        9.49        9.37
+     Ω             403.0      601.1       414.4       500.8      518.4       477.9       473.0       461.8
+
+     Naphthalene                                                                                     T =5K
+     a           7.74         8.99        7.79        8.12       8.48        8.22        8.06        8.08
+     b           5.76         6.31        5.79        5.90       6.06        5.97        5.91        5.93
+     c           8.37         9.13        8.44        8.65       8.79        8.57        8.75        8.63
+     β           125.5        122.1       125.3       124.2      123.3       122.9       124.4       124.7
+     Ω           304.0        438.9       310.4       342.2      377.9       353.3       344.4       340.4
+     a0          5.76         6.31        5.79        5.90       6.06        5.97        5.91        5.93
+     b0          7.40         8.77        7.47        7.85       8.21        8.03        7.87        7.78
+     c0          7.74         8.99        8.44        8.12       8.48        8.22        8.06        8.08
+     α0          112.9        118.1       121.7       114.5      116.4       116.4       113.4       114.1
+     Ω0          304.0        438.9       310.4       342.2      377.9       353.3       344.4       340.4
+
+     Anthracene                                                                                      T = 16 K
+     a             8.10       9.63        8.13        8.40       8.75        8.56        8.38        8.37
+     b             5.80       6.35        5.85        5.91       6.12        6.02        5.96        6.00
+     c             10.82      10.14       10.89       11.12      11.11       11.07       11.23       11.12
+     β             126.5      109.7       126.5       125.2      123.4       124.2       125.6       125.4
+     Ω             408.9      584.4       416.6       451.0      496.7       471.2       456.5       455.2
+     a0            5.80       6.35        5.85        5.91       6.12        6.02        5.96        6.00
+     b0            8.10       9.63        8.13        8.40       8.75        8.56        8.38        8.37
+     c0            8.86       10.14       8.91        9.31       9.65        9.44        9.32        9.26
+     α0            100.9      109.7       100.7       102.4      105.9       104.3       101.4       102.0
+     Ω0            408.9      584.4       416.6       451.0      496.7       471.2       456.5       455.2
+
+     Tetracene P1                                                                                    T = 0 K∗    T = 106 K
+     a            5.89        6.35        5.93        6.05       6.15        6.05        6.05        6.03        6.04
+     b            7.43        9.26        7.43        7.71       8.21        7.92        7.69        7.71        7.79
+     c            12.45       13.60       12.55       13.03      13.34       13.16       12.93       12.88       12.95
+     α            78.4        72.6        78.7        77.7       75.1        75.6        78.0        77.6        77.3
+     β            72.8        71.5        72.5        71.9       71.2        72.0        72.6        72.1        72.1
+     γ            85.1        86.2        85.1        85.7       86.4        86.0        85.5        85.5        85.7
+     Ω            510.0       723.2       516.6       564.1      616.1       579.9       561.3       557.7       566.1
+     a0           5.89        6.35        5.93        6.05       6.15        6.05        6.05        6.03        6.04
+     b0           7.43        9.26        7.43        7.71       8.21        7.92        7.69        7.71        7.68
+     c0           12.09       13.06       12.16       12.53      12.76       12.67       12.53       12.43       12.50
+     α0           99.5        106.2       99.2        100.7      103.8       103.0       100.2       100.6       101.0
+     β0           100.5       99.0        100.2       99.2       98.3        99.0        100.1       99.6        99.5
+     γ0           94.9        93.8        94.9        94.3       93.6        94.0        94.5        94.5        94.3
+     Ω0           510.0       723.2       516.6       564.1      616.1       579.9       561.3       557.7       566.1
+
+     Pentacene P1                                                                                    T = 295 K
+     a            7.37        9.14        7.36        7.66       8.17        7.90        7.59        7.90
+     b            5.97        6.33        6.00        6.04       6.16        6.08        6.07        6.06
+     c            15.54       16.13       15.64       15.85      15.99       15.83       15.98       16.01
+     α            103.8       101.6       103.5                  100.7       101.1       102.0       101.9
+                                                                                                                       15
+
+    β            113.9     110.6       114.0                 111.2     111.8       112.5       112.6
+    γ            84.7      86.2        84.7                  85.8      86.1        85.7        85.8
+    Ω            607.0     856.1       613.5      664.1      736.8     692.7       666.0       692.4
+    a0           5.97      6.33        6.00                  6.16      6.08        6.07        6.06
+    b0           7.37      9.14        7.36                  8.17      7.90        7.59        7.90
+    c0           14.23     15.49       14.33                 15.09     14.84       14.84       14.88
+    α0           83.5      102.9       94.0                  99.1      97.9        95.7        96.7
+    β0           78.1      99.8        102.0                 99.0      99.7        100.7       100.5
+    γ0           84.7      93.8        95.3                  94.2      93.9        94.3        94.2
+    Ω0           607.0     856.1       613.5      664.1      736.8     692.7       666.0       692.4
+
+    Pentacene P2                                                                               T = 0 K∗    T = 120 K
+    a            6.18      6.52        6.25       6.13       6.45      6.33        6.29        6.30        6.29
+    b            7.27      8.91        7.24       7.68       8.07      7.81        7.52        7.67        7.69
+    c            13.80     15.16       13.85      14.53      14.69     14.49       14.35       14.29       14.41
+    α            78.1      71.4        78.5       77.3       74.7      76.2        77.8        77.2        76.9
+    β            89.4      87.6        89.3       87.4       88.5      88.1        88.7        88.5        88.2
+    γ            83.7      84.9        83.5       84.7       84.8      84.6        84.1        84.1        84.4
+    Ω            603.0     830.7       609.8      663.9      734.0     693.5       660.3       669.4       674.7
+
+    Pentacene P3                                                                               T = 293 K
+    a            5.71      6.16        5.78       6.65       6.04      5.88        5.92        5.96
+    b            7.05      8.87        7.01       6.92       7.94      7.76        7.36        7.60
+    c            15.29     15.95       15.41      16.27      15.54     15.53       15.68       15.61
+    α            82.5      81.4        82.8                  81.9      80.8        81.8        81.2
+    β            89.8      87.7        90.0                  87.4      87.9        87.2        86.6
+    γ            90.0      90.0        90.0                  89.4      89.7        89.7        89.8
+    Ω            610.9     861.1       619.2      746.3      737.2     699.0       675.9       697.0
+
+    Hexacene                                                                                   T = 123 K
+    a            6.47      6.60        6.48                  6.43      6.34        6.61        6.31
+    b            6.85      9.10        6.85                  8.04      7.84        7.05        7.70
+    c            15.64     17.30       15.71                 16.79     16.49       16.14       16.48
+    α            95.2      75.1        95.1                  101.1     99.9        95.8        98.8
+    β            92.0      85.4        92.1                  90.6      91.3        91.5        91.2
+    γ            97.1      84.9        97.2                  95.4      95.5        96.8        95.8
+    Ω            684.0     998.4       688.8                 848.3     803.3       743.3       785.9
+
+    MAE [Å]     0.29      0.76        0.25       0.09       0.28      0.11        0.06
+    MA%E         3         9           3          1          3         1           1
+
+
+
+∗
+  Email: trangel@lbl.gov                                         Walker, K. P. Musselman, N. C. Greenham, R. H. Friend,
+1
+  O. D. Jurchescu, M. Popinciuc, B. J. vanWees, and              and A. Rao, Nature Mater. 13, 1033 (2014).
+                                                               6
+  T. T. M. Palstra, Adv. Mater. 19, 688 (2007); H. Klauk,        C. J. Bardeen, Nature Mater. 13, 1001 (2014).
+                                                               7
+  M. Halik, U. Zschieschang, G. Schmid, W. Radlik, and           W.-L. Chan, T. C. Berkelbach, M. R. Provorse, N. R.
+  W. Weber, J. Appl. Phys. 92, 5259 (2002); B. Stadlober,        Monahan, J. R. Tritsch, M. S. Hybertsen, D. R. Reich-
+  M. Zirkl, M. Beutl, G. Leising, S. Bauer-Gogonea, and          man, J. Gao, and X.-Y. Zhu, Acc. Chem. Res. 46, 1321
+  S. Bauer, Appl. Phys. Lett. 86, 242902 (2005); Y. C.           (2013).
+                                                               8
+  Cheng, R. J. Silbey, D. A. d. S. Filho, J. P. Calbert,         F. Cicoira, C. Santato, F. Dinelli, M. Murgia, M. A. Loi,
+  J. Cornil, and J. L. Brédas, J. Chem. Phys. 118, 3764         F. Biscarini, R. Zamboni, P. Heremans, and M. Muccini,
+  (2003).                                                        Adv. Funct. Mater. 15, 375 (2005).
+2                                                              9
+  M. C. Hanna and A. J. Nozik, J. Appl. Phys. 100, 074510        J. E. Anthony, Angew. Chem. Int. Edit 47, 452 (2008).
+                                                              10
+  (2006).                                                        M. B. Smith and J. Michl, Ann. Rev. Phys. Chem. 64,
+3
+  N. J. Thompson, M. W. B. Wilson, D. N. Congreve, P. R.         361 (2013); Chem. Rev. 110, 6891 (2010).
+                                                              11
+  Brown, J. M. Scherer, T. S. Bischof, M. Wu, N. Geva,           J. Lee, P. Jadhav, P. D. Reusswig, S. R. Yost, N. J.
+  M. Welborn, T. V. Voorhis, V. Bulović, M. G. Bawendi,         Thompson, D. N. Congreve, E. Hontz, T. Van, Voorhis,
+  and M. A. Baldo, Nature Mater. 13, 1039 (2014).                and M. A. Baldo, Acc. Chem. Res. 46, 1300 (2013).
+4                                                             12
+  D. N. Congreve, J. Lee, N. J. Thompson, E. Hontz, S. R.        E. Busby, T. C. Berkelbach, B. Kumar, A. Chernikov,
+  Yost, P. D. Reusswig, M. E. Bahlke, S. Reineke, T. V.          Y. Zhong, H. Hlaing, X.-Y. Zhu, T. F. Heinz, M. S. Hy-
+  Voorhis, and M. A. Baldo, Science 340, 334 (2013).             bertsen, M. Y. Sfeir, D. R. Reichman, C. Nuckolls, and
+5
+  M. Tabachnyk, B. Ehrler, S. Gélinas, M. L. Böhm, B. J.       O. Yaffe, J. Am. Chem. Soc. 136, 10654 (2014).
+                                                                                                                              16
+
+13
+   P. M. Zimmerman, F. Bell, D. Casanova, and M. Head-               Rev. B 87, 064110 (2013).
+                                                                  40
+   Gordon, J. Am. Chem. Soc. 133, 19944 (2011).                      L. Kronik and A. Tkatchenko, Acc. Chem. Res. (2014).
+14                                                                41
+   D. Beljonne, H. Yamagata, J. L. Brédas, F. C. Spano,             A. M. Reilly and A. Tkatchenko, J. Chem. Phys. 139,
+   and Y. Olivier, Phys. Rev. Lett. 110, 226402 (2013).              024705 (2013).
+15                                                                42
+   T. C. Berkelbach, M. S. Hybertsen, and D. R. Reichman,            D. Lu, Y. Li, D. Rocca, and G. Galli, Phys. Rev. Lett.
+   J. Chem. Phys. 138, 114103 (2013).                                102, 206411 (2009).
+16                                                                43
+   N. Renaud, P. A. Sherratt, and M. A. Ratner, J. Phys.             R. A. DiStasio, Jr, V. V. Gobre, and A. Tkatchenko, J.
+   Chem. Lett. 4, 1065 (2013).                                       Phys. Condens. Matter 26, 213202 (2014).
+17                                                                44
+   P. M. Zimmerman, C. B. Musgrave, and M. Head-                     A. M. Reilly and A. Tkatchenko, Chem. Sci. 6, 3289
+   Gordon, Acc. Chem. Res. 46, 1339 (2013).                          (2015).
+18                                                                45
+   P. B. Coto, S. Sharifzadeh, J. B. Neaton, and M. Thoss,           S. Yanagisawa, K. Okuma, T. Inaoka,                     and
+   J. Chem. Theory Comput. 11, 147 (2015).                           I. Hamada, J. Electron Spectrosc. Relat. Phenom.
+19
+   M. L. Tiago, J. E. Northrup, and S. G. Louie, Phys. Rev.          10.1016/j.elspec.2015.04.007.
+                                                                  46
+   B 67, 115212 (2003).                                              C. Sutton, C. Risko, and J.-L. Brédas, Chem. Mater.
+20
+   K. Hummer, P. Puschnig, and C. Ambrosch-Draxl, Phys.              XX, XX (2015).
+                                                                  47
+   Rev. B 67, 184105 (2003); Phys. Rev. Lett. 92, 147402             S. Grimme, J. Chem. Phys. 124, 034108 (2006).
+                                                                  48
+   (2004); K. Hummer and C. Ambrosch-Draxl, Phys. Rev.               A. Tkatchenko and M. Scheffler, Phys. Rev. Lett. 102,
+   B 72, 205205 (2005).                                              073005 (2009).
+21                                                                49
+   J. B. Neaton, M. S. Hybertsen, and S. G. Louie, Phys.             B. Schatschneider, S. Monaco, A. Tkatchenko, and J.-J.
+   Rev. Lett. 97, 216405 (2006).                                     Liang, J. Phys. Chem. A 117, 8323 (2013).
+22                                                                50
+   C. Ambrosch-Draxl, D. Nabok, P. Puschnig,               and       K. Berland and P. Hyldgaard, Phys. Rev. B 89, 035412
+   C. Meisenbichler, New J. Phys. 11, 125010 (2009).                 (2014).
+23                                                                51
+   S. Sharifzadeh, A. Biller, L. Kronik, and J. B. Neaton,           K. Berland, C. A. Arter, V. R. Cooper, K. Lee,
+   Phys. Rev. B 85, 125307 (2012).                                   B. I. Lundqvist, E. Schröder, T. Thonhauser, and
+24
+   P. Cudazzo, M. Gatti, and A. Rubio, Phys. Rev. B 86,              P. Hyldgaard, J. Chem. Phys. 140, 18A539 (2014).
+                                                                  52
+   195307 (2012); P. Cudazzo, M. Gatti, A. Rubio, and                J. Klimš and A. Michaelides, J. Chem. Phys. 137, 120901
+   F. Sottile, 88, 195152 (2013).                                    (2012).
+25                                                                53
+   S. Refaely-Abramson, S. Sharifzadeh, M. Jain, R. Baer,            K. E. Riley, M. Pitoňák, P. Jurečka, and P. Hobza, Chem.
+   J. B. Neaton, and L. Kronik, Phys. Rev. B 88, 081204 (R)          Rev. 110, 5023 (2010).
+                                                                  54
+   (2013); S. Refaely-Abramson, M. Jain, S. Sharifzadeh,             F.     A.      Gianturco       and      F.    Paesani,    in
+   J. B. Neaton, and L. Kronik, 92, 081204 (R) (2015).               Conceptual Perspectives in Quantum Chemistry, edited
+26
+   P. Cudazzo, F. Sottile, and M. Rubio, Angel a nd Gatti,           by J. L. Calais and E. Kryachko (Kluwer Academic
+   J. Phys.: Condens. Matter 27, 113204 (2015).                      Publishers, 1997) pp. 337–382.
+27                                                                55
+   D. Faltermeier, B. Gompf, M. Dressel, A. K. Tripathi,             E. R. Johnson and A. D. Becke, J. Chem. Phys. 123,
+   and J. Pflaum, Phys. Rev. B 74, 125416 (2006).                    024101 (2005).
+28                                                                56
+   C. C. Mattheus, A. B. Dros, J. Baas, A. Meetsma, J. L.            S. Grimme, J. Comput. Chem. 25, 1463 (2004).
+                                                                  57
+   de Boer, and T. T. M. Palstra, Acta Crystallogr. Sect.            S. Grimme, J. Antony, S. Ehrlich, and H. Krieg, J. Chem.
+   C– Cryst. Struct. Commun. 57, 939 (2001).                         Phys. 132, 154104 (2010).
+29                                                                58
+   E. Venuti, R. G. Della Valle, L. Farina, A. Brillante,            A. Otero-de-la Roza and E. R. Johnson, J. Chem. Phys.
+   M. Masino, and A. Girlando, Phys. Rev. B 70, 104106               138, 204109 (2013).
+                                                                  59
+   (2004).                                                           C. Corminboeuf, Acc. Chem. Res. 47, 3217 (2014).
+30                                                                60
+   R. G. D. Valle, A. Brillante, L. Farina, E. Venuti,               D. C. Langreth, B. I. Lundqvist, S. D. Chakarova-Käck,
+   M. Masino, and A. Girlando, Mol. Cryst. Liq. Cryst.               V. R. Cooper, M. Dion, P. Hyldgaard, A. Kelkkanen,
+   416, 145 (2004).                                                  J. Kleis, L. Kong, S. Li, P. G. Moses, E. Murray,
+31
+   T. Kakudate, N. Yoshimoto, and Y. Saito, Appl. Phys.              A. Puzder, H. Rydberg, E. Schröder, and T. Thonhauser,
+   Lett. 90, 081903 (2007).                                          J. Phys.: Condens. Matter 21, 084203 (2009).
+32                                                                61
+   L. Farina, A. Brillante, R. G. Della Valle, E. Venuti,            P. Hyldgaard, K. Berland, and E. Schröder, Phys. Rev.
+   M. Amboage, and K. Syassen, Chem. Phys. Lett. 375,                B 90, 075148 (2014).
+                                                                  62
+   490 (2003).                                                       K. Berland, V. R. Cooper, K. Lee, E. Schröder, T. Thon-
+33
+   C. C. Mattheus, A. B. Dros, J. Baas, G. T. Oostergetel,           hauser, P. Hyldgaard, and B. I. Lundqvist, Reports on
+   A. Meetsma, and T. T. M. de Boer, Jan L. an d Palstra,            Progress in Physics 78, 066501 (2015).
+                                                                  63
+   Synt. Met. 138, 475 (2003).                                       M. Dion, H. Rydberg, E. Schröder, D. C. Langreth, and
+34
+   D. Nabok, P. Puschnig, and C. Ambrosch-Draxl, Phys.               B. I. Lundqvist, Phys. Rev. Lett. 92, 246401 (2004).
+   Rev. B 77, 245316 (2008).                                      64
+                                                                     K. Lee, É. D. Murray, L. Kong, B. I. Lundqvist, and
+35
+   K. Berland and P. Hyldgaard, J. Chem. Phys. 132, 134705           D. C. Langreth, Phys. Rev. B 82, 081101 (2010).
+   (2010).                                                        65
+                                                                     O. A. Vydrov and T. van Voorhis, J. Chem. Phys. 133,
+36
+   K. Berland, Ø. Borck, and P. Hyldgaard, Comput. Phys.             244103 (2010).
+   Commun. 182, 1800 (2011).                                      66
+                                                                     M. S. Hybertsen and S. G. Louie, Phys. Rev. B 34, 5390
+37
+   A. Otero-de-la Roza and E. R. Johnson, J. Chem. Phys.             (1986).
+   137, 054103 (2012).                                            67
+                                                                     L. Hedin, Phys. Rev. 139, A796 (1965).
+38                                                                68
+   W. A. Al-Saidi, V. K. Voora, and K. D. Jordan, J. Chem.           N. Marom, F. Caruso, X. Ren, O. T. Hofmann,
+   Theo. Comp. 8, 1503 (2012).                                       T. Körzdörfer, J. R. Chelikowsky, A. Rubio, M. Scheffler,
+39
+   T. Bučko, S. Lebègue, J. Hafner, and J. G. Ángyán, Phys.      and P. Rinke, Phys. Rev. B 86, 245127 (2012).
+                                                                                                                           17
+
+69
+   C. Rostgaard, K. W. Jacobsen, and K. S. Thygesen, Phys.          Soc. Lond. A– Math. Phys. Eng. Sci. 279, 98 (1964).
+                                                                94
+   Rev. B 81, 085103 (2010).                                        S. Schiefer, M. Huth, A. Dobrinevski, and B. Nickel, J.
+70
+   S. Körbel, P. Boulanger, I. Duchemin, X. Blase, M. A. L.        Am. Chem. Soc. 129, 10316 (2007).
+                                                                 95
+   Marques, and S. Botti, Journal of Chemical Theory and            S. C. Capelli, A. Albinati, S. A. Mason, and B. T. M.
+   Computation 10, 3934 (2014).                                     Willis, J. Phys. Chem. A 110, 11695 (2006).
+71                                                               96
+   M. Shishkin and G. Kresse, Phys. Rev. B 75, 235102               R. Mason, Acta Crystallogr. 17, 547 (1964).
+                                                                 97
+   (2007).                                                          R. B. Campbell, J. M. Robertson, and J. Trotter, Acta
+72
+   M. van Schilfgaarde, T. Kotani, and S. Faleev, Phys. Rev.        Crystallogr. 15, 289 (1962).
+                                                                 98
+   Lett. 96, 226402 (2006).                                         M. Watanabe, Y. J. Chang, S.-W. Liu, T.-H. Chao,
+73
+   F. Bruneval, N. Vast, and L. Reining, Phys. Rev. B 74,           K. Goto, M. M. Islam, C.-H. Yuan, Y.-T. Tao, T. Shin-
+   045102 (2006).                                                   myozu, and T. J. Chow, Nature Chem. 4, 574 (2012).
+74                                                               99
+   A. Schindlmayr, T. J. Pollehn, and R. W. Godby, Phys.            S. B. Zhang, D. Tomànek, M. L. Cohen, S. G. Louie, and
+   Rev. B 58, 12684 (1998).                                         M. S. Hybertsen, Phys. Rev. B 40, 3162 (1989).
+75                                                              100
+   W. Luo, S. Ismail-Beigi, M. L. Cohen, and S. G. Louie,           M. L. Tiago and J. R. Chelikowsky, Phys. Rev. B 73,
+   Phys. Rev. B 66, 195215 (2002).                                  205334 (2006).
+76                                                              101
+   X. Blase and C. Attaccalite, Appl. Phys. Lett. 99, 171909        J. Deslippe, G. Samsonidze, M. Jain, M. L. Cohen, and
+   (2011).                                                          S. G. Louie, Phys. Rev. B 87, 165124 (2013).
+77                                                              102
+   C. Faber, P. Boulanger, C. Attaccalite, I. Duchemin, and         S. Sharifzadeh, I. Tamblyn, P. Doak, P. T. Darancet, and
+   X. Blase, Philos. Trans. R. Soc. Lond. A–Math. Phys.             J. B. Neaton, Eur. Phys. J. B 85, 1 (2012).
+                                                                103
+   Eng. Sci. 372, 20130271 (2014).                                  W. I. F. David, R. M. Ibberson, G. A. Jeffrey, and J. R.
+78
+   G. Onida, L. Reining, R. W. Godby, R. Del Sole, and              Ruble, Physica B: Condens. Matter 180, 597 (1992).
+                                                                104
+   W. Andreoni, Phys. Rev. Lett. 75, 818 (1995).                    S. L. Chaplot, N. Lehner, and G. S. Pawley, Acta Crys-
+79
+   G. Onida, L. Reining, and A. Rubio, Rev. Mod. Phys.              tallogr. Sect. B–Struct. Crystallogr. Cryst. Chem. 38, 483
+   74, 601 (2002), and references therein.                          (1982).
+80                                                              105
+   M. Rohlfing and S. G. Louie, Phys. Rev. B 62, 4927               J. S. Chickos and W. E. Acree Jr, J. Phys. Chem. Ref.
+   (2000).                                                          Data 31, 537 (2002).
+81                                                              106
+   P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car,         D. Holmes, S. Kumaraswamy, A. J. Matzger, and K. P. C.
+   C. Cavazzoni, D. Ceresoli, G. L. Chiarotti, M. Cococ-            Vollhardt, Chem. Eur. J. 5, 3399 (1999).
+                                                                107
+   cioni, I. Dabo, A. Dal Corso, S. de Gironcoli, S. Fab-           “Cambridge structural database,” .
+                                                                108
+   ris, G. Fratesi, R. Gebauer, U. Gerstmann, C. Gougous-           J. Kalinowski and R. Jankowiak, Chem. Phys. Lett. 53,
+   sis, A. Kokalj, M. Lazzeri, L. Martin-Samos, N. Marzari,         56 (1978).
+                                                                109
+   F. Mauri, R. Mazzarello, S. Paolini, A. Pasquarello,             D. D. Kolendritskii, M. V. Kurik, and Y. P. Piryatinskii,
+   L. Paulatto, C. Sbraccia, S. Scandolo, G. Sclauzero, A. P.       phys. stat. sol. (b) 91, 741 (1979).
+                                                                110
+   Seitsonen, A. Smogunov, P. Umari, and R. M. Wentz-               Z. Rang, A. Haraldsson, D. M. Kim, P. P. Ruden, M. I.
+   covitch, J. Phys. Condens. Matter 21, 395502 (2009).             Nathan, R. J. Chesterfield, and C. D. Frisbie, Appl. Phys.
+82
+   H. Monkhorst and J. Pack, Phys. Rev. B 13, 5188 (1976).          Lett. 79, 2731 (2001).
+83                                                              111
+   M. Fuchs and M. Scheffler, Comput. Phys. Commun. 119,            U. Sondermann, A. Kutoglu, and H. Bassler, J. Phys.
+   67 (1999).                                                       Chem. 89, 1735 (1985).
+84                                                              112
+   M. Callsen and I. Hamada, Phys. Rev. B 91, 195103                M. Oehzelt, A. Aichholzer, R. Resel, G. . Heimel,
+   (2015).                                                          E. Venuti, and R. G. Della Valle, Phys. Rev. B 74, 104103
+85
+   J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev.             (2006).
+                                                                113
+   Lett. 77, 3865 (1996).                                           T. Siegrist, C. Besnard, S. Haas, M. Schiltz, P. Pattison,
+86
+   J. P. Perdew, A. Ruzsinszky, G. I. Csonka, O. A. Vydrov,         D. Chernyshov, B. Batlogg, and C. Kloc, Adv. Mater.
+   G. E. Scuseria, L. A. Constantin, X. Zhou, and K. Burke,         19, 2079 (2007).
+                                                                114
+   Phys. Rev. Lett. 100, 136406 (2008).                             H. Yoshida and N. Sato, Phys. Rev. B 77, 235205 (2008).
+87                                                              115
+   I. Hamada and S. Yanagisawa, Phys. Rev. B 84, 153104             E. D. Murray, K. Lee, and D. C. Langreth, J. Chem.
+   (2011).                                                          Theory Comput. , 2754 (2009).
+88                                                              116
+   http://www.quantum-espresso.org.                                 K. Berland and P. Hyldgaard, Phys. Rev. B 87, 205421
+89
+   K. F. Garrity, J. W. Bennett, K. M. Rabe, and D. Van-            (2013).
+                                                                117
+   derbilt, Comput. Mater. Sci. 81, 446 (2014).                     Y. Zhang and W. Yang, Phys. Rev. Lett. 80, 890 (1998).
+90                                                              118
+   G. Kresse and D. Joubert, Phys. Rev. B 59, 1758 (1999).          I. Hamada, Phys. Rev. B 89, 121103 (2014).
+91                                                              119
+   J. Deslippe, G. Samsonidze, D. A. Strubbe, M. Jain, M. L.        S. Ehrlich, J. Moellmann, and S. Grimme, Acc. Chem.
+   Cohen, and S. G. Louie, Comput. Phys. Commun. 183,               Res. 46, 916 (2012).
+                                                                120
+   1269 (2012).                                                     K. H. Frank, P. Yannoulis, R. Dudde, and E. E. Koch,
+92
+   X. Gonze, B. Amadon, P. M. Anglade, J. M. Beuken,                J. Chem. Phys. 89, 7569 (1988).
+                                                                121
+   F. Bottin, P. Boulanger, F. Bruneval, D. Caliste, R. Cara-       M.        Pope        and       C.      E.      Swenberg,
+   cas, M. Côté, T. Deutsch, L. Genovese, P. Ghosez, M. Gi-       Electronic Processes in Organic Crystals and Polymers,
+   antomassi, S. Goedecker, D. R. Hamann, P. Hermet,                2nd ed. (Oxford University Press, New York, 1999); P. A.
+   F. Jollet, G. Jomard, S. Leroux, M. Mancini, S. Mazevet,         Clark, F. Brogli, and E. Heilbronner, Helv. Chim. Acta
+   M. J. T. Oliveira, G. Onida, Y. Pouillon, T. Rangel, G. M.       55, 1415 (1972); G. Malloci, G. Mulas, G. Cappellini,
+   Rignanese, D. Sangalli, R. Shaltaf, M. Torrent, M. J. Ver-       and C. Joblin, Chem. Phys. 340, 43 (2007), and cited
+   straete, G. Zerah, and J. W. Zwanziger, Comput. Phys.            references; T. M. Halasinski, D. M. Hudgins, F. Salama,
+   Commun. 180, 2582 (2009).                                        L. J. Allamandola, and T. Bally, J. Phys. Chem. A 104,
+93
+   G. E. Bacon, N. A. Curry, and S. A. Wilson, Proc. R.             7484 (2000); F. Salama and L. J. Allamandola, J. Chem.
+                                                                                                                              18
+
+    Phys. 94, 6964 (1991).                                              Lett. 132, 83 (1986).
+122                                                                 149
+    J. P. Doering, J. Chem. Phys. 67, 4065 (1977).                      K. Hummer and C. Ambrosch-Draxl, Phys. Rev. B 71,
+123
+    J. Lischner, S. Sharifzadeh, J. Deslippe, J. B. Neaton,             081202 (2005).
+                                                                    150
+    and S. G. Louie, Phys. Rev. B 90, 115130 (2014).                    P. Swiderek, M. Michaud, G. Hohlneicher, and L. Sanche,
+124
+    F. Bruneval and M. A. L. Marques, J. Chem. Theory                   Chem. Phys. Lett. 175, 667 (1990); O. Schnepp, Ann.
+    Comput. 9, 324 (2012).                                              Rev. Phys. Chem. 14, 35 (1963); E. M. Grumstrup, J. C.
+125
+    T. Körzdörfer and N. Marom, Phys. Rev. B 86, 041110               Johnson, and N. H. Damrauer, Phys. Rev. Lett. 105,
+    (2012).                                                             257403 (2010); J. Burgos, M. Pope, C. E. Swenberg, and
+126
+    F. Bruneval, S. M. Hamed, and J. B. . Neaton, J. Chem.              R. R. Alfano, Phys. Status Solidi B 83, 249 (1977); Hex-
+    Phys. 142, 244101 (2015).                                           acene S1 is exctracted from the position of first bright
+127
+    M. Govoni and G. Galli, J. Chem. Theory Comput. 11,                 excitation in Refs. 12, 98? and T1 is extrapolated from
+    2680 (2015).                                                        shorter acenes in Ref. 11.
+128                                                                 151
+    D. Hirose, Y. Noguchi, and O. Sugino, Phys. Rev. B 91,              J. Helzel, S. Jankowski, M. E. Helou, G. Witte, and
+    205111 (2015).                                                      W. Heimbrodt, Applied Physics Letters 99, 211102
+129
+    D. Jacquemin, I. Duchemin, and X. Blase, J. Chem. The-              (2011).
+                                                                    152
+    ory Comput. 11, 3290 (2015).                                        M. W. B. Wilson, A. Rao, K. Johnson, S. Gélinas,
+130
+    X. Blase, C. Attaccalite, and V. Olevano, Phys. Rev. B              R. di Pietro, J. Clark, and R. H. Friend, J. Am. Chem.
+    83, 115103 (2011).                                                  Soc. 135, 16680 (2013).
+131                                                                 153
+    N. Geacintov and M. Pope, J. Chem. Phys. 50, 814 (1969).            D. R. Penn, Phys. Rev. 128, 2093 (1962).
+132                                                                 154
+    C. L. Braun and G. M. Dobbs, J. Chem. Phys. 53, 2718                M. Shishkin, M. Marsman, and G. Kresse, Phys. Rev.
+    (1970).                                                             Lett. 99, 246403 (2007).
+133                                                                 155
+    H. Bässler and H. Killesreiter, Phys. Stat. Sol. (b) 53, 183       D. Rocca, D. Lu, and G. Galli, J. Chem. Phys. 133,
+    (1972).                                                             164109 (2010).
+134                                                                 156
+    H. Bäessler and H. Killesreiter, Molecular Crystals and            D. Rocca, M. Vörös, A. Gali, and G. Galli, J. Chem.
+    Liquid Crystals 24, 21 (1973).                                      Theory Comput. 10, 3290 (2014).
+135                                                                 157
+    A. I. Belkind and V. V. Grechov, Phys. Stat. Sol. (a) 26,           M. Grüning, A. Marini, and X. Gonze, Nano Lett. 9,
+    377 (1974).                                                         2820 (2009).
+136                                                                 158
+    J. Riga, J.-J. Pireaux, and J. J. Verbist, Mol. Phys. 34,           Y. Ma, M. Rohlfing, and C. Molteni, Phys. Rev. B 80,
+    131 (1977).                                                         241405 (2009).
+137                                                                 159
+    L. Sebastian, G. Weiser, and H. Bässler, Chem. Phys. 61,           N. Sato, K. Seki, and H. Iokuchi, J. Chem. Soc., Faraday
+    125 (1981).                                                         Trans. 77, 1621 (1981).
+138                                                                 160
+    E. A. Silinsh, V. A. Kolesnikov, I. J. Muzikante, and               S. Sharifzadeh, P. Darancet, L. Kronik, and J. B. Neaton,
+    D. R. Balode, phys. stat. sol. (b) 113, 379 (1982).                 J. Phys. Chem. Lett. 4, 2197 (2013), 00012.
+139                                                                 161
+    L. Sebastian, G. Weiser, G. Peter, and H. Bässler, Chem.           S. Sharifzadeh, C. Y. Wong, H. Wu, B. L. Cott s, L. Kro-
+    Phys. 75, 103 (1983).                                               nik, N. S. Ginsberg, and J. B. Neaton, Adv. Funct. Mater.
+140
+    Y. Isono, E. Morikawa, and M. Kotani, Chem. Phys. Lett.             25, 2038 (2015).
+                                                                    162
+    125, 344 (1986).                                                    S. Haas, Crystal structure analysis and trap spectroscopy in organic s
+141
+    I. G. Hill, A. Kahn, Z. G. Soos, and R. A. Pascal, Chem.            Ph.D. thesis, Eidgenössische Technische Hochschule ETH
+    Phys. Lett. 327, 181 (2000).                                        Zürich (2006).
+142                                                                 163
+    S. Krause, M. B. Casu, A. Schöll, and E. Umbach, New               C. J. Craven, P. D. Hatton, C. J. Howard, and G. . S.
+    J. Phys. 10, 085001 (2008).                                         Pawley, J. Chem. Phys. 98, 8236 (1993).
+143                                                                 164
+    U. Asaf and I. T. Steinberger, Chem. Phys. Lett. 33                 The tetracene lattice parameters reported in the Ph.D.
+    (1975), 00016.                                                      thesis of Haas162 at 175 K almost perfectly match P1 at
+144
+    R. Williams and J. Dresner, J. Chem. Phys. 46, 2133                 180 K as reported in Ref. 29 (the volumes agree within
+    (1967).                                                             0.5%). Further, by cooling the sample from 175 K to
+145
+    N. Marzari and D. Vanderbilt, Phys. Rev. B 56, 12847                106 K, Haas reports a slight reduction in volume, as shown
+    (1997).                                                             in Figure 7 of our manuscript. Hence, we can assign Haas’s
+146
+    J. Riga, J. J. Pireaux, R. Caudano, and J. J. Verbist,              structures to the P1 polymorph. Note that the P2 poly-
+    Phys. Scr. 16, 346 (1977), 00063.                                   morph has an appreciably smaller c lattice-vector (12.3 Å)
+147
+    M. L. M. Rocco, M. Haeming, D. R. Batchelor, R. Fink,               than the P1 phase (∼12.5 Å).
+                                                                    165
+    A. Schöll, and E. Umbach, J. Chem. Phys. 129 (2008).               A. Santoro and A. D. Mighell, Acta Crystallogr, Sect. A
+148
+    K. H. Frank, R. Dudde, and E. E. Koch, Chem. Phys.                  26, 124 (1970).
+

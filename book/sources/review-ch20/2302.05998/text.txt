@@ -1,0 +1,1222 @@
+                                                        G4CMP: Condensed Matter Physics Simulation Using the Geant4 Toolkit
+
+                                                 M. H. Kelseya,∗, R. Agneseb , Y. F. Alama , I. Ataee Langroudya , E. Azadbakhta , D. Brandtc , R. Bunkerd,∗, B. Cabrerae ,
+                                          Y.-Y. Changf , H. Coombesb , R. M. Cormierg , M. D. Diamondg , E. R. Edwardsd , E. Figueroa-Felicianoh , J. Gaoi , P. M. Harringtonj ,
+                                               Z. Hongg , M. Huig , N. A. Kurinskyc , R. E. Lawrencea , B. Loerd , M. G. Mastenk , E. Michaudl , E. Michielinm,n , J. Millerd ,
+                                             V. Novatih , N. S. Oblathd , J. L. Orrelld , W. L. Perrya , P. Redle , T. Reynoldsg , T. Saabb , B. Sadouleto,p , K. Serniakj,q , J. Singhe ,
+                                          Z. Speaksb , C. Stanfordr , J. R. Stevensi , J. Strubed,s , D. Tobacka , J. N. Ullomi,t , B. A. VanDevenderd , M. R. Visserst , M. J. Wilsonu ,
+                                                                                            J. S. Wilsonv , B. Zatschlerg , S. Zatschlerg
+                                           a Department of Physics and Astronomy, and the Mitchell Institute for Fundamental Physics and Astronomy, Texas A&M University, College Station, TX 77843,
+
+                                                                                                                       USA
+                                                                                    b Department of Physics, University of Florida, Gainesville, FL 32611, USA
+                                                           c SLAC National Accelerator Laboratory/Kavli Institute for Particle Astrophysics and Cosmology, Menlo Park, CA 94025, USA
+                                                                                        d Pacific Northwest National Laboratory, Richland, WA 99352, USA
+                                                                                      e Department of Physics, Stanford University, Stanford, CA 94305, USA
+                                                                   f Division of Physics, Mathematics, & Astronomy, California Institute of Technology,Pasadena, CA 91125, USA
+arXiv:2302.05998v1 [hep-ex] 12 Feb 2023
+
+
+
+
+                                                                                  g Department of Physics, University of Toronto, Toronto, ON M5S 1A7, Canada
+                                                                             h Department of Physics & Astronomy, Northwestern University, Evanston, IL 60208, USA
+                                                                                    i University of Colorado, Department of Physics, Boulder, CO 80309, USA
+                                                                     j Research Laboratory of Electronics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA
+                                                                                  k Department of Physics, Santa Clara University, Santa Clara, CA 95053, USA
+                                                                               l Département de Physique, Université de Montréal, Montréal, QC H3C 3J7, Canada
+                                                                      m Department of Physics & Astronomy, University of British Columbia, Vancouver, BC V6T 1Z1, Canada
+                                                                                                   n TRIUMF, Vancouver, BC V6T 2A3, Canada
+                                                                                   o Department of Physics, University of California, Berkeley, CA 94720, USA
+                                                                                       p Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA
+                                                                             q Lincoln Laboratory, Massachusetts Institute of Technology, Lexington, MA 02421, USA
+                                                                                         r Fermi National Accelerator Laboratory, Batavia, IL 60510, USA
+                                                                                s Institute for Fundamental Science, University of Oregon, Eugene, OR 97403, USA
+                                                                  t National Institute of Standards and Technology, Quantum Electromagnetics Division, Boulder, CO 80305, USA
+                                                                        u Institute for Astroparticle Physics (IAP), Karlsruhe Institute of Technology (KIT), 76344, Germany
+                                                                                        v Department of Physics, Baylor University, Waco, TX 76798, USA
+
+
+
+
+                                          Abstract
+                                          G4CMP simulates phonon and charge transport in cryogenic semiconductor crystals using the Geant4 toolkit. The transport code
+                                          is capable of simulating the propagation of acoustic phonons as well as electron and hole charge carriers. Processes for anisotropic
+                                          phonon propagation, oblique charge-carrier propagation, and phonon emission by accelerated charge carriers are included. The
+                                          simulation reproduces theoretical predictions and experimental observations such as phonon caustics, heat-pulse propagation times,
+                                          and mean charge-carrier drift velocities. In addition to presenting the physics and features supported by G4CMP, this report
+                                          outlines example applications from the dark matter and quantum information science communities. These communities are applying
+                                          G4CMP to model and design devices for which the energy transported by phonons and charge carriers is germane to the performance
+                                          of superconducting instruments and circuits placed on silicon and germanium substrates. The G4CMP package is available to
+                                          download from GitHub: github.com/kelseymh/G4CMP.
+                                          Keywords: simulation, solid state, phonon transport, charge transport, superconducting devices
+
+
+                                          1. Introduction                                                                    Both Geant4 and G4CMP are written in the C/C++ program-
+                                                                                                                             ming language. G4CMP comprises a set of generalized physics
+                                             The Geant4 Condensed Matter Physics (G4CMP) package                             processes related to the production and transport at cryogenic
+                                          was introduced and released approximately 10 years ago [1, 2]                      temperatures (T  1 K) of nonequilibirium solid-state exci-
+                                          as a publicly available addition to the Geant4 toolkit. Geant4                     tations: phonons, electron-hole pairs, and Bogoliubov quasi-
+                                          finds application in “high energy, nuclear and accelerator                         particles.1 The package was originally devised and deployed
+                                          physics, as well as studies in medical and space science” [3–5]                    to model the response of a specific class of devices for direct
+                                          as a tool for simulating the passage of particles through matter.
+                                                                                                                                 1 Hereafter in this paper, when we use the term “quasiparticles” we are refer-
+
+                                                                                                                             ring specifically to Bogoliubov quasiparticles (see, e.g., Refs. [6–8] and refer-
+                                             ∗ Corresponding: kelsey@slac.stanford.edu, raymond.bunker@pnnl.gov              ences therein), which result from breaking of Cooper pairs in superconductors.
+
+                                          Preprint submitted to Nuclear Instruments and Methods in Physics Research Section A                                                              February 14, 2023
+detection of dark matter in the Cryogenic Dark Matter Search                       within the substrate or superconducting circuits, such as dark-
+(CDMS) experiment [9, 10]. Today, G4CMP is being adopted                           matter detectors [10], photon sensors using microwave kinetic-
+for analyses of energy injection and transport in a broad class                    inductance detectors (MKIDs) [20], and superconducting-
+of cryogenic devices, including next-generation dark-matter de-                    nanowire single-photon detectors (SNSPDs) [21, 22]. Also
+tectors [11–14] as well as superconducting quantum sensing                         included are devices whose performance benefits from insen-
+and quantum computing devices (see, e.g., Refs. [15, 16]).                         sitivity to environmental disturbances, such as superconduct-
+These quantum-based devices share similar substrate material                       ing qubits affected by ionizing radiation [15, 23, 24]. In
+and superconducting circuitry with their dark-matter detector                      this section, we review the physics processes modeled in
+cousins.                                                                           G4CMP that enable tracking of nonequilibrium excitations in
+   The Geant4 toolkit is an event-based, Monte Carlo-driven                        this broad class of devices. The majority of the section de-
+simulation engine. The toolkit provides modeling of arbitrary                      scribes phonon and charge production and transport in semi-
+geometries composed of volumes with defined properties and                         conductor substrates. We also describe the superconductor pro-
+also includes the ability to simulate radiation sources and track                  cesses that G4CMP currently includes to enable simulation of
+particle interactions throughout a geometry. To this framework,                    quasiparticle-sensitive sensors.
+the G4CMP package adds phonon and charge modeling in solid                            Figure 1 shows the overall flow of the particles and processes
+state volumes, thus providing a bridge between Geant4’s par-                       implemented in G4CMP, in the context of the Geant4 event
+ticle physics and solid-state detector response. In simplified                     loop, with phonons and/or electron-hole (e− /h+ ) pairs being cre-
+terms, G4CMP provides a method for modeling charge and                             ated from energy deposits recorded as a result of other particle
+athermal phonon production and transport in a material (e.g.,                      interactions. Phonons and e− /h+ pairs may also be created di-
+semiconductor lattice) in response to the passage of particles                     rectly as primary particles, which is a useful option in some
+through the material. This modeling and simulation appara-                         applications (see, e.g., Sec. 4.2). In either case, the phonons
+tus is thus developed around a concept of material and device                      and e− /h+ pairs are transported through the user’s geometry and
+response to specified incident radiation. Notably, equilibrium                     interact via the processes described in this section. At surfaces,
+(i.e., “thermal”) processes are not explicitly modeled via the                     phonons may be reflected and continue their transport, or they
+Monte Carlo transport method; however, they could, in princi-                      may be absorbed at a defined sensor (see Sec. 3.2); charges are
+ple, be approximated with additional G4CMP physics processes                       terminated at surfaces by default.
+within the Geant4 framework.
+   Our goal with this article is to update the description of the                  2.1. Phonon and charge production
+G4CMP package, which has evolved from the Monte Carlo                                 Geant4 typically records either the energy deposited by a
+techniques originally described in Refs. [1, 2, 17].2 This in-                     particle or the secondary tracks produced by an interaction.
+cludes covering details of the physics processes supported by                      However, to support different simulation strategies, G4CMP
+the package (Sec. 2). For practical use, some of the impor-                        does not enforce an exclusive categorization of the kind of
+tant features and functionality of G4CMP are outlined (Sec. 3).                    recorded information. This flexibility is beneficial for imple-
+Finally, with the recent broadening of the use of the package,                     mentation of the G4CMP physics processes. When a Geant4
+concise examples are provided to demonstrate the breadth of                        energy deposit is recorded, G4CMP uses the type of interac-
+application (Sec. 4). Section 5 provides a summary and a brief                     tion – electromagnetic or screened nuclear recoil – and the
+discussion of desired features that may be pursued in future de-                   amount of energy deposited to compute how many e− /h+ pairs
+velopment of the package.                                                          and phonons would be created. These charges and phonons
+                                                                                   are then added as secondary particles which are subsequently
+                                                                                   tracked. Nevertheless, the value of the originally deposited en-
+2. Physics processes modeled in G4CMP
+                                                                                   ergy in the interaction is preserved for later analysis.
+   The physics processes modeled in G4CMP enable Geant4                               In semiconductor substrates, an e− /h+ pair is produced when
+tracking of production and transport of nonequilibrium phonons                     some of the deposited energy promotes an electron into the
+and charges in solid-state materials. As of this writing, the of-                  conduction band, leaving a hole behind. Creation of an e− /h+
+ficial G4CMP release includes processes for such tracking in                       pair requires a minimum energy corresponding to the material’s
+germanium and silicon semiconductor lattices, with the option                      bandgap. On average, however, additional energy – typically
+to include charge and phonon sensors (or “electrodes”) on the                      three times the bandgap [25] – is needed such that the electron
+surfaces.                                                                          and hole have sufficient kinetic energy to prevent them from im-
+   These processes capture a class of solid-state devices in                       mediately recombining. This additional O(eV) energy is large
+which the surfaces of single-crystal semiconductor substrates                      enough to scatter phonons and produce prompt phonon emis-
+are instrumented with superconducting circuits. This includes                      sion, which we model using the charge-phonon scattering pro-
+devices explicitly designed for sensitivity to energy absorption                   cess described in Sec. 2.3.2. The number of e− /h+ pairs pro-
+                                                                                   duced in any given energy deposit has a Poisson-like distri-
+   2 This article presents the status of G4CMP for package version 8.2 under
+                                                                                   bution, with a Fano factor [26] specific to the substrate mate-
+Geant4 version 10.07.p03, which are each available online for download [18,
+                                                                                   rial [27, 28]. The ionization model currently implemented in
+19]. Documentation on GitHub at Ref. [18] indicates how the community may          G4CMP has a Fano factor and yield that are independent of en-
+contribute to the package if desired.                                              ergy. Future work will incorporate the energy-dependent model
+                                                                               2
+                                               phonons                    Initial Energy                                 electrons
+                                                                             Deposits                                      holes
+
+                                                        phonon emission
+
+                                                          Anharmonic
+                                                            Decay                                            NTL Emission
+                               Phonon                                                                                                          Charge
+                              Transport                      Isotopic                                          Intervalley                    Transport
+                                                                                                               Scattering
+
+
+
+
+                                                                               via quasiparticle decay
+                                                            Scattering
+
+
+
+
+                                                                                                                                                              reflection
+                                                                                                                Charge
+
+
+
+
+                                                                               phonon emission
+                 reflection
+
+
+
+
+                                                 absorption                                                    Trapping
+                              Surface?
+                                                                                                                 Impact
+                                                                                                               Ionization                     Surface?
+
+
+                                                 absorption                                                                                           absorption
+                                                                 Quasiparticle                                     charge emission
+                              Sensor?
+                                                                  Production
+
+
+Figure 1: Overall event flow of G4CMP processing in Geant4. As described in Sec. 2.1, energy deposits (top) from Geant4 are converted into primary phonons (left
+path) and/or electron-hole pairs (right path). These particles are transported through the substrate material with appropriate interactions, as listed in each column.
+The processes of phonon anharmonic decay (Sec. 2.2.2), Neganov-Trofimov-Luke (NTL) emission (Sec. 2.3.2), impact ionization (Sec. 2.3.3), and quasiparticle
+production (Sec. 2.4) can create additional particles, which are added to the processing loop as indicated by arrows. The dashed arrow indicates that the quasiparticle-
+production process may or may not create any phonons at a given step. When a surface is encountered (Sec. 3.2), phonons (lower left) may continue to be transported
+after reflection or be absorbed on a sensor; charges may reflect or be absorbed.
+
+
+of Ref. [29] when data are available to calibrate the energy de-                                         wave equation [33]:
+pendence in the Fano factor.
+   For interactions from photons or high-energy electrons, the                                                                 ρω2 ei = Ci jml k j km el ,                 (1)
+full energy deposit is converted directly into e− /h+ pairs. For in-
+teractions involving ions (including α-particles) or recoiling nu-                                       where ρ is the crystal mass density, ω is the angular phonon
+clei, a portion of the deposited energy is transferred directly into                                     frequency, ~e is the polarization vector, ~k is a wavevector, Ci jml
+production of lattice vibrations (prompt phonons), while the re-                                         is the elasticity tensor, and there is an implicit sum over indices
+mainder goes into creation of e− /h+ pairs. The ratio of energies                                         j, m and l.
+– production of e− /h+ pairs versus creation of prompt phonons                                               For any given wavevector ~k, Eq. 1 has three eigenvalues ω
+– depends on the total deposited energy. In G4CMP, this ratio                                            and three eigenvectors ~e. These correspond to the three differ-
+is determined by an ionization yield model; two models from                                              ent phonon polarization states (or acoustic modes): longitudi-
+Refs. [30–32] are currently implemented (see Sec. 3.1).                                                  nal, fast transverse, and slow transverse. The actual direction
+                                                                                                         and velocity of propagation of phonons is given by the group
+2.2. Phonon transport
+                                                                                                         velocity ~vg , calculated by interpreting ω in Eq. 1 as a function
+   Phonon transport was the first component of the G4CMP
+                                                                                                         of ~k:
+framework to be developed [1]. The phonon-transport code de-
+scribed here is intended for temperatures T  1 K; thus, trans-                                                                      ~vg = ∇k ω(~k).                     (2)
+port and scattering of thermally excited background phonons
+is ignored. Currently, only acoustic phonons are simulated                                               The group velocity ~vg is not parallel to the phonon momen-
+in G4CMP. Optical phonons are not yet supported. In mil-                                                 tum ~~k because of anisotropy in Ci jml . Instead, phonons are
+likelvin devices, optical phonons immediately down-convert to                                            focused into propagation directions that correspond to the high-
+lower-energy (acoustic) phonon modes. This exclusion of op-                                              est density of eigenvectors. This focusing gives rise to caustics
+tical phonons means G4CMP does not support direct interac-                                               in the spatial distribution of phonons in the substrate as they
+tion with electromagnetic (photon) phenomena (e.g., photon-                                              are transported away from a point-like source that is isotropic
+phonon scattering).                                                                                      in ~k-space. The resulting caustics can be observed using micro-
+                                                                                                         calorimeters [34, 35]. Figure 2 shows that the caustics sim-
+2.2.1. Anisotropic transport and phonon focusing                                                         ulated with the G4CMP phonon-transport code are in good
+   As phonons are quantized vibrations of the crystal lattice,                                           agreement with expectations from the work of Nothrop and
+the propagation of phonons is governed by a three-dimensional                                            Wolfe [34].
+                                                                                           3
+Figure 2: Comparison of phonon caustics predicted for a point source in a 1 cm thick Ge h100i crystal with corresponding results from G4CMP, showing positions
+of transverse phonon modes on the face opposite the point source. Left: Outline of phonon caustics in Ge h100i as predicted by Nothrop and Wolfe [34]. Middle:
+Caustics pattern as simulated using G4CMP for phonon transport in Ge h100i, in good agreement with the theoretical prediction to the left. Right: Caustics pattern
+as simulated using G4CMP for phonon transport in a 1 cm thick Si h100i crystal (see also Ref. [16]).
+
+
+   The wave equation is not solved in real time in the G4CMP                        phonons dominates the energy evolution of the phonon sys-
+transport code. Instead, a look-up table for Eq. 2 is gener-                        tem; down-conversion events from the other polarization states
+ated that maps ~k onto ~vg , and bilinear interpolation is used to                  are negligible [37] and are not implemented in G4CMP. There
+generate a continuous mapping function. Phonon focusing and                         are two branches implemented in the down-conversion process:
+methods for solving the three-dimensional wave equations are                        L → L0 T and L → TT, with energies for the outgoing longitudi-
+treated in Ref. [33].                                                               nal (L0 ) and transverse (T) phonons drawn from built-in proba-
+                                                                                    bility distributions [38].
+2.2.2. Phonon scattering processes                                                     Equation 3 indicates that phonon scattering rates strongly de-
+   In addition to the anisotropic transport described by Eq. 1,                     pend on the phonon energy ~ν. Thus, high-energy phonons
+G4CMP also includes modeling of two other processes relevant                        with ν on the order of THz (or larger) start out in a diffusive
+to acoustic-phonon transport in cryogenic crystals: anharmonic                      regime with relatively high rates of isotopic scattering and an-
+down-conversion and isotopic scattering [36–38]. The rates of                       harmonic down-conversion; mean free paths are on the order of
+these processes are given by [1, 37]:                                               microns. After a few down-conversion events have occurred,
+                                                                                    phonon mean free paths increase to be on the order of cen-
+                                 Γanh = Aν5 ,                                       timeters, which is comparable to the typical size of a cryo-
+                                                                          (3)       genic calorimeter or quantum device. This transition from dif-
+                              Γscatter = Bν4 ,                                      fuse to ballistic phonon transport is commonly referred to as
+                                                                                    “quasi-diffuse” and represents an important timescale for the
+where Γanh is the number of anharmonic down-conversion                              initial evolution of phonon energy in the crystal. Simulation
+events per unit time, Γscatter is the number of isotopic scatter-                   with G4CMP of this initial time evolution has been shown to
+ing events per unit time, ν is the phonon frequency, and A and                      follow real-world device performance, e.g., with the phonon
+B are constants of proportionality related to the crystal’s elas-                   sensor pulses in Ref. [1]. Anharmonic down-conversion and
+ticity tensor. In G4CMP, the current default values of A and B                      isotopic scattering are well-understood processes and are dis-
+for Ge and Si are taken from Ref. [38]. Additional parameters                       cussed in great detail in the literature [33, 36–38]. Neverthe-
+used to simulate phonon transport are listed in Appendix B (see                     less, care should be taken in defining the G4CMP scattering
+also Ref. [17]).                                                                    parameters, which are generally substrate dependent.
+   Isotopic scattering occurs when a phonon interacts with an
+isotopic substitution site in the lattice. It is effectively an elastic
+scattering event during which the phonon momentum vector is
+                                                                                    2.3. Charge transport
+randomized and the polarization state can change freely among
+the acoustic modes. The partition among the polarization states
+is determined by the relative density of allowed states. This                          In addition to phonon transport, the G4CMP framework en-
+change among polarization states is often referred to as mode                       ables simulation of charge propagation in semiconductor crys-
+mixing and results in the steady-state phonon populations in                        tals. In this section we describe the processes implemented
+Ge (Si) of 53.5% (53.1%) slow transverse, 36.7% (37.6%) fast                        in G4CMP for Ge and Si: oblique propagation and interval-
+transverse, and 9.8% (9.3%) longitudinal [39].                                      ley scattering [40–43], acceleration of charge carriers by an ap-
+   Anharmonic down-conversion occurs when a single phonon                           plied electric field and emission of acoustic phonons via the
+decays into two phonons, each with less energy than the pro-                        Neganov-Trofimov-Luke (NTL) process [44–46], and charge
+genitor. This process conserves energy but not momentum in                          trapping and impact ionization [47, 48]. We also include an
+the phonon system, because momentum is exchanged with the                           assessment of charge-carrier drift speeds that result from simu-
+crystal lattice. The down-conversion rate of longitudinal (L)                       lations of these transport processes in G4CMP.
+                                                                                4
+Figure 3: Left: The first Brillouin zone for Si, reproduced from Ref. [49]. The minimum-energy valleys of the conduction band are indicated by the ellipsoids near
+the edge of the Brillouin zone along the k x , ky , and kz directions. Right: Energy band structure for Si (adapted from Ref. [50]), highlighting the bandgap between
+the valence-band maximum along the h000i direction and the conduction-band minimum along the h100i direction. The latter corresponds to the minimum-energy
+X valleys (ellipsoids in the left panel). Similar diagrams can be found in Ref. [51] for Ge, which has its conduction-band minimum along the h111i direction (L
+valleys).
+
+
+2.3.1. Oblique transport & intervalley scattering                                    in G4CMP. A more complete model of the scattering process
+   At the small electric fields and temperatures of interest,                        would include emission of an optical phonon and a correspond-
+electron propagation in Ge and Si has the interesting fea-                           ing rotation of the electron’s wavevector. G4CMP does not cur-
+ture that electrons propagate through the crystal along dis-                         rently model the optical phonon and thus crystal momentum
+tinct minimum-energy valleys that are displaced from zero mo-                        is not conserved. Instead, the electron immediately aligns it-
+mentum. As a result, electron transport is generally oblique                         self to the new valley via the electron-phonon scattering pro-
+to the direction of the applied electric field [17, 52]. The                         cess described in Sec. 2.3.2, resulting in a spectrum of acoustic
+minimum-energy valleys and the energy band structure are il-                         phonons that is generally different from the spectrum that would
+lustrated in Fig. 3 for silicon, which has its conduction-band                       result from the decay of the optical phonon. This inaccuracy
+minimum along the h100i crystal axis (X valleys). In con-                            could be fixed in a future update of G4CMP by modifying the
+trast, the conduction-band minimum for germanium is along                            intervalley scattering process to rotate the electron wavevector
+the h111i direction (L valleys).                                                     and create acoustic phonons based on the spectrum expected
+   Electrons can scatter between valleys via a process known                         from down-conversion of the optical phonon. For small fields,
+as intervalley scattering, which occurs in one of two ways: an                       the current G4CMP implementation is a good representation of
+electron scatters off the lattice or off an impurity [53]. The rate                  the effectively random valley changes that occur when electrons
+for both processes is dependent on the electric-field strength,                      scatter off impurities.
+with lattice scattering being the dominant factor in larger fields                      The combination of oblique propagation and intervalley scat-
+(&5 V/cm) and impurity scattering dominant in smaller fields                         tering can produce distinct charge-collection patterns for elec-
+(∼1 V/cm). G4CMP provides two parameterizations of this de-                          trons drifted across a Ge or Si crystal by an electric field.
+pendence which may be selected at runtime (see Table A.5,                            Again, optical phonons are not explicitly modeled as indepen-
+G4CMP IV RATE MODEL): a quadratic form from Ref. [54],                               dent particles in G4CMP. Instead, G4CMP uses measured scat-
+                                         α/2                                       tering rates to simulate charge transport. Intervalley scatter-
+                      νIV = A E02 + |E|~2      ,                (4)
+                                                                                     ing rates have been derived as a function of electric field for
+or a linear form motivated and explored in Ref. [55],                                both Ge [54, 56] (using the quadratic parameterization) and
+                                         ~ α,                                        Si [49, 57] (using the linear parameterization), and are used to
+                             νIV = b + m|E|                                (5)
+                                                                                     set the scattering amplitudes in the G4CMP framework. The
+where E~ is the electric field, and the coefficients and exponents                   results of simulating electrons and holes propagating through
+are specified in the “lattice material” table (see Table B.10).                      Ge and Si crystals are shown in Fig. 4. Simulations were per-
+   We note that the spectrum of phonons resulting from interval-                     formed both with (top row) and without (bottom row) the in-
+ley scattering at large fields may not be accurately reproduced                      tervalley scattering process. A comparison between the two
+                                                                                 5
+Figure 4: G4CMP simulations of electron transport (black) through 1.67 cm thick Ge (left) and Si (right) crystals, both with (top) and without (bottom) intervalley
+(IV) scattering. In the former case (top), intervalley scattering tends to scatter electrons toward the center of the crystal and thus encourages transport to align with
+the applied field. For the cases without intervalley scattering (bottom), hole transport is also shown and appears as central clusters (red). The 0.5 V/cm electric field
+is applied along the z axis, which aligns with the h100i crystal axis in the case of Ge and the h111i axis for Si.
+
+
+
+
+                                                                                   6
+                                                                      ⃗k′                                                   ⃗k′                 ⃗q
+                                        ⃗k                               ϕ                                              ϕ                   θ
+                                                                     θ                                                            ⃗k
+                                                          ⃗q
+
+
+Figure 5: Elastic scattering of a charge carrier, with initial wavevector ~k and final wavevector ~k0 , off of the crystal lattice at an angle φ, resulting in emission of an
+acoustic phonon with wavevector ~q at an angle θ. Figure reproduced from Ref. [17].
+
+
+demonstrates which features arise from intervalley scattering                               Hole-phonon scattering is an elastic process, as shown in
+versus oblique propagation. A uniform 0.5 V/cm electric field                            Fig. 5. From conservation of energy and momentum it follows
+was applied along the z axis, aligned with the h100i crystal                             that
+axis in Ge and the h111i axis in Si. As previously mentioned,
+electrons propagate along the L valleys in Ge which align with                                                    k02 = k2 + q2 − 2kq cos θ,
+                                                                                                                                                                         (6)
+the h111i crystal axis (oblique to the applied field), producing                                                    q = 2(k cos θ − kL ),
+four spatially distinct charge concentrations in the absence of
+intervalley scattering. In Si, electrons propagate along the X                           where kL = mvL /~, vL is the magnitude of the longitudinal
+valleys aligned with the h100i crystal axis, resulting in three                          phonon phase velocity, and m is the effective mass of the hole
+spatially distinct charge concentrations. As shown in Fig. 4,                            [52]. With these constraints and the relationships from Fig. 5,
+intervalley scattering tends to scatter electrons toward the cen-                        one can solve for the angle φ of the scattered charge carrier:
+ter of the crystal and thus encourages transport to align with
+                                                                                                              k2 − 2kL (k cos θ − kL ) − 2(k cos θ − kL )2
+the applied field. The bottom panels also show hole transport                                      cos φ =              p                                  .             (7)
+simulated with the G4CMP framework. The broadening of the                                                            k k2 − 4kL (k cos θ − kL )
+charge concentrations resulting from emission of NTL phonons
+is apparent. The dependence of these charge patterns on field                            Using Fermi’s Golden Rule, the scattering rate is
+strength is measured and simulated for Si in Ref. [57].                                                                                         !3
+                                                                                                                          vL k     kL
+                                                                                                                   1/τ =        1−                   ,                   (8)
+2.3.2. Neganov-Trofimov-Luke (NTL) phonon emission                                                                       3l0 kL    k
+   G4CMP can be used to simulate transport of charge carri-
+ers in a semiconductor crystal under application of an electric                          with an angular distribution
+field. A numerical model for the electric field is provided as an                                                                 !2                 !2
+input file, containing a triangulated mesh of electric-potential                                                   vL k                        kL
+                                                                                                      P(k, θ) dθ =                     cos θ −            sin θ dθ,      (9)
+nodes specific to the device geometry and pre-calculated with                                                      l0 k L                      k
+a separate program (e.g., COMSOL [58]). The field causes                                                                                                  4
+                                                                                                                                         π~ ρ
+charge carriers to drift and accelerate through the crystal, with                        where 0 ≤ θ ≤ arccos (kL /k) < π/2, l0 = 2m       3 C 2 is a character-
+
+their speed ultimately limited by emission of so-called NTL                              istic scattering length, ρ is the crystal density [17], and C is the
+phonons [44–46], a charge-phonon scattering process analo-                               deformation potential constant [17].
+gous to Cherenkov radiation. One result of this phenomenon is
+that charge carriers – both holes and electrons – do not generally                       Electrons. Unlike the hole, the electron has a tensor effective
+propagate along straight lines in semiconductors due to scat-                            mass in Ge and Si. As a result, some coordinate transformations
+tering with NTL phonons. Because electrons and holes have                                need to be applied before propagating the electron through the
+different effective mass properties, emission of NTL phonons                             crystal using the recipe outlined for hole propagation. For a
+is implemented differently for each type of charge carrier, as                           coordinate system with one axis aligned with the principal axis
+explained below.                                                                         of the conduction valley, the electron’s equation of motion is
+Holes. In Ge and Si, the effective mass of a hole is well-                                                                  eEi dvi
+approximated by an isotropic scalar. Holes therefore tend                                                                      =    ,                                  (10)
+                                                                                                                            mi   dt
+to propagate along the direction of the applied electric field.
+The anisotropic hole propagation discussed and measured in                               where i is the coordinate index, and mi is the mass along that
+Refs. [49, 57] is a relatively small effect that is not currently                        coordinate axis (see below). To apply the same NTL-phonon
+modeled in G4CMP.3
+    3 The degeneracy of hole bands about the Γ point makes a pseudo-                     ing a momentum-dependent effective-mass tensor. For more information see
+linear transform like that done for electrons much more difficult, requir-               Ref. [55].
+
+                                                                                     7
+emission recipe to electrons as holes, we apply a Herring-Vogt                          Impact ionization is a process in which the propagating
+transformation4 ,                                                                     charge ejects an additional charge from an impurity. Specifi-
+                        q                                                            cally, G4CMP models
+                                 meff
+                                                    
+                       
+                                  mx   0      0     
+                                                                                    e − D− → e − e − D0      or    e− A+ → e− h+ A0 ,                    (15)
+                                        meff
+                                      q
+             T HV =  0                    0             , (11)                         +   −       + −
+                                                                                                                           h+ A+ → h+ h+ A0 .
+                                                        
+                                     my
+                                             q                                              h D →h e D           0
+                                                                                                                     or                                          (16)
+                                               meff 
+                                                             
+                                                             
+                               0     0
+                                                             
+                                               mz
+                                                                                      For example, an electron may encounter a negative impurity
+                                                                                      and ionize it by ejecting an electron from it, or a hole may be
+into a coordinate system in which the electron kinetic√ energy                        created when an electron interacts with a positive impurity. The
+is independent of direction. In that space, v∗i = vi / meff /mi ,                     impurity becomes neutral, so no corresponding opposite charge
+where the effective mass meff is given by 3/meff = 1/m x +                            is ejected, and the assumption of shallow traps means that the
+1/my + 1/mz . For cubic crystals (including Si and Ge), the                           incident charge does not lose energy. The ejected charge begins
+two masses perpendicular to the valley axis are degenerate,                           propagating, and the original charge continues propagating;
+with the different masses conventionally denoted as mk = m x                          thus, both charges contribute to production of NTL phonons
+and m⊥ = my = mz . The specific mass values are substrate-                            thereafter. This results in charge and phonon signals that are
+dependent numerical constants (see Ref. [17]). The electron’s                         larger than would otherwise be expected, with the increase of
+equation of motion in the rotated conduction valley frame is                          the phonon signal depending on how far the initial charge prop-
+transformed to                                                                        agated before it encountered the impurity.
+                          eEi∗ dv∗i
+                               =     .                      (12)                         In total, G4CMP uses six parameters to model this behavior,
+                          meff    dt                                                  corresponding to two mean free paths for electron or hole trap-
+Following the application of the Herring-Vogt transformation,                         ping, respectively (Eqs. 13 and 14), and four mean free paths
+the same recipe that applies to holes for NTL-phonon emission                         for either electrons or holes to produce an additional electron or
+can be followed for electrons [17].                                                   hole via impact ionization (Eqs. 15 and 16). These parameters
+                                                                                      generally vary from device to device, depending on crystal im-
+                                                                                      purities and operating conditions, and must be specified by the
+2.3.3. Charge trapping & impact ionization
+                                                                                      user (see Table A.5).
+   As electrons and holes propagate through crystals, they may                           As an example, we show a calibration spectrum measured
+interact with various types of impurities, conventionally la-                         with a SuperCDMS HVeV device [14] in Fig. 6, compared to a
+belled D for donor and A for acceptor impurities. At deeply                           simulation of the spectrum with G4CMP. The peaks in the spec-
+cryogenic temperatures, the “overcharged” H− -like impurity                           trum correspond to the total phonon energies of integer numbers
+states (D− and A+ ) are dominant [59, 60]; only these impu-                           of e− /h+ pairs for a 100 V detector bias, from a single pair at
+rity states are modeled in G4CMP. Several processes can occur                         ∼100 eV to seven pairs at ∼700 eV. Charge trapping and impact
+depending on the sign of the charge and the type of impurity.                         ionization can result in phonon energies corresponding to non-
+Because we are concerned only about the propagating charges,                          integral numbers of e− /h+ pairs, tending to fill in the regions be-
+and not the state of the impurity, G4CMP simplifies these into                        tween the peaks. Because the phonon resolution of this device
+just two interaction modes: charge trapping and impact ioniza-
+tion [47, 48]. Both of these are described in detail in Ref. [60].
+   Charge trapping is a process in which a charge is captured by
+an impurity. Specifically, G4CMP models
+
+      e − D0   →      D− ,                                               (13)
+        + 0             +
+      h A      →      A .                                                (14)
+
+The charge stops propagating and ceases producing NTL
+phonons via the process described in Sec. 2.3.2. These traps
+are shallow compared to the bandgap, so the trapped charge is
+simply removed from the simulation with no released energy.
+For a device operated with an applied electric field, this trap-
+ping effect results in charge and phonon signals that are smaller
+than would otherwise be expected, with the reduction of the
+phonon signal depending on how far the charge propagated be-                          Figure 6: Simulated phonon-response energy spectrum (red) for a SuperCDMS
+                                                                                      HVeV detector operated with a 100 V bias and exposed to 635 nm (1.95 eV) cal-
+fore it was trapped.                                                                  ibration photons, compared to the measured spectrum (black) from Ref. [14].
+                                                                                      The peaks correspond to integer numbers of e− /h+ pairs. Events with ener-
+                                                                                      gies between the peaks are attributed to experiencing the effects of charge trap-
+    4 Following Ref. [17], the transformation is given in the basis where the x       ping and impact ionization. The parameters used to simulate these processes
+component is aligned with the current valley axis and the other two directions        in G4CMP were obtained by fitting the model in Ref. [48] to the measured
+(y, z) are perpendicular to the alignment direction and to each other.                spectrum.
+
+                                                                                  8
+                                                                                       phonons re-emitted into the substrate, without tracking indi-
+                                                                                       vidual particles directly in the film. As implemented, energy
+                                                                                       exchange between phonons and quasiparticles is evaluated it-
+                                                                                       eratively and the process effectively occurs instantaneously –
+                                                                                       any phonons re-emitted into the substrate are assigned the same
+                                                                                       tracking timestamp as the incident phonon. Consequently, en-
+                                                                                       ergy delocalization via quasiparticle diffusion is not yet cap-
+                                                                                       tured by this package. Future extensions of G4CMP will in-
+                                                                                       clude modeling of quasiparticle recombination and concomi-
+                                                                                       tant phonon emission in order to improve the generality of the
+                                                                                       toolkit beyond the originally intended dense arrays of athermal
+                                                                                       phonon sensors.
+                                                                                          Included in the model is the possibility for the initial inci-
+                                                                                       dent phonon to be reflected back into the substrate without ab-
+                                                                                       sorption (i.e., no quasiparticles are produced), with a probabil-
+Figure 7: G4CMP-simulated drift speeds in Ge versus applied electric-field             ity [17]
+                                                                                                                                 2 · 2d
+                                                                                                                                          !
+strength for electrons (red squares) and holes (red circles), compared to exper-
+imental data from Ref. [60] for electrons (blue triangles) and holes (magenta                            Pescape (E ph ) = exp −            ,       (17)
+×’s) and to the theoretical model from Ref. [61] (green curve). Figure adapted
+                                                                                                                                 λ(E ph )
+from Ref. [2].
+                                                                                       where E ph is the phonon energy, and d is the film thickness.5
+                                                                                       One factor of 2 in the exponent accounts for the phonon need-
+is more than sufficient to cleanly resolve gaps between the e− /h+                     ing to traverse (at least) twice the thickness of the film to re-
+pair peaks, the spectral shape is highly sensitive to and can be                       flect back into the substrate. The other factor of 2 results from
+used to fit for this device’s trapping and impact-ionization pa-                       integrating over the possible angles of incidence of the initial
+rameters [47, 48]. As Fig. 6 demonstrates, using the best-fit pa-                      phonon with the film. Here, λ(E ph ) is the mean free path for
+rameters in G4CMP allows for a reasonable simulation of this                           phonons as a function of energy and phonon lifetime τ:
+device’s measured response.
+                                                                                                                             vsound τ
+                                                                                                         λ(E ph ) =                          ,              (18)
+                                                                                                                      1 + δτ · (E ph /∆ − 2)
+2.3.4. Charge carrier drift speed
+   An important observable for charge transport under an ap-                           where vsound is the speed of sound in the film material, ∆ is
+plied electric field is drift speed. Comparison of simulated                           the superconducting bandgap of the film material, and δτ is a
+and measured drift speeds is thus a good test that the G4CMP                           dimensionless slope of the phonon lifetime vs. energy.
+charge-transport processes are working as intended. For differ-                           Phonons with energy E ph < 2∆ may be collected directly by
+ent values of the electric field, a maximum drift speed of the                         the sensor with a user-defined probability subgapAbsorption
+charge carrier is reached, at which point energy from the elec-                        (see Sec. 3.2). If such a phonon is not collected, it is reflected
+tric field goes into emission of NTL phonons. Figure 7 shows                           back into the substrate.
+the average speeds of electrons and holes drifted through a Ge                            If the phonon is neither reflected nor is directly absorbed, its
+crystal with O(V/cm) electric fields. The intervalley scattering                       energy is transferred into a pair of Bogoliubov quasiparticles,
+rates for the G4CMP simulations are estimated using the the-                           breaking a Cooper pair in the superconducting film. The energy
+oretical model in Ref. [61]. The simulated results incorporate                         is shared between the two quasiparticles as Eqp and E ph − Eqp ,
+the effects of all the charge transport processes described in this                    where the energy is chosen using an accept-reject loop accord-
+section, yielding good agreement with experimental data [60].                          ing to the function [17, 63]
+For Si, G4CMP’s intervalley scattering rates are based on the
+measurements in Refs. [49, 57], including the option to select                                                                    
+                                                                                                                  Eqp E ph − Eqp + ∆2
+either of the two modeling methods reported in those papers.                                f (Eqp |E ph ) = r                               .             (19)
+                                                                                                                                   2
+                                                                                                                 2 − ∆2
+                                                                                                                Eqp          E ph − Eqp − ∆2
+2.4. Superconducting quasiparticle processes
+   Geometry surfaces may be configured in G4CMP to in-                                 Quasiparticles with energies below 3∆ are collected onto the
+clude modeling of phonon absorption by superconducting films                           sensor and removed from further consideration. Higher-energy
+and associated sensor response (see Sec. 3.2). To model                                quasiparticles will scatter in the film, effectively decaying by
+quasiparticles in superconducting films, we have implemented                           losing energy to a phonon in the process: Eqp   0
+                                                                                                                                           = Eqp − E ph ,
+a “lumped” version [17] of Kaplan’s model for phonon-                                  where E ph is chosen using an accept-reject loop according to
+quasiparticle behavior [62] in a class named G4CMPKaplanQP.
+Our model traces the energy flow from a substrate phonon in-
+cident on the film to the amount of energy recorded by a sen-                              5 Note that G4CMP includes another mechanism for phonons to reflect at
+
+sor, including quasiparticle production, quasiparticle decay, and                      the substrate-film interface, which is covered in Sec. 3.2.
+
+                                                                                   9
+the function [17, 63]                                                            For energy deposits involving heavy ions (sometimes called
+                                                                              “nuclear recoils”), either as atoms within the crystal or as pro-
+                           E ph (Eqp − E ph )2 (E ph − E∆qp )
+                                                          2
+                                                                              jectiles (i.e., G4Track instances), the Lindhard model [30] is
+          f (E ph |Eqp ) =           q                        .   (20)        used to compute the partitioning of energy for the production
+                                       E 2ph − ∆2
+                                                                              of e− /h+ pairs versus the creation of prompt phonons. Two
+                                                                              different models are provided in the G4CMP library: Lind-
+The initial quasiparticle energy is replaced with the new value
+  0                                                                           hard & Robinson [32] (lindhard) and Lewin & Smith [31]
+Eqp  , and the new phonon energy is stored. Phonons created
+                                                                              (lewin). User applications can specify the model using
+by quasiparticle scattering are passed through the same proce-
+                                                                              /g4cmp/NIELPartition with one of these name strings.
+dure described above, with possibilities for emission into the
+                                                                                 The Fano factor for e− /h+ pair production from an energy
+substrate, direct collection on the sensor, or conversion into ad-
+                                                                              deposit is a property of the crystal material and is set with
+ditional quasiparticles.
+                                                                              the fanoFactor parameter in config.txt. This feature en-
+    This procedure is iterated in G4CMPKaplanQP until there are
+                                                                              ables fluctuation in the number of charge carriers produced
+no remaining quasiparticles; the total energy collected on the
+                                                                              (Neh ) for a given energy deposit Edep . An exact number of
+sensor, together with the remaining phonon energies, are re-
+                                                                              pairs Neh = Edep /Epair can instead be generated by setting
+turned. The phonons from quasiparticle scattering which are
+                                                                              /g4cmp/enableFanoStatistics false, where Epair , the
+re-emitted into the substrate are assigned random polarizations
+                                                                              average energy required to create an e− /h+ pair, is a material-
+chosen according to the steady-state phonon populations [39]
+                                                                              dependent G4CMP parameter.
+(see Sec. 2.2.2) and random directions. A momentum-
+preserving implementation of this down-conversion process is                  3.2. Defining surface properties
+described in Ref. [64], which can be used to produce initial
+                                                                                 How phonons and charge carriers behave at the surface of
+phonon and quasiparticle distributions of known momenta for
+                                                                              a solid-state volume is configured analogously to optical sur-
+spatially accurate transport simulations in superconductors.6
+                                                                              faces in Geant4 [4], including reflection, absorption or termi-
+Work is ongoing to implement these processes in future up-
+                                                                              nation, and transmission. G4CMP provides classes to define a
+grades to G4CMP.
+                                                                              general boundary for a logical volume (G4CMPLogicalSkin-
+                                                                              Surface) or the boundary between two physical (placement)
+3. G4CMP features and functionality                                           volumes (G4CMPLogicalBorderSurface). These classes are
+                                                                              specific to G4CMP and may be instantiated for volumes with-
+   The interface between G4CMP and Geant4 is in the form of
+                                                                              out conflicting with Geant4 optical surfaces. As with opti-
+a physics builder for adding the G4CMP processes to an exist-
+                                                                              cal surfaces, each G4CMP surface instance must be supplied
+ing user simulation. The package also provides a standalone
+                                                                              with a G4SurfaceProperty instance, either as a constructor
+physics list for running a solid-state-only simulation. Relevant
+                                                                              argument or via SetSurfaceProperty(). For convenience,
+properties for a given crystal volume are specified via material
+                                                                              G4CMP provides a G4CMPSurfaceProperty subclass which
+data files included in the G4CMP package. There are a set of
+                                                                              includes a constructor that takes all the necessary arguments
+global parameters, listed in Appendix A, which can be used
+                                                                              for specifying reflection or termination of both phonons and
+to customize the performance of G4CMP; some of these are
+                                                                              charge carriers, as well as frequency-dependent reflection or
+mentioned specifically below. Interactions between charge car-
+                                                                              down-conversion of phonons, and which will fill material prop-
+riers or phonons and the surface of a crystal volume, including
+                                                                              erty tables with those arguments.
+interfaces with sensor volumes, are handled with Geant4-style
+                                                                                 Because the devices being modeled often include a sensor
+surface properties.
+                                                                              or “electrode” for collecting signals, G4CMPSurfaceProperty
+                                                                              supports registration of user-defined electrode classes as sub-
+3.1. Physics configuration
+                                                                              classes of G4CMPVElectrodePattern; one electrode instance
+   As discussed in Sec. 2.1, G4CMP accesses the energy de-                    for phonons and one for charge carriers may be registered to
+posited by radiation in Geant4 to create e− /h+ pairs and prompt              each surface.7 When an electrode is registered, the absProb
+phonons. Configuring this behavior involves multiple pa-                      material property is used to determine whether the electrode
+rameters and data files in G4CMP, which can be set using                      collects the phonon or charge carrier or passes it to the surface
+Geant4 macro commands. Crystal properties, phonon ve-                         reflection code. The material properties table for the surface is
+locities, charge-carrier effective masses, scattering rates, etc.,            passed (by pointer) into the electrode class automatically. User
+are defined for each material (see Sec. 3.3). G4CMP cur-                      applications may define their own properties to be used by their
+rently includes predefined properties for Si and Ge, under the                electrode subclass and add those properties to the surface’s as-
+CrystalMaps directory, referenced via the environment vari-                   sociated table.
+able $G4LATTICEDIR. This directory may be redirected by                          The G4CMP library provides G4CMPPhononElectrode as
+changing the environment variable or via the macro command                    a concrete implementation of a phonon detection electrode.
+/g4cmp/LatticeData.
+                                                                                  7 For such an application, the geometry should include small volumes rep-
+   6A  python implementation of this simulation procedure can be found        resenting each sensor attached to the substrate, and electrodes should be regis-
+at https://github.com/benvlehmann/scdc.                                       tered to the border surfaces between those sensor volumes and the substrate.
+
+                                                                         10
+Figure 8: Processing time per event in hours for a 10 keV energy deposit from a gamma-ray interaction in a Ge crystal versus down-sampling parameters. Left:
+Dependence on the energy sampling threshold, with the max number of NTL phonons per event set to 105 . Right: Dependence on the max number of NTL phonons
+per event, with the energy sampling threshold set to 1000 eV.
+
+
+This electrode is intended to be attached to the border sur-                         – can result in extremely large numbers of tracks and steps
+face between the crystal and a volume representing a su-                             per track. A typical event starting with a few-keV gamma ray
+perconducting film (such as aluminum) with some energy-                              may take a CPU day or more to simulate. To make simulations
+absorbing and response functionality such as a transition-                           tractable, G4CMP provides parameters for down-sampling the
+edge sensor (TES). The behavior of such a surface de-                                production of e− /h+ pairs and prompt phonons from energy de-
+vice is modeled with the G4CMPKaplanQP class, called from                            posits, and for the number of NTL phonons to be tracked in
+the electrode. G4CMPPhononElectrode expects a set of                                 each event. Figure 8 shows some examples of the CPU time as-
+properties that specify the response of the film, includ-                            sociated with differing choices of down-sampling parameters.
+ing its thickness (filmThickness), superconducting energy                               Down-sampling is specified using a sampling threshold
+gap ∆ (energyGap8 ), phonon lifetime τ (phononLifetime),                             Esampling (/g4cmp/samplingEnergy), or via fixed fractions
+dimensionless slope δτ of the phonon lifetime vs. en-                                for charges (/g4cmp/produceCharges) and prompt phonons
+ergy (PhononLifetimeSlope; see Eq. 18), speed of sound                               (/g4cmp/producePhonons). The former is used with each en-
+(vSound), and minimum energy for the code to have a quasi-                           ergy deposit to compute a sampling fraction Esampling /Edeposit
+particle radiate a phonon (lowQPLimit, which multiplies ∆).                          to use if Edeposit > Esampling . In either case, a weight W =
+An optional property is available to represent the additional be-                    1/fraction is assigned to each created track (and its subsequent
+havior of the energy absorber in the electrode: the probability                      interactions).
+(subgapAbsorption) for an incident phonon to be directly ab-                            For NTL phonons, a “soft maximum” number per
+sorbed, which, for example, might correspond to the effective                        event NNTLmax
+                                                                                                    can be specified with the macro command
+area of the absorber relative to the superconducting film.                           /g4cmp/maxLukePhonons. The number of e− /h+ pairs and the
+                                                                                     detector bias are used to estimate how many NTL phonons may
+3.3. Adding new materials                                                            be generated, assuming an average of 2 meV per phonon. This
+   G4CMP comes with options for tracking phonons and charge                          estimate is combined with NNTL  max
+                                                                                                                         to set a fraction and weight
+carriers in either silicon or germanium substrates. Implementa-                      for NTL emission. A default value of NNTL  max
+                                                                                                                                     = 10000 is set in
+tion of a new material requires creation of a configuration file                     G4CMP.
+to be added as CrystalMaps/<name>/config.txt, either in                                 The computational resources needed for G4CMP physics
+the G4CMP repository or a user-specific directory pointed to                         simulations are nontrivial. As presented in Fig. 8, processing
+with the $G4LATTICEDIR environment variable. Most of the                             times are on the order of an hour per event, and simulation jobs
+parameters currently included in the existing config.txt files                       often entail processing of tens of thousands to many millions
+are needed, so the Si or Ge file can be used as a template for                       of events. Thus, users should consider investigation of down-
+creating a file for a new material. See also Appendix B for an                       sampling and validation of simulation results as part of the ap-
+explanation of each parameter.                                                       plication development process.
+3.4. Computation: resources and down-sampling
+   The potentially wide range of energies in G4CMP simula-
+                                                                                     4. Applications of G4CMP
+tions – from MeV radiation interactions to sub-meV phonons
+
+   8 Note that energyGap is defined as the superconducting bandgap ∆, not the          There are several reports of the application of G4CMP to-
+energy 2∆ needed to break a Cooper pair.                                             ward understanding charge and phonon transport in chip-based,
+                                                                                11
+superconducting devices. These reports extend the applica-
+tion of G4CMP beyond the original intent of modeling the re-
+sponse of solid-state cryogenic dark-matter detectors [63] and
+the charge-transport results in Refs. [49, 57] (see Sec. 2.3.1).
+An initial example explored the utility of modeling phonon
+transport in a silicon chip instrumented with kinetic-inductance
+detectors (KIDs) [16]. This study evaluated interfacial phonon-
+energy-absorption efficiencies in comparison to response data
+collected from two KID-containing devices. A second model-
+ing application evaluated the use of normal-metal pads or chip-
+trenching to mitigate transport of phonons (produced by cos-
+mic rays) into TESs and KIDs [65]. This work focused on
+the planned LiteBIRD satellite mission that would be located
+at Earth’s L2 Lagrange point to study B-mode polarization of
+the cosmic microwave background radiation. More recently,
+G4CMP was employed to understand charge diffusion in de-                 Figure 9: Parameter-optimized phonon pulse response simulated for an HVeV
+                                                                         device using G4CMP and the SuperCDMS Detector Monte Carlo (red solid),
+vices hosting charge-sensitive transmon qubits [15]. This report         compared to the pulse template constructed from HVeV laser calibration data
+helped reveal the correlated nature of environmentally-induced           (black dashed).
+errors (e.g., due to gamma and cosmic-ray interactions) in ar-
+rays of qubits sharing a common substrate.
+   The reader is encouraged to review these applications in              of charges and phonons, including their interactions at the sur-
+Refs. [15, 16, 65] which provide examples of the utility of              face of the Si substrate (see Sec. 2). The phonon-electrode con-
+G4CMP for enhancing the understanding of chip-based super-               figuration described in Sec. 3.2 is used to model the collection
+conducting devices. In the remainder of this section, we ex-             of phonon energy by the QETs. Finally, SuperCDMS has de-
+pand the list of example applications, further demonstrating the         veloped a software package which models the electrothermal
+breadth of cases and questions that G4CMP can address. These             response of the QETs and readout electronics to phonon energy,
+examples are kept brief and focused on their specific application        and which produces digitized waveforms equivalent to the ex-
+of G4CMP. More detailed device and scientific results related            perimental readout. This code is implemented in the form of
+to these examples appear in the literature and may appear in             coupled differential equations for the network of QETs, equiv-
+future reports.                                                          alent to the TES simulation in Ref. [17].
+                                                                            Initial comparisons of data from a laser-pulsed HVeV device
+                                                                         and the output from the DMC model showed that the simulated
+4.1. Chip-scale cryogenic dark matter sensor
+                                                                         pulses were almost twice as large in amplitude as the measured
+   SuperCDMS HVeV detectors [12, 66], comprising supercon-               pulses. The pulse rise times and peak positions also were not
+ducting sensors on chip-scale silicon substrates, are sensitive          well-matched to data. More telling, the presence of a second ex-
+to O(eV) energy deposits and are used to search for dark mat-            ponential fall time in the measured pulses was not reproduced
+ter with low-energy thresholds [14, 67]. These devices are               by the simulation model. These differences are attributed to in-
+fabricated with a dense pattern of athermal phonon sensors –             correct parameters and deficiencies in the DMC model. Three
+quasiparticle-trap-assisted electrothermal-feedback transition-          DMC parameters were found to significantly influence the char-
+edge sensors (QETs) [68, 69] – with high efficiency for phonon           acteristics of the simulated pulse response:
+energy collection.
+   As mentioned in Sec. 2.3.3, a key characteristic is the re-             • The QET absorption probability determines if a phonon is
+sponse to few-integer multiples of e− /h+ pairs when such a de-              absorbed into a QET aluminum fin, independent of the Si
+vice is operated with a bias voltage of O(100 V), resulting in               substrate’s specular vs. diffuse surface reflectivity;
+production of NTL phonons which amplify the phonon sig-
+                                                                           • The superconducting gap (∆) of the aluminum determines
+nal (see Fig. 6). Underlying the HVeV data analysis is a de-
+                                                                             if an absorbed phonon has sufficient energy (2∆) to break a
+tailed understanding of the phonon pulse response. A 635 nm
+                                                                             Cooper pair (if not, the phonon is reflected diffusely back
+(1.95 eV) laser produces events of known origin, which are used
+                                                                             into the substrate); and
+to create a pulse-shape template for reconstructing the phonon
+energy of events of unknown origin.                                        • The sub-gap absorption parameter sets the probability for
+   The SuperCDMS collaboration has developed a Detector                      low-energy phonons to be directly absorbed by the QET’s
+Monte Carlo (DMC) software framework to model the detec-                     tungsten TES.
+tor response to energy deposits, including initial interactions
+modeled by Geant4, charge and phonon simulation modeled                     Figure 9 compares the pulse template constructed from
+by G4CMP, and an additional software package to model the                HVeV laser calibration data to the simulated pulse response af-
+digitized sensor readout. G4CMP provides the underlying                  ter DMC parameter tuning. Specifically, this result was gener-
+physics processes needed to simulate production and tracking             ated by using an optimal filter fitting procedure, which accounts
+                                                                    12
+Figure 10: Patterns of phonon caustics simulated using G4CMP for a 5 × 5 mm2 , 350 µm thick silicon chip cut at different crystal orientations: (from left to right)
+h100i, h110i, h111i orientations. The red rectangles indicate proposed positions of sensors to collect phonon energy.
+
+
+for uncertainties due to noise and returns a χ2 value that mea-                      on the bottom (for specular reflection of the phonons) and a
+sures goodness-of-fit between a simulated pulse and the data                         fully metalized top surface with 100% absorption. Phonons of
+template. Through iterative assessment of this χ2 metric as a                        0.9 meV are injected from the center of the top surface isotrop-
+function of parameter values, a final set of DMC parameters                          ically downward (at 90◦ half angle) into the Si crystal. The red
+was found that achieves a χ2 minimum. The QET absorption                             rectangles show proposed sensor locations overlaid on top of
+and sub-gap absorption parameters arrived at values that are                         the simulated caustics patterns which result from phonon trans-
+physically motivated, whereas the favored aluminum supercon-                         port in the Si crystal.
+ducting energy gap is unphysically large. This unphysical value
+implies that there is a deficiency in the model likely related to                    4.3. Modeling device trenching and phonon transport
+the time and energy dependence of quasiparticle propagation in                          One factor impacting superconducting device performance is
+the QETs.                                                                            an undesirable excess of quasiparticles in the superconducting
+                                                                                     films. Various environmental factors can deposit energy into
+4.2. Superconducting device for caustics measurement                                 the substrate (see, e.g., Refs. [15, 23, 24, 72, 73]), which in turn
+   Direct detection of phonon caustics patterns can potentially                      generates phonons that can break Cooper pairs in the supercon-
+be used to validate the phonon transport models implemented                          ductor. These pair-breaking phonons were shown as a source
+in G4CMP, which could help to optimize the spatial configu-                          of decoherence in superconducting quantum circuits and de-
+ration of on-chip sensors. These caustics could be probed in                         vices [74]. The G4CMP toolkit provides a platform to simulate
+chip-scale devices comprised of spatially-localized supercon-                        various methods to mitigate substrate phonon transport into su-
+ducting sensors fabricated on a single-crystal substrate, such as                    perconducting circuits, such as a “phonon sink” in the form of a
+Si or Ge. Established pair-breaking sensor technologies could                        normal-metal film anchored to the substrate or etching away the
+be utilized, such as microwave kinetic inductance detectors                          substrate material to create a pseudo-island that effectively iso-
+(MKIDs) [70] or quantum capacitance detectors (QCDs) [71],                           lates sensitive superconducting elements from the surrounding
+provided that a localized source of phonons with sufficient                          substrate [65, 75]. Simulation of these mitigation techniques is
+emission at energies > 2∆ can be integrated on-chip. To                              a potentially valuable design tool for optimizing device perfor-
+demonstrate this, sensors could be placed radially at varying                        mance when energy transfer from substrate phonons is a con-
+angles relative to the crystal axes, with the origin defined by                      cern.
+the position of the phonon source. Pulsed injection of phonons,                         We present here an example simulation that focuses on etch-
+followed by high-bandwidth detection of the sensor response,                         ing away (or “micro-machining”) the substrate near a sensor
+would resolve anisotropic phonon transport and the subsequent                        with the goal of limiting phonon propagation from the substrate
+generation of quasiparticles via phonon absorption in the sen-                       into the superconducting film. Based on the “P1” MKID device
+sors. The G4CMP package was employed in the development                              in Ref. [16], the simulation geometry is shown in Fig. 11 and
+and layout of devices having these goals.                                            includes a superconducting sensor (aluminum film) centered on
+   Figure 10 shows a G4CMP simulation of phonon transport                            top of a silicon substrate, legs that connect the central island to
+for a feasible device geometry, with a localized phonon source                       the surrounding substrate, and device clamps at the four sub-
+co-located on the same surface as the sensors. A 5 × 5 mm2 ,                         strate corners. Phonons are generated as a result of photons
+350 µm thick Si crystal is used, with a polished bare surface                        thrown at the outer substrate. The phonon tracks are shown for
+                                                                                13
+                                                                                        ing physics processes included for simulation of phonon and
+                                                                                        charge transport in semiconductor substrates, as well as details
+                                                                                        for the phonon-sensitive superconducting electrode that is cur-
+                                                                                        rently implemented as part of the package. To highlight the
+                                                                                        potential breadth of application, we present examples ranging
+                                                                                        from Geant4-incorporated device-response models (i.e., HVeV
+                                                                                        device in Sec. 4.1) to pure G4CMP phonon transport with na-
+                                                                                        tive Geant4 output (i.e., caustics device in Sec. 4.2 and trenched
+                                                                                        substrate in Sec. 4.3).
+                                                                                           Research within the many user communities is driving de-
+                                                                                        velopment of new features for the G4CMP package. We are
+                                                                                        actively developing several features that may appear in future
+                                                                                        releases. To support studies of quasiparticle populations in
+                                                                                        the superconducting circuitry of quantum devices, we are de-
+                                                                                        veloping particle transport and interaction models for super-
+                                                                                        conducting films. These new processes for temporal and spa-
+                                                                                        tial tracking of quasiparticles and phonons in superconduct-
+                                                                                        ing films are analogous to the processes already included in
+                                                                                        G4CMP for transport of phonons and charges in semiconduc-
+Figure 11: Simulation model of a superconducting sensor with substrate etching          tor substrates. Additionally, we are adding more realistic fea-
+to limit phonon propagation. The sensor (aluminum film on central island) is            tures to the G4CMPKaplanQP sensor response model described
+2 × 2 mm2 and is connected to the surrounding Si substrate via small “legs.”            in Sec. 2.4, informed by the development work on quasiparticle-
+Phonon tracks corresponding to the substrate’s acoustic modes – fast transverse,
+                                                                                        phonon interactions just mentioned, and by measurements and
+slow transverse, and longitudinal – are shown in cyan, magenta, and yellow,
+respectively. Dark red circles indicate phonon absorption sites. Phonons were           modeling of sensor response (e.g., as in Sec. 4.1). To sup-
+generated by throwing photons at a location on the substrate surface outside the        port simulation of a wider range of devices, we are also work-
+central island (black star).                                                            ing with user groups to develop material properties tables (see
+                                                                                        Sec. 3.3 and Appendix B) for additional substrates (beyond sil-
+                                                                                        icon and germanium) and superconducting films (besides alu-
+the corresponding, color-coded acoustic modes: cyan for fast
+                                                                                        minum).
+transverse, magenta for slow transverse, and yellow for longi-
+                                                                                           As G4CMP provides the underlying physics processes, it
+tudinal.
+                                                                                        is both possible and encouraged for users to develop specific
+   The shape, thickness, and position of the legs were varied for
+                                                                                        geometries, add new materials, and implement new electrode
+these simulations. Figure 11 shows the “dog-leg” geometry. A
+                                                                                        models as needed to simulate their devices. Users may con-
+simpler, straight-leg version was also simulated for comparison.
+                                                                                        tribute to the project through the GitHub repository [18] by cre-
+For each design, a parametric sweep was performed for each leg
+                                                                                        ating issues, or by forking and submitting pull requests. Users
+geometry with varying leg thicknesses. The presence of metal
+                                                                                        may also request to be added to the project directly as GitHub
+films on the top and bottom surfaces of the legs was also simu-
+                                                                                        “Contributors” and may then submit code modifications via fea-
+lated to explore phonon absorption. The simulation results in-
+                                                                                        ture branches directly to the repository.
+dicate that the dog-leg geometry with metal films added to the
+legs was the most effective way to isolate the island-based sen-
+sor from phonons. Varying the thickness of the legs between                             6. Acknowledgements
+1 µm and 1 mm shows that phonon hits at the central sensor de-
+                                                                                           The original development of G4CMP took place more than
+crease with decreasing leg thickness (for each leg type), as ex-
+                                                                                        a decade ago [2]. Many have contributed to the package since
+pected. This latter result is true whether or not phonon sinking
+                                                                                        that time. Our intention with this article was to bring all con-
+metal was included on the surfaces of the legs.
+                                                                                        tributors together with several “user groups” for an updated pre-
+                                                                                        sentation of the code and breadth of potential application. Thus,
+5. Summary and outlook                                                                  this work was truly a multi-collaboration endeavor. The authors
+                                                                                        thank each of their respective sponsoring agencies for making
+   In summary, the Geant4 Condensed Matter Physics                                      possible the development and use of the G4CMP software pack-
+(G4CMP) software package is used by and developed for sim-                              age.
+ulation of sub-Kelvin cryogenic devices employing supercon-                                We gratefully acknowledge support from the U.S. Depart-
+ducting sensors or circuits. Originally developed to model the                          ment of Energy (DOE) Office of High Energy Physics (HEP),
+response of solid-state dark-matter detectors, G4CMP is now                             the DOE Office of Nuclear Physics (NP), the National Sci-
+being used for a broader range of applications, including mod-                          ence Foundation (NSF), the Natural Sciences and Engineering
+eling of superconducting sensors for satellite missions and su-                         Research Council of Canada (NSERC), the Canada First Re-
+perconducting qubits for quantum computing. In this article,                            search Excellence Fund through the Arthur B. McDonald Cana-
+we provide descriptions and demonstrations of the underly-                              dian Astroparticle Physics Research Institute, and the Mitchell
+                                                                                   14
+Institute for Fundamental Physics and Astronomy at Texas
+A&M University. This work was supported in part under
+grants from the DOE HEP QuantISED and DOE NP Quan-
+tum Horizons programs. This research was enabled in part
+by support provided by SciNet (scinethpc.ca) and the Digi-
+tal Research Alliance of Canada (alliancecan.ca), and portions
+were conducted with the advanced computing resources pro-
+vided by Texas A&M High Performance Research Computing.
+This research was supported by an appointment to the Intelli-
+gence Community Postdoctoral Research Fellowship Program
+at Massachusetts Institute of Technology administered by Oak
+Ridge Institute for Science and Education (ORISE) through an
+interagency agreement between the U.S. DOE and the Office
+of the Director of National Intelligence (ODNI). Y.-Y. Chang
+was supported in part by a Taiwanese Ministry of Education
+Fellowship and by a Caltech J. Yang Fellowship. Funding
+was received by the Deutsche Forschungsgemeinschaft (DFG,
+German Research Foundation) under the Emmy Noether Grant
+No. 420484612. Fermilab is operated by the Fermi Research
+Alliance, LLC, under Contract No. DE-AC02-37407CH11359
+with the U.S. DOE. Pacific Northwest National Laboratory is
+a multi-program national laboratory operated for the U.S. DOE
+by Battelle Memorial Institute under Contract No. DE-AC05-
+76RL01830. SLAC is operated under Contract No. DE-AC02-
+76SF00515 with the U.S. DOE. Work at MIT Lincoln Labora-
+tory is supported under Air Force Contract No. FA8702-15-D-
+0001. Any opinions, findings, conclusions or recommendations
+expressed in this material are those of the authors and do not
+necessarily reflect the views of the U.S. Government.
+
+
+Appendix A. Global configuration parameters
+
+   To configure a G4CMP simulation, a number of parameters
+are available ranging from the mechanics of controlling the sim-
+ulation job-processing, debugging, CPU efficiency, and down-
+sampling to specifying the geometry configuration and physics
+processes. These configuration parameters are succinctly listed
+in Tables A.1–A.5.
+
+
+Appendix B. Lattice definition parameters
+
+   To define crystalline materials that can support charge
+and phonon transport within the G4CMP framework, the
+user must enter values for the parameters in Tables B.6–
+B.10 into a file named config.txt for the desired mate-
+rial. See Sec. 3.3 for additional details. The G4CMP pack-
+age includes pre-defined data files for silicon and germanium
+(CrystalMaps/*/config.txt). Users can find the specific
+parameter values in these files.
+
+
+
+
+                                                                   15
+                              Table A.1: Job control parameters.
+         Environment variable
+           Macro command                             Value/action
+         G4LATTICEDATA [D]                           Directory with lattice configs
+           /g4cmp/LatticeData [D]
+         G4CMP DEBUG [L]                             Enable diagnostic messages
+           /g4cmp/verbose [L] >0
+         G4CMP HIT FILE [F]                          Write e− /h+ hit locations to “F”
+           /g4cmp/HitsFile [F]
+
+
+
+
+                     Table A.2: Debugging and CPU efficiency parameters.
+      Environment variable
+        Macro command                                  Value/action
+      G4CMP EH BOUNCES [N]                             Maximum e− /h+ reflections
+        /g4cmp/chargeBounces [N]
+      G4CMP PHON BOUNCES [N]                           Maximum phonon reflections
+        /g4cmp/phononBounces [N]
+      G4CMP EMIN PHONONS [E]                           Minimum energy to track phonons
+        /g4cmp/minEPhonons [E] eV
+      G4CMP EMIN CHARGES [E]                           Minimum energy to track charges
+        /g4cmp/minECharges [E] eV
+      G4CMP MIN STEP [S]                               Force minimum step SL0
+        /g4cmp/minimumStep [S] >0
+
+
+
+
+                     Table A.3: Down-sampling (reweighting) parameters.
+Environment variable
+  Macro command                                      Value/action
+G4CMP MAKE PHONONS [R]                               Fraction of phonons from energy deposit
+  /g4cmp/producePhonons [R]
+G4CMP MAKE CHARGES [R]                               Fraction of charge pairs from energy deposit
+  /g4cmp/produceCharges [R]
+G4CMP LUKE SAMPLE [R]                                Fraction of generated Luke phonons
+  /g4cmp/sampleLuke [R]
+G4CMP MAX LUKE [N]                                   Soft maximum Luke phonons per event
+  /g4cmp/maxLukePhonons [N]
+G4CMP SAMPLE ENERGY [E]                              Energy above which to down-sample
+  /g4cmp/samplingEnergy [E] eV
+G4CMP COMBINE STEPLEN [L]                            Combine hits below step length
+  /g4cmp/combiningStepLength [L] mm
+
+
+
+
+                                             16
+                             Table A.4: Geometry configuration parameters.
+    Environment variable
+      Macro command                                    Value/action
+    G4CMP CLEARANCE [L]                                Minimum distance of tracks from boundaries
+      /g4cmp/clearance [L] mm
+    G4CMP VOLTAGE [V]                                  Apply uniform +Z voltage
+      /g4cmp/voltage [V] volt !=0:
+    G4CMP EPOT FILE [F]                                Read mesh field file “F”
+      /g4cmp/EPotFile [F] V=0
+    G4CMP EPOT SCALE [F]                               Scale the potentials in EPotFile by factor F
+      /g4cmp/scaleEPot [F] V=0
+    G4CMP MILLER H                                     Miller indices for lattice orientation
+    G4CMP MILLER K
+    G4CMP MILLER L
+      /g4cmp/orientation [h] [k] [l]
+    G4CMP TEMPERATURE                                  Device/substrate/etc. temperature
+      /g4cmp/temperature [T] K
+
+
+
+
+                               Table A.5: Physics process configuration.
+Environment variable
+  Macro command                                                     Value/action
+G4CMP USE KVSOLVER                                                  Use eigensolver for K-Vg mapping
+  /g4mcp/useKVsolver [t,f]
+G4CMP FANO ENABLED                                                  Apply Fano statistics to input ionization
+  /g4cmp/enableFanoStatistics [t,f]
+G4CMP NIEL FUNCTION                                                 Select NIEL partitioning function
+  /g4cmp/NIELPartition [LewinSmith, Lindhard]
+G4CMP CHARGE CLOUD                                                  Create charges in sphere around location
+  /g4cmp/createChargeCloud [t,f]
+G4CMP IV RATE MODEL                                                 Select intervalley rate parametrization
+  /g4cmp/IVRateModel [IVRate, Linear, Quadratic]
+G4CMP ETRAPPING MFP                                                 Mean free path for electron trapping
+  /g4cmp/eTrappingMFP [L] mm
+G4CMP HTRAPPING MFP                                                 Mean free path for charge hole trapping
+  /g4cmp/hTrappingMFP [L] mm
+G4CMP EDTRAPION MFP                                                 MFP for electron-trap ionization by e−
+  /g4cmp/eDTrapIonizationMFP [L] mm
+G4CMP EATRAPION MFP                                                 MFP for hole-trap ionization by e−
+  /g4cmp/eATrapIonizationMFP [L] mm
+G4CMP HDTRAPION MFP                                                 MFP for electron-trap ionization by h+
+  /g4cmp/hDTrapIonizationMFP [L] mm
+G4CMP HATRAPION MFP                                                 MFP for hole-trap ionization by h+
+  /g4cmp/hATrapIonizationMFP [L] mm
+
+
+
+
+                                                  17
+          Table B.6: Lattice configuration parameters used in config.txt.
+Keyword           Arguments        Value type(s)                Units
+amorphous         –none–           Polycrystalline solid
+cubic             a                Lattice constant             length
+tetragonal        ac               Lattice constants            length
+hexagonal         ac               Lattice constants            length
+orthorhombic      abc              Lattice constants            length
+rhombohedral      aα               Lattice const., angle        length, deg/rad
+monoclinic        abcα             Lattice const., angle        length, deg/rad
+triclinic         abcαβγ           Lattice const., angle        length, deg/rad
+stiffness         i j val          Indices 1–6, elasticity      pressure (Pa, GPa)
+Cij               i j val          Indices 1–6, elasticity      Pa, GPa
+
+
+
+
+                Table B.7: Phonon parameters used in config.txt.
+Keyword   Arguments       Value type(s)                                 Units
+beta      val             Scattering parameters                         Pa, GPa
+gamma     val             (see Ref. [38])                               Pa, GPa
+lambda    val                                                           Pa, GPa
+mu        val                                                           Pa, GPa
+dyn       βγλµ            All four parameters                           Pa, GPa
+scat      B               Isotopic scattering rate                      second3 (s3)
+decay     A               Anharmonic decay rate                         second4 (s4)
+decayTT   frac            Fraction of L→TT decays
+LDOS      frac            Longitudinal density of states                sum to unity
+STDOS     frac            Slow-transverse density of states
+FTDOS     frac            Fast-transverse density of states
+Debye     val             Debye energy for phonon primaries             E, T, Hz
+vsound    Vlong           Sound speed (longitudinal)                    m/s
+vtrans    Vtrans          Sound speed (transverse)                      m/s
+
+
+
+
+             Table B.8: Charge carrier parameters used in config.txt.
+Keyword        Arguments         Value type(s)                      Units
+bandgap        val               Bandgap energy                     energy (eV)
+pairEnergy     val               Energy taken by e-h pair           energy (eV)
+fanoFactor     val               Spread of e-h pair energy
+l0 e           len               Electron scattering length         length
+l0 h           len               Hole scattering length             length
+hmass          mh                Effective mass of hole             m/me
+emass          m xx myy mzz      Electron mass tensor               (same)
+valley         θφψ               Euler angles                       angle (deg/rad)
+
+
+
+
+                                        18
+              Table B.9: Intervalley scattering matrix element parameters used in config.txt.
+     Keyword       Arguments        Value type(s)                                    Units
+     epsilon       e/e0             Relative permittivity
+     neutDens      N                Number density of neutron impurities             /volume
+     alpha         val              Non-parabolicity of valleys                      energy−1 (/eV)
+     acDeform      val              Acoustic deformation potential                   energy (eV)
+     ivDeform      val val ...      Optical deformation potentials                   eV/cm
+     ivEnergy      val val ...      Optical phonon thresholds                        energy (eV)
+
+
+
+
+                 Table B.10: Intervalley scattering model parameters used in config.txt.
+Keyword         Arguments        Value type(s)                                                        Units
+ivModel         name             IVRate (matrix), Linear or Quadratic                                 string
+ivLinRate0      val              Constant term in linear IV expression (b in Eq. 5)                   Hz
+ivLinRate1      val              Linear term in linear IV expression (m in Eq. 5)                     Hz
+ivLinPower      exp              Exponent (α in Eq. 5): rate = Rate0 + Rate1·Eexp                     none
+ivQuadRate      val              Coefficient for quadratic IV expression (A in Eq. 4)                 Hz
+ivQuadField     val              Minimum field for quadratic IV expression (E0 in Eq. 4)              V/m
+ivQuadPower     exp              Exponent (α in Eq. 4): rate = Rate·(E2 +Field2 )(exp/2)              none
+
+
+
+
+                                                   19
+References                                                                             [23] A. Vepsäläinen, et al., Impact of ionizing radiation on superconduct-
+                                                                                            ing qubit coherence, Nature 584 (2020) 551–556. doi:10.1038/
+                                                                                            s41586-020-2619-8.
+ [1] D. Brandt, et al., Monte Carlo Simulation of Massive Absorbers for Cryo-          [24] M. McEwen, et al., Resolving catastrophic error bursts from cosmic rays
+     genic Calorimeters, Journal of Low Temperature Physics 167 (2012) 485–                 in large arrays of superconducting qubits, Nature Physics 18 (2022) 107–
+     490. doi:10.1007/s10909-012-0480-3.                                                    111. doi:10.1038/s41567-021-01432-8.
+ [2] D. Brandt, et al., Semiconductor phonon and charge transport Monte                [25] J. Fang, M. Reaz, S. L. Weeden-Wright, R. D. Schrimpf, R. A. Reed,
+     Carlo simulation using Geant4 (2014). arXiv:1403.4984.                                 R. A. Weller, M. V. Fischetti, S. T. Pantelides, Understanding the Average
+ [3] J. Allison, et al., Geant4 developments and applications, IEEE Transac-                Electron-Hole-Pair Creation-Energy in Silicon and Germanium based on
+     tions on Nuclear Science 53 (2006) 270–278. doi:10.1109/TNS.2006.                      Full-band Monte Carlo Simulations, IEEE Transactions on Nuclear Sci-
+     869826.                                                                                ence 66 (2018) 444–451. doi:10.1109/TNS.2018.2879593.
+ [4] S. Agostinelli, et al., GEANT4–a simulation toolkit, Nuclear Instruments          [26] U. Fano, Ionization Yield of Radiations. II. The Fluctuations of the Num-
+     and Methods A 506 (2003) 250–303. doi:10.1016/S0168-9002(03)                           ber of Ions, Physical Review 72 (1947) 26–29. doi:10.1103/PhysRev.
+     01368-8.                                                                               72.26.
+ [5] J. Allison, et al., Recent developments in Geant4, Nuclear Instruments            [27] B. G. Lowe, Measurements of fano factors in silicon and germanium in
+     and Methods A 835 (2016) 186–225. doi:10.1016/j.nima.2016.06.                          the low-energy x-ray region, Nuclear Instruments and Methods A 399
+     125.                                                                                   (1997) 354–364. doi:10.1016/S0168-9002(97)00965-0.
+ [6] S. A. Kivelson, D. S. Rokhsar, Bogoliubov quasiparticles, spinons, and            [28] D. Rodrigues, et al., Absolute measurement of the Fano factor using a
+     spin-charge decoupling in superconductors, Physical Review B 41 (1990)                 Skipper-CCD, Nuclear Instruments and Methods A 1010 (2021) 165511.
+     11693–11696. doi:10.1103/PhysRevB.41.11693.                                            doi:10.1016/j.nima.2021.165511.
+ [7] Y. Ronen, Y. Cohen, J. Kang, A. Haim, M. Rieder, M. Heiblum, D. Ma-               [29] K. Ramanathan, N. Kurinsky, Ionization yield in silicon for eV-scale
+     halu, H. Shtrikma, Charge of a quasiparticle in a superconductor, Pro-                 electron-recoil processes, Physical Review D 102 (2020) 063026. doi:
+     ceedings of the National Academy of Sciences 113 (2016) 1743–1748.                     10.1103/physrevd.102.063026.
+     doi:10.1073/pnas.1515173113.                                                      [30] J. Lindhard, V. Nielsen, M. Scharff, P. Thomsen, Integral equations
+ [8] L. I. Glazman, G. Catelani, Bogoliubov quasiparticles in superconduct-                 governing radiation effects, Kongelige Danske Videnskabernes Selskab,
+     ing qubits, SciPost Physics Lecture Notes 31 (2021). doi:10.21468/                     Matematisk-Fysiske Meddelelser 33 (1963) 1–42.
+     SciPostPhysLectNotes.31.                                                          [31] J. Lewin, P. Smith, Review of mathematics, numerical factors, and cor-
+ [9] Z. Ahmed, et al., Dark Matter Search Results from the CDMS II Ex-                      rections for dark matter experiments based on elastic nuclear recoil, As-
+     periment, Science 327 (2010) 1619–1621. arXiv:0912.3592, doi:                          troparticle Physics 6 (1996) 87–112. doi:10.1016/S0927-6505(96)
+     10.1126/science.1186112.                                                               00047-3.
+[10] R. Agnese, et al., Maximum Likelihood Analysis of Low Energy CDMS                 [32] M. Norgett, M. Robinson, I. Torrens, A proposed method of calculating
+     II Germanium Data, Physical Review D 91 (2015) 052021. doi:10.                         displacement dose rates, Nuclear Engineering and Design 33 (1975) 50–
+     1103/PhysRevD.91.052021.                                                               54. doi:10.1016/0029-5493(75)90035-7.
+[11] R. Agnese, et al., Projected Sensitivity of the SuperCDMS SNOLAB                  [33] J. P. Wolfe, Imaging Phonons, Cambridge University Press, 1998, Ch. 2,
+     experiment, Physical Review D 95 (2017) 082002. doi:10.1103/                           p. 42. doi:10.1017/CBO9780511665424.
+     PhysRevD.95.082002.                                                               [34] G. A. Nothrop, J. P. Wolfe, Ballistic Phonon Imaging in Solids—A New
+[12] R. Ren, et al., Design and characterization of a phonon-mediated cryo-                 Look at Phonon Focusing, Physical Review Letters 43 (1979) 1424. doi:
+     genic particle detector with an eV-scale threshold and 100 keV-scale dy-               10.1103/PhysRevLett.43.1424.
+     namic range, Physical Review D 104 (2021) 032010. doi:10.1103/                    [35] K. Jakata, A. G. Every, Frequency dependence of dispersive phonon
+     PhysRevD.104.032010.                                                                   images, South African Journal of Science 104 (2008) 374–378,
+[13] I. Alkhatib, et al., Light Dark Matter Search with a High-Resolution                   doi:10.10520/EJC96837.
+     Athermal Phonon Detector Operated Above Ground, Physical Review                   [36] S. Tamura, Monte Carlo calculations of quasidiffusion in silicon, Jour-
+     Letters 127 (2021) 061801. doi:10.1103/PhysRevLett.127.061801.                         nal of Low Temperature Physics 93 (1993) 433–438. doi:10.1007/
+[14] D. W. Amaral, et al., Constraints on low-mass, relic dark matter candi-                BF00693457.
+     dates from a surface-operated SuperCDMS single-charge sensitive detec-            [37] S. Tamura, Quasidiffusive propagation of phonons in silicon: Monte
+     tor, Physical Review D 102 (2020) 091101. doi:10.1103/PhysRevD.                        Carlo calculations, Physical Review B 48 (1993) 13502. doi:10.1103/
+     102.091101.                                                                            PhysRevB.48.13502.
+[15] C. D. Wilen, et al., Correlated charge noise and relaxation errors in             [38] S. Tamura, Spontaneous decay rates of LA phonons in quasi-isotropic
+     superconducting qubits, Nature 594 (2021) 369–373. doi:10.1038/                        solids, Physical Review B 31 (1985) 2574(R).               doi:10.1103/
+     s41586-021-03557-5.                                                                    PhysRevB.31.2574.
+[16] M. Martinez, L. Cardani, N. Casali, A. Cruciani, G. Pettinari, M. Vignati,        [39] S. Tamura, J. A. Shields, J. P. Wolfe, Lattice dynamics and elastic phonon
+     Measurements and Simulations of Athermal Phonon Transmission from                      scattering in silicon, Physical Review B 44 (1991) 3001–3011. doi:
+     Silicon Absorbers to Aluminum Sensors, Physical Review Applied 11                      10.1103/PhysRevB.44.3001.
+     (2019) 064025. doi:10.1103/PhysRevApplied.11.064025.                              [40] C. Jacoboni, L. Reggiani, The Monte Carlo method for the solution of
+[17] S. W. Leman, Review Article: Physics and Monte Carlo Techniques                        charge transport in semiconductors with applications to covalent mate-
+     as Relevant to Cryogenic, Phonon and Ionization Readout of CDMS                        rials, Review of Modern Physics 55 (1983) 645–705. doi:10.1103/
+     Radiation-Detectors, Review of Scientific Instruments 83 (2012) 091101.                RevModPhys.55.645.
+     doi:10.1063/1.4747490.                                                            [41] B. K. Ridley, Quantum Processes in Semiconductors, Oxford University
+[18] M. H. Kelsey, G4CMP code respository on GitHub, https://github.                        Press, 2013. doi:10.1093/acprof:oso/9780199677214.001.0001.
+     com/kelseymh/G4CMP (2022).                                                        [42] K. M. Sundqvist, Carrier transport and related effects in detectors of
+[19] Geant4 Collaboration, Geant4 Simulation Toolkit, https://geant4.                       the cryogenic dark matter search, Ph.D. thesis, University of California,
+     web.cern.ch/support/download_archive (2022).                                           Berkeley (2012). doi:10.2172/1128107.
+[20] G. Ulbricht, M. De Lucia, E. Baldwin, Applications for microwave ki-              [43] C. Canali, C. Jacoboni, F. Nava, G. Ottaviani, A. Alberigi-Quaranta, Elec-
+     netic induction detectors in advanced instrumentation, Applied Sciences                tron drift velocity in silicon, Physical Review B 12 (1975) 2265–2284.
+     11 (2021) 2671. doi:10.3390/app11062671.                                               doi:10.1103/PhysRevB.12.2265.
+[21] Z. Biao, et al., Research progress of photon response mechanism of su-            [44] B. S. Neganov, V. N. Trofimov, Colorimetric method measuring ionizing
+     perconducting nanowire single photon detector, Acta Physica Sinica 70                  radiation, Otkryt. Izobret. 146 (1985) 215.
+     (2021) 198501. doi:10.7498/aps.70.20210652.                                       [45] P. N. Luke, Voltage-assisted calorimetric ionization detector, Journal of
+[22] C. M. Natarajan, M. G. Tanner, R. H. Hadfield, Superconducting                         Applied Physics 64 (1988) 6858–6860. doi:10.1063/1.341976.
+     nanowire single-photon detectors: physics and applications, Supercon-             [46] B. S. Neganov, V. N. Trofimov, Possibility of producing a bulky super-
+     ductor Science & Technology 25 (2012) 063001. doi:10.1088/                             sensitive thermal detector at a temperature close to absolute zero, JETP
+     0953-2048/25/6/063001.
+
+                                                                                  20
+     Letters 28 (1978) 356, http://jetpletters.ru/ps/1576/article 24160.shtml.                  Instruments and Methods A 444 (2000) 304–307. doi:10.1016/
+[47] F. Ponce, et al., Modeling of Impact Ionization and Charge Trapping in                     S0168-9002(99)01402-3.
+     SuperCDMS HVeV Detectors, Journal of Low Temperature Physics 199                      [70] P. K. Day, H. G. LeDuc, B. A. Mazin, A. Vayonakis, J. Zmuidzinas, A
+     (2020) 598–605. doi:10.1007/s10909-020-02349-x.                                            broadband superconducting detector suitable for use in large arrays, Na-
+[48] F. Ponce, et al., Measuring the Impact Ionization and Charge Trapping                      ture 425 (2003) 817–821. doi:10.1038/nature02037.
+     Probabilities in SuperCDMS HVeV Phonon Sensing Detectors, Physical                    [71] P. M. Echternach, B. J. Pepper, T. Reck, C. M. Bradford, Single photon
+     Review D 101 (2020) 031101. doi:10.1103/PhysRevD.101.031101.                               detection of 1.5 THz radiation with the quantum capacitance detector, Na-
+[49] R. A. Moffatt, et al., Spatial imaging of charge transport in silicon at low               ture Astronomy 2 (2018) 90–97. doi:10.1038/s41550-017-0294-y.
+     temperature, Applied Physics Letters 114 (2019) 032104. doi:10.1063/                  [72] L. Cardani, et al., Reducing the impact of radioactivity on quantum cir-
+     1.5049691.                                                                                 cuits in a deep-underground facility, Nature Communications 12 (2021)
+[50] J. R. Chelikowsky, M. L. Cohen, Electronic structure of silicon, Physical                  2733. doi:10.1038/s41467-021-23032-z.
+     Review B 10 (1974) 5095–5107. doi:10.1103/PhysRevB.10.5095.                           [73] R. Anthony-Petersen, et al., A Stress Induced Source of Phonon Bursts
+[51] N. W. Ashcroft, N. D. Mermin, Solid State Physics, College Edition,                        and Quasiparticle Poisoning (2022). arXiv:2208.02790.
+     Saunders College Publishing, 1976.                                                    [74] U. Patel, I. V. Pechenezhskiy, B. L. T. Plourde, M. G. Vavilov, R. Mc-
+[52] B. Cabrera, M. Pyle, R. Moffatt, K. Sundqvist, B. Sadoulet, Oblique prop-                  Dermott, Phonon-mediated quasiparticle poisoning of superconducting
+     agation of electrons in crystals of germanium and silicon at sub-Kelvin                    microwave resonators, Physical Review B 96 (2017) 220501. doi:
+     temperature in low electric fields (2010). arXiv:1004.1233.                                10.1103/PhysRevB.96.220501.
+[53] A. Broniatowski, Carrier Anisotropy and Impurity Scattering in Ge at                  [75] V. Iaia, J. Ku, A. Ballard, C. P. Larson, E. Yelton, C. H. Liu, S. Patel,
+     mK Temperatures: Modeling and Comparison to Experiment, Journal                            R. McDermott, B. L. T. Plourde, Phonon downconversion to suppress
+     of Low Temperature Physics 167 (2012) 1069–1074. doi:10.1007/                              correlated errors in superconducting qubits, Nature Communications 13
+     s10909-012-0543-5.                                                                         (2022) 6425. doi:10.1038/s41467-022-33997-0.
+[54] A. Broniatowski, Intervalley scattering of hot electrons in germanium at
+     millikelvin temperatures, Journal of Low Temperature Physics 176 (2014)
+     860–869. doi:10.1007/s10909-014-1091-y.
+[55] N. A. Kurinsky, The low-mass limit: Dark matter detectors with ev-scale
+     energy resolution, Ph.D. thesis, Stanford University (2018). doi:10.
+     2172/1472104.
+[56] R. A. Moffatt, et al., Imaging the oblique propagation of electrons in
+     germanium crystals at low temperature and low electric field, Applied
+     Physics Letters 108 (2016) 022104. doi:10.1063/1.4939753.
+[57] C. Stanford, et al., High-field spatial imaging of charge transport in silicon
+     at low temperature, AIP Advances 10 (2020) 025316. doi:10.1063/1.
+     5131171.
+[58] COMSOL Multiphysics, https://www.comsol.com (2022).
+[59] E. Gerhsnzon, A. Mel’nikov, R. Rabinovich, N. Serbryaokova, H− -like
+     impurity centers and molecular complexes created by them in semicon-
+     ductors, Soviet Physics Uspekhi 132 (1980) 353–378. doi:10.1070/
+     PU1980v023n10ABEH005041.
+[60] A. Phipps, K. M. Sundqvist, A. Lam, B. Sadoulet, Optically Induced
+     Measurement of Electron and Hole Drift Velocities in a Germanium h100i
+     CDMS Detector at 50 mK, Journal of Low Temperature Physics 167
+     (2012) 1112–1118. doi:10.1007/s10909-012-0472-3.
+[61] V. Aubry-Fortuna, A. Broniatowski, P. Dollfus, B. Young, B. Cabr-
+     era, A. Miller, Field dependence of electron velocity in high-purity ger-
+     manium at cryogenic temperatures, AIP Conference Proceedings 1185
+     (2009) 639–642. doi:10.1063/1.3292422.
+[62] S. B. Kaplan, C. C. Chi, D. N. Langenberg, J. J. Chang, S. Jafarey, D. J.
+     Scalapino, Quasiparticle and phonon lifetimes in superconductors, Phys-
+     ical Review B 14 (1976) 4854–4873. doi:10.1103/PhysRevB.14.
+     4854.
+[63] R. Agnese, Simulating the SuperCDMS Dark Matter Detector Response
+     and Readout, Ph.D. thesis, University of Florida (2017). doi:10.2172/
+     1457150.
+[64] Y. Hochberg, E. D. Kramer, N. Kurinsky, B. V. Lehmann, Directional
+     detection of light dark matter in superconductors (2021). arXiv:2109.
+     04473.
+[65] Y. Minami, et al., Irradiation tests of superconducting detectors and com-
+     parison with simulations, Journal of Low Temperature Physics 199 (2020)
+     118–129. doi:10.1007/s10909-020-02393-7.
+[66] R. K. Romani, et al., Thermal detection of single e-h pairs in a biased
+     silicon crystal detector, Applied Physics Letters 112 (2018) 043501. doi:
+     10.1063/1.5010699.
+[67] R. Agnese, et al., First Dark Matter Constraints from a SuperCDMS
+     Single-Charge Sensitive Detector, Physical Review Letters 121 (2018)
+     051301, [Erratum: Physical Review Letters 122, 069901 (2019)]. doi:
+     10.1103/PhysRevLett.121.051301.
+[68] K. D. Irwin, S. W. Nam, B. Cabrera, B. Chugg, B. A. Young, A
+     quasiparticle-trap-assisted transition-edge sensor for phonon-mediated
+     particle detection, Review of Scientific Instruments 66 (1995) 5322.
+     doi:10.1063/1.1146105.
+[69] B. Cabrera, Design considerations for TES and QET sensors, Nuclear
+
+
+                                                                                      21
+

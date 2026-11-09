@@ -1,0 +1,2302 @@
+                                                  Daily modulation of low-energy nuclear recoils from sub-GeV dark matter
+
+                                                                                    Connor Stratman1 and Tongyan Lin1
+                                                                1
+                                                                    Department of Physics, University of California, San Diego, CA 92093, USA
+                                                                                           (Dated: November 7, 2024)
+
+                                                       At sufficiently low nuclear recoil energy, the scattering of dark matter (DM) in crystals gives rise to
+                                                       single phonon and multiphonon excitations. In anisotropic crystals, the scattering rate into phonons
+                                                       modulates over each sidereal day as the crystal rotates with respect to the DM wind. This gives
+                                                       a potential avenue for directional detection of DM. The daily modulation for single phonons has
+                                                       previously been calculated. Here we calculate the daily modulation for multiphonon excitations
+                                                       from DM in the mass range 1 MeV–1 GeV. We generalize previous multiphonon calculations, which
+                                                       made an isotropic approximation, and implement results in the DarkELF package. We find daily
+                                                       modulation rates up to 1–10 percent for an Al2 O3 target and DM mass below 30 MeV, depending
+arXiv:2411.03433v1 [hep-ph] 5 Nov 2024
+
+
+
+
+                                                       on the recoil energies probed. We obtain similar results for SiC, while modulation in Si, GaAs and
+                                                       SiO2 is negligible.
+
+
+                                                           I.   INTRODUCTION                                of the scattering rate over sidereal day.
+                                                                                                               Several origins for daily modulation in sub-GeV nu-
+                                            Due to the motion of the Earth in the Milky Way,                clear recoils have been explored. One proposal relies on
+                                         the dark matter has a preferred direction in our refer-            the idea that energy thresholds for defect production vary
+                                         ence frame. This dark matter “wind” would appear to                along different directions in the crystal [14–16], so that
+                                         originate from the direction of Cygnus. The goal of di-            the rate for DM to produce certain defects should vary
+                                         rectional detection is to observe laboratory signatures of         with time. This effect is relevant for recoils of ∼10 eV en-
+                                         dark matter (DM) scattering which reveal this preferred            ergy, sufficient to dislocate a nucleus from its lattice site,
+                                         direction [1, 2]. Relative to the fixed lab frame, the di-         and requires a new approach to direct detection involving
+                                         rection of the wind also rotates over a sidereal day. This         imaging the defects.
+                                         allows for DM signals to be distinguished from effects                At even lower energy, DM scattering does not displace
+                                         that vary with solar day, such as solar neutrino back-             nuclei, but instead the energy is deposited into phonons,
+                                         grounds [3]. Directional detection would thus provide a            the collective excitations of atoms. Another class of pro-
+                                         powerful new handle on the origin of any potential DM              posals is to search for single phonon excitations from DM-
+                                         signal, as well as paving the way towards elucidating the          nucleus interactions [17–27]. Because phonon dispersions
+                                         DM distribution itself [4, 5].                                     and polarizations can vary with crystal direction, the
+                                            For dark matter above ∼ 10 GeV producing nuclear re-            DM-phonon excitation rate exhibits a daily modulation.
+                                         coils, the scattering process itself is isotropic, but the dis-    This effect is primarily present for DM masses below 1
+                                         tribution of directions for the nuclear recoil is correlated       MeV and energy depositions below ∼ 100 meV, which is
+                                         with the DM wind. Observing the direction of the nu-               currently below experimental thresholds.
+                                         clear recoil requires measuring its track. This has led to            In between the single-phonon and nuclear recoil lim-
+                                         much development of gas-phase time projection chambers             its, DM scattering is expected to produce multiphonon
+                                         where the track is sufficiently long [6–10]. It has also been      signals [28–35]. Here DM-nucleus scattering no longer
+                                         proposed to use nuclear emulsion films for tracking [11],          behaves simply as a nuclear recoil, but instead the mate-
+                                         as well as to measure tracks of tens of nanometers in solid        rial response is broadened and additional features arising
+                                         state detectors with quantum sensing techniques [12, 13].          from the phonon density of states appear [28]. Exper-
+                                            For scattering of sub-GeV dark matter off nuclei,               imental efforts are now underway to detect low-energy
+                                         the recoil energy will be lower and their tracks even              phonon-based signals [36–38], and in the near future may
+                                         more challenging to observe. However, alternative ap-              achieve thresholds as low as 0.1 − 1 eV, which sit in this
+                                         proaches to directional detection exist, taking advantage          multiphonon regime. It is therefore of interest to under-
+                                         of anisotropies in the scattering process itself. For suffi-       stand whether modulation signals are possible in multi-
+                                         ciently low energy recoils, nuclei are no longer accurately        phonons.
+                                         modeled as free targets and the effects of the target ma-             In this paper, we calculate modulation effects in mul-
+                                         terial must be included. For an anisotropic solid state            tiphonons and show that they can provide another av-
+                                         target, this leads to DM scattering rates which depend             enue for directional detection of nuclear recoils. This is
+                                         on the direction of the incident DM relative to the crys-          a particularly appealing possibility for phonon-only sig-
+                                         tal. As the Earth rotates, the result is a daily modulation        nals, where backgrounds may be difficult to predict. In
+                                                                                                                                  2
+
+the presence of an unknown background, total rate mea-          niques become very challenging when many phonons are
+surements only provide upper limits and the sensitivity         produced. At low momentum, two-phonon excitations
+scales with the background rate. In contrast, modulation        have been evaluated using the long-wavelength approxi-
+measurements can allow for background rejection and the         mation and an effective theory of elastic waves [29]. At
+potential for discovery.                                        higher momentum, a relatively simple result for the mul-
+   We focus on a sapphire (Al2 O3 ) target crystal, which       tiphonon contribution can be obtained with a few differ-
+is planned to be used in upcoming experiments [36] and          ent approximations [28, 34]. These are the incoherent ap-
+known to give large anisotropies in DM-phonon excita-           proximation, the assumption of a harmonic crystal, and
+tions [18]. We generalize the multiphonon calculation of        the isotropic approximation. We next describe the role
+Ref. [28] to account for the anisotropic phonon density         of each of these.
+of states. We describe the calculation of the anisotropic          The first assumption is the incoherent approximation,
+crystal response in Sec. II, reviewing some of the neces-       which applies when the momentum transfer is greater
+sary approximations to obtain a tractable result. One           than the inverse lattice spacing, q ≳ 2π/a. Here we ne-
+key approximation, the incoherent approximation, limits         glect interference terms between atoms and assume that
+our results to DM masses above ∼MeV. In Sec. III, we            the scattering off individual atoms dominates (1). Math-
+give the DM scattering rate, as well as discuss the con-        ematically, we compute the sum of the squared ampli-
+nection between the anisotropic structure factor and the        tudes rather than the square of the summed amplitudes
+DM rate modulation. We then give results in Sec. IV             over all atoms. We approximate the total structure factor
+for different DM form factors and mediators. Some con-          as [28]:
+vergence tests for the results are given in App. A. The
+                                                                                                N X
+                                                                                                  n
+DarkELF implementation is summarized in App. B. Ad-                                             X
+                                                                                   S(q, ω) ≈              fd2 Cℓd ,              (2)
+ditional results for SiC are provided in App. C, and we
+                                                                                                  ℓ   d
+also confirm that isotropic crystals such as Si and GaAs
+give negligible modulation.                                     where the auto-correlation function is given by
+                                                                              Z∞
+                                                                          1
+             II.       STRUCTURE FACTOR                             Cℓd =          dt e−2Wd (q) e⟨q·uℓd (0) q·uℓd (t)⟩ e−iωt ,   (3)
+                                                                          V
+                                                                              −∞
+
+   DM scattering with a crystal lattice depends on the          and the Debye-Waller factor is
+dynamic structure factor S(q, ω), which describes the re-
+sponse of the target to momentum transfer q and en-                                           1
+                                                                                Wd (q) =        ⟨(q · uℓd (0))2 ⟩.               (4)
+ergy transfer ω. For a review that discusses the dynamic                                      2
+structure factor in the context of DM direct detection,         Here, uℓd is the displacement of an atom from equilibrium
+see Ref. [35]. For a crystal of volume V and containing         such that rℓd = ℓ + r0d + uℓd . The coupling strength has
+N unit cells, the dynamic structure factor can be written
+                                                                been replaced by the quantity fd2 , which is the average
+as:
+                                                                of the coupling quantity squared over different atoms of
+                        N    n                 2
+            2π X X X                                            type d in the crystal. We will only consider pure crystals
+S(q, ω) =            ⟨Φf | fℓd eiq·rℓd |0⟩ δ(Ef − ω),           with a single isotope for each atom, so we can assume
+            V
+                   f    ℓ   d=1
+                                                                that (fd )2 = fd2 for all calculations, however we have left
+                                                         (1)
+                                                                results in terms of fd2 . For mediators coupling equally to
+where fℓd is a coupling strength with the atom at position      protons and neutrons, we will take fd2 = A2d .
+rℓd , ℓ is the lattice vector of a unit cell and d labels the      The second approximation is to assume a harmonic
+atom in the unit cell. This expression contains a sum           crystal, which means that the phonon Hamiltonian is
+over final states with energy Ef , so that each term in the     quadratic and that higher-order anharmonic phonon in-
+sum gives the probability of the system to be excited to        teractions are neglected. The utility of this approxima-
+the state |Φf ⟩. We work in the zero temperature limit,         tion is that it allows us to write Cℓd in terms of the phonon
+so that the initial state has no phonons.                       density of states. The validity of the harmonic approxi-
+   The dynamic structure factor has been evaluated for          mation was subsequently studied in Ref. [33] and it was
+single-phonon excitations using first-principles phonon         shown to be an excellent approximation over most of the
+calculations [17–27], while at high ω, q the dynamic struc-     scattering phase space. We continue to make this as-
+ture is expected to reproduce elastic nuclear recoils. In       sumption.
+between these regimes, multiphonon excitations are ex-             Finally, Ref. [28] also assumed an isotropic crystal. In
+pected to dominate, but existing first principles tech-         general, the phonon energies and eigenvectors vary along
+                                                                                                                                                             3
+
+different directions in the crystal. Neglecting this varia-                      Now, we can evaluate the auto-correlation function (3)
+tion, the result can be simplified to depend only on an                       in a phonon number expansion. That is, we take a se-
+averaged density of states. This is expected to be an ex-                     ries expansion of e⟨q·ud (0) q·ud (t)⟩ in powers of q 2n for
+cellent approximation for materials such as Si and GaAs,                      n phonons being excited. From this we have the full
+and it was not known how well it would hold for more                          isotropic structure factor (in the incoherent, harmonic
+anisotropic crystals.                                                         approximation):
+   In the remainder of the section, we review the calcula-
+                                                                                                     n                     2 n
+tions of the structure factor in the isotropic approxima-                                       2π X 2 −2Wd (q) X 1         q
+tion, and then discuss the generalization for anisotropic                        S(q, ω) ≈             fd e                            (12)
+                                                                                                Ω                     n
+                                                                                                                        n! 2md
+                                                                                                     d
+crystals in terms of a phonon density of states tensor.                                                              !            
+                                                                                                  n Z
+                                                                                                 Y          Dd (ωi )      X
+                                                                                              ×        dωi             δ   ωj − ω  .
+                                                                                                 i=1
+                                                                                                             ωi           j
+               A.     Isotropic approximation
+
+   Following [28], in the harmonic approximation, we can                      Here we have defined Ω = V /N as the volume per unit
+write the displacement vector in a phonon mode expan-                         cell. The nth term then consists of an integral over indi-
+sion                                                                          vidual phonon energies weighted by the density of states,
+                                                                              and with the total energy equal to ω.
+          XX            1                            0
+uℓd (t) =        p             (eν,d,k âν,k eik·(ℓ+rd )−iων,k t +              As q increases, the higher-n terms contribute more in
+                    2N md ων,k                                                                                 √
+           ν   k                                                              the structure factor. Since n! ∝ n( ne )n at large n, the
+                                             0
+                    e∗ν,d,k â†ν,k e−ik·(ℓ+rd )+iων,k t ),
+                                                                                                                                          2
+                                                                       (5)    nth term
+                                                                                    R will  start to contribute when 2mqd ωd ∼ n, where
+                                                                              ωd = dω ′ ω ′ Dd (ω ′ ) is a typical phonon energy. When
+where ν denotes the phonon branches, k is the phonon
+                                                                              q becomes sufficiently large that the typical number of
+momentum in the first Brillouin Zone (BZ), â†ν,k and âν,k
+                                                                              phonons n ≫ 1, the total structure factor approaches a
+are the creation and annihilation operators, and eν,d,k are
+                                                                              Gaussian. To speed up calculations and avoid evaluat-
+the phonon eigenvectors with associated energies ων,k .
+                                                                              ing sums over many phonons, it is also useful to employ
+  To evaluate the structure factor in the incoherent ap-
+                                                                              the impulse approximation (IA). This can be obtained
+proximation, (2), we first evaluate the correlator ⟨q ·
+                                                                              by approximating (3) with the saddle point at t = 0,
+ud (0) q · ud (t)⟩ using (5):
+                                                                              corresponding to an impulse, which gives
+                                   X X |q̂ · eν,k,d |2
+  ⟨q · ud (0) q · ud (t)⟩ = q 2                              eiων,k t . (6)                                  s                                q2
+                                                                                                                                                       !
+                                    ν
+                                             2N md ων,k                                              X f2        2π       (ω − 2md )               2
+                                        k                                            IA                  d
+                                                                                 S        (q, ω) =                2 exp −                                  (13)
+The quantity on the right hand side is related to the                                                    Ω       ∆d          2∆2d
+                                                                                                     d
+phonon density of states. To see this, we work in the
+isotropic approximation and average over the direction                        with width
+of q̂, yielding
+                                                                                                                      q 2 ωd
+                                2 XX                     2                                                   ∆2d =           .                             (14)
+                               q                  |eν,k,d |                                                           2md
+  ⟨q · ud (0) q · ud (t)⟩ ≈                                 eiων,k t (7)
+                               3    ν
+                                                 2N md ων,k                                               √
+                                         k                                                                                                           1
+                                                                              We use this result for q > 2 2md ω0 with ω0 =                             where
+     q2 X X ∞                          |eν,k,d |2 iω′ t
+             Z
+                                                                                                                                                   ωd−1
+   =               dω ′ δ(ω ′ − ων,k )           e                     (8)
+     3 ν      −∞                       2N md ω ′
+           k
+                                                                                                                            Dd (ω ′ )
+                                                                                                                 Z
+                                                                                                      ωd−1 =         dω ′
+         Z ∞
+      q2          Dd (ω ′ ) iω′ t                                                                                                     .                    (15)
+   =         dω ′          e                                           (9)                                                   ω′
+     2md −∞         ω′
+where we have defined the partial density of states,                          While ω0 is d-dependent, for multi-atomic lattices, we
+                                                                              use d associated with the most massive atom. For other
+                  1 XX
+       Dd (ω) =             |eν,k,d |2 δ(ω − ων,k ), (10)                     quantities such as the width ∆2d , and whenever d is ex-
+                 3N ν                                                         plicitly noted, we include all atoms and account for the
+                          k
+                                 R∞                                           atom dependence.
+which is normalized to satisfy −∞ dωDd (ω) = 1. Sim-
+ilarly, here, the isotropic Debye-Waller factor takes the                        As discussed in Ref. [28], this result allows for an ex-
+                                                                              plicit connection between multiphonon processes and the
+form:                                                                                                          √
+                             Z ∞                                              nuclear recoil limit. For q ≫ 2 2md ω0 , approximating
+                         q2             Dd (ω ′ )                             the Gaussian as a delta-function leads to a scattering rate
+              Wd (q) ≈             dω ′           .  (11)
+                        4md −∞             ω′                                 which matches the usual result for nuclear recoils.
+                                                                                                                                                                                             4
+
+                                                                                         Tensor Components Ddij (ω) for Al2O3
+                    0.075        Al: d = 1, 2, 3, 4               Ddxx           O: d = 5, 6                          O: d = 7, 8                                O: d = 9, 10
+
+                    0.050                                         Ddyy
+Ddij (ω) [1/meV]
+
+
+
+
+                                                                  Ddzz
+                    0.025
+
+                    0.000
+
+                   −0.025
+
+                   −0.050
+
+                    0.075                   ω [meV]                                         ω [meV]                              ω [meV]                                    ω [meV]
+                                 Al: d = 1, 2, 3, 4               Ddxy           O: d = 5, 6                          O: d = 7, 8                                O: d = 9, 10
+
+                    0.050                                         Ddyz
+Ddij (ω) [1/meV]
+
+
+
+
+                    0.025
+                                                                  Ddxz
+
+                    0.000
+
+                   −0.025
+
+                   −0.050
+
+                            0       25         50       75        100        0      25         50   75     100    0      25         50     75    100         0      25      50    75   100
+                                               ω [meV]                                     ω [meV]                              ω [meV]                                     ω [meV]
+
+
+FIG. 1. Density of states tensor for Al2 O3 , where redundant atoms with identical density of states are indicated. The diagonal
+and off-diagonal components are shown in the top and bottom row, respectively. For spin-independent scattering, Al dominates,
+making the anisotropies in O less important.
+
+
+                            B.     Anisotropic correlation function                                              the relevant calculations of second-order force constants.
+                                                                                                                 DM scattering rates involve an integral over all direc-
+  To evaluate the anisotropic structure factor, we return                                                        tions of q̂, and it is not practical or necessary to redo the
+to the correlator ⟨q · ud (0) q · ud (t)⟩. Rather than aver-                                                     pDoS calculation for every q̂. Instead, we can capture all
+aging over the direction of q as in the isotropic case, we                                                       the relevant information inside a density of states tensor
+can consider projections onto specific directions of q                                                           defined as
+
+                                                         X X |q̂ · eν,k,d |2                                                   1 XX
+                                                                                                                  Dij
+                                                                                                                   d (ω) =         (r̂i · eν,k,d )(e∗ν,k,d · r̂j ) δ(ω − ων,k ).
+    ⟨q · ud (0) q · ud (t)⟩ = q 2                                                        eiων,k t (16)                         N ν
+                                                             ν
+                                                                        2N md ων,k                                                          k
+                                                                   k
+                                                                 +∞
+                                                                                                                                                                                         (20)
+                                                   q2                     Dq̂ (ω ′ ) ′
+                                                                 Z
+                                                =                     dω ′ d ′ eiω t .              (17)         where r̂i = x̂, ŷ, ẑ. Decomposing this 3×3 tensor into its
+                                                  2md                       ω
+                                                                 −∞                                              symmetric and anti-symmetric parts, Dij = Dij + Aij ,
+                                                                                                                 we can decompose any arbitrary Ddq̂ (ω) as
+Now the projected density of states (pDoS) is defined as
+                                                                                                                                         Ddq̂ (ω) =          q̂i Dij
+                                                                                                                                                      X
+                                      1 XX                                                                                                                        d (ω)q̂j               (21)
+                    Ddq̂ (ω) =                                           2
+                                                        |q̂ · eν,k,d | δ(ω − ων,k ).                (18)                                               i,j
+                                     N     ν        k
+                                                                                                                                                             q̂i Ddij (ω)q̂j .
+                                                                                                                                                      X
+                                                                                                                                                =                                        (22)
+                                                                 R∞
+The normalization is again                   = 1. The             −∞
+                                                                     dωDdq̂ (ω)                                                                        i,j
+
+Debye-Waller factor also needs to be modified, where now
+                                                                                                                 While Dij  d (ω) may not be symmetric due to off-diagonal
+                                                     q2
+                                                             Z +∞
+                                                                     Dq̂ (ω ′ )                                  complex contributions in (20), the quantity q̂i Dij   d (ω)q̂j
+                                  Wd (q) =                       dω ′ d ′ .                         (19)         only depends on its symmetric part, so we only need to
+                                                    4md       −∞       ω
+                                                                                                                 find Ddij (ω), which is a real and positive definite tensor.
+Given the pDoS, we can evaluate the full DM scattering                                                              We reconstruct the tensor Ddij (ω) from phonopy by
+rate without the isotropic approximation.                                                                        evaluating Ddq̂ (ω) for different directions. We evaluate
+   The phonon pDoS can be calculated for a given direc-                                                          the diagonal components directly by calculating pDoS
+tion q̂ using the public code phonopy [39], combined with                                                        along q̂ = x̂, ŷ, ẑ. To obtain the off-diagonal components,
+                                                                                                                                    5
+
+
+
+
+                    (a) Mode 9, ω = 50 meV, low         (b) Mode 17, ω = 50 meV,         (c) Mode 26, ω = 78 meV,
+                             q along ẑ.                    medium q along ẑ.                low q along ŷ.
+
+FIG. 2. Selected phonon eigenmodes for sapphire corresponding to directional peaks in pDoS, viewing the crystal from the ŷ
+axis, with the ẑ axis shown vertically. Al atoms are gray, and O atoms are red. Images are generated with [40].
+
+
+we evaluate Ddq̂ (ω) for q̂ = √12 (x̂ + ŷ), which can be writ-      modes with motion mainly restricted along ẑ. Other
+ten as                                                               modes at ω ∼ 50 meV with q along the crystal’s pri-
+                                                                     mary axis demonstrate similar motion along ẑ, while q
+                  1
+     Ddq̂ (ω) =     (Ddxx (ω) + Ddyy (ω) + 2Ddxy (ω))        (23)    along the xy plane at this energy results in incoherent,
+                  2
+                                                                     random motion. On the right, we show mode 26 at a low
+allowing us to extract Ddxy (ω). Repeating this procedure,           q along ŷ at ω = 78 meV. Here, this mixed TO-LO mode
+we can extract all off-diagonal components.                          (TO transverse optical) with motion in just the O atoms
+   In Figure 1, we show the components of the pDoS ten-              helps explain the peaks in Ddxx and Ddyy around this ω
+sor for Al2 O3 , which has a rhombohedral crystal struc-             that exist only for the O atoms. For different q at this
+ture with a primary axis of symmetry. The force con-                 energy, O atoms also show motion along xy and there
+stants used are those provided with phonopy. We use                  is very little motion among the Al atoms, explaining the
+the standard coordinate system with ẑ along the primary             overall decrease in the pDoS for Al.
+axis. Al2 O3 has 4 Al atoms (labeled d = 1, ...4) and 6 O               Finally, the full result for the anisotropic structure fac-
+atoms (labeled d = 6, ...10) in the unit cell. As expected,          tor is given by
+due to the anisotropic crystal, there is significant vari-
+                                                                                         n
+ation across different directions q̂ and non-zero off-axis                           2π X 2 −2Wd (q)
+                                                                      S(q, ω) ≈          fd e        ×                            (24)
+components Ddij , i ̸= j. There is also a redundancy in                              Ω
+                                                                                         d
+the tensor components between different atoms d. All of                                                               !          
+                                                                       X 1  q 2 n          n Z
+the Al atoms are equivalent, and three distinct pairs of                                     Y           Ddq̂ (ωi )      X
+                                                                                                   dωi                 δ  ωj − ω  ,
+O atoms are equivalent.                                                     n!     2md                      ωi
+                                                                        n                    i=1                           j
+   Sapphire has 30 phonon eigenmodes, which can display
+different motion among the 10 atoms in the unit cell at              where we have replaced the isotropic Debye-Waller factor
+different energies ω and momentum transfer q, making                 and partial density of states in (12) with the direction-
+it difficult to analyze the directional pDoS in terms of             dependent version.
+specific modes. However, we can connect a few modes                    Inside both isotropic and anisotropic structure factors,
+to domminant features of the pDoS. In Figure 2, using                there is an n-dimensional integral for the n-phonon term,
+[40] we select three phonon modes to visualize that ex-              defined for the anisotropic case as
+hibit relatively coherent motion to explain some of the
+peaks in the components of the Ddij tensor. In the first                              n Z
+                                                                                                            !          
+two columns, we show mode 9 and mode 17 at ω = 50
+                                                                                      Y         Dq̂ (ωi )      X
+                                                                        Tnq̂ (ω) =           dωi d           δ  ωj − ω  .       (25)
+meV, respectively, with q along ẑ. In the pDoS, there are                            i=1
+                                                                                                  ωi                  j
+peaks in all atoms along Ddzz at ω ∼ 50 meV. This can
+be partially attributed to these longitudinal optical (LO)           It is helpful to avoid directly evaluating this integral, and
+                                                                                                                               6
+
+instead use the recursion relation                              energy. For 60 ≲ ω ≲ 85 meV, the pDoS is instead highly
+                    Z                                           peaked in the x̂ and ŷ directions for the O atoms. These
+                                    q̂
+          Tnq̂ (ω) = dωn T1q̂ (ωn )Tn−1 (ω − ωn )       (26)    individual features become much harder to see for n ≥ 2,
+                                                                but these differences in the pDoS show up in the stronger
+where                                                           response for ẑ at lower ω and stronger response along xy
+                                                                at higher ω. There is also a rotational symmetry with
+                                   Ddq̂ (ω)                     respect to the ẑ axis. Due to the rhombohedral structure
+                      T1q̂ (ω) =            .           (27)
+                                      ω                         of Al2 O3 , it has a symmetry with respect to its z-axis,
+This speeds up calculations substantially.                      which suggests an explanation for the difference between
+   As in the isotropic case, the anisotropic structure fac-     scattering along q̂ = ẑ and the x-y axis.
+tor approaches a Gaussian at high q. We again make                 In Fig. 4, we show the total structure factor when sum-
+use of the impulse approximation in Eq. (13), now using         ming from n = 1, ..., 10. Successive plots show the evolu-
+                             √                                  tion for several values of q, and all plots consider three di-
+a higher threshold of q > 4 2mN ω0 . We could evaluate
+the impulse approximation using the direction-dependent         rections, q̂ = x̂, ŷ, ẑ. The clearest effects of anisotropy are
+                                                                                                                 √
+Ddq̂ (ω). However, since the Gaussian is expected to ap-        seen in the left two plots for lower q ≲ 2 2mN ω0 . The
+proach the nuclear recoil limit, the effects of anisotropy      most dramatic region where S(q, ω) shows directional de-
+are expected to subside for higher q. The direction-            pendence is ω ∼ 50 meV, where the response is stronger
+dependence only appears in the width of the Gaussian            for q̂ = ẑ. This feature is inherited from the n = 1 term
+∆2d , whereas in the nuclear recoil limit the total rate can    in the sum. Similarly, the next most dramatic region of
+be well-approximated by taking the Gaussian to a delta-         60 ≲ ω ≲ 85 meV, where the xy plane dominates, is also
+function. Therefore we will use the isotropic approxi-          explained by the differences in the n = 1 term.
+mation for impulse approximation calculations, choosing            As q increases in subsequent plots, multiphonon con-
+q̂ = ẑ in calculating the width of the Gaussian ∆2d . For      tributions become more substantial and anisotropies are
+Al2 O3 , ω d is only 6-8% higher along xy than along ẑ,        less noticeable. Although there are clear differences for
+depending on the atom, leading to a mild change in ∆2d .        q̂ = ẑ versus the xy plane for individual n in Fig. 3, these
+                                                                become much less prominent when summing over the n-
+                                                                phonon terms. For a given n, there is a relatively smaller
+                 C.   Numerical Results                         response for q̂ = ẑ at higher ω; however, this is partially
+                                                                compensated for when we consider that the n + 1 term
+   In the isotropic approximation, the structure factor         has a relatively larger response in the same range of ω.
+gives material specific information, dictating what en-         This washing out of the anisotropy at high q is consistent
+ergy transfers ω and momentum transfers q contribute            with the expectation that the structure factor approaches
+the largest material response. This is useful for under-        the impulse approximation, indicated by the dashed line
+standing how the energy threshold Ethresh of a detector         in Fig. 4.
+affects the observed rate. In the anisotropic case, S(q, ω)        We note one more source of anisotropy. At very high ω
+also offers insight into the directional dependence on q,       in all panels, there is a slightly stronger response for the
+which can create a modulating daily rate as the crystal         xy plane. This is normally inconsequential, except when
+rotates relative to the DM wind.                                instituting a relatively high threshold on the ω integra-
+   To understand how the structure factor varies for dif-       tion. This slight suppression of the ẑ direction is due to
+ferent directions q̂ and at different ω, we first decompose     the tails of individual n terms weighted towards xy.
+S(q, ω) into individual phonon terms in Fig. 3. We fix the
+                                                   √
+magnitude of the momentum transfer to be q ≈ 2md ω0 ,
+                                                                     III.   ORIGIN OF DAILY MODULATION
+where md and ω0 are for Al and ω0 along q̂ = ẑ. We also
+take the coupling strength fd = Ad for equal couplings
+to nucleons. Note that in this case that scattering off Al         Having understood the features in the anisotropic
+dominates due to the larger Ad , and the structure factor       structure factor, we now explore how it leads to daily
+is ∼ 3 times higher for Al at small q.                          modulation in the DM scattering rate.
+   First consider the n = 1 panel of Fig. 3. This direc-           We first give the full DM scattering rate in terms of
+tional dependence is a result of the lattice structure of the   the structure factor:
+target crystal, and arises directly from the pDoS shown                    1 ρχ
+                                                                                 Z
+                                                                                      d3 q              πσ(q)
+in Fig. 1. The most noticeable direction dependence at            R(t) =                   dω g(q, ω, t) 2 S(q, ω) (28)
+                                                                          ρT mχ     (2π)3                µχ
+ω ∼ 50 meV, favoring the ẑ direction, is explained by the
+same anisotropy in the pDoS for both Al and O at that           and the integration over the DM velocity distribution can
+                                                                                                                                                                                                                                               7
+
+                                                                                                                                                            √
+                                                                                                         S(q, ω) for Al2O3, q = 47.0 keV ≈                       2mN ω0
+
+                                             ×107               n=1                                                ×107                n=2                                                 ×107            n=3
+                                     3.0                                                                     3.0                                                                     3.0
+                                                                                         q̂ = ẑ                                                                 q̂ = ẑ                                                           q̂ = ẑ
+                                     2.5                                                 q̂ = ŷ             2.5                                                 q̂ = ŷ             2.5                                           q̂ = ŷ
+                                                                                         q̂ = x̂                                                                 q̂ = x̂                                                           q̂ = x̂
+                                     2.0                                                                     2.0                                                                     2.0
+                   S(q, ω) [keV2 ]
+
+
+
+
+                                     1.5                                                                     1.5                                                                     1.5
+
+                                     1.0                                                                     1.0                                                                     1.0
+
+                                     0.5                                                                     0.5                                                                     0.5
+
+                                     0.0                                                                     0.0                                                                     0.0
+                                             0           50         100           150              200             0           50          100             150             200             0        50         100           150             200
+                                                               ω [meV]                                                                ω [meV]                                                              ω [meV]
+                                                                n=4                                                                    n=5                                                                 n=6
+                  500000                                                                                 500000                                                                  500000
+                                                                                         q̂ = ẑ                                                                 q̂ = ẑ                                                           q̂ = ẑ
+                                                                                         q̂ = ŷ                                                                 q̂ = ŷ                                                           q̂ = ŷ
+                  400000                                                                                 400000                                                                  400000
+                                                                                         q̂ = x̂                                                                 q̂ = x̂                                                           q̂ = x̂
+S(q, ω) [keV2 ]
+
+
+
+
+                  300000                                                                                 300000                                                                  300000
+
+                  200000                                                                                 200000                                                                  200000
+
+                  100000                                                                                 100000                                                                  100000
+
+                                         0                                                                    0                                                                       0
+                                             0      100       200         300      400             500             0         100     200         300        400            500             0      100    200         300       400           500
+                                                               ω [meV]                                                                ω [meV]                                                              ω [meV]
+
+
+FIG. 3. Decomposition of the anisotropic structure factor into individual phonon terms, for Al2 O3 and at fixed q = 47 keV.
+The structure factor is computed assuming fd = Ad . We show results for q̂ = x̂, ŷ, ẑ. The lines for x̂ and ŷ are identical,
+implying rotational symmetry with respect to ẑ. For all n, there is a stronger response for q̂ = ẑ at lower ω, while at higher ω
+it is stronger for the xy plane. Note that the axis scales for the top three panels are different from the bottom three.
+
+                                                                                                                            S(q, ω) for Al2O3
+                                                                           √                                                                     √                                                               √
+                                                    q = 23.5 keV ≈ 12           2mN ω0                                      q = 47.0 keV ≈           2mN ω0                                      q = 95.0 keV ≈ 2 2mN ω0
+                                                                                 Impulse Approx                                                        Impulse Approx                                                      Impulse Approx
+                                                                                 q̂ = ẑ                                                               q̂ = ẑ                                                             q̂ = ẑ
+                  107                                                            q̂ = ŷ                                                               q̂ = ŷ                                                             q̂ = ŷ
+                                                                                 q̂ = x̂                                                               q̂ = x̂                                                             q̂ = x̂
+S(q, ω) [keV2 ]
+
+
+
+
+                  106
+
+
+
+
+                  105
+                                     0              50              100            150               200 0             50      100     150           200         250         300 0         100     200   300     400         500      600
+                                                               ω [meV]                                                               ω [meV]                                                             ω [meV]
+
+
+
+FIG. 4. The anisotropic structure factor for Al2 O3 for three fixed q values, q̂ evaluated at x̂, ŷ, ẑ, and summing over n = 1...20.
+Like Fig. 3, the lines associated with x̂ and ŷ are identical. For all q, there are regions in ω where certain directions q̂ dominate;
+these regions are most pronounced for lower q, as in the left two plots. The most notable region is ω ∼ 50 meV, where ẑ
+dominates. For 60 ≲ ω ≲ 85 meV, the xy plane dominates, but to a lesser extent. In general, the high ω tail has a suppression
+in the q̂ = ẑ direction due to the wider tails in the individual phonon terms along xy. At high q (right panel), the directional
+dependence tends to smooth out as the response approaches the nuclear recoil limit. Also shown is the impulse approximation,
+                                                   √
+which becomes a good approximation for q ≳ 2 2mN ω0 .
+                                                                                                                               8
+
+                                                                    q    ω
+be written as                                                      2mχ + q | < vesc . Defining
+                     Z
+                                                                                                 q   ω
+      g(q, ω, t) =       d3 vf (v + ve (t))δ(ω − ωq )      (29)                          v∗ ≡       + ,                     (33)
+                                                                                                2mχ  q
+where ωq = q · v − q 2 /(2mχ ) and the Earth’s velocity is         we can identify the regions where the kinematic function
+given by                                                           is non-zero as those satisfying
+                    
+                            sin θe sin ϕe (t)
+                                                                                     v∗ < vesc − q̂ · ve (t).              (34)
+        ve (t) = ve sin θe cos θe (cos ϕe (t) − 1) (30)          If v∗ > vesc +ve , then g(q, ω, t) will always be zero at any
+                         2           2
+                      cos θe + sin θe cos ϕe (t)                   time t and direction q̂. Similarly, if v∗ < vesc − ve , then
+as in [18, 41]. We assume ve = 240 km/s, θe = 42◦ and              g(q, ω, t) will be nonzero for all t and q̂. That leaves the
+ϕe (t) = 2π( 24 hourst
+                          ). ρT is the target density, ρχ = 0.4    sensitive middle region
+           3
+GeV/cm is the local DM density and µχ is the DM-                      v∗ ∈ (vesc − ve , vesc + ve ) ≈ (0.87, 2.47) × 10−3   (35)
+nucleon reduced mass. This setup assumes that at t = 0,
+the z-axis of the crystal is aligned with the Earth’s ve-          where g is sometimes zero, depending on the direction q̂
+locity ve , and is independent of the lab latitude. All            and time t. For multiphonon rates, q ≳ keV and ω ∼ 100
+variables are thus evaluated in the frame of the crystal           meV, so v∗ is well approximated as v∗ ≈ q/2mχ , meaning
+in Eq. (28).                                                       that g(q, ω, t) is effectively independent of ω.
+   The momentum dependent cross section is σ(q) =                     At the same time, the anisotropies in the structure
+                                                                                                           √
+σ0 |F̃ (q)|2 , for a reference cross section σ0 and form fac-      factor are most prominent for q ≲ 2md ω0 . Therefore,
+                                                                                  √
+                q 2 +m2
+tor F̃ (q) = q02 +m2med with model-dependent reference mo-         setting v∗ ∼ 2md ω0 /(2mχ ) and requiring v∗ > vesc −ve ,
+                       med                                         we can obtain an upper limit on mχ where we expect to
+mentum q0 . While this form factor is dependent on the
+                                                                   see noticeable daily modulation. For sapphire, this upper
+mediator mass mmed , we consider two limiting cases. In
+                                                                   mass limit is mχ ≈ 30 MeV. This suggests that we will
+the massive mediator limit, F̃ (q) = 1, and in the massless
+                               q2                                  see the greatest impacts of anisotropy on multiphonon
+mediator limit, F̃ (q) = q02 .                                     excitations in the mass range mχ ≈ 1 − 30 MeV.
+   As the Earth rotates, the orientation of the detector              We turn to Fig. 5 to explore the interplay between
+with respect to the Earth’s velocity ve changes. Unlike            the kinematic function and the structure factor, and how
+isotropic crystals where the target response is indepen-           they combine to create daily modulation. It is convenient
+dent of the direction of momentum transfer, the variation          to evaluate Eq. (28) in spherical coordinates for q. As
+in the structure factor of an anisotropic crystal across           standard, θ is taken as the angle of declination from the
+different q̂ can lead to a daily modulation in the over-           crystal’s primary ẑ axis, and φ is a rotation around ẑ,
+all rate. In this section, we use a heavy scalar mediator          with φ = 0 along the crystal’s x̂ axis.
+with fd2 = A2d and |F̃ (q)|2 = 1 to illustrate sources of             In the first row we show g(q, ω, t) sin θ over a grid of
+daily modulation. The physics is qualitatively similar for         θ and φ at different times t of the day. The values of q,
+other mediators, which will be shown in Sec. IV.                   ω and mχ are fixed to be in the sensitive region of v∗ .
+   Whereas S(q, ω) gives target-specific information, the          This choice illustrates how there is a forbidden region in q̂
+kinematic function g(q, ω, t) dictates which ω and q con-          where g(q, ω, t) = 0, which changes throughout the day.
+tribute most to the rate as the Earth rotates. If the              At any time during the day t, the kinematic function has
+DM velocity distribution is given by the Standard Halo             preferred directions q̂pref (t), denoted by the bright regions
+Model, the integral can be explicitly evaluated, see Eqs           in the first row. At t = 0, this region is concentrated in a
+11-12 of [25],                                                     cone at angle π/4 from the primary ẑ axis of the crystal,
+                 πv02         v− (q, ω, t)2             2
+                                                       vesc        as the axis is aligned with ve .
+  g(q, ω, t) =        [exp (−               ) − exp (−      )],       The preferred directions of g(q, ω, t) depend on q/2mχ .
+                 N0 q              v02                  v02
+                                                            (31)   For q values larger than the one shown in Fig. 5, the
+                                                                   preferred directions remain approximately the same as
+with N0 a normalization constant and                               shown. This angular dependence illustrates the main ef-
+                                                q   ω              fect for massive mediators where scattering is dominated
+   v− (q, ω, t) = min (vesc , |q̂ · ve (t) +       + |).   (32)    by high q. For lower q or higher mχ , a wider range of an-
+                                               2mχ  q
+                                                                   gles θ can contribute, so the xy plane tends to dominate
+We take vesc = 500 km/s and v0 = 220 km/s.                         due to the sin θ factor in the integral. This leads to some-
+  A few observations about the kinematic function. We              what different modulation effects for massless mediators,
+can see that g(q, ω, t) is only non-zero when |q̂ · ve (t) +       lower number of phonons and higher masses.
+                                                                                                                                                                                  9
+
+
+                                            g(q, !, t) sin µ [eV°1] for q = 20 keV, m¬ = 10 MeV, ! = 50 meV
+                                t = 0.0 hr                                     t = 5.0 hr                                            t = 12.0 hr                    £10°8
+               º
+
+                                                                                                                                                                            3.0
+
+                                                                                                                                                                            2.5
+
+               º
+                                                                                                                                                                            2.0
+       µ
+
+
+
+
+               2
+                                                                                                                                                                            1.5
+
+                                                                                                                                                                            1.0
+
+                                                                                                                                                                            0.5
+
+               0
+                   0                    º                 2º 0                           º                         2º 0                      º                 2º
+                                      '                                                  '                                                   '
+
+
+
+                                                                         S(q, !) [keV2]
+                               ! = 50.0 meV                                  ! = 80.0 meV                                           ! = 400.0 meV
+               º
+
+
+
+
+               º
+         µ
+
+
+
+
+               2
+
+
+
+
+               0
+                   0                    º                 2º 0                           º                          2º 0                     º                 2º
+                                        '                                                '                                                   '
+
+
+                   0.6   0.8      1.0          1.2   1.4 1.5       1.5       2.0          2.5         3.0         3.5       2                3            4
+                                                      £107                                                       £106
+
+
+                                                                             dR(t) dR
+                                                                              d! /h d! i
+                               ! =50.0 meV                                    ! =80.0 meV                                           ! =400.0 meV
+          1.10
+
+          1.05
+  d! /h d! i
+        dR
+
+
+
+
+          1.00
+ dR(t)
+
+
+
+
+          0.95
+
+          0.90
+
+
+                    0    5       10            15    20        0         5         10            15         20          0       5      10            15   20
+                                      t [hr]                                            t [hr]                                              t [hr]
+
+
+
+FIG. 5. The kinematic function g(q, ω, t), weighted by sin θ, combines with the structure factor S(q, ω) to give rise to daily
+modulation in dR(t)
+                 dω
+                     . The first row shows the kinematic function g(q, ω, t) over different orientations of q, described by θ and
+φ, for fixed q = 20 keV, mχ = 10 MeV, and ω = 50 meV and at three times t. White regions are forbidden phase space where
+g(q, ω, t) = 0. The second row is the structure factor for Al2 O3 at the same q, but at different ω. The arrows illustrate how
+the kinematic function at different times t combines with the structure factor to create a daily modulation in the differential
+rate dR(t)
+       dω
+            for mχ = 10 MeV (third row).
+                                                                                                                       10
+
+   In the second row, we show S(q, ω) again over a grid of     advantage of modulation is that it enables background
+θ and φ describing the orientation of q. We fix the same       rejection, we also account for a potential source of back-
+q but varying ω in successive plots. At different ω values,    grounds with rate RB . For phonon-only signals, model-
+the structure factor favors its own direction q̂. This is a    ing the origin of backgrounds and predicting their rate is
+consequence of the anisotropies in Al2 O3 that manifest        challenging. We will therefore assume that RB is a priori
+through the pDoS, as explained in Fig. 4.                      unknown.
+   Finally, in the third row, we demonstrate how the kine-        First, consider the ideal case of zero background rate
+matic function combines with each plot in row two to cre-      (RB = 0). The non-modulating portion of the DM signal
+ate a daily modulation in the differential rate dR(t)
+                                                    dω , as    itself acts as a background for the modulation, since RB
+given by Eq. (28). When the structure factor is weighted       is unknown. Assuming a roughly sinusoidal signal, we
+in the same q directions as the kinematic function, the        can split the day into two halves, where the modulation
+differential rate dR(t)
+                    dω will be higher. This modulation is      is above and below average respectively. Given Nev total
+most dramatic in the region of ω ∼ 50 meV where the            events, we expect there to be Nev /2 events in each half
+structure factor is weighted towards q̂ = ±ẑ. The func-       of the day. So, the size of our signal is N2ev Amod , while
+tion g(q, ω, t) is weighted in a similar direction at t = 0,   the size of fluctuations
+                                                                                 p      for a uniform (time-independent)
+                                                                                                            √
+but at t = 12 hr, is weighted along q̂ = ŷ. Consequently,     signal would be Nev /2. Performing a S/ B estimate
+for this ω, the differential rate is higher than average at    for significance in each half of the day and adding them
+t = 0, but lower than average at t = 12 hr. We see the         in quadrature, we can see that to establish a statistically
+opposite effect for high ω ≳ 100 meV, where the struc-         significant modulation at the 2σ level, we require
+ture factor is weighted towards the xy axis, leading to an
+                                                                   Nev Amod                                  4
+inverted modulation plot. It is important to notice the             √       =2      →     Nev (RB = 0) =         .   (38)
+magnitude of the structure factor and hence the contri-               Nev                                  A2mod
+bution to the total rate in these ω regions. At these q        For each mχ and Ethresh , we can solve for the cross sec-
+values, the structure factor is orders of magnitude higher     tion σmod needed to observe this number of events with
+for ω ≲ 100 meV, while the modulation for high ω is            exposure E:
+appearing in the tail of the scattering distribution where
+                                                                                                 σ0
+the rate is suppressed.                                                           σmod ≡ Nev                         (39)
+                                                                                               ⟨R⟩ · E
+
+                    IV.   RESULTS
+                                                               where σ0 = 10−38 cm2 is the reference cross section we
+                                                               use in calculating the average rate ⟨R⟩. While this treat-
+                                                               ment of σmod is highly simplistic, we note that it re-
+  In this section, we present modulation results in sap-
+                                                               produces well the result of more sophisticated statistical
+phire (Al2 O3 ) for both scalar and dark photon mediators,
+                                                               analyses in previous work [18, 25]. For the same exposure
+in the massless and massive limits. First, we introduce
+                                                               and in the absence of backgrounds, the cross section sen-
+some definitions.
+                                                               sitivity of a total rate measurement is better by a factor
+  To see how the anisotropies manifest at different recoil
+                                                               of ∼ 1/A2mod .
+energies ω, we define the differential daily modulation
+                                                                  This simple treatment can now be used to estimate the
+amplitude:
+                                                               impact of additional backgrounds with rate RBG , which
+                               dR(t=0)                         are constant in time. Our estimate of σmod above is mod-
+                                        − ⟨ dR
+                                            dω ⟩
+                         
+                      dR          dω
+             Amod           ≡                    .   (36)      ified     including RBG in the background fluctuations,
+                      dω               dR
+                                     ⟨ dω ⟩                    √ by √
+                                                                  B → Nev + RBG E for exposure E, which gives the
+We define this using the differential rate at t = 0 as that    required number of DM events
+is when it exhibits the greatest deviation from average,                                                
+                                                                              2
+                                                                                        q
+as seen in the bottom three panels of Fig. 5.                       Nev = 2                    2
+                                                                                    1 + 1 + Amod RBG E               (40)
+   To evaluate the amount of modulation in the total rate,                 Amod
+                                                                           (
+we define the daily modulation amplitude as                                  4/A2mod ,          A2mod RBG E ≪ 1
+                                                                        ≈      √                                .    (41)
+                              |R(t) − ⟨R⟩|                                   2 RBG E/Amod , A2mod RBG E ≫ 1
+                Amod ≡ max                 .           (37)
+                                  ⟨R⟩
+                                                               Therefore, the number of events
+                                                                                            √ either is independent of
+Once again, noting that Amod occurs at t = 0, we speed         RBG , or at worst scales as RBG in the limit of large
+up computation by calculating Amod = | R(t=0)−⟨R⟩
+                                           ⟨R⟩    |.           RBG . In contrast, since RBG is unknown, the sensitiv-
+   Finally, we define a cross section σmod and number          ity of the total rate measurement is then limited to cross
+of events Nev , needed to see the modulation. Since the        sections giving R > RBG . For high RBG , it is therefore
+                                                                                                                         11
+
+possible for modulation to give similar or better sensi-       xy plane at higher energies, as discussed in Fig. 3. As ω
+tivity than a total rate measurement. Finally, we em-          increases further and the dominant phonon term shifts to
+phasize that if RBG is unknown, the modulation signal          n + 1, the structure factor starts to shift back towards ẑ
+offers the potential for a discovery while total rate mea-     again. For example, the n = 4 term in Figure 3 switches
+surements can only set upper bounds. Accounting for            from being weighted along ẑ to xy at ω ∼ 230 meV. This
+energy-dependence of the modulation rate would poten-          corresponds exactly with where there is a local minimum
+tially also provide information about the DM model in          in modulation in the middle left plot of Fig 6.
+the event of a signal.                                            In general, there is an increased modulation for large
+   In this work, we consider illustrative background rates     ω. This is a result of the weighting of S(q, ω) towards
+of RBG =1/gram-day, 1/gram-hour and a fixed exposure           the xy plane at high ω, as can be seen in both Figs. 4-
+of E = kg · year. For each case, we will compare cross         5. With increasing ω, the differential rate modulation
+section sensitivity of the total rate measurement to σmod ,    curves all resemble the bottom right panel of Fig. 5 as
+which is again determined using Eq. 39.                        the structure factor strongly aligns with the kinematic
+   All computations are implemented in DarkELF. When           function’s preferred direction q̂pref (t) at t = 12 hr. It is
+the modulation amplitude becomes small, increased sam-         important to note that despite this increased modulation
+pling of the integral is necessary. We describe our default    at higher energies, the total rate is highly suppressed in
+numerical settings and convergence tests for the modula-       this region, as evident in the top left panel of Fig. 6.
+tion calculation in Appendix A. The DarkELF implemen-             Next, we see how modulation as a function of ω re-
+tation is summarized in Appendix B. Results for SiC are        sults in modulation in the total integrated rate. In the
+shown in Appendix C, while other materials we investi-         upper right panel, we show the daily modulation ampli-
+gated (Si, GaAs and SiO2 ) had negligible modulation.          tude Amod as a function of mχ . The inset shows daily
+                                                               rate modulation R(t)⟨R⟩ over a sidereal day for a DM mass
+                                                               mχ = 10.0 MeV at a few values of Ethresh . We find that
+              A.   Heavy scalar mediator                       Al2 O3 has a daily modulation amplitude up to 11% for a
+                                                               DM mass mχ = 10 MeV and Ethresh = 300 meV. We only
+   In the case of a massive scalar mediator coupling           show energy thresholds above the single phonon regime,
+equally to nucleons, fd2 = A2d and |F̃ (q)|2 = 1. We           ω ≥ 120 meV, and for these energies, as seen in the mid-
+present results in Fig. 6. First, in the top left and mid-     dle left panel, the differential modulation is peaked at the
+dle left plots, we show the total differential rate dR
+                                                    dω and
+                                                               same time of day so the total modulation becomes more
+the differential daily modulation amplitude Amod dR
+                                                          
+                                                        dω ,
+                                                               pronounced.
+for the same set of masses and the same ω range. In               Overall, the most modulation occurs for mχ ≲ 30 MeV,
+general, there is a strong ω dependence in the daily mod-      above which modulation subsides. This matches our in-
+ulation which can be explained by the anisotropies in the      tuition of an upper mass limit on modulation. Greater
+structure factor at different ω.                               mass corresponds to greater momentum transfers q, and
+   In the middle left of Fig. 6, the drastic sharp peaks       as seen in Figure 4, the effects of anisotropy subside at
+at low ω can be explained by anisotropies in the pDoS.         large q upon approaching the nuclear recoil limit. Note
+In particular, the peaks resemble the structure factor in      that we have limited our maximum mass value to 30-
+Fig. 4 where the n = 1 term directly conveys anisotropies      40 MeV, depending on the energy threshold. At higher
+from the pDoS. In the region ω ∼ 50 meV, there is greater      masses, the modulation becomes very small and requires
+than average rate at t = 0, as the structure factor is         many more sampling points to calculate accurately; see
+aligned with the kinematic function. However, for 60 ≲         Appendix A for a more detailed description of the con-
+ω ≲ 85 meV, the structure factor prefers the xy plane,         vergence tests for the modulation calculation.
+resulting in the opposite phase of modulation at t = 0.           In the middle right panel we show cross section curves
+Note that the mχ = 50 MeV line has the opposite phase          for a rate of 3 events/kg-yr assuming zero background,
+compared to the lower masses. This is a result of the          computed using the full q integral (solid lines) or the
+kinematic function shifting its preferred direction at t = 0   isotropic approximation (dotted lines). The isotropic ap-
+towards the xy plane for lower values of q/2mχ .               proximation turns out to be a good estimate for mχ ≳ 1
+   We can also explain the oscillations at high ω as a fea-    MeV, even for an anisotropic material. For mχ ≲ 1
+ture of the tails of individual n-phonon peaks in S(q, ω).     MeV, single phonon production becomes the dominant
+At the low q relevant for the DM masses, for any range of      scattering mechanism. These have already been com-
+ω, scattering is dominated by a particular n. Within the       puted numerically, including modulation amplitudes, in
+range of ω where a given term dominates, the pattern of        Refs. [18, 25]. We exclude single phonon contributions
+modulation favors the ẑ direction at lower energies and       to the total rate in our calculations and institute a lower
+                                                                                                                                                                                                 12
+
+                                                                             Al2O3, Massive Scalar Mediator
+                                   ×10    7                   Differential Rate                                                                 Daily Modulation Amplitude
+                        2.00                                                                                               100
+                                       σ0 = 10−38 cm2                                  DM mass mχ
+                        1.75                                                                                                                                    1.15       mχ = 10 MeV
+                                                                                           5 MeV
+                                                                                           10 MeV
+                        1.50                                                                                             10−1
+ dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                           30 MeV
+
+
+
+
+                                                                                                                                                            R(t)
+                                                                                                                                                            hRi
+                                                                                                                                                                1.00
+                        1.25
+
+
+
+
+                                                                                                                Amod
+                        1.00                                                                                             10−2                                   0.85
+                                                                                                                                                                       0       12           24
+                        0.75                                                                                                                                               time [hr]
+
+                                                                                                                                    Threshold Energy
+ dR
+
+
+
+
+                        0.50                                                                                             10−3
+                                                                                                                                           120 meV
+                        0.25                                                                                                               200 meV
+                                                                                                                                           300 meV
+                        0.00                                                                                             10−4
+                                                                                                                                                 101                                102
+                                   0             50       100       150       200         250          300
+                                                                  ω [meV]                                                                               mχ [MeV]
+                                                Differential Daily Modulation Amplitude                                                  Cross Sections RBG = 0, kg-yr Exposure
+                         0.15
+                                                                                                                              −29
+                                                                                       DM mass mχ                        10                                                Threshold Energy
+                                                                                           5 MeV                                                                                  120 meV
+                         0.10                                                                                            10   −31
+                                                                                           10 MeV                                                                                 200 meV
+                                                                                           30 MeV                                                                                 300 meV
+                                                                                                                         10−33
+                         0.05
+                                                                                                                         10−35
+       dω )
+
+
+
+
+                                                                                                             σn [cm2 ]
+Amod ( dR
+
+
+
+
+                         0.00                                                                                                                             Modulation
+                                                                                                                         10−37
+
+                    −0.05                                                                                                10−39
+
+                                                                                                                         10−41
+                    −0.10                                                                                                                                                  3 events/kg-yr
+                                                                                                                         10−43
+
+                    −0.15                                                                                                10−45
+                                   0             50       100        150      200         250          300                                       101                                102
+                                                                  ω [meV]                                                                               mχ [MeV]
+                                              Cross Sections RBG =1/g-day, kg-yr Exposure                                              Cross Sections RBG =1/g-hr, kg-yr Exposure
+                             −29                                                                                              −29
+                        10                                                          Threshold Energy                     10                                                Threshold Energy
+                                                                                           120 meV                                                                                120 meV
+                        10−31                                                              200 meV                       10−31                                                    200 meV
+                                                                                           300 meV                                                                                300 meV
+                        10−33                                                                                            10−33
+
+                        10−35                                                                                            10−35
+    σn [cm2 ]
+
+
+
+
+                                                                                                             σn [cm2 ]
+
+
+
+
+                        10−37                                                                                            10−37
+
+                        10−39                                                                                            10−39
+
+                        10−41                                                                                            10−41
+
+                        10−43                                                                                            10−43
+
+                        10−45                                                                                            10−45
+                                                        101                               102                                                    101                                102
+                                                                 mχ [MeV]                                                                               mχ [MeV]
+
+FIG. 6. Results for Al2 O3 detector, assuming a massive scalar mediator. Top left: Differential rate dR
+                                                                                                     dω
+                                                                                                        for a reference cross
+section of σ0 = 10−38 cm2 . Top right: Daily modulation amplitude Amod as a function of mχ , for a few different energy
+thresholds. Also shown is the daily modulation curve R(t)
+                                                        ⟨R⟩
+                                                             at mχ = 10 MeV. Middle left: Differential daily modulation
+                 dR
+amplitude Amod ( dω ) for a few mχ as a function of ω. Middle right: Cross section curves σn . Solid lines are computed
+using the anisotropic pDoS and dotted lines are computed using the isotropic approximation, both assuming 3 events/kg-yr.
+Dashed lines are σmod , the cross section to observe a modulating signal. Bottom left: Similar to middle right, but with
+RBG = 1/gram-day. Here solid lines are sensitivity of a total rate measurement while dashed is sensitivity of a modulation
+measurement. Bottom right: Same as bottom left, with RBG = 1/gram-hr.
+                                                                                                                        13
+
+cutoff on the q-integral of q ≥ qBZ = 2π  a for a the lattice   phonon coherent piece dominates. We therefore exclude
+constant. In sapphire, we take the cutoff as qBZ = 0.95         single phonon excitations (shaded region in plots), see
+keV. This leads us to set the lower limit of the curves at      Ref. [18, 25] for results in that regime. For n ≥ 2, the
+mχ = 3 MeV.                                                     integrand is still weighted at high q such that our calcu-
+   We also show the cross sections σmod for detecting           lations apply.
+a modulating signal at the same energy thresholds as-              Now, we turn our attention to the effect on modulation.
+suming zero background. As expected, modulation is              We again see similar modulation at high ω ≳ 100 meV as
+most effective for direct detection at low mχ . Note that       the massive scalar mediator in the lower left plot. This
+the masses at which the modulation amplitude is largest         results in similar, although slightly decreased total mod-
+corresponds to the masses and thresholds where the to-          ulation to the massive mediator, with only 7.6% modula-
+tal rate decreases significantly. So while higher energy        tion for Ethresh = 300 meV and mχ = 10 MeV. Overall,
+thresholds may exhibit greater modulation, they come            the daily modulation amplitude as a function of mass
+with a significantly decreased overall rate.                    looks relatively similar to the massive mediator case, al-
+   In the last row, we show the cross sections correspond-      though in this case they tend to plateau to a constant
+ing to detecting both a total rate measurement (solid)          (but very small) value with higher mχ rather than going
+and a modulating signal (dashed) for a background rate          to zero. For the massless mediator, we include results
+of RBG = 1/gram-day and 1/gram-hour. Notably, mod-              for a larger range of mass values than the massive medi-
+ulation can offer improved or comparable reach compared         ator, according to the results of our convergence tests in
+to total rate detection for high background rates. In par-      App. A.
+ticular, the cross section reach for modulation has barely         For the cross section curves, we observe similar results
+shifted even when RBG = 1/g-hr. This is because the             for the modulation curves σmod relative to σn as for the
+modulation fraction is small, putting us in the regime          massive mediator. We again see masses where σmod ap-
+A2mod RBG E ≪ 1 of Eq. 41, so the values of RBG do not          pears to spike, due to the total modulation amplitude
+significantly affect the significance of the modulating sig-    going to zero at those masses. However, the differential
+nal.                                                            modulation is still nonzero and with good energy resolu-
+   In the cross section plots, existing direct detection con-   tion, it is possible to search for modulation in different
+straints are shown in shaded gray. These include indi-          parts of the energy spectrum. Compared to the sensitiv-
+rect probes of nuclear recoils via the Migdal effect with       ity of a total rate measurement, we again see a similar or
+PandaX-4T [42], DarkSide-50 [43], XENON1T [44] as               improved reach for a modulating signal when considering
+well as SENSEI@SNOLAB [45]. In addition to direct               a non-zero background.
+constraints, there are model-dependent upper bounds on             As for the heavy scalar mediator, we show existing
+the possible achievable cross sections, for a discussion see    constraints (gray) from probes of nuclear recoils with
+for example Refs. [46–48].                                      the Migdal effect with XENON1T [44] as well as SEN-
+   Note that the existing constraints do not extend to          SEI@SNOLAB [45]. Model-dependent upper bounds on
+arbitrarily high cross sections due to attenuation of DM        achievable cross sections are discussed in Ref. [46].
+in the Earth’s crust or atmosphere. We have cut off our
+plots at cross sections of 10−28 cm2 , roughly where DM
+scattering in the Earth crust would significantly impact                       C.   Massive dark photon
+direct detection in underground labs [49].
+                                                                    A dark photon mediator couples to the electric charge
+                                                                of a SM particle. In the regime where phonons are rel-
+             B.   Massless scalar mediator                      evant, the charge of the nucleus is partially screened by
+                                                                the electrons. So, we use the notion of a momentum
+   For a massless scalar mediator, we now take fd2 = A2d        dependent effective charge seen by the DM. Using the
+                 m v
+and |F̃ (q)|2 = ( χq 0 )4 with v0 = 220 km/s and present        calculations in [54], we take fd = Zd (q) with Zd (q) the
+results in Figure 7. First, we briefly review the effect of     effective charge for each atom d. The effective charge
+the form factor on the total rate; see Ref. [28] for a more     interpolates between 0 at low q to the nuclear charge at
+complete description. The two primary adjustments to            high q. The approximation is expected to be valid for
+the integrand are the additional m4χ and 1/q 4 scaling.         q ≳ qBZ , in accordance with the rest of our multiphonon
+The weighting towards high masses leads to increased            calculations. For the massive dark photon, we again take
+rates and cross section curves which improve with higher        |F̃ (q)|2 = 1.
+masses. As for the additional 1/q 4 scaling, for n = 1 the          The results for a massive dark photon mediator, shown
+integrand is weighted towards the lowest q and the single       in Figure 8, are very similar to the massive scalar media-
+                                                                                                                                                                                    14
+
+
+
+                                                                       Al2O3, Massless Scalar Mediator
+                                                     Differential Rate                                                               Daily Modulation Amplitude
+                               σ0 = 10−38 cm2                                  DM mass mχ                                                            1.1       mχ = 10 MeV
+                        106                                                        5 MeV                           100
+
+
+
+
+                                                                                                                                                 R(t)
+                                                                                   10 MeV
+
+
+
+
+                                                                                                                                                 hRi
+                                                                                                                                                     1.0
+                        105
+dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                   30 MeV
+                                                                                                                 10−1
+                        104                                                                                                                          0.9
+                                                                                                                                                           0       12          24
+
+
+
+
+                                                                                                        Amod
+                                                                                                                      −2
+                                                                                                                 10
+                        103                                                                                                                                     time [hr]
+
+                        102                                                                                      10−3
+                                                                                                                                                               Threshold Energy
+dR
+
+
+
+
+                        101
+                                                                                                                      −4                                              120 meV
+                                                                                                                 10
+                        100                                                                                                                                           200 meV
+                                                                                                                                                                      300 meV
+                       10−1                                                                                      10−5
+                                                                                                                               101                      102                         103
+                               0      50      100    150     200      250    300    350        400
+                                                        ω [meV]                                                                              mχ [MeV]
+                                       Differential Daily Modulation Amplitude                                              Cross Sections RBG = 0, kg-yr Exposure
+                        0.15                                                                                     10−28
+                                                                               DM mass mχ                                                                      Threshold Energy
+                                                                                   5 MeV                         10−30                                                120 meV
+                        0.10      Single phonon
+                               coherent (q < qBZ )                                 10 MeV                                                                             200 meV
+                                                                                                                 10−32
+                                                                                   30 MeV                                                                             300 meV
+                        0.05                                                                                     10−34
+       dω )
+
+
+
+
+                                                                                                     σn [cm2 ]
+Amod ( dR
+
+
+
+
+                                                                                                                 10−36
+                        0.00                                                                                                                                    Modulation
+                                                                                                                 10−38
+
+                       −0.05                                                                                     10−40
+
+                                                                                                                 10−42                                             3 events
+                                                                                                                                                                           /kg-yr
+                       −0.10
+                                                                                                                 10−44
+
+                       −0.15                                                                                     10−46
+                               0      50      100    150     200      250    300     350       400                             101                      102                         103
+                                                           ω [meV]                                                                           mχ [MeV]
+                                    Cross Sections RBG =1/g-day, kg-yr Exposure                                            Cross Sections RBG =1/g-hr, kg-yr Exposure
+                       10−28                                                                                     10−28
+                                                                            Threshold Energy                                                                   Threshold Energy
+                       10−30                                                       120 meV                       10−30                                                120 meV
+                       10−32                                                       200 meV                       10−32                                                200 meV
+                                                                                   300 meV                                                                            300 meV
+                       10−34                                                                                     10−34
+    σn [cm2 ]
+
+
+
+
+                                                                                                     σn [cm2 ]
+
+
+
+
+                       10−36                                                                                     10−36
+
+                       10−38                                                                                     10−38
+
+                       10−40                                                                                     10−40
+
+                       10−42                                                                                     10−42
+
+                       10−44                                                                                     10−44
+
+                       10−46                                                                                     10−46
+                                           101                       102                       103                             101                      102                         103
+                                                           mχ [MeV]                                                                          mχ [MeV]
+
+FIG. 7. Same as Figure 6, for the massless scalar mediator. The regime where the coherent single phonon term is expected to
+dominate is shaded gray in the upper left and middle left plots.
+                                                                                                                                                                                                 15
+
+
+                                                                                         Al2O3, Massive Dark Photon
+                                  ×10    6                           Differential Rate                                                             Daily Modulation Amplitude
+                           3.0                                                                                                100
+                                                −38        2
+                                      σ0 = 10         cm                                    DM mass mχ                                                                      mχ = 10 MeV
+                                                                                                5 MeV                                                             1.1
+                           2.5
+                                                                                                10 MeV
+                                                                                                                            10−1
+
+
+
+
+                                                                                                                                                              R(t)
+    dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                                                                                              hRi
+                                                                                                30 MeV                                                            1.0
+                           2.0
+                                                                                                                                                                  0.9
+
+
+
+
+                                                                                                                   Amod
+                           1.5                                                                                              10−2
+                                                                                                                                                                        0       12              24
+                                                                                                                                                                            time [hr]
+                           1.0
+                                                                                                                                       Threshold Energy
+    dR
+
+
+
+
+                                                                                                                            10−3
+                                                                                                                                              120 meV
+                           0.5                                                                                                                200 meV
+                                                                                                                                              300 meV
+                           0.0                                                                                              10−4
+                                                                                                                                                    101                              102
+                                  0               50             100       150       200      250        300
+                                                                 ω [meV]                                                                                   mχ [MeV]
+                                                Differential Daily Modulation Amplitude                                                     Cross Sections RBG = 0, kg-yr Exposure
+                           0.15                                                                                             10−34
+                                                                                            DM mass mχ
+                                                                                                5 MeV                       10−36
+                           0.10
+                                                                                                10 MeV
+                                                                                                30 MeV                      10−38
+                           0.05
+                                                                                                                            10−40
+       dω )
+
+
+
+
+                                                                                                               σ e [cm2 ]
+Amod ( dR
+
+
+
+
+                           0.00                                                                                             10−42                            Modulation
+
+
+                                                                                                                            10−44
+                −0.05
+                                                                                                                                       Threshold Energy
+                                                                                                                            10−46                                            3 events/kg-
+                                                                                                                                                                                           yr
+                                                                                                                                              120 meV
+                −0.10
+                                                                                                                            10   −48          200 meV
+                                                                                                                                              300 meV
+                −0.15                                                                                                       10−50
+                                  0               50             100        150      200      250        300                                        101                              102
+                                                                         ω [meV]                                                                           mχ [MeV]
+                                             Cross Sections RBG =1/g-day, kg-yr Exposure                                                  Cross Sections RBG =1/g-hr, kg-yr Exposure
+                   10−34                                                                                                    10−34
+
+                   10−36                                                                                                    10−36
+
+                   10−38                                                                                                    10−38
+
+                   10−40                                                                                                    10−40
+  σ e [cm2 ]
+
+
+
+
+                                                                                                               σ e [cm2 ]
+
+
+
+
+                   10−42                                                                                                    10−42
+
+                   10−44                                                                                                    10−44
+
+                                       Threshold Energy                                                                                Threshold Energy
+                   10−46                                                                                                    10−46
+                                              120 meV                                                                                         120 meV
+                   10−48                      200 meV                                                                       10−48             200 meV
+                                              300 meV                                                                                         300 meV
+                   10−50                                                                                                    10−50
+                                                               101                            102                                                   101                              102
+                                                                        mχ [MeV]                                                                           mχ [MeV]
+
+FIG. 8. Same as Figure 6, for the massive dark photon mediator. Note that we now show the DM-electron cross section σ e in
+the cross section plots. Additionally, the shaded gray are exclusions from current experiments, including constraints on halo
+DM (solid) with SENSEI@SNOLAB [45], DAMIC-M [50], DarkSide-50 [51], and XENON1T [52]; the dotted shows constraints
+on solar reflected dark matter [53].
+                                                                                                                           16
+
+tor. The differential rate plots are diminished by a factor      calculating the total rate. In terms of the total rate,
+of ∼ 5 − 10 for the massive dark photon, mainly from the         we see similar results to the massless scalar mediator.
+factor of 4 difference between the nucleon number A2d and        There is up to 9% modulation for Ethresh = 300 meV
+high momentum nuclear charge Zd2 , and from the slight           and mχ = 10 MeV.
+suppression of low q in the integration. Once again, for            Finally, the relation between σmod to σ e , the cross
+the daily modulation amplitude, we see modulation up             section sensitivity for the total rate, is similar to the
+to 10% for an energy threshold of Ethresh = 300 meV              other cases. However, as a result of the constraints on
+and mχ = 10 MeV. The differential modulation ampli-              DM-electron scattering, it is much more challenging to
+tude plots are virtually identical, which makes sense as         see modulation in phonons, as compared to the massive
+the rate integrand is identical to within an order of mag-       dark photon mediator. This is in part due to the q-
+nitude for q ≳ 10 keV. For lower q, the factor Zd (q)2           dependence: in the massive dark photon mediator, high q
+suppresses the rate, but as discussed in Fig 4, the effects
+                                       √                         is preferred and DM-phonon scattering enjoys a larger Z 2
+of anisotropy are present for q ≲ 2 2md ω0 ≈ 95 keV in           enhancement over DM-electron scattering. However, for
+Al2 O3 , so the screening at low q does not significantly        the massless mediator there is a greater weight on lower
+inhibit the effects of anisotropy.                               q where the effective change Zd (q) is more suppressed.
+   Finally, for the cross section plot, we present the results
+in terms of the effective DM-electron cross section σ e
+[55], with                                                                         V.   CONCLUSIONS
+
+                               µ2χe
+                        σe =        σn                   (42)       Experimental efforts to detect low energy nuclear re-
+                               µ2χ
+                                                                 coils from sub-GeV dark matter will soon reach the mul-
+for µχe the DM-electron reduced mass. Overall, results           tiphonon regime. Here DM scattering in crystals devi-
+are similar as for the massive scalar mediator, aside from       ates from elastic nuclear recoils and results multiphonon
+the effect of the prefactor µ2χe /µ2χ . In the mass range        excitations. These effects are most relevant for DM in
+that we are considering, the prefactor reduces to m2e /m2χ ,     mass range 1 MeV – 1 GeV. While calculations have
+which explains the increase in rate at high mass.                been performed for multiphonon scattering in this mass
+   The shaded gray region indicates the combined ex-             range [28], they have relied on the isotropic approxima-
+clusion curve on heavy dark photon mediators. The                tion. This is appropriate for isotropic crystals like Si, but
+solid line contains combined constraints on halo DM              it neglects important directional variation in anisotropic
+from SENSEI@SNOLAB [45], DAMIC-M [50], DarkSide-                 crystals which can lead to a daily modulation in the total
+50 [51], and XENON1T [52] while the dotted line con-             scattering rate. Previously, results for daily modulation
+tains constraints from solar reflected dark matter [53]          have been obtained for single phonon scattering. In this
+in XENON1T [52] (see also Ref. [56]). For a heavy dark           paper, we showed that daily modulation is also possible
+photon mediator, the σmod line is 3-4 orders of magnitude        with multiphonon excitations, providing a new avenue
+below constraints across all masses for energy thresh-           for directional detection of dark matter.
+olds 40 meV ≲ Ethresh ≲ 200 meV and zero background.                We focused on a sapphire (Al2 O3 ) detector, as a
+Even with high background, the cross sections for a mod-         promising polar crystal target proposed for direct de-
+ulating signal are relatively similar while the cross sec-       tection experiments. We found appreciable modulation
+tions for total rate detection rise considerably.                fractions are possible, up to 11% for a DM mass mχ = 10
+                                                                 MeV and energy threshold Ethresh = 300 meV, with de-
+                                                                 creasing modulation for higher masses and lower energy
+               D.    Massless dark photon                        thresholds. In addition, we found similar modulation in
+                                                                 SiC, which also has anisotropic crystal structure, but sig-
+  For a massless dark photon mediator, we use the mo-            nificantly less in Si, GaAs and SiO2 .
+mentum dependent effective charge fd2 = Zd2 (q) and the             Even when the modulation fraction is small, it gives
+form factor |F̃ (q)|2 = ( αm e 4
+                           q ) , for the reference momen-        a powerful new method for background rejection. When
+tum q0 = αme where α is the fine structure constant and          backgrounds are large and a priori unknown, total rate
+me is the electron mass. Results are presented in Fig. 9.        measurements are limited by the background rate and
+  Compared to the massless scalar mediator, there is a           can only provide upper bounds on DM cross sections.
+suppression at low q from the Zd (q)2 term. This partially       Searching for modulation in anisotropic crystals can give
+removes the preference for q due to the form factor. Like        similar or better cross section sensitivity compared to
+the massless scalar mediator, we shade the single phonon         total rate measurements, and has the potential to cleanly
+regime to emphasize that we neglect this region of ω in          identify a signal from dark matter in our Galaxy.
+                                                                                                                                                                                           17
+
+
+
+                                                                            Al2O3, Massless Dark Photon
+                                                     Differential Rate                                                                      Daily Modulation Amplitude
+                        103                                                                                          100
+                                  σ0 = 10−38 cm2                                DM mass mχ                                                                  1.1
+                                                                                    5 MeV
+                        102
+                                                                                    10 MeV
+
+
+
+
+                                                                                                                                                        R(t)
+                                                                                                                   10−1
+
+
+
+
+                                                                                                                                                        hRi
+                                                                                                                                                            1.0
+dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                    30 MeV
+                             1
+                        10
+                                                                                                                                                            0.9
+                                                                                                                   10−2
+
+
+
+
+                                                                                                          Amod
+                             0                                                                                                                                    0        12            24
+                        10
+                                                                                                                                                                        time [hr]
+
+                       10−1                                                                                        10−3
+                                                                                                                              Threshold Energy
+dR
+
+
+
+
+                                                                                                                                     120 meV
+                       10−2                                                                                                          200 meV
+                                                                                                                   10−4              300 meV
+                            −3
+                       10
+                                                                                                                                      101                      102                         103
+                                  0     50     100   150     200      250     300    350        400
+                                                           ω [meV]                                                                                  mχ [MeV]
+                                         Differential Daily Modulation Amplitude                                                   Cross Sections RBG = 0, kg-yr Exposure
+                        0.15
+                                                                                                                        −27
+                                                                                DM mass mχ                         10                                                 Threshold Energy
+                                Single phonon                                       5 MeV                                                                                    120 meV
+                        0.10                                                                                       10   −29
+                             coherent (q < qBZ )                                    10 MeV                                                                                   200 meV
+                                                                                    30 MeV                                                                                   300 meV
+                                                                                                                   10−31
+                        0.05
+                                                                                                                   10−33
+       dω )
+
+
+
+
+                                                                                                      σ e [cm2 ]
+Amod ( dR
+
+
+
+
+                        0.00
+                                                                                                                   10−35
+                                                                                                                                                                            Modulation
+                       −0.05                                                                                       10−37
+
+                                                                                                                   10−39
+                       −0.10
+                                                                                                                   10−41
+                                                                                                                                                                          3 events/kg-yr
+                       −0.15                                                                                       10−43
+                                  0     50     100   150     200      250     300     350       400                                   101                      102                         103
+                                                           ω [meV]                                                                                  mχ [MeV]
+                                      Cross Sections RBG =1/g-day, kg-yr Exposure                                                Cross Sections RBG =1/g-hr, kg-yr Exposure
+                            −27                                                                                         −27
+                       10                                                    Threshold Energy                      10                                                 Threshold Energy
+                                                                                    120 meV                                                                                  120 meV
+                       10−29                                                        200 meV                        10−29                                                     200 meV
+                                                                                    300 meV                                                                                  300 meV
+                       10−31                                                                                       10−31
+
+                       10−33                                                                                       10−33
+    σ e [cm2 ]
+
+
+
+
+                                                                                                      σ e [cm2 ]
+
+
+
+
+                       10−35                                                                                       10−35
+
+                       10−37                                                                                       10−37
+
+                       10−39                                                                                       10−39
+
+                       10−41                                                                                       10−41
+
+                       10−43                                                                                       10−43
+                                             101                     102                        103                                   101                      102                         103
+                                                           mχ [MeV]                                                                                 mχ [MeV]
+
+FIG. 9. Same as Figure 6, for the massless dark photon mediator. Again, in the top left and middle left plots, the single phonon
+coherent regime is shaded gray. Cross section results are again shown in terms of DM-electron cross section σ e . The shaded
+region shows current constraints from SENSEI@SNOLAB [45].
+                                                                                                                            18
+
+                ACKNOWLEDGMENTS                                   rate measurements in the presence of a background. CS
+                                                                  was supported by the UCSD Undergraduate Summer Re-
+  We are very grateful to Simon Knapen for feedback on            search Award and TL was supported by Department of
+our draft and to Jeter Hall for the suggestion to com-            Energy grant DE-SC0022104.
+pare cross section sensitivities for modulation and total
+
+
+
+
+ [1] D. N. Spergel, Phys. Rev. D 37, 1353 (1988).                      arXiv:1910.10716 [hep-ph].
+ [2] S. E. Vahsen, C. A. J. O’Hare, and D. Loomba, Ann.           [22] A. Mitridate, T. Trickle, Z. Zhang, and K. M. Zurek,
+     Rev. Nucl. Part. Sci. 71, 189 (2021), arXiv:2102.04596            Phys. Rev. D 102, 095005 (2020), arXiv:2005.10256 [hep-
+     [physics.ins-det].                                                ph].
+ [3] C. A. J. O’Hare, A. M. Green, J. Billard, E. Figueroa-       [23] T. Trickle, Z. Zhang, and K. M. Zurek, Phys. Rev. D
+     Feliciano, and L. E. Strigari, Phys. Rev. D 92, 063518            105, 015001 (2022), arXiv:2009.13534 [hep-ph].
+     (2015), arXiv:1505.08061 [astro-ph.CO].                      [24] S. M. Griffin, Y. Hochberg, K. Inzani, N. Kurinsky,
+ [4] F. Mayet et al., Phys. Rept. 627, 1 (2016),                       T. Lin, and T. C. Yu, Phys. Rev. D 103, 075002 (2021),
+     arXiv:1602.03781 [astro-ph.CO].                                   arXiv:2008.08560 [hep-ph].
+ [5] C. A. J. O’Hare, N. W. Evans, C. McCabe, G. Myeong,          [25] A. Coskuner, T. Trickle, Z. Zhang, and K. M. Zurek,
+     and V. Belokurov, Phys. Rev. D 101, 023006 (2020),                Phys. Rev. D 105, 015010 (2022), arXiv:2102.09567 [hep-
+     arXiv:1909.04684 [astro-ph.GA].                                   ph].
+ [6] S. Ahlen et al., Phys. Lett. B 695, 124 (2011),              [26] S. Knapen, J. Kozaczuk, and T. Lin, Phys. Rev. D 105,
+     arXiv:1006.2928 [hep-ex].                                         015014 (2022), arXiv:2104.12786 [hep-ph].
+ [7] Y. Tao et al., Nucl. Instrum. Meth. A 1021, 165412           [27] A. Mitridate, K. Pardo, T. Trickle, and K. M. Zurek,
+     (2022), arXiv:2003.11812 [physics.ins-det].                       (2023), arXiv:2308.06314 [hep-ph].
+ [8] J. B. R. Battat et al. (DRIFT), Astropart. Phys. 91, 65      [28] B. Campbell-Deem, S. Knapen, T. Lin,                and
+     (2017), arXiv:1701.00171 [astro-ph.IM].                           E. Villarama, Phys. Rev. D 106, 036019 (2022),
+ [9] S. E. Vahsen et al.,          (2020), arXiv:2008.12587            arXiv:2205.02250 [hep-ph].
+     [physics.ins-det].                                           [29] B. Campbell-Deem, P. Cox, S. Knapen, T. Lin, and
+[10] T. Shimada et al., PTEP 2023, 103F01 (2023),                      T. Melia, Phys. Rev. D 101, 036006 (2020), [Erratum:
+     arXiv:2301.04779 [hep-ex].                                        Phys.Rev.D 102, 019904(E) (2020)], arXiv:1911.03482
+[11] N. Agafonova et al. (NEWSdm), Eur. Phys. J. C 78, 578             [hep-ph].
+     (2018), arXiv:1705.00613 [astro-ph.CO].                      [30] S. Knapen, J. Kozaczuk, and T. Lin, Phys. Rev. Lett.
+[12] S. Rajendran, N. Zobrist, A. O. Sushkov, R. Walsworth,            127, 081805 (2021), arXiv:2011.09496 [hep-ph].
+     and M. Lukin, Phys. Rev. D 96, 035009 (2017),                [31] Y. Kahn, G. Krnjaic, and B. Mandava, Phys. Rev. Lett.
+     arXiv:1705.09760 [hep-ph].                                        127, 081804 (2021), arXiv:2011.09477 [hep-ph].
+[13] M. C. Marshall, M. J. Turner, M. J. H. Ku, D. F. Phillips,   [32] K. V. Berghaus, A. Esposito, R. Essig, and M. Shola-
+     and R. L. Walsworth, Quantum Sci. Technol. 6, 024011              purkar, JHEP 01, 023 (2023), arXiv:2210.06490 [hep-ph].
+     (2021), arXiv:2009.01028 [physics.ins-det].                  [33] T. Lin, C.-H. Shen, M. Sholapurkar, and E. Villarama,
+[14] R. Budnik, O. Chesnovsky, O. Slone, and T. Volansky,              Phys. Rev. D 109, 095020 (2024), arXiv:2309.10839 [hep-
+     Phys. Lett. B782, 242 (2018), arXiv:1705.03016 [hep-ph].          ph].
+[15] S. Sassi, A. Dinmohammadi, M. Heikinheimo,                   [34] H. Schober, Journal of Neutron Research 17, 109 (2014).
+     N. Mirabolfathi, K. Nordlund, H. Safari, and K. Tuomi-       [35] Y. Kahn and T. Lin, Rept. Prog. Phys. 85, 066901
+     nen, Phys. Rev. D 104, 063037 (2021), arXiv:2103.08511            (2022), arXiv:2108.03239 [hep-ph].
+     [hep-ph].                                                    [36] C. Chang et al. (TESSERACT), “The tesseract dark
+[16] A. Dinmohammadi, M. Heikinheimo, N. Mirabolfathi,                 matter project, snowmass loi,” .
+     K. Nordlund, H. Safari, S. Sassi, and K. Tuominen, J.        [37] A. H. Abdelhameed et al. (CRESST), Phys. Rev. D 100,
+     Phys. G 51, 035201 (2024), arXiv:2301.06592 [hep-ph].             102002 (2019), arXiv:1904.00498 [astro-ph.CO].
+[17] S. Knapen, T. Lin, M. Pyle, and K. M. Zurek, Phys.           [38] I. Alkhatib et al. (SuperCDMS), Phys. Rev. Lett. 127,
+     Lett. B785, 386 (2018), arXiv:1712.06598 [hep-ph].                061801 (2021), arXiv:2007.14289 [hep-ex].
+[18] S. Griffin, S. Knapen, T. Lin, and K. M. Zurek, Phys.        [39] A. Togo and I. Tanaka, “First principles phonon calcu-
+     Rev. D98, 115034 (2018), arXiv:1807.10291 [hep-ph].               lations in materials science,” (2015), arXiv:1506.08498
+[19] T. Trickle, Z. Zhang, K. M. Zurek, K. Inzani, and S. Grif-        [cond-mat.mtrl-sci].
+     fin, JHEP 03, 036 (2020), arXiv:1910.08092 [hep-ph].         [40] H.           Miranda,          Phonon           website,
+[20] P. Cox, T. Melia, and S. Rajendran, Phys. Rev. D 100,             https://github.com/henriquemiranda/phononwebsite
+     055011 (2019), arXiv:1905.05575 [hep-ph].                         (2018).
+[21] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang,              [41] A. Coskuner, A. Mitridate, A. Olivares, and K. M.
+     and K. M. Zurek, Phys. Rev. D101, 055004 (2020),                  Zurek, (2019), arXiv:1909.09170 [hep-ph].
+                                                                   19
+
+[42] D. Huang et al. (PandaX), Phys. Rev. Lett. 131, 191002
+     (2023), arXiv:2308.01540 [hep-ex].
+[43] P. Agnes et al. (DarkSide), Phys. Rev. Lett. 130, 101001
+     (2023), arXiv:2207.11967 [hep-ex].
+[44] E. Aprile et al. (XENON), Phys. Rev. Lett. 123, 241803
+     (2019), arXiv:1907.12771 [hep-ex].
+[45] P. Adari et al. (SENSEI), (2023), arXiv:2312.13342
+     [astro-ph.CO].
+[46] S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D96,
+     115021 (2017), arXiv:1709.07882 [hep-ph].
+[47] G. Elor, R. McGehee, and A. Pierce, Phys. Rev. Lett.
+     130, 031803 (2023), arXiv:2112.03920 [hep-ph].
+[48] P. N. Bhattiprolu, G. Elor, R. McGehee, and A. Pierce,
+     JHEP 01, 128 (2023), arXiv:2210.15653 [hep-ph].
+[49] T. Emken, R. Essig, C. Kouvaris, and M. Sholapurkar,
+     JCAP 09, 070 (2019), arXiv:1905.06348 [hep-ph].
+[50] I. Arnquist et al. (DAMIC-M), Phys. Rev. Lett. 130,
+     171003 (2023), arXiv:2302.02372 [hep-ex].
+[51] P. Agnes et al. (DarkSide), Phys. Rev. Lett. 130, 101002
+     (2023), arXiv:2207.11968 [hep-ex].
+[52] E. Aprile et al. (XENON), Phys. Rev. Lett. 123, 251801
+     (2019), arXiv:1907.11485 [hep-ex].
+[53] T. Emken, R. Essig, and H. Xu, “Solar reflection
+     of dark matter with dark-photon mediators,” (2024),
+     arXiv:2404.10066 [hep-ph].
+[54] P. J. Brown, A. G. Fox, E. N. Maslen, M. A. O’Keefe,
+     and B. T. M. Willis, “Intensity of diffracted intensities,”
+     in International Tables for Crystallography (American
+     Cancer Society, 2006) Chap. 6.1, pp. 554–595.
+[55] R. Essig, M. Fernandez-Serra, J. Mardon, A. Soto,
+     T. Volansky, and T.-T. Yu, JHEP 05, 046 (2016),
+     arXiv:1509.01598 [hep-ph].
+[56] H. An, H. Nie, M. Pospelov, J. Pradler, and A. Ritz,
+     Phys. Rev. D 104, 103026 (2021), arXiv:2108.10332 [hep-
+     ph].
+                                                                                                                                20
+
+   Appendix A: Convergence Tests for Modulation                        tablulate this function for each atom, which is done us-
+                                                                       ing F_n_d_precompute_anisotropic. While this is pre-
+   Daily modulation is expected to decrease with higher                tabulated for the aforementioned atoms, it must be up-
+masses, in the nuclear recoil limit. As modulation de-                 dated for user-supplied pDoS. DarkELF will save these ta-
+creases, there are increasing requirements on the numeri-              bles, so the computations only needs to performed once.
+cal integration for accurate calculations. Here we test the            Also note that the mediator mass and choice of coupling
+convergence of our calculations for Amod with respect to               are set in the same way as the isotropic calculation [28].
+the number of angular sampling points and the q cutoff                 Next we briefly describe the important functions.
+used for the impulse approximation. In Fig. 10, we show                   R_multiphonons_anisotropic: This function takes
+this convergence test in Al2 O3 for massive and massless               the time of day in hours, the energy threshold and the
+scalar mediators, respectively.                                        DM-nucleon cross section to calculate the total integrated
+                                                                       rate in Eq (28). The integration over q and ω is per-
+   We computed Amod as a function of mχ for different
+                                                                       formed in spherical coordinates in the following order:
+combinations of Nθ,φ = 40, 60 grid points in the angular
+                       √           √            √                      q → θ → φ → ω.
+integral and qIA = 2 2mN ω0 , 4 2mN ω0 , 6 2mN ω0 for
+                                                                          sigma_multiphonons_anisotropic:            This function
+the impulse approximation. For each mχ , we compute
+                                                                       takes the energy threshold and time as inputs and re-
+the coefficient of variation as the standard deviation di-
+                                                                       turns the necessary DM-nucleon cross section to produce
+vided by the average across the different combinations,
+                                                                       3 events/kg-year. Note that this excludes the contribu-
+σAmod /µAmod . We then restrict our results to masses
+                                                                       tions from single phonons below qBZ (scattering in the
+where σAmod /µAmod ≤ 0.25. This leads us to implement a
+                                                                       coherent regime).
+threshold dependent upper mass limit for each mediator.
+                                                                          sigma_modulation_anisotropic:             This function
+For massive mediators, we restrict to mχ ≤ 30 MeV for
+                                                                       takes the energy threshold as an input and returns the
+Ethresh = 120 meV and 200 meV. For Ethresh = 300 meV
+                                                                       necessary DM-nucleon cross section to observe a modu-
+we restrict to mχ ≤ 40 MeV. For massless mediators, we
+                                                                       lation signal, as described in Eq (39).
+only restrict the Ethresh = 300 meV case to mχ ≤ 50
+                                                                          _dR_domega_anisotropic:         This function takes the
+MeV. We use the same settings for dark photon media-
+                                                                       energy transfer ω, time of day t and DM-nucleon cross
+tors, since the results are very similar to scalar mediators.
+                                                    √                  section and returns the differential rate dR
+                                                                                                                 dω at that energy.
+For results presented in the text, we use qIA = 4 mN ω0
+and Nθ,φ = 40 sampling points.
+                                                                                  Appendix C: Additional Results
+
+
+        Appendix B: DarkELF Implementation                                Here, we provide additional results for the 2H poly-
+                                                                       type of SiC, based on DFT calculations from Ref. [24]
+                                                                       to generate the pDoS. We selected this polytype as this
+   In this section, we summarize additional functions
+                                                                       structure gave the largest modulation in single phonon
+added to the DarkELF package [26] that are used in the
+                                                                       excitations in Ref. [24]. We found negligible modulation
+anisotropic generalization to multiphonon rate calcula-
+                                                                       in GaAs, Si, and SiO2 , so plots are not shown for these
+tions. We also describe some steps for a user to perform
+                                                                       materials.
+their own computations.
+                                                                          First, in Fig. 11 we show the components of the pDoS
+   We have included the necessary files to perform calcu-              tensor. In Fig. 12 we show the n = 1, 2, 3 terms of the
+lations for Al2 O3 , SiC, SiO2 , Si and GaAs. The user can             structure factor for SiC to offer insight into anisotropies
+input their own partial density of states data, but should             at different ω. Figs. 13, 14, 15 and 16 show the same
+ensure the proper formatting, listing pDoS along 6 direc-              multi-panel plots of differential rate, daily modulation
+tions in the following order: x̂, ŷ, ẑ, x̂ + ŷ, x̂ + ẑ, ŷ + ẑ,   amplitude, differential daily modulation amplitude and
+then repeating over non-equivalent atoms. This is also                 cross sections as shown for Al2 O3 , again for various me-
+described in the example pDoS files for any of the mate-               diators. We find slightly less modulation across all me-
+rials listed. Then, DarkELF will compute the components                diators to sapphire. Fig. 17 shows the same convergence
+of the tensor Ddij . Note that in DarkELF, we use Eq. (25)             tests discussed in App. A for SiC, with similar ranges of
+                                      Tnq̂ (ω)
+to define the function Fnq̂ (ω) =        n! .    It is necessary to    validity in mχ as for sapphire.
+                                                                                                                                                   21
+
+                                         Amod Convergence Test, Massive Scalar Mediator, Al2O3
+                             Ethresh = 120 meV                Ethresh = 200 meV              Ethresh = 300 meV
+        100                                      √
+                                          qIA = 2 2mN ω0 , Nθ,ϕ = 40
+                                                 √
+                                          qIA = 2 2mN ω0 , Nθ,ϕ = 60
+                                                 √
+       10−1                               qIA = 4 2mN ω0 , Nθ,ϕ = 40
+                                                 √
+                                          qIA = 4 2mN ω0 , Nθ,ϕ = 60
+                                                 √
+                                          qIA = 6 2mN ω0 , Nθ,ϕ = 40
+                                                 √
+       10−2                               qIA = 6 2mN ω0 , Nθ,ϕ = 60
+Amod
+
+
+
+
+       10−3
+
+
+       10−4
+
+
+       10−5
+
+
+       10−6
+                       101                102                         103    101               102         103       101               102         103
+                                    mχ [MeV]                                             mχ [MeV]                                mχ [MeV]
+
+
+
+
+                                        Amod Convergence Test, Massless Scalar Mediator, Al2O3
+             0
+                             Ethresh = 120 meV                Ethresh = 200 meV              Ethresh = 300 meV
+        10                                      √
+                                         qIA = 2 2mN ω0 , Nθ,ϕ = 40
+                                                √
+                                         qIA = 2 2mN ω0 , Nθ,ϕ = 60
+                                                √
+                                         qIA = 4 2mN ω0 , Nθ,ϕ = 40
+                                                √
+                                         qIA = 4 2mN ω0 , Nθ,ϕ = 60
+       10−1                                     √
+                                         qIA = 6 2mN ω0 , Nθ,ϕ = 40
+                                                √
+                                         qIA = 6 2mN ω0 , Nθ,ϕ = 60
+Amod
+
+
+
+
+       10−2
+
+
+
+       10−3
+
+
+
+       10−4
+                 100          101               102                103 100         101               102   103 100         101               102   103
+                                    mχ [MeV]                                             mχ [MeV]                                mχ [MeV]
+
+
+FIG. 10. Convergence tests for Amod in Al2 O3 , for a massive scalar mediator (top) and a massless scalar mediator (bottom).
+                                                                                                                                                                                                            22
+
+
+                                             Tensor Components Ddij (ω) for SiC
+
+                   0.050
+                                       Si: d = 1, 2           Ddxx       Si: d = 1, 2                   Ddxy
+                                                              Ddyy                                      Ddyz
+Ddij (ω) [1/meV]
+
+
+
+
+                                                              Ddzz                                      Ddxz
+                   0.025
+
+
+
+                   0.000
+
+                         0.10                 ω [meV]                           ω [meV]
+                                       C: d = 3, 4                       C: d = 3, 4
+      Ddij (ω) [1/meV]
+
+
+
+
+                         0.05
+
+
+
+
+                         0.00
+                                0            50           100        0          50                100
+                                              ω [meV]                            ω [meV]
+
+
+
+FIG. 11. Density of states tensor for the 2H polytype of SiC,
+where redundant atoms with identical density of states are in-
+dicated. The diagonal and off-diagonal components are shown
+in the left and right column, respectively. Note that Ddxx and
+Ddyy are equivalent.
+
+
+
+
+                                                                                                                                          √
+                                                                                            S(q, ω) for SiC, q = 50.0 keV ≈                   2mN ω0
+                                ×107                   n=1                                      ×107              n=2                                               ×106         n=3
+                  4.0                                                                       1.0
+                                                                            q̂ = ẑ                                                             q̂ = ẑ                                          q̂ = ẑ
+                                                                                                                                                                5
+                  3.5                                                       q̂ = ŷ                                                             q̂ = ŷ                                          q̂ = ŷ
+                                                                            q̂ = x̂         0.8                                                 q̂ = x̂                                          q̂ = x̂
+                  3.0                                                                                                                                           4
+
+                  2.5
+S(q, ω) [keV2 ]
+
+
+
+
+                                                                                            0.6
+                                                                                                                                                                3
+                  2.0
+
+                  1.5                                                                       0.4
+                                                                                                                                                                2
+
+                  1.0
+                                                                                            0.2                                                                 1
+                  0.5
+
+                  0.0                                                                       0.0                                                                 0
+                            0           25        50     75      100     125          150         0            50   100    150      200        250        300       0      100    200      300             400
+                                                       ω [meV]                                                            ω [meV]                                                ω [meV]
+
+
+FIG. 12. Decomposition of the anisotropic structure factor into n = 1, 2, 3 phonon terms, for SiC and at fixed q = 50 keV.
+The structure factor is computed assuming fd = Ad . We show results for q̂ = x̂, ŷ, ẑ. Like sapphire, the lines for x̂ and ŷ are
+identical, implying rotational symmetry with respect to ẑ. Note that the axis scales are different in all panels.
+                                                                                                                                                                                                         23
+
+                                                                                        SiC, Massive Scalar Mediator
+                                  ×10   7                              Differential Rate                                                            Daily Modulation Amplitude
+                           2.5                                                                                                 100
+                                                        −38        2                             DM mass mχ
+                                              σ0 = 10         cm
+                                                                                                                                                                       1.15       mχ = 10 MeV
+                                                                                                     5 MeV
+                           2.0                                                                       10 MeV
+                                                                                                                             10−1
+    dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                                     30 MeV
+
+
+
+
+                                                                                                                                                                    R(t)
+                                                                                                                                                                    hRi
+                                                                                                                                                                       1.00
+
+                           1.5
+
+
+
+
+                                                                                                                    Amod
+                                                                                                                             10−2                                      0.85
+                                                                                                                                                                              0       12            24
+                           1.0                                                                                                                                                    time [hr]
+
+                                                                                                                                        Threshold Energy
+    dR
+
+
+
+
+                                                                                                                             10−3
+                           0.5                                                                                                                 120 meV
+                                                                                                                                               200 meV
+                                                                                                                                               300 meV
+                           0.0                                                                                               10−4
+                                                                                                                                                     101                                   102
+                                  0          50     100                150       200    250      300      350
+                                                                              ω [meV]                                                                          mχ [MeV]
+                                              Differential Daily Modulation Amplitude                                                         Cross Sections RBG = 0, kg-yr Exposure
+                           0.20
+                                                                                                                                  −29
+                                      DM mass mχ                                                                             10                                                   Threshold Energy
+                           0.15           5 MeV                                                                                                                                          120 meV
+                                                                                                                                  −31
+                                                                                                                             10                                                          200 meV
+                                          10 MeV
+                           0.10           30 MeV                                                                                                                                         300 meV
+                                                                                                                             10−33
+                           0.05
+                                                                                                                             10−35
+       dω )
+
+
+
+
+                                                                                                                 σn [cm2 ]
+Amod ( dR
+
+
+
+
+                           0.00                                                                                                                        Modulation
+                                                                                                                             10−37
+                −0.05                                                                                                        10−39
+
+                −0.10                                                                                                        10−41
+                                                                                                                                                                                   3 events/kg-yr
+                −0.15                                                                                                        10−43
+
+                −0.20                                                                                                        10−45
+                                  0          50         100             150      200    250      300      350                                        101                                   102
+                                                                              ω [meV]                                                                          mχ [MeV]
+                                            Cross Sections RBG =1/g-day, kg-yr Exposure                                                     Cross Sections RBG =1/g-hr, kg-yr Exposure
+                            −29                                                                                                   −29
+                   10                                                                         Threshold Energy               10                                                   Threshold Energy
+                                                                                                     120 meV                                                                             120 meV
+                   10−31                                                                             200 meV                 10−31                                                       200 meV
+                                                                                                     300 meV                                                                             300 meV
+                   10−33                                                                                                     10−33
+
+                   10−35                                                                                                     10−35
+  σn [cm2 ]
+
+
+
+
+                                                                                                                 σn [cm2 ]
+
+
+
+
+                   10−37                                                                                                     10−37
+
+                   10−39                                                                                                     10−39
+
+                   10−41                                                                                                     10−41
+
+                   10−43                                                                                                     10−43
+
+                   10−45                                                                                                     10−45
+                                                         101                                        102                                              101                                   102
+                                                                          mχ [MeV]                                                                             mχ [MeV]
+
+                                                                          FIG. 13. Results for SiC detector and massive scalar mediator.
+                                                                                                                                                                                             24
+
+                                                                           SiC, Massless Scalar Mediator
+                                                     Differential Rate                                                                    Daily Modulation Amplitude
+                                 σ0 = 10−38 cm2                                DM mass mχ                                                                 1.1       mχ = 10 MeV
+                        106                                                        5 MeV                           100
+
+
+
+
+                                                                                                                                                      R(t)
+                                                                                   10 MeV
+
+
+
+
+                                                                                                                                                      hRi
+                                                                                                                                                          1.0
+                        105
+dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                   30 MeV
+                                                                                                                 10−1
+                        104                                                                                                                               0.9
+                                                                                                                                                                0          12           24
+
+
+
+
+                                                                                                        Amod
+                                                                                                                 10−2
+                        103                                                                                                                                          time [hr]
+
+                        102                                                                                      10−3
+                                                                                                                            Threshold Energy
+dR
+
+
+
+
+                             1
+                        10
+                                                                                                                      −4           120 meV
+                                                                                                                 10
+                        100                                                                                                        200 meV
+                                                                                                                                   300 meV
+                       10−1                                                                                      10−5
+                                                                                                                                    101                      102                             103
+                                 0      50     100   150     200      250    300    350        400
+                                                           ω [meV]                                                                                mχ [MeV]
+                                        Differential Daily Modulation Amplitude                                                  Cross Sections RBG = 0, kg-yr Exposure
+                        0.15                                                                                     10−28
+                                                                                                                                                                    Threshold Energy
+                                                                                                                 10−30                                                     120 meV
+                        0.10    Single phonon
+                             coherent (q < qBZ )                                                                                                                           200 meV
+                                                                                                                 10−32
+                                                                                                                                                                           300 meV
+                        0.05                                                                                     10−34
+                                                                                                                                                              Modulati
+       dω )
+
+
+
+
+                                                                                                     σn [cm2 ]
+
+                                                                                                                                                                      on
+Amod ( dR
+
+
+
+
+                                                                                                                 10−36
+                        0.00
+                                                                                                                 10−38
+
+                       −0.05                                                                                     10−40
+                                     DM mass mχ
+                                         5 MeV                                                                   10−42                                                   3 events/k
+                                                                                                                                                                                      g-yr
+                       −0.10
+                                         10 MeV                                                                       −44
+                                                                                                                 10
+                                         30 MeV
+                       −0.15                                                                                     10−46
+                                 0      50     100   150     200      250    300     350       400                                  101                      102                             103
+                                                           ω [meV]                                                                                mχ [MeV]
+                                      Cross Sections RBG =1/g-day, kg-yr Exposure                                              Cross Sections RBG =1/g-hr, kg-yr Exposure
+                       10−28                                                                                     10−28
+                                                                            Threshold Energy                                                                        Threshold Energy
+                       10−30                                                       120 meV                       10−30                                                     120 meV
+                       10−32                                                       200 meV                       10−32                                                     200 meV
+                                                                                   300 meV                                                                                 300 meV
+                       10−34                                                                                     10−34
+    σn [cm2 ]
+
+
+
+
+                                                                                                     σn [cm2 ]
+
+
+
+
+                       10−36                                                                                     10−36
+
+                       10−38                                                                                     10−38
+
+                       10−40                                                                                     10−40
+
+                       10−42                                                                                     10−42
+
+                       10−44                                                                                     10−44
+
+                       10−46                                                                                     10−46
+                                             101                     102                       103                                  101                      102                             103
+                                                           mχ [MeV]                                                                               mχ [MeV]
+
+                                                           FIG. 14. Results for SiC detector and massless scalar mediator.
+                                                                                                                                                                                           25
+
+                                                                                  SiC, Massive Dark Photon
+                                  ×10   6                  Differential Rate                                                                   Daily Modulation Amplitude
+                           4.0                                                                                            100
+                                      σ0 = 10−38 cm2
+                                                                                     DM mass mχ                                                                            mχ = 10 MeV
+                           3.5                                                           5 MeV                                                                  1.1
+                                                                                         10 MeV                         10−1
+                           3.0
+
+
+
+
+                                                                                                                                                           R(t)
+    dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                                                                                           hRi
+                                                                                         30 MeV                                                                 1.0
+
+                           2.5                                                                                          10−2
+                                                                                                                                                                0.9
+
+
+
+
+                                                                                                               Amod
+                           2.0
+                                                                                                                                                                      0        12          24
+                                                                                                                        10−3                                                time [hr]
+                           1.5
+                                                                                                                                   Threshold Energy
+    dR
+
+
+
+
+                           1.0
+                                                                                                                        10−4              120 meV
+                           0.5                                                                                                            200 meV
+                                                                                                                                          300 meV
+                           0.0                                                                                          10−5
+                                                                                                                                                101                             102
+                                  0          50    100     150     200      250    300     350       400
+                                                                 ω [meV]                                                                               mχ [MeV]
+                                              Differential Daily Modulation Amplitude                                                   Cross Sections RBG = 0, kg-yr Exposure
+                           0.20
+                                                                                                                        10−31                                             Threshold Energy
+                           0.15                                                                                                                                                  120 meV
+                                                                                                                        10−34                                                    200 meV
+                           0.10                                                                                                                                                  300 meV
+
+                           0.05                                                                                         10−37
+       dω )
+
+
+
+
+                                                                                                           σ e [cm2 ]
+Amod ( dR
+
+
+
+
+                           0.00
+                                                                                                                        10−40
+
+                −0.05                                                                                                                                    Modulation
+                                                                                                                        10−43
+                                      DM mass mχ
+                −0.10
+                                          5 MeV
+                                          10 MeV                                                                        10−46                                             3 events/kg-yr
+                −0.15
+                                          30 MeV
+                −0.20                                                                                                   10−49
+                                  0          50    100     150     200      250    300     350       400                                        101                             102
+                                                                 ω [meV]                                                                               mχ [MeV]
+                                            Cross Sections RBG =1/g-day, kg-yr Exposure                                               Cross Sections RBG =1/g-hr, kg-yr Exposure
+                            −31                                                                                              −31
+                   10                                                             Threshold Energy                      10                                                Threshold Energy
+                                                                                         120 meV                                                                                 120 meV
+                   10−34                                                                 200 meV                        10−34                                                    200 meV
+                                                                                         300 meV                                                                                 300 meV
+
+                   10−37                                                                                                10−37
+  σ e [cm2 ]
+
+
+
+
+                                                                                                           σ e [cm2 ]
+
+
+
+
+                   10−40                                                                                                10−40
+
+
+                   10−43                                                                                                10−43
+
+
+                   10−46                                                                                                10−46
+
+
+                   10−49                                                                                                10−49
+                                                     101                                 102                                                    101                             102
+                                                                 mχ [MeV]                                                                              mχ [MeV]
+
+                                                           FIG. 15. Results for SiC detector and massive dark photon mediator.
+                                                                                                                                                                                            26
+
+                                                                               SiC, Massless Dark Photon
+                                                        Differential Rate                                                                     Daily Modulation Amplitude
+                        103                                                                                            100
+                                  σ0 = 10−38 cm2                                  DM mass mχ                                                                  1.1
+                                                                                      5 MeV
+                        102
+                                                                                                                     10−1
+
+
+
+
+                                                                                                                                                          R(t)
+                                                                                      10 MeV
+
+
+
+
+                                                                                                                                                          hRi
+                                                                                                                                                              1.0
+dω [Events/kg/yr/eV]
+
+
+
+
+                                                                                      30 MeV
+                             1
+                        10
+                                                                                                                     10−2                                     0.9
+                                                                                                                                                                    0       12         24
+
+
+
+
+                                                                                                            Amod
+                        100                                                                                                                                              time [hr]
+                                                                                                                     10−3
+                       10−1
+                                                                                                                                Threshold Energy
+dR
+
+
+
+
+                                                                                                                     10−4              120 meV
+                       10−2                                                                                                            200 meV
+                                                                                                                                       300 meV
+                       10−3                                                                                          10−5
+                                                                                                                                        101                      102                        103
+                                  0      50      100    150     200      250    300    350        400
+                                                              ω [meV]                                                                                 mχ [MeV]
+                                          Differential Daily Modulation Amplitude                                                    Cross Sections RBG = 0, kg-yr Exposure
+                                                                                                                          −29   Threshold Energy
+                        0.15                                                                                         10
+                                                                                                                                       120 meV
+                        0.10         Single phonon                                                                   10−31             200 meV
+                                  coherent (q < qBZ )                                                                                  300 meV
+                                                                                                                     10−33
+                        0.05
+       dω )
+
+
+
+
+                                                                                                        σ e [cm2 ]
+Amod ( dR
+
+
+
+
+                                                                                                                     10−35
+                        0.00                                                                                                                                                 Modulation
+                                                                                                                     10−37
+                       −0.05
+                                      DM mass mχ                                                                     10−39
+                       −0.10              5 MeV
+                                          10 MeV                                                                     10−41
+                       −0.15              30 MeV                                                                                                                           3 events/kg-yr
+                                                                                                                     10−43
+                                  0      50      100    150     200      250    300     350       400                                   101                      102                        103
+                                                              ω [meV]                                                                                 mχ [MeV]
+                                       Cross Sections RBG =1/g-day, kg-yr Exposure                                                 Cross Sections RBG =1/g-hr, kg-yr Exposure
+                            −29                                                Threshold Energy                           −29                                           Threshold Energy
+                       10                                                                                            10
+                                                                                      120 meV                                                                                  120 meV
+                       10−31                                                          200 meV                        10−31                                                     200 meV
+                                                                                      300 meV                                                                                  300 meV
+                       10−33                                                                                         10−33
+    σ e [cm2 ]
+
+
+
+
+                                                                                                        σ e [cm2 ]
+
+
+
+
+                       10−35                                                                                         10−35
+
+                       10−37                                                                                         10−37
+
+                       10−39                                                                                         10−39
+
+                       10−41                                                                                         10−41
+
+                       10−43                                                                                         10−43
+                                              101                       102                       103                                   101                      102                        103
+                                                              mχ [MeV]                                                                                mχ [MeV]
+
+                                                        FIG. 16. Results for SiC detector and massless dark photon mediator.
+                                                                                                                                                   27
+
+                                          Amod Convergence Test, Massive Scalar Mediator, SiC
+                             Ethresh = 120 meV                Ethresh = 200 meV               Ethresh = 300 meV
+        100                                      √
+                                          qIA = 2 2mN ω0 , Nθ,ϕ = 40
+                                                 √
+                                          qIA = 2 2mN ω0 , Nθ,ϕ = 60
+                                                 √
+       10−1                               qIA = 4 2mN ω0 , Nθ,ϕ = 40
+                                                 √
+                                          qIA = 4 2mN ω0 , Nθ,ϕ = 60
+                                                 √
+                                          qIA = 6 2mN ω0 , Nθ,ϕ = 40
+                                                 √
+       10−2                               qIA = 6 2mN ω0 , Nθ,ϕ = 60
+Amod
+
+
+
+
+       10−3
+
+
+       10−4
+
+
+       10−5
+
+
+       10−6
+                       101                102                         103    101               102         103       101               102         103
+                                    mχ [MeV]                                             mχ [MeV]                                mχ [MeV]
+
+
+
+
+                                         Amod Convergence Test, Massless Scalar Mediator, SiC
+             0
+                             Ethresh = 120 meV                Ethresh = 200 meV               Ethresh = 300 meV
+        10                                      √
+                                         qIA = 2 2mN ω0 , Nθ,ϕ = 40
+                                                √
+                                         qIA = 2 2mN ω0 , Nθ,ϕ = 60
+                                                √
+                                         qIA = 4 2mN ω0 , Nθ,ϕ = 40
+                                                √
+                                         qIA = 4 2mN ω0 , Nθ,ϕ = 60
+       10−1                                     √
+                                         qIA = 6 2mN ω0 , Nθ,ϕ = 40
+                                                √
+                                         qIA = 6 2mN ω0 , Nθ,ϕ = 60
+Amod
+
+
+
+
+       10−2
+
+
+
+       10−3
+
+
+
+       10−4
+                 100          101               102                103 100         101               102   103 100         101               102   103
+                                    mχ [MeV]                                             mχ [MeV]                                mχ [MeV]
+
+
+   FIG. 17. Convergence tests for Amod in SiC, for a massive scalar mediator (top) and a massless scalar mediator (bottom).
+

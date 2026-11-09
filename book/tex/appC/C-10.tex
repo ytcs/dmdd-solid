@@ -1,0 +1,101 @@
+\section{Moment problems}\label{app:C.10}
+
+The first five energy moments of a nuclear response at fixed $\vect{q}$ are equal-time averages, which path-integral simulations give for any anharmonicity, while the response itself needs real-time dynamics. \Cref{sec:11.5} asks what five moments fix about the distribution of energy deposits. The answer is a band around the cumulative distribution, with a width fixed by the moments alone, wide at the peak and narrow in the tails. We derive the band, show why it is an absolute and not a relative bound, and state what changes when the distribution is supported on $\omega \ge 0$.
+
+\subsection{The Hamburger and Stieltjes problems}
+
+Let $P$ be a probability distribution on the real line, with moments
+\begin{equation}
+  \mu_k = \int x^k\,\dd P(x), \qquad k = 0, 1, \dots, 4, \qquad \mu_0 = 1 .
+  \label{eq:C.10-moments}
+\end{equation}
+For the response of \cref{sec:11.5}, $x$ is the energy transfer $\omega$ and $\dd P = S(\vect{q},\omega)\,\dd\omega/\int S\,\dd\omega$. The \emph{Hamburger moment problem} asks which numbers $\mu_k$ are the moments of some distribution on the real line, and how many distributions share them. The \emph{Stieltjes problem} asks the same for distributions on the half line $x \ge 0$, the case of a response at zero temperature, which has no weight at $\omega < 0$ (\cref{app:A.4}). We treat the truncated problems, in which only $\mu_0, \dots, \mu_4$ are given.
+
+The necessary condition comes from positivity. For any real polynomial $p(x) = c_0 + c_1x + c_2x^2$, written $p(x) = \mathbf{c}^{\mathsf{T}}\mathbf{v}(x)$ with $\mathbf{v}(x) = (1, x, x^2)^{\mathsf{T}}$,
+\begin{equation}
+  0 \le \int p(x)^2\,\dd P(x) = \mathbf{c}^{\mathsf{T}}\mathbf{H}\,\mathbf{c}, \qquad
+  \mathbf{H} = \int\mathbf{v}(x)\mathbf{v}(x)^{\mathsf{T}}\dd P(x) = \begin{pmatrix} \mu_0 & \mu_1 & \mu_2\\ \mu_1 & \mu_2 & \mu_3\\ \mu_2 & \mu_3 & \mu_4 \end{pmatrix} .
+  \label{eq:C.10-hankel}
+\end{equation}
+The \emph{Hankel matrix} $\mathbf{H}$, whose entries depend only on the sum of their indices, $H_{ij} = \mu_{i+j}$, is therefore positive semidefinite (\cref{app:C.7}). It is positive definite unless $P$ is concentrated on the two or fewer roots of some quadratic $p$, and we assume from now on that $P$ has at least three points of support, so that $\mathbf{H}$ is positive definite and invertible. On the half line, $\int x\,p_1(x)^2\,\dd P \ge 0$ for every linear $p_1$ adds a second condition: the shifted matrix $\mathbf{H}_1$, with entries $\mu_{i+j+1}$ for $i, j = 0, 1$, is positive semidefinite as well. For the truncated problems these conditions are also sufficient, up to boundary cases in which a matrix is singular~\cite{krein1977markov}. If all moments of $P$ are given, they fix $P$ uniquely when they grow slowly enough (Carleman's condition, which a Gaussian satisfies); five moments never do, and infinitely many distributions share them. The question is how far apart these distributions can be.
+
+\subsection{Christoffel function and canonical representation}
+
+The bound rests on one function of a point $\xi$. Define the kernel
+\begin{equation}
+  \mathsf{K}(x,\xi) = \mathbf{v}(x)^{\mathsf{T}}\mathbf{H}^{-1}\mathbf{v}(\xi) ,
+  \label{eq:C.10-kernel}
+\end{equation}
+a quadratic polynomial in $x$ for fixed $\xi$. It reproduces every quadratic $q(x) = \mathbf{a}^{\mathsf{T}}\mathbf{v}(x)$ under the integral: by \cref{eq:C.10-hankel},
+\begin{equation}
+  \int q(x)\,\mathsf{K}(x,\xi)\,\dd P(x) = \mathbf{a}^{\mathsf{T}}\mathbf{H}\mathbf{H}^{-1}\mathbf{v}(\xi) = q(\xi) .
+  \label{eq:C.10-reproduce}
+\end{equation}
+The \emph{Christoffel function} is
+\begin{equation}
+  \varrho_{\mathrm{MK}}(\xi) = \frac{1}{\mathsf{K}(\xi,\xi)} = \frac{1}{\mathbf{v}(\xi)^{\mathsf{T}}\mathbf{H}^{-1}\mathbf{v}(\xi)} .
+  \label{eq:C.10-rho}
+\end{equation}
+It is the smallest value of $\int p^2\,\dd P$ over quadratics with $p(\xi) = 1$: minimizing $\mathbf{c}^{\mathsf{T}}\mathbf{H}\mathbf{c}$ subject to $\mathbf{c}^{\mathsf{T}}\mathbf{v}(\xi) = 1$ with a Lagrange multiplier gives $\mathbf{c} \propto \mathbf{H}^{-1}\mathbf{v}(\xi)$, and the minimum is \cref{eq:C.10-rho}. Hence no distribution with these moments can put more than $\varrho_{\mathrm{MK}}(\xi)$ at the single point $\xi$: if it puts $w$ there, then $w = w\,p(\xi)^2 \le \int p^2\,\dd P$ for the minimizing $p$, so $w \le \varrho_{\mathrm{MK}}(\xi)$.
+
+The bound is attained by a three-point distribution. Let $\mathsf{K}(\cdot,\xi)$ have nonzero leading coefficient, which fails only at the at most two roots of a quadratic in $\xi$. Then the cubic $r(x) = (x - \xi)\,\mathsf{K}(x,\xi)$ has three distinct real roots. To see this, note that $\int r(x)s(x)\,\dd P = 0$ for every linear $s$, by \cref{eq:C.10-reproduce} applied to the quadratic $(x - \xi)s(x)$, which vanishes at $\xi$. A polynomial that is orthogonal to all linear polynomials changes sign at least twice on the support of $P$: if it changed sign at most once, at $x_*$, the product with $s(x) = \pm(x - x_*)$ would have one sign and a nonzero integral. A real cubic with two sign changes has three real roots. One root is $\xi$, and it is simple, since $\mathsf{K}(\xi,\xi) > 0$. The other two are the roots of $\mathsf{K}(\cdot,\xi)$, and they are distinct, because a double root would not change sign. Call the three roots $y_1 < y_2 < y_3$; one of them is $\xi$.
+
+We now show that the three points carry a quadrature exact for every polynomial $f$ of degree up to four. Divide $f$ by $r$: $f = r\,s + t$, with $s$ linear and $t$ the quadratic that interpolates $f$ at $y_1, y_2, y_3$. The term $\int r\,s\,\dd P$ vanishes, as shown above. The quadratic $t$ is a combination of the three Lagrange polynomials $\ell_i$, with $\ell_i(y_j) = \delta_{ij}$, so that $\int t\,\dd P = \sum_i w_i f(y_i)$ with $w_i = \int\ell_i\,\dd P$. Therefore
+\begin{equation}
+  \int f(x)\,\dd P(x) = \sum_{i=1}^{3} w_i\,f(y_i) \qquad \text{for every } f \text{ of degree} \le 4 .
+  \label{eq:C.10-quadrature}
+\end{equation}
+The weights are positive: $\ell_i^2$ has degree four, and \cref{eq:C.10-quadrature} gives $\int\ell_i^2\,\dd P = w_i$. The weight at $\xi$ follows from $f = \mathsf{K}(\cdot,\xi)^2$, which vanishes at the two other nodes. By \cref{eq:C.10-reproduce} with $q = \mathsf{K}(\cdot,\xi)$ the left side of \cref{eq:C.10-quadrature} is $\mathsf{K}(\xi,\xi)$, and the right side is $w_\xi\,\mathsf{K}(\xi,\xi)^2$. So $w_\xi = \varrho_{\mathrm{MK}}(\xi)$. The three-point distribution with nodes $y_i$ and weights $w_i$ has the same five moments as $P$ (take $f = x^k$) and puts the largest admissible mass at $\xi$. It is the \emph{canonical representation} through $\xi$.
+
+\subsection{The Markov--Krein band}
+
+Write $F_P(\xi) = P\bigl((-\infty, \xi]\bigr)$ for the cumulative distribution and $F_P(\xi - 0)$ for its limit from below. The band is
+\begin{keyresult}[Markov--Krein band]
+\begin{equation}
+  \sum_{y_i < \xi} w_i \;\le\; F_P(\xi - 0) \;\le\; F_P(\xi) \;\le\; \sum_{y_i \le \xi} w_i ,
+  \label{eq:C.10-band}
+\end{equation}
+with $y_i$, $w_i$ the canonical representation through $\xi$. Every distribution with the moments $\mu_0, \dots, \mu_4$ satisfies it, and the two bounds differ by $\varrho_{\mathrm{MK}}(\xi)$ of \cref{eq:C.10-rho}.
+\end{keyresult}
+The result goes back to Chebyshev, Markov and Stieltjes, and the general form is in Refs.~\cite{krein1977markov} and \cite{akhiezer1965classical}.
+
+The proof compares the indicator function of $(-\infty, \xi]$ with a polynomial $U$ of degree four that lies above it and touches it at the nodes. If $U(x) \ge \Theta(\xi - x)$ for all $x$, with $\Theta(0) = 1$, and $U(y_i) = \Theta(\xi - y_i)$ at the three nodes, then by \cref{eq:C.10-quadrature}
+\begin{equation*}
+  F_P(\xi) = \int\Theta(\xi - x)\,\dd P(x) \le \int U\,\dd P = \sum_i w_i\,U(y_i) = \sum_{y_i \le \xi} w_i .
+\end{equation*}
+We construct $U$ for the three positions of $\xi$ among the nodes. If $\xi = y_3$, the largest node, $U = 1$ works and the bound is the trivial $F_P \le 1$. If $\xi = y_1$, the smallest, take
+\begin{equation*}
+  U(x) = \frac{(x - y_2)^2(x - y_3)^2}{(y_1 - y_2)^2(y_1 - y_3)^2} .
+\end{equation*}
+It is nonnegative everywhere, equals 1 at $y_1$ and 0 at $y_2$, $y_3$, and for $x < y_1$ both factors $|x - y_2|$ and $|x - y_3|$ exceed their values at $y_1$, so $U \ge 1$ there. If $\xi = y_2$, let $U$ be the quartic with $U(y_1) = U(y_2) = 1$, $U(y_3) = 0$ and $U'(y_1) = U'(y_3) = 0$: five conditions, which fix a polynomial of degree four. Between $y_1$ and $y_2$, where $U$ takes the value 1 twice, Rolle's theorem places a root $c$ of $U'$. The cubic $U'$ then has the three roots $y_1 < c < y_3$ and no other, $U' = A(x - y_1)(x - c)(x - y_3)$. On $(y_2, y_3)$ the function falls from 1 to 0 with no critical point, so $U' < 0$ there; since $(x - y_1)(x - c)(x - y_3) < 0$ on that interval, $A > 0$. The signs of $U'$ now fix the shape: $U$ decreases towards $U(y_1) = 1$ for $x < y_1$, rises on $(y_1, c)$, falls on $(c, y_3)$ through $U(y_2) = 1$ to $U(y_3) = 0$, and rises for $x > y_3$. So $U \ge 1$ for $x \le y_2$ and $U \ge 0$ beyond, which is what we need. The lower bound in \cref{eq:C.10-band} is the upper bound applied to the mirrored distribution of $-x$, whose canonical representation through $-\xi$ is the mirror image of that through $\xi$: the mass of $[\xi, \infty)$ is at most $\sum_{y_i \ge \xi} w_i$, so $F_P(\xi - 0) \ge \sum_{y_i < \xi} w_i$. If the leading coefficient of $\mathsf{K}(\cdot,\xi)$ vanishes, one node runs off to infinity with vanishing weight; since $F_P$ is monotone and the bounds are continuous in $\xi$, \cref{eq:C.10-band} holds there by continuity.
+
+For a standard Gaussian, $\mu_0, \dots, \mu_4 = 1, 0, 1, 0, 3$. The inverse of $\mathbf{H}$ is
+\begin{equation*}
+  \mathbf{H}^{-1} = \begin{pmatrix} 3/2 & 0 & -1/2\\ 0 & 1 & 0\\ -1/2 & 0 & 1/2 \end{pmatrix} ,
+\end{equation*}
+as multiplication by $\mathbf{H}$ confirms. With $\mathbf{v}(\xi) = (1, \xi, \xi^2)^{\mathsf{T}}$, the quadratic form is $\tfrac32 + 2(-\tfrac12)\xi^2 + \xi^2 + \tfrac12\xi^4$. The two terms in $\xi^2$ cancel, $\mathsf{K}(\xi,\xi) = \tfrac32 + \tfrac12\xi^4$, and
+\begin{equation}
+  \varrho_{\mathrm{MK}}(\xi) = \frac{2}{3 + \xi^4} \qquad \text{(standard Gaussian)} .
+  \label{eq:C.10-gauss}
+\end{equation}
+At the mean, $\varrho_{\mathrm{MK}}(0) = 2/3$: the canonical representation through 0 has nodes $0$ and $\pm\sqrt3$ with weights $\tfrac23$ and $\tfrac16$, and \cref{eq:C.10-band} reads $\tfrac16 \le F_P(0) \le \tfrac56$. Five moments say almost nothing about the median.
+
+\subsection{Tails of the band}
+
+Far from the mean, $\mathbf{v}(\xi)$ is dominated by its last entry, $\xi^2$, and $\mathsf{K}(\xi,\xi) \simeq (\mathbf{H}^{-1})_{22}\,\xi^4$, with indices running over 0, 1, 2. For a distribution shifted to zero mean, with central moments $\bar\mu_2, \bar\mu_3, \bar\mu_4$, the corner element of the inverse is the $2\times2$ minor over the determinant, $(\mathbf{H}^{-1})_{22} = \bar\mu_2/\det\mathbf{H}$, and $\det\mathbf{H} = \bar\mu_2\bar\mu_4 - \bar\mu_3^2 - \bar\mu_2^3$ by expansion along the first row. Hence
+\begin{equation}
+  \varrho_{\mathrm{MK}}(\xi) \simeq \frac{\bar\mu_4 - \bar\mu_2^2 - \bar\mu_3^2/\bar\mu_2}{(\xi - \mu_1)^4}, \qquad |\xi - \mu_1| \to \infty .
+  \label{eq:C.10-tail}
+\end{equation}
+The numerator is positive because $\mathbf{H}$ is positive definite. For the Gaussian it is $3 - 1 = 2$, and \cref{eq:C.10-gauss} indeed behaves as $2/\xi^4$. For a skewed example, the gamma distribution of shape 3, the exact $\varrho_{\mathrm{MK}}$ exceeds \cref{eq:C.10-tail} by \SI{4.1}{\percent} at 58 standard deviations above the mean and by \SI{1.3}{\percent} at 173; at 58 standard deviations below the mean it falls \SI{3.9}{\percent} short of it. The next term is smaller by one power of $\xi - \mu_1$.
+
+The band is narrow in the tails in absolute terms, but it is only a power law. A true threshold tail falls much faster: like a Gaussian for a harmonic multiphonon response, or exponentially. At three standard deviations a Gaussian has $1 - F_P = \num{1.35e-3}$, while the canonical representation through $\xi = 3$ leaves $1 - F_P$ anywhere in $[0, \num{2.38e-2}]$, eighteen times the true value; at four standard deviations the ratio is 240. The band therefore bounds $|F_P - F_{\mathrm{model}}|$ for any model distribution with the right moments, everywhere, by a number that is small in the tail. It does not bound the ratio $(1 - F_P)/(1 - F_{\mathrm{model}})$, which is what a rate near threshold needs: when the threshold sits far in the tail, the whole predicted rate is smaller than the band width, and five moments leave it undetermined.
+
+\subsection{Distributions on the half line}
+
+At zero temperature the response has no weight below $\omega = 0$, and $P$ is a Stieltjes distribution. Every such distribution is also a Hamburger distribution, so \cref{eq:C.10-band} remains valid. It is no longer sharp, because a canonical representation with a node below zero is not admissible, and the positivity of $\mathbf{H}_1$ restricts the distributions further. The bound on the mass at a single point $\xi > 0$ shows how. Since $x \ge 0$ on the support, a mass $w$ at $\xi$ obeys $w\,\xi\,p_1(\xi)^2 \le \int x\,p_1(x)^2\,\dd P$ for every linear $p_1$. Minimizing over $p_1$ as before gives
+\begin{equation}
+  w \le \min\Bigl\{\varrho_{\mathrm{MK}}(\xi),\; \bigl[\xi\,\mathbf{u}(\xi)^{\mathsf{T}}\mathbf{H}_1^{-1}\mathbf{u}(\xi)\bigr]^{-1}\Bigr\}, \qquad \mathbf{u}(\xi) = (1, \xi)^{\mathsf{T}} .
+  \label{eq:C.10-stieltjes}
+\end{equation}
+The second entry diverges as $\xi \to 0$ and falls only as $\xi^{-3}$ in the tail, so it is weaker than $\varrho_{\mathrm{MK}}$ near the origin and far out. It is tighter only at intermediate $\xi$, where a node of the canonical representation through $\xi$ lies below zero: for silicon at $q = \SI{100}{keV}$ it lies below $\varrho_{\mathrm{MK}}$ by at most \SI{6.8}{\percent}, near $\xi = 0.74\,E_R$ (\cref{sec:11.5}). The sharp Stieltjes band is built from canonical representations whose nodes all lie in $x \ge 0$~\cite{krein1977markov}. For $\xi < 0$ the band collapses to $F_P = 0$.

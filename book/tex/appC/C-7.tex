@@ -1,0 +1,99 @@
+\section{Matrix tools}\label{app:C.7}
+
+The response of a crystal is a matrix: in reciprocal-lattice vectors for the dielectric function, in operators for the response matrix $S_{ab}$, in bands and crystal momenta for excitons. Positive semidefiniteness, block inversion, Dyson-type equations and Bogoliubov transformations recur in \cref{chap:4,chap:7}. Positive semidefiniteness bounds the interference between two couplings. Block inversion turns the inverse dielectric matrix into a macroscopic dielectric function. Dyson-type equations sum geometric series of interactions. Bogoliubov transformations diagonalize Hamiltonians that create excitations in pairs. We use bold upright capitals, $\mathbf{M}$, $\mathbf{A}$, $\mathbf{B}$, for generic matrices, $\mathbf{1}$ for the unit matrix and $\vect{x}$ for a column vector, and we write $\vect{x}^\dagger$ for its conjugate transpose.
+
+\subsection{Positive semidefinite matrices}
+
+A Hermitian matrix $\mathbf{M} = \mathbf{M}^\dagger$ is positive semidefinite if $\vect{x}^\dagger\mathbf{M}\vect{x} \ge 0$ for every vector $\vect{x}$. It is equivalent to each of the following conditions. All eigenvalues are nonnegative: take $\vect{x}$ to be an eigenvector, and conversely expand any $\vect{x}$ in the orthonormal eigenvectors. $\mathbf{M}$ is a sum of outer products with nonnegative weights, $\mathbf{M} = \sum_fw_f\,\vect{c}_f\vect{c}_f^\dagger$ with $w_f \ge 0$: the eigen-decomposition is such a sum, and conversely $\vect{x}^\dagger\mathbf{M}\vect{x} = \sum_fw_f|\vect{c}_f^\dagger\vect{x}|^2 \ge 0$. Every principal submatrix, the matrix that keeps a subset of rows and the same columns, has nonnegative determinant. The last condition must include all principal submatrices, not only the leading ones: $\operatorname{diag}(0, -1)$ has leading minors $0$ and $0$ and is not positive semidefinite.
+
+The diagonal elements are then nonnegative, and the $2\times2$ principal minors give
+\begin{equation}
+  |M_{ab}|^2 \le M_{aa}M_{bb} ,
+  \label{eq:C.7-CS}
+\end{equation}
+the Cauchy--Schwarz inequality for the matrix. The response matrix of \cref{eq:A.7-S} has the outer-product form, with one term for each pair of states $(i, f)$, weight $2\pi p_i\delta(\omega - E_f + E_i)/\Vol \ge 0$ and vector components $c_b = \langle f|O_b|i\rangle$, since $\langle i|O_a^\dagger|f\rangle = c_a^*$. Hence $S_{ab}(\vect{q},\omega)$ is positive semidefinite at every $\vect{q}$ and $\omega$ (\cref{sec:4.2}). For a probe that couples to the operators $O_a$ with amplitudes $x_a$, the rate is proportional to $\sum_{ab}x_a^*S_{ab}x_b \ge 0$, and \cref{eq:C.7-CS} bounds the interference term between two channels by the geometric mean of their separate rates. A computed $S_{ab}$ with a negative eigenvalue signals an error.
+
+\subsection{Block inversion}
+
+Partition a square matrix into blocks, with $\mathbf{A}$ and $\mathbf{D}$ square and $\mathbf{D}$ invertible:
+\begin{equation*}
+  \mathbf{M} = \begin{pmatrix}\mathbf{A} & \mathbf{B}\\ \mathbf{C} & \mathbf{D}\end{pmatrix}
+  = \begin{pmatrix}\mathbf{1} & \mathbf{B}\mathbf{D}^{-1}\\ \mathbf{0} & \mathbf{1}\end{pmatrix}
+    \begin{pmatrix}\mathbf{A} - \mathbf{B}\mathbf{D}^{-1}\mathbf{C} & \mathbf{0}\\ \mathbf{0} & \mathbf{D}\end{pmatrix}
+    \begin{pmatrix}\mathbf{1} & \mathbf{0}\\ \mathbf{D}^{-1}\mathbf{C} & \mathbf{1}\end{pmatrix} .
+\end{equation*}
+Multiplying the first two factors gives $\bigl(\begin{smallmatrix}\mathbf{M}/\mathbf{D} & \mathbf{B}\\ \mathbf{0} & \mathbf{D}\end{smallmatrix}\bigr)$ with $\mathbf{M}/\mathbf{D}$ the middle upper block, and multiplying by the third adds $\mathbf{B}\mathbf{D}^{-1}\mathbf{C}$ to the upper-left block and puts $\mathbf{C}$ in the lower-left one, which returns $\mathbf{M}$. The middle factor contains the Schur complement of $\mathbf{D}$, $\mathbf{M}/\mathbf{D} \equiv \mathbf{A} - \mathbf{B}\mathbf{D}^{-1}\mathbf{C}$. The outer factors have unit determinant and inverses obtained by changing the sign of their off-diagonal block. Inverting the three factors in reverse order, and writing $\mathbf{N} \equiv (\mathbf{M}/\mathbf{D})^{-1}$,
+\begin{equation}
+  \mathbf{M}^{-1} = \begin{pmatrix}\mathbf{N} & -\mathbf{N}\mathbf{B}\mathbf{D}^{-1}\\ -\mathbf{D}^{-1}\mathbf{C}\mathbf{N} & \mathbf{D}^{-1} + \mathbf{D}^{-1}\mathbf{C}\mathbf{N}\mathbf{B}\mathbf{D}^{-1}\end{pmatrix} ,
+  \label{eq:C.7-block}
+\end{equation}
+and the determinants of the three factors give $\det\mathbf{M} = \det\mathbf{D}\,\det(\mathbf{M}/\mathbf{D})$.
+The upper-left block of the inverse is the inverse of the Schur complement. When $\mathbf{A}$ is a single element, the head of a matrix in reciprocal-lattice vectors with $\vect{G} = \vect{G}' = 0$, this reads
+\begin{equation}
+  \frac{1}{(\mathbf{M}^{-1})_{00}} = M_{00} - \sum_{\vect{G},\vect{G}'\neq0}M_{0\vect{G}}\,\bigl[(\mathbf{M}_{\neq0})^{-1}\bigr]_{\vect{G}\vect{G}'}\,M_{\vect{G}'0} ,
+  \label{eq:C.7-head}
+\end{equation}
+where $\mathbf{M}_{\neq0}$ is the block with $\vect{G}, \vect{G}' \neq 0$. Applied to the dielectric matrix it gives the macroscopic dielectric function $\varepsilon_{\mathrm{mac}} = 1/(\varepsilon^{-1})_{00}$ as the head $\varepsilon_{00}$ corrected by the local fields that the off-diagonal elements carry (\cref{sec:4.4,app:D.7}).
+
+The same algebra solves eigenvalue problems in a subspace. Split a Hilbert space into a part $P$ of interest and the rest $Q$, and write the equation $(E - H)\psi = 0$ in blocks. Eliminating $\psi_Q = (E - H_{QQ})^{-1}H_{QP}\psi_P$ leaves
+\begin{equation}
+  \bigl[H_{PP} + H_{PQ}(E - H_{QQ})^{-1}H_{QP}\bigr]\psi_P = E\,\psi_P ,
+  \label{eq:C.7-partition}
+\end{equation}
+an effective Hamiltonian in $P$ alone, whose energy dependence carries the coupling to the eliminated states. The bracket is $E$ minus the Schur complement of $E - H_{QQ}$ in $E - H$, and the equation is exact. To second order in the coupling, with $H_{QQ}$ replaced by its diagonal, it is the level shift $\sum_f|H'_{fi}|^2/(E_i - E_f)$ of \cref{sec:2.4}; with $E \to E + \ii0^+$ and a continuum in $Q$ it acquires the width. \Cref{sec:8.6} uses it to separate the electronic and the phonon-dressed sectors of a target.
+
+\subsection{Dyson-type equations}
+
+Many response objects obey an equation of the form
+\begin{equation}
+  \mathbf{X} = \mathbf{X}_0 + \mathbf{X}_0\mathbf{K}\mathbf{X} ,
+  \label{eq:C.7-dyson}
+\end{equation}
+with a known bare object $\mathbf{X}_0$ and a kernel $\mathbf{K}$. Its solution is $\mathbf{X} = (\mathbf{1} - \mathbf{X}_0\mathbf{K})^{-1}\mathbf{X}_0$, as follows by moving $\mathbf{X}_0\mathbf{K}\mathbf{X}$ to the left and inverting. When $\mathbf{X}_0$ and $\mathbf{K}$ are invertible this is $\mathbf{X}^{-1} = \mathbf{X}_0^{-1} - \mathbf{K}$, and multiplying out shows that $\mathbf{X} = \mathbf{X}_0 + \mathbf{X}\mathbf{K}\mathbf{X}_0$ holds too. Iterating \cref{eq:C.7-dyson} gives the geometric series $\mathbf{X} = \mathbf{X}_0 + \mathbf{X}_0\mathbf{K}\mathbf{X}_0 + \mathbf{X}_0\mathbf{K}\mathbf{X}_0\mathbf{K}\mathbf{X}_0 + \cdots$, which converges when every eigenvalue of $\mathbf{X}_0\mathbf{K}$ has modulus below one. The closed form remains valid beyond that, as the analytic continuation of the series, and its poles, where $\det(\mathbf{1} - \mathbf{X}_0\mathbf{K}) = 0$, are the collective modes that no finite order of the series contains.
+
+In \cref{chap:4} this form appears for the density response, for the time-dependent density-functional response and for the single-particle Green's function. The density response, written through its Coulomb-proper part, $R = \tilde R + \tilde Rv_{\mathrm{C}}R$, has $\mathbf{X}_0 = \tilde R$ and $\mathbf{K} = v_{\mathrm{C}}$; for a scalar it gives $R = \tilde R/(1 - v_{\mathrm{C}}\tilde R) = \tilde R/\varepsilon$, whose poles at $\varepsilon = 0$ are the plasmons (\cref{sec:4.4,sec:4.5}). The time-dependent density-functional response $R = R^0 + R^0f_{\mathrm{Hxc}}R$ has the kernel $f_{\mathrm{Hxc}}$ (\cref{sec:4.6}). The single-particle Green's function obeys $\GF = \GF_0 + \GF_0\Sigma\GF$, so that $\GF^{-1} = \GF_0^{-1} - \Sigma$ and the self-energy shifts and broadens the poles (\cref{sec:4.7}). In a crystal each is a matrix equation in reciprocal-lattice vectors or bands, and the order of the factors matters.
+
+When the kernel has low rank, a smaller inversion suffices. For $\mathbf{K} = \mathbf{U}\mathbf{W}\mathbf{U}^\dagger$ with $\mathbf{U}$ of size $n\times r$ and $r \ll n$, the Woodbury identity
+\begin{equation}
+  (\mathbf{A} + \mathbf{U}\mathbf{W}\mathbf{U}^\dagger)^{-1} = \mathbf{A}^{-1} - \mathbf{A}^{-1}\mathbf{U}\bigl(\mathbf{W}^{-1} + \mathbf{U}^\dagger\mathbf{A}^{-1}\mathbf{U}\bigr)^{-1}\mathbf{U}^\dagger\mathbf{A}^{-1} ,
+  \label{eq:C.7-woodbury}
+\end{equation}
+reduces the inverse to one of size $r$. Multiplying its right side by $\mathbf{A} + \mathbf{U}\mathbf{W}\mathbf{U}^\dagger$, the terms combine into $\mathbf{1} + \mathbf{A}^{-1}\mathbf{U}[\mathbf{W} - (\mathbf{W}^{-1} + \mathbf{U}^\dagger\mathbf{A}^{-1}\mathbf{U})^{-1}(\mathbf{1} + \mathbf{U}^\dagger\mathbf{A}^{-1}\mathbf{U}\mathbf{W})]\mathbf{U}^\dagger$, and the bracket vanishes because $\mathbf{1} + \mathbf{U}^\dagger\mathbf{A}^{-1}\mathbf{U}\mathbf{W} = (\mathbf{W}^{-1} + \mathbf{U}^\dagger\mathbf{A}^{-1}\mathbf{U})\mathbf{W}$. It is \cref{eq:C.7-block} in another guise, and it is the efficient route when one element, such as the long-range Coulomb head, is treated apart from the rest.
+
+\subsection{Bogoliubov transformations}
+
+A quadratic Hamiltonian that creates excitations in pairs is diagonalized by mixing creation and annihilation operators. Take two boson modes, $d_1$ and $d_2$, as for a magnon at $\vect{k}$ and at $-\vect{k}$ (\cref{sec:7.1}), with
+\begin{equation}
+  H = \omega_0\bigl(d_1^\dagger d_1 + d_2^\dagger d_2\bigr) + g_0\bigl(d_1d_2 + d_2^\dagger d_1^\dagger\bigr), \qquad \omega_0 > |g_0| .
+  \label{eq:C.7-Hboson}
+\end{equation}
+New operators $\tilde d_1 = u^{\mathrm{b}}d_1 + v^{\mathrm{b}}d_2^\dagger$ and $\tilde d_2 = u^{\mathrm{b}}d_2 + v^{\mathrm{b}}d_1^\dagger$, with real coefficients, are bosons if $[\tilde d_1, \tilde d_1^\dagger] = (u^{\mathrm{b}})^2 - (v^{\mathrm{b}})^2 = 1$; the other commutators vanish identically. We set $u^{\mathrm{b}} = \cosh\theta_{\mathrm{b}}$ and $v^{\mathrm{b}} = \sinh\theta_{\mathrm{b}}$. The inverse is $d_1 = u^{\mathrm{b}}\tilde d_1 - v^{\mathrm{b}}\tilde d_2^\dagger$ and the same with $1 \leftrightarrow 2$. Substituting and normal ordering with $[\tilde d_j, \tilde d_j^\dagger] = 1$, with $\tilde N = \tilde d_1^\dagger\tilde d_1 + \tilde d_2^\dagger\tilde d_2$ and $\tilde P = \tilde d_1\tilde d_2 + \tilde d_2^\dagger\tilde d_1^\dagger$,
+\begin{align*}
+  d_1^\dagger d_1 + d_2^\dagger d_2 &= \cosh2\theta_{\mathrm{b}}\,\tilde N + 2\sinh^2\theta_{\mathrm{b}} - \sinh2\theta_{\mathrm{b}}\,\tilde P ,\\
+  d_1d_2 + d_2^\dagger d_1^\dagger &= \cosh2\theta_{\mathrm{b}}\,\tilde P - \sinh2\theta_{\mathrm{b}}\,(\tilde N + 1) .
+\end{align*}
+The pair term $\tilde P$ drops out of $H$ if $\omega_0\sinh2\theta_{\mathrm{b}} = g_0\cosh2\theta_{\mathrm{b}}$, that is $\tanh2\theta_{\mathrm{b}} = g_0/\omega_0$. Then $\cosh2\theta_{\mathrm{b}} = \omega_0/E_{\mathrm{b}}$ and $\sinh2\theta_{\mathrm{b}} = g_0/E_{\mathrm{b}}$ with
+\begin{equation}
+  H = E_{\mathrm{b}}\bigl(\tilde d_1^\dagger\tilde d_1 + \tilde d_2^\dagger\tilde d_2 + 1\bigr) - \omega_0, \qquad E_{\mathrm{b}} = \bigl(\omega_0^2 - g_0^2\bigr)^{1/2} .
+  \label{eq:C.7-Eboson}
+\end{equation}
+The pairing lowers the mode energy from $\omega_0$ to $E_{\mathrm{b}}$ and the ground-state energy by $\omega_0 - E_{\mathrm{b}}$. The new ground state, annihilated by $\tilde d_1$ and $\tilde d_2$, is not empty of the old quanta: $\langle d_1^\dagger d_1\rangle = (v^{\mathrm{b}})^2 = \sinh^2\theta_{\mathrm{b}}$. In an antiferromagnet this is the zero-point reduction of the ordered moment. For $|g_0| \ge \omega_0$ no real $\theta_{\mathrm{b}}$ exists, $E_{\mathrm{b}}$ is imaginary and the system is unstable. For $\omega_0 = 1$ and $g_0 = 0.6$, \cref{eq:C.7-Eboson} gives $E_{\mathrm{b}} = 0.8$, a ground state at $-0.2$ and $\sinh^2\theta_{\mathrm{b}} = 0.125$.
+
+The matrix form generalizes to many modes. With $\Psi = (d_1, d_2^\dagger)^{\mathrm{T}}$, \cref{eq:C.7-Hboson} is $\Psi^\dagger\mathbf{h}\Psi$ minus a constant, with $\mathbf{h}$ the $2\times2$ matrix with $\omega_0$ on the diagonal and $g_0$ off it. A linear transformation $\Psi = \mathbf{T}\tilde\Psi$ keeps the commutation relations only if $\mathbf{T}\boldsymbol{\eta}\mathbf{T}^\dagger = \boldsymbol{\eta}$ with $\boldsymbol{\eta} = \operatorname{diag}(1, -1)$, because the second component of $\Psi$ is a creation operator; such a $\mathbf{T}$ is called para-unitary. The excitation energies are the eigenvalues of $\boldsymbol{\eta}\mathbf{h}$, here $\pm(\omega_0^2 - g_0^2)^{1/2}$, which come in pairs of opposite sign. For any number of modes, a para-unitary diagonalization with positive excitation energies exists if $\mathbf{h}$ is positive definite~\cite{colpa1978diagonalization}, the matrix condition for stability.
+
+Fermions differ in one sign. For $c_1 = c_{\vect{k}\uparrow}$ and $c_2 = c_{-\vect{k}\downarrow}$, as in a superconductor (\cref{sec:7.2}), take
+\begin{equation}
+  H = \xi_0\bigl(c_1^\dagger c_1 + c_2^\dagger c_2\bigr) - g_0\bigl(c_1^\dagger c_2^\dagger + c_2c_1\bigr) .
+  \label{eq:C.7-Hfermion}
+\end{equation}
+The operators $\tilde c_1 = u^{\mathrm{f}}c_1 - v^{\mathrm{f}}c_2^\dagger$ and $\tilde c_2 = u^{\mathrm{f}}c_2 + v^{\mathrm{f}}c_1^\dagger$ are fermions if $\{\tilde c_1, \tilde c_1^\dagger\} = (u^{\mathrm{f}})^2 + (v^{\mathrm{f}})^2 = 1$, and we set $u^{\mathrm{f}} = \cos\theta_{\mathrm{f}}$, $v^{\mathrm{f}} = \sin\theta_{\mathrm{f}}$. The anticommutator adds the two squares where the boson commutator subtracted them, the transformation is unitary instead of para-unitary, and the hyperbolic functions become trigonometric. The inverse is $c_1 = u^{\mathrm{f}}\tilde c_1 + v^{\mathrm{f}}\tilde c_2^\dagger$, $c_2 = u^{\mathrm{f}}\tilde c_2 - v^{\mathrm{f}}\tilde c_1^\dagger$. Substituting and ordering with $\tilde c_j\tilde c_j^\dagger = 1 - \tilde c_j^\dagger\tilde c_j$ and $\tilde c_2\tilde c_1 = -\tilde c_1\tilde c_2$, with $\tilde N = \tilde c_1^\dagger\tilde c_1 + \tilde c_2^\dagger\tilde c_2$ and $\tilde P = \tilde c_1^\dagger\tilde c_2^\dagger + \tilde c_2\tilde c_1$,
+\begin{align*}
+  c_1^\dagger c_1 + c_2^\dagger c_2 &= \cos2\theta_{\mathrm{f}}\,\tilde N + 2\sin^2\theta_{\mathrm{f}} + \sin2\theta_{\mathrm{f}}\,\tilde P ,\\
+  c_1^\dagger c_2^\dagger + c_2c_1 &= \cos2\theta_{\mathrm{f}}\,\tilde P - \sin2\theta_{\mathrm{f}}\,(\tilde N - 1) .
+\end{align*}
+For the first line, $c_1^\dagger c_1 = (u^{\mathrm{f}})^2\tilde c_1^\dagger\tilde c_1 + u^{\mathrm{f}}v^{\mathrm{f}}\tilde P + (v^{\mathrm{f}})^2(1 - \tilde c_2^\dagger\tilde c_2)$, and $c_2^\dagger c_2 = (u^{\mathrm{f}})^2\tilde c_2^\dagger\tilde c_2 + u^{\mathrm{f}}v^{\mathrm{f}}\tilde P + (v^{\mathrm{f}})^2(1 - \tilde c_1^\dagger\tilde c_1)$, where the minus sign in the transformation of $c_2$ cancels against the sign of an anticommuting reordering. For the second line, $c_1^\dagger c_2^\dagger = (u^{\mathrm{f}})^2\tilde c_1^\dagger\tilde c_2^\dagger - (v^{\mathrm{f}})^2\tilde c_2\tilde c_1 + u^{\mathrm{f}}v^{\mathrm{f}}(1 - \tilde N)$ and $c_2c_1 = (u^{\mathrm{f}})^2\tilde c_2\tilde c_1 - (v^{\mathrm{f}})^2\tilde c_1^\dagger\tilde c_2^\dagger + u^{\mathrm{f}}v^{\mathrm{f}}(1 - \tilde N)$. The pair term drops out of \cref{eq:C.7-Hfermion} if $\xi_0\sin2\theta_{\mathrm{f}} = g_0\cos2\theta_{\mathrm{f}}$, that is $\tan2\theta_{\mathrm{f}} = g_0/\xi_0$. Then $\cos2\theta_{\mathrm{f}} = \xi_0/E_{\mathrm{f}}$, $\sin2\theta_{\mathrm{f}} = g_0/E_{\mathrm{f}}$, the coefficient of $\tilde N$ is $\xi_0\cos2\theta_{\mathrm{f}} + g_0\sin2\theta_{\mathrm{f}} = E_{\mathrm{f}}$, the constant is $\xi_0(1 - \cos2\theta_{\mathrm{f}}) - g_0\sin2\theta_{\mathrm{f}} = \xi_0 - E_{\mathrm{f}}$, and
+\begin{equation}
+  H = E_{\mathrm{f}}\bigl(\tilde c_1^\dagger\tilde c_1 + \tilde c_2^\dagger\tilde c_2\bigr) + \xi_0 - E_{\mathrm{f}}, \qquad E_{\mathrm{f}} = \bigl(\xi_0^2 + g_0^2\bigr)^{1/2} .
+  \label{eq:C.7-Efermion}
+\end{equation}
+The pairing now raises the excitation energy, from $|\xi_0|$ to $E_{\mathrm{f}} \ge |g_0|$: a gap opens even where $\xi_0 = 0$. With $\xi_0 \to \xi_{\vect{k}}$ and $g_0 \to \Delta_{\mathrm{BCS}}$ this is the Bogoliubov energy of \cref{sec:7.2}, and $u^{\mathrm{f}}, v^{\mathrm{f}}$ become the coherence factors $u^{\mathrm{B}}_{\vect{k}}, v^{\mathrm{B}}_{\vect{k}}$; in \cref{sec:7.1} the boson coefficients become $u^{\mathrm{M}}_{\vect{k}}, v^{\mathrm{M}}_{\vect{k}}$.

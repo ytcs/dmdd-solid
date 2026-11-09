@@ -1,0 +1,1261 @@
+                                                        Modeling Athermal Phonons in Novel Materials using the G4CMP
+                                                                             Simulation Toolkit
+
+                                                       I. Hernandeza,b,∗, R. Linehanb,∗, R. Khatiwadaa,b , K. Anyanga,b , D. Baxterb,d , G. Bratrudb,d , E.
+                                                                            Figueroa-Felicianod,b , L. Hsub , M. Kelseyc , D. Templesb
+                                                                     a Illinois Institute of Technology, Department of Physics, Chicago, IL 60616, USA
+                                                                       b Fermi National Accelerator Laboratory Laboratory, Batavia, IL 60510, USA
+                                                                            c Texas A&M University, 400 Bizzell St. College Station, TX 77843
+                                                                d Department of Physics & Astronomy, Northwestern University, Evanston, IL 60208, USA
+arXiv:2408.04732v2 [physics.ins-det] 12 Jun 2025
+
+
+
+
+                                                   Abstract
+                                                       Understanding phonon and charge propagation in superconducting devices plays an important role
+                                                   in both performing low-threshold dark matter searches and limiting correlated errors in superconducting
+                                                   qubits. The Geant4 Condensed Matter Physics (G4CMP) package, originally developed for the Cryo-
+                                                   genic Dark Matter Search (CDMS) experiment, models charge and phonon transport within silicon and
+                                                   germanium detectors and has been validated by experimental measurements of phonon caustics, mean
+                                                   charge-carrier drift velocities, and heat pulse propagation times. In this work, we present a concise frame-
+                                                   work for expanding the capabilities for phonon transport to a number of other novel substrate materials
+                                                   of interest to the dark matter and quantum computing communities, including sapphire (Al2 O3 ), gallium
+                                                   arsenide (GaAs), lithium fluoride (LiF), calcium tungstate (CaWO4 ), and calcium fluoride (CaF2 ). We
+                                                   demonstrate the use of this framework in generating phonon transport properties of these materials and
+                                                   compare these properties with experimentally-determined values where available.
+                                                   Keywords: Phonon, Simulation, G4CMP, Dark Matter, Material Science, Qubits, Sapphire
+
+
+                                                   1    Introduction                                           icon and germanium under these effects has been
+                                                                                                               well-studied [11, 12, 13, 14].
+                                                       Mounting astrophysical and cosmological ob-                 In recent years there has been a broaden-
+                                                   servations indicate the existence and abundance of          ing of the landscape of materials proposed for
+                                                   a cold, frictionless nonbaryonic “dark” matter in           phonon-mediated cryogenic dark matter search
+                                                   the universe [1, 2, 3]. As direct detection searches        experiments. While historically these detectors
+                                                   for particle-like candidates with masses above the          have been made from silicon, germanium, cal-
+                                                   GeV/c2 scale have yielded only null results in the          cium tungstate (CaWO4 ), or calcium fluoride
+                                                   past few decades [4, 5], there has recently been in-        (CaF2 ) [15, 16, 17, 18], future dark matter de-
+                                                   creased interest in developing low-energy threshold         tectors may benefit from other carefully chosen
+                                                   detectors capable of probing parameter space at             novel target materials. For example, polar crys-
+                                                   lower masses, down to the keV/c2 scale [6]. A com-          tals like sapphire (Al2 O3 ) and gallium arsenide
+                                                   mon class of such detectors rely on cryogenic (mK)          (GaAs) increase sensitivity to DM candidates cou-
+                                                   solid-state substrates coupled to superconducting           pling to the dark photon. These materials, espe-
+                                                   films, in which energy depositions in the substrate         cially those with many accessible optical modes,
+                                                   generate phonon excitations that can be sensed in           give sufficiently strong directional dependence of
+                                                   the films [7, 8, 9, 10]. These phonons may be gen-          DM scattering rates to enable daily modulation
+                                                   erated from a number of different potential inter-          searches, increasing DM discovery power [19, 20].
+                                                   action types: direct nuclear recoils of dark matter         A thorough grasp of (and ability to model) phonon
+                                                   on lattice ions, phonons produced from electron-            propagation in these materials will be required for
+                                                   hole recombination after a dark matter ionization           signal- and background-model building in these ex-
+                                                   event, and Neganov-Trofimov Luke phonons from               periments.
+                                                   drifting freed electrons through the crystal using              Moreover, some of these materials (like sap-
+                                                   an electrostatic field. The phonon response of sil-         phire) are commonly used in the quantum comput-
+                                                                                                               ing community as chip substrates due to their low
+                                                                                                               dielectric losses [21]. As superconducting qubits
+                                                      ∗ Corresponding authors:   ihernandez6@hawk.iit.edu      have been shown to experience catastrophic corre-
+                                                   and linehan3@fnal.gov
+                                                                                                               lated errors due to the presence of phonons pro-
+                                                   Preprint submitted to Nuclear Instrumentation and Methods                                             June 16, 2025
+duced by ionizing radiation, quantitatively under-                dley Channel (LO→TO+XA), and the Valée-
+standing phonon transport in such chips may facil-                Bogani channel (LO→LO+XA) [27]. All of these
+itate developing strategies that mitigate such er-                optical phonon decay channels occur on O(ps)
+rors [22, 23, 24, 25].                                            timescales. Once downconversion from the optical
+    Modeling phonon propagation in novel mate-                    branch phonons to acoustic branch phonons oc-
+rials is therefore a foundation for studying sig-                 curs, there is further downconversion of the acous-
+nals and backgrounds in particle-like dark matter                 tic phonons, fragmenting the initial phonon energy
+searches and sources of correlated errors in super-               even more. Scattering on isotopic impurities may
+conducting qubits. The Geant4 Condensed Mat-                      change acoustic phonon’s trajectories and polar-
+ter Physics (G4CMP) package is an open-source                     izations, and has been noted to possibly also play
+particle-tracking simulation tool built to perform                a role in phonon thermalization [28]. Selection of
+this modeling, originally in the context of low-mass              the proper final-state phonon polarizations during
+dark matter experiments [26]. While it success-                   downconversion and scattering is governed by the
+fully models phonon transport within silicon and                  fractional density of states (DOS) for the various
+germanium substrates, it currently does not in-                   possible phonon polarizations. At sufficiently low
+clude information for phonon propagation in other                 acoustic phonon energies, the scattering and down-
+target materials. As other substrate materials are                conversion mean free paths may extend beyond the
+adopted in dark matter searches or quantum com-                   substrate dimensions, and the phonon trajectory
+puting, a thorough understanding of chip response                 becomes limited by boundary scatters (i.e. enters
+to energy depositions will rely on a corresponding                the “ballistic regime”). At all energies, phonon
+expansion of the set of materials in which G4CMP                  propagation is governed by the substrate’s crystal
+can model phonon transport.                                       structure, leading to formation of caustics, pre-
+    In this work we achieve an expansion of                       ferred directions into which phonons’ group veloci-
+G4CMP’s phonon-modeling capability for a large                    ties are focused by the crystal anisotropy. G4CMP
+number of materials of interest to the low-mass                   simulates the subset of these physical processes
+dark matter and quantum information communi-                      involving acoustic phonons: acoustic phonon an-
+ties, and provide a framework for extending this                  harmonic downconversion, isotopic scattering, and
+to further materials. In Section 2, we discuss the                transport along caustics.2
+phonon physics that underlies G4CMP’s transport                        The set of parameters needed to integrate this
+modeling and present the set of parameters needed                 physics into G4CMP for a given material is enu-
+for modeling phonon response in a new material.                   merated in Table 1. Because rigorous model-
+In Section 3, we calculate this set of parameters                 ing of some of the above-mentioned physics pro-
+for several new materials, demonstrate successful                 cesses in a fully anisotropic medium is nontriv-
+integration into G4CMP, and validate the results                  ial, it is often useful to simplify calculations using
+against experimental results available in the lit-                the “isotropic continuum approximation,” (ICA)
+erature. We discuss potential extensions to this                  in which phonons are assumed to be long enough in
+modeling and its impact on dark matter detection                  wavelength that anisotropy in the crystal may be
+and quantum computing efforts in Section 4, and                   ignored [29]. While we (and G4CMP) use this ap-
+conclude in Section 5.                                            proximation to simplify calculations of the rate co-
+                                                                  efficients for anharmonic decay and isotopic scat-
+                                                                  tering, the DOS and caustics modeling account for
+2    Phonon Kinematics                                            the anisotropic crystal structure.
+                                                                       The thrust of this section is to discuss the
+   When high-energy phonons are created from                      mathematical foundation for these physics pro-
+energy deposits in a chip, the system evolves in                  cesses and estimate the corresponding required
+a way governed by several distinct phonon kine-                   simulation parameters for a set of substrates useful
+matics processes. We consider as an example an                    to the dark matter detection community. In doing
+optical phonon created from a DM scatter in the                   so we also hope to provide a streamlined recipe
+substrate. First, this phonon can undergo anhar-                  for performing this G4CMP upgrade for any other
+monic decay into multiple lower-energy phonons                    materials later deemed of interest to the cryogenic
+via one of several possible channels, including
+the Klemens channel1 (LO→XA+XA), the Ri-                              2 While scattering and downconversion of phonons at
+
+                                                                  surfaces is simulated in G4CMP, the complexity of that
+                                                                  topic puts it beyond the scope of this work. Optical
+    1 Here, LO indicates longitudinal optical phonon modes,
+                                                                  phonons are not simulated in G4CMP due to a combination
+TO indicates transverse optical modes, and XA indicates           of factors: not only are these phonons’ dispersion and dy-
+either longitudinal or transverse acoustic modes. In the          namics nontrivial to model, but they also downconvert to
+acoustic mode, we keep this general as arbitrary combina-         acoustic phonons fast enough that that their dynamics are
+tions may be energetically prohibited in certain materials        unimportant to capture in typical superconducting devices
+depending on the phonon dispersion.                               with > µm-scale dimensions.
+
+                                                              2
+       Table 1: Parameters required for G4CMP to model phonon transport within a given solid-state material.
+
+
+          Parameter            Units     Description
+          Cij                  GPa       Second-order elastic constants
+          µ                    GPa       Lamé constant, 2nd-order isotropic elastic constant
+          λ                    GPa       Lamé constant, 2nd-order isotropic elastic constant
+          β                    GPa       3rd-order isotropic elastic constant
+          γ                    GPa       3rd-order isotropic elastic constant
+          A                    s4        Anharmonic downconversion rate coefficient
+          B                    s3        Isotopic scattering rate coefficient
+          FT T                 None      Fraction of L → T T downconversion
+          LDOS                 None      Longitudinal phonons’ density of states (fractional)
+          STDOS                None      Slow transverse phonons’ density of states (fractional)
+          FTDOS                None      Fast transverse phonons’ density of states (fractional)
+          Debye Energy         THz       Debye Energy for phonon primaries
+
+
+instrumentation community.                                   third order. Ref. [33] gives the L → T + T and
+                                                             L → L + T decay rates in terms of these parame-
+2.1   Anharmonic Downconversion                              ters.
+                                                                 To numerically calculate the phonon anhar-
+    Anharmonic decay of an acoustic phonon into
+                                                             monic decay rate in a material of a specific crystal
+two lower-energy acoustic phonons is phonon-
+                                                             structure, the isotropic elastic constants µ, λ, α,
+polarization-dependent. Under the isotropic con-
+                                                             β, and γ can be expressed using the true second-
+tinuum approximation, this decay can only pro-
+                                                             order elastic constants Cijkl and third-order elastic
+ceed for initial longitudinally-polarized phonons,
+                                                             constants Cijklmn corresponding to the material’s
+and can only proceed via two potential decay chan-
+                                                             crystal group. A general form of this parameteri-
+nels: L → L + T and L → T + T , in which the fi-
+                                                             zation is found using the development by Ref. [34],
+nal products are a longitudinal (L) and transverse
+                                                             where Einstein notation is used:
+(T) phonon and two transverse phonons, respec-
+tively. Here, transverse phonons can be either on             µ = (3Clklk − Cllkk )/30
+the transverse-slow phonon branch or transverse-
+fast phonon branch. Though beyond the scope of                λ = (2Clklk − Cllkk )/15
+this work’s modeling, we also note for complete-
+ness that additional decay modes, including those             α = (8Ciillnn − 15Ciilnln + 8Cinilln ) /105      (2)
+for transverse phonons, are possible if the ICA is
+relaxed [30, 31, 32].                                         β = (−5Ciillnn + 19Ciilnln − 12Cinilln ) /210
+    Formally, the combined L → T + T and
+L → L + T rate of anharmonic decay within a                   γ = (2Ciillnn − 9Ciilnln + 9Cinilln ) /210.
+crystal can be calculated by adding the third-
+order terms of the crystal’s potential energy to
+                                                                 For a specific crystal space group these pa-
+the Hamiltonian governing the crystal’s evolution.
+                                                             rameters can be calculated by taking advantage of
+Using first-order time-dependent perturbation the-
+                                                             symmetries present in the second- and third-order
+ory, one can derive a characteristic mode decay
+                                                             elastic constants [35]. Most of the materials of in-
+rate, Γanharmonic , with the following form:
+                                                             terest to the dark matter search community that
+                Γanharmonic = Aν 5 ,               (1)       we consider here, including Si, Ge, GaAs, LiF and
+                                                             CaF2 , belong to cubic space groups. For these,
+where A is a constant [29, 33] and ν is the phonon           space-group-specific expressions for the second-
+frequency. This form holds for normal (i.e. non-             and third-order isotropic elastic constants have
+Umklapp) phonon processes at low temperatures                been documented extensively in literature, and as
+(kB T << hν).                                                a result we do not reproduce them here [34, 33, 36].
+    Calculating the constant A in Equation 1 re-             However, a few materials of interest, including sap-
+lies on knowing the second- and third-order elastic          phire (Al2 O3 ) and calcium tungstate (CaWO4 ),
+constants considered in the total potential energy           have non-cubic space groups for which expressions
+of the material. Here, it is useful to apply the ICA,        of α, β, γ, µ, and λ have not yet been documented
+giving rise to a separate set of “isotropic elastic          in literature (to the authors’ knowledge). In Ta-
+constants:” the Lamé constants µ and λ at second            ble 2, we present expressions for these in terms of
+order, and a set of three constants α, β, and γ at           the materials’ third-order elastic constants, using
+                                                         3
+Table 2: Expressions for the Lamé constants and third-order isotropic elastic coefficients, calculated for the two non-cubic
+space groups (for which such expressions could not be found in literature). The space groups for these two materials are
+included for completeness.
+
+
+              Space
+ Material                  Parameter Expression
+              Group
+ Al2O3        R3c          µ            (2C11 − C12 − 2C13 + C33 + 6C44 + 3C66 )/15
+                           λ            (2C11 + 4C12 + 8C13 − 4C44 + C33 − 2C66 )/15
+                                        (−17C111 + 30C112 + 33C113 + 78C123 − 57C133 − 156C144 + 84C155 −
+                           α
+                                        17C222 + C333 − 12C344 )/105
+                                        (71C111 + 4C112 − 11C113 − 68C123 + 103C133 + 220C144 − 140C155 −
+                           β
+                                        55C222 + 2C333 + 4C344 )/210
+                                        (−34C111 − 24C112 + 3C113 + 30C123 − 51C133 − 144C144 + 126C155 +
+                           γ
+                                        92C222 + 2C333 + 18C344 )/210
+ CaWO4        I41 /a       µ            (2C11 − C12 − 2C13 + C33 + 6C44 + 3C66 )/15
+                           λ            (2C11 + 4C12 + 8C13 + C33 − 4C44 − 2C66 )/15
+                                        (2C111 + 18C112 + 42C113 + 48C123 − 6C133 − 60C144 − 12C155 −
+                           α
+                                        12C166 + C333 − 12C344 − 30C366 + 12C456 )/105
+                                        (4C111 + 8C112 − 7C113 − 30C123 + 23C133 + 76C144 + 4C155 + 4C166 +
+                           β
+                                        2C333 + 4C344 + 38C366 − 72C456 )/210
+                                        (2C111 − 3C112 + 6C123 − 6C133 − 18C144 + 9C155 + 9C166 + C333 +
+                           γ
+                                        9C344 − 9C366 + 27C456 )/105
+
+
+Voigt notation [37] for reduction from 2n to n in-                The mass defect coefficient is given by [40, 41]
+dices, where n is the order of the elastic constant.                                      D       E
+    Once these isotropic second- and third-order                                            ∆M 2
+elastic constants are calculated for a material, the                             Γmd =           2 ,               (5)
+value A in Equation 1 can be calculated via the                                              M
+treatment in Ref. [33], and used as an input to                        D      E
+G4CMP. Results of our calculations for various                    where ∆M 2 refers to the average mass variance
+materials of interest are presented in Section 3.1.                         2
+                                                                  and M is the average mass. The average mass
+                                                                  of each component is given by the stoichiometry-
+2.2    Isotopic Scattering                                        weighted average of each site average mass Mn
+    Phonons may also be scattered on isotopic                                           P
+                                                                                           cn M n
+impurities in the crystal, where slight variations
+in atomic mass break the regularity in the crys-                                 M = nP                        (6)
+                                                                                             cn
+tal structure. Considering these impurities as a                                           n
+                                                                                        X
+small perturbation to the otherwise uniform crys-                                Mn =       fi,n Mi,n .        (7)
+tal Hamiltonian, one can again use perturbation                                               i
+theory to obtain an expression for the scattering
+rate of a single phonon via this channel [29]. This               where the index n refers to the the nth atom of
+rate is proportional to the fourth power of phonon                the chemical formula, the index i refers to isotope
+energy:                                                           i of atom n, Mi,n refers to the atomic mass of the
+                                                                  ith isotope of atom n, M n is the average isotopic
+               Γisotopic = Bν 4                         (3)       mass of atom n, and fi,n refers to the fractional
+                           4π 3 Γmd Ω 4                           abundance of the ith isotope of atom n.3 In the
+                         =           ν ,                (4)       same way, the average mass variance is
+                              ⟨c3 ⟩
+                                                                                      P
+where Ω is the volume per atom in the crystal                              D      E     cn ∆Mn2
+                                                                                      n
+unit cell, ⟨c3 ⟩ is the polarization-averaged (cubed)                       △M 2 =       P                         (8)
+                                                                                            cn
+speed of sound in the material, and Γmd is a mass                                        n
+defect coefficient capturing the average deviation                           ∆Mn =2
+                                                                                     X
+                                                                                         fi,n Mi,n − Mn .
+                                                                                                         2
+                                                                                                                   (9)
+of the crystal from isotopic purity [38, 39]. This                                        i
+expression holds true in the isotropic continuum
+approximation, which holds for phonons with long
+                                                                      3 We note here that formally, the sum over i may be
+wavelengths relative to the interatomic spacing.
+                                                                  different for different atoms s in the unit cell.
+
+                                                              4
+In this development, our use of the isotropic con-                2.4    Propagation along Caustics
+tinuum approximation implies that Equation 3                          The propagation of acoustic phonons in a crys-
+represents an average scattering rate for all acous-              tal is governed by the Green-Christoffel equation:
+tic phonon polarizations. While we use this defi-
+nition in this work, it is worth noting that other                                ρω 2 ϵi = Cijkl kj kk ϵl ,       (11)
+interpretations of the mass defect coefficient have
+also been used [42, 43].                                          where ω is the phonon frequency, ϵi is the phonon
+    Once the coefficient B is calculated, it can be               polarization (longitudinal, transverse fast and
+input into G4CMP to model isotopic scattering,                    transverse slow), k is the phonon wavevector, ρ
+where it acts as the scattering rate coefficient for              is the crystal’s mass density, and Cijkl is again the
+all three phonon polarizations. We present the re-                elastic constant tensor. This equation arises from
+sults of this calculation of B for several materials              considering plane monochromatic elastic wave so-
+of interest in Section 3.2.                                       lutions to the equations governing an elastically
+                                                                  deformed medium.
+2.3   Density of States (DOS)                                         Propagation direction is governed by the group
+                                                                  velocity ⃗vg = ∇ ⃗ k ω. As a result of an arbitrary
+    During both anharmonic downconversion pro-
+                                                                  crystal’s anisotropic elastic tensor Cijkl , the group
+cesses and isotopic scattering processes (discussed
+                                                                  velocity of a phonon may not be parallel with
+in Section 2.2) G4CMP uses the phonon density of
+                                                                  the phonon’s wavevector ⃗k [48, 49]. An initially
+states to determine the randomly-drawn polariza-
+                                                                  isotropic distribution of wavevector ⃗k therefore in
+tions of phonons produced after downconversions
+                                                                  general gives a nonuniform distribution of group
+and scatters. The LDOS, STDOS, and FTDOS
+                                                                  velocity. This leads to a phenomenon known as
+parameters in Table 5 are the fractional densities
+                                                                  “phonon focusing” in a crystal, from which “caus-
+of states for longitudinal, slow transverse, and fast
+                                                                  tic” patterns are formed (Figure 3). These have
+transverse acoustic phonons, respectively, and sum
+                                                                  been measured experimentally in several experi-
+to unity.
+                                                                  mental setups for a variety of different materials
+    The calculation of the DOS values for these
+                                                                  [50, 51, 52].
+materials is performed in two steps: computation
+                                                                      To successfully characterize acoustic phonon
+of a 3D phonon dispersion relationship ω(⃗k) for
+                                                                  propagation direction in a new material, one then
+a material using its lattice properties, and com-
+                                                                  only requires the second-order elastic tensor com-
+putation of the DOS from the phonon disper-
+                                                                  ponents Cijkl for the new material. These elas-
+sion relationship. For each material, we use lat-
+                                                                  tic tensor components used in this work are avail-
+tice force constant information from the Materials
+                                                                  able for for Al2 O3 [53], GaAs [54], CaWO4 [55],
+Data Repository [44] as an input to Phonopy, a
+                                                                  CaF2 [31] , and LiF [56]. For simulating phonon
+separate software used in the calculation of three-
+                                                                  propagation in a new material, G4CMP only re-
+dimensional phonon dispersion relationships [45,
+                                                                  quires these second-order elastic tensor compo-
+46].4 From these dispersion curves, which are cal-
+                                                                  nents. While in practice the caustic patterns
+culated at a discrete grid of ω(⃗k) points for each
+                                                                  emerging from crystal anisotropies are dependent
+branch, we compute the contribution of the DOS
+                                                                  on the energy of the phonon [54], G4CMP does not
+per phonon branch λ at given frequency ω, defined
+                                                                  yet include this energy dependence and instead ap-
+as
+                       1X                                         proximates this dependence as being weak in the
+              gλ (ω) =        δ (ω − ωi ) .     (10)              limit of low phonon energy.
+                       N i
+Here, the sum is over all phonon frequencies ωi of
+this branch in the first Brillouin zone, and N is                 3     Model Results and Validation
+the total number of grid points in the first Bril-
+louin zone. In practice, the delta function in this                   In this section we demonstrate the above cal-
+expression is treated as a gaussian of finite width.              culations as applied to Si, Ge, GaAs, Al2 O3 , LiF,
+From this expression, we can obtain the fractional                CaWO4 , and CaF2 , and where possible use exist-
+contribution at 1 THz for acoustic phonons, which                 ing literature measurements to do a coarse vali-
+is the fractional DOS input required by G4CMP.                    dation of our calculations and the implementation
+Moreover, calculating the total DOS we can obtain                 into G4CMP. These are done for all four physi-
+the maximum acoustic phonon energy and maxi-                      cal properties discussed in the subsections of Sec-
+mum optical phonon energy (Debye Energy), the                     tion 2: anharmonic downconversion, isotopic scat-
+latter of which is also an input to G4CMP.                        tering, phonon density of states (DOS) and prop-
+                                                                  agation along caustics.
+
+   4 Materials files used for CaWO
+                                     4 were from Ref. [47].
+
+
+
+                                                              5
+Table 3: Anharmonic downconversion parameters for a variety of target materials of interest. The calculated Lamé
+parameters (µ, λ) and third-order isotropic elastic coefficients (α, β, γ) (units of pressure) are used to compute the
+anharmonic decay rate coefficient A found in Equation 1 and are included for completeness. We focus on using elastic
+constants that are all collected under similar cryogenic conditions. One could attempt to estimate some uncertainty on these
+estimates by redoing our calculations for elastic constants measured at slightly different temperatures for each material,
+but since it is nontrivial to find multiple such measurements, we just quote a single estimate of A. For comparison, we
+include calculated literature values Ac,l and measured literature values Am,l for these materials where available. Values
+of Ac,l do not always assume the same ICA used in our calculation of A, and may quote a range of rates representing
+multiple propagation directions. Am,l was difficult to find in the literature for most materials here. We were also unable to
+find literature values for the third-order elastic constants of CaWO4 for calculation of α, β, and γ, but nonetheless include
+CaWO4 as other literature calculations of Ac,l were found. For literature values Ac,l and Am,l , references are provided
+after the stated values.
+
+
+             µ         λ           α           β           γ                   A           Ac,l                  Am,l
+ Material                                                               FT T
+             [GPa]     [GPa]       [GPa]       [GPa]       [GPa]               [10−55 s4 ] [10−55 s4 ]           [10−55 s4 ]
+ Si          68.58     53.68       -227.37     -55.97      -107.97      0.75   1.15        0.741 [33]            –
+ Ge          56.6      33.6        -179.3      -60.5       -82.1        0.72   6.8         16.5 [33]             –
+ GaAs        44.2      47.2        -170.11     -54.71      -67.51       0.77   7.77        7.7–13.5 [33]         –
+ Al2O3       166.24    139.8       95.13       -27.02      -152.8       0.67   12.7        1.88 [57]             –
+ LiF         51.51     30.72       -84.74      -83.94      -87.54       0.68   5.5         5.14 [33]             –
+ CaF2        45.15     65.2        -135.21     -95.85      -43.69       0.75   6.14        7.0–10.4 [32]         9.3 [58]
+ CaWO4       40.78     57.94       –           –           –            –      –           7.9 [59]-140 [60]     –
+
+
+
+                                                                  3.1    Results:       Anharmonic Downcon-
+                                                                         version
+                                                                      Table 3 presents our calculations of the second-
+                                                                  and third-order isotropic elastic coefficients and
+                                                                  the subsequent calculation of the parameter A in
+                                                                  Equation 1. In these calculations, the second or-
+                                                                  der elastic constants Cijkl used in computing µ
+                                                                  and λ as well as the third order elastic constants
+                                                                  Cijklmn used in computing α, β, and γ can be
+                                                                  found in Appendix A. The calculations are done
+                                                                  assuming phonon energies of 1 THz, which are
+                                                                  within the “low-temperature” approximation as-
+                                                                  sumed for Equation 1. We also present in Table 3
+                                                                  two additional values, Ac,l and Am,l , which are cal-
+                                                                  culated values for A found in literature and experi-
+                                                                  mentally measured values for A found in literature,
+                                                                  respectively. Our calculations of A agree with lit-
+                                                                  erature calculations of Ac,l to within a factor of
+                                                                  few for most materials. There is some additional
+                                                                  disagreement for sapphire, which we attribute to
+                                                                  two factors: the non-isotropy assumed in the cal-
+                                                                  culations in Ref [57], and the steep fifth-power de-
+                                                                  pendence on the assumed sound speed used to con-
+                                                                  vert the results in Ref [57] into the form given in
+                                                                  Equation 1. To the authors’ knowledge, only one
+                                                                  of these materials has an Am,l that has been mea-
+                                                                  sured directly: CaF2 . In Ref. [58], this parame-
+Figure 1: Characteristic length scales for anharmonic de-         ter is measured using an optical technique that is
+cay (top) and isotopic scattering (bottom) extracted from
+a cross-check simulation after implementing the calculated        sensitive to phonon absorption by a doublet of an
+rate coefficients from Table 3, demonstrating the ν 5 (top)       Eu2+ dopant in the crystal that is tunable with
+and ν 4 (bottom) rate scalings. The dot at the right-             applied stress. We leave additional discussion on
+most point of each curve represents the maximum acoustic          experimental validation of this parameter for Sec-
+phonon energy ωA extracted from table 5.
+                                                                  tion 4.
+                                                                      With these values calculated, we also integrate
+                                                                  them into G4CMP and run a cross-check simu-
+
+                                                              6
+Table 4: Isotopic scattering rates for the set of target materials of interest. We also include some inputs to the calculation
+that gives those rates: the lattice cell volume Ω and the polarization-averaged cubed sound speed ⟨c3 ⟩, as well as our
+calculation of the mass defect coefficient Γmd . Ranges in the Bm,l column correspond to measurements of different phonon
+polarizations. For literature values Bc,l and Bm,l , references are provided after the stated values.
+
+
+                 Ω                           ⟨c3 ⟩                B              Bc,l                  Bm,l
+    Material                 Γmd
+                 [A3 ]                       [1011 m3 /s3 ]       [10−42 s3 ]    [10−42 s3 ]           [10−42 s3 ]
+    Si           2.0         2.02×10−4       2.13                 2.33           2.42                  2.42-2.56 [61]
+    Ge           2.26        5.88×10−4       0.46                 35.4           36.7 [38]             –
+    GaAs         2.38        9.16×10−5       0.479                7.22           7.38 [39]             5.9-29.5 [61]
+    Al2 O3       0.5         1.25×10−5       3.06                 0.025          –                     0.04 [59]
+    LiF          0.81        1.36×10−4       1.19                 1.17           1.69 [33]             –
+    CaF2         1.4         1.83×10−4       0.84                 4.83           9.13 [62]             20.3 [62]
+    CaWO4        1.3         2.02×10−4       0.22                 15.0           2.4 [59]-59 [60]      –
+
+
+lation to confirm the expected interaction rate.                  within a factor of a few of the measured litera-
+In this simulation, one million longitudinal acous-               ture values. Methods available in the literature
+tic phonons of varying energies are generated in a                have taken on three forms: thermal conductivity
+large block of material and allowed to propagate                  measurements in Ref. [62], a phonon backscatter-
+with isotopic scattering processes turned off. The                ing technique used by Ref. [59], and a technique
+block is large enough that surface interactions do                in which phonons are scattered around a slot cut
+not affect the phonon trajectories. For every lon-                into the chip under test as in Ref. [61]. While these
+gitudinal phonon generated, the distance from cre-                measurements are more commonly available than
+ation point to subsequent decay is tabulated and                  measurements of the anharmonic decay coefficient
+inserted into a histogram corresponding to that                   A, they are nonetheless still difficult to find for all
+phonon’s energy. For each histogram, a charac-                    of the materials we study.
+teristic decay length is tabulated, and that decay                    To test isotopic scattering’s implementation
+length appears as a function of energy in the top                 into G4CMP we implement the same cross-check
+panel of Figure 1. In all materials tested, we find               procedure as before, but with anharmonic decay
+that the value of A derived from fits to these plots              turned off within G4CMP. The results are shown
+is consistent with the value of A used as input to                in the bottom panel of Figure 1. As the isotopic
+G4CMP.                                                            scattering rate is averaged over the multiple differ-
+                                                                  ent polarizations, this represents an average char-
+3.2    Results: Isotopic Scattering                               acteristic length for all phonon polarizations. We
+                                                                  again find that the characteristic decay lengths are
+    Table 4 presents elements of the calculation for              consistent with the input rates used and a ν 4 de-
+the isotopic scattering rate coefficient B found in               pendence.
+Equation 3. Since in the isotropic continuum ap-
+proximation the isotopic scattering rate simplifies
+to Equation 3, the main requirement is to calcu-                  3.3     Results: Density of States
+late the mass defect coefficient Γmd for the mate-                    For each of the crystal structures we study in
+rial. For our calculations, we assume natural abun-               this work, we compute phonon dispersion curves
+dances of every atom within each material consid-                 for the various phonon branches, and use these to
+ered [63], which yields the values of Γmd in the                  construct branch-specific density of states curves
+table. While isotopic enrichment of materials is                  as a function of energy (Figure 2). Fractional
+possible, we present the rates from natural isotopic              density of states contributions are then computed
+abundances to demonstrate a baseline strategy for                 for acoustic longitudinal, fast transverse, and slow
+how this calculation can be extended to other ma-                 transverse phonons at 1 THz, with the results
+terials of interest for integration into G4CMP.                   shown in Table 5. These values are used as in-
+    For isotopic scattering, we again show our own                puts to G4CMP. Energy-dependent DOS curves
+calculation of B in Table 4 accompanied by lit-                   are shown for additional materials in Appendix B.
+erature calculations Bc,l and literature measure-
+ments Bm,l along with references. Here, calculated                3.4     Results: Propagation along Caus-
+scattering rates found in literature are generally
+found to be within a factor of a few of our esti-                         tics
+mates. Where there are measurements of this iso-                     To demonstrate successful implementation of
+topic scattering rate, our estimates are similarly                the physical processes responsible for phonon
+                                                                  propagation along caustics, we compare simulated
+                                                              7
+Table 5: Fractional density of states STDOS:FTDOS:LDOS at 1 THz, maximum acoustic phonon frequency ωA , maximum
+acoustic optical phonon frequency ωO , and experimental maximum optical frequency ωOE . The theoretical values are
+obtained using Phonopy [45]. The rightmost column provides references for the ωOE column’s values. Due to limited
+availability of Phonopy input files for Ge, the values quoted here for Ge are from Refs. [26, 64], and are not new calculations.
+
+
+                                                                ωA            ωO           ωOE
+              Material          STDOS:FTDOS:LDOS                                                        Refs.
+                                                                [THz]         [THz]        [THz]
+              Si                0.521 : 0.406 : 0.071           12.14         15.28        15.5         [64]
+              Ge                0.535 : 0.366 : 0.097           6.63          9.02         9.02         [64]
+              GaAs              0.584 : 0.337 : 0.078           6.56          8.58         8.82         [65]
+              Al2 O3            0.511 : 0.351 : 0.137           8.41          26.29        26.35        [66]
+              LiF               0.5156 : 0.386 : 0.0983         10.73         18.19        19.7         [67]
+              CaF2              0.599 : 0.318 : 0.0819          7.55          13.65        13.67        [68]
+              CaWO4             0.475 : 0.408 : 0.115           2.72          25.94        26.07        [69]
+
+
+
+
+Figure 2: Contribution of phonon density of states per
+branch, for sapphire, showing the three acoustic branches
+                                                                    Figure 3: A rendering of the simulation to test G4CMP’s
+solid lines (red, green, blue) separately and showing all op-
+                                                                    propagation along caustics. The gray box is the sub-
+tical branches in the same color (dashed blue lines). The
+                                                                    strate (sapphire, in this image), the red lines are transverse
+total density of states is the dashed black line. Black solid
+                                                                    fast phonon trajectories, the green lines are the transverse
+arrows are used to indicate the maximum acoustic ωA and
+                                                                    slow phonon trajectories, and θ is the angular scan range.
+optical ωO phonon frequencies.
+                                                                    The blue rectangle on the top surface of the substrate is
+                                                                    the phonon collection plane, where brighter colors indicate
+                                                                    more densely concentrated phonon impacts. In this visual-
+caustic patterns against experimental heat-pulse                    ization, phonons were generated at the bottom of the sub-
+caustic measurements. For each material, we cre-                    strate.
+ate a simple G4CMP geometry consisting of a
+4mm cube of substrate with its +z face acting as
+                                                                    cut away the longitudinal signal.5 The top panel
+a phonon collection plane (similar to Figure 3).
+                                                                    in Figure 4 (Figure 5) shows the resulting caustic
+Anharmonic downconversion and isotopic scatter-
+                                                                    patterns for sapphire, with the crystal direction
+ing are turned off to have ballistic phonons. 40
+                                                                    [11̄02] ([0010]) oriented out of the page. We also
+million low-energy phonons (at 1 THz) are simu-
+                                                                    show simulated caustics for GaAs (Figure 6), LiF
+lated isotropically from a point at x = 0, y = 0,
+                                                                    (Figure 7), CaWO4 (Figure 8), and CaF2 (Fig-
+and a z chosen to ensure that the collecting plane
+                                                                    ure 9).
+subtends the same angular scan range θ as those
+                                                                        We validate our simulations against experimen-
+reported in experimental caustics probes. The lo-
+                                                                    tal caustics measurements from literature, shown
+cations of phonons landing on the collection plane
+                                                                    in the bottom panels of Figures 4-9. Phonon
+are recorded, and histogrammed. The ratio of lon-
+                                                                    caustics imaging has been achieved in a vari-
+gitudinal to transverse-fast to transverse-slow po-
+larizations used here is 0:1:1. This ratio is used pri-
+marily for comparison with the experimental data                        5 It is also worth noting that the longitudinal phonon
+
+(see below), which often uses arrival-time-based                    signal commonly shows less pronounced caustic structures
+                                                                    than transverse phonon signals in a variety of materials, of-
+gates to select the transverse phonon signal and
+                                                                    ten displaying only a central “hotspot” of detected phonons
+                                                                    in such images.
+
+                                                                8
+       2                                               103
+                                                                                                2
+
+
+           1                                                                                                                                    103
+
+
+
+
+                                                             Number of Phonons
+                                                       102                                      1
+
+
+
+
+                                                                                                                                                      Number of Phonons
+  Y [mm]
+
+
+
+
+       0
+                                                                                                                                                102
+
+
+
+
+                                                                                       Y [mm]
+                                                                                                0
+                                                       10
+     −1
+                                                                                                                                                10
+                                                                                           −1
+
+    −2                                                 1
+     −2         −1          0          1          2
+                         X [mm]
+                                                                                          −2                                                    1
+                                                                                           −2          −1          0            1           2
+                                                                                                                X [mm]
+
+
+
+
+Figure 4: Top: phonon caustic image for sapphire (Al2 O3 )
+obtained from G4CMP. The crystal direction [11̄02] is at
+the center of the pattern, oriented out-of-page. Bright
+regions indicate directions of high phonon flux. Bottom:                             Figure 5: Top: phonon caustic image for sapphire (Al2 O3 )
+phonon caustic image for sapphire measured at 1.6 K in                               obtained from G4CMP. The crystal direction [0010] is at
+Ref. [70], where the crystal direction [11̄02] is out of page                        the center of the pattern, oriented out-of-page. Bottom:
+and horizontal scan range is ±32◦ . This angular scan range                          phonon caustic image for sapphire measured at 1.6 K in
+(and that in all subsequent caustic images) matches that in                          Ref. [70], where the crystal direction [0010] is out of page
+the above simulations.                                                               and horizontal scan range is ±58◦ .
+
+
+
+ety of materials, including all of the materials                                     identical: the pattern of phonons radiated from
+shown in Table 3. Such experiments typically pro-                                    a point onto a surface (collecting plane) should
+ceed as follows. A crystal substrate under test                                      be the same as the pattern of phonons radiated
+is outfitted with a small, single bolometer (area                                    from an extended surface onto a point (bolometer).
+≃ 50µm × 50µm) on one side and a metal film on                                       This enables direct comparisons between the simu-
+the other, and is then cooled to cryogenic temper-                                   lated and experimentally-acquired images of these
+atures (few K scale or below). A phonon burst is                                     phonon caustics. In the comparisons we present,
+then produced at cryogenic temperatures by pass-                                     exact normalization of the different polarization
+ing a short burst of current through the metal film                                  components is not known for many of the experi-
+or by illuminating the metal film locally with laser                                 mental images, but in most6 cases the phonon im-
+light. In this process, several non-spherical shells                                 ages have been time-gated to select only transverse
+of longitudinal and transverse phonons are pro-                                      phonons. We therefore attempt to coarsely match
+duced locally. Of these locally-created phonons,                                     this weighting of polarizations by using a 0:1:1 ra-
+only those traveling in the direction of the bolome-                                 tio for L:TF:TS phonons, but acknowledge that
+ter are detected. This process is repeated for                                       this may not yield a perfect match to the relative
+multiple source locations. While this experimen-
+tal data-taking scheme is geometrically different                                        6 NB: Ref. [55] does not specify if these are time-gated
+
+from our simulation, functionally the mappings are                                   to select only transverse phonons.
+
+                                                                                 9
+           2                                                                                   2
+                                                                                                                                            103
+                                                         3
+                                                     10
+                                                                                                   1
+
+
+
+
+                                                                                                                                                  Number of Phonons
+           1
+
+
+
+
+                                                             Number of Phonons
+                                                                                                                                            102
+                                                     102
+
+
+
+
+                                                                                          Y [mm]
+  Y [mm]
+
+
+
+
+           0                                                                                   0
+
+
+                                                                                                                                            10
+                                                     10                                      −1
+       −1
+
+
+
+                                                                                            −2                                              1
+      −2
+       −2        −1         0         1          2
+                                                     1                                       −2          −1        0         1          2
+                         X [mm]
+                                                                                                                X [mm]
+
+
+
+
+Figure 6: Top: phonon caustic image for GaAs obtained                                 Figure 7: Top: phonon caustic image for LiF obtained from
+from G4CMP. The crystal direction [110] is at the center of                           G4CMP. The crystal direction [100] is at the center of the
+the pattern, oriented out-of-page. Bottom: phonon caustic                             pattern, oriented out-of-page. Bottom: phonon caustic im-
+image for GaAs measured at 1.8 K in Ref. [71], where the                              age for LiF measured at 2.2 K in Ref. [72], where the crystal
+crystal direction [110] is out of page and horizontal scan                            direction [100] is out of page and horizontal scan range is
+range is ±59◦ .                                                                       ±40◦ .
+
+
+amplitudes of the measured caustic signals.                                           good agreement with their experimental results.
+    Even despite this uncertainty in the polariza-                                    However, to the authors’ knowledge, these simula-
+tion weighting, the shapes of the resulting caustic                                   tions have largely been done with separate custom
+images constructed with G4CMP and the shapes                                          simulation software dedicated to exploring caus-
+of the corresponding experimental images agree                                        tics. This current work is not only a demonstra-
+well, given the identical lateral scan ranges. This                                   tion of a framework that we can use to reproduce
+implies successful integration of these new mate-                                     similar results within a single public-facing soft-
+rials’ phonon transport properties into G4CMP.                                        ware package, but also that we can do so within
+Direct quantitative comparisons of the brightness                                     a package whose primary goal is an application of
+of different regions is challenging given the format                                  this physics to understanding low-energy detector
+of the literature data and the unknown degree to                                      response.
+which the experimental response displays a satu-
+ration in intensity. For this reason, we focus on
+shape comparisons.7                                                                   4            Discussion
+    It is worth noting that many of the studies
+from which we’ve obtained the experimental im-                                            The primary goal of this work has been to
+ages also perform caustic simulations which show                                      present and demonstrate a streamlined framework
+                                                                                      for integrating new materials into the G4CMP low-
+     7 This also contributes to our decision to display our                           energy simulation software. The striking agree-
+plots with a logarithmic intensity (z-)axis: even though                              ment between simulated and measured caustic dia-
+they are less comparable to the literature heat-pulse im-
+                                                                                      grams for sapphire, LiF, GaAs, CaWO4 , and CaF2
+ages, such logarithmic plots give more insight into the
+caustic structures than what is available in the sometimes-                           illustrate the general success of this implementa-
+saturated experimental images.                                                        tion and the relatively small set of required pa-
+                                                                                 10
+                                                                                                2                                           103
+           4
+
+                                                                                                 1
+
+
+
+
+                                                              Number of Phonons
+           2
+
+
+
+
+                                                                                                                                                  Number of Phonons
+                                                        102                                                                                 102
+
+
+
+
+                                                                                       Y [mm]
+  Y [mm]
+
+
+
+
+           0                                                                                    0
+
+                                                        10                                                                                  10
+    −2                                                                                          −1
+
+
+    −4
+                                                        1                                   −2                                              1
+               −4   −2      0         2         4                                            −2       −1          0          1          2
+                         X [mm]                                                                                X [mm]
+
+
+
+
+Figure 8: Top: phonon caustic image for CaWO4 obtained
+from G4CMP. The crystal direction [010] is at the center of                            Figure 9: Top: phonon caustic image for CaF2 obtained
+the pattern, oriented out-of-page. Bottom: phonon caustic                              from G4CMP. The crystal direction [111] is at the center of
+image for CaWO4 measured below 2 K in Ref. [55], where                                 the pattern, oriented out-of-page. Bottom: phonon caustic
+the crystal direction [010] is out of page and horizontal scan                         image for CaF2 measured in Ref. [73], where the crystal
+range is ±56.3◦ . In the simulation used to produce the top                            direction [111] is out of page and horizontal scan range is
+image, the crystal has been laterally extended to 9.1 mm                               ±23◦ . No measurement temperature was reported.
+square and 3 mm thick to enable a match to the scan range
+from the (bottom) experimental data.
+                                                                                       phonon. Ref. [32] demonstrates not only that
+                                                                                       the rates of phonon downconversion can vary by
+rameters needed for modeling this phonon trans-
+                                                                                       factors of a few depending on the direction of
+port within a publicly available software package.
+                                                                                       propagation, but also that in a rigorously-modeled
+Moreover, the similar simplicity in input parame-
+                                                                                       anisotropic scenario, more decay modes are possi-
+ters for modeling anharmonic decay and isotopic
+                                                                                       ble than the L → T + T and L → L + T that
+scattering continues to paint an encouraging pic-
+                                                                                       G4CMP currently models: both transverse fast
+ture of accessibility for efforts to model phonon
+                                                                                       and transverse slow phonons may undergo anhar-
+transport in future novel detector materials.
+                                                                                       monic decay. As G4CMP preserves the phonon di-
+    Given this modeling success, three natural top-
+                                                                                       rection and polarization information step-by-step,
+ics of future interest are how one can further im-
+                                                                                       a natural extension of this work may therefore be
+prove G4CMP’s modeling capabilities, what work
+                                                                                       to implement this direction-dependence and more
+needs to be done to validate these models, and
+                                                                                       complex polarization dependence of rate. Further-
+how this framework plays a role in particle detec-
+                                                                                       more, while phonon scattering on isotopic impuri-
+tion and QIS applications.
+                                                                                       ties is handled as being isotropic in momentum
+    From this work, we identify a few areas where
+                                                                                       (k-)space according to G4CMP, this is not univer-
+future effort could be reasonably made to further
+                                                                                       sally true: experiments in Ref [61] indicate that
+improve realism in G4CMP’s phonon modeling.
+                                                                                       there is also a degree of anisotropy to be expected
+First, the calculations here could be redone with-
+                                                                                       in the phonon scattering process, beyond that in-
+out using the isotropic continuum approximation
+                                                                                       curred from just propagation along caustics from
+in modeling downconversion and isotopic scatter-
+                                                                                       the scattering site. Second, an improvement to
+ing. In G4CMP, the rates of these processes are ag-
+                                                                                       G4CMP may include accounting for dispersion’s
+nostic to the direction of the decaying/scattering
+
+                                                                                  11
+impact on the phonon caustics, which currently do                 Lastly, it is worth discussing how the tools de-
+not (but should) change as a function of phonon               veloped here strengthen particle detection and QIS
+energy [54]. This energy dependence may also                  applications. While we used this framework to
+be responsible for small degrees of disagreement              model several new materials, it can be readily ex-
+observed between simulated and measured caus-                 tended in kind to arbitrary solid-state materials
+tics patterns in Figures 4-9. Other improvements              that are well-motivated from low-threshold sensing
+to G4CMP include modeling electron/hole trans-                and QIS standpoints. Diamond, SiO2 and AlN are
+port and processes in these newly-added materi-               particularly well-motivated dark matter targets
+als, adding photon interactions with the substrate,           as they are advantageous for looking for single-
+and developing functionality for quanta to tra-               phonon excitations produced from a DM interac-
+verse boundaries between different crystals (such             tion through a hadrophilic scalar mediator [47].
+as the interface between a substrate and its super-           Other materials like SiC are also well-motivated as
+conducting film). While a thorough discussion of              DM targets, as they may enable sensitive probes
+these efforts is beyond the scope of this work, they          of a broad set of DM models [74]. More com-
+will be the topic of follow-up studies.                       plex crystals with low electronic bandgaps such as
+    This work has also highlighted strategies used            Eu5 In2 Sb6 are also of current interest for their low-
+to validate phonon transport models in our ex-                ered threshold (relative to Si and Ge) for charge
+panded set of target materials, as well as the                readout [75]. If those are also used in an NTL
+fact that measurements are still needed to per-               phonon-amplification and sensing scheme, being
+form this validation for many of the materials con-           able to understand phonon propagation within
+sidered. Measurements of the anharmonic decay                 them will also be critical for detector response
+rate coefficient, Am,l , are largely absent: we were          modeling. Other materials such as Li2 MoO4 and
+only able to find one direct measurement Am,l for             TeO2 might also modeled to the benefit of the neu-
+CaF2 . This direct measurement relies on doping               trinoless double beta decay communities, where
+a crystal with Eu2+ atoms and taking advantage                detector energy resolution, not detector energy
+of the stress-dependence of optical transitions in            threshold, is commonly prioritized [76, 77]. From
+that atom. Employing this strategy in an arbi-                a QIS perspective, Si and Al2 O3 are the most com-
+trary material clearly runs into prohibitive chal-            mon substrates used, and are now both modeled
+lenges when the material bandgap is lower than the            in G4CMP. However, superconductors such as alu-
+energy of the optical transitions accessible, which           minum, niobium, and tantalum are all commonly
+may help explain why Am,l has not been measured               used in ground plane and circuit design. Cou-
+(to the authors’ knowledge) for any of the optically          pling this framework (applied to those materials)
+opaque materials studied here. This strategy may              with an expansion of G4CMP’s ability to transport
+be viable for directly measuring anharmonic de-               phonons between different crystals will enable rig-
+cay rates in other optically clear materials, but             orous characterization of microphysics in the su-
+it is unclear how broadly applicable it may be                perconducting layer, which is important for mod-
+in validating estimates of A for arbitrary materi-            eling quasiparticle-induced qubit errors. Though
+als. Another possible (albeit less direct) means of           it is challenging to discuss and analyze all well-
+measuring this may follow the heat-pulse strategy             motivated materials candidates for sensing and
+employed in Ref. [59]. Here, heat pulse transmis-             QIS, the framework presented here will nonethe-
+sion measurements are taken at cryogenic temper-              less enable more efficient modeling of these mate-
+atures using a bolometer, and for sufficiently large          rials in G4CMP.
+heater powers, they are (plausibly) affected by an-               The results of this work may provide additional
+harmonic downconversion in the material. While                use in applications where particle impacts are ex-
+such measurements are also affected by isotopic               pected to be spatially localized within a device.
+scattering and would have to simultaneously fit for           In such a scenario, these phonon models (and no-
+both A and B, they nonetheless may grant some                 tably caustic patterns) may enable one to place
+sensitivity to directly measuring downconversion              sensors to maximize the chances of observing the
+rates. The isotopic scattering rate B seems more              emergent phonon pulses created from the impact
+straightforward to measure than A, which may be               point [26, 8]. As more materials’ phonon transport
+partly due to the more diverse set of measurement             properties are integrated into G4CMP, such strate-
+techniques cited in Table 4. However, we were still           gies may be more easily used to improve a device’s
+not able to find a measured isotopic scattering rate          detection efficiency. Overall, this framework’s gen-
+coefficient Bm,l for all materials. Overall, these ob-        eral assistance in understanding a material’s mi-
+servations illustrate that most materials are miss-           crophysical phonon response provides the founda-
+ing measurements of fundamental phonon trans-                 tion for modeling signal and background responses
+port parameters needed for validation of transport            in particle physics experiments and for modeling
+models in our expanded set of materials.                      phonon-induced correlated errors in superconduct-
+
+                                                         12
+ing qubits.
+
+
+5   Conclusion
+    In this work, we have presented a condensed
+framework for adding phonon transport modeling
+into the G4CMP simulation package for new ma-
+terials of interest to the dark matter direct de-
+tection and QIS communities. We have used this
+framework to explore phonon transport parame-
+ters needed by G4CMP for seven materials, five
+of which have not yet been integrated into a com-
+prehensive low-energy simulation package: GaAs,
+Al2 O3 , LiF, CaWO4 , and CaF2 . Moreover, we
+have accompanied this exploration with a liter-             Figure B.10: Partial density of states of GaAs for transverse
+ature search of calculated and measured phonon              slow (green), transverse fast (red) and longitudinal (blue)
+                                                            acoustic phonons (solid lines). The blue dashed curves to
+transport parameters for those materials, and have          the right of the acoustic curves show the partial contri-
+found that the integration of our calculations into         bution of optical phonon channels to the DOS. The total
+G4CMP gives phonon propagation that is largely              density of states is the black line. ωA corresponds to the
+consistent with calculated and measured decay               maximum acoustic phonon energy and ωO is the maximum
+                                                            optical phonon energy.
+rates, scattering rates, phonon density of states,
+and phonon caustics in those materials. As mea-
+surements for all materials were not found in this
+                                                            Appendix A               Elastic Constants
+search, it is also apparent that there is further
+need for experimental work to help validate these               In Table A.6 we provide numerical values of the
+phonon transport parameters for many materials              elastic constants used in this work. The second-
+of interest.                                                order elastic constants are used to model caustic
+                                                            propagation, and are also used to calculate the
+                                                            second-order parameters µ and λ needed for calcu-
+6   Acknowledgements                                        lation of the anharmonic decay coefficient A. The
+                                                            third-order elastic constants are used in finding α,
+    The authors would like to thank Tanner Trickle
+                                                            β, and γ, also needed for calculating the anhar-
+for providing insights and suggesting strategies for
+                                                            monic decay coefficient. All coefficients are given
+calculating the density of states for various mate-
+                                                            in (pressure) units of GPa. Sources for the elas-
+rials. We also thank Joyce Christiansen-Salameh
+                                                            tic constants are found in the rightmost column.
+for providing insight into how to access the ma-
+                                                            Standard third-order elastic constants for CaWO4
+terials information to be used with Phonopy. We
+                                                            were not found.
+thank the rest of the Fermilab QSC group for free-
+ing up person-hours for the authors to develop
+this work. This manuscript has been authored by
+                                                            Appendix B               Density of States
+Fermi Research Alliance, LLC under Contract No.
+DE-AC02-07CH11359 with the U.S. Department                      We display phonon density of states curves for
+of Energy, Office of Science, Office of High Energy         GaAs (Figure B.10), LiF (Figure B.11), and CaF2
+Physics. This work was supported by the U.S.                (Figure B.12). These curves have significantly re-
+Department of Energy, Office of Science, National           duced complexity in their optical branches relative
+Quantum Information Science Research Centers,               to Al2 O3 due to the smaller number of atoms in
+Quantum Science Center, the U.S. Department                 a unit cell. The Debye Frequency ωO is used in
+of Energy, Office of Science, High-Energy Physics           G4CMP. The jitter in the DOS values at energies
+Program Office and Illinois Institute of Technology         below approximately 5 THz is due to low-statistics
+Department of Physics.                                      in the numbers of points computed during the dis-
+    IH led the development of the work presented            persion calculation. However, for LDOS, FTDOS,
+in this paper. RL and RK provided supporting                and STDOS values in Table 5, a separate simula-
+checks to calculations in this work and shaped              tion with increased ⃗k-space point density was used
+the narrative of the manuscript. RL, RK, and IH             to avoid these fluctuations.
+drafted the manuscript. EFF and LH provided
+regular feedback over the course of the included
+work. All authors helped in preparation of this
+paper on the presented result.
+                                                       13
+Table A.6: Values of the second and third-order elastic constants in units of pressure (GPa) used in the calculation for
+anharmonic downconversion. We note that these are not all taken at the same temperature.
+
+
+ Material                          Second-order                                              Third-order                            Refs.
+                                 C11 ,C12 ,C44 [GPa]                           C111 ,C112 ,C123 ,C144 ,C166 ,C456 [GPa]
+
+ Si                [167.8,65.2,80.1]                                      [-880,-515,27,74,-385,-40]                                [31]
+ Ge                [126,44,67]                                            [-760,-410,-70,0,-310,-46]                                [78]
+ GaAs              [121.1,57.4,59.5]                                      [-620,-392,-62,8,-274.3,-43]                              [54]
+ CaF2              [174.5,56.4,35.93]                                     [-1246,-400,-254,-124,-214,-75]                           [79]
+ LiF               [111.2,42.0,62.8]                                      [-1646,-252,92,98,-261,97]                                [80]
+                                     Second-order                                            Third-order
+                          C11 ,C12 ,C13 ,C14 ,C34 ,C44 [GPa]                C111 ,C112 ,C113 ,C114 ,C123 ,C124 ,C133 ,C134 ,
+                                                                             C144 ,C155 , C222 ,C333 ,C344 ,C444 [GPa]
+                                                                          [-394.6,-112.7,-91.9,8.1,-20.4,-5.5,-96.4,-
+ Al2 O3            [495, 161.1, 111.1, -22.2, 499.9,-147.7]                                                                         [53, 81]
+                                                                          7.8,-38.2,-106.2,-453.4,-312.8,-113.1,4.1]
+                                                                                              Third-order
+                                    Second-order                          C111 ,C112 ,C113 , C123 ,C133 ,C114 ,C155 ,C166 ,C333 ,
+                        C11 ,C12 ,C13 ,C16 ,C33 ,C44 ,C66 [GPa]                         C344 ,C366 , C456 [GPa]
+
+ CaWO4             [151.5,65.6,45,18.8,134,35.4,40]                       ——                                                        [55]
+
+
+
+
+Figure B.11: Partial density of states of LiF for transverse        Figure B.12: Partial density of states of CaF2 for transverse
+slow (green), transverse fast (red) and longitudinal (blue)         slow (green), transverse fast (red) and longitudinal (blue)
+acoustic phonons (solid lines). The blue dashed curves to           acoustic phonons (solid lines). The blue dashed curves to
+the right of the acoustic curves show the partial contri-           the right of the acoustic curves show the partial contri-
+bution of optical phonon channels to the DOS. The total             bution of optical phonon channels to the DOS. The total
+density of states is the black line. ωA corresponds to the          density of states is the black line. ωA corresponds to the
+maximum acoustic phonon energy and ωO is the maximum                maximum acoustic phonon energy and ωO is the maximum
+optical phonon energy.                                              optical phonon energy.
+
+
+
+References                                                               (2020) A6. doi:10.1051/0004-6361/201833910.
+                                                                         URL         http://dx.doi.org/10.1051/0004-6361/
+ [1] A. Arbey, F. Mahmoudi, Dark matter and the                          201833910
+     early universe:     A review, Progress in Par-                  [4] J. Aalbers, et al., A search for new physics in low-
+     ticle and Nuclear Physics 119 (2021) 103865.                        energy electron recoils from the first lz exposure
+     doi:https://doi.org/10.1016/j.ppnp.2021.103865.                     (2023). arXiv:2307.15753.
+     URL       https://www.sciencedirect.com/science/                [5] C. Bartram, et al., Search for invisible ax-
+     article/pii/S0146641021000193                                       ion dark matter in the 3.3 − −4.2 µeV mass
+ [2] D. H. Weinberg, J. S. Bullock, F. Governato,                        range, Phys. Rev. Lett. 127 (2021) 261803.
+     R. Kuzio de Naray, A. H. G. Peter, Cold dark mat-                   doi:10.1103/PhysRevLett.127.261803.
+     ter: Controversies on small scales, Proceedings of                  URL             https://link.aps.org/doi/10.1103/
+     the National Academy of Sciences 112 (40) (2015)                    PhysRevLett.127.261803
+     12249–12255. doi:10.1073/pnas.1308716112.                       [6] R. Essig, et al., Snowmass2021 Cosmic Frontier:
+     URL http://dx.doi.org/10.1073/pnas.1308716112                       The landscape of low-threshold dark matter di-
+ [3] N. Aghanim, et al., Planck2018 results: Vi. cosmolog-               rect detection in the next decade, arXiv e-prints
+     ical parameters, Astronomy I&amp; Astrophysics 641                  (2022) arXiv:2203.08297arXiv:2203.08297, doi:10.
+
+                                                               14
+                                                                          a germanium cdmslite detector using photo-neutron
+                                                                          sources, Phys. Rev. D 105 (2022) 122002. doi:10.
+                                                                          1103/PhysRevD.105.122002.
+                                                                          URL https://link.aps.org/doi/10.1103/PhysRevD.
+                                                                          105.122002
+                                                                     [15] R. Agnese, et al., Search for low-mass dark
+                                                                          matter with cdmslite using a profile likelihood
+                                                                          fit, Physical Review D 99 (6) (Mar. 2019).
+                                                                          doi:10.1103/physrevd.99.062001.
+                                                                          URL         http://dx.doi.org/10.1103/PhysRevD.99.
+                                                                          062001
+                                                                     [16] R. Agnese, et al., Projected sensitivity of the super-
+                                                                          cdms snolab experiment, Physical Review D 95 (8)
+                                                                          (Apr. 2017). doi:10.1103/physrevd.95.082002.
+                                                                          URL         http://dx.doi.org/10.1103/PhysRevD.95.
+                                                                          082002
+                                                                     [17] A. H. Abdelhameed, et al., First results from the
+                                                                          cresst-iii low-mass dark matter program, Phys. Rev.
+                                                                          D 100 (2019) 102002. doi:10.1103/PhysRevD.100.
+Figure B.13: Partial density of states of CaWO4 for trans-                102002.
+verse slow (green), transverse fast (red) and longitudinal                URL https://link.aps.org/doi/10.1103/PhysRevD.
+(blue) acoustic phonons (solid lines). The blue dashed                    100.102002
+curves to the right of the acoustic curves show the partial          [18] K. Ishidoshiro, T. Kobayashi, K. Hosokawa, Y. Kawa-
+contribution of optical phonon channels to the DOS. The                   mura, Y. Kamei, S. Mima, C. Otani, A. A. Suzuki,
+total density of states is the black line. ωA corresponds to              M. Zulfakri, T. Taino, Kinetic inductance detectors
+the maximum acoustic phonon energy and ωO is the max-                     on calcium fluoride substrate for astroparticle physics,
+imum optical phonon energy.                                               Progress of Theoretical and Experimental Physics
+                                                                          2023 (10) (2023) 103H02. arXiv:https://academic.
+                                                                          oup.com/ptep/article-pdf/2023/10/103H02/
+     48550/arXiv.2203.08297.                                              52713177/ptad124.pdf, doi:10.1093/ptep/ptad124.
+ [7] C. W. Fink, S. L. Watkins, T. Aramaki, P. L. Brink,                  URL https://doi.org/10.1093/ptep/ptad124
+     S. Ganjam, B. A. Hines, M. E. Huber, N. A. Kurinsky,            [19] S. Griffin, S. Knapen, T. Lin, K. M. Zurek, Di-
+     R. Mahapatra, N. Mirabolfathi, W. A. Page, R. Par-                   rectional detection of light dark matter with polar
+     tridge, M. Platt, M. Pyle, B. Sadoulet, B. Serfass,                  materials, Physical Review D 98 (11) (Dec. 2018).
+     S. Zuber, Characterizing tes power noise for future                  doi:10.1103/physrevd.98.115034.
+     single optical-phonon and infrared-photon detectors,                 URL         http://dx.doi.org/10.1103/PhysRevD.98.
+     AIP Advances 10 (8) (Aug. 2020). doi:10.1063/5.                      115034
+     0011130.                                                        [20] S. Knapen, T. Lin, M. Pyle, K. M. Zurek, Detec-
+     URL http://dx.doi.org/10.1063/5.0011130                              tion of light dark matter with optical phonons in po-
+ [8] D. J. Temples, et al., Performance of a kinetic induc-               lar materials, Physics Letters B 785 (2018) 386–390.
+     tance phonon-mediated detector at the nexus cryo-                    doi:10.1016/j.physletb.2018.08.064.
+     genic facility (2024). arXiv:2402.04473.                             URL http://dx.doi.org/10.1016/j.physletb.2018.
+ [9] R. Linehan, I. Hernandez, D. J. Temples, S. Q. Dang,                 08.064
+     D. Baxter, L. Hsu, E. Figueroa-Feliciano, R. Khati-             [21] A. P. Read, B. J. Chapman, C. U. Lei, J. C. Curtis,
+     wada, K. Anyang, D. Bowring, G. Bratrud, G. Can-                     S. Ganjam, L. Krayzman, L. Frunzio, R. J. Schoelkopf,
+     celo, A. Chou, R. Gualtieri, K. Stifter, S. Sussman, Es-             Precision measurement of the microwave dielectric
+     timating the energy threshold of phonon-mediated su-                 loss of sapphire in the quantum regime with parts-
+     perconducting qubit detectors operated in an energy-                 per-billion sensitivity, Phys. Rev. Appl. 19 (2023)
+     relaxation sensing scheme (2024). arXiv:2404.04423.                  034064. doi:10.1103/PhysRevApplied.19.034064.
+[10] C. W. Fink, C. P. Salemi, B. A. Young, D. I. Schuster,               URL              https://link.aps.org/doi/10.1103/
+     N. A. Kurinsky, The Superconducting Quasiparticle-                   PhysRevApplied.19.034064
+     Amplifying Transmon: A Qubit-Based Sensor for meV               [22] J. M. Martinis, Saving superconducting quantum
+     Scale Phonons and Single THz Photons (10 2023).                      processors from decay and correlated errors generated
+     arXiv:2310.01345.                                                    by gamma and cosmic rays, npj Quantum Information
+[11] P. N. Luke, Voltage-assisted calorimetric ionization                 7 (1) (2021) 90. doi:10.1038/s41534-021-00431-0.
+     detector, Journal of Applied Physics 64 (12) (1988)                  URL                        https://doi.org/10.1038/
+     6858–6860.         arXiv:https://pubs.aip.org/aip/                   s41534-021-00431-0
+     jap/article-pdf/64/12/6858/18621786/6858\_1\                    [23] A. Bargerbos, L. J. Splitthoff, M. Pita-Vidal, J. J.
+     _online.pdf, doi:10.1063/1.341976.                                   Wesdorp, Y. Liu, P. Krogstrup, L. P. Kouwenhoven,
+     URL https://doi.org/10.1063/1.341976                                 C. K. Andersen, L. Grünhaupt, Mitigation of quasi-
+[12] B. S. Neganov, V. N. Trofimov, Possibility of produc-                particle loss in superconducting qubits by phonon
+     ing a bulky supersensitive thermal detector at a tem-                scattering, Phys. Rev. Appl. 19 (2023) 024014.
+     perature close to absolute zero, JETP Lett. (USSR)                   doi:10.1103/PhysRevApplied.19.024014.
+     28 (1978) 356.                                                       URL              https://link.aps.org/doi/10.1103/
+     URL http://jetpletters.ru/ps/0/article_24160.                        PhysRevApplied.19.024014
+     shtml                                                           [24] M. McEwen, et al., Resisting high-energy impact
+[13] M. F. Albakry, et al., First measurement of                          events through gap engineering in superconducting
+     the nuclear-recoil ionization yield in silicon at                    qubit arrays (2024). arXiv:2402.15644.
+     100 ev, Phys. Rev. Lett. 131 (2023) 091801.                     [25] V. Iaia, et al., Phonon downconversion to suppress
+     doi:10.1103/PhysRevLett.131.091801.                                  correlated errors in superconducting qubits, Nat Com-
+     URL              https://link.aps.org/doi/10.1103/                   mun. 13 (6425) (2022). doi:https://doi.org/10.
+     PhysRevLett.131.091801                                               1038/s41467-022-33997-0.
+[14] M. F. Albakry, et al., Ionization yield measurement in          [26] M. Kelsey, et al., G4cmp:          Condensed matter
+
+
+                                                                15
+     physics simulation using the geant4 toolkit, Nu-                    doi:10.1103/PhysRevB.30.849.
+     clear Instruments and Methods in Physics Research                   URL https://link.aps.org/doi/10.1103/PhysRevB.
+     Section A: Accelerators, Spectrometers, Detectors                   30.849
+     and Associated Equipment 1055 (2023) 168473.                   [40] R. Gurunathan, R. Hanus, G. Snyder, Alloy scatter-
+     doi:10.1016/j.nima.2023.168473.                                     ing of phonons, Materials Horizons 7 (6) (2020) 1452–
+     URL        http://dx.doi.org/10.1016/j.nima.2023.                   1456, publisher Copyright: © 2020 The Royal Society
+     168473                                                              of Chemistry. doi:10.1039/c9mh01990a.
+[27] S. Barman, G. P. Srivastava, Long-wavelength                   [41] D. T. Morelli, J. P. Heremans, G. A. Slack, Estimation
+     nonequilibrium optical phonon dynamics in cubic and                 of the isotope effect on the lattice thermal conductiv-
+     hexagonal semiconductors, Phys. Rev. B 69 (2004)                    ity of group iv and group iii-v semiconductors, Phys.
+     235208. doi:10.1103/PhysRevB.69.235208.                             Rev. B 66 (2002) 195304. doi:10.1103/PhysRevB.66.
+     URL https://link.aps.org/doi/10.1103/PhysRevB.                      195304.
+     69.235208                                                           URL https://link.aps.org/doi/10.1103/PhysRevB.
+[28] T. F. Harrelson, I. Hajar, O. A. Ashour, S. M. Griffin,             66.195304
+     Theoretical investigation of decoherence channels in           [42] R. Hanus, R. Gurunathan, L. Lindsay, M. T. Agne,
+     athermal phonon sensors (2023). arXiv:2109.10988.                   J. Shi, S. Graham, G. Jeffrey Snyder, Thermal trans-
+[29] G. Srivastava, The Physics of Phonons, Taylor &                     port in defective and disordered materials, Applied
+     Francis, 1990.                                                      Physics Reviews 8 (3) (2021) 031311. arXiv:https:
+     URL             https://books.google.com/books?id=                  //pubs.aip.org/aip/apr/article-pdf/doi/10.
+     OE-bHd2gzVgC                                                        1063/5.0055593/19741856/031311\_1\_online.pdf,
+[30] M. T. Labrot, A. P. Mayer, R. K. Wehner, P. E. Ober-                doi:10.1063/5.0055593.
+     mayer, Decay cascades of acoustic phonons in calcium                URL https://doi.org/10.1063/5.0055593
+     fluoride, Journal of Physics: Condensed Matter 1 (45)          [43] N. H. Protik, C. Draxl, Beyond the tamura model of
+     (1989) 8809. doi:10.1088/0953-8984/1/45/006.                        phonon-isotope scattering, Phys. Rev. B 109 (2024)
+     URL https://dx.doi.org/10.1088/0953-8984/1/45/                      165201. doi:10.1103/PhysRevB.109.165201.
+     006                                                                 URL https://link.aps.org/doi/10.1103/PhysRevB.
+[31] A. Berke, A. Mayer, R. Wehner, Spontaneous decay of                 109.165201
+     acoustic phonons in calcium fluoride and silicon, Solid        [44] A. Jain, S. P. Ong, G. Hautier, W. Chen, W. D.
+     State Communications 54 (5) (1985) 395–397. doi:                    Richards, S. Dacek, S. Cholia, D. Gunter, D. Skin-
+     https://doi.org/10.1016/0038-1098(85)90933-0.                       ner, G. Ceder, K. A. Persson, Commentary:
+     URL        https://www.sciencedirect.com/science/                   The Materials Project: A materials genome ap-
+     article/pii/0038109885909330                                        proach to accelerating materials innovation, APL
+[32] A. Berke, A. P. Mayer, R. K. Wehner, Spontaneous                    Materials 1 (1) (2013) 011002.            arXiv:https:
+     decay of long-wavelength acoustic phonons, Journal                  //pubs.aip.org/aip/apm/article-pdf/doi/10.
+     of Physics C: Solid State Physics 21 (12) (1988) 2305.              1063/1.4812323/13163869/011002\_1\_online.pdf,
+     doi:10.1088/0022-3719/21/12/014.                                    doi:10.1063/1.4812323.
+     URL https://dx.doi.org/10.1088/0022-3719/21/                        URL https://doi.org/10.1063/1.4812323
+     12/014                                                         [45] A. Togo, L. Chaput, T. Tadano, I. Tanaka, Imple-
+[33] S.-i. Tamura, Spontaneous decay rates of la phonons                 mentation strategies in phonopy and phono3py, J.
+     in quasi-isotropic solids, Phys. Rev. B 31 (1985) 2574–             Phys. Condens. Matter 35 (35) (2023) 353001. doi:
+     2577. doi:10.1103/PhysRevB.31.2574.                                 10.1088/1361-648X/acd831.
+     URL https://link.aps.org/doi/10.1103/PhysRevB.                 [46] A. Togo, First-principles phonon calculations with
+     31.2574                                                             phonopy and phono3py, J. Phys. Soc. Jpn. 92 (1)
+[34] F. I. Fedorov, General Theory of Elastic Waves in                   (2023) 012001. doi:10.7566/JPSJ.92.012001.
+     Crystals Based on Comparison with an Isotropic                 [47] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang, K. M.
+     Medium, Springer US, Boston, MA, 1968, pp. 169–                     Zurek, Multichannel direct detection of light dark mat-
+     209. doi:10.1007/978-1-4757-1275-9_5.                               ter: Target comparison, Phys. Rev. D 101 (5) (2020)
+     URL                         https://doi.org/10.1007/                055004. arXiv:1910.10716, doi:10.1103/PhysRevD.
+     978-1-4757-1275-9_5                                                 101.055004.
+[35] R. F. S. Hearmon, ‘Third-order’ elastic coefficients,          [48] F. Rösch, O. Weis, Geometric propagation of acous-
+     Acta Crystallographica 6 (4) (1953) 331–340. doi:                   tic phonons in monocrystals within anisotropic con-
+     10.1107/S0365110X53000909.                                          tinuum acoustics, Zeitschrift fur Physik B Con-
+     URL https://doi.org/10.1107/S0365110X53000909                       densed Matter 25 (2) (1976) 101–114. doi:10.1007/
+[36] B. Campbell-Deem, P. Cox, S. Knapen, T. Lin,                        BF01320167.
+     T. Melia, Multiphonon excitations from dark matter             [49] S. Leman, Review article: Physics and monte carlo
+     scattering in crystals, Physical Review D 101 (3)                   techniques as relevant to cryogenic, phonon and ion-
+     (Feb. 2020). doi:10.1103/physrevd.101.036006.                       ization readout of cdms radiation-detectors (09 2011).
+     URL       http://dx.doi.org/10.1103/PhysRevD.101.              [50] G. A. Northrop, J. P. Wolfe, Ballistic phonon
+     036006                                                              imaging in solids—a new look at phonon fo-
+[37] Y. Itin, F. W. Hehl, The constitutive tensor of linear              cusing, Phys. Rev. Lett. 43 (1979) 1424–1427.
+     elasticity: Its decompositions, cauchy relations, null              doi:10.1103/PhysRevLett.43.1424.
+     lagrangians, and wave propagation, Journal of Math-                 URL              https://link.aps.org/doi/10.1103/
+     ematical Physics 54 (4) (Apr. 2013). doi:10.1063/1.                 PhysRevLett.43.1424
+     4801859.                                                       [51] J. P. Wolfe, Imaging Phonons: Acoustic Wave Propa-
+     URL http://dx.doi.org/10.1063/1.4801859                             gation in Solids, Cambridge University Press, 1998.
+[38] S.-i. Tamura, Isotope scattering of dispersive phonons         [52] K. Jakata, A. Every, Frequency dependence of
+     in ge, Phys. Rev. B 27 (1983) 858–866. doi:10.1103/                 dispersive phonon images : research article, South
+     PhysRevB.27.858.                                                    African Journal of Science 104 (9) (2008) 374–378.
+     URL https://link.aps.org/doi/10.1103/PhysRevB.                      arXiv:https://journals.co.za/doi/pdf/10.10520/
+     27.858                                                              EJC96837, doi:10.10520/EJC96837.
+[39] S.-i. Tamura, Isotope scattering of large-wave-vector               URL https://journals.co.za/doi/abs/10.10520/
+     phonons in gaas and insb: Deformation-dipole and                    EJC96837
+     overlap-shell models, Phys. Rev. B 30 (1984) 849–854.          [53] A. G. Every, G. L. Koos, J. P. Wolfe, Ballistic phonon
+
+
+                                                               16
+     imaging in sapphire: Bulk focusing and critical-cone               URL https://doi.org/10.1063/1.1726360
+     channeling effects, Phys. Rev. B 29 (1984) 2190–2209.         [65] D. von der Linde, J. Kuhl, H. Klingenberg, Raman
+     doi:10.1103/PhysRevB.29.2190.                                      scattering from nonequilibrium lo phonons with
+     URL https://link.aps.org/doi/10.1103/PhysRevB.                     picosecond resolution, Phys. Rev. Lett. 44 (1980)
+     29.2190                                                            1505–1508. doi:10.1103/PhysRevLett.44.1505.
+[54] S.-i. Tamura, T. Harada, Focusing of large-wave-vector             URL              https://link.aps.org/doi/10.1103/
+     phonons in gaas, Phys. Rev. B 32 (1985) 5245–5250.                 PhysRevLett.44.1505
+     doi:10.1103/PhysRevB.32.5245.                                 [66] J. Shan, F. Wang, E. Knoesel, M. Bonn, T. F. Heinz,
+     URL https://link.aps.org/doi/10.1103/PhysRevB.                     Measurement of the frequency-dependent conductiv-
+     32.5245                                                            ity in sapphire, Phys. Rev. Lett. 90 (2003) 247401.
+[55] M. Msall, T. Head, D. Jumper, Low-temperature                      doi:10.1103/PhysRevLett.90.247401.
+     group velocity and elasticity in cawo4, Solid                      URL              https://link.aps.org/doi/10.1103/
+     State Communications 150 (27) (2010) 1192–1195.                    PhysRevLett.90.247401
+     doi:https://doi.org/10.1016/j.ssc.2010.04.014.                [67] H. J. Hou, H. Guan, S. R. Zhang, L. H. Xie, L. Wang,
+     URL       https://www.sciencedirect.com/science/                   Structural, phonon and thermodynamic properties of
+     article/pii/S0038109810002292                                      the rocksalt structure lif from first principles, in:
+[56] C. V. Briscoe, C. F. Squire, Elastic constants of lif              Methods of Design and Characterization of Materials,
+     from 4.2°k to 300°k by ultrasonic methods, Phys. Rev.              Research and Development of Technological Processes,
+     106 (1957) 1175–1177. doi:10.1103/PhysRev.106.                     Vol. 850 of Materials Science Forum, Trans Tech Pub-
+     1175.                                                              lications Ltd, 2016, pp. 348–353. doi:10.4028/www.
+     URL https://link.aps.org/doi/10.1103/PhysRev.                      scientific.net/MSF.850.348.
+     106.1175                                                      [68] I. Richman, Longitudinal Optical Phonons in
+[57] H. J. Maris, S. Tamura, Propagation of acoustic                    CaF2, SrF2, and BaF2, The Journal of Chem-
+     phonon solitons in nonmetallic crystals, Phys. Rev. B              ical Physics 41 (9) (1964) 2836–2837.            arXiv:
+     84 (2011) 024301. doi:10.1103/PhysRevB.84.024301.                  https://pubs.aip.org/aip/jcp/article-pdf/
+     URL https://link.aps.org/doi/10.1103/PhysRevB.                     41/9/2836/18836140/2836\_1\_online.pdf,
+     84.024301                                                          doi:10.1063/1.1726360.
+[58] R. Baumgartner, M. Engelhardt, K. F. Renk, Spon-                   URL https://doi.org/10.1063/1.1726360
+     taneous decay of high-frequency acoustic phonons              [69] J. Suda, T. Sato, Temperature dependence of the
+     in caf2 , Phys. Rev. Lett. 47 (1981) 1403–1407.                    linewidth of the first-order raman spectra for cawo 4
+     doi:10.1103/PhysRevLett.47.1403.                                   crystal, Journal of the Physical Society of Japan 66 (6)
+     URL             https://link.aps.org/doi/10.1103/                  (1997) 1707–1713. arXiv:https://doi.org/10.1143/
+     PhysRevLett.47.1403                                                JPSJ.66.1707, doi:10.1143/JPSJ.66.1707.
+[59] J. Wigmore, A. Kozorezov, H. bin Rani, M. Giltrow,                 URL https://doi.org/10.1143/JPSJ.66.1707
+     H. Kraus, B. Taele, Scattering of thz phonons, Phys-          [70] A. G. Every, G. L. Koos, J. P. Wolfe, Ballistic phonon
+     ica B: Condensed Matter 316-317 (2002) 589–591,                    imaging in sapphire: Bulk focusing and critical-cone
+     proceedings of the 10th International Conference on                channeling effects, Phys. Rev. B 29 (1984) 2190–2209.
+     Phonon Scatte ring in Condensed Matter. doi:https:                 doi:10.1103/PhysRevB.29.2190.
+     //doi.org/10.1016/S0921-4526(02)00581-1.                           URL https://link.aps.org/doi/10.1103/PhysRevB.
+     URL       https://www.sciencedirect.com/science/                   29.2190
+     article/pii/S0921452602005811                                 [71] G. A. Northrop, S. E. Hebboul, J. P. Wolfe, Lattice
+[60] K. Hayasaka, R. Higashi, J. Suda, Y. Tanaka,                       dynamics from phonon imaging, Phys. Rev. Lett. 55
+     S. Tamura, M. Giltrow, J. Wigmore, Anomalous                       (1985) 95–98. doi:10.1103/PhysRevLett.55.95.
+     mode, elastic constants and phonon images in cawo4,                URL              https://link.aps.org/doi/10.1103/
+     Solid State Communications 143 (8) (2007) 386–389.                 PhysRevLett.55.95
+     doi:https://doi.org/10.1016/j.ssc.2007.06.018.                [72] G. A. Northrop, E. J. Cotts, A. C. Anderson,
+     URL       https://www.sciencedirect.com/science/                   J. P. Wolfe, Phonon imaging of highly dis-
+     article/pii/S0038109807004589                                      located lif, Phys. Rev. Lett. 49 (1982) 54–57.
+[61] S. Tamura, J. Shields, M. Ramsbey, J. Wolfe, Mea-                  doi:10.1103/PhysRevLett.49.54.
+     surements of phonon elastic scattering rates by phonon             URL              https://link.aps.org/doi/10.1103/
+     imaging and monte-carlo simulation, in: Phonon Scat-               PhysRevLett.49.54
+     tering in Condensed Matter VII: Proceedings of the            [73] D. C. Hurley, J. P. Wolfe, Phonon focusing in cubic
+     Seventh International Conference, Cornell University,              crystals, Phys. Rev. B 32 (1985) 2568–2587. doi:10.
+     Ithaca, New York, August 3–7, 1992, Springer, 1993,                1103/PhysRevB.32.2568.
+     pp. 79–83.                                                         URL https://link.aps.org/doi/10.1103/PhysRevB.
+[62] J. A. Harrington, C. T. Walker, Phonon Scattering by               32.2568
+     Point Defects in CaF2 , SrF2 , and BaF2 , Phys. Rev. B        [74] S. M. Griffin, Y. Hochberg, K. Inzani, N. Kurinsky,
+     1 (1970) 882–890. doi:10.1103/PhysRevB.1.882.                      T. Lin, T. C. Yu, Silicon carbide detectors for sub-gev
+     URL https://link.aps.org/doi/10.1103/PhysRevB.                     dark matter, Phys. Rev. D 103 (2021) 075002. doi:
+     1.882                                                              10.1103/PhysRevD.103.075002.
+[63] J. R. de Laeter, J. K. Böhlke, P. D. Bièvre, H. Hi-              URL https://link.aps.org/doi/10.1103/PhysRevD.
+     daka, H. S. Peiser, K. J. R. Rosman, P. D. P. Tay-                 103.075002
+     lor, Atomic weights of the elements. review 2000 (iu-         [75] S. Watkins, Searching for Light Dark Matter with
+     pac technical report), Pure and Applied Chemistry                  Narrow-Gap Semiconductors: The SPLENDOR Ex-
+     75 (6) (2003) 683–800 [cited 2024-06-05]. doi:doi:                 periment, tAUP 2023 (2023).
+     10.1351/pac200375060683.                                      [76] A. Agrawal, et al., Development of MMC-based
+     URL https://doi.org/10.1351/pac200375060683                        lithium molybdate cryogenic calorimeters for AMoRE-
+[64] I. Richman, Longitudinal Optical Phonons in                        II (2024). arXiv:2407.12227.
+     CaF2, SrF2, and BaF2, The Journal of Chem-                         URL https://arxiv.org/abs/2407.12227
+     ical Physics 41 (9) (1964) 2836–2837.           arXiv:        [77] V. Dompè, et al., Expected sensitivity to 128Te
+     https://pubs.aip.org/aip/jcp/article-pdf/                          neutrinoless double beta decay with the CUORE
+     41/9/2836/18836140/2836\_1\_online.pdf,                            TeO2 cryogenic bolometers, J Low Temp Phys.
+     doi:10.1063/1.1726360.                                             209 (2022) 788–795. doi:https://doi.org/10.1007/
+
+
+                                                              17
+     s10909-022-02738-4.
+[78] R. C. Tripathi, G. S. Verma, Third-Order Elastic
+     Constants of Ge at Room and Liquid-Nitrogen
+     Temperatures, Journal of Applied Physics 41 (7)
+     (1970) 2999–3002.      arXiv:https://pubs.aip.org/
+     aip/jap/article-pdf/41/7/2999/18354708/2999\
+     _1\_online.pdf, doi:10.1063/1.1659352.
+     URL https://doi.org/10.1063/1.1659352
+[79] M. T. Labrot, A. P. Mayer, R. K. Wehner, P. E. Ober-
+     mayer, Decay cascades of acoustic phonons in calcium
+     fluoride, Journal of Physics: Condensed Matter 1 (45)
+     (1989) 8809. doi:10.1088/0953-8984/1/45/006.
+     URL https://dx.doi.org/10.1088/0953-8984/1/45/
+     006
+[80] S. Mori, Y. Hiki, Calculation of the third- and fourth-
+     order elastic constants of alkali halide crystals, Jour-
+     nal of the Physical Society of Japan 45 (5) (1978)
+     1449–1456. arXiv:https://doi.org/10.1143/JPSJ.
+     45.1449, doi:10.1143/JPSJ.45.1449.
+     URL https://doi.org/10.1143/JPSJ.45.1449
+[81] R. E. Hankey, D. E. Schuele, Third-Order Elastic
+     Constants of Al2O3, The Journal of the Acoustical
+     Society of America 48 (1B) (2005) 190–202. arXiv:
+     https://pubs.aip.org/asa/jasa/article-pdf/
+     48/1B/190/11610699/190\_1\_online.pdf,
+     doi:10.1121/1.1912116.
+     URL https://doi.org/10.1121/1.1912116
+
+
+
+
+                                                                18
+

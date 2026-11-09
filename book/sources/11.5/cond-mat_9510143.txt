@@ -1,0 +1,810 @@
+                                       Diffusion Monte Carlo study of two-dimensional liquid 4 He
+
+
+                                                           S. Giorgini, J. Boronat and J. Casulleras
+                                              Departament de Fı́sica i Enginyeria Nuclear, Campus Nord B4–B5,
+
+                                                Universitat Politècnica de Catalunya, E–08028 Barcelona, Spain
+arXiv:cond-mat/9510143v1 25 Oct 1995
+
+
+
+
+                                                                            Abstract
+
+
+
+                                             The ground-state properties of two-dimensional liquid 4 He at zero tem-
+
+                                          perature are studied by means of a quadratic diffusion Monte Carlo method.
+
+                                          As interatomic potential we use a revised version of the HFDHE2 Aziz poten-
+
+                                          tial which is expected to give a better description of the interaction between
+
+                                          helium atoms. The equation of state is determined with great accuracy over
+
+                                          a wide range of densities in the liquid phase from the spinodal point up to
+
+                                          the freezing density. The spinodal decomposition density is estimated and
+
+                                          other properties of the liquid, such as radial distribution function, static form
+
+                                          factor, momentum distribution and density dependence of the condensate
+
+                                          fraction are all presented.
+                                           02.70.Lq, 67.40.Db
+
+
+
+
+                                                                                                           Typeset using REVTEX
+
+                                                                                 1
+                                      I. INTRODUCTION
+
+
+      In recent years a great deal of interest has been devoted in the literature to the study
+
+of quantum boson liquids in restricted geometries.1−15 From a theoretical point of view thin
+films of liquid 4 He adsorbed on different solid substrates have been studied using variational
+techniques, based on the hypernetted-chain/Euler-Lagrange (HNC/EL) theory,1−3 Density
+Functional theories (DFT),4−6 and also Monte Carlo techniques.12,13 According to these
+
+investigations, liquid 4 He films display different behaviours depending on the strength of the
+substrate potential.
+      In the case of weak-binding and long-range potentials, such as some alkali metal sub-
+strates, the helium film does not exhibit at all two-dimensional characteristics. By adding
+4
+    He atoms to the substrate surface, three-dimensional clusters form and helium uniformly
+
+covers the surface only for coverages many atoms thick (prewetting transition). For some
+substrates a stable coverage is found only for infinitely thick films (wetting transition).
+      More interesting, from the point of view of the role of dimensionality, is the case of sub-
+strates with deep and narrow potential wells for which the degree of freedom perpendicular
+
+to the surface is practically “frozen out” and low-coverage films are stabilized at the surface
+forming two-dimensional (2D) systems. To this category belong graphite, solid H2 on glass
+and some alkali metal substrates like Li and Mg. On these substrates the growth of the first
+liquid layers is predicted to proceed via layering transitions:1,3,4 by increasing the surface
+
+coverage single atomic monolayers develop and become stable one on the top of the other.
+This prediction has been confirmed experimentally for helium on graphite by heat capacity8
+and third sound measurements.9
+      Variational calculations of ground-state and dynamic properties of single 4 He monolayers
+at zero temperature reveal a striking 2D behaviour over a wide range of coverages.1,2 Such
+
+calculations seem to indicate that single monolayers of liquid helium adsorbed on strong-
+binding substrates represent physical realizations of 2D homogeneous quantum liquids.
+      A condition which can be relevant for theories aiming to describe 4 He films is that
+
+
+                                                 2
+they possess the correct limiting behaviour of homogeneous three-dimensional and two-
+dimensional systems. Homogeneous three dimensional (3D) 4 He is a well studied system
+both experimentally and theoretically. In the case of homogeneous 2D 4 He no experimental
+
+results are available and “exact” results coming from ab initio calculations can be extremely
+useful.
+   From the point of view of Monte Carlo simulations, 4 He in confined geometries has
+already been the object of several studies.10−15 Variational Monte Carlo techniques have
+
+been applied to the study of both inhomogeneous films on substrates12 and more extensively
+to homogeneous 2D 4 He, where the simulation is easier.10,15 However, these methods rely
+heavily on the choice of the variational wavefunction used in the simulation.
+   From the side of more exact Monte Carlo methods, thin 4 He films on molecular hydro-
+
+gen surfaces at low temperature have been recently studied by Wagner and Ceperley13 using
+Path Integral Monte Carlo (PIMC) techniques. Strictly two-dimensional 4 He has also been
+the object of Monte Carlo calculations.11,14 At T = 0 Whitlock et al.11 have calculated, using
+Green’s Function Monte Carlo (GFMC), the equation of state and other ground-state prop-
+
+erties of liquid and solid 4 He in two dimensions, giving an estimate of the freezing and melt-
+ing densities. At finite temperature, PIMC techniques have been employed by Ceperley et
+al.14 to investigate the superfluid transition, which in 2D belongs to the Kosterlitz-Thouless
+universality class.
+   In the present work we present a Diffusion Monte Carlo (DMC) calculation of homoge-
+
+neous liquid 4 He in two dimensions at zero temperature. Our main purpose is to provide an
+exhaustive calculation of the equation of state and other relevant properties of the ground
+state such as distribution function, structure form factor, momentum distribution and con-
+densate fraction for a wide range of densities within the liquid phase. In particular, we have
+
+performed a detailed analysis of the equation of state in the region of negative pressures
+in order to give an accurate estimation of the spinodal density of the 2D 4 He liquid. The
+spinodal density is defined as the density below which the system becomes macroscopically
+unstable against density fluctuations. Its determination is relevant for the physics of 4 He
+
+                                              3
+monolayers on strong-binding substrates because the spinodal density coincides with the
+coverage at which the uniform monolayer breaks down into 2D clusters in equilibrium with
+the vacuum, and it is thus the density at which the first layering transition occurs.1,3
+
+   In our DMC simulation we have used as interatomic potential a revised version of the
+HFDHE2 Aziz potential16 which was proposed by Aziz et al.17 in 1987 and is known as
+HFD-B(HE) potential. This renewed interatomic potential was recently used by two of us18
+(J.B. and J.C.) to study 3D bulk helium at zero temperature and it has been proven to give
+
+results for the density dependence of the pressure and the system compressibility which are
+closer to experimental data than the older Aziz potential. We are thus inclined to think
+that it gives also better results for two-dimensional 4 He.
+   The structure of the paper is as follows: in Sec. II we outline briefly the quadratic
+
+Diffusion Monte Carlo method used to solve the Schrödinger equation. In Sec. III we
+present results on both the equation of state in the liquid phase and on the distribution and
+structure functions. In Sec. IV are collected the results for the density dependence of the
+condensate fraction, which differ substantially from the previous analysis by Whitlock and
+
+coworkers,11 and of the momentum distribution for different values of the density. A brief
+discussion and conclusions are included in Sec. V.
+
+
+                            II. COMPUTATIONAL METHOD
+
+
+   The aim of Diffusion Monte Carlo algorithms is to solve the time dependent Schrödinger
+
+equation of a system of N particles in imaginary time
+
+                                 ∂Ψ(R, t)
+                             −            = (Ĥ − E)Ψ(R, t) ,                               (1)
+                                   ∂t
+
+where R = (r1 , ..., rN ) is the configuration vector for the positions of the N particles and t
+is measured in units of h̄. In Eq. (1) the Hamiltonian Ĥ has the usual form
+
+                                         h̄2 2
+                                  Ĥ = −    ∇ + V (R) ,                                     (2)
+                                         2m R
+
+
+                                               4
+and E is a parameter representing an energy shift.             Provided the initial wavefunction
+Ψ(R, t = 0) has a nonzero overlap with the ground state Φ0 (R), the solution of Eq.
+(1) gives exactly the ground state wavefunction in the asymptotic limit of large times:
+
+Ψ(R, t → ∞) = Φ0 (R).
+     When numerically integrating Eq. (1) importance sampling techniques are employed to
+guide quickly the solution towards the ground state. To this aim the Schrödinger equation
+(1) is rewritten for the function
+
+                                 f (R, t) = ψT (R)Ψ(R, t) ,                                  (3)
+
+where ψT (R) is a time independent trial function. One gets
+     ∂f (R, t)
+ −             = −D ∇2R f (R, t) + D ∇R (F(R)f (R, t)) + (EL (R) − E) f (R, t) ≡ Â f (R, t) .
+        ∂t
+                                                                                             (4)
+
+Eq. (4) has the form of a classical diffusion equation for the distribution function f (R, t).
+The first term describes the diffusive process with diffusion constant D = h̄2 /2m. The
+second term contains the drift force
+
+                              F (R) = 2ψT (R)−1 ∇R ψT (R) ,                                  (5)
+
+which drives the system towards the region in configuration space where the trial function
+ψT (R) is relevant. The third term in Eq. (4) represents a branching term which depends
+on the local energy EL (R) = ψT (R)−1 ĤψT (R).
+
+     By introducing the time dependent Green’s function
+
+                              G(R′, R, ∆t) = hR′ | e−Â∆t | Ri                               (6)
+
+the solution of Eq. (4) can be written formally as
+                                           Z
+                       f (R′ , t + ∆t) =       dR G(R′ , R, ∆t)f (R, t) .                    (7)
+
+If the Green’s function G(R′ , R, ∆t) is known for infinitesimal time steps ∆t, the asymptotic
+solution for large times f (R, t → ∞) can be obtained by solving iteratively Eq. (7).
+
+                                                   5
+   In the most usual implementations of DMC algorithms to solve the many body
+Schrödinger equation, G(R′ , R, ∆t) is approximated up to order ∆t for small time steps.19
+In this case, the obtained energy of the ground state depends linearly on the time step ∆t
+
+and several calculations for different values of ∆t are needed in order to extrapolate the
+correct result in the limit ∆t → 0.
+   Recently a quadratic DMC algorithm20 has been proven to work efficiently in the descrip-
+tion of 4 He droplets21 and bulk 3D liquid 4 He.18 This method relies on an expansion of the
+
+Green’s function G(R′ , R, ∆t) up to order (∆t)2 , which generates a quadratic dependence of
+the energy eigenvalue on ∆t, permitting thus to avoid the extrapolation to the limit ∆t → 0
+by working with a single time step. More details concerning this procedure can be found in
+Ref. 18.
+
+   In the present work we have used in all the calculations ∆t = 2 × 10−3 τ , where τ is the
+appropriate time unit: τ = mσ 2 /2h̄2 (σ = 2.556Å). Time step analysis have been performed
+at the density ρ = 0.275σ −2 , close to the liquid equilibrium density, and at ρ = 0.400σ −2,
+near the freezing density, and no changes have been observed in the results for the energy
+
+eigenvalue by reducing the time step ∆t.
+   The mixed estimator hψT | Ô | Φ0 i of a generic operator O, is the direct output of DMC
+algorithms. If the operator Ô commutes with the Hamiltonian of the system, the mixed
+estimator coincides with the pure expectation value on the ground state hΦ0 | Ô | Φ0 i. If,
+on the contrary, the operator Ô does not correspond to a conserved quantity, its expectation
+
+value on the ground state can be obtained by means of a linear extrapolation22
+
+
+                     hΦ0 | Ô | Φ0 i = 2hψT | Ô | Φ0 i − hψT | Ô | ψT i .               (8)
+
+The above method to get pure estimators is the most widely used in DMC simulations which
+
+must thus be supplemented by a variational Monte Carlo (VMC) calculation to determine the
+variational expectation value hψT | Ô | ψT i. The linear extrapolation (8), which is obtained
+by writing the ground state wavefunction Φ0 as Φ0 (R) = ψT (R) + δψ(R), is correct to linear
+order in the functional variation δψ.
+
+                                                 6
+   To go beyond this approximation, removing the dependence on the trial wavefunction,
+several algorithms have been proposed to calculate pure estimators.23,24 On this line an
+algorithm based on “forward walking” has been recently presented by two of us25 (J. C.
+
+and J. B.) which is easy to incorporate in the original Monte Carlo algorithm and allows
+the calculation of pure expectation values of coordinate operators Ô(R) with satisfactory
+stability and reliability. The method applied to bulk 3D liquid helium25 gives values for
+the particle-particle distribution function and static structure factor in very good agreement
+
+with experimental results and without any significant dependence on the function used
+as importance sampling. The results given in the present work for the potential energy,
+distribution and structure functions are calculated by using this method.
+   Another important parameter in the calculation is the population of walkers nw , which
+
+represents the number of points Ri in configuration space at which the distribution function
+f (R, t) is sampled. In our calculations we have used a mean walker population of nw = 450.
+At the densities ρ = 0.275σ −2 and ρ = 0.400σ −2 the walker population was increased to
+nw = 900 and no appreciable change in the results was observed.
+
+   Our simulation box contains 64 particles. At the 2D saturation density ρ0 ≃ 0.284σ −2
+this corresponds to a simulation box length of ∼ 38 Å, roughly 14 times larger than the
+mean interparticle distance at this density. Such box size is large enough to neglect finite
+volume effects. In fact, in 3D bulk liquid 4 He finite size effects have been proven to be
+negligible already for a box length of 8 times larger than the mean interparticle distance.18
+
+   Finally, as importance sampling we have used a simple McMillan26 two-body trial func-
+tion
+                                                          !5 
+                                      Y         1     b
+                            ψT (R) =     exp −                .                          (9)
+                                     i<j        2    rij
+
+We have taken for all the densities b = 1.205σ. This value, which minimizes the energy at
+the equilibrium density, coincides with the one found by Whitlock et al.11 in their VMC cal-
+culation. For the highest density calculated, ρ = 0.420σ −2, we have also used as importance
+sampling the two-body function proposed by Reatto27
+
+                                              7
+                                            !5                     !2 
+                        Y         1     b          L       rij − λ
+              ψT (R) =     exp −                 − exp −              ,              (10)
+                       i<j        2    rij         2          Λ
+
+with L = 0.2, λ = 2.0σ, Λ = 0.6σ and b = 1.225σ. Although this trial function gives at the
+density ρ = 0.420σ −2 a VMC energy lower than the McMillan function (9), no appreciable
+
+change in the results of the DMC simulation is found.
+
+
+                                       III. RESULTS
+
+
+   In this section, we present our numerical results for the energy and structure properties
+of the ground state. First we analyze the equation of state in the liquid phase, comparing
+our results with the ones presented in Ref. 11. Ground-state properties such as the radial
+distribution function and the static structure factor are also discussed in the first subsec-
+tion. The second subsection contains our results concerning the density dependence of the
+
+condensate fraction and the momentum distribution.
+
+
+                     A. Equation of state and structure properties
+
+
+   In Ref. 11, the equation of state for both the liquid and the solid phase of 2D homoge-
+neous 4 He has been investigated by means of VMC and GFMC techniques. The interatomic
+potential employed in this study is the two-body HFDHE2 Aziz potential.16 The estimated
+value for the liquid freezing density from the GFMC calculation is ρl = 0.443σ −2 . For the
+
+sake of consistency we have calculated the energy per particle using the Aziz potential at
+two densities in the liquid phase: at ρ = 0.275σ −2, close to the equilibrium density, and at
+ρ = 0.400σ −2, near freezing. The values for the energy obtained from our DMC calculation
+are in good agreement with the GFMC results reported in Ref. 11 for the same two densities.
+
+   Once the equivalence between our DMC algorithm and the GFMC algorithm employed
+in Ref. 11 has been tested by using the same interatomic potential, we have proceeded to the
+study of the equation of state in the liquid phase with the HFD-B(HE) potential proposed
+by Aziz et al.17 (henceforth referred to as Aziz II). In Table I we present the results of our
+
+                                                  8
+DMC calculations for the total, potential and kinetic energy per particle for some of the
+densities calculated. As discussed in Sec. II the values of the potential energy per particle
+have been obtained by employing the algorithm for pure estimators.25
+
+   The Aziz II potential is slightly more attractive than the Aziz potential and the binding
+energies at the different densities are therefore somewhat larger with respect to the ones
+obtained in Ref. 11. For example, at ρ = 0.275σ −2 near to equilibrium the energies per
+particle are E/N = −0.8519 ± 0.0044 K and E/N = −0.8950 ± 0.0019 K for the Aziz and
+
+Aziz II potentials respectively. In Fig. 1 we show our DMC results for the equation of state
+in the liquid phase together with the GFMC results of Ref. 11.
+   The equation of state of 2D liquid 4 He is usually fitted by using a polynomial cubic
+function of the form
+                                            !2                     !3
+                                   ρ − ρ0                 ρ − ρ0
+                        e = e0 + B               +C                     ,                 (11)
+                                     ρ0                     ρ0
+
+where e = E/N and ρ0 is the equilibrium density. In Table II we report the values of the
+parameters which best fit our results and we compare them with the values reported in
+
+Ref. 11. The values for the equilibrium density are very close, whereas appreciably different
+are the values for the B and C parameters. These differences affect the predictions for the
+density dependence of the surface pressure and compressibility, as well as the estimation of
+the spinodal density. The two fits are shown in Fig. 1 together with the Monte Carlo data.
+The cubic polynomial fit (11) fits our data rather well and no significant improvement in
+
+the χ2 quality of the fit is found by increasing the order of the polynomial function used.
+   Once the equation of state function e(ρ) is known, one can calculate straightforwardly
+the surface pressure, defined as P (ρ) = ρ2 (∂e/∂ρ), and the isothermal compressibility
+                                                      !
+                                          1      ∂ρ
+                                   κ(ρ) =                 .                               (12)
+                                          ρ      ∂P
+
+From the inverse compressibility 1/κ one obtains the velocity of sound
+                                                  !1/2
+                                            1
+                                  c(ρ) =                      .                           (13)
+                                           mρκ
+
+                                              9
+In Fig. 2 we show the comparison between the surface pressure obtained from our equation
+of state and the result of Ref. 11. An appreciable difference is found in the regimes of low
+and high densities. A larger difference is found by comparing the predictions of the two fits
+
+for the velocity of sound, shown in Fig. 3. The velocity of sound at the 2D equilibrium
+density is c(ρ0 ) = (92.8 ± 0.6) m/sec, which is nearly 3 times smaller than the velocity of
+sound at the saturation density of 3D bulk liquid 4 He, c3D (ρ0 ) = 238.3 m/sec.28
+   At T = 0, and in the limit of a 2D film, the third sound velocity c3 coincides with the
+
+velocity of sound c2D of the purely 2D liquid.4 Then, for low coverages c2D must reproduce
+quite accurately the c3 in monolayers adsorbed on strongly binding substrates. A direct
+comparison between c2D and experimental c3 for low-coverage films is however difficult by
+the present uncertainties in the determination of the liquid coverages.29
+
+   The density dependence of the velocity of sound is linear over a wide range of densities.
+Only when approaching the spinodal density, where the system becomes unstable against
+density fluctuations, the velocity of sound drops suddenly to zero and the compressibility
+diverges. The estimation of the spinodal density from our fit gives: ρsp = (0.228±0.002)σ −2,
+
+which is significantly smaller than the value ρsp = 0.247σ −2 obtained from the data of Ref.
+11. The spinodal density of 2D homogeneous liquid 4 He has been estimated also by Clements
+et al.1 from the fit of their HNC/EL variational results for the equation of state: they find
+ρsp = 0.202σ −2.
+   At the spinodal density ρsp = 0.228σ −2 the mean interparticle distance is rsp =
+
+(1/πρsp )1/2 = 3.02Å. For 3D bulk liquid 4 He an accurate estimation of the spinodal density
+has been given in Ref. 30 with the result ρ3D                   −3
+                                           sp = (0.264 ± 0.002)σ , corresponding to a
+
+                                3D
+mean interparticle distance of rsp = (3/4πρ3D
+                                           sp )
+                                                1/3
+                                                    = 2.47Å. It is interesting to notice that
+at the 2D freezing density ρl = 0.443σ −2, estimated in Ref. 11, the mean interparticle dis-
+
+tance is only rl = 2.17Å, whereas at the 2D equilibrium density the interparticle spacing is
+req = 2.71Å. The corresponding values of the average interatomic distance in the 3D case are
+respectively: rl3D = 2.10Åand req
+                                3D
+                                   = 2.22Å. The mean interparticle distances of the 2D and
+3D liquid 4 He barely overlap; at freezing the particles are only 3% further apart in 2D than
+
+                                             10
+in 3D, at the equilibrium density the difference increases to 22% and the same difference
+persists down to the spinodal density.
+   Important information on the structure of the ground state is obtained from the two-body
+
+radial distribution function
+                               N(N − 1) |Φ0 (r1 , ..., rN )|2 dr3 ...drN
+                                            R
+                     g(r12 ) =                                                            (14)
+                                  ρ2     |Φ0 (r1 , ..., rN )|2 dr1 ...drN
+                                       R
+
+
+and from its Fourier transform, the static structure factor
+                                                                 1 hΦ0 |ρq ρ−q |Φ0 i
+                                Z
+                 S(k) = 1 + ρ       dreik·r (g(r) − 1) =                             ,    (15)
+                                                                 N    hΦ0 |Φ0 i
+with
+                                                N
+                                                      eiq·ri .
+                                                X
+                                        ρq =                                              (16)
+                                                i=1
+
+Both these quantities can be calculated using the method for pure estimators described in
+Ref. 25. In Fig. 4 we show the results obtained for the radial distribution function at
+three different densities. As the density increases more peaks at large interparticle distances
+appear. At the highest density shown ρ = 0.420σ −2 , which is just before freezing, four peaks
+
+are clearly visible in the distribution function: a clear indication that the system is close
+to solidification. In Table III, we report the position rm and the height g(rm ) of the first
+peak in the radial distribution function for some of the densities calculated. The height of
+the first peak in g(r) increases with the density and it shifts towards smaller interparticle
+distances. It is interesting to compare the height of the first peak in the radial distribution
+
+function for the 2D and 3D systems: in 2D at the equilibrium density g(rm ) ≃ 1.25 whereas
+the corresponding value in 3D is 1.38. This is a clear indication that the 2D system is
+more dilute and possesses less correlations at equilibrium than its 3D counterpart. Close to
+the freezing density the heights of the first peak in g(r) of the 2D and 3D systems become
+
+comparable. In fact, as previously discussed, the mean interparticle distance of the two
+systems become similar when freezing is approached.
+   In Fig. 5 we show the static structure factor for three values of the density. As the
+density increases the peak in S(k) increases and the values at the lowest momenta accessible
+
+                                                      11
+in our calculation increase. Due to phonon excitations the form factor S(k) is expected to
+go to zero in the long wavelength limit as S(k) ∼ k/2mc. As the density decreases and
+the spinodal density is approached the velocity of sound c drops to zero and consequently
+
+the slope in S(k) diverges. This behaviour, which has been observed in the variational
+calculations of Ref. 1, agrees qualitatively with our ab initio calculations.
+
+
+                     B. Condensate fraction and momentum distribution
+
+
+   Another quantity of great interest is the one-body density matrix ρ(r′ , r), which is related
+to the change in the ground-state wavefunction when a particle is removed from position r
+
+and replaced at position r′ . For a homogeneous system ρ(r) is defined as
+                                                 R
+                        †                            Φ0 (r1 + r, ..., rN )Φ0 (r1 , ..., rN )dr2 ...drN
+          ρ(r) = hΦ0 |ψ̂ (r)ψ̂(0)|Φ0 i = N                                                             ,     (17)
+                                                             |Φ0 (r1 , ..., rN )|2 dr1 ...drN
+                                                           R
+
+
+where ψ̂(0) and ψ̂ † (r) are, respectively, the field operators which destroy a particle from
+position r = 0 and create one at position r.
+   In the DMC algorithm the mixed matrix element hψT |ψ̂ † (r)ψ̂(0)|Φ0 i, involving the trial
+
+wavefunction ψT , can be calculated by averaging over the asymptotic distribution function
+f (R, t → ∞) the relative change in the trial wavefunction when a particle is displaced from
+position ri to ri + r
+                            R
+      †                         f (R, t → ∞) (ψT (r1 , ..., ri + r, ..., rN )/ψT (r1 , ..., rN )) dr1 ...drN
+hψT |ψ̂ (r)ψ̂(0)|Φ0 i =                           R                                                          . (18)
+                                                    f (R, t → ∞)dr1 ...drN
+
+The calculation of the ground-state expectation value hΦ0 |ψ̂ † (r)ψ̂(0)|Φ0 i can not be obtained
+straightforwardly from our method for pure estimators because it involves the knowledge of
+Φ0 (R′ )Φ0 (R), where R′ is the configuration vector with one particle displaced by r, instead
+of Φ20 (R). To calculate the one-body density matrix ρ(r) we employ thus the extrapolation
+
+technique described in Sec. II. For the highest density calculated, ρ = 0.420σ −2, we have
+used as importance sampling both the McMillan wavefunction (9) and the one proposed by
+Reatto (10). The extrapolation technique gives, within statistical errors, the same result for
+ρ(r) in the two cases.
+
+                                                          12
+   The asymptotic limit of ρ(r) gives the fraction of particles n0 condensed into the zero-
+momentum state
+
+                                      n0 = r→∞
+                                            lim ρ(r).                                       (19)
+
+In Fig. 6 we show the results for the condensate fraction obtained at different densities
+ranging from the spinodal point up to the freezing density. We have fitted our data with
+the quadratic polynomial
+                                                     !               !2
+                                            ρ − ρ0          ρ − ρ0
+                      n0 (ρ) = n0 (ρ0 ) + a              +b               ,                 (20)
+                                              ρ0              ρ0
+where ρ0 is the equilibrium density ρ0 = 0.284σ −2 . The values of the parameters giving the
+best fit are the following
+
+                                n0 (ρ0 ) = 0.233 ± 0.001
+
+                                      a = −0.583 ± 0.006                                    (21)
+
+                                      b = 0.44 ± 0.02.
+
+The value for the condensate fraction at equilibrium density n0 (ρ0 ) is consistent with the
+
+estimation reported in Ref. 14 n0 (ρ0 ) ≃ 0.22, obtained by extrapolating to zero temperature
+the PIMC results for the algebraic decay of the one-body density matrix. Our results for the
+condensate fraction are somewhat smaller than the ones reported in Ref. 11; for example
+at low density, ρ = 0.275σ −2, we find n0 = 0.251 ± 0.005 whereas the GFMC calculation
+of Ref. 11 gives nGF
+                  0
+                     MC
+                        = 0.36 ± 0.05. This discrepancy between DMC and GFMC results
+
+persists over the whole density range and only at very high density, ρ = 0.400σ −2, nDM
+                                                                                     0
+                                                                                        C
+
+
+and nGF
+     0
+        MC
+           become consistent. The reason for this is unclear, certainly it is not due to the
+revised version of the Aziz potential used in our DMC simulation. We have repeated our
+DMC calculation of the condensate fraction using the Aziz potential for the two densities
+
+ρ = 0.275σ −2 and ρ = 0.400σ −2 and no difference was found with the results obtained with
+Aziz II. It is interesting to notice that near the freezing density, where the mean interparticle
+distance in the 2D and 3D systems are comparable, also the condensate fraction is nearly
+the same (n0 ≃ 4%).
+
+                                               13
+   By Fourier transforming the one-body density matrix ρ(r), one gets the momentum
+distribution of the system
+                                              Z
+                               2
+                   n(k) = (2π) ρn0 δ(k) + ρ       dreik·r (ρ(r) − ρ(∞)).               (22)
+
+In Fig. 7 we show the momentum distribution plotted as kn(k) for three different densities.
+As the density increases, more and more particles leave the condensate state and the max-
+
+imum in kn(k) shifts towards higher momenta. The shoulder present at high momenta is
+interpreted in 3D bulk 4 He as coming from the zero-point motion of the rotons.31 A similar
+interpretation could be valid also in the 2D case, in this case though the shoulder appears
+more pronounced than in 3D, particularly at low densities, and shifted towards smaller k’s.
+
+
+                                   IV. CONCLUSIONS
+
+
+   The properties of homogeneous 2D liquid 4 He at zero temperature have been investigated
+by means of a quadratic diffusion Monte Carlo method. As interatomic potential we have
+
+used a revised version of the Aziz potential which is expected to be more accurate in de-
+scribing the interaction between helium atoms. The energy per particle has been calculated
+for a wide range of densities from the spinodal point up to the freezing density, providing
+an accurate determination of the equation of state function. The spinodal density of the
+2D system is estimated. The radial distribution function and the static structure factor are
+
+calculated for various densities employing a recently devised method for estimating pure
+expectation values. The fraction of particles in the condensate state has been calculated
+for various densities and the density dependence of the condensate fraction has been also
+estimated.
+
+
+                                ACKNOWLEDGMENTS
+
+
+   This work has been supported in part by DGICYT (Spain) Grant No. PB92-0761 and
+No. PB90-06131. S. G. acknowledges a post-doctoral grant from the Ministerio de Educación
+
+                                              14
+y Ciencia (Spain). The supercomputing facilities provided by CEPBA and CESCA are also
+gratefully acknowledged.
+
+
+
+
+                                         15
+                                      REFERENCES
+
+1
+     B. E. Clements, J. L. Epstein, E. Krotscheck and M. Saarela, Phys. Rev B 48, 7450 (1993).
+
+2
+     B. E. Clements, H. Forbert, E. Krotscheck, H. J. Lauter, M. Saarela and C. J. Tymczak,
+     Phys. Rev. B 50, 6958 (1994).
+
+3
+     B. E. Clements, H. Forbert, E. Krotscheck and M. Saarela, J. Low Temp. Phys. 95, 849
+     (1994).
+
+4
+     E. Cheng, M. W. Cole, W. F. Saam and J. Treiner, Phys. Rev. B 46, 13967 (1992).
+
+5
+     L. Pricaupenko and J. Treiner, J. Low Temp. Phys. 96, 19 (1994).
+
+6
+     F. Dalfovo, A. Lastri, L. Pricaupenko, S. Stringari and J. Treiner, Phys. Rev. B 52, 1193
+     (1995).
+
+7
+     E. Cheng, M. W. Cole and P. B. Shaw, J. Low Temp. Phys. 82, 49 (1991).
+
+8
+     D. S. Greywall and P. A. Bush, Phys. Rev. Lett. 67, 3535 (1991).
+
+9
+     G. Zimmerli, G. Mistura and M. H. W. Chan, Phys. Rev. Lett. 68, 60 (1992).
+
+10
+     K. S. Liu, M. H. Kalos and G. V. Chester, Phys. Rev. B 13, 1971 (1976).
+
+11
+     P. A. Whitlock, G. V. Chester and M. H. Kalos, Phys. Rev. B 38, 2418 (1988).
+
+12
+     C. Carraro and M. W. Cole, Phys. Rev. B 46, 10947 (1992).
+
+13
+     M. Wagner and D. Ceperley, J. Low Temp. Phys. 94, 185 (1994).
+
+14
+     D. M. Ceperley and E. L. Pollock, Phys. Rev. B 39, 2084 (1989).
+
+15
+     A. Belic and S. Fantoni, Physica B 194-196, 517 (1994).
+
+16
+     R. A. Aziz, V. P. S. Nain, J. S. Carley, W. L. Taylor and G. T. McConville, J. Chem.
+     Phys. 70, 4330 (1979).
+
+17
+     R. A. Aziz, F. R. W. McCourt and C. C. K. Wong, Mol. Phys. 61, 1487 (1987).
+
+                                               16
+18
+     J. Boronat and J. Casulleras, Phys. Rev. B 49, 8920 (1994).
+
+19
+     P. J. Reynolds, D. M. Ceperley, B. J. Alder and W. A. Lester, J. Chem. Phys. 77, 5593
+     (1982).
+
+20
+     S. A. Chin, Phys. Rev. B 42, 6991 (1990).
+
+21
+     S. A. Chin and E. Krotscheck, Phys. Rev B 45, 852 (1992).
+
+22
+     D. M. Ceperley and M. H. Kalos, in Monte Carlo Methods in Statistical Physics, edited
+     by K. Binder (Springer, Berlin, 1979)
+
+23
+     S. Zang and M. H. Kalos, J. Stat. Phys. 70, 515 (1993).
+
+24
+     R. N. Barnett, P. J. Reynolds and W. A. Lester Jr., J. Comput. Phys. 96, 258 (1991).
+
+25
+     J. Casulleras and J. Boronat, Phys. Rev. B 52, 3654 (1995).
+
+26
+     W. L. McMillan, Phys. Rev. 138, 442 (1965).
+
+27
+     L. Reatto, Nucl. Phys. A 328, 253 (1979).
+
+28
+     B. M. Abraham, Y. Eckstein, J. B. Ketterson, M. Kuchnir and P. R. Roach, Phys. Rev.
+     A 1, 250 (1970).
+
+29
+     E. Cheng, W. F. Saam, M. W. Cole, and J. Treiner, J. Low Temp. Phys. 92, 11 (1993).
+
+30
+     J. Boronat and J. Casulleras, Phys. Rev. B 50, 3427 (1994).
+
+31
+     H. A. Mook, Phys. Rev. Lett. 51, 1454 (1983).
+
+
+
+
+                                              17
+                                             FIGURES
+   FIG. 1. Equation of state for 2D liquid 4 He. The solid circles correspond to the DMC energies
+
+obtained with the Aziz II potential (the statistical error bars are smaller than the size of the
+
+symbols); the solid line is the polynomial fit (11) to the calculated energies. The open diamonds
+
+are the GFMC results of Ref. 11 with the Aziz potential and the dashed line is the reported fit to
+
+these values.
+
+   FIG. 2. Density dependence of the surface pressure as obtained from our fit to the equation of
+
+state function (solid line), and from the fit of Ref. 11 (dashed line).
+
+
+   FIG. 3. Density dependence of the velocity of sound as obtained from our fit to the equation
+
+of state function (solid line), and from the fit of Ref. 11 (dashed line).
+
+
+   FIG. 4. Radial distribution function for three densities: ρ = 0.275σ −2 (solid line), ρ = 0.320σ −2
+
+(short dashed line), ρ = 0.420σ −2 (long dashed line).
+
+
+   FIG. 5. Static structure function for three densities: ρ = 0.275σ −2 (solid line), ρ = 0.320σ −2
+
+(short dashed line), ρ = 0.420σ −2 (long dashed line).
+
+
+   FIG. 6. Density dependence of the condensate fraction. Solid circles with error bars: results of
+
+DMC calculations; solid line: fit from eq. (20).
+
+
+   FIG. 7. Momentum distribution for three densities: ρ = 0.275σ −2 (solid line), ρ = 0.320σ −2
+
+(short dashed line), ρ = 0.420σ −2 (long dashed line).
+
+
+
+
+                                                   18
+                                            TABLES
+    TABLE I. Results for the total and partial energies from DMC calculations. The potential
+
+energies per particle have been obtained from the calculation of pure expectation values.
+
+ρ(σ −2 )                  E/N (K)                          V /N (K)                    T /N (K)
+
+0.235                 -0.8480± 0.0016                  -3.850± 0.014                 3.002± 0.014
+
+0.255                 -0.8799± 0.0020                  -4.234± 0.022                 3.354± 0.022
+
+0.275                 -0.8950± 0.0019                  -4.680± 0.015                 3.785± 0.016
+
+0.320                 -0.8599± 0.0017                  -5.722± 0.013                 4.862± 0.013
+
+0.340                 -0.7932± 0.0031                  -6.213± 0.026                 5.419± 0.026
+
+0.380                 -0.5697± 0.0047                  -7.390± 0.026                 6.820± 0.026
+
+0.420                 -0.1524± 0.0047                  -8.532± 0.024                 8.379± 0.025
+
+
+
+    TABLE II. Parameters of the equation of state (11) for our DMC results and the GFMC results
+
+of Ref. 11
+
+Parameter                                      DMC                                          GFMC
+
+ ρ0 (σ −2 )                              0.28380 ± 0.00015                                  0.28458
+
+  e0 (K)                                -0.89706 ± 0.00061                                  -0.8357
+
+  B(K)                                     2.065 ± 0.014                                     1.659
+
+  C(K)                                     2.430 ± 0.035                                     3.493
+
+   χ2 /ν                                        0.99                                         1.45
+
+
+
+
+                                               19
+  TABLE III. Position rm and height g(rm ) of the first peak in the radial distribution function
+
+ρ(σ −2 )                                 rm (Å)                                        g(rm )
+
+0.235                                      4.09                                     1.209 ± 0.005
+
+0.255                                      4.03                                     1.233 ± 0.005
+
+0.275                                      3.98                                     1.253 ± 0.002
+
+0.320                                      3.87                                     1.323 ± 0.003
+
+0.340                                      3.84                                     1.363 ± 0.009
+
+0.380                                      3.63                                     1.426 ± 0.013
+
+0.420                                      3.61                                     1.522 ± 0.006
+
+
+
+
+                                                  20
+

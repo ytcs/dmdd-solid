@@ -1,0 +1,19 @@
+# Writer brief: Appendix B (Notation)
+Read COMMON.md, then PARTII.md (both in briefs/sections/), STYLE.md and the SPINE.md entry "### Appendix B. Notation". All paths are under /home/user/dmdd-solid/book. Build privately with -outdir=/tmp/claude-0/build-appB.
+
+Appendix B is the book's only symbol list and its only acronym list; the front matter points here. Other files already reference app:B, app:B.2 (from Ch1, Ch4, App A and App C). Keep those labels, and add app:B.1 and app:B.3.
+
+- **B.1 List of symbols (tex/appB/B-1.tex), generated.** Write figscripts/appB/gen_B1.py. It converts NOTATION.md into a longtable (Symbol | Meaning | Units | First use), grouped by chapter of first use (Ch1–22, then App A, C, D, E, F) and sorted within each group by order of first use where it can tell, otherwise alphabetically. The script must:
+  - drop every row whose first use is "—" or marked removed or unused;
+  - strip ⚑ flags, dates, clash-entry numbers and every editorial parenthesis ("moved from…", "use removed…", "SEAM", "merged", "R3", and so on);
+  - render each symbol in LaTeX math using the book's macros (tex/macros.tex). Keep a small explicit map for symbols that do not convert mechanically, and log every symbol it could not render;
+  - turn "First use" into \cref targets (sec:N.M, app:X.n) where the label exists in the tex. Check this against the labels in tex/**/*.tex;
+  - write B-1.tex and figscripts/appB/gen_B1.log (row counts per group, dropped rows, unrendered symbols).
+  
+  The table must contain no internal labels and no process words. Where one NOTATION row lists several symbols, it may stay one table row. Meanings are trimmed to one line where possible, since the home section carries the full definition. Rerunning the script must regenerate B-1.tex exactly; it will be rerun after the last chapter merge.
+- **B.2 Correspondence with literature notation (tex/appB/B-2.tex), written by hand, about 1,200 words.** Use the SPINE list. Add any other renaming that the accepted chapters state explicitly: grep tex for "often written", "many texts write", "other papers use", "in the literature" and "here written". Present it as a table (Literature | Here | Meaning | Section), followed by a short paragraph on the conventions that differ in sign or factor (Fourier convention, the sign of the mixing term, Gaussian vs Heaviside–Lorentz units, the S(q,ω) normalisation). For these, take the book's statements from App A and the home sections; do not invent new ones.
+- **B.3 Acronyms (tex/appB/B-3.tex), generated plus edited.** Write figscripts/appB/gen_B3.py. It collects every all-caps acronym (2–6 letters, digits allowed) used in tex/ch*/ and tex/app*/, excluding element symbols, units, and crystal/material formulae. Write a table (Acronym | Expansion | First use) with expansions taken from the first-use sentence in the tex. Log any acronym that is used but never expanded in the text: those are defects to report, not to fix.
+- Input B-1, B-2 and B-3 in appB.tex before \printbibliography, with \section titles "List of symbols", "Literature notation" and "Acronyms". The appendix opening is two sentences. Add appB to tex/gate.tex after the App A input if it is not there; do not rebuild the gate PDF.
+- Lint B-2.tex and the hand-written text with /home/user/dmdd-solid/skills/long-form-writing/scripts/lint.py --banned BANNED-TERMS.txt; 0 blocking hits.
+- Another agent is revising Chapter 9 and may add rows to NOTATION.md. Do not edit NOTATION.md, any chapter tex or the ledgers. Report NOTATION defects you find (duplicate symbols with different meanings, rows lacking units, first-use sections that don't exist) in ledgers/REVIEWS/appB/writer-notes.md.
+- Do not git commit. Report: files, page count of App B in the private build, rows per group, unrendered symbols, unexpanded acronyms and NOTATION defects. Final message ≤ 12 lines.

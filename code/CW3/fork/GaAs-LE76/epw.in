@@ -1,0 +1,45 @@
+&inputepw
+  prefix = 'GaAs'
+  amass(1) = 69.723
+  amass(2) = 74.9216
+  outdir = './'
+  elph = .true.
+  epbwrite = .true.
+  epwwrite = .true.
+  etf_mem = 1
+  lpolar = .true.
+  use_ws = .true.
+  nbndsub = 16
+  bands_skipped = 'exclude_bands = 1-10'
+  wannierize = .true.
+  spinors = .true.
+  num_iter = 1500
+  dis_froz_max = 9.5
+  ! ERR-CW3 (VER-CW3 V3): ABSOLUTE eV. Reset from the scf.out of THIS pseudopotential set before the epw stage:
+  !   dis_froz_max = CBM + 3 eV (the 3 eV interpolation-accuracy range of CW3 2.3), but the number of bands inside
+  !   the frozen window must not exceed nbndsub at any k (else wannierisation fails or mixes in non-sp3 states).
+  proj(1) = 'Ga:sp3'
+  proj(2) = 'As:sp3'
+  wdata(1) = 'bands_plot = .true.'
+  wdata(2) = 'begin kpoint_path'
+  wdata(3) = 'L 0.5 0.5 0.5 G 0.0 0.0 0.0'
+  wdata(4) = 'G 0.0 0.0 0.0 X 0.5 0.0 0.5'
+  wdata(5) = 'end kpoint_path'
+  elecselfen = .true.
+  phonselfen = .false.
+  efermi_read = .true.
+  fermi_energy = 6.0
+  ! ERR-CW3 (VER-CW3 V3): ABSOLUTE eV placeholder. Set fermi_energy = (VBM + CBM)/2 from scf.out/nscf.out
+  !   (mid-gap); a wrong value moves the fsthick window and elecselfen silently returns the wrong bands.
+  fsthick = 3.5
+  temps = 10
+  nstemp = 1
+  degaussw = 0.005
+  eps_acoustic = 2.0
+  dvscf_dir = './save'
+  nk1 = 6, nk2 = 6, nk3 = 6
+  nq1 = 6, nq2 = 6, nq3 = 6
+  filkf = 'shell_k.txt'
+  nqf1 = 100, nqf2 = 100, nqf3 = 100
+  mp_mesh_q = .false.
+/

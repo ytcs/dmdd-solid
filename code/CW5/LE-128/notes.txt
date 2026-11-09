@@ -1,0 +1,7 @@
+LE-128 pilot (FORMULATED, not run; returns/R16/CW5.md §3.2). Si 2x2x2 conventional cell (64 sites); Frenkel close pair = 63 lattice atoms + 1 <110>-split interstitial (nat = 64),
+vacancy-interstitial separation 2-4 Å.
+celldm(1) = 20.66 bohr = 2 x 10.33 bohr (PBE a = 5.467 Å; relax once with vc-relax on the perfect cell and update).
+Stages (fork layout, @PSEUDO@ -> SG15 via rtsc/pseudo.sh): scf.in on both quenched end states (positions from the WP5-AUD §3.1 quench),
+neb.x -in neb.in (9 images, CI auto, 5 meV/Å), finite-displacement Hessians (phonopy, 0.01 Å) at both minima,
+then S_HR,k = w_k dQ_k^2/2, E_reorg, lambda_eff along the MEP, A_T(eps) by FFT. Convergence: ecutwfc 30/40/50 Ry, k 2^3 vs 3^3 on one path.
+Cost estimate: ~900 SCFs, ~30 h on the 4-core box (over limit), ~2 h on the fork GPU [E].

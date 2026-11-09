@@ -1,0 +1,69 @@
+\section{Theory nuisances in a profile likelihood}\label{app:D.47}
+
+An exclusion limit computed with every truncation at its central value moves when a truncation moves, and the profile likelihood of \cref{eq:8.8-like} penalizes that motion through its constraint terms. Here we derive the three statements \cref{sec:21.4-like} uses: how far the limit moves per unit of each nuisance, \cref{eq:21.4-beta}; the theory band that follows when the nuisances are independent and standard normal, \cref{eq:21.4-band}; and the cost of profiling them in the Neyman construction of \cref{sec:21.4-like}, of second order in their sizes, \cref{eq:21.4-profile}. The last two subsections treat nuisances of known sign and the removal of cells from the signal.
+
+\subsection{The limit at fixed nuisances}
+
+In bin $j$ the expected count is $N_j(\sigmae,\vartheta) = \sigmae s_j(\vartheta) + N_{\mathrm{bkg},j}$, with $s_j = N_{\mathrm{sig},j}/\sigmae$ the signal per unit cross-section of \cref{eq:21.4-Nsig}. The theory nuisances act only on $s_j$. Up to terms independent of the parameters, the Poisson part of $-2\ln\mathsf{L}$ is $\sum_j\ell_j(N_j)$ with
+\begin{equation*}
+  \ell_j(N) = 2\bigl(N - N_{\mathrm{obs},j}\ln N\bigr) , \qquad \ell_j'(N) = 2\Bigl(1 - \frac{N_{\mathrm{obs},j}}{N}\Bigr) .
+\end{equation*}
+We consider data that show no excess, so that the best fit lies at $\hat{\bar\sigma}_e = 0$, the case of an exclusion. Then the best fit does not depend on the theory nuisances, which multiply a signal that vanishes there, and at fixed $\vartheta$ the one-sided statistic of \cref{app:C.14} is
+\begin{equation}
+  \mathsf{t}_\vartheta(\sigmae) = \sum_j\Bigl[\ell_j\bigl(\sigmae s_j(\vartheta) + N_{\mathrm{bkg},j}\bigr) - \ell_j(N_{\mathrm{bkg},j})\Bigr] .
+  \label{eq:D.47-tfix}
+\end{equation}
+The limit $\sigmae^{\mathrm{up}}(\vartheta)$ is where $\mathsf{t}_\vartheta$ reaches the threshold $\mathsf{t}^*$ of the construction. Differentiating $\mathsf{t}_\vartheta(\sigmae^{\mathrm{up}}(\vartheta)) = \mathsf{t}^*$ with respect to $\vartheta_k$ at fixed threshold gives
+\begin{equation*}
+  \frac{\partial\ln\sigmae^{\mathrm{up}}}{\partial\vartheta_k} = -\frac{\partial\mathsf{t}_\vartheta/\partial\vartheta_k}{\partial\mathsf{t}_\vartheta/\partial\ln\sigmae}
+  = -\frac{\sum_j\ell_j'\,\sigmae s_j\,\partial\ln s_j/\partial\vartheta_k}{\sum_j\ell_j'\,\sigmae s_j} .
+\end{equation*}
+In the power form \cref{eq:8.8-M}, the bin signal is an integral of the spectrum times $\prod_k(1 + \delta_k)^{\vartheta_k}$, so at $\vartheta = 0$ the logarithmic derivative $\partial\ln s_j/\partial\vartheta_k$ is the average of $\ln(1 + \delta_k)$ over the signal in the bin, which we write $\ln(1 + \bar\delta_{k,j})$. For a normalization template it is exact; for a tilt it holds at first order, and a finite step is used in practice. Hence \cref{eq:21.4-beta}, with the weights
+\begin{equation}
+  a_j = \frac{\ell_j'\,N_{\mathrm{sig},j}}{\sum_i\ell_i'\,N_{\mathrm{sig},i}}\bigg|_{\sigmae = \sigmae^{\mathrm{up}}(0)} , \qquad \sum_ja_j = 1 .
+  \label{eq:D.47-weights}
+\end{equation}
+A bin with no events has $\ell_j' = 2$, so for zero counts $a_j$ is the share of bin $j$ in the signal. A bin with fewer events than background, $N_{\mathrm{obs},j} \le N_{\mathrm{bkg},j}$, has $\ell_j' \ge 0$ at every $\sigmae \ge 0$ and a nonnegative weight. A bin with an excess can carry a negative weight: raising the signal there improves the fit and weakens the limit.
+
+\subsection{The theory band}
+
+To first order in the nuisances, $\ln\sigmae^{\mathrm{up}}(\vartheta) = \ln\sigmae^{\mathrm{up}}(0) + \sum_k\beta_k\vartheta_k$. With independent standard-normal $\vartheta_k$ the right side is Gaussian with mean $\ln\sigmae^{\mathrm{up}}(0)$ and variance $\sigma_\beta^2 = \sum_k\beta_k^2$, which is \cref{eq:21.4-band}. The envelope that sets one nuisance at a time to $\pm1$ moves the limit by $\ee^{\pm|\beta_k|}$.
+
+A template enters $\beta_k$ as a weighted sum over bins with one parameter, $\beta_k = -\sum_ja_j\ln(1 + \bar\delta_{k,j})$. Suppose instead that the same template were given an independent parameter in each bin. Then the variance would be $\sum_ja_j^2\ln^2(1 + \bar\delta_{k,j})$. When all terms $a_j\ln(1 + \bar\delta_{k,j})$ have one sign, the square of their sum exceeds the sum of their squares, and the independent treatment understates the band. When they change sign, as a many-body template must across a spectrum that reaches its compensating energies (\cref{eq:8.8-fsum}), the coherent parameter partly cancels and the independent treatment overstates it. Either way the independent treatment describes no calculation.
+
+\subsection{The cost of profiling}
+
+With standard-normal constraints the profiled statistic is
+\begin{equation*}
+  \mathsf{t}_{\mathrm{p}}(\sigmae) = \min_\vartheta\Bigl[\mathsf{t}_\vartheta(\sigmae) + \sum_k\vartheta_k^2\Bigr] ,
+\end{equation*}
+since the overall best fit, at $\hat{\bar\sigma}_e = 0$ and $\vartheta = 0$, contributes zero. Let $x = \ln\sigmae$ and $Q(x) = \mathsf{t}_0(\ee^x)$. To first order in the templates, $\partial\mathsf{t}_\vartheta/\partial\vartheta_k = -\beta_kQ'(x)$ by the result above, so that $\mathsf{t}_\vartheta = Q(x - \sum_k\beta_k\vartheta_k)$, with $\beta$ evaluated at $x$. For zero counts or one bin the weights $a_j$, and hence $\beta$, do not depend on $x$; otherwise their dependence on $x$ enters the result at $O(\sigma_\beta^4)$. Only the combination $y = \sum_k\beta_k\vartheta_k$ enters. At fixed $y$ the smallest $\sum_k\vartheta_k^2$ is $y^2/\sigma_\beta^2$, reached for $\vartheta$ parallel to $\beta$, and
+\begin{equation*}
+  \mathsf{t}_{\mathrm{p}}(\sigmae) = \min_y\Bigl[Q(x - y) + \frac{y^2}{\sigma_\beta^2}\Bigr] .
+\end{equation*}
+To first order in the templates, any number of nuisances thus acts like one nuisance of logarithmic width $\sigma_\beta$. The minimum lies at $Q'(x - y) = 2y/\sigma_\beta^2$, the conditional best fit
+\begin{equation}
+  y = \tfrac12\sigma_\beta^2\,Q'(x) + O(\sigma_\beta^4) ,
+  \label{eq:D.47-yhat}
+\end{equation}
+a shift of the signal toward smaller values, since the data show no excess.
+
+The Neyman construction of \cref{sec:21.4-like} evaluates the probability of the outcomes at least as extreme as the observed one with the nuisances at this best fit. The expected counts are then those of the nominal model at the shifted cross-section $\ee^{x - y}$, and the probability equals $1 - \mathrm{CL}$ where the shifted cross-section is the nominal limit, $x - y = x_0$. With \cref{eq:D.47-yhat} at $x_{\mathrm{p}} = x_0 + O(\sigma_\beta^2)$,
+\begin{equation*}
+  x_{\mathrm{p}} - x_0 = \tfrac12\sigma_\beta^2\,Q'(x_0) + O(\sigma_\beta^4) ,
+\end{equation*}
+which is \cref{eq:21.4-profile} with $\mathsf{t}' = Q'(x_0) = \sum_j\ell_j'N_{\mathrm{sig},j}$ at the nominal limit. For one bin the result is exact. There the best fit obeys $\vartheta_k = \tfrac12\beta_k\ell'(N)\,\sigmae s(\vartheta)$ exactly, and at the limit the counts $N$ and the signal $\sigmae s(\vartheta)$ are those of the classical limit, so $y = \tfrac12\sigma_\beta^2\mathsf{t}'$ with no higher orders. With no events $\mathsf{t}' = 2N^{\mathrm{up}}$, and the profiled limit is $\ee^{\sigma_\beta^2N^{\mathrm{up}}}$ times the nominal one for any background: 1.427 at $\sigma_\beta = 0.393$ without background. A known background lowers $\mathsf{t}'$: with no event and $N_{\mathrm{bkg}} = 1$ the classical limit is $N^{\mathrm{up}} = 1.303$ and $\mathsf{t}' = 2N^{\mathrm{up}} = 2.61$, against 4.61 without background. One event on a background of one gives $\mathsf{t}' = 4.29$ and, at $\sigma_\beta = 0.393$, a factor 1.393.
+
+A fixed threshold gives half of this. If instead the profiled statistic is compared with the threshold $\mathsf{t}^*$ that reproduces the classical limit without nuisances, as in the illustration of \cref{eq:8.8-cost}, expanding $Q(x - y) = Q(x) - yQ'(x) + O(y^2)$ gives
+\begin{equation*}
+  \mathsf{t}_{\mathrm{p}}(\sigmae) = Q(x) - \frac{\sigma_\beta^2}{4}\,Q'(x)^2 + O(\sigma_\beta^4) ,
+\end{equation*}
+and subtracting $Q(x_0) = \mathsf{t}^*$ from $\mathsf{t}_{\mathrm{p}}(x_{\mathrm{p}}) = \mathsf{t}^*$ gives $x_{\mathrm{p}} - x_0 = \tfrac14\sigma_\beta^2Q'(x_0)$. The fixed threshold lets the profiled statistic fall by the constraint it saves, while the Neyman construction charges the whole shift $y$ of the signal. For one bin with no events and no background, $Q(x) = 2s\,\ee^x$ and $\mathsf{t}' = \mathsf{t}^*$, and $\sigma_\beta^2\mathsf{t}^*/4$ is the expansion of \cref{eq:8.8-cost}: at $\sigma_\beta = 0.3$ and $\mathsf{t}^* = 4.605$ the exact ratio is 1.104 and the second-order one 1.109, against 1.230 in the Neyman construction.
+
+\subsection{Nuisances of known sign}
+
+Let nuisance $k$ have a template of known sign, of one sign in every bin, constrained to $\vartheta_k \ge 0$ with the weight $\ee^{-\vartheta_k^2/2}$ there, a half-normal constraint. Assume every weight $a_j$ is nonnegative at every $\sigmae$, as in data without an excess. If $\vartheta_k > 0$ raises the signal, so that $\beta_k < 0$, then $\mathsf{t}_\vartheta(\sigmae)$ increases with $\vartheta_k$ at every $\sigmae$, and so does the constraint term. The minimum over $\vartheta_k \ge 0$ sits on the boundary $\vartheta_k = 0$ at every $\sigmae$, the nuisance drops out of the profile, and the profiled limit equals the limit without it. The limit at $\vartheta_k = 0$ is then the conservative end. If $\vartheta_k > 0$ lowers the signal, the unconstrained minimum already lies at $\vartheta_k > 0$, and the half-normal constraint costs as much as a two-sided one.
+
+\subsection{Removing cells from the signal}
+
+Cells of the $(\vect{q},\omega)$ plane where a response has no controlled central value can be removed from the signal. Removing them lowers each $s_j$ by a nonnegative amount. From \cref{eq:D.47-tfix}, $\partial\mathsf{t}_\vartheta/\partial s_j = \sigmae\,\ell_j'(N_j)$, and for $N_{\mathrm{obs},j} \le N_{\mathrm{bkg},j}$ this is nonnegative at every $\sigmae \ge 0$, since $N_j \ge N_{\mathrm{bkg},j}$. Lowering any $s_j$ of such a bin therefore lowers $\mathsf{t}_\vartheta(\sigmae)$ at every $\sigmae$, and the point where it reaches $\mathsf{t}^*$ moves up. The same holds for $\mathsf{t}_{\mathrm{p}}$, a minimum of functions that each decrease, and for the classical limit of one bin, $\sigmae^{\mathrm{up}} = N^{\mathrm{up}}/s$. Removing signal therefore never strengthens a limit set from bins without an excess. In a bin with $N_{\mathrm{obs},j} > N_{\mathrm{bkg},j}$, $\ell_j'$ is negative for $\sigmae s_j < N_{\mathrm{obs},j} - N_{\mathrm{bkg},j}$, and the statement can fail there. For one bin the limit rises by the factor $1/(1 - f)$, with $f$ the removed share of the signal.

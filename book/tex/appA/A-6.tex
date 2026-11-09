@@ -1,0 +1,70 @@
+\section{Phonon conventions}\label{app:A.6}
+
+The displacement of nucleus $\kappa$ in the cell at $\vect{R}$ is expanded in normal modes as
+\begin{equation}
+  \vect{u}_{\vect{R}\kappa} = \sum_{\vect{Q}\nu}\frac{1}{\sqrt{2NM_\kappa\omega_{\vect{Q}\nu}}}\;\vect{e}_{\kappa\nu}(\vect{Q})\,\ee^{\ii\vect{Q}\cdot\vect{R}}\,B_{\vect{Q}\nu},
+  \qquad B_{\vect{Q}\nu} = b_{\vect{Q}\nu} + b^\dagger_{-\vect{Q}\nu},
+  \label{eq:A.6-u}
+\end{equation}
+with $\vect{Q}$ in the first Brillouin zone, $\nu$ the branch, $M_\kappa$ the nuclear mass and $[b_{\vect{Q}\nu}, b^\dagger_{\vect{Q}'\nu'}] = \delta_{\vect{Q}\vect{Q}'}\delta_{\nu\nu'}$. The polarization vectors are normalized over the basis and obey
+\begin{equation}
+  \sum_\kappa|\vect{e}_{\kappa\nu}(\vect{Q})|^2 = 1, \qquad \vect{e}_{\kappa\nu}(-\vect{Q}) = \vect{e}_{\kappa\nu}(\vect{Q})^*, \qquad \omega_{-\vect{Q}\nu} = \omega_{\vect{Q}\nu}.
+  \label{eq:A.6-e}
+\end{equation}
+These are the conventions of Refs.~\cite[Eqs.~(16)--(18)]{giustino2017electron} and~\cite[Eq.~(29)]{trickle2022effective}. The second relation, a choice of phase, makes $\vect{u}_{\vect{R}\kappa}$ Hermitian: the terms at $\vect{Q}$ and $-\vect{Q}$ are conjugates of each other. Ref.~\cite{giustino2017electron} and most of the phonon literature write the wavevector as $\vect{q}$ and the operators as $a_{\vect{q}\nu}$. In this book $\vect{q}$ is the dark-matter momentum transfer and $a_{\vect{k}\nu}$ is reserved for magnons (\cref{sec:7.1}), so sources are converted by $\vect{q} \to \vect{Q}$ and $a \to b$.
+
+The frequencies and polarization vectors are the eigenvalues and eigenvectors of the dynamical matrix,
+\begin{equation}
+  \sum_{\kappa'\beta}D^{\mathrm{dyn},\alpha\beta}_{\kappa\kappa'}(\vect{Q})\,e^{\beta}_{\kappa'\nu}(\vect{Q}) = \omega_{\vect{Q}\nu}^2\,e^{\alpha}_{\kappa\nu}(\vect{Q}), \qquad
+  D^{\mathrm{dyn},\alpha\beta}_{\kappa\kappa'}(\vect{Q}) = \frac{1}{\sqrt{M_\kappa M_{\kappa'}}}\sum_{\vect{R}}\Phi^{(2),\alpha\beta}_{\kappa\kappa'}(\vect{0},\vect{R})\,\ee^{\ii\vect{Q}\cdot\vect{R}},
+  \label{eq:A.6-Ddyn}
+\end{equation}
+where $\Phi^{(2),\alpha\beta}_{\kappa\kappa'}(\vect{0},\vect{R})$ is the second derivative of the Born--Oppenheimer energy with respect to the displacements $u^\alpha_{\vect{0}\kappa}$ and $u^\beta_{\vect{R}\kappa'}$, and $\alpha,\beta$ are Cartesian indices (\cref{sec:5.2})~\cite[Eq.~(14)]{giustino2017electron}. The sign of the exponent matches \cref{eq:A.6-u}: a displacement pattern $\propto\ee^{\ii\vect{Q}\cdot\vect{R}}$ is an eigenvector of $D^{\mathrm{dyn}}(\vect{Q})$, not of $D^{\mathrm{dyn}}(-\vect{Q})$. A code that uses the opposite sign exchanges $\vect{e}_{\kappa\nu}(\vect{Q})$ and $\vect{e}_{\kappa\nu}(\vect{Q})^*$; by \cref{eq:A.6-e} this maps $\vect{Q}$ to $-\vect{Q}$ and must be undone before polarization vectors from such a code are combined with vertices from another.
+
+\subsection{Zero-point length}
+
+The scale of the displacement is the zero-point length of a mode,
+\begin{equation}
+  \ell_{\vect{Q}\nu} \equiv \frac{1}{\sqrt{2M_{\mathrm{cell}}\,\omega_{\vect{Q}\nu}}},
+  \label{eq:A.6-ell}
+\end{equation}
+with $M_{\mathrm{cell}} = \sum_\kappa M_\kappa$ and the factor $1/\sqrt N$ kept outside. For an acoustic mode at small $Q$ all nuclei move together, $\vect{e}_{\kappa\nu} = (M_\kappa/M_{\mathrm{cell}})^{1/2}\hat{\vect{e}}_\nu$ with a unit vector $\hat{\vect{e}}_\nu$, which satisfies \cref{eq:A.6-e}. The amplitude in \cref{eq:A.6-u} is then $(2NM_\kappa\omega_{\vect{Q}\nu})^{-1/2}(M_\kappa/M_{\mathrm{cell}})^{1/2} = \ell_{\vect{Q}\nu}/\sqrt N$ for every $\kappa$, so one mode displaces each nucleus by $\ell_{\vect{Q}\nu}\hat{\vect{e}}_\nu/\sqrt N$ per unit of $B_{\vect{Q}\nu}$. Keeping $1/\sqrt N$ outside $\ell_{\vect{Q}\nu}$ matches the vertex normalization below, in which all such factors are explicit. Ref.~\cite[Eq.~(34)]{giustino2017electron} writes the same scale with an arbitrary reference mass $M_0$ and the ratio $(M_0/M_\kappa)^{1/2}$.
+
+\subsection{The electron--phonon vertex}
+
+The first-order coupling of electrons to phonons has the form
+\begin{equation}
+  H_{\mathrm{ep}} = \frac{1}{\sqrt N}\sum_{\vect{k}\vect{Q}}\sum_{mn\nu} g_{mn\nu}(\vect{k},\vect{Q})\,c^\dagger_{m,\vect{k}+\vect{Q}}c_{n\vect{k}}\,B_{\vect{Q}\nu}.
+  \label{eq:A.6-Hep}
+\end{equation}
+The vertex is
+\begin{equation}
+  g_{mn\nu}(\vect{k},\vect{Q}) = \frac{1}{\sqrt{2\omega_{\vect{Q}\nu}}}\sum_\kappa \frac{\vect{e}_{\kappa\nu}(\vect{Q})}{\sqrt{M_\kappa}}\cdot\langle\psi_{m,\vect{k}+\vect{Q}}|\partial_{\kappa,\vect{Q}}V_{\mathrm{KS}}|\psi_{n\vect{k}}\rangle.
+  \label{eq:A.6-g}
+\end{equation}
+Here $\partial_{\kappa,\vect{Q}}V_{\mathrm{KS}} = \sum_{\vect{R}}\ee^{\ii\vect{Q}\cdot\vect{R}}\,\partial V_{\mathrm{KS}}/\partial\vect{u}_{\vect{R}\kappa}$ is the change of the self-consistent Kohn--Sham potential for a displacement wave of nucleus $\kappa$. It is computed with density-functional perturbation theory and therefore screened by the electrons (\cref{sec:6.2,app:E.4}). The matrix element, normalized as in \cref{eq:A.5-bloch}, is of order one in $N$, and so is $g$; the single factor $1/\sqrt N$ of \cref{eq:A.6-Hep} carries the size dependence. This is the normalization of Refs.~\cite[Eqs.~(37) and (38)]{giustino2017electron} and~\cite[Eq.~(2)]{ponce2016epw}, and it is what the EPW code outputs, so computed vertices enter the formulas of this book without rescaling. The vertex has dimension of energy.
+
+Hermiticity of $H_{\mathrm{ep}}$ fixes the conjugate vertex. The Hermitian conjugate of the term $(\vect{k},\vect{Q},m,n)$ is $g^*_{mn\nu}(\vect{k},\vect{Q})\,c^\dagger_{n\vect{k}}c_{m,\vect{k}+\vect{Q}}B^\dagger_{\vect{Q}\nu}$, and $B^\dagger_{\vect{Q}\nu} = B_{-\vect{Q}\nu}$. It must equal the term $(\vect{k}+\vect{Q}, -\vect{Q}, n, m)$ of the sum, so
+\begin{equation}
+  g_{mn\nu}(\vect{k},\vect{Q})^* = g_{nm\nu}(\vect{k}+\vect{Q},-\vect{Q}),
+  \label{eq:A.6-herm}
+\end{equation}
+which also follows from \cref{eq:A.6-g} with $\vect{e}_{\kappa\nu}(-\vect{Q}) = \vect{e}_{\kappa\nu}(\vect{Q})^*$ and $(\partial_{\kappa,\vect{Q}}V_{\mathrm{KS}})^\dagger = \partial_{\kappa,-\vect{Q}}V_{\mathrm{KS}}$. The vertex is split into a short-range and a long-range part, $g = g^{\mathrm{S}} + g^{\mathrm{L}}$, in polar crystals, where $g^{\mathrm{L}}$ is the Fr\"ohlich term (\cref{sec:6.2}). Both carry the gauge of the electronic states, and the rule of \cref{app:A.5} applies: $g$ and $\rho$ in one amplitude come from one set of states.
+
+\subsection{Emission and absorption}
+
+In \cref{eq:A.6-Hep} the electron gains crystal momentum $\vect{Q}$. It does so either by absorbing a phonon $(\vect{Q},\nu)$, through $b_{\vect{Q}\nu}$, or by emitting a phonon $(-\vect{Q},\nu)$, through $b^\dagger_{-\vect{Q}\nu}$; both use the same vertex $g(\cdot,\vect{Q})$. With $n_{\vect{Q}\nu} = n_{\mathrm{B}}(\omega_{\vect{Q}\nu})$ phonons in the mode, $n_{\mathrm{B}}(x) = (\ee^{\beta x} - 1)^{-1}$, the squared matrix elements $|\langle n+1|b^\dagger|n\rangle|^2 = n+1$ and $|\langle n-1|b|n\rangle|^2 = n$ give the thermal weights
+\begin{equation}
+  n_{\vect{Q}\nu} + \tfrac12 \pm \tfrac12 ,
+  \label{eq:A.6-weights}
+\end{equation}
+with the upper sign for emission of $-\vect{Q}$ and the lower for absorption of $+\vect{Q}$. The energy given to the lattice is $\pm\omega_{\vect{Q}\nu}$ with the same sign convention. At $T = 0$ only emission survives.
+
+\subsection{Second order and the Debye--Waller factor}
+
+The coupling at second order in the displacements has a vertex quadratic in $B$, which we call the Allen--Heine vertex $g^{\mathrm{AH}}$; its self-energy is $\Sigma^{\mathrm{AH}}$ (\cref{sec:6.3}). Ref.~\cite[Eqs.~(39) and (40)]{giustino2017electron} calls the same vertex $g^{\mathrm{DW}}$, a ``Debye--Waller'' vertex. This book reserves ``Debye--Waller'' for one object only, the reduction of the zero-phonon weight of a momentum transfer $\vect{q}$ to nucleus $\kappa$ by the factor $\ee^{-2W_\kappa(\vect{q})}$, with
+\begin{equation}
+  2W_\kappa(\vect{q}) = \vect{q}\cdot B_\kappa\cdot\vect{q}, \qquad B_\kappa = \langle\vect{u}_\kappa\vect{u}_\kappa\rangle,
+  \label{eq:A.6-DW}
+\end{equation}
+where $B_\kappa$ is the thermal displacement tensor, isotropic only at a site of cubic symmetry (\cref{sec:5.6}). The two objects share $B_\kappa$ and appear next to the same double commutator, that of the first-moment sum rule \cref{eq:4.3-firstmoment}, in different roles. In \cref{sec:5.6} the factor $\ee^{-2W_\kappa(\vect{q})}$ is the elastic share of the scattering weight, whose mean energy the sum rule fixes at the free recoil energy. In \cref{sec:6.3} the commutator, taken for a rigid translation, makes $\Sigma^{\mathrm{AH}}$ cancel the Fan--Migdal term for long-wavelength acoustic phonons.

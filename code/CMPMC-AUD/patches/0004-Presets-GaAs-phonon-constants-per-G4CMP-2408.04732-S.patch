@@ -1,0 +1,84 @@
+From 7d6d44d8a1230d385bd2854127fc8cd416ce4712 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 1 Nov 2026 10:26:27 +0000
+Subject: [PATCH 4/9] Presets: GaAs phonon constants per G4CMP/2408.04732; Si
+ eps_eh, F per campaign; Ge nu_D
+
+- GaAs: A = 7.778e-55 s^4, F_TT = 0.778, DOS 0.584:0.337:0.078, v_L/v_T =
+  5130/3020 m/s as in G4CMP CrystalMaps/GaAs/config.txt and 2408.04732 Tables
+  3-5 [FT]; the previous A = 2.66e-55, F_TT = 0.58 matched neither (decay rate
+  off by x2.9). nu_D = 8.58 THz (max optical, 2408.04732 Table 5).
+- Si: eps_eh = 3.749 eV, F = 0.119 (campaign WP5-v4 Sec. 6.4 from 2004.11499
+  [FT]) instead of 3.81 eV / 0.15.
+- Ge: primary phonon frequency 8.64 THz (Leman 1109.1193 Table I [FT]; campaign
+  WP8-R Table 1.1) instead of 2 THz (below the acoustic band edge).
+Isotope B for Si/Ge/GaAs re-derived independently (4 pi^3 Gamma_md Omega <v^-3>)
+agrees with the presets to 0.5-2.7%. Test: tests/test_presets.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01BcNoovRae5kkbL36KL3sYy
+---
+ include/cmpmc/materials/presets.hpp | 32 +++++++++++++++++++----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/include/cmpmc/materials/presets.hpp b/include/cmpmc/materials/presets.hpp
+index 4c1c8d2..695d7d7 100644
+--- a/include/cmpmc/materials/presets.hpp
++++ b/include/cmpmc/materials/presets.hpp
+@@ -10,7 +10,12 @@ namespace cmpmc::materials {
+ 
+ // 1. Germanium (Ge) - Cubic [CrystalMaps/Ge/config.txt]
+ inline CrystalConfig Germanium() {
+-    return CrystalConfig{};
++    CrystalConfig c{};
++    // Primary (Debye-energy) phonon frequency: G4CMP config.txt uses 2 THz, which is
++    // below the Ge acoustic band edge; Leman 1109.1193 Table I gives nu_D = 8.64 THz
++    // (campaign WP8-R Table 1.1); 2408.04732 Table 5 max optical 9.02 THz.
++    c.debye_freq = 8.64 * units::THz;
++    return c;
+ }
+ 
+ // 2. Silicon (Si) - Cubic [CrystalMaps/Si/config.txt]
+@@ -38,8 +43,10 @@ inline CrystalConfig Silicon() {
+     c.v_sound           = 9000.0;
+     c.v_trans           = 5400.0;
+     c.bandgap           = 1.17 * units::eV;
+-    c.pair_energy       = 3.81 * units::eV;
+-    c.fano_factor       = 0.15;
++    // eps_eh and F_eh: campaign values (WP5-v4 Sec. 6.4, from 2004.11499 [FT]:
++    // 3.749 +- 0.001 eV and 0.119 +- 0.002 at 5.9 keV, 123 K). G4CMP config: 3.81, 0.15.
++    c.pair_energy       = 3.749 * units::eV;
++    c.fano_factor       = 0.119;
+     c.epsilon_rel       = 11.68;
+     c.alpha_nonparabolic= 0.5;
+     c.h_mass_ratio      = 0.50;
+@@ -190,15 +197,18 @@ inline CrystalConfig GalliumArsenide() {
+     c.gamma         = -67.51 * units::GPa;
+     c.lambda        =  47.20 * units::GPa;
+     c.mu            =  44.20 * units::GPa;
++    // Phonon constants as in G4CMP CrystalMaps/GaAs/config.txt and 2408.04732
++    // Tables 3-5 [FT] (A = 7.77e-55 s^4, F_TT = 0.77, DOS 0.584:0.337:0.078); the
++    // previous values (A = 2.66e-55, F_TT = 0.58, ...) matched neither.
+     c.B_iso         = 7.22e-42;
+-    c.A_anh         = 2.66e-55;
+-    c.fTT_frac      = 0.58;
+-    c.fLDOS         = 0.0888;
+-    c.fSTDOS        = 0.5539;
+-    c.fFTDOS        = 0.3572;
+-    c.debye_freq    = 7.1 * units::THz;
+-    c.v_sound       = 4730.0;
+-    c.v_trans       = 3340.0;
++    c.A_anh         = 7.778e-55;
++    c.fTT_frac      = 0.778;
++    c.fLDOS         = 0.078;
++    c.fSTDOS        = 0.584;
++    c.fFTDOS        = 0.337;
++    c.debye_freq    = 8.58 * units::THz;   // max optical, 2408.04732 Table 5 (G4CMP: 6.56 = max acoustic)
++    c.v_sound       = 5130.0;
++    c.v_trans       = 3020.0;
+     c.bandgap       = 1.519 * units::eV;
+     c.pair_energy   = 4.20 * units::eV;
+     c.fano_factor   = 0.12;
+-- 
+2.43.0
+

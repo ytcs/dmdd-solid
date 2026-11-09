@@ -1,0 +1,60 @@
+A_AB = 5.703 eV^3 (continuum silicon calibration, si_cascade18.log); inverse-variance mean for diamond: 12.948 eV (plain 13.055)
+scan read from limit18_4c_scan.json (written by an earlier run of this script)
+scan and materials done in 472 s
+fit eps/E_g = 1.6117 + 2.3287 (lambda w^0.9637)^0.2403 : max |rel| 0.61 %, rms 0.21 % over 60 points
+  eps/E_g range of the scan 1.809 - 5.765; F range 0.0826 - 0.1489
+  k2 = 2.329 (A omega^0.964)^0.2403 E_g^0.0475  (A in eV^3, energies in eV)
+  k2(Si: E_g 1.17 eV, 63 meV) = 1.879 eV; k2(E_g 1.16, 63 meV) = 1.879 eV
+
+validation (residual = model / measured - 1):
+  Ge      E_g 0.735 omega 0.0376 lambda 14.3863 w 0.0512: model 2.815 eV (linear law 2.815), measured 2.960 eV, residual -4.9 %, F 0.1248
+  C       E_g 5.470 omega 0.1610 lambda 0.0348 w 0.0294: model 11.357 eV (linear law 11.329), measured 12.948 eV, residual -12.3 %, F 0.0876
+  4H-SiC  E_g 3.260 omega 0.1200 lambda 0.1646 w 0.0368: model 7.565 eV (linear law 7.545), measured 7.830 eV, residual -3.4 %, F 0.0933
+  6H-SiC  E_g 3.020 omega 0.1200 lambda 0.2071 w 0.0397: model 7.167 eV (linear law 7.150), measured 6.700 eV, residual +7.0 %, F 0.0946
+  3C-SiC  E_g 2.390 omega 0.1205 lambda 0.4177 w 0.0504: model 6.121 eV (linear law 6.111), measured 6.900 eV, residual -11.3 %, F 0.0994
+  GaN     E_g 3.430 omega 0.0889 lambda 0.1413 w 0.0259: model 7.694 eV (linear law 7.670), measured 9.590 eV, residual -19.8 %, F 0.0912
+  SiO2    E_g 9.200 omega 0.1490 lambda 0.0073 w 0.0162: model 17.373 eV (linear law 17.358), measured 18.000 eV, residual -3.5 %, F 0.0839
+  range -19.8 % to +7.0 %, mean -6.9 %, rms 10.5 % (7 materials)
+  from the rounded residuals as tabulated: mean -6.9 %, rms 10.5 %
+  full-band silicon pair energy 3.1 eV: model/measured - 1 = -17.3 % against 3.749 eV, -13.9 % against 3.6 eV
+  full band 3C-SiC 6.60 eV: model/measured - 1 = -4.3 % (cascade -11.3 %)
+  full band 4H-SiC 7.30 eV: model/measured - 1 = -6.8 % (cascade -3.4 %)
+  full band GaN    8.90 eV: model/measured - 1 = -7.2 % (cascade -19.8 %)
+  full band C      12.87 eV: model/measured - 1 = -0.6 % (cascade -12.3 %)
+  full band SiO2   16.70 eV: model/measured - 1 = -7.2 % (cascade -3.5 %)
+validated range: lambda 0.0073 - 14.39, w 0.0162 - 0.0543, E_g 0.73 - 9.2 eV
+
+predictions (Griffin et al. Table I inputs; Si, Ge, GaAs at the book low-temperature values):
+  material  E_g    omega   lambda    w       eps(eV)  eps/E_g  F      linear law  k2    fit domain  validated range
+  NaI       5.800  0.0200   0.02923  0.0034   10.910   1.881  0.0836   10.903    1.55  False       False
+  CsI       6.140  0.0100   0.02464  0.0016   11.212   1.826  0.0828   11.224    1.33  False       False
+  CaWO4     5.200  0.1060   0.04056  0.0204   10.686   2.055  0.0870   10.657    2.28  True        True
+  Al2O3     8.800  0.1040  0.008369  0.0118   16.518   1.877  0.0836   16.506    2.32  True        False
+  diamond   5.470  0.1610   0.03485  0.0294   11.357   2.076  0.0876   11.329    2.51  True        True
+  SiO2      9.200  0.1490  0.007324  0.0162   17.373   1.888  0.0839   17.358    2.53  True        True
+  PbTe      0.190  0.0135     831.5  0.0711    1.528   8.043  0.1625    1.513    1.21  False       False
+  InSb      0.240  0.0215     412.5  0.0896    1.761   7.337  0.1594    1.746    1.36  False       False
+  AlN       6.200  0.1090   0.02393  0.0176   12.330   1.989  0.0857   12.302    2.31  True        True
+  CaF2     11.810  0.0556  0.003462  0.0047   21.047   1.782  0.0822   21.072    2.04  False       False
+  GaN       3.430  0.0889    0.1413  0.0259    7.694   2.243  0.0912    7.670    2.14  True        True
+  GaSb      0.720  0.0273     15.28  0.0379    2.673   3.712  0.1225    2.674    1.51  True        False
+  LiF      14.200  0.0772  0.001992  0.0054   25.045   1.764  0.0821   25.105    2.22  False       False
+  MgF2     12.400  0.0737  0.002991  0.0059   22.129   1.785  0.0823   22.166    2.18  False       False
+  MgO       7.830  0.0826   0.01188  0.0105   14.826   1.893  0.0839   14.810    2.19  True        False
+  NaCl      8.750  0.0306  0.008513  0.0035   15.841   1.810  0.0826   15.852    1.75  False       False
+  NaF      11.500  0.0499   0.00375  0.0043   20.494   1.782  0.0822   20.520    1.98  False       False
+  PbS       0.290  0.0269     233.8  0.0928    1.924   6.635  0.1552    1.912    1.44  False       False
+  PbSe      0.170  0.0171      1161  0.1006    1.564   9.201  0.1679    1.542    1.27  False       False
+  ZnO       3.300  0.0634    0.1587  0.0192    7.320   2.218  0.0905    7.296    1.98  True        True
+  ZnS       3.800  0.0410    0.1039  0.0108    7.946   2.091  0.0876    7.924    1.80  True        False
+  Si        1.170  0.0630     3.561  0.0538    3.766   3.219  0.1140    3.765    1.88  True        True
+  Ge        0.744  0.0376     13.85  0.0505    2.831   3.805  0.1244    2.831    1.63  True        True
+  GaAs      1.520  0.0364     1.624  0.0239    4.133   2.719  0.1023    4.125    1.68  True        True
+k2 over the 24 crystals: 1.21 - 2.53 eV; inside the fit domain: 1.51 - 2.53 eV
+
+WE 18.4 GaAs (E_g 1.52 eV, omega_LO 36.35 meV): lambda = 1.6239, w = 0.02391, w^gamma = 0.02739, lambda w^gamma = 0.04448, (.)^beta = 0.4733
+  eps/E_g = 1.6117 + 2.3287 x 0.4733 = 2.7139; eps = 4.125 eV; k2 = 1.675 eV; 1.61 E_g = 2.450 eV
+  cascade itself: 4.133 eV (Table 18.1); empirical 1.54 E_g + 1.89 = 4.231 eV; Klein 2.8 E_g + 0.5 = 4.756 eV
+  at 300 K (E_g 1.42 eV): linear law 3.959 eV against about 4.2 eV measured
+  Klein at 1.52 eV with r_K omega_K = 0.5 eV: 4.76 eV; empirical at 1.42 eV: 4.077
+wrote limit18_4c.pdf; total 473 s

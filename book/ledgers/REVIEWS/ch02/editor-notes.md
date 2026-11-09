@@ -1,0 +1,15 @@
+# Editor notes for the Chapter 2 batch review (cross-chapter items raised by writers)
+- §1.4: R ≈ 5 fm is the germanium nuclear radius. Silicon's Helm radius is 3.47 fm. Fix §1.4 or state the nucleus.
+- Worked example 1.7: the text gives N_sig = 74 after the Chapter 1 revision. SEAMS/1.5.md still says 22.4 (stale); update the SEAM. Check that §2.1's quote matches the text.
+- App. A.9 writes bare σ and μ. Use decorated symbols per NOTATION.
+- v_C with an upright C book-wide (App. A.2, §2.3).
+- Essig–Mardon–Volansky |f_ion|²: the spin factor 2 (§2.2). Verify against the source.
+- Textbook pointers (Sakurai §§5.7, 6.3; Cohen-Tannoudji XIII; Peskin–Schroeder 2.3/4.5; Fetter–Walecka; Jackson App. Table 3): verify them, or cite them at chapter level only.
+- "Nuclear excitations are typically hundreds of keV or more" (§2.2) needs a source.
+- Adler 1962 and Wiser 1963 equation numbers; the Bernreuther 2024 DOI.
+- §2.5: Si optical phonon at Γ ≈ 64 meV (15.5 THz; neutron data), not 60 meV. Use one value book-wide.
+- §2.5 summary: re-check it against the written §2.4.
+- Landau–Lifshitz section numbers (§§28, 31, 35, 53–54) were cited from memory.
+- §2.4 uses state labels a/b, which clash with the lattice constant a; rename per NOTATION.
+- §2.4 relies on qualitative Si band facts (direct gap, conduction minimum) until §3.3 supplies sourced numbers; check the wording.
+- Sakurai–Napolitano and Cohen-Tannoudji section numbers (§2.4) were cited from memory.

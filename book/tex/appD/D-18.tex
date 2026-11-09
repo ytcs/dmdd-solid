@@ -1,0 +1,77 @@
+\section{Phonon-assisted absorption}\label{app:D.18}
+
+A photon carries almost no momentum on the scale of the Brillouin zone, so it can only lift an electron vertically, from $(v,\vect{k})$ to $(c,\vect{k})$. Across an indirect gap, where the conduction minimum sits at $\vect{k}_{\mathrm{c}} \ne 0$ (\cref{sec:3.3}), the lowest vertical transition lies well above $\Eg$, and absorption between $\Eg$ and the direct gap needs a second process that supplies the momentum. A phonon does: at second order the photon and the phonon act in either order, through virtual intermediate states. This section derives the rate, writes it as the phonon-assisted dielectric function $\varepsilon_2^{\mathrm{PA}}$ and as an absorption coefficient, and derives the quadratic edge of Hall, Bardeen and Blatt~\cite{hall1954infrared}. The results are used in \cref{sec:6.5} and, with the photon replaced by dark matter, in \cref{chap:13}.
+
+\subsection*{Absorption at first order}
+
+Take a uniform field $\vect{\mathcal{E}}(t) = -\mathcal{E}\,\hat{\vect{e}}_\gamma\cos\omega t$ with unit polarization vector $\hat{\vect{e}}_\gamma$, described by the vector potential $\vect{A}(t) = (\mathcal{E}/\omega)\,\hat{\vect{e}}_\gamma\sin\omega t$. To first order it couples to the electrons through $H_A = e\vect{A}\cdot\op{\vect{V}}$, with $\op{\vect{V}}$ the total velocity of the electrons, $\sum_j\vect{p}_j/m_e$ for a local potential, and the sign of the charge irrelevant for rates. In second quantization over Bloch states, $\op{\vect{V}} = \sum_{\vect{k}mn}\vect{v}_{mn}(\vect{k})\,c^\dagger_{m\vect{k}}c_{n\vect{k}}$, with the velocity matrix elements of \cref{eq:3.2-pv}; it conserves $\vect{k}$ because $\vect{p}$ commutes with lattice translations. The part of $H_A$ that oscillates as $\ee^{-\ii\omega t}$ absorbs energy $\omega$, with the amplitude $(e\mathcal{E}/2\omega)\,\hat{\vect{e}}_\gamma\cdot\op{\vect{V}}$ up to a phase. The golden rule \cref{eq:2.5-golden} gives the absorption rate between many-body states $i$ and $f$, and the absorbed power is $\omega$ times the net rate, absorption minus stimulated emission. Equating the time-averaged power per volume with $\sigma_1\mathcal{E}^2/2$ and using $\sigma_1 = \omega\varepsilon_2$ (\cref{sec:4.4}),
+\begin{equation}
+  \varepsilon_2(\omega) = \frac{\pi e^2}{\omega^2\Vol}\sum_{i,f}(p_i - p_f)\,\bigl|\hat{\vect{e}}_\gamma\cdot\langle f|\op{\vect{V}}|i\rangle\bigr|^2\,\delta(E_f - E_i - \omega) .
+  \label{eq:D.18-eps2}
+\end{equation}
+For independent electrons at $T \ll \Eg$ the final states are one electron in $(c,\vect{k})$ and one hole in $(v,\vect{k})$, and \cref{eq:D.18-eps2} is the familiar direct-gap formula with $2\sum_{\vect{k}cv}|\hat{\vect{e}}_\gamma\cdot\vect{v}_{cv}(\vect{k})|^2$, the 2 counting spin. In the frozen lattice nothing absorbs below the direct gap. The absorption coefficient is the inverse length over which the intensity falls by $\ee$. Write $\varepsilon = (n_r + \ii\kappa_{\mathrm{ext}})^2$, with $n_r$ the refractive index and $\kappa_{\mathrm{ext}}$ the extinction coefficient. The intensity decays as $\ee^{-2\omega\kappa_{\mathrm{ext}}x}$, and $\varepsilon_2 = 2n_r\kappa_{\mathrm{ext}}$, so
+\begin{equation}
+  \alpha_{\mathrm{abs}}(\omega) = \frac{\omega\,\varepsilon_2(\omega)}{n_r(\omega)} .
+  \label{eq:D.18-alpha}
+\end{equation}
+
+\subsection*{The second-order amplitude}
+
+Add $H_{\mathrm{ep}}$ of \cref{eq:A.6-Hep} and include the phonons in the states. The initial state $|i\rangle$ has filled valence bands, empty conduction bands and $n_{\vect{Q}\nu}$ phonons in each mode. A final state that the first-order term cannot reach has an electron in $(c,\vect{k}+\vect{Q})$, a hole in $(v,\vect{k})$, and one phonon fewer in $(\vect{Q},\nu)$ or one more in $(-\vect{Q},\nu)$; we write $|f\rangle = c^\dagger_{c,\vect{k}+\vect{Q}}c_{v\vect{k}}|i'\rangle$ with $|i'\rangle$ the initial state with the phonon changed. We collect the terms of the second-order amplitude \cref{eq:2.4-c2} that are linear in the field and linear in $H_{\mathrm{ep}}$ and take the long-time limit as in \cref{sec:2.4}. The result is the rate $2\pi|T_{fi}|^2\delta(E_f - E_i - \omega)$ with the two time orderings of \cref{eq:2.4-orderings}:
+\begin{equation*}
+  T_{fi} = \frac{e\mathcal{E}}{2\omega}\sum_m\left[\frac{\langle f|H_{\mathrm{ep}}|m\rangle\langle m|\hat{\vect{e}}_\gamma\cdot\op{\vect{V}}|i\rangle}{E_i + \omega - E_m} + \frac{\langle f|\hat{\vect{e}}_\gamma\cdot\op{\vect{V}}|m\rangle\langle m|H_{\mathrm{ep}}|i\rangle}{E_i - E_m}\right] .
+\end{equation*}
+The photon energy appears in the denominator of the photon-first ordering, where it has been absorbed in the intermediate state, and not in the phonon-first one.
+
+Four kinds of intermediate state contribute; we drop the common factors $e\mathcal{E}/2\omega$, $N^{-1/2}$ and the phonon matrix element $(n_{\vect{Q}\nu} + \frac12 \pm \frac12)^{1/2}$ of \cref{eq:A.6-weights}, with the upper sign for emission throughout.
+\begin{enumerate}
+  \item The photon lifts the electron from $(v,\vect{k})$ to an empty state $(p,\vect{k})$, and the phonon scatters it to $(c,\vect{k}+\vect{Q})$. The intermediate energy exceeds $E_i + \omega$ by $\varepsilon_{p\vect{k}} - \varepsilon_{v\vect{k}} - \omega$. The operator string is $c^\dagger_cc_p\,c^\dagger_pc_v$, and since $p$ is empty it equals $c^\dagger_cc_v$. The term is $g_{cp\nu}(\vect{k},\vect{Q})\hat{\vect{e}}_\gamma\cdot\vect{v}_{pv}(\vect{k})/(\omega - \varepsilon_{p\vect{k}} + \varepsilon_{v\vect{k}})$.
+  \item The phonon scatters the electron from $(v,\vect{k})$ to an empty $(p,\vect{k}+\vect{Q})$, and the photon lifts it to $(c,\vect{k}+\vect{Q})$. The intermediate state holds the pair and the changed phonon, $E_m - E_i = \varepsilon_{p,\vect{k}+\vect{Q}} - \varepsilon_{v\vect{k}} \pm \omega_{\vect{Q}\nu}$, and the term is $\hat{\vect{e}}_\gamma\cdot\vect{v}_{cp}(\vect{k}+\vect{Q})\,g_{pv\nu}(\vect{k},\vect{Q})/(\varepsilon_{v\vect{k}} - \varepsilon_{p,\vect{k}+\vect{Q}} \mp \omega_{\vect{Q}\nu})$.
+  \item The photon creates the electron in $(c,\vect{k}+\vect{Q})$ from an occupied $(p,\vect{k}+\vect{Q})$, and the phonon then moves an electron from $(v,\vect{k})$ into the hole. The string $c^\dagger_pc_v\,c^\dagger_cc_p$ reorders to $-c^\dagger_c\,c^\dagger_pc_p\,c_v$, which is $-c^\dagger_cc_v$ on a state with $p$ occupied. The term is $-\hat{\vect{e}}_\gamma\cdot\vect{v}_{cp}(\vect{k}+\vect{Q})\,g_{pv\nu}(\vect{k},\vect{Q})/(\omega - \varepsilon_{c,\vect{k}+\vect{Q}} + \varepsilon_{p,\vect{k}+\vect{Q}})$.
+  \item The phonon creates the electron in $(c,\vect{k}+\vect{Q})$ from an occupied $(p,\vect{k})$, and the photon moves an electron from $(v,\vect{k})$ into the hole. The same reordering gives $-1$, and the term is $-g_{cp\nu}(\vect{k},\vect{Q})\hat{\vect{e}}_\gamma\cdot\vect{v}_{pv}(\vect{k})/(\varepsilon_{p\vect{k}} - \varepsilon_{c,\vect{k}+\vect{Q}} \mp \omega_{\vect{Q}\nu})$.
+\end{enumerate}
+In the first two paths the electron propagates in the intermediate state, in the last two the hole. On the energy shell, $\omega = \varepsilon_{c,\vect{k}+\vect{Q}} - \varepsilon_{v\vect{k}} \pm \omega_{\vect{Q}\nu}$, the denominator of path 3 becomes $\varepsilon_{p,\vect{k}+\vect{Q}} - \varepsilon_{v\vect{k}} \pm \omega_{\vect{Q}\nu}$, and its term takes the form of path 2 with an occupied $p$. The denominator of path 4 becomes $\varepsilon_{p\vect{k}} - \varepsilon_{v\vect{k}} - \omega$, and its term takes the form of path 1 with an occupied $p$. The fermion sign is what makes the hole paths fit. The four paths therefore combine into the one-electron amplitude summed over every band $p$, occupied or empty,
+\begin{equation}
+  M^{\pm}_{cv\nu}(\vect{k},\vect{Q}) = \sum_p\left[\frac{g_{cp\nu}(\vect{k},\vect{Q})\,\hat{\vect{e}}_\gamma\cdot\vect{v}_{pv}(\vect{k})}{\omega - \varepsilon_{p\vect{k}} + \varepsilon_{v\vect{k}}} + \frac{\hat{\vect{e}}_\gamma\cdot\vect{v}_{cp}(\vect{k}+\vect{Q})\,g_{pv\nu}(\vect{k},\vect{Q})}{\varepsilon_{v\vect{k}} - \varepsilon_{p,\vect{k}+\vect{Q}} \mp \omega_{\vect{Q}\nu}}\right] ,
+  \label{eq:D.18-M}
+\end{equation}
+which includes $p = v$ and $p = c$. Ref.~\cite[Eq.~(200)]{giustino2017electron} writes the same sum with the denominators of opposite sign.
+
+\subsection*{The phonon-assisted dielectric function}
+
+We insert $T_{fi}$ into the rate, the power and $\varepsilon_2$ as for \cref{eq:D.18-eps2}. The final states are labeled by $\vect{k}$, $\vect{Q}$, $\nu$, $c$, $v$, the spin and the sign, and summing over them gives
+\begin{keyresult}[Phonon-assisted dielectric function]
+\begin{equation}
+  \varepsilon_2^{\mathrm{PA}}(\omega) = \frac{2\pi e^2}{\omega^2\,VN}\sum_{\vect{k}\vect{Q}\nu}\sum_{cv}\sum_\pm\bigl(n_{\vect{Q}\nu} + \tfrac12 \pm \tfrac12\bigr)\,\bigl|M^{\pm}_{cv\nu}(\vect{k},\vect{Q})\bigr|^2\,\delta\bigl(\varepsilon_{c,\vect{k}+\vect{Q}} - \varepsilon_{v\vect{k}} \pm \omega_{\vect{Q}\nu} - \omega\bigr) ,
+  \label{eq:D.18-eps2PA}
+\end{equation}
+\end{keyresult}
+for $T \ll \Eg$, where the inverse process from thermally excited pairs is negligible. The factor $2\pi = 2\times\pi$ counts the spin. With $\Vol = N\Omega$ and the average $\langle\!\langle\cdots\rangle\!\rangle = N^{-2}\sum_{\vect{k}\vect{Q}}$ it is \cref{eq:6.5-eps2PA}. With \cref{eq:D.18-alpha} it is Ref.~\cite[Eq.~(200)]{giustino2017electron}, whose prefactor leaves the spin sum implicit, and the form used in first-principles calculations~\cite[Eq.~(1)]{noffsinger2012phonon}, which writes the spin factor explicitly. Three sums appear: over intermediate bands $p$ inside $M^\pm$, over phonon modes, and over $\vect{k}$ and $\vect{Q}$ independently in the whole zone, constrained by one delta function; their convergence is the subject of \cref{app:E.5,app:E.8}. At $T = 0$ only emission survives. The phonon energy enters twice: as $\pm\omega_{\vect{Q}\nu}$ in the delta function, which shifts the threshold, and in the phonon-first denominator of \cref{eq:D.18-M}, where it is usually negligible against electronic energies.
+
+\subsection*{The Hall--Bardeen--Blatt edge}
+
+Near the indirect edge, the final hole lies near the valence maximum at $\vect{k} = 0$ and the final electron near one of the conduction minima $\vect{k}_{\mathrm{c}}$. Measure their crystal momenta from the extrema, $\vect{k} = \vect{\kappa}_{\mathrm{h}}$ and $\vect{k} + \vect{Q} = \vect{k}_{\mathrm{c}} + \vect{\kappa}_{\mathrm{e}}$, with energies $\varepsilon_{v\vect{k}} = -\kappa_{\mathrm{h}}^2/2m_{\mathrm{h}}$ and $\varepsilon_{c,\vect{k}+\vect{Q}} = \Eg + \kappa_{\mathrm{e}}^2/2m^*_{\mathrm{d}}$ for one valley and one valence band, with $m^*_{\mathrm{d}} = (m^*_\parallel m^{*2}_\perp)^{1/3}$ the density-of-states mass of the valley (\cref{sec:6.5}). The sums become elementary because the phonon wavevector stays near $\vect{k}_{\mathrm{c}}$ and the denominators stay far from resonance. The phonon wavevector is $\vect{Q} = \vect{k}_{\mathrm{c}} + \vect{\kappa}_{\mathrm{e}} - \vect{\kappa}_{\mathrm{h}}$, close to $\vect{k}_{\mathrm{c}}$, so $\omega_{\vect{Q}\nu}$ and the vertices may be taken at $\vect{Q} = \vect{k}_{\mathrm{c}}$. And the denominators of \cref{eq:D.18-M} are electronic energy differences of order $\SI{1}{eV}$ away from any resonance, since the intermediate states are vertical transitions far above the edge; they change little over the small pockets. Hence $|M^\pm|^2$ may be replaced by its value $|M^\pm_\nu|^2$ at the extrema.
+
+The sums over $\vect{k}$ and $\vect{Q}$ then become independent sums over $\vect{\kappa}_{\mathrm{h}}$ and $\vect{\kappa}_{\mathrm{e}}$. With $(VN)^{-1}\sum_{\vect{\kappa}_{\mathrm{h}}\vect{\kappa}_{\mathrm{e}}} = \Omega\int\dd^3\kappa_{\mathrm{h}}(2\pi)^{-3}\int\dd^3\kappa_{\mathrm{e}}(2\pi)^{-3}$ and $\int\dd^3\kappa\,(2\pi)^{-3} = \int\dd\varepsilon\,(2m)^{3/2}\varepsilon^{1/2}/4\pi^2$ for each parabolic band,
+\begin{equation*}
+  \frac{1}{VN}\sum_{\vect{\kappa}_{\mathrm{h}}\vect{\kappa}_{\mathrm{e}}}\delta\bigl(x - E_{\mathrm{e}} - E_{\mathrm{h}}\bigr)
+  = \frac{\Omega\,(2m^*_{\mathrm{d}})^{3/2}(2m_{\mathrm{h}})^{3/2}}{16\pi^4}\int_0^x\dd E_{\mathrm{e}}\,E_{\mathrm{e}}^{1/2}(x - E_{\mathrm{e}})^{1/2}
+  = \frac{\Omega\,(m^*_{\mathrm{d}}m_{\mathrm{h}})^{3/2}}{16\pi^3}\,x^2 ,
+\end{equation*}
+for $x \ge 0$, where $E_{\mathrm{e}}$ and $E_{\mathrm{h}}$ are the kinetic energies of the electron and the hole and the integral is $\pi x^2/8$. Each branch, valley and valence band adds one such term, with $x = \omega - \Eg \mp \omega_\nu$:
+\begin{keyresult}[Hall--Bardeen--Blatt edge]
+\begin{equation}
+  \varepsilon_2^{\mathrm{PA}}(\omega) = \frac{e^2\,\Omega\,(m^*_{\mathrm{d}}m_{\mathrm{h}})^{3/2}}{8\pi^2\omega^2}\sum_{\text{valleys}}\sum_\nu\sum_\pm\bigl(n_\nu + \tfrac12 \pm \tfrac12\bigr)\,|M^{\pm}_\nu|^2\,(\omega - \Eg \mp \omega_\nu)^2\,\Theta(\omega - \Eg \mp \omega_\nu) ,
+  \label{eq:D.18-HBB}
+\end{equation}
+\end{keyresult}
+with $\omega_\nu = \omega_{\vect{k}_{\mathrm{c}}\nu}$ and $n_\nu = n_{\mathrm{B}}(\omega_\nu)$, and one such sum for each valence band, heavy and light holes with their own $m_{\mathrm{h}}$. By \cref{eq:D.18-alpha}, $\alpha_{\mathrm{abs}}(\omega)$ carries one more factor $\omega/n_r$; over the width of the edge, a few times $\omega_\nu$, the prefactors vary slowly and
+\begin{equation}
+  \alpha_{\mathrm{abs}}(\omega) \simeq \sum_\nu\Bigl[A_\nu\,n_\nu\,(\omega - \Eg + \omega_\nu)^2\,\Theta(\omega - \Eg + \omega_\nu) + A_\nu\,(n_\nu + 1)\,(\omega - \Eg - \omega_\nu)^2\,\Theta(\omega - \Eg - \omega_\nu)\Bigr] ,
+  \label{eq:D.18-edge}
+\end{equation}
+with $A_\nu$ constant across the edge. The form is that of Hall, Bardeen and Blatt~\cite{hall1954infrared}, who wrote it for germanium; we have assumed $|M^+_\nu| = |M^-_\nu|$, which holds when $\omega_\nu$ is negligible in the denominators.
+
+By \cref{eq:D.18-edge}, each component is a straight line in a plot of $\sqrt{\alpha_{\mathrm{abs}}}$ against $\omega$, while their sum bends at every threshold. Each branch that couples adds a threshold at $\Eg - \omega_\nu$, where phonon absorption sets in, and another at $\Eg + \omega_\nu$, where emission does. The thresholds measure $\Eg$ and the phonon energies at $\vect{k}_{\mathrm{c}}$, and their midpoint is $\Eg$. And the ratio of the coefficients of the two components of a branch, $n_\nu/(n_\nu + 1) = \ee^{-\omega_\nu/T}$, is a thermometer of the lattice: as $T \to 0$ the absorption component vanishes, and the edge sits at $\Eg + \omega_\nu$ for the softest branch that couples. The quadratic law holds when $M^\pm$ is constant, that is when the transition is allowed at the extrema. If symmetry forces $M^\pm$ to vanish there, it grows linearly in $\kappa_{\mathrm{e}}$ or $\kappa_{\mathrm{h}}$, and the integral gives $x^3$ instead of $x^2$, the forbidden indirect edge. Electron--hole attraction, neglected here, adds excitonic thresholds below $\Eg \pm \omega_\nu$ (\cref{sec:4.9}).
+
+The structure of \cref{eq:D.18-M} carries over unchanged when the photon is replaced by any other probe that couples to the electrons through a one-body operator, with $\hat{\vect{e}}_\gamma\cdot\vect{v}_{ab}$ replaced by the matrix element of that operator between Bloch states. For a dark-matter particle that transfers momentum $\vect{q}$, the operator is the density $\ee^{\ii\vect{q}\cdot\vect{r}}$, which does not conserve $\vect{k}$, and the phonon then supplies the part of $\vect{q}$ that the crystal does not; \cref{chap:13} develops this.

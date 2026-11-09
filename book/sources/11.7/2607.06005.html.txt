@@ -1,0 +1,974 @@
+
+
+Anisotropic electron scattering and Migdal effect in semiconductor detectors
+
+Skip to main content
+
+      Report GitHub Issue
+
+      ×
+
+      Title:
+
+      Content selection saved. Describe the issue below:
+
+      Description:
+
+      Submit without GitHub
+      Submit in GitHub
+
+    Why HTML?
+
+      Report Issue
+
+      Back to Abstract
+
+      Download PDF
+
+      Contents
+
+      Reading mode
+
+      Colour theme
+
+Abstract
+I Introduction
+II Event rate calculation
+
+II.1 General formalism
+II.2 Dielectric function calculations
+II.3 Electron recoils
+II.4 Migdal effect
+
+III Directional dependence of dark matter direct detection
+
+III.1 General features
+III.2 Silicon and gallium arsenide
+
+IV Conclusions
+
+Acknowledgements
+
+A Momentum transfer integrals
+References
+
+    License: arXiv.org perpetual non-exclusive license
+
+arXiv:2607.06005v1 [hep-ph] 07 Jul 2026
+
+Anisotropic electron scattering and Migdal effect in semiconductor detectors
+
+Preprint: HIP-2026-11/TH
+
+Aula Al-Adulrazzaq
+
+Email: aula.al-adulrazzaq@helsinki.fi
+
+Affiliation: Department of Physics, and Helsinki Institute of Physics, University of Helsinki, P.O. Box 64, 00014 Helsinki, Finland
+
+Paolo Settembri
+
+Email: paolo.settembri@psi.ch
+
+Affiliation: PSI Center for Scientific Computing, Theory and Data, Paul Scherrer Institute, 5232 Villigen PSI, Switzerland
+
+Affiliation: Dipartimento di Scienze Fisiche e Chimiche, Università degli studi dell’Aquila, 67100 L’Aquila, Italy
+
+Sebastian Sassi
+
+Affiliation: Department of Physics, and Helsinki Institute of Physics, University of Helsinki, P.O. Box 64, 00014 Helsinki, Finland
+
+Federico Giannessi
+
+Affiliation: Dipartimento di Scienze Fisiche e Chimiche, Università degli studi dell’Aquila, 67100 L’Aquila, Italy
+
+Gianni Profeta
+
+Affiliation: Dipartimento di Scienze Fisiche e Chimiche, Università degli studi dell’Aquila, 67100 L’Aquila, Italy
+
+Affiliation: CNR-SPIN L’Aquila, Via Vetoio, 67100 L’Aquila, Italy
+
+Matti Heikinheimo
+
+Affiliation: Department of Physics, and Helsinki Institute of Physics, University of Helsinki, P.O. Box 64, 00014 Helsinki, Finland
+
+Kimmo Tuominen
+
+Affiliation: Department of Physics, and Helsinki Institute of Physics, University of Helsinki, P.O. Box 64, 00014 Helsinki, Finland
+
+August 24, 2026
+
+Abstract
+
+Cryogenic semiconductor detectors are widely used in dark matter direct detection. Electronic excitations in these materials can be caused either by direct dark matter electron scattering events, or indirectly via dark matter nuclear scattering events. For nuclear scattering of light dark matter, the event rate is enhanced due to an inelastic process known as the Migdal effect. Both the electron recoils and the Migdal effect in semiconductors depend on the dielectric function of the target material via the so-called energy loss function (ELF). In the standard approach found in the literature, the ELF is approximated as isotropic to simplify the calculation of the event rate.
+We introduce a practical method for computing the event rate for a general anisotropic ELF. We find that the daily modulation of the Migdal rate arises solely due to the quadrupole component of the ELF, whereas in electron scattering all spherical harmonic components affect the rate. We apply the formalism to study the daily modulation in silicon and gallium arsenide detectors.
+
+I Introduction
+
+Direct detection of sub-GeV dark matter (DM) increasingly relies on target materials capable of resolving electronic excitations at the eV scale or below. Cryogenic semiconductor detectors have emerged as promising platforms [1] due to their sensitivity to single electron-hole pair production and low-energy phononic excitations[2, 3].
+Electronic excitations from DM scattering may arise via two distinct processes. Dark matter may interact directly with the target electron, leading to direct DM–electron scattering [4, 5, 6, 7]. Alternatively, DM scattering off atomic nuclei may lead to electronic excitations. This process can be enhanced for light dark matter due to the Migdal effect [8, 9]. Although the Migdal effect has historically eluded observation, very recently, direct observation of the Migdal effect due to neutron scattering in a gaseous target has been achieved [10]. However, empirical observation of the effect in a solid-state target remains to be realized.
+
+The Migdal effect was originally formulated in the context of isolated atoms [11], where sudden acceleration of the nucleus during a scattering event creates a mismatch between the electronic cloud and the recoiling ion. In atomic systems, electronic wave functions are localized and are naturally expressed in terms of spherical orbitals. Consequently, angular effects are either absent or strongly constrained by atomic symmetry, and the excitation probabilities are often approximately isotropic after averaging over atomic orientations.
+
+In crystalline solids, however, the situation is fundamentally different. Electrons are not localized around isolated nuclei but occupy Bloch states,
+ $\psi_{n\mathbf{k}}(\mathbf{r})=e^{i\mathbf{k}\cdot\mathbf{r}}u_{n\mathbf{k}}(\mathbf{r})$ ,
+which depend on the energy quantum number,  $n$ , and explicitly on crystal momentum  $\mathbf{k}$ . The electronic response therefore acquires an intrinsic dependence on momentum direction in reciprocal space. Unlike atoms, where the relevant electronic structure can often be described by discrete transitions among localized orbitals, in solids the excitation probability emerges from transitions across extended bands dispersing throughout the Brillouin zone. The anisotropy of the crystal structure, orbital character, and band dispersion can therefore strongly influence the Migdal response.
+
+This distinction becomes particularly important because the Migdal process in solids is commonly formulated through the dielectric response of the material, often expressed through the energy loss function (ELF) of the target material.
+The ELF contains information about electronic excitations over a broad range of transferred momenta and energies and naturally incorporates screening and many-body effects. However, in practical calculations, the dielectric response is frequently approximated by its spherical average. Existing implementations, such as the DarkELF framework [5] and related approaches, employ isotropically averaged responses to reduce computational complexity and simplify the multidimensional phase-space integration.
+
+Although such approximations may be adequate for materials with weak directional dependence, they remove information that could be crucial for understanding the behavior of anisotropic targets. In particular, averaging over momentum directions neglects the dependence on the orientation of the transferred momentum relative to the crystal axes. Since the underlying Bloch wave functions vary throughout reciprocal space, this averaging may hinder strong directional features originating from the electronic structure itself.
+
+The anisotropic response of solids is crucial because the dark matter flux observed in the laboratory is not isotropic. Earth moves through the galactic dark matter halo with a preferred velocity direction, and the orientation of a crystal detector relative to this incoming DM wind changes continuously due to Earth’s rotation. As a consequence, anisotropic target responses can translate directly into time-dependent modulation patterns [12, 13].
+These directional signatures may provide several important advantages. First, a daily modulation signal would constitute a powerful discriminator against terrestrial backgrounds, providing evidence for the galactic origin of a signal [14]. Second, directional dependence may encode information about the velocity distribution of dark matter particles beyond what can be extracted from energy spectra alone [15]. Third, anisotropic rates can reveal material-specific fingerprints inaccessible in isotropic calculations. Different crystal orientations, symmetries, or electronic structures may generate distinct modulation amplitudes and phases, opening a new pathway toward dark matter characterization.
+
+Moreover, anisotropic Migdal responses could produce signatures beyond simple overall rate variations. Sharp directional structures in reciprocal space may enhance particular momentum-transfer channels, induce orientation-dependent thresholds, or generate energy-dependent modulation patterns. Such effects may substantially alter the expected event spectra and affect the inferred sensitivity of future experiments. In this sense, anisotropy is not merely a correction to the total rate but may constitute an entirely new source of experimental information.
+
+Schematically, a generic DM scattering process that encompasses both direct electron scattering and the Migdal effect can be described in terms of a momentum  $\mathbf{q}$  and an associated energy  $\omega_{q}$  deposited in the target, releasing an excitation with energy  $\omega$ . The scattering rate can then be expressed in the form [16, 17]
+
+ $\frac{\mathrm{d}R}{\mathrm{d}\omega}\sim\int\mathrm{d}^{3}\mathbf{q}\,\frac{F(q)}{q}\int\mathrm{d}\omega_{q}\,T(\mathbf{q},\omega_{q},\omega)\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}}),$ 
+
+(1)
+
+where  $T(\mathbf{q},\omega_{q},\omega)$  represents a generalized target response, encoding the details of the microscopic scattering process, and  $\hat{f}$  is a Radon transform of the DM velocity distribution, with  $s=q^{2}/2m_{\chi}+\omega_{q}/q$  and  $\mathbf{v}_{\text{lab}}$  denoting the laboratory velocity in the galactic frame.
+
+The challenge associated with evaluating the scattering rate is the combination of the multi-dimensional integrals over the momentum and energy transfer, even when the Radon transform of the velocity distribution has a known closed form expression. This is in conjunction with the fact that, for any meaningful analysis, the event rate typically needs to be evaluated at multiple energies and multiple points in time for multiple DM models.
+
+In this work, we describe a framework for evaluating the event rate in the form of (1) while retaining the directional dependence of the target response. Our analysis employs a spherical harmonic expansion of the generalized target response. Applied to DM–electron scattering and the Migdal effect, this allows us to draw a connection between the multipoles of the ELF and the resulting daily modulation. In particular, we demonstrate that in case of the Migdal effect, the daily modulation is, to a good approximation, sensitive only to the quadrupole component of the ELF. In addition, we have computed the resulting daily modulation signals in silicon (Si) and gallium arsenide (GaAs) detectors in both electron scattering and the Migdal effect.
+
+Furthermore, we note that efficient computational methods are required for large-scale analyses of daily modulation due to detector anisotropies. The spherical harmonic expansion method employed in the framework described in this work is straightforward to adapt to fast event rate computation algorithms, which rely on similar harmonic expansions, such as that presented in Ref. [18].
+
+The paper is organized as follows: In Sec. II we discuss the formalism for evaluation of the event rates. We start with a description of the computational details of the dielectric function which is the relevant input of condensed matter for the description of the target structure. We then proceed to formulate the event rate for direct electron scatterings, and then consider our main case of interest, the Migdal effect in a solid state target. In both cases our results are concise formulas that allow controlled evaluation of the daily modulation of the event rates taking into account anisotropies from the target structure and the galactic DM velocity distribution. In Sec. III we illustrate the application of these formulas, and in Sec. IV we present our conclusions and outlook for future work.
+
+II Event rate calculation
+
+II.1 General formalism
+
+In this section, we present the general formulae for direct detection event rates. Although the electron recoil rate and the Migdal rate arise from two distinct processes, their formulae can be described in a process-agnostic way due to their common origin in quantum mechanical scattering theory [16, 17]. We will thus describe DM scattering off a generic target, which we then specialize to both processes. Specifically, we consider a process in which a DM particle transfers momentum  $\mathbf{q}$  and energy  $\omega_{q}$  to a target, generating an excitation with momentum  $\mathbf{k}$  and energy  $\omega$ , which corresponds to the measured energy, accounting for potential loss of energy  $\omega_{q}-\omega$  to some other channel. We give the differential rate for such a process in the form
+
+ $\frac{\mathrm{d}R}{\mathrm{d}\omega}\sim\int\mathrm{d}^{3}\mathbf{q}\,F(q^{2})\int\mathrm{d}\omega_{q}\int\mathrm{d}^{3}\mathbf{k}\,\mathcal{W}(\mathbf{k},\omega)S(\mathbf{q}-\mathbf{k},\omega_{q}-\omega)g(\mathbf{k},\mathbf{q})\int\mathrm{d}^{3}\mathbf{v}\,f(\mathbf{v})\delta\left(\mathbf{v}\cdot\mathbf{q}-\frac{q^{2}}{2m_{\chi}}-\omega_{q}\right).$ 
+
+(2)
+
+Here,  $\mathcal{W}(\mathbf{k},\omega)$  represents the response of the target material to the energy deposition  $\omega$ , while  $S(\mathbf{q}-\mathbf{k},\omega_{q}-\omega)$  represents the response to the lost energy  $\omega_{q}-\omega$ . Note that for composite targets consisting of multiple target types (e.g., elements or isotopes) the total event rate is given by a sum of the rates for the individual target types weighted by their relative abundances in the composite.
+
+The function  $F(q^{2})$  is a generic form factor that captures deviations from pointlike interactions of the DM with the target. The rates for electron and Migdal scattering are typically suppressed for momentum transfers above  $\mathcal{O}(10\text{ keV})$ . Therefore, we may treat the target as point-like even for nuclear scattering. Furthermore, assuming standard spin-independent interactions, it follows that the form factor reduces to the dark matter form factor  $F_{\text{DM}}(q^{2})=(q_{0}^{2}+M^{2})/(q^{2}+M^{2})$ , where  $M$  is the mass of a mediator. In this work we focus exclusively on the heavy mediator limit  $F_{\text{DM}}(q^{2})\approx 1$ , which for low momentum transfers applies down to relatively low mediator masses.
+
+Concretely, in this work  $\omega$  is the energy of an outgoing electron, and  $\mathcal{W}(\mathbf{k},\omega)$  is the energy loss function (ELF) of the target material, defined in terms of the dielectric function  $\varepsilon(\mathbf{k},\omega)$  as
+
+ $\mathcal{W}(\mathbf{k},\omega)=-\imag\left(\frac{1}{\varepsilon(\mathbf{k},\omega)}\right).$ 
+
+(3)
+
+In case of the Migdal effect,  $S(\mathbf{q}-\mathbf{k},\omega_{q}-\omega)$  corresponds to the dynamic structure factor, which captures the deposition of energy into vibrational modes of the crystal from the nuclear recoil, and  $g(\mathbf{k},\mathbf{q})$  is a factor derived from the coupling of the electron cloud with the nucleus. In the case of electron recoils, the DM deposits its energy directly to the electron without an intermediate nuclear recoil, and we can set  $S(\mathbf{q}-\mathbf{k},\omega_{q}-\omega)g(\mathbf{k},\mathbf{q})=\delta(\omega_{q}-\omega)\delta(\mathbf{q}-\mathbf{k})$ .
+
+The principal idea behind this schematic description is that we can divide the process into a generalized target response function
+
+ $T(\mathbf{q},\omega_{q},\omega)=\int\mathrm{d}^{3}\mathbf{k}\,\mathcal{W}(\mathbf{k},\omega)S(\mathbf{q}-\mathbf{k},\omega_{q}-\omega)g(\mathbf{k},\mathbf{q}),$ 
+
+(4)
+
+which depends only on the target material and its response to the scattering, and the term
+
+ $\frac{1}{q}\hat{f}(s,\hat{\mathbf{q}})=\int\mathrm{d}^{3}\mathbf{v}\,f(\mathbf{v})\delta\left(\mathbf{v}\cdot\mathbf{q}-\frac{q^{2}}{2m_{\chi}}-\omega_{q}\right),$ 
+
+(5)
+
+where  $s=q/2m_{\chi}+\omega_{q}/q$ , and  $\hat{f}(s,\hat{\mathbf{q}})$  is the Radon transform of the velocity distribution, which depends only on the scattering kinematics and the local distribution of dark matter. This nicely encapsulates the parts of the event rate integral that depend on the target, and parts that depend on DM kinematics.
+
+Typically, the DM velocity distribution is defined in the galactic frame, whereas the event rate (2) is evaluated in an Earth-based laboratory frame, which is boosted relative to the galactic frame by the laboratory velocity in the galactic frame  $\mathbf{v}_{\text{lab}}(t)$ . Under such a boost, given the galactic frame velocity distribution  $f(\mathbf{v})$ , the Radon transform transforms as  $\hat{f}(s,\hat{\mathbf{q}})\rightarrow\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}})$  [19]. The general event rate formula in the laboratory frame can then be written as
+
+ $\frac{\mathrm{d}R}{\mathrm{d}\omega}\sim\int\mathrm{d}^{3}\mathbf{q}\,\frac{F(q^{2})}{q}\int\mathrm{d}\omega_{q}\,T(\mathbf{q},\omega_{q},\omega)\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}}).$ 
+
+(6)
+
+For the discussion of the target anisotropy and its impact on the event rate, it is advantageous to express the formula (6) in a spherical harmonic basis. Since all the functions involved are real, it is natural to employ the real spherical harmonics  $Y_{\ell m}(\hat{\mathbf{q}})$ , related to the complex spherical harmonics  $Y_{\ell}^{m}(\hat{\mathbf{q}})$  via
+
+ $Y_{\ell m}=\begin{cases}\frac{i}{\sqrt{2}}(Y_{\ell}^{m}-(-1)^{m}Y_{\ell}^{-m})&m0.\end{cases}$ 
+
+(7)
+
+In this work, we use unit normalized spherical harmonics which include the Condon–Shortley phase. We now write the functions in the integrand of equation (6) using their spherical harmonic expansions
+
+ $T(\mathbf{q},\omega_{q},\omega)=\sum_{\ell m}T_{\ell m}(q,\omega_{q},\omega)Y_{\ell m}(\hat{\mathbf{q}})$ 
+
+(8)
+
+and
+
+ $\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}})=\sum_{\ell m}\hat{f}_{\ell m}(s,\mathbf{v}_{\text{lab}})Y_{\ell m}(\hat{\mathbf{q}}).$ 
+
+(9)
+
+Because the target response is naturally defined in the lab frame, whereas the velocity distribution is naturally defined in the galactic frame, evaluation of the event rate always involves a time-dependent rotation to a common coordinate system. For the spherical harmonic coefficients, this means rotation of the coefficients by the real analog of Wigner’s  $D$ -matrix,  $\mathcal{R}^{(\ell)}_{mm^{\prime}}(t)$ , related to the coefficients  $D^{(\ell)}_{mm^{\prime}}$  by the linear transformation (7) that defines the real spherical harmonics. It is useful to define the coefficients  $\hat{f}_{\ell m}$  in a frame whose  $z$ -axis is aligned with  $\mathbf{v}_{\text{lab}}$ , since then  $\hat{f}_{\ell m}$  only depend on the magnitude of  $\mathbf{v}_{\text{lab}}$ . The event rate at an arbitrary moment in time is then given by
+
+ $\frac{\mathrm{d}R}{\mathrm{d}\omega}\sim\int\mathrm{d}q\,qF(q^{2})\int\mathrm{d}\omega_{q}\,\sum_{\ell mm^{\prime}}T_{\ell m}(q,\omega_{q},\omega)\mathcal{R}^{(\ell)}_{mm^{\prime}}(t)\hat{f}_{\ell m^{\prime}}(s,v_{\text{lab}}).$ 
+
+(10)
+
+This expression pairs the multipoles of the material response with the multipoles of the Radon transform, which arise from the anisotropy of the scattering kinematics and from the local dark matter velocity distribution. As such, it also makes clear that the profile of the daily modulation signal is primarily determined by which multipoles of the material response are relevant and which are suppressed.
+
+Although the above discussion is fully general and applies to any velocity distribution, in this work, we work in the Standard Halo Model (SHM), which has the velocity distribution
+
+ $f_{\text{SHM}}(\mathbf{v})=\frac{1}{N_{\text{esc}}\sqrt{(\pi v_{0})^{3}}}e^{-\mathbf{v}^{2}/v_{0}^{2}}\Theta(v_{\text{esc}}-|\mathbf{v}|),$ 
+
+(11)
+
+where the normalization constant  $N_{\text{esc}}$  is given by
+
+ $N_{\rm esc}=\erf\left(\frac{v_{\rm esc}}{v_{0}}\right)-\frac{2}{\sqrt{\pi}}\frac{v_{\rm esc}}{v_{0}}\exp\left(-\frac{v_{\rm esc}^{2}}{v_{0}^{2}}\right),$ 
+
+(12)
+
+and  $v_{\rm esc}$  is the galactic escape velocity. The Radon transform of the SHM in the laboratory frame has a closed form solution given by
+
+ $\hat{f}_{\text{SHM}}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}})=\frac{1}{N_{\rm esc}\sqrt{\pi}v_{0}}\left(\exp\left[-\frac{(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}})^{2}}{v_{0}^{2}}\right]-\exp\left[-\frac{v_{\rm esc}^{2}}{v_{0}^{2}}\right]\right)\Theta(v_{\rm esc}-|s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}}|),$ 
+
+(13)
+
+where  $\mathbf{v}_{\text{lab}}(t)$  is the velocity of the laboratory in the galactic frame.
+
+When it comes to the evaluation of the spherical harmonic coefficients
+
+ $\hat{f}_{\ell m}^{\text{SHM}}(w,v_{\text{lab}})=\int\mathrm{d}\Omega\,\hat{f}_{\text{SHM}}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}})Y_{\ell m}(\hat{\mathbf{q}}),$ 
+
+(14)
+
+given the step function  $\Theta(v_{\rm esc}-|s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}}|)$  that appears in the Radon transform, the limits of these integrals generally become nontrivial when restricted to the support of the Radon transform. Therefore, it makes sense to evaluate the integrals in a coordinate system, where the  $z$ -axis is along  $\mathbf{v}_{\text{lab}}(t)$ . In this case, the condition of the step function reduces to
+
+ $|v_{\text{lab}}(t)\cos\theta+s|\leq v_{\text{esc}}.$ 
+
+(15)
+
+The azimuthal integral in these coordinates is therefore unaffected and goes from 0 to  $2\pi$ , while the polar integral is limited to
+
+ $-\frac{v_{\text{esc}}+s}{v_{\text{lab}}(t)}\leq\cos\theta\leq\frac{v_{\text{esc}}-s}{v_{\text{lab}}(t)}.$ 
+
+(16)
+
+The expression for the spherical harmonic coefficients is then reduced to
+
+ $\hat{f}_{\ell m}^{\text{SHM}}(s,v_{\text{lab}})=2\pi\delta_{m0}\int_{z_{\text{min}}}^{z_{\text{max}}}\mathrm{d}z\,\hat{f}_{\text{SHM}}(s+v_{\text{lab}}z)P_{\ell}(z),$ 
+
+(17)
+
+where  $P_{l}(z)$  are Legendre polynomials and
+
+ $z_{\text{min}}=\max\left\{-1,-\frac{v_{\text{esc}}+s}{v_{\text{lab}}(t)}\right\},\qquad z_{\text{max}}=\min\left\{1,\frac{v_{\text{esc}}-s}{v_{\text{lab}}(t)}\right\}.$ 
+
+(18)
+
+Given that these are integrals of a Gaussian plus a constant function multiplied by a polynomial, we note that it is, in principle, possible to write down a general closed form expression for arbitrary  $\ell$  using known expressions for Legendre polynomials. However, we will not write down such an expression here, since there are more practical methods of generating these coefficients. We do, however, give expressions for the  $\ell=0,2$  terms in the Appendix since these serve a special role in the Migdal effect in the soft limit.
+
+In the following subsections, we will apply the above formalism to the creation of electronic excitations in two specific cases: first, to the scattering of DM particles directly off electrons in the target material, and second, to the Migdal effect; that is, creation of electronic excitations as a consequence of DM scattering off nuclei. We will demonstrate how the generalized target response  $T(\mathbf{q},\omega_{q},\omega)$  in these two scenarios depends on the ELF in different ways, leading to distinct but analogous daily modulation behavior.
+
+II.2 Dielectric function calculations
+
+Although common in the literature, the use of the free electron gas model [20] or fits from experimental data, such as those using Mermin oscillators [21], to model the ELF do not include any information on the angular dependency of the material response.
+However, density functional theory [22, 23, 24] offers a common and reliable tool that enables first-principles calculations of the lattice and electronic structure of a material, as well as its dielectric function [25, 26, 27].
+Therefore, given our need for the anisotropic dielectric function of a material to compute the ELF via Eq. (3), we need to use DFT calculations for its evaluation. To accomplish this, we use the publicly available GPAW code for DFT calculations [28, 29], which is widely used in the DM community for accurate evaluation of electronic effects.
+
+An accurate computation of the event rate requires the evaluation of the anisotropic dielectric function over a wide range of electronic momenta. In crystalline systems, reciprocal space is fundamentally partitioned into Brillouin zones (BZs); thus, capturing these large momentum transfers necessitates covering multiple BZs.
+
+In practice, a radial cutoff must be imposed in reciprocal space, which means the dielectric function is evaluated for all points up to a maximum magnitude of the momentum,  $q_{\text{cut}}$ . However, the computational cost and memory required for the calculation increase cubically with  $q_{\text{cut}}$ , making well-converged calculations difficult to achieve for large momentum cut-offs.
+
+To better tackle these critical points, we implemented the use of crystal symmetries to reduce the number of required calculations without any loss of accuracy.
+Specifically, in a periodic crystal, the dielectric response is described in terms of the microscopic dielectric matrix,  $\varepsilon_{\mathbf{G}\mathbf{G}^{\prime}}(\mathbf{k},\omega)$ . The momentum transfer is decomposed into the vector  $\mathbf{k}$ , which is sampled from a discretized grid within the first BZ, and the reciprocal lattice vectors  $\mathbf{G}$  and  $\mathbf{G^{\prime}}$ , which are defined by the unit cell of the system. This formulation allows us to capture local field effects arising from the lattice periodicity.
+
+Using crystal symmetries, the  $\mathbf{k}$ -point sampling can be reduced from the BZ to the so-called irreducible Brillouin zone (IBZ), significantly lowering the computational burden. We now describe such crystal symmetries and show how the microscopic dielectric function transforms under them.
+
+Crystal symmetries are generally expressible as an affine transformation  $\mathbf{r}^{\prime}=\hat{M}\mathbf{r}+\boldsymbol{t}$ , consisting of a linear transformation given by the matrix  $\hat{M}$ , which describes a rotation or a reflection, and a shift given by a fractional lattice vector  $\boldsymbol{t}$ , which is present only in the case of non-symmorphic transformations (such as screw axes and glide reflections). Given the real-space definition of the dielectric function and these symmetry operations, it is straightforward to derive how the symmetry operation will act on the dielectric function in reciprocal space [30],
+
+ $\varepsilon_{\mathbf{G},\mathbf{G}^{\prime}}(\mathbf{k},\omega)=e^{-i2\pi(\mathbf{G}-\mathbf{G}^{\prime})\cdot\boldsymbol{t}}\,\varepsilon_{\hat{U}\mathbf{G},\hat{U}\mathbf{G}^{\prime}}(\hat{U}\mathbf{k},\omega),$ 
+
+(19)
+
+where  $\hat{U}$  is an integer matrix (containing only  $-1$ , 0, and 1) that represents the point-group operation  $\hat{M}$  in reciprocal space. For clarity, all spatial and momentum vectors are expressed in fractional coordinates.
+
+To exploit the relations reported in Eq. (19), we modified the GPAW source code to explicitly output the microscopic dielectric matrices. We then developed a dedicated post-processing script to reconstruct the full BZ response by applying the appropriate symmetry operations on the irreducible grid.
+
+Let  $\mathbf{k}$  and  $\mathbf{k}_{\text{irr}}$  be the momentum grid points inside the full BZ and the irreducible BZ, respectively. The geometric mapping adopted by the GPAW code linking the two points can be written as
+
+ $\begin{cases}\hat{U}_{s}\mathbf{k}=\mathbf{k}_{\text{irr}}+\mathbf{N},\\
+\mathbf{k}=\hat{U}_{r}\mathbf{k}_{\text{irr}}+\hat{U}_{r}\mathbf{N}=\hat{U}_{r}\mathbf{k}_{\text{irr}}+\mathbf{N}^{\prime},\end{cases}$ 
+
+(20)
+
+where  $\hat{U}_{s}$  indicates the  $s$ -th symmetry operation matrix of the system, while  $\hat{U}_{r}=\hat{U}_{s}^{-1}$  is its inverse and the  $r$ -th symmetry operation. The reciprocal lattice vector  $\mathbf{N}$ , which in fractional units is a vector of integers, is used in case  $\hat{U}_{s}\mathbf{k}$  falls outside of the first Brillouin zone, shifting the vector back inside. We also define  $\mathbf{N}^{\prime}\equiv\hat{U}_{r}\mathbf{N}$ . Combining the symmetry rules of the dielectric function from Eq. (19) with the mapping between points in the irreducible BZ and the BZ of Eq. (20), we obtain the following relations
+
+ $\begin{cases}\varepsilon_{\mathbf{G},\mathbf{G}^{\prime}}(\mathbf{k},\omega)=e^{-i2\pi(\mathbf{G}-\mathbf{G}^{\prime})\cdot\boldsymbol{t}_{s}}\ \varepsilon_{\hat{U}_{s}\mathbf{G}+\mathbf{N},\hat{U}_{s}\mathbf{G}^{\prime}+\mathbf{N}}(\mathbf{k}_{\text{irr}},\omega),\\
+\varepsilon_{\mathbf{G},\mathbf{G}^{\prime}}(\mathbf{k}_{\text{irr}},\omega)=e^{-i2\pi(\mathbf{G}-\mathbf{G}^{\prime})\cdot\boldsymbol{t}_{r}}\ \varepsilon_{\hat{U}_{r}\mathbf{G}-\mathbf{N}^{\prime},\hat{U}_{r}\mathbf{G}^{\prime}-\mathbf{N}^{\prime}}(\mathbf{k},\omega).\end{cases}$ 
+
+(21)
+
+Eq. (21) allows us to obtain the dielectric function on a full  $\mathbf{k}$ -point grid in reciprocal space by only evaluating it on the irreducible BZ points,  $\mathbf{k}_{\text{irr}}$ , reducing the computational burden without any accuracy loss.
+
+To handle local field effects (LFEs) more efficiently, we configured the code to directly output the LFE-included dielectric function, defined as
+
+ $\varepsilon(\mathbf{k}+\mathbf{G},\omega)\equiv\varepsilon^{\text{LFE}}_{\mathbf{G},\mathbf{G}}(\mathbf{k},\omega)=\frac{1}{[\varepsilon^{-1}(\mathbf{k},\omega)]_{\mathbf{G},\mathbf{G}}}.$ 
+
+(22)
+
+Since we are considering diagonal elements, the phase factor present in Eq. (21) will vanish also for non-symmorphic operations, symplifying the reconstruction of the full BZ with some modifications made by us that improve the dielectric function description and reduce the computational cost.
+
+Although we compute the scattering rates using the ELF evaluated on a regular grid, we adopted an interpolation scheme to better visualize its spherical average and angular modulation. Specifically, we uniformly sample points over spheres in momentum space using the Fibonacci lattice method [31], perform a linear interpolation, and then average over spheres of constant radius. Fig. 1 (a) shows the spherically averaged ELF of silicon (Si), computed using the DFT parameters detailed in Tab. 1. Fig. 1 (b) presents a Mollweide projection of the relative deviation of the ELF from its average value for a fixed energy and momentum value.
+
+Figure 1: (a) Spherically averaged electronic loss function of Si. The black dashed line indicates the upper kinematic boundary for DM-e- scattering. (b) Mollweide projection of the ELF fractional variation with respect to the spherical average, evaluated at  $\omega$ =18 eV and  $k$ =1.25 keV.
+
+II.3 Electron recoils
+
+The differential event rate per unit target mass for DM–electron scattering can be expressed as [17]
+
+ $\frac{\mathrm{d}R_{\rm e}(t)}{\mathrm{d}\omega}=\frac{1}{\rho_{T}}\frac{\rho_{\chi}}{m_{\chi}}\frac{\bar{\sigma}_{e}}{\mu_{\chi e}^{2}}\frac{1}{2\alpha}\int\frac{\mathrm{d}^{3}\mathbf{q}}{(2\pi)^{3}}F_{DM}^{2}(q,\alpha m_{e})q^{2}\mathcal{W}(\mathbf{q},\omega)\int\mathrm{d}^{3}\mathbf{v}\delta\left(\omega-\mathbf{q}\cdot\mathbf{v}+\frac{q^{2}}{2m_{\chi}}\right)f(\mathbf{v}+\mathbf{v}_{\text{lab}}(t)).$ 
+
+(23)
+
+Here,  $\rho_{T}$  denotes the mass density of the target material,  $\rho_{\chi}$  is the local DM energy density,  $\alpha$  is the fine structure constant, and  $\mu_{\chi e}=m_{\chi}m_{e}/(m_{\chi}+m_{e})$  is the reduced mass of the DM–electron system, where  $m_{\chi}$  is the mass of the dark matter particle. The DM–electron interaction is parametrized by the reference cross section  $\bar{\sigma}_{e}$ , and the form factor  $F_{\rm DM}$ , which we set to  $F_{\rm DM}^{2}\simeq 1$  corresponding to the heavy mediator limit.
+
+In the context of the general event rate formula (6), equation (23) corresponds to setting the generalized target response  $T(\mathbf{q},\omega_{q},\omega)=\mathcal{W}(\mathbf{q},\omega)\delta(\omega_{q}-\omega)$ , that is
+
+ $\frac{\mathrm{d}R_{\rm e}(t)}{\mathrm{d}\omega}=\frac{\rho_{\chi}\bar{\sigma}_{e}}{16\pi^{3}\alpha\rho_{T}m_{\chi}\mu_{\chi e}^{2}}\int\mathrm{d}^{3}\mathbf{q}\,q\,\mathcal{W}(\mathbf{q},\omega)\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}}),$ 
+
+(24)
+
+or in terms of the spherical harmonic expansion (10),
+
+ $\frac{\mathrm{d}R_{\rm e}(t)}{\mathrm{d}\omega}=\frac{\rho_{\chi}\bar{\sigma}_{e}}{16\pi^{3}\alpha\rho_{T}m_{\chi}\mu_{\chi e}^{2}}\int\mathrm{d}q\,q^{3}\,\sum_{lmm^{\prime}}\mathcal{W}_{lm}(q,\omega)\mathcal{R}^{(\ell)}_{mm^{\prime}}(t)\hat{f}_{\ell m^{\prime}}(s,v_{\text{lab}}).$ 
+
+(25)
+
+We note that the special case of an isotropic ELF with  $\mathcal{W}(\mathbf{q},\omega)=\mathcal{W}(q,\omega)=\mathcal{W}_{00}(q,\omega)/\sqrt{4\pi}$ , is obtained by neglecting all terms with  $\ell>0$  in the sum, such that
+
+ $\frac{\mathrm{d}R_{\rm e}^{\text{iso}}(t)}{\mathrm{d}\omega}=\frac{\rho_{\chi}\bar{\sigma}_{e}}{8\pi^{5/2}\alpha\rho_{T}m_{\chi}\mu_{\chi e}^{2}}\int\mathrm{d}q\,q^{3}\,\mathcal{W}(q,\omega)\hat{f}_{00}(s,v_{\text{lab}}).$ 
+
+(26)
+
+Given that there is generally no closed form expression for the ELF, the radial integrals in (25) and (26) must in general be evaluated numerically. In the special case of Eq.(26), the isotropic ELF projects out the isotropic part of the velocity distribution. Conversely, only materials with an anisotropic ELF would be sensitive to anisotropies of the DM velocity distribution when considering DM-electron scattering.
+
+II.4 Migdal effect
+
+In case of the Migdal effect, the expression for the differential event rate per unit target mass for electron excitations is given by [9]
+
+ $\begin{split}\frac{\mathrm{d}R_{\rm M}}{\mathrm{d}\omega}&=\frac{\rho_{\chi}}{m_{\chi}}\frac{\bar{\sigma}_{n}}{\mu^{2}_{\chi n}}\frac{A^{2}}{m_{N}^{3}}\frac{8\pi^{2}\alpha}{\omega^{4}}\int\mathrm{d}^{3}\mathbf{v}f(\mathbf{v}+\mathbf{v}_{\text{lab}}(t))\int\frac{\mathrm{d}^{3}\mathbf{q}}{(2\pi)^{3}}F_{DM}^{2}(q,m_{\chi}v_{0})\int_{1BZ}\frac{\mathrm{d}^{3}\mathbf{k}_{e}}{(2\pi)^{3}}\sum_{\mathbf{K}}Z^{2}(|\mathbf{k}_{e}+\mathbf{K}|)\\
+&\quad\times\frac{(\mathbf{q}\cdot(\mathbf{k}_{e}+\mathbf{K}))^{2}}{|\mathbf{k}_{e}+\mathbf{K}|^{2}}\mathrm{Im}[-\varepsilon^{-1}_{\mathbf{K}\mathbf{K}}(\mathbf{k}_{e},\omega)]S\left(\mathbf{q}-\mathbf{k}_{e}-\mathbf{K},\mathbf{q}\cdot\mathbf{v}-\frac{q^{2}}{2m_{\chi}}-\omega\right),\end{split}$ 
+
+(27)
+
+where  $\mu_{\chi n}$  is the reduced mass of the DM–nucleon system,  $A$  is the atomic mass number, and  $m_{N}$  is the mass of the nucleus. Here,  $Z(k)$  denotes the momentum-dependent effective ion charge, which accounts for the net electrostatic contribution of the bare nucleus partially screened by the core electrons. The integral over the electron momentum  $\mathbf{k}_{e}$  is taken over the first Brillouin zone, and the sum over the reciprocal lattice vectors  $\mathbf{K}$  then covers the entire momentum space.
+
+We wish to write the rate (27) in the form of (2) to apply the formulae from the beginning of this section. This can be accomplished by inserting the integral
+
+ $\int\mathrm{d}\omega_{q}\,\delta\left(\omega_{q}-\mathbf{v}\cdot\mathbf{q}+\frac{q^{2}}{2m_{\chi}}\right)=1.$ 
+
+(28)
+
+into (27). This allows us to identify the generalized target response  $T(\mathbf{q},\omega_{q},\omega)$  of equation (6) as
+
+ $T(\mathbf{q},\omega_{q},\omega)=\int_{1BZ}\mathrm{d}^{3}\mathbf{k}_{e}\sum_{\mathbf{K}}Z^{2}(|\mathbf{k}_{e}+\mathbf{K}|)\frac{(\mathbf{q}\cdot(\mathbf{k}_{e}+\mathbf{K}))^{2}}{|\mathbf{k}_{e}+\mathbf{K}|^{2}}\mathcal{W}(\mathbf{k}_{e}+\mathbf{K},\omega)S(\mathbf{q}-\mathbf{k}_{e}-\mathbf{K},\omega_{q}-\omega),$ 
+
+(29)
+
+where we have identified the diagonal ELF  $\mathcal{W}(\mathbf{k}_{e}+\mathbf{K},\omega)=\imag[-\varepsilon^{-1}_{\mathbf{K}\mathbf{K}}(\mathbf{k}_{e},\omega)]$ . From now on, we also combine the integral of  $\mathbf{k}_{e}$  over the first Brillouin zone with the sum over the reciprocal lattice vectors  $\mathbf{K}$  into a single integral over all momenta  $\mathbf{k}=\mathbf{k}_{e}+\mathbf{K}$ . The event rate then takes the form
+
+ $\frac{\mathrm{d}R_{\text{M}}}{\mathrm{d}\omega}=\frac{\rho_{\chi}}{m_{\chi}}\frac{\bar{\sigma}_{n}}{\mu^{2}_{\chi n}}\frac{A^{2}}{m_{N}^{3}}\frac{\alpha}{\omega^{4}}\frac{1}{8\pi^{4}}\int\mathrm{d}^{3}\mathbf{q}\,\mathrm{d}\omega_{q}\,\frac{1}{q}T(\mathbf{q},\omega_{q},\omega)\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}}),$ 
+
+(30)
+
+where  $s=\omega_{q}/q+q/2m_{\chi}$ , and we have assumed the heavy mediator limit  $F_{DM}^{2}(q,m_{\chi}v_{0})\approx 1$ .
+
+The advantage of the general formalism is evident here, since now all the complexity of electronic excitations and lattice vibrations has been banished to the generalized target response (29). Even in the case where no approximations can be made to simplify the expression, as long as it is possible to tabulate the values of  $T(\mathbf{q},\omega_{q},\omega)$  for a given material in some useful way, computation of the Migdal rate is not substantially more difficult or too different from computation of the electron rate.
+
+The dynamic structure factor of the lattice is present in equation (29), because part of the transferred momentum  $\mathbf{q}$  and energy  $\omega_{q}$  is transferred to the atomic lattice as vibrations. This function is formed out of the lattice wave functions, and is typically written using approximate formulae [9]. For nuclear recoil energies  $E_{r}$  significantly higher than the average phonon energy, the nuclei may be treated as free. In this approximation  $S(\mathbf{q}-\mathbf{k},\omega_{q}-\omega)$  reduces to a delta-function,
+
+ $S\left(\mathbf{q}-\mathbf{k},\omega_{q}-\omega\right)\simeq\delta\left(\omega_{q}-\omega-\frac{(\mathbf{q}-\mathbf{k})^{2}}{2m_{N}}\right).$ 
+
+(31)
+
+This expression may, in general, be used to reduce the dimensionality of the  $\mathbf{k}$  integral in equation (29). However, it is typically also feasible to employ the soft approximation, and assume that the electron momentum  $\mathbf{k}$  is small relative to the momentum transfer  $\mathbf{q}$ , in which case we may take  $\mathbf{q}-\mathbf{k}\approx\mathbf{q}$  in the dynamic structure factor. Then equation (31) and the integral over  $\omega_{q}$  amount to setting  $\omega_{q}\approx\omega+q^{2}/2m_{N}$  such that the generalized target response reduces to
+
+ $T(\mathbf{q},\omega_{q},\omega)=\delta\left(\omega_{q}-\omega-\frac{q^{2}}{2m_{N}}\right)\int\mathrm{d}^{3}\mathbf{k}\,Z^{2}(k)\frac{(\mathbf{q}\cdot\mathbf{k})^{2}}{k^{2}}\mathcal{W}(\mathbf{k},\omega)$ 
+
+(32)
+
+Expanded, the differential event rate now reads
+
+ $\frac{\mathrm{d}R_{\rm M}}{\mathrm{d}\omega}=\frac{A^{2}\alpha\bar{\sigma}_{n}\rho_{\chi}}{8\pi^{4}\mu_{\chi n}^{2}m_{N}^{3}m_{\chi}\omega^{4}}\int\mathrm{d}^{3}\mathbf{q}\int\mathrm{d}^{3}\mathbf{k}\,Z^{2}(k)\mathcal{W}(\mathbf{k},\omega)\frac{(\mathbf{q}\cdot\mathbf{k})^{2}}{qk^{2}}\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}}),$ 
+
+(33)
+
+where, given the delta-function of equation (32), we can write
+
+ $s=\frac{q}{2\mu_{\chi N}}+\frac{\omega}{q}.$ 
+
+(34)
+
+To briefly justify use of the soft limit approximation, we first note that it relates to the general kinematic condition
+
+ $\mathbf{v}\cdot\mathbf{q}-\frac{q^{2}}{2m_{\chi}}-\frac{(\mathbf{q}-\mathbf{k})^{2}}{2m_{N}}-\omega=\mathbf{v}\cdot\mathbf{q}-\frac{q^{2}}{2\mu_{\chi N}}+\frac{\mathbf{q}\cdot\mathbf{k}}{m_{N}}-\frac{k^{2}}{2m_{N}}-\omega=0.$ 
+
+(35)
+
+This condition, resulting from energy conservation, determines the kinematic region the event rate integral probes. The relevant terms for the soft limit are the three middle terms. It is clear that the magnitude of the  $\mathbf{k}$ -dependent terms relative to  $q^{2}/2\mu_{\chi N}$  is maximized when  $\mathbf{q}\cdot\mathbf{k}=-qk$ . We see that these terms are small compared to  $q^{2}/2\mu_{\chi N}$  when
+
+ $\frac{m_{\text{N}}}{\mu_{\chi N}}\gg\frac{k}{q}\left(2+\frac{k}{q}\right).$ 
+
+(36)
+
+For light dark matter with  $m_{\chi}\ll m_{N}$  the left hand side is bounded from below by  $m_{\text{N}}/m_{\chi}$ , and the soft limit corresponds to  $(k/q)^{2}\ll m_{\text{N}}/m_{\chi}$ .
+For dark matter masses  $\mathcal{O}$ (10–100) MeV typically probed by the Migdal effect,
+this is  $k\ll 10q\lesssim\sqrt{m_{\text{N}}/m_{\chi}}q$ ,
+assuming a nucleus with mass  $m_{N}\gtrsim 10$  GeV typical of detector materials.
+In this DM mass range typical momentum transfers are of the order  $m_{\chi}v\gtrsim 10$  keV, suggesting that the soft limit would be valid roughly up to  $k\sim 100$  keV.
+
+On the other hand, the ELF in Eq. (33) decays fast for large values of  $k$ , and the primary contribution to the integral comes from the kinematic region, where  $k\lesssim 10$  keV. Combining this with the kinematic considerations from above, we see that the soft limit is valid across the kinematic region where the integrals receive meaningful contributions. We have further checked the validity of this approximation by comparing it with the exact expression in Eq. (33). In this way, we verified that in the mass range 10 MeV  $\lesssim m_{\chi}\lesssim$  1 GeV the error from these approximations is negligible compared to the error that arises from the numerical approximation of the integrals.
+
+The angular structure of the integrand in Eq. (33) can be resolved by noticing that
+the factor  $(\mathbf{\hat{q}}\cdot\mathbf{\hat{k}})^{2}$  acts as a projection operator. Writing it first as
+a linear combination of Legendre polynomials and then using the addition theorem of spherical harmonics, we obtain
+
+ $(\hat{\mathbf{q}}\cdot\hat{\mathbf{k}})^{2}=\frac{1}{3}P_{0}(\hat{\mathbf{q}}\cdot\hat{\mathbf{k}})+\frac{2}{3}P_{2}(\hat{\mathbf{q}}\cdot\hat{\mathbf{k}})=\frac{4\pi}{3}Y_{00}(\hat{\mathbf{q}})Y_{00}(\hat{\mathbf{k}})+\frac{8\pi}{15}\sum_{m=-2}^{2}Y_{2m}(\hat{\mathbf{q}})Y_{2m}(\hat{\mathbf{k}}).$ 
+
+(37)
+
+This will project the integrand in Eq. (33) onto the direct sum of the  $\ell=0$  and  $\ell=2$  subspaces in the spherical harmonic basis. This allows us to write the spherical harmonic coefficients of the target response as
+
+ $T_{\ell m}(q,\omega_{q},\omega)=\delta\left(\omega_{q}-\omega-\frac{q^{2}}{2m_{N}}\right)(\delta_{l0}+\delta_{l2})W_{\ell m}(\omega),$ 
+
+(38)
+
+where
+
+ $W_{\ell m}(\omega)=A_{\ell}\int\mathrm{d}^{3}\mathbf{k}\,Y_{\ell m}(\hat{\mathbf{k}})Z^{2}(k)\mathcal{W}(\mathbf{k},\omega)=A_{\ell}\int dkk^{2}Z(k)^{2}{\mathcal{W}}_{\ell m}(k),$ 
+
+(39)
+
+with  $A_{0}=4\pi/3$ ,  $A_{2}=8\pi/15$ .
+
+Notice that apart from the first delta-function, this expression is now independent of  $q$ . Because of this, we may define the additional set of functions
+
+ $F_{\ell m}(\omega,v_{\text{lab}}(t))=\int\mathrm{d}^{3}\mathbf{q}\,q\hat{f}(s+\mathbf{v}_{\text{lab}}\cdot\hat{\mathbf{q}},\hat{\mathbf{q}})Y_{\ell m}(\hat{\mathbf{q}})=\int dqq^{3}\hat{f}_{\ell m}(s,v_{\text{lab}}),$ 
+
+(40)
+
+such that we can reduce the event rate, via equation (10), to
+
+ $\frac{\mathrm{d}R_{\rm M}}{\mathrm{d}\omega}=\frac{A^{2}\alpha\bar{\sigma}_{n}\rho_{\chi}}{8\pi^{4}\mu_{\chi n}^{2}m_{N}^{3}m_{\chi}\omega^{4}}\sum_{l=0,2}\sum_{|m|\leq l}W_{\ell m}(\omega)\mathcal{R}^{(\ell)}_{mm^{\prime}}(t)F_{\ell m^{\prime}}(\omega,v_{\text{lab}}(t)).$ 
+
+(41)
+
+For a multi-atomic target material, the rate has to be calculated for each nucleus type separately. The total rate is then the weighted sum
+
+ $\displaystyle\frac{\mathrm{d}R_{\rm M}}{\mathrm{d}\omega}$ 
+ $\displaystyle=\sum_{N}\frac{M_{N}}{M_{T}}\frac{\mathrm{d}R_{N}}{\mathrm{d}\omega},$ 
+
+(42)
+
+where  $M_{N}=n_{N}m_{N}$  is the total mass of atoms of type  $N$  in the target and  $M_{T}$  the mass of the entire target.
+
+The properties of the detector material are embedded in  $W_{\ell m}$ , while  $F_{\ell m}$  contains the information of the DM velocity distribution. Eq. (40) can be compared with the corresponding result in electron scattering,
+Eq. (25). The sensitivity of the rate to the angular dependence of the ELF (or the DM velocity distribution) is much more strictly constrained: the only anisotropic contribution to the event rate is from the quadrupole term ( $\ell=2)$ .
+For an isotropic material, the quadrupole term does not contribute and the rate simplifies to
+
+ $\frac{\mathrm{d}R_{\rm M}^{\rm{iso}}}{\mathrm{d}\omega}=\frac{A^{2}\alpha\bar{\sigma}_{n}\rho_{\chi}}{8\pi^{4}\mu_{\chi n}^{2}m_{N}^{3}m_{\chi}\omega^{4}}W_{00}(\omega)F_{00}(\omega,v_{\text{lab}}).$ 
+
+(43)
+
+If the velocity distribution is isotropic, the Radon transform  $\hat{f}(s,\hat{\mathbf{q}})$  depends on  $\hat{\mathbf{q}}$  only via the product  $\mathbf{v}_{\text{lab}}(t)\cdot\hat{\mathbf{q}}$ . It follows that in the chosen integration coordinates, where  $\mathbf{v}_{\text{lab}}(t)$  is in the  $z$ -direction,  $F_{\ell m}$  vanishes for  $m\neq 0$ . In case of the SHM, expressions for the nonzero components of  $F_{\ell m}$  are outlined in appendix A.
+
+Our key result, equation (41), is extremely convenient because it cleanly separates the domains and effects that contribute to the event rate into different expressions. Namely,  $W_{\ell m}(\omega)$  captures the material response, the matrix  $\mathcal{R}^{(\ell)}_{mm^{\prime}}(t)$  describes the effects due to the detector’s orientation (daily modulation), and  $F_{\ell m}(\omega,v_{\text{lab}}(t))$  captures the dark matter velocity distribution and effects of Earth’s motion (annual modulation).
+
+III Directional dependence of dark matter direct detection
+
+Anisotropies from the target response combined with Earth’s motion through the DM halo lead to
+time-variation in the DM scattering event rates. These daily or annual modulation patterns give information about the directional dependence of the underlying phenomenon even if the detector design does not allow for reconstruction of the recoil direction for individual events. We will now determine the consequences of the formalism developed in the previous section, using the notation of Eq. (41).
+
+In practice,  $W_{\ell m}(\omega)$  only needs to be evaluated once for a given material and can then be reused for different times, and for different parameterizations of the velocity distribution. Furthermore, the time variation of  $F_{\ell m}(\omega,v_{\text{lab}}(t))$  is, to first order, determined by Earth’s orbital motion with only a negligible contribution from motion of the lab around Earth’s axis of rotation. It can therefore be sampled on a sparse time grid to capture the annual modulation, while the matrix  $\mathcal{R}^{2}_{mm^{\prime}}(t)$ , which is cheap to evaluate, can be sampled on a denser grid to capture the daily modulation.
+
+An implication of Eq. (41) is that
+the expected magnitude of the daily modulation in the Migdal rate
+can be estimated from the ratio  $R_{W}=\|\mathbf{W}_{2}(\omega)\|/|W_{00}(\omega)|$ , where
+
+ $\|\mathbf{W}_{2}(\omega)\|^{2}=\sum_{|m|\leq 2}|W_{2m}(\omega)|^{2}.$ 
+
+(44)
+
+A material can therefore be identified as a potentially suitable candidate for observing daily modulation without a need for evaluation of the event rate if this ratio is large enough. However, note that this is not a definitive determination, because the actual modulation of the event rate could possibly still be suppressed or amplified depending on the values of  $F_{2m}(\omega,\mathbf{v}_{\text{lab}}(t))$  relative to  $F_{00}(\omega,\mathbf{v}_{\text{lab}}(t))$ . However, a ratio  $R_{W}\ll 1$  indicates that daily modulation is unlikely to be observable in the material at hand.
+
+It is also notable that the coefficients  $W_{\ell m}(\omega)$  are related to the spherical harmonic moments of the ELF. The fact that the event rate only depends on the  $\ell=0,2$  moments therefore implies that the effects of the dipole moment ( $\ell=1$ ), and moments higher than the quadrupole, on the daily modulation are heavily suppressed in the Migdal rate. For observation of daily modulation of the Migdal rate, one should therefore look for a detector material whose symmetries would give rise to a large quadrupole ( $\ell=2$ ) contribution to the dielectric function and, by extension, to the ELF.
+
+III.1 General features
+
+As discussed above, the daily modulation of the Migdal rate is generated, to a good approximation, solely by the quadrupole component of the ELF. In contrast, in electron scattering all low-order harmonics contribute. To illustrate the consequences of this behavior, we use a toy model of the ELF with particular angular features. We consider separately cases with anisotropy given by the dipole or the quadrupole term,
+
+ $\displaystyle\mathcal{W}_{1}=\exp\left[-\left(\frac{k}{10\text{keV}}\right)^{2}\right]\left(1+\sqrt{\frac{4\pi}{3}}Y_{1,1}(\theta,\phi)\right),\qquad\mathcal{W}_{2}=\exp\left[-\left(\frac{k}{10\text{keV}}\right)^{2}\right]\left(1+\sqrt{\frac{16\pi}{15}}Y_{2,1}(\theta,\phi)\right).$ 
+
+(45)
+
+To further illustrate the general features, we consider another parametric model, which receives contributions from all multipoles in its spherical expansion,
+
+ $\mathcal{W}_{3}=\exp\left[-\left(\frac{k}{10\text{keV}}\right)^{2}\right]\left(1+\sin(\theta\phi)\right).$ 
+
+(46)
+
+Here we also allow for the separability of the  $k$ -dependence and angular dependence to make these toy models maximally anisotropic in the sense that they vanish for certain directions for every  $k$ . This will maximize the amplitude of the daily modulation.
+
+We select Gran Sasso as the location of our hypothetical detector, oriented in a right-handed coordinate system such that the  $z$ -axis points towards the zenith, and the  $x$ -axis points west. The laboratory velocities  $\mathbf{v}_{\text{lab}}$  were calculated for each hour on August 20, 2027.
+From these velocities the event rates were computed analytically using Eqs. (24) and (41).
+
+Figure 2: Daily modulation of the event rate for parametric model ELFs in Eq. (45) and (46), assuming the SHM velocity distribution and DM mass of 10 MeV. The left panel shows the result for electron recoils and the right panel shows the result for the Migdal effect. The horizontal lines in the right panel correspond to  $1\pm R_{W}$ . The top row is for  $\omega\simeq 5\rm{\,eV}$  and the bottom row is for  $\omega\simeq 25\rm{\,eV}$ .
+
+The results for the daily modulation arising from these parametric models are shown in Fig. 2. The left panel of the Figure shows the event rate for the electron recoils and the right panel for the Migdal effect, assuming the standard halo model for the DM velocity distribution. We see that the full calculation gives results compatible with our main results given in Eqs. (25) and (41). The angular anisotropy due to the quadrupole term ( $\ell=2$ ) is similar in both cases, while the dipole term ( $\ell=1$ ) is only relevant for electron scattering.
+
+The rows in Fig. 2 show the daily modulation for different  $\omega$ . As can be seen, the modulation increases with the energy. In the Migdal case, this can be understood through the velocity distribution integral: for the SHM, the tail is more anisotropic. This makes  $F_{20}(\omega)/F_{00}(\omega)$  an increasing function that indirectly scales  $R_{W}$  to give the order of the modulation amplitude. Since for the SHM,  $F_{20}$  and  $F_{00}$  are of the same order,  $R_{W}$  gives an estimate on the modulation amplitude for the Migdal rate.
+However, the rate decreases with the energy  $\omega$ . Therefore, even though higher values of  $\omega$  display larger relative modulation amplitude, the absolute rate is lower and the prospects for observing the daily modulation must be balanced with respect to the relative amplitude and the absolute rate.
+
+III.2 Silicon and gallium arsenide
+
+We calculated the electron scattering and Migdal effect rates for silicon (Si) and gallium arsenide (GaAs) detectors, which are widely adopted target materials for leading and next-generation sub-GeV dark matter experiments such as SuperCDMS [32], SENSEI [33], TESSERACT [34], DAMIC-M [35] and DAREDEVIL [36, 37].
+An accurate evaluation of such rates requires a precise description of the target materials’ ELFs, which we computed from first principles following the procedure described in Sec. II.2.
+
+The DFT calculations were performed using the PBE functional [38] and a  $20\times 20\times 20$   $\mathbf{k}$ -point grid. A scissor correction was applied to set the energy band gap to the experimental value:  $E_{\rm gap}=1.12$  eV for Si [39] and  $E_{\rm gap}=1.42$  eV for GaAs [40].
+The dielectric response was calculated within the adiabatic local density approximation (ALDA) [41], which approximates the dynamic exchange-correlation kernel  $f_{xc}$  using the static, local limit (the RPA approximation neglects instead this contribution). The calculation employed an energy broadening of  $0.001$  eV and included 70 unoccupied bands to ensure the response’s convergence. To optimize computational cost, the response was evaluated exclusively on the irreducible points of a  $20\times 20\times 20$   $\mathbf{k}$ -point grid, and subsequently reconstructed over the full BZ using the symmetry transformations previously described. A momentum cutoff of  $q_{\text{cut}}\approx 20\text{ keV}$  was applied by setting a kinetic energy cutoff  $E_{\text{cut}}=\frac{q_{\text{cut}}^{2}}{2m_{e}}=400\text{ eV}$ . Local field effects were included by using Eq. (22).
+Finally, for the evaluation of the Migdal effect rate, the momentum dependent effective ion charges  $Z(k)$  were extrapolated from the experimental data of Ref. [42]. Tab. 1 collects the main parameters associated with the evaluation of the ELF.
+
+Material
+Si
+GaAs
+
+ $\mathbf{k}$ -point grid
+ $20\times 20\times 20$ 
+ $20\times 20\times 20$ 
+
+xc-functional
+PBE
+PBE
+
+ $E_{\text{cut}}$  (eV)
+400
+400
+
+Empty states
+70
+70
+
+xc-kernel ( $f_{\text{xc}}$ )
+ALDA
+ALDA
+
+ $E_{\text{gap}}$  (eV)
+1.12
+1.42
+
+Table 1: Key electronic structure and convergence parameters used to evaluate the energy loss function of Si and GaAs.
+
+The rates were evaluated using Eqs. (24) and (39)–(41) for the SHM velocity distribution. Given that the ELF from the DFT simulations comes sampled on a momentum grid, we performed integrals involving the ELF using a simplex integration method over a mesh produced via Delaunay triangulation. In case of the Migdal effect, the radial  $q$ -integrals in the evaluation of  $F_{\ell m}(\omega,v_{\text{lab}})$  were performed via conventional adaptive quadrature.
+
+We use a low DM mass  $m_{\chi}=10\text{\,MeV}$ , as the daily modulation effect is expected to be the greatest for low-energy scattering events. We chose the values  $\bar{\sigma}_{n}=10^{-36}\text{\,cm}^{2}$  and  $\bar{\sigma}_{e}=10^{-40}\text{\,cm}^{2}$  for our reference cross sections, as representative of the parameter values allowed by existing limits. The precise value of the cross section is not relevant for this analysis, since it simply scales the overall rate and does not affect the shape of the energy spectrum or the daily modulation.
+
+Figure 3: The electron scattering (left) and Migdal (right) event rates in silicon and gallium arsenide for the SHM velocity distribution and a DM mass of 10 MeV.
+
+The resulting event rates for Si and GaAs are shown in Fig. 3.
+The electron scattering rates are found compatible with previous results within the level of uncertainty expected due to the computational methodology for the ELF [6, 5, 7]. Further refinements could include higher-energy transitions from core states or extensions to larger momentum transfers [7]. However, core transitions are kinematically forbidden for lower DM masses and, lacking momentum dispersion, yield purely isotropic contributions. Likewise, extending the high- $q$  cutoff is computationally prohibitive without reverting to isotropic approximations, such as evaluating the ELF over a line in momentum space, or neglecting LFEs. Consequently, while these high-energy and high-momentum contributions can quantitatively modify the total rate, increasing it for massive mediators and heavier DM masses, they will not produce any relevant difference in the overall rate anisotropy.
+
+We note that the Migdal rate in Si matches values found in the literature [9] rather well. We can see that the electron recoil rates for both materials are relatively similar, although the rate in GaAs decreases slower at energies above 15 eV. The Migdal rates differ between the materials mainly due to the different effective ion charges  $Z(k)$ . The maximum contribution to both event rates comes relatively close to the minimum energy at around  $\omega\simeq 3\rm{\,eV}$  to  $5\rm{\,eV}$ .
+
+The daily modulation in Si and GaAs is shown in Fig. 4. We first note that the overall scale of the modulation is relatively small for both materials, on the order of 1% in the electron recoil case. This is reflective of the fact that the ELFs for these materials are nearly isotropic. The modulation of the electron rate at 5 eV appears roughly like a clean sine wave with a period of one sidereal day, suggesting that it originates primarily from the dipole component. This is consistent with the degree of suppression of the Migdal rate.
+
+Figure 4: Electron scattering (solid) and Migdal (dashed) daily modulation in silicon (orange) and gallium arsenide (blue) at energies  $\omega\simeq 5\rm{\,eV}$  (left) and  $\omega\simeq 25\rm{\,eV}$  (right) on August 20, 2027, assuming the SHM velocity distribution and a DM mass of 10 MeV.
+
+IV Conclusions
+
+We have developed a general framework for evaluating dark matter induced electronic excitations in solids while retaining the full anisotropic structure of the material response. In contrast to conventional treatments based on isotropically averaged dielectric functions, our formulation preserves the directional dependence encoded in the energy loss function (ELF), allowing a direct connection between crystal symmetry, electronic structure, and observable dark matter signatures.
+
+Using a spherical harmonic decomposition, we showed that the angular structure of the target response maps directly onto the temporal modulation pattern of the event rate. In particular, for the Migdal effect the daily modulation is controlled predominantly by the quadrupolar component of the ELF, whereas direct DM–electron scattering can retain sensitivity to a broader set of angular harmonics. This decomposition not only provides a practical route for event-rate calculations but also offers physical insight into which material properties control directional sensitivity.
+
+Our results suggest a conceptual shift in the study of Migdal processes in solids. Historically, the Migdal effect has been viewed largely as a mechanism that enhances rates at low dark matter masses. In solids, however, the Migdal effect becomes sensitive not only to electronic excitation energies but also to the geometry and symmetry of wave functions throughout momentum space.
+The weak modulation observed in conventional semiconductors such as silicon and gallium arsenide originate from the relatively isotropic electronic responses, and thus point toward the search of new class of candidate detector materials where stronger directional signatures may emerge.
+The present formalism and computational approach can thus be used to explore particularly promising systems with intrinsically anisotropic dielectric properties or strongly directional low-energy excitations.
+Particularly promising candidates include layered and low-symmetry semiconductors, van der Waals heterostructures, topological insulators, and materials near electronic instabilities, where strong momentum-space anisotropy coexists with experimentally favorable detector properties.
+Similarly, correlated materials and altermagnets may exhibit unconventional angular signatures associated with orbital and spin textures.
+In addition, given the lack of the coherent scattering scaling that typically favors heavy element targets for nuclear recoils, low mass materials, specifically hydrogen-based materials like hydrides, represents an interesting research line [43].
+Quantities such as quadrupole moments of the ELF or symmetry-resolved dielectric descriptors may serve as screening criteria in high-throughput computational searches. Combined with modern first-principles methods and materials databases, this could enable systematic identification of optimal targets for directional dark matter experiments.
+
+Several theoretical directions may naturally follow from the present work. First, extending the formalism beyond the isotropic Standard Halo Model may reveal stronger directional signatures. Second, the present treatment can be generalized to velocity-dependent interactions and broader effective field theory operators. Third, a fully momentum-resolved description of the Migdal process beyond the soft approximation may become important in materials with sharp reciprocal-space features. Furthermore, inclusion of electron-phonon coupling, excitonic effects, and strong electronic correlations may substantially alter the dielectric response and therefore the predicted signal.
+We expect that future detectors may exploit engineered anisotropic responses transforming directional sensitivity into a promising strategy for identifying dark matter.
+
+Acknowledgements.
+
+This work has been supported by the Research Council of Finland (grants# 342777, 371542). AA thanks Wihuri foundation for financial support.
+
+Appendix A Momentum transfer integrals
+
+In the simplest case, we have the standard halo model as the velocity distribution. In the Migdal rate, two of the three dimensions in the nucleus momentum integral
+
+ $\displaystyle F_{\ell m}(\omega,\mathbf{v}_{\text{lab}}(t))$ 
+ $\displaystyle=\int\mathrm{d}^{3}\mathbf{q}\,q\hat{f}_{\text{SHM}}(s,\hat{\mathbf{q}})Y_{\ell m}(\hat{\mathbf{q}})$ 
+
+(47)
+
+can be solved analytically. First, we note that with an appropriate choice of integration coordinates, such that the  $z$ -axis is along  $\mathbf{v}_{\text{lab}}$ , the only part the integral which depends on the azimuthal angle  $\phi$  is
+
+ $\displaystyle\int_{0}^{2\pi}\mathrm{d}\phi\,Y_{\ell m}(\theta,\phi).$ 
+
+(48)
+
+By definition of the spherical harmonics, we can see that this vanishes for  $m\neq 0$ . Therefore the only components that remain are
+
+ $F_{\ell 0}=2\pi\int_{0}^{\infty}\mathrm{d}q\,q^{3}\int_{-1}^{1}\mathrm{d}\cos\theta\left(\exp\left[-\frac{(s+v_{\text{lab}}\cos\theta)^{2}}{v_{0}^{2}}\right]-\exp\left[-\frac{v_{\rm esc}^{2}}{v_{0}^{2}}\right]\right)\Theta(v_{\rm esc}-|s+v_{\text{lab}}\cos\theta|)Y_{\ell 0}(\theta,\phi).$ 
+
+(49)
+
+The step function  $\Theta$  imposes some nontrivial limits on the integral. Denoting  $x=\cos\theta$ , we may solve from the limits from the equations  $|x|\leq 1$  and  $|s+v_{\text{lab}}x|\leq v_{\text{esc}}$ . We find
+
+ $\displaystyle x_{\text{min}}$ 
+ $\displaystyle=\max\left\{-1,-\frac{v_{\text{esc}}+s}{v_{\text{lab}}}\right\},$ 
+
+(50)
+
+ $\displaystyle x_{\text{max}}$ 
+ $\displaystyle=\min\left\{1,\frac{v_{\text{esc}}-s}{v_{\text{lab}}}\right\}.$ 
+
+(51)
+
+In practice, since  $v_{\text{esc}}>v_{\text{lab}}$ , the lower limit typically reduces to  $x_{\text{min}}=-1$ . These limits imply that
+
+ $-v_{\text{lab}}\leq v_{\text{esc}}-s.$ 
+
+(52)
+
+Given the approximation
+
+ $s\approx\frac{q}{2\mu}+\frac{\omega}{q},$ 
+
+(53)
+
+we can use (52) to solve the limits on the  $q$ -integral, and we find that
+
+ $\displaystyle q_{\text{min}}$ 
+ $\displaystyle=\mu(v_{\text{lab}}+v_{\rm esc})-\sqrt{\mu^{2}(v_{\text{lab}}+v_{\rm esc})^{2}-2\mu\omega},$ 
+
+(54)
+
+ $\displaystyle q_{\text{max}}$ 
+ $\displaystyle=\mu(v_{\text{lab}}+v_{\rm esc})+\sqrt{\mu^{2}(v_{\text{lab}}+v_{\rm esc})^{2}-2\mu\omega}.$ 
+
+(55)
+
+Notice that this also implies that  $\mu^{2}(v_{\text{lab}}+v_{\rm esc})^{2}-2\mu\omega\geq 0$ , leading to a limit
+
+ $\omega_{\text{max}}=\frac{1}{2}\mu(v_{\text{lab}}+v_{\text{esc}})^{2}$ 
+
+(56)
+
+above which the event rate vanishes.
+
+Given that
+
+ $Y_{\ell 0}(\theta,\phi)=\sqrt{\frac{2\ell+1}{4\pi}}P_{\ell}(\cos\theta),$ 
+
+(57)
+
+where  $P_{\ell}(x)$  are the Legendre polynomials, the angular integral reduces to
+
+ $\displaystyle I_{\ell}(q)=\sqrt{\frac{2\ell+1}{4\pi}}\int_{-1}^{x_{\text{max}}}\mathrm{d}x\left(\exp\left[-\frac{(s+v_{\text{lab}}x)^{2}}{v_{0}^{2}}\right]-\exp\left[-\frac{v_{\rm esc}^{2}}{v_{0}^{2}}\right]\right)P_{\ell}(x)$ 
+
+(58)
+
+has to be written separately for the cases  $\ell=0,2$ , with  $P_{0}(x)=1$  and  $P_{2}(x)=\tfrac{1}{2}(3x^{2}-1)$  we have
+
+ $I_{0}(q)=\begin{cases}\displaystyle\frac{\sqrt{\pi}v_{0}}{2v_{\text{lab}}}\left[\mathrm{erf}\left(\frac{s+v_{\text{lab}}}{v_{0}}\right)-\mathrm{erf}\left(\frac{s-v_{\text{lab}}}{v_{0}}\right)\right]-2\exp\left(\frac{-v_{\rm esc}^{2}}{v_{0}^{2}}\right),&x_{\text{max}}=1\\[5.0pt]
+\displaystyle\frac{\sqrt{\pi}v_{0}}{2v_{\text{lab}}}\left[\mathrm{erf}\left(\frac{v_{\rm esc}}{v_{0}}\right)-\mathrm{erf}\left(\frac{s-v_{\text{lab}}}{v_{0}}\right)\right]-\exp\left(-\frac{v_{\rm esc}^{2}}{v_{0}^{2}}\right)\left(\frac{v_{\rm esc}-s}{v_{\text{lab}}}+1\right),&x_{\text{max}}=\frac{v_{\text{esc}}-s}{v_{\text{lab}}}\\
+\end{cases}$ 
+
+(59)
+
+and
+
+ $I_{2}(q)=\frac{v_{0}^{3}}{4v_{\text{lab}}^{3}}\begin{cases}\begin{aligned} &\left\{\sqrt{\pi}\left(6\frac{s^{2}}{v_{0}^{2}}-2\frac{v_{\text{lab}}^{2}}{v_{0}^{2}}+3\right)\left[\erf\left(\frac{s+v_{\text{lab}}}{v_{0}}\right)-\erf\left(\frac{s-v_{\text{lab}}}{v_{0}}\right)\right]\right.\\
+&\quad{}+\left.6\frac{s-v_{\text{lab}}}{v_{0}}\exp(\frac{-(s+v_\text{lab})^2}{v_0^2})-6\frac{s+v_{\text{lab}}}{v_{0}}\exp(\frac{-(s-v_\text{lab})^2}{v_0^2})\right\},\\[10.00002pt]
+\end{aligned}&x_{\text{max}}=1\\
+\begin{aligned} &\left\{\sqrt{\pi}(6\frac{s^{2}}{v_{0}^{2}}-2\frac{v_{\text{lab}}^{2}}{v_{0}^{2}}+3)\left[\erf\left(\frac{v_{\rm esc}}{v_{0}}\right)-\erf\left(\frac{s-v_{\text{lab}}}{v_{0}}\right)\right]\right.\\
+&\quad{}+\left[4\frac{v_{\text{lab}}^{2}(v_{\rm esc}-s)-(v_{\rm esc}-s)^{3}}{v_{0}^{3}}+6\frac{2s-v_{\rm esc}}{v_{0}}\right]\exp(\frac{-v_{\rm esc}^2}{v_0^2})\\
+&\quad{}-\left.6\frac{s+v_{\text{lab}}}{v_{0}}\exp(\frac{-(s-v_\text{lab})^2}{v_0^2})\right\},\end{aligned}&\displaystyle x_{\text{max}}=\frac{v_{\text{esc}}-s}{v_{\text{lab}}}\\
+\end{cases}$ 
+
+(60)
+
+The radial integrals
+
+ $F_{\ell 0}(\omega,\mathbf{v}_{\text{lab}}(t))=\int_{q_{\text{min}}}^{q_{\text{max}}}\mathrm{d}q\,q^{3}I_{\ell}(q)$ 
+
+(61)
+
+are left to be evaluated numerically.
+
+References
+
+[1]
+S. Das, R. Dey, V. K. S. Kashyap, B. Mohanty, D. Mondal, S. Banik, M. Chaudhuri, and V. Iyer, Rare event
+searches using cryogenic detectors via direct detection methods, Modern Physics Letters A 41, 2630002 (2026), https://doi.org/10.1142/S0217732326300028 . 
+
+[2]
+V. Iyer, N. Mirabolfathi,
+G. Agnolet, H. Chen, A. Jastram, F. Kadribasic, V. Kashyap, A. Kubik, M. Lee, R. Mahapatra, B. Mohanty,
+H. Neog, and M. Platt, Large mass single electron resolution detector for dark
+matter and neutrino elastic interaction searches, Nuclear Instruments and Methods in Physics
+Research Section A: Accelerators, Spectrometers, Detectors and Associated
+Equipment 1010, 165489
+(2021). 
+
+[3]
+M. F. Albakry et al. (SuperCDMS
+Collaboration), Search for low-mass
+electron-recoil dark matter using a single-charge sensitive supercdms-hvev
+detector, Phys. Rev. D 113, 032001 (2026). 
+
+[4]
+Y. Hochberg, Y. Kahn,
+N. Kurinsky, B. V. Lehmann, T. C. Yu, and K. K. Berggren, Determining dark-matter–electron scattering rates from
+the dielectric function, Phys. Rev. Lett. 127, 151802 (2021). 
+
+[5]
+S. Knapen, J. Kozaczuk, and T. Lin, python package for dark matter scattering in
+dielectric targets, Phys. Rev. D 105, 015014 (2022). 
+
+[6]
+S. Knapen, J. Kozaczuk, and T. Lin, Dark matter-electron scattering in dielectrics, Phys. Rev. D 104, 015031 (2021a). 
+
+[7]
+S. M. Griffin, K. Inzani,
+T. Trickle, Z. Zhang, and K. M. Zurek, Extended calculation of dark matter-electron scattering in crystal
+targets, Phys. Rev. D 104, 095015 (2021). 
+
+[8]
+S. Knapen, J. Kozaczuk, and T. Lin, Migdal effect in semiconductors, Phys. Rev. Lett. 127, 081805 (2021b). 
+
+[9]
+K. V. Berghaus, A. Esposito,
+R. Essig, and M. Sholapurkar, The migdal effect in semiconductors for dark
+matter with masses below  $\sim$  100 mev, Journal of High Energy Physics 2023, 10.1007/jhep01(2023)023 (2023). 
+
+[10]
+D. Yi, Q. Liu, S. Chen, C. Dong, H. Feng, C. Gao, W. Huang, X. Jing, L. Kong, J. Li, P. Li, E. Liang, R. Ma, C. Su, L. Su, J. Sun, D. Wang, J. Wang, Z. Wei, Z. Yao, Y. Yu, Y. Zhang, S. Zhou, Z. Zhou, B. Zhu, J. Zuo, H. Liu, X. Sun, L. Wu, and Y. Zheng, Direct observation of the Migdal effect induced by neutron
+bombardment, Nature 649, 580 (2026). 
+
+[11]
+M. Ibe, W. Nakano,
+Y. Shoji, and K. Suzuki, Migdal effect in dark matter direct detection
+experiments, Journal of High
+Energy Physics 2018, 10.1007/jhep03(2018)194 (2018). 
+
+[12]
+C. Boyd, Y. Hochberg,
+Y. Kahn, E. D. Kramer, N. Kurinsky, B. V. Lehmann, and T. C. Yu, Directional detection of dark matter with anisotropic response
+functions, Phys. Rev. D 108, 015015 (2023). 
+
+[13]
+M. Heikinheimo, K. Nordlund, K. Tuominen, and N. Mirabolfathi, Velocity-dependent dark matter
+interactions in single-electron resolution semiconductor detectors with
+directional sensitivity, Phys. Rev. D 99, 103018 (2019). 
+
+[14]
+S. Sassi, A. Dinmohammadi,
+M. Heikinheimo, N. Mirabolfathi, K. Nordlund, H. Safari, and K. Tuominen, Solar neutrinos and dark matter detection with diurnal modulation, Phys. Rev. D 104, 063037 (2021). 
+
+[15]
+M. Heikinheimo, K. Nordlund, S. Sassi, and K. Tuominen, Probing the dark matter velocity
+distribution via daily modulation, Phys. Rev. D 109, 103010 (2024). 
+
+[16]
+S. M. Griffin, K. Inzani,
+T. Trickle, Z. Zhang, and K. M. Zurek, Multichannel direct detection of light dark matter: Target
+comparison, Phys. Rev. D 101, 055004 (2020). 
+
+[17]
+Y. Kahn and T. Lin, Searches for light dark matter using
+condensed matter systems, Reports on Progress in Physics 85, 066901 (2022). 
+
+[18]
+S. Sassi, A. Al-Adulrazzaq, M. Heikinheimo, and K. Tuominen, Fast numerical
+evaluation of dark matter direct detection event rates, Phys. Rev. D 112, 043003 (2025). 
+
+[19]
+P. Gondolo, Recoil momentum spectrum
+in directional dark matter detectors, Phys. Rev. D 66, 103513 (2002). 
+
+[20]
+M. Dressel and G. Grüner, Electrodynamics of
+Solids: Optical Properties of Electrons in Matter (Cambridge University Press, 2002). 
+
+[21]
+N. D. Mermin, Lindhard dielectric
+function in the relaxation-time approximation, Phys. Rev. B 1, 2362 (1970). 
+
+[22]
+P. Hohenberg and W. Kohn, Inhomogeneous electron
+gas, Phys. Rev. 136, B864 (1964). 
+
+[23]
+W. Kohn and L. J. Sham, Self-consistent equations
+including exchange and correlation effects, Phys. Rev. 140, A1133 (1965). 
+
+[24]
+E. Runge and E. K. U. Gross, Density-functional theory
+for time-dependent systems, Phys. Rev. Lett. 52, 997 (1984). 
+
+[25]
+S. L. Adler, Quantum theory of the
+dielectric constant in real solids, Phys. Rev. 126, 413 (1962). 
+
+[26]
+N. Wiser, Dielectric constant with
+local field effects included, Phys. Rev. 129, 62 (1963). 
+
+[27]
+M. S. Hybertsen and S. G. Louie, Ab initio static dielectric
+matrices from the density-functional approach. i. formulation and application
+to semiconductors and insulators, Phys. Rev. B 35, 5585 (1987). 
+
+[28]
+J. J. Mortensen, A. H. Larsen, M. Kuisma,
+A. V. Ivanov, A. Taghizadeh, A. Peterson, A. Haldar, A. O. Dohn, C. Schäfer, E. O. Jónsson, E. D. Hermes, F. A. Nilsson, G. Kastlunger, G. Levi,
+H. Jónsson, H. Häkkinen, J. Fojt, J. Kangsabanik, J. Sødequist, J. Lehtomäki, J. Heske, J. Enkovaara, K. T. Winther, M. Dulak, M. M. Melander,
+M. Ovesen, M. Louhivuori, M. Walter, M. Gjerding, O. Lopez-Acevedo, P. Erhart, R. Warmbier, R. Würdemann, S. Kaappa, S. Latini, T. M. Boland, T. Bligaard, T. Skovhus,
+T. Susi, T. Maxson, T. Rossi, X. Chen, Y. L. A. Schmerwitz, J. Schiøtz, T. Olsen, K. W. Jacobsen, and K. S. Thygesen, GPAW: An
+open Python package for electronic structure calculations, The Journal of Chemical Physics 160, 10.1063/5.0182685 (2024). 
+
+[29]
+A. H. Larsen, J. J. Mortensen, J. Blomqvist, I. E. Castelli, R. Christensen, M. Dułak,
+J. Friis, M. N. Groves, B. Hammer, C. Hargus, E. D. Hermes, P. C. Jennings, P. B. Jensen, J. Kermode, J. R. Kitchin, E. L. Kolsbjerg, J. Kubal,
+K. Kaasbjerg, S. Lysgaard, J. B. Maronsson, T. Maxson, T. Olsen, L. Pastewka, A. Peterson, C. Rostgaard, J. Schiøtz, O. Schütt, M. Strange, K. S. Thygesen, T. Vegge, L. Vilhelmsen,
+M. Walter, Z. Zeng, and K. W. Jacobsen, The atomic simulation environment—a python library for
+working with atoms, Journal of Physics: Condensed
+Matter 29, 273002
+(2017). 
+
+[30]
+P. Settembri, A Condensed Matter perspective for
+Dark Matter detection, Ph.D. thesis, Università degli Studi dell’Aquila
+(2025), advised by Gianni
+Profeta. 
+
+[31]
+Á. González, Measurement of
+areas on a sphere using Fibonacci and Latitude–Longitude lattices, Mathematical Geosciences 42, 49 (2009). 
+
+[32]
+R. Agnese, T. Aralis,
+T. Aramaki, I. J. Arnquist, E. Azadbakht, W. Baker, S. Banik, D. Barker, D. A. Bauer, T. Binder, M. A. Bowles,
+P. L. Brink, R. Bunker, B. Cabrera, R. Calkins, C. Cartaro, D. G. Cerdeño, Y.-Y. Chang, J. Cooley, B. Cornell,
+P. Cushman, P. C. F. Di Stefano, T. Doughty, E. Fascione, E. Figueroa-Feliciano, C. Fink, M. Fritts, G. Gerbier, R. Germond, M. Ghaith, S. R. Golwala, H. R. Harris, Z. Hong, E. W. Hoppe,
+L. Hsu, M. E. Huber, V. Iyer, D. Jardin, C. Jena, M. H. Kelsey, A. Kennedy, A. Kubik,
+N. A. Kurinsky, R. E. Lawrence, J. V. Leyva, B. Loer, E. Lopez Asamar, P. Lukens, D. MacDonell, R. Mahapatra, V. Mandic, N. Mast, E. H. Miller, N. Mirabolfathi, B. Mohanty, J. D. Morales Mendoza, J. Nelson, J. L. Orrell,
+S. M. Oser, W. A. Page, R. Partridge, M. Pepin, A. Phipps, F. Ponce, S. Poudel, M. Pyle, H. Qiu, W. Rau, A. Reisetter, T. Reynolds, A. Roberts, A. E. Robinson, H. E. Rogers, R. K. Romani, T. Saab, B. Sadoulet,
+J. Sander, A. Scarff, R. W. Schnee, S. Scorza, K. Senapati, B. Serfass, J. So, D. Speller, C. Stanford,
+M. Stein, J. Street, H. A. Tanaka, D. Toback, R. Underwood, A. N. Villano, B. von Krosigk, S. L. Watkins, J. S. Wilson,
+M. J. Wilson, J. Winchell, D. H. Wright, S. Yellin, B. A. Young, X. Zhang, and X. Zhao, First dark
+matter constraints from a supercdms single-charge sensitive detector, Phys. Rev. Lett. 121, 051301 (2018). 
+
+[33]
+L. Barak, I. M. Bloch,
+M. Cababie, G. Cancelo, L. Chaplinsky, F. Chierchie, M. Crisler, A. Drlica-Wagner, R. Essig, J. Estrada, E. Etzion, G. F. Moroni, D. Gift, S. Munagavalasa,
+A. Orly, D. Rodrigues, A. Singal, M. S. Haro, L. Stefanazzi, J. Tiffenberg, S. Uemura, T. Volansky, and T.-T. Yu (SENSEI
+Collaboration), Sensei:
+Direct-detection results on sub-gev dark matter from a new skipper ccd, Phys. Rev. Lett. 125, 171802 (2020). 
+
+[34]
+T. K. Bui, C. L. Chang,
+Y.-Y. Chang, L. Chaplinsky, C. W. Fink, M. Garcia-Sciveres, W. Guo, S. A. Hertel, L. Juigne, A. R. L. Kavner, X. Li, J. Lin, M. Lisovenko, R. Mahapatra, W. Matava, D. N. McKinsey, V. Novati, P. K. Patel, B. Penning, H. D. Pinckney, M. Platt,
+M. Pyle, Y. Qi, M. Reed, G. R. C. Rischbieter, R. K. Romani, B. Sadoulet, B. Serfass,
+P. Sorensen, B. Suerfu, A. Suzuki, V. Velan, G. Wang, Y. Wang, S. L. Watkins,
+M. R. Williams, J. K. Wuko, T. Aramaki, P. Cushman, N. N. Gite, A. Gupta, M. E. Huber,
+N. A. Kurinsky, B. von Krosigk, J. S. Mammo, A. J. Mayer, J. Nelson, S. M. Oser, L. Pandey, A. Pradeep, W. Rau, and T. Saab (TESSERACT
+Collaboration), First limits on
+light dark matter interactions in a low threshold two-channel athermal phonon
+detector from the tesseract collaboration, Phys. Rev. Lett. 135, 161002 (2025). 
+
+[35]
+I. Arnquist, N. Avalos,
+D. Baxter, X. Bertou, N. Castelló-Mor, A. E. Chavarria, J. Cuevas-Zepeda, J. C. Gutiérrez, J. Duarte-Campderros, A. Dastgheibi-Fard, O. Deligny, C. De Dominicis, E. Estrada, N. Gadola, R. Gaïor, T. Hossbach, L. Iddir, L. Khalil, B. Kilminster, A. Lantero-Barreda, I. Lawson, S. Lee, A. Letessier-Selvon, P. Loaiza, A. Lopez-Virto,
+A. Matalon, S. Munagavalasa, K. J. McGuire, P. Mitra, D. Norcini, G. Papadopoulos, S. Paul, A. Piers, P. Privitera,
+K. Ramanathan, P. Robmann, M. Settimo, R. Smida, R. Thomas, M. Traina, I. Vila, R. Vilar, G. Warot,
+R. Yajur, and J.-P. Zopounidis (DAMIC-M Collaboration), First constraints from damic-m on sub-gev dark-matter particles
+interacting with electrons, Phys. Rev. Lett. 130, 171003 (2023). 
+
+[36]
+D. L. Helis, A. Melchiorre,
+A. Puiu, G. Benato, P. Carniti, A. Continenza, N. Di Marco, A. Ferella, C. Ferrari, F. Giannessi, C. Gotti, E. Monticone, L. Pagnanini, G. Pessina, S. Pirro, G. Profeta, M. Rajteri, P. Settembri, A. Shaikina, C. Tresca, and D. Trotta, First
+measurement of Gallium Arsenide as a low-temperature calorimeter, The European Physical Journal C 84, 10.1140/epjc/s10052-024-13123-8 (2024). 
+
+[37]
+A. Melchiorre, D. L. Helis, A. Puiu,
+G. Benato, P. Carniti, I. Colantoni, A. Continenza, N. Di Marco, A. Ferella, C. Ferrari, F. Giannessi, C. Gotti, E. Monticone, S. Nagorny, E. Olivieri, L. Pagnanini, G. Pessina, C. Petrucci, S. Pirro, A. Prajapati, G. Profeta, M. Rajteri, P. Settembri, A. Shaikina, C. Tresca, and D. Trotta, First
+measurement of GaAs as a scintillating calorimeter: achievements and
+prospects, The European
+Physical Journal C 85, 10.1140/epjc/s10052-025-15073-1 (2025). 
+
+[38]
+J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized gradient approximation made simple, Phys. Rev. Lett. 77, 3865 (1996). 
+
+[39]
+W. Bludau, A. Onton, and W. Heinke, Temperature dependence of the band gap of
+silicon, Journal of Applied Physics 45, 1846 (1974). 
+
+[40]
+H. Ehrenreich, Band structure and
+electron transport of GaAs, Phys. Rev. 120, 1951 (1960). 
+
+[41]
+E. K. U. Gross and W. Kohn, Local
+density-functional theory of frequency-dependent linear response, Phys. Rev. Lett. 55, 2850 (1985). 
+
+[42]
+P. J. Brown, A. G. Fox,
+E. N. Maslen, M. A. O’Keefe, and B. T. M. Willis, International Tables for Crystallography (Wiley, 2006) Chap. 6.1, pp. 554–595. 
+
+[43]
+N. F. Bell, P. Cox, M. J. Dolan, J. L. Newstead, and A. C. Ritter, Exploring light dark matter with the migdal effect in
+hydrogen-doped liquid xenon, Phys. Rev. D 109, L091902 (2024). 
+
+    Experimental support, please
+    view the build logs
+    for errors. Generated by
+
+        L
+        A
+        T
+        E
+
+      xml
+
+    .
+
+    Instructions for reporting errors
+
+    We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+      support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+      methods listed below:
+
+      Click the "Report Issue" (
+
+          ) button, located in the page header.
+
+    Tip: You can select the relevant text first, to include it in your report.
+
+    Our team has already identified the following issues. We appreciate your time reviewing and reporting rendering errors we
+      may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+      should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+      all.
+
+    Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a list of packages that need conversion, and welcome developer contributions.
+
+        We gratefully acknowledge support from our major funders,
+        member institutions, ,
+        and all contributors.
+
+        About ·
+        Help ·
+        Contact ·
+        Subscribe ·
+        Copyright ·
+        Privacy ·
+        Accessibility ·
+        Operational Status (opens in new tab)
+

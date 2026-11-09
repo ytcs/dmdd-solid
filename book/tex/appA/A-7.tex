@@ -1,0 +1,78 @@
+\section{Response conventions}\label{app:A.7}
+
+Response functions are written $R$, never $\chi$, because $\chi$ is the dark-matter particle. For two target operators $O_a(\vect{q})$ and $O_b(\vect{q})$, the retarded response and the response matrix are
+\begin{gather}
+  R_{ab}(\vect{q},\omega) = -\frac{\ii}{\Vol}\int_0^\infty\dd t\;\ee^{\ii\omega t}\,\bigl\langle[O_a(\vect{q},t)^\dagger, O_b(\vect{q},0)]\bigr\rangle,
+  \label{eq:A.7-R}\\
+  S_{ab}(\vect{q},\omega) = \frac{2\pi}{\Vol}\sum_{i,f}p_i\,\langle i|O_a(\vect{q})^\dagger|f\rangle\langle f|O_b(\vect{q})|i\rangle\,\delta(\omega - E_f + E_i),
+  \label{eq:A.7-S}
+\end{gather}
+with Heisenberg operators $O(t) = \ee^{\ii Ht}O\ee^{-\ii Ht}$, thermal averages with Gibbs weights $p_i = \ee^{-\beta E_i}/\mathcal{Z}$, and the time convention of \cref{app:A.3}. The dynamic structure factor of the electron density is the diagonal element $S \equiv S_{ee}$ with $O_e = n_e(\vect{q})$ (\cref{sec:4.1,sec:4.2}). Both carry the factor $1/\Vol$, so both are intensive, and for density operators both have dimension $\mathrm{eV}^2$. Ref.~\cite[Eqs.~(2) and (4)]{knapen2021dark} defines the same objects for the density, with $\chi$ for $R$, $n_{-\vect{k}}$ for the operator inside $S$ and $\vect{k}$ for the momentum transfer. The literature's $\chi$, $\Pi$ and $W$ for response, polarization and loss are listed in \cref{app:B.2}.
+
+Inserting eigenstates of the target into \cref{eq:A.7-R} gives its spectral (Lehmann) form,
+\begin{equation}
+  R_{ab}(\vect{q},\omega) = \frac{1}{\Vol}\sum_{i,f}p_i\left[\frac{\langle i|O_a^\dagger|f\rangle\langle f|O_b|i\rangle}{\omega - (E_f - E_i) + \ii 0} - \frac{\langle i|O_b|f\rangle\langle f|O_a^\dagger|i\rangle}{\omega + (E_f - E_i) + \ii 0}\right],
+  \label{eq:A.7-lehmann}
+\end{equation}
+with every pole below the real axis, as \cref{app:A.3} requires. For a diagonal element at $T = 0$ and $\omega > 0$ only the resonant term has an imaginary part, $-\pi\delta(\omega - E_f + E_i)$ times a positive weight, so $\Imag R_{aa} < 0$ for $\omega > 0$. The sign is a consequence of the time convention: with $\ee^{+\ii\omega t}$ in the inverse transform it would be reversed. Analyticity in the upper half plane gives the Kramers--Kronig relations, and they hold for $R$, for $\varepsilon^{-1} - 1$ and, in a crystal with a gap, for $\varepsilon - 1$ (\cref{sec:4.1,sec:4.4}).
+
+\subsection{Fluctuation--dissipation theorem and detailed balance}
+
+Inserting energy eigenstates into \cref{eq:A.7-R,eq:A.7-S} and using $\int_{-\infty}^{\infty}\dd t\,\ee^{\ii\omega t}\langle O_a^\dagger(t)O_b\rangle = VS_{ab}(\vect{q},\omega)$ and $\int\dd t\,\ee^{\ii\omega t}\langle O_bO_a^\dagger(t)\rangle = \ee^{-\beta\omega}VS_{ab}(\vect{q},\omega)$ gives
+\begin{equation}
+  (1 - \ee^{-\beta\omega})\,S_{ab}(\vect{q},\omega) = \ii\bigl[R_{ab}(\vect{q},\omega) - R_{ba}(\vect{q},\omega)^*\bigr], \qquad
+  S_{aa} = -\frac{2\,\Imag R_{aa}}{1 - \ee^{-\beta\omega}},
+  \label{eq:A.7-FDT}
+\end{equation}
+the fluctuation--dissipation theorem (\cref{sec:4.2}). The diagonal form is Ref.~\cite[Eq.~(3)]{knapen2021dark}. For operators with $O(-\vect{q}) = O(\vect{q})^\dagger$, such as densities, exchanging $i$ and $f$ in \cref{eq:A.7-S} gives detailed balance,
+\begin{equation}
+  S_{ab}(-\vect{q},-\omega) = \ee^{-\beta\omega}\,S_{ba}(\vect{q},\omega).
+  \label{eq:A.7-DB}
+\end{equation}
+At $T \ll \omega$ the factor $1 - \ee^{-\beta\omega}$ is one.
+
+\subsection{Dielectric function and loss}
+
+The longitudinal dielectric matrix of a crystal, with local fields, is built from the Coulomb-proper response $\tilde R$. This is the part of the response that is irreducible with respect to one Coulomb line (\cref{sec:4.4}), and
+\begin{equation}
+  \varepsilon_{\vect{G}\vect{G}'}(\vect{q},\omega) = \delta_{\vect{G}\vect{G}'} - v_{\mathrm{C}}(|\vect{q}+\vect{G}|)\,\tilde R_{\vect{G}\vect{G}'}(\vect{q},\omega),
+  \label{eq:A.7-eps}
+\end{equation}
+with $\tilde R$ the response of the total charge in units of $e$ and $v_{\mathrm{C}}$ from \cref{eq:A.2-vC}. This is the unsymmetrized form; the symmetrized form uses $v_{\mathrm{C}}^{1/2}\tilde R\,v_{\mathrm{C}}^{1/2}$, has the same diagonal and differs off the diagonal~\cite[footnote~3]{knapen2021dark}. The inverse matrix, the macroscopic dielectric function and the loss function are
+\begin{equation}
+  \varepsilon_{\mathrm{mac}}(\vect{q},\omega) = \frac{1}{(\varepsilon^{-1})_{00}(\vect{q},\omega)}, \qquad
+  L(\vect{q},\omega) = \Imag\bigl[-(\varepsilon^{-1})_{00}(\vect{q},\omega)\bigr],
+  \label{eq:A.7-L}
+\end{equation}
+with the unreduced-$\vect{q}$ indexing of \cref{eq:A.3-unreduced}, $\varepsilon = \varepsilon_1 + \ii\varepsilon_2$, and $L \ge 0$ for $\omega > 0$. For the electron channel alone, $\varepsilon_e^{-1} = 1 + v_{\mathrm{C}} R_{ee}$; it equals $\varepsilon^{-1}$ when the nuclei are clamped. The proper part gives the absorptive part directly, $\varepsilon_2 = -v_{\mathrm{C}}\Imag\tilde R$.
+
+Combining $\varepsilon_e^{-1} = 1 + v_{\mathrm{C}} R_{ee}$ with \cref{eq:A.7-FDT} gives the relation between the structure factor and the loss function,
+\begin{equation}
+  S(\vect{q},\omega) = \frac{2q^2}{e^2}\,\frac{L_e(\vect{q},\omega)}{1 - \ee^{-\beta\omega}}, \qquad
+  \varepsilon_2(\vect{q},\omega) = \frac{e^2}{2q^2}\,(1 - \ee^{-\beta\omega})\,S^{\mathrm{prop}}(\vect{q},\omega),
+  \label{eq:A.7-SL}
+\end{equation}
+where $L_e$ is the loss of the electron channel and $S^{\mathrm{prop}}$ the structure factor built from $\tilde R_{ee}$. The first relation is Ref.~\cite[Eq.~(6)]{knapen2021dark}, with $e^2 = 4\pi\alpha$. It holds with the total loss $L$ at clamped nuclei, and for a dark photon, which couples to the total charge, it holds exactly with the total $\varepsilon$ (\cref{sec:4.4}). The optical conductivity is defined by $\varepsilon = 1 + \ii\sigma_{\mathrm{cond}}/\omega$ in the transverse, long-wavelength limit, so that $\sigma_1 = \omega\varepsilon_2$ (\cref{app:A.2} gives the Gaussian and SI forms).
+
+\subsection{Spin factor}
+
+The structure factor and $\varepsilon_2$ are summed over spin. For a spin-independent vertex without spin--orbit coupling, each band is doubly occupied, and the independent-particle form carries an explicit factor 2:
+\begin{equation}
+  S(\vect{q},\omega) = \frac{4\pi}{\Vol}\sum_{v,c,\vect{k}}|\rho_{cv}(\vect{k},\vect{q})|^2\,\delta(\omega - \varepsilon_{c,\vect{k}+\vect{q}} + \varepsilon_{v\vect{k}}) \qquad (T = 0),
+  \label{eq:A.7-spin}
+\end{equation}
+where $4\pi/\Vol$ is $2\times 2\pi/\Vol$ and the sums run over spatial bands. With spin--orbit coupling the factor 2 is dropped and the sums run over spinor bands. Refs.~\cite[Eq.~(A.29)]{essig2016direct} and~\cite[Eq.~(6)]{catena2021crystal} write the same factor outside their band sums, and Ref.~\cite[Appendix~B, above Eq.~(B7)]{knapen2021dark} states that it is implicit in its main-text formulas. A factor of 2 between two published rates for the same material is often this factor.
+
+\subsection{The first frequency moment}
+
+The first frequency moment of the density structure factor is fixed by the f-sum rule. For a target with $S(\vect{q},\omega) = S(-\vect{q},\omega)$,
+\begin{equation}
+  \int_{-\infty}^{\infty}\dd\omega\;\omega\,S(\vect{q},\omega) = \frac{\pi\,\nd_e\,q^2}{m_e} ,
+  \label{eq:A.7-fsum}
+\end{equation}
+at any temperature, with $\nd_e$ the mean electron density (\cref{sec:4.3,app:D.6}). The normalization is $\pi$ over the whole real line. The same rule is also written for the loss function and per particle. Splitting the integral at $\omega = 0$ and using \cref{eq:A.7-DB} turns the left side into $\int_0^\infty\dd\omega\,\omega(1 - \ee^{-\beta\omega})S$, and \cref{eq:A.7-SL} then gives~\cite[Eq.~(S.10)]{hochberg2021determining}
+\begin{equation}
+  \int_0^\infty\dd\omega\;\omega\,L_e(\vect{q},\omega) = \frac{\pi}{2}\,\omega_p^2, \qquad \omega_p^2 = \frac{e^2\nd_e}{m_e}.
+  \label{eq:A.7-fsumL}
+\end{equation}
+At $T = 0$, where $S$ vanishes for $\omega < 0$, dividing \cref{eq:A.7-fsum} by $2\pi\nd_e$ gives the per-particle form of many-body texts, $\int_0^\infty\dd\omega\,\omega\,S(\vect{q},\omega)/(2\pi\nd_e) = q^2/(2m_e)$: the structure factor per electron and without the factor $2\pi$ of \cref{eq:A.7-S} has first moment $q^2/2m_e$.

@@ -1,0 +1,163 @@
+\section{Moments of the Migdal spectrum}\label{sec:12.5}
+
+A silicon nucleus kicked to a recoil energy of \SI{500}{eV} leaves its valence electrons excited in three events out of a hundred and gives them on average \SI{0.18}{eV} per kick, \SI{0.28}{eV} with the core shells. The second number needs no excited state of the crystal. It is the recoil energy times the ratio of the drag mass, the mass of the electrons that a slowly moving nucleus carries with it, to the mass of the nucleus. Every moment of the Migdal spectrum is fixed in the same way by the force that the electrons exert on one nucleus. The moments give the size of the effect without a spectrum, test a computed spectrum, bound the Migdal probability from both sides, and fix how a Migdal rate is added to a lattice rate.
+
+\subsection{Inverse moments of the force spectrum}\label{sec:12.5-moments}
+
+The force of \cref{eq:12.1-force} has a spectrum. With $|0\rangle$ the ground state of the clamped electrons, $|a\rangle$ their excited states and $\Delta_a = E_a - E_0$, we define the spectral measure of its component along the kick and its inverse moments,
+\begin{equation}
+  \dd\sigma_\kappa(\Delta) = \sum_{a\neq0}\bigl|\hat{\vect{q}}\cdot\langle a|\nabla_{\vect{R}_\kappa}V_{eN}|0\rangle\bigr|^2\,\delta(\Delta - \Delta_a) , \qquad
+  \mathcal{I}_k = \int\Delta^{-k}\,\dd\sigma_\kappa(\Delta) ,
+  \label{eq:12.5-sigma}
+\end{equation}
+for one nucleus $\vect{R}_\kappa$ of species $\kappa$. The leading-order Migdal probability \cref{eq:8.6-PMig}, with $\vect{d}_{a0} = -\vect{F}_{a0}/\Delta_a$ from \cref{eq:5.1-dcoup}, resolved in the electronic energy, is
+\begin{equation}
+  \frac{\dd P_{\mathrm{Mig}}}{\dd\omega_e} = \frac{q^2}{M_\kappa^2\,\omega_e^4}\,\frac{\dd\sigma_\kappa}{\dd\Delta}\bigg|_{\Delta = \omega_e} .
+  \label{eq:12.5-spectrum}
+\end{equation}
+It is the electronic marginal of the Migdal entry \cref{eq:12.1-Skk}, divided by $2\pi\nd_\kappa$, once the lattice factor has been integrated over $\omega_l$ with its unit weight (\cref{app:D.34-moments}). The Migdal spectrum is the force spectrum divided by $\omega_e^4$, and each of its moments is one inverse moment of the force spectrum.
+
+\begin{keyresult}[Moments of the Migdal spectrum]
+At leading order in the boost, for a nucleus of species $\kappa$ kicked with momentum $\vect{q}$ and $E_R = q^2/2M_\kappa$,
+\begin{equation}
+  \begin{gathered}
+  \int\dd\omega_e\,\omega_e^k\,\frac{\dd P_{\mathrm{Mig}}}{\dd\omega_e} = \frac{q^2}{M_\kappa^2}\,\mathcal{I}_{4-k} : \\
+  \underbrace{P_{\mathrm{Mig}} = \frac{q^2\mathcal{I}_4}{M_\kappa^2}}_{k = 0} , \quad
+  \underbrace{E^{\mathrm{Mig}}_1 = E_R\,\frac{\delta M_\kappa}{M_\kappa}}_{k = 1,\ \delta M_\kappa = 2\mathcal{I}_3} , \quad
+  \underbrace{E^{\mathrm{Mig}}_2 = \frac{q^2\mathcal{I}_2}{M_\kappa^2}}_{k = 2} , \quad
+  \underbrace{E^{\mathrm{Mig}}_3 = \frac{q^2\mathcal{I}_1}{M_\kappa^2}}_{k = 3} ,
+  \end{gathered}
+  \label{eq:12.5-moments}
+\end{equation}
+with $E^{\mathrm{Mig}}_k$ the $k$th moment. The first moment is the Born--Huang drag mass of \cref{eq:8.6-fsum-k} along $\hat{\vect{q}}$, times $E_R/M_\kappa$.
+\end{keyresult}
+\noindent Every moment is proportional to $E_R$, so each defines a material constant per unit recoil energy. Each also has a meaning in the ground state of the clamped electrons. The first is the drag mass of Born and Huang~\cite[App.~VIII]{born1954dynamical}: $\delta M_\kappa = 2\mathcal{I}_3$ is \cref{eq:D.28-dM} projected on $\hat{\vect{q}}$, the identity that \cref{sec:12.1-boost} used to estimate $P_{\mathrm{Mig}}$. It is also the curvature in frequency of the electronic force constant. A nucleus displaced at frequency $\omega$ below the gap feels the force constant $\Phi^{\mathrm{el}}_{\kappa\kappa}(\omega) = \langle\partial^2_{\hat q}V_{eN}\rangle - 2\int\dd\sigma_\kappa(\Delta)\,\Delta/(\Delta^2 - \omega^2)$, whose expansion in $\omega^2$ is $\Phi^{\mathrm{el}}_{\kappa\kappa}(0) - \omega^2\delta M_\kappa + O(\omega^4)$ (\cref{app:D.34-dynamic}). The equation of motion $[\Phi(\omega) - \omega^2M_\kappa]u = 0$ then moves with the mass $M_\kappa + \delta M_\kappa$: the electrons that follow a slow nucleus add their inertia to it. The second moment is the diagonal Born--Huang correction of \cref{app:D.28}, $E_{\mathrm{BH}} = \mathcal{I}_2/2M_\kappa$ along $\hat{\vect{q}}$, so that $E^{\mathrm{Mig}}_2 = 4E_RE_{\mathrm{BH}}$. The third is the second-order energy of the electrons in the field of a displaced nucleus, and \cref{sec:12.5-third} turns it into the electron density at the nucleus.
+
+The force spectrum of the valence electrons follows from the loss function. Comparing \cref{eq:12.5-spectrum} with the soft-limit probability \cref{eq:12.3-soft} gives, for the diagonal $\vect{G} = \vect{G}'$ and the frozen-core vertex of \cref{eq:12.3-Zion},
+\begin{equation}
+  \begin{gathered}
+  \frac{\dd\sigma_\kappa}{\dd\omega} = \frac{e^2}{\pi}\int\frac{\dd^3p}{(2\pi)^3}\;Z_{\mathrm{ion}}(p)^2\,\frac{(\hat{\vect{q}}\cdot\vect{p})^2}{p^2}\,L(\vect{p},\omega) , \\
+  \delta M^{\mathrm{val}}_\kappa = \frac{8\alpha}{3}\int\frac{\dd^3p}{(2\pi)^3}\;Z_{\mathrm{ion}}(p)^2\int_0^\infty\frac{\dd\omega}{\omega^3}\,\bar L(p,\omega) ,
+  \end{gathered}
+  \label{eq:12.5-dMval}
+\end{equation}
+the second form for a direction-averaged loss function, with $e^2/\pi = 4\alpha$. The drag mass of the valence electrons is the $\omega^{-3}$ moment of the loss function, weighted with the square of the ion charge that the electrons see at each momentum. It is a property of the clamped crystal, like the static dielectric constant, which fixes the $\omega^{-1}$ moment of the same loss function at $p \to 0$ (\cref{sec:4.4}).
+
+The inverse moments come from linear-response calculations without any excited state. The drag mass is the $\omega^2$ coefficient of the on-site force constant, which the frequency-dependent Sternheimer equation of \cref{app:E.4} returns at a few imaginary frequencies; two static Sternheimer solves per occupied state give $\mathcal{I}_2$, $\mathcal{I}_3$ and $\mathcal{I}_4$ at the level of independent pairs. \Cref{app:E.18} specifies both for silicon, germanium and gallium arsenide, and \cref{app:E.17} the contact densities of \cref{sec:12.5-third}.
+
+\subsection{On-site drag mass and trace rule}\label{sec:12.5-trace}
+
+Two drag masses must be kept apart. Displace every nucleus of a crystal by the same $\vect{u}$, slowly. The electrons see a rigidly translated potential and follow it exactly, so the whole crystal moves with the mass of nuclei and electrons together. Let $\delta M_{IJ}$ be the drag-mass tensor between nuclei $I$ and $J$, defined as in \cref{eq:D.28-dM} with the forces of the two nuclei. The translation then gives the \emph{trace rule}
+\begin{equation}
+  \sum_J\delta M_{IJ} = Z_\kappa m_e\,\mathbf{1} \quad\text{(one species)} , \qquad
+  \sum_{\kappa\kappa'}\delta M_{\kappa\kappa'}(\vect{Q} = 0) = N_em_e\,\mathbf{1} \quad\text{per cell} ,
+  \label{eq:12.5-trace}
+\end{equation}
+which follows from the f-sum rule of the electrons in velocity form, because the summed force $\sum_J\nabla_JV_{eN}$ is the time derivative of the total electronic momentum (\cref{app:D.34-trace}). It holds for any insulator and any interaction among the electrons. For a free atom there is only one nucleus, the sum has one term, and it is the Thomas--Reiche--Kuhn value $N_em_e$ of \cref{eq:8.6-fsum-k}. The estimate $14\,m_e$ that \cref{sec:8.6} took for silicon is this sum: exact, but not what a kick measures.
+
+A dark-matter particle kicks one nucleus. The Migdal moments \cref{eq:12.5-moments} contain the force of nucleus $I$ alone, and $\delta M_\kappa$ in them is the on-site element $\delta M_{II}$. Written in phonon wavevectors, $\delta M_{II}$ is the average over the Brillouin zone of $\delta M_{\kappa\kappa}(\vect{Q})$, while \cref{eq:12.5-trace} fixes only the value at $\vect{Q} = 0$. The two differ by the off-site coupling,
+\begin{equation}
+  \delta M_{II} = Z_\kappa m_e - \sum_{J\neq I}\delta M_{IJ} ,
+  \label{eq:12.5-onsite}
+\end{equation}
+which no sum rule fixes, in size or in sign. Positivity of the tensor at each $\vect{Q}$ gives $\delta M_{II} \ge 0$ and nothing more.
+
+Silicon shows what the two elements are. Its cores move rigidly with the nucleus and contribute their own count to every element. The atomic Migdal tables of Cox and collaborators~\cite{cox2023precise}, rescaled to dipole order as in \cref{sec:12.2}, confirm this. The first moments of the $1s$, $2s$ and $2p$ ionization spectra, with the measured binding energies, add up to $10.1\,m_e$, of which $7.2\,m_e$ is $2p$. The valence electrons are where the crystal acts. Evaluated on the loss function of Knapen, Kozaczuk and Lin with local fields, the table of \cref{sec:12.3}, \cref{eq:12.5-dMval} gives $\delta M^{\mathrm{val}} = 18.6\,m_e$, and with the cores the on-site drag mass is $28.7\,m_e$, $\delta M_{II}/M = 5.60\times10^{-4}$, twice the trace value. In the free atom the four valence electrons carry $4\,m_e$ in all, of which their ionization spectra carry $1.2\,m_e$ and the bound transitions the rest.
+
+Where the valence value comes from decides how far to trust it. In silicon \SI{96}{\percent} of the integral comes from $p > q_{\mathrm{BZ}}$ and \SI{61}{\percent} from $p > \SI{5}{keV}$, where the ion charge has risen from 4 to 4.84 and the probe resolves the core region. In energy, \SI{67}{\percent} lies below \SI{10}{eV}, near the gap, where the weight $\omega^{-3}$ is largest. The table stops at \SI{89}{eV}; the valence f-sum held by the table bounds the missing part at \SI{24}{\percent}. Momenta above \SI{10}{keV} carry \SI{2.8}{\percent} of the integral, so those beyond the table's \SI{22.5}{keV} are estimated to add less. The approximations matter more than the truncation. A point ion of charge 4 gives $11.8\,m_e$, and the loss function without local fields $24.0\,m_e$. Both are uncontrolled at $p \gtrsim \SI{5}{keV}$. The frozen-core vertex assumes that the valence electrons inside the core region feel the bare nucleus screened by a rigid core. The diagonal $\vect{G} = \vect{G}'$ drops the off-diagonal elements of the dielectric matrix, which are sized only in a model and only for the rate (\cref{sec:12.3-validity}); the local fields on the diagonal already move the valence drag mass from $24.0$ to $18.6\,m_e$.
+
+The excess over the trace value has no sign fixed by anything above. A model shows that it can go either way. In a periodic chain of Gaussian wells, two independent electrons per well and one filled band (\cref{app:D.34-trace}), the trace rule \cref{eq:12.5-trace} holds to $10^{-4}$ for every depth of the wells. The on-site element equals $2\,m_e$ while the wells are deep and isolated, and falls to $1.29\,m_e$ at a gap of \SI{8.1}{eV} and to $0.92\,m_e$ at \SI{5.4}{eV} as they overlap: with short-range wells the neighbors take part of the drag, and $\sum_{J\neq I}\delta M_{IJ} > 0$. The silicon table gives the opposite sign, $\sum_{J\neq I}\delta M_{IJ} = -14.7\,m_e$, from the long-range Coulomb vertex at large $p$ that the chain lacks. No calculation of $\delta M_{\kappa\kappa}(\vect{Q})$ exists that could decide between the two pictures for silicon. We therefore take the on-site valence drag mass of silicon as $18.6\,m_e$, with the band $12$ to $24\,m_e$ from the vertex and the local fields, and carry the band as a nuisance of the chapter (\cref{tab:12-nuisances}). For germanium the same tables give $39.5\,m_e$, with the band $11.5$ to $52\,m_e$: the frozen $3d$ shell is shallow, bound by only \SI{29.4}{eV} and extended to \SI{0.4}{\angstrom}, and $Z_{\mathrm{ion}}(p)$ climbs from 4 already at a few keV. The cores of germanium carry $26.8\,m_e$ in the atomic tables without the $1s$, close to the $26\,m_e$ of a rigid core without the $1s$. \Cref{app:E.18} specifies the $\vect{Q}$-resolved calculation that closes the question, with \cref{eq:12.5-trace} as its acceptance test.
+
+The difference between the two elements also tells which mass the lattice responses of \cref{chap:11} should carry. An incoherent kick probes $\delta M_{II}$. A coherent phonon of wavevector $\vect{Q}$ probes $\delta M_{\kappa\kappa'}(\vect{Q})$, and a long-wavelength acoustic phonon, which translates the whole cell, carries exactly the full mass of the atoms, $M_\kappa + Z_\kappa m_e$. The prescription of \cref{sec:8.6} and \cref{sec:12.1-counting}, mass $M_\kappa + \delta M_\kappa$ in the electron-following response, uses the on-site element for the impulse and multiphonon responses of an incoherent kick.
+
+\subsection{Bounds on the Migdal probability}\label{sec:12.5-bounds}
+
+Two moments bound the probability from both sides. On the support of the force spectrum every energy exceeds the threshold $E_{\mathrm{th}}$ of the electrons, the gap for the valence and the binding energy for a core shell, so $\mathcal{I}_4 \le \mathcal{I}_3/E_{\mathrm{th}}$. The Cauchy--Schwarz inequality for the measure $\dd\sigma_\kappa$, applied to the functions $\Delta^{-1}$ and $\Delta^{-2}$, gives $\mathcal{I}_3^2 \le \mathcal{I}_2\mathcal{I}_4$. With \cref{eq:12.5-moments} the two become a statement about the measured quantities.
+\begin{keyresult}[Bounds on the Migdal probability]
+For a nucleus kicked with recoil energy $E_R$, with the Migdal spectrum split into groups of final states $s$ (valence and core shells) with thresholds $E_s$ and drag masses $\delta M_s$, $\sum_s\delta M_s = \delta M_\kappa$,
+\begin{equation}
+  \frac{(E^{\mathrm{Mig}}_1)^2}{E^{\mathrm{Mig}}_2} \;\le\; P_{\mathrm{Mig}} \;\le\; \sum_s\frac{E_R}{E_s}\,\frac{\delta M_s}{M_\kappa} \;\le\; \frac{E_R}{\Eg}\,\frac{\delta M_\kappa}{M_\kappa} .
+  \label{eq:12.5-bound}
+\end{equation}
+\end{keyresult}
+\noindent The upper bound needs only the drag mass and the threshold, the two numbers a static calculation gives most reliably. It is reached when the whole force spectrum sits at the threshold, and the shell-resolved form is much tighter than the last one because the core shells, which hold a large part of $\delta M_\kappa$, have thresholds a hundred times the gap. The lower bound is reached when the spectrum is a single line. The ratio of the two bounds measures the width of the spectrum in energy.
+
+On the silicon table the valence probability is \SI{19}{\percent} of its upper bound and 1.74 times its lower bound; for germanium the numbers are \SI{15}{\percent} and 1.92. The mean energy $E^{\mathrm{Mig}}_1/P_{\mathrm{Mig}}$ of the valence spectrum is \SI{6.0}{eV} in silicon and \SI{5.1}{eV} in germanium, five to seven times the gap, which is why the upper bound is loose. For the $2p$ shell of the silicon atom the probability is \SI{50}{\percent} of its bound, since a core spectrum begins with a sharp edge. The bounds carry the leading-order caveat of \cref{eq:12.5-moments}. At large recoil the motion of the nucleus during the transition, the free-recoil bracket \cref{eq:12.3-bracket}, raises the probability by the factor 1.6 at \SI{500}{eV} (\cref{sec:12.3-validity}); the bounds apply to the leading-order spectrum.
+
+The probability, small per event, sets the counting of Migdal and lattice events. On the silicon table the valence probability reaches $10^{-3}$ at $E_R = \SI{16.5}{eV}$ and grows linearly from there. Above a few hundred electronvolts it is a few percent, and the lattice response that a Migdal rate is added to must then carry the weight $1 - P_{\mathrm{Mig}}$, as \cref{eq:12.1-zeroth} requires. The mass correction is smaller. It moves the mean of the impulse response by $-E_R\,\delta M_{II}/M_\kappa$, a few parts in $10^4$ of $E_R$, while the impulse width $E_Rx_R^{-1/2}$ of \cref{sec:11.4} is a percent of $E_R$ at these energies.
+
+\begin{workedexample}{The silicon drag mass and the bound on the Migdal probability at \SI{500}{eV}}\label{we:12-drag}
+A silicon nucleus, $M = \SI{26.16}{GeV}$, recoils with $E_R = \SI{500}{eV}$ when it receives $q = (2ME_R)^{1/2} = \SI{5.11}{MeV}$; its velocity is $v_N = 1.96\times10^{-4}$. The drag masses of \cref{sec:12.5-trace} are $10.1\,m_e$ for the cores and $18.6\,m_e$ for the valence, so $\delta M_{II} = 28.7\,m_e$ and $\delta M_{II}/M = 5.60\times10^{-4}$, against $2.73\times10^{-4}$ for the trace value $14\,m_e$. The first moment is $E^{\mathrm{Mig}}_1 = E_R\,\delta M_{II}/M = \SI{0.280}{eV}$: \SI{0.099}{eV} from the cores and \SI{0.181}{eV} from the valence.
+
+The bounds follow shell by shell. The valence, with the threshold \SI{1.11}{eV} of the table, has $P \le 0.181/1.11 = 0.163$; its second moment, $E^{\mathrm{Mig}}_2 = \SI{1.89}{eV^2}$, gives $P \ge 0.181^2/1.89 = 0.0174$. The computed spectrum gives $P = 0.0303$, inside the window. The $1s$, $2s$ and $2p$ shells, with thresholds of 1839, 150 and \SI{99.5}{eV}, give $P \le 8.0\times10^{-4}$; the atomic tables give $4.0\times10^{-4}$. The total probability is $P_{\mathrm{Mig}} = 0.031$, below the shell-resolved bound $0.164$ and far below the single-threshold bound $E_R\,\delta M_{II}/(M\Eg) = 0.24$ with the physical gap of \SI{1.17}{eV}. Using the trace value $14\,m_e$ in that last bound gives $0.12$. It happens to lie above the true probability here, but it is not a bound, because the kick probes the on-site element.
+
+A lattice response for silicon at $E_R = \SI{500}{eV}$, added to the Migdal rate, carries the weight $1 - P_{\mathrm{Mig}} = 0.969$, a correction of \SI{3.1}{\percent}. It also carries the mass $M(1 + 5.60\times10^{-4})$, which moves its mean by \SI{0.28}{eV}, a sixteenth of the impulse width $E_R(E_R/\langle\omega\rangle)^{-1/2} = \SI{4.5}{eV}$ with $\langle\omega\rangle = \SI{40.9}{meV}$ (\cref{sec:11.4}).
+\end{workedexample}
+
+\subsection{The cross first moment}\label{sec:12.5-cross}
+
+A dark-matter particle that couples to both electrons and nucleons reaches the Migdal final states through two amplitudes, the boost of a kicked nucleus and the direct recoil of an electron, and they interfere. The interference $S_{e\kappa}$ has a vanishing total first moment, \cref{eq:4.3-species}, and \cref{eq:8.6-fsum-ek} split it into equal and opposite parts on and off the line $\omega_e = 0$. For a free atom the split is exact to all orders. Use the center-of-mass separation of \cref{sec:12.2}. In the elastic final states the atom recoils as a whole with the energy $q^2/2m_A$ and its electrons stay in the ground state; these states carry the first moment $\nd_\kappa(q^2/m_A)F_{\mathrm{cr}}(q)$, and the excited states carry the negative of it (\cref{app:D.34-cross}).
+\begin{keyresult}[Electronic part of the cross first moment]
+For a free atom of mass $m_A$, exactly,
+\begin{equation}
+  \begin{gathered}
+  \mathscr{M}^1_{e\kappa}\big|_{\omega_e > 0} = -\nd_\kappa\,\frac{q^2}{m_A}\,F_{\mathrm{cr}}(q) , \\
+  F_{\mathrm{cr}}(q) = \Real\Bigl[\langle0|\textstyle\sum_e\ee^{\ii\vect{q}\cdot\vect{\rho}_e}\ee^{-\ii\vect{q}_e\cdot\sum_{e'}\vect{\rho}_{e'}}|0\rangle^*\,\langle0|\ee^{-\ii\vect{q}_e\cdot\sum_{e'}\vect{\rho}_{e'}}|0\rangle\Bigr] ,
+  \end{gathered}
+  \label{eq:12.5-cross}
+\end{equation}
+with $\vect{\rho}_e$ and $\vect{q}_e = m_e\vect{q}/m_A$ as in \cref{eq:12.2-cm}. In a crystal, at leading order in $\kappa_{\mathrm{BO}}$, $m_A \to M_\kappa$ and $F_{\mathrm{cr}}$ is defined by the electron-following form of \cref{eq:8.6-fsum-ek}, $\mathscr{M}^1_{e\kappa}|_{\mathrm{ad}} = \nd_\kappa q^2F_{\mathrm{cr}}(\vect{q})^*/M_\kappa$.
+\end{keyresult}
+\noindent For an atom, $F_{\mathrm{cr}}(q) = f(q)[1 + O(q_e^2\langle\rho^2\rangle, m_e/m_A)]$, the atomic form factor. In a crystal $F_{\mathrm{cr}}$ counts the electrons that move with nucleus $\kappa$, weighted by the phase $\ee^{\ii\vect{q}\cdot\vect{r}}$ at the momentum of the probe. At $q \to 0$ it is the charge that follows the nucleus at zero macroscopic field, $\hat{\vect{q}}\cdot(Z_\kappa\mathbf{1} - Z^*_\kappa)\cdot\hat{\vect{q}}$, which is 14 for silicon and, with the Born charge $Z^* = 2.11$ of \cref{sec:5.5}, 28.9 for gallium and 35.1 for arsenic in GaAs. As $q$ grows past the inverse size of each shell, that shell drops out of $F_{\mathrm{cr}}$, and at $q \gg 1/a_{1s}$ only the nucleus is left to recoil with no electrons attached.
+
+The negative part lies in the Migdal cells of $S_{e\kappa}$. Its size is close to the largest that the positivity \cref{eq:4.2-positivity} of the response matrix allows. For the free atom at small $q$, the Migdal first moment is $\nd_\kappa q^2N_em_e/m_A^2$, and that of the electronic sectors of $S_{ee}$ is $\nd_\kappa q^2N_e/m_e$. Their geometric mean, $\nd_\kappa q^2N_e/m_A$, is reached by \cref{eq:12.5-cross} when $F_{\mathrm{cr}} \to N_e$, because at small $q$ the boost and the direct recoil excite the same dipole, with amplitudes in the fixed ratio $-m_e/m_A$ of \cref{eq:8.3-boostward}. Any model of a mixed coupling that keeps the Born-charge interference on the line $\omega_e = 0$ must keep this negative Migdal interference, of equal size, off it.
+
+\subsection{Third moment and contact density}\label{sec:12.5-third}
+
+The third moment uses only the ground state. The inverse moment $\mathcal{I}_1 = \sum_a|\langle a|\partial_{\hat q}V_{eN}|0\rangle|^2/\Delta_a$ is half the second-order energy of the electrons when nucleus $\kappa$ is displaced along $\hat{\vect{q}}$. Second-order perturbation theory writes the curvature of the Born--Oppenheimer surface as $\partial^2_{\hat q}E_0 = \langle\partial^2_{\hat q}V\rangle - 2\mathcal{I}_1$, with $V$ the electron--nucleus and nucleus--nucleus potentials. For point nuclei the second derivative of the Coulomb potential is a contact term: $\nabla^2_{\vect{R}}V_{eN} = Z_\kappa e^2\sum_i\delta^3(\vect{r}_i - \vect{R}_\kappa)$, and $\nabla^2_{\vect{R}}V_{NN} = 0$ at the nucleus. On a cubic site a third of the trace lies along $\hat{\vect{q}}$, and with the curvature $c_3$ that \cref{sec:11.4} gives to the third cumulant of the impulse response we obtain the following result (\cref{app:D.34-third}).
+\begin{keyresult}[Third moment of the Migdal spectrum]
+For point nuclei on cubic sites, at leading order in the boost and averaged over the zero-point motion,
+\begin{equation}
+  E^{\mathrm{Mig}}_3 = \underbrace{\frac{q^2}{2M_\kappa^2}\,\frac{Z_\kappa e^2\nd_e^{(\kappa)}}{3}}_{\text{contact}} \;-\; \underbrace{c_3}_{\text{lattice}} , \qquad
+  c_3 = \frac{q^2}{2M_\kappa^2}\,\langle\partial^2_{\hat q}E_0\rangle ,
+  \label{eq:12.5-third}
+\end{equation}
+with $\nd_e^{(\kappa)}$ the electron density at the nucleus of \cref{eq:8.3-M3}. The full third potential moment of the nuclear response, $c_3 + E^{\mathrm{Mig}}_3$, is the contact term alone.
+\end{keyresult}
+\noindent The lattice curvature is negligible: in silicon $M\langle\omega^2\rangle$ with $\langle\omega^2\rangle^{1/2} = \SI{44.7}{meV}$ from the phonon density of states of \cref{sec:11.4} is $1.3\times10^{-6}$ of the contact term. The split that \cref{sec:11.4} made, $c_3$ for the electron-following response and the rest for the electrons, is therefore a split of the third moment into one part in a million and the rest. With the contact density of \cref{we:8-third}, $\nd_e^{(\kappa)} = 1765\,a_0^{-3}$, the third moment of silicon is \SI{1497}{eV^2} per eV of recoil energy. For germanium an all-electron Hartree--Fock calculation of the free atom, done in the same way, gives $\nd_e^{(\kappa)} = 22\,475\,a_0^{-3}$, converged to \SI{0.2}{\percent} in the tight basis functions, and \SI{16849}{eV^2} per eV of recoil. The valence electrons hold \SI{0.43}{\percent} of the contact density in silicon and \SI{0.085}{\percent} in germanium. The third moment is a property of the $1s$ and $2s$ shells, whose spectra reach keV, and a valence table sees almost none of it: the silicon table, cut at \SI{89}{eV}, holds $5\times10^{-5}$ of it.
+
+The same contact density appears in the mixed third moment of \cref{sec:8.3}. At $q \to 0$ on a cubic site \cref{eq:8.3-M3lim} reads $\mathscr{M}^3_{e\kappa} = -2\nd_\kappa(M_\kappa/m_e)(E^{\mathrm{Mig}}_3 + c_3)[1 + 2\nd_e/\nd_e^{(\kappa)}]$: the interference of electrons and nuclei measures the Migdal third moment, up to the uniform-density term $2\nd_e/\nd_e^{(\kappa)} = 1.2\times10^{-4}$ in silicon. At finite $q$ the $e\kappa$ face carries the bracket of \cref{eq:8.3-M3sph}, which climbs from $\nd_e^{(\kappa)}/3$ toward $\nd_e^{(\kappa)}$, while the $\kappa\kappa$ face keeps \cref{eq:12.5-third} at every $q$. The two faces agree only through that bracket.
+
+Relativity changes the third moment more than anything else. The Dirac Hamiltonian depends on the nuclear position only through $V_{eN}$, so the derivation of \cref{eq:12.5-third} holds for relativistic electrons unchanged. What changes is the density at the nucleus. The Foldy--Wouthuysen reduction of \cref{sec:10.6}, recapped in \cref{app:C.15}, identifies it: the Darwin term \cref{eq:C.15-darwin} is a contact interaction proportional to $\nabla^2V$, and every operator that probes $\nabla^2V$ carries relative corrections of order $(Z\alpha)^2$ from the core $s$ shells. The expansion in $1/m_e$ cannot give their size, because the Dirac $1s$ orbital behaves as $r^{\gamma_{\mathrm{D}} - 1}$ near a point nucleus, with $\gamma_{\mathrm{D}} = [1 - (Z\alpha)^2]^{1/2}$, and its density diverges at $r = 0$. A nucleus of finite size cuts the divergence off, and its charge distribution $\rho_{\mathrm{nuc}}$ replaces the delta function: $\nabla^2_{\vect{R}}V_{eN} = Z_\kappa e^2\rho_{\mathrm{nuc}}(\vect{r} - \vect{R}_\kappa)$, so that $\nd_e^{(\kappa)}$ becomes the density averaged over the nucleus. For a $1s$ orbital of charge $Z$ and a uniform nucleus of radius $R_{\mathrm{nuc}}$, the ratio of that average to the nonrelativistic contact density is (\cref{app:D.34-dirac})
+\begin{equation}
+  \mathcal{R}_{\mathrm{rel}} = \frac{6}{(2\gamma_{\mathrm{D}} + 1)\,\Gamma(2\gamma_{\mathrm{D}} + 1)}\Bigl(\frac{2ZR_{\mathrm{nuc}}}{a_0}\Bigr)^{2\gamma_{\mathrm{D}} - 2}
+  = 1 + (Z\alpha)^2\ln\frac{a_0}{2ZR_{\mathrm{nuc}}} + c_{\mathrm{rel}}(Z\alpha)^2 + \cdots ,
+  \label{eq:12.5-Rrel}
+\end{equation}
+with the Euler gamma function $\Gamma$ and $c_{\mathrm{rel}}$ a coefficient of order one without the logarithm. The logarithm is the reason the $1/m_e$ series fails: the correction is of order $(Z\alpha)^2$ times the logarithm of the ratio of the atomic to the nuclear size. With the nuclear radii of \cref{sec:2.2}, \SI{3.47}{fm} for silicon and \SI{4.77}{fm} for germanium, $\mathcal{R}_{\mathrm{rel}}$ is 1.082 for silicon and 1.425 for germanium, and 1.397 and 1.454 for gallium and arsenic. The logarithm alone gives 0.066 of the excess 0.082 in silicon and 0.281 of 0.425 in germanium. We apply the $1s$ factor to every $s$ shell, since all of them behave alike inside the nucleus, and a change of the nuclear radius by \SI{10}{\percent} moves $\mathcal{R}_{\mathrm{rel}}$ by \SI{0.10}{\percent} in silicon and \SI{0.53}{\percent} in germanium. The remainder without the logarithm, 0.017 in silicon and 0.144 in germanium, depends on the model of the orbital inside the nucleus and is uncertain at order $(Z\alpha)^2$, about \SI{5}{\percent} in germanium. The $p_{1/2}$ shells add a contact density of relative order $(Z\alpha)^2$ that the $1s$ factor omits, since their small components are $s$-like at the origin. The relativistic third moments are \SI{1620}{eV^2} per eV of recoil for silicon and \SI{24000}{eV^2} for germanium, higher by \SI{8}{\percent} and \SI{42}{\percent} than the nonrelativistic values. Third moments from nonrelativistic all-electron densities are therefore about \SI{30}{\percent} low for germanium and gallium arsenide.
+
+\Cref{tab:12-moments} collects the moments of both crystals.
+\begin{table}[tbp]
+  \centering
+  \small
+  \caption{Migdal moments of silicon and germanium per nucleus, at leading order in the boost. Drag masses in units of $m_e$; the other moments per eV of recoil energy $E_R$. Trace: the rule \cref{eq:12.5-trace}. Cores: first moments of the free-atom ionization spectra at dipole order (Dirac--Hartree--Fock tables of Cox, Dolan, McCabe and Quiney~\cite{cox2023precise}, measured binding energies; germanium without $1s$). Valence: \cref{eq:12.5-dMval,eq:12.3-soft} on the loss functions of Knapen, Kozaczuk and Lin, computed with the grid-based projector-augmented wave (GPAW) code, with local fields (diagonal, direction-averaged; thresholds \SI{1.11}{eV} for Si, the step-model gap that accompanies the table, and \SI{0.744}{eV} for Ge), with $Z_{\mathrm{ion}}(p)$ from the free-atom core; in brackets the range from a point ion $Z_{\mathrm{ion}} = 4$ to the loss function without local fields. Third moment: \cref{eq:12.5-third} with the Hartree--Fock contact densities of the free atoms, nonrelativistic and with the factor \cref{eq:12.5-Rrel}.}
+  \label{tab:12-moments}
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Quantity & Si & Ge \\
+    \midrule
+    Trace $\sum_J\delta M_{IJ}$ & $14$ & $32$ \\
+    On-site drag mass, cores & $10.1$ & $26.8$ \\
+    On-site drag mass, valence & $18.6$ [$11.8$--$24.0$] & $39.5$ [$11.5$--$52.1$] \\
+    Valence $P_{\mathrm{Mig}}/E_R$ (\si{eV^{-1}}) & $6.07\times10^{-5}$ & $5.89\times10^{-5}$ \\
+    Valence mean $\omega_e$ (\si{eV}) & $5.97$ & $5.07$ \\
+    Valence $E^{\mathrm{Mig}}_2/E_R$ (\si{eV}) & $3.77\times10^{-3}$ & $2.91\times10^{-3}$ \\
+    Contact density $\nd_e^{(\kappa)}$ ($a_0^{-3}$), nonrelativistic & $1765$ & $22\,475$ \\
+    $E^{\mathrm{Mig}}_3/E_R$ (\si{eV^2}), nonrelativistic & $1497$ & $16\,849$ \\
+    Relativistic factor $\mathcal{R}_{\mathrm{rel}}$ & $1.082$ & $1.425$ \\
+    $E^{\mathrm{Mig}}_3/E_R$ (\si{eV^2}), relativistic & $1620$ & $24\,008$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Open problem.} The finite-$q$ factor of the electron density at the nucleus, the bracket of \cref{eq:8.3-M3sph} that the mixed third moment carries, is known only for spherical atomic densities. For a crystal the valence anisotropy and the relativistic shape of the factor are missing. The valence density adds an anisotropy of tetrahedral symmetry, estimated at $1.3\times10^{-3}$ of the factor in silicon. Relativity changes the factor in two places that do not cancel. Its normalization, the contact density, rises by the $\mathcal{R}_{\mathrm{rel}}$ of \cref{eq:12.5-Rrel}. Its quadrupolar part, set by the density at distances $1/q$ from the nucleus, changes by only a few percent; applying the relativistic change of one to the nonrelativistic value of the other is an error of the size of $\mathcal{R}_{\mathrm{rel}} - 1$. Until both are computed, the mixed third moment at finite $q$ can check the Migdal third moment only to that accuracy in germanium and gallium arsenide, and the relativistic factor itself carries the non-logarithmic remainder and the $p_{1/2}$ contact density, each of relative order $(Z\alpha)^2$. \Cref{app:E.17} specifies the all-electron and finite-nucleus Dirac calculations that remove both gaps.

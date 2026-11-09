@@ -1,0 +1,1803 @@
+                                                     EPW: Electron-phonon coupling, transport and superconducting properties using
+                                                                       maximally localized Wannier functions
+
+                                                                                           S. Poncéa,∗, E. R. Margineb , C. Verdia , F. Giustinoa,∗
+                                                                                  a Department of Materials, University of Oxford, Parks Road, Oxford, OX1 3PH, UK
+                                                              b Department of Physics, Applied Physics and Astronomy, Binghamton University-SUNY, Binghamton, New York 13902, USA
+arXiv:1604.03525v2 [cond-mat.mtrl-sci] 17 Jul 2016
+
+
+
+
+                                                     Abstract
+                                                     The EPW (Electron-Phonon coupling using Wannier functions) software is a Fortran90 code that uses density-
+                                                     functional perturbation theory and maximally localized Wannier functions for computing electron-phonon couplings
+                                                     and related properties in solids accurately and efficiently. The EPW v4 program can be used to compute electron
+                                                     and phonon self-energies, linewidths, electron-phonon scattering rates, electron-phonon coupling strengths, trans-
+                                                     port spectral functions, electronic velocities, resistivity, anisotropic superconducting gaps and spectral functions
+                                                     within the Migdal-Eliashberg theory. The code now supports spin-orbit coupling, time-reversal symmetry in non-
+                                                     centrosymmetric crystals, polar materials, and k and q-point parallelization. Considerable effort was dedicated to
+                                                     optimization and parallelization, achieving almost a ten times speedup with respect to previous releases. A computer
+                                                     test farm was implemented to ensure stability and portability of the code on the most popular compilers and architec-
+                                                     tures. Since April 2016, version 4 of the EPW code is fully integrated in and distributed with the Quantum ESPRESSO
+                                                     package, and can be downloaded through QE-forge at http://qe-forge.org/gf/project/q-e.
+                                                     Keywords: Electron-phonon coupling, Wannier functions, Electronic transport, Superconductivity
+
+
+                                                       NEW VERSION PROGRAM SUMMARY                                           Does the new version supersede the previous version?: Yes
+                                                     Manuscript Title: EPW: Electron-phonon coupling, transport              Nature of problem: Calculation of electron and phonon
+                                                     and superconducting properties using maximally localized                self-energies, linewidths, electron-phonon scattering rates,
+                                                     Wannier functions                                                       electron-phonon coupling strengths, transport spectral
+                                                     Authors: S. Poncé, E. R. Margine, C. Verdi and F. Giustino             functions, electronic velocities, resistivity, anisotropic
+                                                     Program Title: EPW                                                      superconducting gaps and spectral functions within the
+                                                     Journal Reference:                                                      Migdal-Eliashberg theory.
+                                                     Catalogue identifier:
+                                                     Licensing provisions: GNU General Public License 3                      Solution method: The code relies on density-functional
+                                                     Programming language: Fortran 90, MPI                                   perturbation theory and maximally localized Wannier func-
+                                                     Computer: Non-specific                                                  tions
+                                                     Operating system: Unix/Linux
+                                                     RAM: Typically 2GB/core                                                 Reasons for the new version: New features (listed in
+                                                     Number of processors used: Typically between 16 and 512                 the paper) and optimization of the code
+                                                     Keywords: Electron-phonon coupling, Wannier functions,
+                                                     Electronic transport, Superconductivity                                 Summary of revisions: Recent developments and new
+                                                     Classification: 7.3, 7.8, 7.9                                           functionalities are described in Section 2 of the paper
+                                                     External routines/libraries: LAPACK, BLAS, MPI, FFTW,
+                                                     Quantum-ESPRESSO package [1]                                            Running time:      Up to several hours on several tens of
+                                                     Catalogue identifier of previous version: AEHA v1 0                     processors
+                                                     Journal reference of previous version: Computer Physics
+                                                     Communications 181 (2010) 2140-2148
+
+                                                        ∗ Corresponding authors
+
+                                                        Email addresses: samuel.pon@gmail.com (S. Poncé ),
+                                                     feliciano.giustino@materials.ox.ac.uk (F. Giustino)
+
+                                                     Preprint submitted to Computer Physics Communications                                                                    July 19, 2016
+References                                                                  Section 4. The implementation of the superconduct-
+                                                                            ing formalism based on the Migdal-Eliashberg theory
+[1] P. Giannozzi, et al., J. Phys. Condens. Matter 21 (2009), 395502,       is presented in Section 5. Basic electronic transport
+    http://www.quantum-espresso.org/.
+                                                                            properties and associated electronic velocities are de-
+                                                                            scribed in Sections 6 and 7. The new developments
+                                                                            related to parallelization and speedup of the EPW soft-
+1. Introduction                                                             ware are presented in Section 8. The code is currently
+                                                                            tested on a wide range of compilers and architectures
+   The electron-phonon coupling plays a crucial role in                     using a Buildbot test farm, as described in Section 9. Fi-
+a wealth of phenomena, including the electron velocity                      nally, we highlight in Section 10 the new capabilities of
+renormalization [1] and lifetimes [2, 3], phonon soft-                      EPW through five physically relevant examples: spectral
+ening [4] and lifetimes [5, 6], phonon-assisted absorp-                     functions and linewidths of B-doped diamond; scatter-
+tion [7–9], critical temperature in conventional super-                     ing rate of undoped Si; spectral function and electronic
+conductors [10–14], resistivity [15, 16] and the renor-                     resistivity of Pb with and without spin-orbit coupling;
+malization of electronic excitation energies [17–39].                       electron-phonon matrix elements for the polar semicon-
+   Nowadays, most first-principles software packages                        ductor GaN; and superconducting properties of MgB2
+for periodic solids provide ground-state electronic prop-                   based on the Migdal-Eliashberg theory.
+erties through density-functional theory (DFT) [40,
+41]. Vibrational properties such as phonon frequen-
+                                                                            2. Functionalities and technical release
+cies and electron-phonon matrix elements are usually
+computed within density-functional perturbation theory                         The EPW software is a freely available Fortran90
+(DFPT) [42–45]. All the aforementioned properties re-                       code for periodic systems that relies on DFPT and
+quire very fine sampling of the electron and phonon                         MLWFs to compute properties related to the electron-
+wavevectors to achieve numerical convergence of the re-                     phonon coupling on very fine electron (k) and phonon
+quired Brillouin Zone (BZ) integrals [35, 38, 46].                          (q) wavevector grids.
+   There has been a renewed interest in developing new                         The software is now fully integrated into the Quantum
+methods and software to address this problem in a com-                      ESPRESSO [62] software package, and uses the capa-
+putationally feasible way. Electron-phonon matrix ele-                      bilities of the wannier90 [53] code as an internal li-
+ments computed using DFPT can be linearly interpo-                          brary. EPW supports norm-conserving pseudopotentials
+lated [47] or extrapolated [38]. The use of supercell                       with or without non-linear core-corrections [63–65] as
+with localized basis set [48] and Fermi surface harmon-                     well as Hamann multi-projector norm-conserving po-
+ics [49, 50] have also been investigated.                                   tentials [66, 67]. Many different exchange-correlation
+   The EPW code addresses the problem of computing                          functionals are supported in the framework of the local-
+electron-phonon matrix elements on a fine sampling of                       density (LDA) [63, 68] or generalized-gradient approx-
+the BZ through maximally localized Wannier functions                        imation (GGA) [69].
+(MLWFs) [51–53] and generalized Fourier interpola-                             The EPW code is based on the same file format as
+tion [46]. After the development of the EPW software                        Quantum ESPRESSO and therefore supports text, bina-
+similar efforts also based on the MLWFs of electron-                        ries and Extensible Markup Language (XML).
+phonon matrix elements were reported [54–56].                                  The current version 4.0 of EPW includes around 16800
+   The EPW project [57] started in 2006 with a first pub-                   lines of code that rely on BLAS, LAPACK and FFTW3
+lic release of the code in 2010 under a GNU General                         external libraries, as well as on several routines of
+Public License (GPL) [58]. Most of the theoretical de-                      Quantum ESPRESSO. The code is parallelized using a
+velopment of the code is described in Refs. [46, 59, 60],                   message passing interface (MPI) library. The software
+while the EPW code and basic functionalities have been                      has its own dedicated website http://epw.org.uk
+described Ref. [61]. In this paper we will therefore fo-                    and forum http://epwforum.uk.
+cus on the new developments and functionalities added                          EPW can calculate:
+since the publication of Ref. [61].
+   The manuscript is organized as follows. Section 2                          • the electron linewidth Σ00nk and phonon linewidth
+summarizes the capabilities and new features of the                             Π00qν , see Eqs. (3) and (4);
+code. Section 3 outlines the theory and main equa-                            • the electron scattering rate τ−1
+                                                                                                              nk , see Eq. (61);
+tions used to compute standard electron-phonon prop-
+erties, while the case of polar materials is discussed in                     • the nesting function ζq , see Eq. (7);
+                                                                        2
+  • the electron-phonon coupling strength λqν , see
+    Eq. (11).
+
+  Recent developments and new functionalities since
+EPW v. 2.3 include:
+
+  • the code is integrated in the latest Quantum
+    ESPRESSO distribution (v. 5.3);
+
+  • the spin-orbit coupling is now implemented;                   Figure 1: The EPW name and logo are now an officially registered
+                                                                  trademark. The software is free and under a GNU license.
+  • the treatment of time-reversal symmetry of non-
+    centrosymmetric crystal is now supported;
+                                                                  3. Electron and phonon self-energies and electron-
+  • the polar electron-phonon vertex interpolated us-                phonon coupling strength
+    ing MLWFs now correctly captures the long-
+    wavelength singularity in polar materials. This en-              In this section we give a brief summary of the basic
+    ables calculations for semi-conductors and insula-            physical quantities that can be computed using the EPW
+    tors in addition to metals;                                   software. Detailed derivation of the equations can be
+                                                                  found in Refs. [46] and [59]. All equations presented in
+  • the calculation of the Allen-Dynes superconductiv-            this work are expressed in atomic unit where me = ~ =
+    ity critical temperature, see Eq. (16);                       kB = 1.
+                                                                     The first-order electron-phonon matrix element can
+  • the anisotropic Eliashberg spectral function α2 F,
+                                                                  be computed using DFPT as:
+    see Eq. (33);
+
+  • the anisotropic superconducting gap ∆nk within the                                         1
+                                                                         gmn,ν (k, k0 ) = √            hψmk0 |∂k0 −kν V|ψnk i,   (1)
+    Eliashberg theory, see Eqs. (44) and (45);                                                2ωk0 −kν
+
+  • the specific heat in the superconducting state, see           which quantifies a scattering process between the
+    Eq. (47);                                                     Khon-Sham states mk0 and nk. The matrix elements
+                                                                  can conveniently be written as gmn,ν (k, q) instead of
+  • the tunneling density of states, see Eq. (52);                gmn,ν (k, k + q) using the phonon wavevector q = k0 − k:
+  • Ziman’s resistivity formula, see Eq. (54);                                                   1
+                                                                           gmn,ν (k, q) = p            hψmk+q |∂qν V|ψnk i,      (2)
+  •   the transport spectral function α2tr F, see Eq. (55);                                     2ωqν
+
+  • electronic velocities in the local approximation              where ∂qν V is the derivative of the self-consistent poten-
+    ṽmnk , see Eq. (60);                                         tial associated with a phonon of wavevector q, branch
+                                                                  index ν, and frequency ωqν . The nucleus masses are al-
+  • tutorials, documentation and website have been re-            ready included in the phonon eigenmodes. The ψnk is
+    vamped to improve user experience. A forum has                the electronic wavefunction for band n and wavevector
+    been created;                                                 k, with εnk being the associated eigenvalue. The elec-
+                                                                  tron (Σ) and phonon (Π) self-energies at the tempera-
+  • a test farm has been set up in order to ensure porta-
+                                                                  ture T for metals and doped semiconductors are given
+    bility of the code on many architectures and com-
+                                                                  by [61, 70]:
+    pilers.
+                                                                                    XZ          dq
+  The EPW name and logo (see Fig. 1) are now                        Σnk (ω, T ) =                     |gmn,ν (k, q)|2
+an officially registered trademark with number                                          mν   BZ ΩBZ
+UK00003123373. The software is nonetheless free                                            nqν (T ) + fmk+q (T )
+and released under a GNU General Public License.                                ×
+                                                                                        ω − (εmk+q − εF ) + ωqν + iδ
+Companies or individuals who wish to use the EPW
+                                                                                               nqν (T ) + 1 − fmk+q (T ) 
+name and/or logo should contact Prof. F. Giustino                                         +                                , (3)
+(feliciano.giustino@materials.ox.ac.uk).                                                     ω − (εmk+q − εF ) − ωqν + iδ
+
+                                                              3
+                    XZ       dk
+  Πqν (ω, T ) = 2                |gmn,ν (k, q)|2                       The associated electronic spectral function is:
+                    mn    BZ ΩBZ
+
+                                     fnk (T ) − fmk+q (T )               Ank (ω, T ) =
+                               ×                           , (4)
+                                   εnk − εmk+q − ω − iδ                    1                  |Σ00nk (ω, T )|
+                                                                                                                                  . (10)
+where the factor 2 accounts for the spin degeneracy, εF                    π |ω − (εnk − εF ) − Σ̃0nk (ω, T )|2 + |Σ00nk (ω, T )|
+                                          ω
+is the Fermi energy, nqν (T ) = [exp( Tqν ) − 1]−1 is the
+                                                                           Finally, the electron-phonon coupling strength asso-
+Bose-Einstein distribution, fnk (T ) is the electronic oc-
+                                                                       ciated with a specific phonon mode ν and wavevector q
+cupation at wavevector k and band n and, δ is a small
+                                                                       is:
+positive real parameter which guarantees the correct an-
+alytical structure of the self-energies, and avoids numer-                            1      XZ      dk
+ical instabilities. The physical interpretation of δ is re-                λqν =
+                                                                                  N(εF )ωqν nm BZ ΩBZ
+lated to the finite lifetime of the electronic states. The
+integrals extend over the Brillouin Zone (BZ) of volume                          × |gmn,ν (k, q)|2 δ(εnk − εF )δ(εmk+q − εF ),     (11)
+ΩBZ .
+   Note that Eq. (3) does not contain the real and static              where N(εF ) is the density of states per spin at the Fermi
+Debye-Waller term that is usually found when study-                    level. From this, the isotropic Eliashberg spectral func-
+ing semiconductors or insulators [36, 70–73]. Instead,                 tion can be obtained via an average over the BZ:
+when studying metals and doped semiconductors, we                                           Z
+                                                                                      1X          dq
+compute the real part of the electron self energy as:                      α2 F(ω) =                  ωqν λqν δ(ω − ωqν ). (12)
+                                                                                      2 ν BZ ΩBZ
+        Σ̃0nk (ω, T ) = Σ0nk (ω, T ) − Σ0nk (ω = εF , T ),   (5)
+where Σ0nk is the real part of the electron self-energy de-            4. Electron-phonon coupling in polar materials
+fined in Eq. (3). Eq. (5) is motivated by the fact that
+the Debye-Waller term ΣDW   nk is real, static and because
+                                                                          In polar materials, electrons can interact strongly with
+the volume enclosed by the Fermi surface must be con-                  longitudinal optical modes, which give rise to electron-
+served after Luttinger’s theorem [74]:                                 phonon matrix elements gmn,ν (k, q) that diverge as 1/|q|
+                                                                       for |q| → 0 [38, 76]. The treatment of such divergence
+            <Σnk (ω = εF , T ) + ΣDW
+                                  nk (T ) = 0.               (6)
+                                                                       when performing Wannier interpolation has been very
+  The code can also compute the Fermi surface nesting                  recently proposed [55, 60]. The way to tackle this prob-
+function defined as [75]:                                              lem is to split the electron-phonon matrix elements into
+           XZ        dk                                                a short- (S) and a long-range (L) contribution [60]:
+      ζq =               δ(εnk − εF )δ(εmk+q − εF ). (7)
+                BZ  Ω BZ                                                         gmn,ν (k, q) = gSmn,ν (k, q) + gL
+            nm                                                                                                   mn,ν (k, q),      (13)
+   The nesting function is a property of the Fermi sur-
+face and is non-zero for wave-vectors that connect two                 where:
+points on the Fermi surface.                                                                X     ~ 1/2
+   The electron and phonon linewidths can be obtained                     mn,ν (k, q) = i
+                                                                         gL
+                                                                                                 2Mκ ωqν
+from the imaginary part of the electron (Σ00 ) and phonon                                   κ
+(Π00 ) self-energy [46]:                                                     X (q + G) · Z∗ κ · eκ,ν (q)
+                                                                         ×                                  ψmk+q ei(q+G) · r ψnk .
+                     XZ                                                           (q + G) · ε∞ · (q + G)
+                              dq                                             G,−q
+   Σ00nk (ω, T ) = π              |gmn,ν (k, q)|2                                                                                  (14)
+                     mν BZ  Ω  BZ
+        n
+     × nqν (T ) + fmk+q (T ) δ(ω − (εmk+q − εF ) + ωqν )               In Eq. (14), Z∗ is the Born effective charge tensor, e is
+                             
+                                                        o              the vibrational eigendisplacement vector and ε∞ is the
+ + nqν (T ) + 1 − fmk+q (T ) δ(ω − (εmk+q − εF ) − ωqν ) ,
+                           
+                                                                       macroscopic dielectric permittivity tensor of the elec-
+                                                          (8)          tronic system where the ions are considered fixed.
+                                                                          Most linear-response first-principles codes can com-
+                       XZ    dk                                        pute the full gmn,ν (k, q) of Eq. (13) in polar materials at
+  Π00qν (ω, T ) = 2π              |gmn,ν (k, q)|2                      arbitrary q-points. However, due to the intrinsically lo-
+                    mn  BZ  Ω BZ
+                                                                       calized nature of MLWFs, only the short range compo-
+         × fnk (T ) − fmk+q (T ) δ(εnk − εmk+q − ω). (9)
+                               
+                                                                       nent can be treated in a Wannier interpolation scheme.
+                                                                   4
+   The strategy implemented in EPW consists of four                   eralized Green’s function [59, 85–90]:
+steps: (i) the full gmn,ν (k, q) is computed on a coarse grid                              "                            #
+using DFPT, (ii) the long-range part gL                                                     G (iω j )     Fnk (iω j )
+                                            mn,ν (k, q) is then              Ĝnk (iω j ) = nk∗                           ,          (17)
+subtracted on that grid to obtain the short-range com-                                       Fnk (iω j ) −Gn−k (−iω j )
+ponent gSmn,ν (k, q), (iii) the standard Wannier electron-            where iω j = i(2 j+1)πT ( j integer) are the fermion Mat-
+phonon interpolation of Ref. [46] is applied to the short-            subara frequencies. The Green’s function G on the diag-
+range component only, and finally (iv) the long-range                 onal of Eq. (17) describes single particle excitations and
+component is added back to the interpolated short-range               F is the Gor’kov’s anomalous Green’s function, which
+part for each arbitrary k and q-point. The overlap ma-                describes the Cooper-pair amplitude. This function is
+trices in Eq. (14) can be computed in the approximation               nonzero below T c .
+of small q + G [60] as:                                                  Eq. (17) can be evaluated by solving Dyson’s equa-
+                                                                      tion:
+           ψnk ei(q+G) · r ψmk+q = Uk Uk+q
+                                       † 
+                                           nm .
+                                  
+                                                          (15)                                     no−1           pa
+                                                                                   nk (iω j ) = Ĝ nk (iω j ) − Σ̂nk (iω j ),
+                                                                                 Ĝ−1                                         (18)
+The Wannier rotation matrices Unmk can be obtained at                 where Ĝno is the non-interacting electron Green’s func-
+arbitrary k and q-points through the interpolation of the             tion, and Σ̂pa is the self-energy describing the pairing
+electronic Hamiltonian [52].                                          interaction.
+                                                                         The two components of Eq. (18) can be expressed
+5. Phonon-mediated superconductors                                    using a linear combination of Pauli matrices:
+                                                                                         −1
+   Ab-initio calculations of phonon-mediated super-                                 nk (iω j ) = iω j τ̂0 − (εnk − εF )τ̂3 ,
+                                                                                  Ĝno                                               (19)
+conducting properties are based on the Bardeen-
+                                                                      and:
+Cooper-Schrieffer (BCS) theory [77]. There exist
+three main approaches to the problem: (i) semi-                           pa
+                                                                        Σ̂nk (iω j ) = iω j [1 − Znk (iω j )]τ̂0 + χnk (iω j )τ̂3
+empirical methods based on the McMillan formula [78];
+(ii) first-principles Green’s function methods based                                             + φnk (iω j )τ̂1 + φ̄nk (iω j )τ̂2 , (20)
+on the Migdal-Eliashberg (ME) theory [79–81] and;                     where the mass renormalization function Z, the energy
+(iii) the density-functional theory for superconductors               shift χ, and the order parameter φ are scalar functions to
+(SCDFT) [11, 12, 82, 83].                                             be determined. The Pauli matrices are given by:
+   Approaches (i) and (ii) are implemented in the EPW                        "     #        "    #        "     #         "     #
+code.                                                                          1 0           0 1           0 −i             1 0
+                                                                      τ̂0 =          , τ̂ =        , τ̂ =         , τ̂3 =         .
+                                                                               0 1 1         1 0 2          i 0             0 −1
+5.1. Allen-Dynes theory                                                                                                       (21)
+   The critical temperature T c at which the phase transi-                Inserting Eqs. (19) and (20) into Eq. (18) and invert-
+tion occurs can be estimated with semi-empirical meth-                ing the matrix leads to:
+ods like the McMillan formula, later refined by Allen
+                                                                                      −1 n
+and Dynes [84] to account for strong electron-phonon                    Ĝnk (iω j ) =          iω j Znk (iω j )τ̂0
+coupling:                                                                          θnk (iω j )
+                                                                                                                                     o
+                                                                      + εnk − εF + χnk (iω j ) τ̂3 + φnk (iω j )τ̂1 + φ̄nk (iω j )τ̂2 ,
+                                                                                             
+                 ωlog         1.04(1 + λ) 
+          Tc =        exp −                     ,         (16)                                                                       (22)
+                 1.2        λ − µ∗c (1 + 0.62λ)
+where ωlog is a logarithmic average of the phonon fre-                where −θnk (iω j ) is the determinant of Ĝ−1
+                                                                                                                 nk (iω j ):
+quency, µ∗c is the Coulomb pseudopotential, and λ is the
+                                                                        θnk (iω j ) = ω j Znk (iω j ) 2
+                                                                                                    
+electron-phonon coupling constant obtained by momen-
+tum and mode integration of the electron-phonon cou-                    + εnk − εF + χnk (iω j ) 2 + φ2nk (iω j ) + φ̄2nk (iω j ).
+                                                                                                  
+                                                                                                                                     (23)
+pling strength of Eq. (11).
+                                                                         In the normal state, Z and χ can be expressed as a
+5.2. Anisotropic Migdal-Eliashberg theory                             linear combination of the self-energy Σ̂pa [88]:
+5.2.1. Nambu-Gor’kov generalized Green’s function                                                    pa              pa
+                                                                         iω j 1 − Znk (iω j ) = 1/2 Σ̂nk (iω j ) − Σ̂nk (−iω j ) (24)
+                                                                                                                               
+   The superconducting state of a periodic system can                                                pa              pa
+                                                                                   χnk (iω j ) = 1/2 Σ̂nk (iω j ) + Σ̂nk (−iω j ) , (25)
+                                                                                                                                 
+quantitatively be described by the Nambu-Gor’kov gen-
+                                                                  5
+where it has been assumed that Z and χ are both even                                       rests on the observation that the neglected terms are of
+functions of k and ω j . Owing to the relationship be-                                     the order of the square-root of the electron to ion mass
+tween the Green’s functions on the diagonal of Eq. (17),                                   ratio. We also rely on the band-diagonal approxima-
+Ĝnk (iω j ) = −Ĝn−k (−iω j ), Eq. (22) leads to:                                         tion [91–93], that neglects band-mixing (i.e. an addi-
+                                                                                           tional band index) in G and Σ. Since the superconduct-
+  φ2nk (iω j ) + φ̄2nk (iω j ) = φ2n−k (−iω j ) + φ̄2n−k (−iω j ), (26)                    ing energy pairing is very small, such approximation
+which implies that φ and φ̄ are also even functions of                                     should be very good for non-degenerate bands.
+k and ω j . Furthermore, due to the form of the order                                         The dressed phonon propagator can be expressed in
+parameters in Eq. (20), it is expected that φ and φ̄ will                                  terms of its spectral representation as [88, 94]:
+be proportional:                                                                                                   Z ∞
+                                                                                                                                     2Ω
+                                                                                                    Dqν (iωl ) = −      dΩBqν (Ω) 2         ,  (31)
+              (φ, φ̄) = φ0 cos α, φ0 sin α .
+                                          
+                                                     (27)                                                           0              ωl +Ω
+                                                                                                                                          2
+
+
+Without loss of generality, one can therefore choose the                                   where iωl = i2πlT (l integer) is the boson Matsubara
+gauge α = 0, which leads to φ̄ = 0.                                                        frequency and B is the phonon spectral function, that
+                                                                                           is the phonon density of states. Inserting Eq. (31) into
+5.2.2. Migdal-Eliashberg approximation                                                     Eq. (29) leads to:
+   The Eliashberg theory is a generalization of the BCS
+                                                                                                                 X Z ∞
+theory to include retardation effects [80, 81]. In the for-                                    ep
+                                                                                             Σ̂nk (iω j ) = T                  dΩτ̂3Ĝmk0 (iω j0 )τ̂3
+mulation of Allen and Mitrović [88] the pairing self-                                                          mk0 j0 ν   0
+energy is written as the sum of an electron-phonon and                                                                                       2Ω
+a screened Coulomb interaction:                                                                     × |gmn,ν (k, k0 )|2 Bk−k0 ν (Ω)                       .     (32)
+                                                                                                                                      (ω j − ω j0 )2 + Ω2
+                 pa                  ep
+               Σ̂nk (iω j ) = Σ̂nk (iω j ) + Σ̂cnk (iω j ),                     (28)
+                                                                                             The form of Eq. (32) allows one to introduce the
+with:                                                                                      Eliashberg electron-phonon spectral function as fol-
+                            X                                                              lows:
+    ep
+   Σ̂nk (iω j ) = −T               τ̂3Ĝmk0 (iω j0 )τ̂3
+                        mk0 j0 ν                                                             α2 F(nk, mk0 , Ω)
+                      × |gmn,ν (k, k0 )|2 Dk−k0 ν (iω j − iω j0 ), (29)
+                                                                                                                           X
+                                                                                                            = N(εF )           |gmn,ν (k, k0 )|2 Bk−k0 ν (Ω),   (33)
+                                                                                                                           ν
+and:
+                                                                                           where N(εF ) is the electron density of states at the Fermi
+   Σ̂cnk (iω j ) =                                                                         level. To compare with available experimental data, it
+                X                                                                          is worthwhile to define Fermi-surface-averaged spectral
+         −T        τ̂3Ĝmk0 (iω j0 )τ̂3 Vnk−mk0 (iω j − iω j0 ). (30)
+                                                                                           functions:
+             mk0 j0
+
+Here V is the dynamically screened Coulomb interac-                                          α2 F(nk, Ω)
+tion between electrons, and D is the dressed phonon                                                   1 X 2
+propagator. The two Feynman diagrams associated with                                             =             α F(nk, mk0 , Ω)δ(εmk0 − εF ),                   (34)
+                                                                                                    N(εF ) mk0
+Eq. (28) are given in Fig. 2.
+   Note that the two self-energies of Eqs. (29) and (30)                                   and:
+only contain the leading Feynman diagram. The ap-
+proximation that allows one to neglect all other Feyn-                                                          1 X 2
+                                                                                              α2 F(Ω) =                 α F(nk, Ω)δ(εnk − εF ).                 (35)
+man diagrams is called the Migdal theorem [79] and                                                            N(εF ) nk
+
+
+
+
+                                
+                                                                                              The rationale for performing the averages around the
+                         D̂k−k0 ν (iωj − iωj 0 )           Vk−k0 (iωj − iωj 0 )
+                                                                                           Fermi surface is that the phonon energy is usually much
+
+
+
+
+                              
+                        0                      gmn,ν (k, k0 ) +                            smaller than the Fermi energy. However, the fully
+Σ̂pa
+  nk (iωj ) =
+              gnm,ν (k , k)
+                              Ĝmk0 (iωj 0 )                      Ĝmk0 (iωj 0 )           anisotropic α2 F(nk, mk0 , Ω) has been implemented into
+                                                                                           the EPW software in order to fully take into account
+                                                                           pa
+Figure 2: Feynman diagrams of the pairing self-energy Σ̂nk (iω j ),                        multi-band effects and systems of reduced dimension-
+within the Migdal approximation.                                                           ality.
+                                                                                       6
+  Now, inserting Eqs. (30), (32) and (33) into Eq. (28),                     The highest temperature for which these coupled equa-
+using Eq. (22) with φ̄ = 0 to evaluate Ĝnk (iω j ), and                     tions admit non trivial solutions ∆nk (iω j ) , 0 defines
+multiplying the Pauli matrices together lead to:                             the critical temperature T c .
+
+      pa
+                       X        1        n
+                                                                             5.2.3. Standard approximations
+  Σ̂nk (iω j ) = −T                       iω j Zmk0 (iω j0 )τ̂0
+                            θ 0 (iω j0 )
+                      mk0 j0 mk                                                 In order to solve these equations, it is common prac-
+                                                         o                   tice to make the following approximations: (i) only the
+     + [εmk0 − εF + χmk0 (iω j0 )]τ̂3 − φmk0 (iω j0 )τ̂1
+                                                                             off-diagonal contribution (Ĝod ) to the Green’s function
+    λ(nk, mk0 , ω j − ω j0 )
+  (                                                   )
+                                                                             is considered in Eq. (30) in order to avoid double count-
+×                            − Vnk−mk0 (iω j − iω j0 ) , (36)
+           N(εF )                                                            ing of Coulomb effects [88]; (ii) static screening approx-
+                                                                             imation [95]; (iii) all quantities are evaluated around
+where θ is the same as Eq. (23) but with φ̄ = 0,                             the Fermi surface [49, 59, 88, 90, 94–96]. This ap-
+and where we have introduced the anisotropic electron-                       proximation stems from the fact that the superconduct-
+phonon coupling strength:                                                    ing pairing occurs mainly in an energy window of the
+                                                                             size of a phonon energy around the Fermi level; (iv) the
+  λ(nk, mk0 , ω j − ω j0 ) =
+      Z ∞                                                                    electron density of states is assumed to be constant and
+                        2Ω                                                   the bandwidth is infinite [94]; and (v) the dynamically
+          dΩ                           α2 F(nk, mk0 , Ω).         (37)
+        0      (ω  j − ω   j 0 )2 + Ω2
+                                                                             screened Coulomb interaction N(εF )Vnk−mk0 is embed-
+   Direct comparison of the different Pauli matrix com-                      ded into the semiempirical Morel-Anderson pseudopo-
+ponents of Eq. (36) with Eq. (20) leads to a system of                       tential µ∗c [97]. For a wide range of superconductors, a
+three coupled non-linear equations:                                          value of µ∗c in the range 0.1-0.2 has been found. Very
+                                                                             recently EPW has been used successfully together with a
+                       T X ω j0 Zmk0 (iω j0 )                                µ∗c calculated from first principles [14].
+  Znk (iω j ) = 1 +
+                       ω j mk0 j0 θmk0 (iω j0 )                                 As a consequence of approximation (ii), the Coulomb
+                                                                             contribution to Znk (iω j ) vanishes because the τ̂0 compo-
+        λ(nk, mk0 , ω j − ω j0 )
+    (                                                     )
+×                                − Vnk−mk0 (iω j − iω j0 ) , (38)            nent of Ĝnk (iω j ) is an odd function of ω j [95].
+               N(εF )                                                        R ∞Following approximation (iii),                  the identity
+                                                                              −∞
+                                                                                   dεδ(ε mk  −    εF −  ε)  =   1    can    be   inserted into
+                       X εmk0 − εF + χmk0 (iω j0 )                           Eqs. (38)-(40). The resulting equations can be inte-
+  χnk (iω j ) = −T                                                           grated using contour integration in the upper-half plane
+                                       θmk0 (iω j0 )
+                      mk0 j0                                                 with the poles of the denominator θ being given by:
+  λ(nk, mk0 , ω j − ω j0 )
+    (                                               )
+×                          − Vnk−mk0 (iω j − iω j0 ) , (39)
+                                                                                                        q
+         N(εF )                                                                  ε + χmk0 (iω j0 ) = ±i ω2j0 Zmk
+                                                                                                              2
+                                                                                                                 0 (ω j0 ) + φmk0 (ω j0 ).
+                                                                                                                              2
+                                                                                                                                           (43)
+and                                                                            Approximation (iv) implies that χ = 0 as Eq. (39) is
+                    X φmk0 (iω j0 )                                          odd in energy and therefore vanishes when integrated.
+  φnk (iω j ) = T                                                            These four approximations lead to the two nonlinear
+                    mk0 j0
+                             θmk0 (iω j0 )
+                                                                             coupled equations (to be solved self-consistently) [59,
+  λ(nk, mk0 , ω j − ω j0 )
+    (                                             )
+                                                                             90]:
+×                          − Vnk−mk (iω j − iω j ) . (40)
+                                   0            0
+         N(εF )
+                                                                                                     πT      X          ω j0
+   This set of equations needs to be supplemented with                         Znk (iω j ) = 1 +                   q
+                                                                                                   N(εF )ω j mk0 j0 ω2 + ∆2 (iω 0 )
+                                                                                                                     j0    mk0 j
+an equation for the electron number Ne in order to de-
+termine the Fermi energy [94]:                                                               × λ(nk, mk0 , ω j − ω j0 )δ(mk0 − εF ),        (44)
+                   X εmk0 − εF + χmk0 (iω j0 )
+     Ne = 1 − 2T                               .  (41)
+                   mk0 j0
+                             θmk0 (iω j0 )                                                                 πT X          ∆mk0 (iω j0 )
+                                                                               Znk (iω j )∆nk (iω j ) =                q
+                                                                                                          N(εF ) mk0 j0 ω2 + ∆2 (iω 0 )
+   The superconducting gap can then be obtained as the                                                                    j0     mk0     j
+ratio between the order parameter and the renormaliza-
+                                                                                      × [λ(nk, mk , ω j − ω j0 ) − µ∗c ]δ(mk0 − εF ).
+                                                                                                    0
+                                                                                                                                             (45)
+tion function:
+                               φnk (iω j )                                      An important observable related to superconductiv-
+                 ∆nk (iω j ) =             .      (42)                       ity that can directly be computed is the superconducting
+                               Znk (iω j )
+                                                                         7
+specific heat. The specific heat can be obtained from the                         Introducing the real and imaginary part of Znk =
+free energy difference between the superconducting and                         Z1nk + iZ2nk and ∆nk = ∆1nk + i∆2nk and linearizing the
+normal states [90, 94, 98]:                                                    imaginary part (i.e. we neglect ∆22nk , Z2nk
+                                                                                                                        2
+                                                                                                                            , ∆2nk Z2nk and
+                                                                                 su 2
+               Xq                                                            (τnk ) terms) lead to the following expression for the
+   ∆F = −πT           ω2j + ∆2nk (iω j ) − |ω j |                              quasiparticle energy [107–109]:
+                     nk j                                                                         s
+     "
+                                        |ω j |
+                                                        #                                             (εnk − εF )2
+ ×                      N
+         Znk (iω j ) − Znk (iω j ) q                     δ(εnk − εF ),                    Enk =         2
+                                                                                                                   + ∆21nk (Enk ),        (50)
+                                                                                                       Z1nk (Enk )
+                                   ω2j + ∆2nk (iω j )
+                                                                    (46)       and its associated lifetime:
+
+where Z N is the normal-state Z, which is obtained from                                             (εnk −εF )2
+                                                                                                                + ∆21nk − ∆1nk ∆2nk
+                                                                                     1    Z2nk           2
+                                                                                                       Z1nk
+Eq. (44) by setting ∆ = 0. From this, the specific heat                              su =      ×                                      .   (51)
+                                                                                    τnk Z1nk
+                                                                                                          q
+                                                                                                              (εnk −εF )2
+difference can be obtained as:                                                                                     2
+                                                                                                                 Z1nk
+                                                                                                                          + ∆21nk
+                                          d2 ∆F
+                            ∆C(T ) = −T         .                   (47)       Although lifetimes are not currently directly imple-
+                                           dT 2
+                                                                               mented in EPW, they can be computed as post-
+The specific heat in the superconducting state raises ex-                      processing.
+ponentially with temperature at low temperature, and                              Finally we can deduce the theoretical tunneling den-
+then undergoes a characteristic discontinuous jump at                          sity of states ([110], p.190):
+the critical temperature T c [99].
+   Eqs. (44) and (45) can be efficiently solved on the                                      NS (ω) −1 ∞
+                                                                                                          Z
+                                                                                                    =         dεnk =Gnk (ω),      (52)
+imaginary axis. However, physically relevant proper-                                         N(εF )     π −∞
+ties like tunneling current and heat capacity require the
+knowledge of the superconductivity gap along the real                          where NS (ω) is the superconducting quasiparticle den-
+axis [100].                                                                    sity of states for the quasiparticle energy ω and N(εF ) is
+   As the direct evaluation of the Eliashberg equations                        the normal density of states at the Fermi level.
+on the real axis is computationally demanding [95, 101,                           In the BCS limit, Z = 1 and ∆ is considered to be
+102] we choose to obtain the solution by analytic con-                         independent of band index and wavevector. Within this
+tinuation from the imaginary axis to the real axis. The                        limit, Eq. (52) can be approximated using Eq. (48); in-
+EPW software supports analytic continuation using Padé                        tegrating the two poles using the residues theorem leads
+approximants [103, 104] and the exact iterative proce-                         to:
+dure of Ref. [105]. More information can be found in                                            NS (ω)             ω
+                                                                                                       =<p                 .        (53)
+Ref. [59].                                                                                      N(εF )        ω2 − ∆2 (ω)
+   From the knowledge of the mass renormalization
+Znk (ω) and superconducting gap ∆nk (ω) on the real axis,
+we obtain the diagonal components of the single elec-                          6. Transport properties
+tron Green’s function [94, 96]:
+                                                                                  Electronic transport properties in metals and doped
+                      ωZnk (ω) + (εnk − εF )                                   semiconductors can be calculated by solving the Boltz-
+  Gnk (ω) = 2 2                                        .
+            ω Znk (ω) − (εnk − εF )2 − Znk
+                                        2
+                                           (ω)∆2nk (ω)                         mann transport equation (BTE) [111]. Several approx-
+                                                     (48)                      imations for the solution of the BTE have been pro-
+  Eq. (48) has poles located at:                                               posed. Here we consider the simplest and most popular
+                                                                               approximation: the Ziman’s resistivity formula. This
+       h
+                     −1 2
+                       i   (εnk − εF )2
+   2
+ Ẽnk = Enk −i(τsu
+                nk )      = 2           +∆2nk (Ẽnk ), (49)                    formula is based on an average of the Eliashberg cou-
+                            Znk (Ẽnk )                                        pling function (see Eq. 9.5.22 of Ref. [111] or Eq. 8.21
+                                                                               of Ref. [112]):
+where the real part of Ẽnk , Enk , is the quasiparticle en-
+ergy renormalized by the superconducting pairing, and
+                                                                                         4πme
+the imaginary part of Ẽnk , (τsu   −1
+                                nk ) , represents the scat-                      ρ(T ) = 2
+tering time due to the superconducting pairing. Such                                    ne kB T
+                                                                                       Z ∞
+renormalized quasiparticle energies Enk have been re-                                ×     dω ~ω α2tr F(ω) n(ω, T ) 1 + n(ω, T ) ,
+                                                                                                                               
+                                                                                                                                          (54)
+cently studied (e.g. in intercalated graphite [106]).                                    0
+
+                                                                           8
+where n(ω, T ) is the Bose-Einstein distribution. We                       we call the local approximation. Within this approxi-
+have introduced in Eq. (54) the Eliashberg transport                       mation, Eq. (58) reads:
+coupling function:
+                   Z                                                         vmnkk0 α ≈ hψmk0 | p̂α |ψnk i = δ(k − k0 )
+              1X       dq
+  α2tr F(ω) =              ωqν λtr,qν δ(ω − ωqν ), (55)
+                                                                                                         Z                
+              2 ν BZ ΩBZ                                                                 × kα δmn − i dru∗mk0 (r)∇α unk (r) ,           (59)
+
+where the mode-resolved coupling strength is analogous                        If the second part of Eq. (59) is expanded into plane-
+to Eq. (37) and is defined by:                                             waves unk = G cnk (G)eiG · r , we obtain the desired ve-
+                                                                                          P
+                                                                           locity expression in the local approximation ṽ:
+               1       XZ      dk
+   λtr,qν =                         |gmn,ν (k, q)|2
+                                                                                                     X
+           N(εF )ωqν nm BZ ΩBZ                                                        ṽmnk = kδmn +     cmk (G)∗ cnk (G)G.     (60)
+                                                                                                         G
+                                      vnk · vmk+q 
+      × δ(εnk − εF )δ(εmk+q − εF ) 1 −               . (56)
+                                           |vnk |2                            We note that this expression is only valid in the case
+                                                                           of norm-conserving pseudopotentials. To overcome the
+Here vnk = ∂εnk /∂k is the electron velocity. A slightly                   local approximation, we would need to evaluate the ma-
+modified version of Eq. (56) that conserves the norm of                    trix elements hψmk0 |V̂NL r̂α − r̂α V̂NL |ψnk i. This is certainly
+the velocity term could be used with a factor:                             doable but is left for future work. Alternatively, the ve-
+                           vnk · vmk+q                                   locities can be expressed as first-order derivatives of the
+                        1−                .                   (57)         Hamiltonian and treated analytically [114, 115, 120].
+                           |vnk ||vmk+q |
+
+Note that Eq. (56) relies on a semi-classical approxima-                   8. Parallelization and Speedup
+tion where the velocities are expectation values of single
+electron velocities. A more general framework should                          Considerable effort was devoted to the optimization
+rely on the matrix elements vmnk , see Eq. (60) below.                     of the code. Part of the code was re-written in a more
+Extensions to the anisotropic case can easily be imple-                    efficient way, focusing on the extended use of freely-
+mented in the EPW software, given the availability of the                  available external library software packages like Basic
+anisotropic Eliashberg function of Eq. (33), but are left                  Linear Algebra Subprograms (BLAS) and Linear Alge-
+for future work.                                                           bra PACKage (LAPACK).
+   It is worth mentioning that the calculation of the the                     Such effort lead to a global speedup of 294% between
+electron velocity can be performed using different tech-                   the current and previous version of the codes, as shown
+niques: (i) finite differences; (ii) analytic derivatives in               in Fig. 3. The numerical results differ by less than
+the local approximation; (iii) analytic derivatives within                 6% in relative difference on sensitive physical quantities
+perturbation theory [113–115]. The EPW software cur-                       like phonon frequencies, self-energies, electron-phonon
+rently supports (i) and (ii), but efforts will be dedicated                coupling strengths or Eliashberg spectral functions.
+in the future to integrate the Wannier formalism of (iii)                     For this test we used SiC as an example, with a lattice
+into the software following Ref. [114] and using rou-                      parameter of 8.237 bohr, 3 × 3 × 3 Γ-centered k-point
+tines from the wannier90 [53] code.                                        grid, and 60 Ry for the plane-wave energy cutoff. The
+                                                                           fine grids on which the Wannier interpolation was per-
+                                                                           formed are a 10 × 10 × 10 k and q-point grids.
+7. Electronic velocities
+                                                                              The phonons were computed on a 3×3×3 Γ-centered
+   The periodic velocity operator can be expressed in                      q-point grid, which corresponds to 4 q-points in the
+terms of the commutator between the Hamiltonian of                         Irreducible Brillouin Zone (IBZ). Since time-reversal
+the system and the position operator, v̂α = i[Ĥ, r̂α ], with              symmetry was not implemented in EPW 3, the previ-
+α = 1, 2, 3 indicating the Cartesian direction. The ma-                    ous release required 5 q-points instead. This differ-
+trix elements of v̂α are [116–119]:                                        ence in the number of phonon calculations explains the
+                                                                           speedup gained in the Quantum ESPRESSO phonon part
+  vmnkk0 α = hψmk0 |v̂α |ψnk i = hψmk0 | p̂α + i[V̂NL , r̂α ]|ψnk i,       in Fig. 3.
+                                                                (58)          At the EPW level we split the computational time into
+where p̂α = −i∇α is the momentum operator and V̂NL is                      three steps: (i) the construction of the electron-phonon
+the nonlocal pseudopotential. Neglecting the term with                     matrix elements on the full BZ starting from the varia-
+V̂NL in the case of a nonlocal pseudopotential is what                     tion of the self-consistent potential, which is read from
+                                                                       9
+file on the coarse IBZ; (ii) the Wannierization from the                         obtained in a complete calculation with the previous and
+k- and q-point coarse grids to the maximally localized                           current versions of EPW. The speedup with 128 proces-
+Wannier representation; (iii) the Wannier interpolation                          sors is 43% and 59% of the ideal speedup for the pre-
+from real space to fine 10 × 10 × 10 k and q-point grids.                        vious and current version, respectively. As shown in
+These three steps are also possible restart points of the                        Fig. 3, the most time-consuming part is the interpola-
+EPW software. For this specific case we obtained a ∼10                           tion from real space onto the fine k and q-point grids.
+times speedup on the EPW part when the code is run in                            Therefore specific effort has been dedicated to the scal-
+sequential, as compared to the previous version of the                           ing of that part of the code. This can be seen on the
+code. The test was performed on an Intel Xeon CPU                                curve with dashed lines in Fig. 4; here the speedup with
+E5-2620 with a clock frequency of 2.00 GHz. The                                  128 processors is 51% and 88% for the previous and
+codes were compiled using ifort 15.0.3 with the fol-                             current version, respectively.
+lowing compilation flags -O2 -assume byterecl -g
+-traceback -nomodule -fpp.
+                                                                                 9. Buildbot-based test farm
+   At this stage, the only two levels of paralleliza-
+tion available in EPW are k- and q-point parallelization                            The EPW software is maintained and tested us-
+through message passing interface (MPI). G-vector par-                           ing the continuous integration framework Buildbot
+allelization is planned for a future release.                                    (buildbot.net). The test farm and waterfall can be
+   To test the scalability of the code, we studied SiC us-                       found at epw.org.uk/Main/TestFarm.
+ing a 6 × 6 × 6 Γ-centered k and q-points coarse grids.                             The tested operating systems (OS), compilers (with
+The fine grids on which the Wannier interpolation was                            compiler flags), parallelization options, and optimiza-
+performed were a 50 × 50 × 50 k-point grid and a 10 ×                            tion libraries are given in Tab. 1. The test farm currently
+10 × 10 q-point grid. The test was performed on an Intel                         operates on four physical hardwares with the follow-
+Xeon CPU E5620 with a clock frequency of 2.40 GHz.                               ing specifications: farmer1 and farmer2 are Intel Xeon
+The codes were compiled using ifort 13.0.1 with the fol-                         X5345@2.33Ghz with 16 Gb of RAM, farmer3 is a
+lowing compilation flags -O2 -assume byterecl -g                                 AMD Opteron P265@1.8Ghz with 2 Gb of RAM and
+-traceback -nomodule -fpp. The MPI paralleliza-                                  farmer4 is an Intel Core 2 Duo@2.8Ghz desktop com-
+tion was performed using Open MPI 1.8.1.                                         puter with 4 Gb of RAM.
+   We purposely chose a denser k-point grid to better                               The Ubuntu, CentOS, openSUSE and Scientific
+show the effort placed on the k-point parallelization.                           Linux OS distributions are tested in conjunction with
+The blue and red solid lines on Fig. 4 show the speedup                          the gcc, intel, PGI and NAG compilers. The following
+                                                                                 MPI implementations are tested: openmpi, mpich, intel
+              2500
+                         QE 4.0.3 + EPW 3
+                         QE 5.2 + EPW 4                                                   128
+                                                                                                    EPW 3 Total
+              2000
+                                                                                           64       EPW 3 Interpolation
+                                                                                                    EPW 4 Total
+                                                                                           32       EPW 4 Interpolation
+              1500
+   Time (s)
+
+
+
+
+                                                                                           16
+                                                                                                                          al
+                                                                                Speedup
+
+
+
+
+              1000                                                                                                   Ide
+                                                                                            8
+
+               500                                                                          4
+
+                                                                                            2
+                 0
+                     QE+PH   Unfolding   Wannier   Interpolation   Total
+                                                                                            1
+                                                                                                1   2       4       8      16     32       64     128
+Figure 3: (Color online) Comparison of the time required to com-                                                   Processors
+pute the electronic lifetime of SiC using EPW 3 and the new version
+4 of EPW, run on one processor. We show the time required for the                Figure 4: (Color online) Parallelization in EPW to compute the elec-
+calculation of the electrons and phonons perturbations using DFPT                tronic lifetime of SiC with the previous and the current version of
+(QE+PH), the calculations of the electron-phonon matrix elements                 EPW. The blue and red plain lines show the speedup obtained on a full
+and their unfolding from the IBZ to the BZ using the crystal sym-                calculation with the previous and current version of EPW. The speedup
+metries (Unfolding), the Wannierization from the coarse Bloch space              with 128 processors is 55 and 76 for the previous and current version,
+to the real space (Wannier) and the interpolation from real space to             respectively. The interpolation algorithm (the most time consuming
+fine grids in Bloch space (Interpolation).                                       part) has been improved (dashed lines).
+
+                                                                           10
+     Slaves    OS                   Compiler       Flags                                                        Parallel                    Library
+    farmer1    Ubuntu 14.04.3       gcc 4.8.5      -O3 -g -x f95-cpp-input                                      -                           internal
+    farmer1    Ubuntu 14.04.3       gcc 4.8.5      -O3 -g -x f95-cpp-input                                      openmpi 1.8.8               internal
+    farmer1    Ubuntu 14.04.3       intel 12.1.2   -O2 -assume byterecl -g -fpp                                 openmpi 1.8.8               MKL
+    farmer1    Ubuntu 14.04.3       intel 13.1.3   -O3 -xHost -assume byterecl                                  openmpi 1.8.8               MKL + fftw 3.3.4
+                                                   -assume buffered io -fpp
+    farmer1    Ubuntu 14.04.3       intel 15.0.3   -O2 -assume byterecl -g -fpp                                 openmpi 1.8.8               MKL + fftw 3.3.4
+    farmer2    CentOS 7.1.1503      gcc 5.2.0      -O3 -g -x f95-cpp-input                                      openmpi 1.8.8               internal
+    farmer2    CentOS 7.1.1503      pgf90 15.7     -fast                                                        mpich 3.1.3                 fftw 3.3.4
+    farmer2    CentOS 7.1.1503      intel 13.0.1   -O3 -xHost -assume byterecl                                  mpich 3.1.4                 MKL + fftw 3.3.4
+                                                   -assume buffered io -fpp
+    farmer2    CentOS 7.1.1503      intel 15.0.3   -O3 -g -x f95-cpp-input                                      Intel mpi 5.1               MKL + fftw 3.3.4
+    farmer2    CentOS 7.1.1503      Nag 6.0        -O0 -kind=byte -dcfuns -mismatch                             -                           internal
+    farmer3    openSUSE 13.2        gcc 4.9.3      -O3 -g -x f95-cpp-input                                      mpich 3.1.3                 fftw 3.3.4
+    farmer3    openSUSE 13.2        intel 15.0.3   -O3 -xHost -assume byterecl                                  mvapich2 2.2a               MKL + FFT MKL
+                                                   -assume buffered io -fpp
+    farmer4    SLinux 7.1.1503      intel 15.0.3   -O2 -assume byterecl -g -fpp                                 mvapich2 2.2a               MKL + FFT MKL
+
+Table 1: The EPW test-farm is maintained using the Buildbot software. The hardware is as follows: farmer1 and farmer2 are Intel Xeon
+X5345@2.33Ghz with 16 Gb of RAM; farmer3 is a AMD Opteron P265@1.8Ghz with 2Gb of RAM; farmer4 is an Intel Core 2 Duo@2.8Ghz
+desktop computer with 4 Gb of RAM.
+
+
+
+
+mpi and mvapich. The use of internal, MKL and FFTW                      This tutorial follows the study on B-doped diamond
+libraries are also checked. Notably, the EPW code has                made in Ref. [46] with a B content of 1.85 %, close
+been tested and debugged using the Fortran NAG com-                  to the experimental value [121]. Such p-doping shifts
+piler; this greatly improved the stability of the code.
+   The test-suite is currently composed of 10 tests that
+cover 93% of the routines and 61% of the 25,600 soft-                                                                                                                20
+                                                                                                  10 meV          4 "10 4 q           10 meV         4 "10 4 k
+ware blocks (blocks are defined by ’IF’ conditions). In-                                100                       1 "10 5 q                          1 "10 5 k       15
+                                                                      Linewidth (meV)
+
+
+
+
+complete coverage is in part due to features being in de-                                                         5 "10 5 q                          5 "10 5 k
+velopment. We plan to add more tests to improve code                                                              1 "10 6 q                          1 "10 6 k       10
+                                                                                         50
+coverage. Up to date code coverage information can be
+                                                                                                                                                                     5
+found on the EPW website.
+                                                                                                  (a)                                 (b)
+   As a result of the above, the code has been cleaned,                                   0                                                                          0
+memory leaks have been corrected, unused and depre-                                               50 meV                              50 meV
+                                                                                        100
+                                                                                                                                                                     15
+                                                                      Linewidth (meV)
+
+
+
+
+cated variables and functions have been cleaned. Cod-
+ing rules and good practice have been enforced within                                                                                                                10
+                                                                                         50
+the EPW project.
+                                                                                                                                                                     5
+                                                                                                  (c)                                 (d)
+10. Examples                                                                              0                                                                          0
+                                                                                                  100 meV                             100 meV
+                                                                                        100
+                                                                                                                                                                     15
+                                                                      Linewidth (meV)
+
+
+
+
+   In this section we present some representative physi-
+cal examples of the capabilities of EPW. Most examples                                                                                                               10
+                                                                                         50
+are available as tutorials on the EPW website and are also
+                                                                                                                                                                     5
+distributed with the software.
+                                                                                                  (e)                                 (f)
+                                                                                          0                                                                          0
+                                                                                              L             !                 X   L             !                X
+10.1. Spectral functions and linewidths of B-doped di-
+      amond                                                          Figure 5: (Color online) Calculated electron (a),(c),(e) and phonon
+  The first example focuses on studying a heavily-                   (b),(d),(f) linewidths at 300 K for the valence band top and for the
+                                                                     highest optical mode of B-doped diamond, respectively. The plots
+doped semiconductor, B-doped diamond. The tutorial                   are shown for increasing numbers of random k- or q-points used in
+can be found in the EPW/examples/diamond folder of                   the BZ integration. The results are also presented for three different
+EPW. An online version is available at epw.org.uk.                   broadening parameters of 10, 50 and 100 meV.
+
+                                                                11
+Figure 6: (Color online) Electronic spectral function Ank (ω, T ) for the valence band of B-doped diamond, calculated using a 106 random q-grid at
+different temperatures and broadening parameters δ.
+
+
+the Fermi level by 0.57 eV below the valence band                              It is worth noting that the calculated electron
+maximum. The calculations are performed using DFT                           linewidths for the valence band of B-doped diamond
+in the LDA and lead to a relaxed lattice parameter of                       shown on the left side of Fig. 5 differ from the ones
+6.6425 bohr, 1.7 % below the experimental value [121].                      computed in Ref. [46] where the calculations of electron
+An energy cutoff of 60 Ry is required to accurately de-                     linewidths were performed for the undoped system.
+scribe the plane-wave basis set (< 10 meV/atom). The                           The electron linewidths show two distinct features:
+virtual atom pseudopotential B x C1−x with x = 0.0185                       (i) the linewidth has an overall parabolic shape and (ii)
+was created, with an ionic charge of Z = 3x + 4(1 − x).                     there are two dips at the Fermi wavevector kF . The
+Fractional occupations resulting from the p-doping are                      parabolic shape is due to the fact that, if we approxi-
+described using a Methfessel-Paxton first-order smear-                      mate the electron-phonon matrix elements as constant,
+ing [122] of 0.02 Ry.                                                       the imaginary part of the self-energy Eq. (8) is directly
+   We used a Γ-centered 6 × 6 × 6 coarse grid to sam-                       proportional to the electronic density of states after ne-
+ple both the electron and phonon-momenta space. Tak-                        glecting the phonon frequency in the delta function. The
+ing advantage of symmetries, we only had to perform                         dips are due to the fact that the self-energy must vanish
+16 DFPT calculations in the irreducible wedge. Such                         at the Fermi level, owing to the energy-conservation se-
+coarse grids are dense enough to perform a very accu-                       lection rule.
+rate Wannier interpolation [46]. Using the aforemen-                           The phonon linewidths have two distinct features.
+tioned parameters and pseudopotential, the electronic                       First, the linewidth of states with momenta larger that
+and vibrational bandstructure can be found in Figs. 3                       the Fermi-surface diameter (|q| > 2kF ) is negligible be-
+and 4 of Ref. [46], respectively.                                           cause these phonons cannot generate an electron-hole
+   The electron Σ00nk (εnk ) and phonon Π00qν (εnk )                        pair. This is linked to the shape of the electronic
+linewidths at 300 K are shown in Fig. 5 for various                         bandstructure and Fermi-level position (see Fig. 3 of
+BZ samplings and for different Gaussian broadenings                         Ref. [46]). Second, the linewidth goes to zero (infi-
+of the Dirac delta functions of Eqs. (8) and (9). From                      nite lifetime) at the zone-center. As can be seen in
+Fig. 5 we can conclude that 106 random k/q-points are                       Eq. (9), this is because the transition is blocked by se-
+enough to accurately describe numerically the integrals                     lection rules when the energy separation between the
+in Eqs. (8) and (9).                                                        initial and final state with same momentum k exceeds
+                                                                       12
+the largest phonon frequency [123, 124], as is the case
+in the present example.
+   Figure 6 shows the electronic spectral function of the
+valence band of B-doped diamond, integrated on a ran-
+dom q-grid containing 106 points, for various tempera-
+tures and broadening parameters δ, see Eq. (10).
+   Most notably, one can see that the lifetime close to
+the Fermi level is large and that there is the emergence
+of kinks in the dispersion relations, at energies around
+the highest phonon energy, on both sides of the Fermi
+level. The energy renormalization (real part of the elec-
+tronic self-energy) changes sign across the Fermi level
+(negative renormalization for ω < ωqν and positive oth-
+erwise). This is due to the fact that, in Eq. (3), when
+ω < ωq the sign of the final state εmk+q gives the overall
+                                                                                Figure 8: (Color online) Carrier scattering rate in Si as a function
+sign of the self-energy, whereas when ω  ωq then the                           of energy at 0 K (red dots) and 300 K (green dots), obtained with a
+denominator of Eq. (3) is positive.                                             broadening of 10 meV and 30,000 random k-points, 150,000 random
+                                                                                q-points. The electronic DOS is superimposed with arbitrary units.
+                                                                                The Fermi level is placed in the middle of the gap.
+10.2. Scattering rate of undoped Si
+
+   We choose to study the scattering rate of undoped sil-                          The Si norm-conserving pseudopotential used for this
+icon, as this material has been studied previously by                           study was generated from a non-relativistic calcula-
+several groups using parametrized tight-binding mod-                            tion. The valence electrons treated explicitly in the cal-
+els [125], direct evaluations of the electron-phonon                            culations are the 3s2 3p2 with the Perdew and Zunger
+matrix elements [15, 126], ab-initio linear interpola-                          parametrization of the LDA [63]. Convergence studies
+tions [47] as well as Wannier interpolation using pre-                          (with errors below 2 meV/atom on the total energy) lead
+vious versions of the EPW code [127–129]. We recover                            to using an 8 × 8 × 8 Γ-centered Monkhorst-Pack [132]
+the same results, including the sharp increase in scat-                         k-point sampling of the BZ, and a plane wave energy
+tering rate above the optical phonon emission threshold                         cutoff of 45 Ry.
+starting from very coarse initial grids.                                           The lattice parameter obtained after structural relax-
+                                                                                ation is calculated to be 10.207 bohr, slightly below
+                                                                                the experimental lattice parameter of 10.262 bohr [133].
+                                                                                The electronic bandstructure shown at the top of Fig. 7
+                                                                                was computed at the DFT level and gave an indirect
+                                                                                bandgap of 0.497 eV, underestimating as expected the
+                                                                                experimental value of 1.12 eV. The calculated phonon
+                                                                                bandstructure shown at the bottom of Fig. 7 slightly
+                                                                                underestimates the neutron scattering data measured at
+                                                                                300 K [130, 131].
+                                                                                   The scattering rate is the inverse of the relaxation
+                                                                                time τnk , and is directly connected to the imaginary part
+                                                                                of the electron self-energy from Eq. (8):
+
+                                                                                                        1          00
+                                                                                                               = 2Σnk (ω, T ).                (61)
+                                                                                                   τnk (ω, T )
+
+                                                                                   This quantity is very sensitive to the details of the
+                                                                                electronic structure and therefore requires dense inter-
+Figure 7: (Color online) Electron (top) and phonon (bottom) band-               polated k-point and q-point grids. Nevertheless, owing
+structures and density of states (DOS) of Si at the optimized lattice
+parameter. Experimental neutron-scattering data measured at 300 K               to the accuracy of Wannier interpolation, we only need
+are taken from Ref. [130] (filled circles) and Ref. [131] (filled trian-        relatively coarse initial grids. For this study we used
+gles).                                                                          6 × 6 × 6 coarse k-point and q-point grids (16 q-points
+                                                                           13
+                          20
+                                    (a)
+                          15                                                                                        10
+                          10
+Scattering rate (1/ps)
+
+
+
+
+                                                                                                                        5
+                           5
+
+
+
+
+                                                                                          E-EF (eV)
+                           0                                                                                            0
+                         10 1       (b)
+                                                                                                                        -5
+                         10 0
+
+                    10 -1                                                                                          -10
+
+                    10 -2
+                                0         0.05            0.1           0.15   0.2                                           !   X   W   L       K       !   L   DOS
+                                                 Electron energy (eV)
+
+                                                                                          Figure 10: (Color online) Electronic bandstructure and DOS of Pb at
+   Figure 9: (Color online) Carrier scattering rates in Si as a function                  the optimized lattice parameter with (red line) and without (blue line)
+   of energy with respect to the conduction band minimum, at 0 K (red                     spin-orbit interaction.
+   dots) and 300 K (green dots). The data were obtained with a broad-
+   ening of 1 meV, 500 k-points along the 0.25∆ − X line, and 500,000                                              10
+   random q-points. Both images show the same data on a linear (a)
+   and semi-logarithmic (b) scale. A clear increase in the scattering rate
+                                                                                          Phonon frequency (meV)    8
+   appears around 60 meV, where the scattering by optical phonons be-
+   comes allowed.
+                                                                                                                    6
+
+   in the IBZ). Fig. 8 shows the scattering rate as a function                                                      4
+   of energy at 0 K and 300 K, obtained with a broadening
+   of 10 meV and 30,000 random k-points, 150,000 ran-                                                               2
+   dom q-points. The imaginary part of the self-energy fol-
+                                                                                                                    0
+   lows closely the electronic density of state (DOS). This                                                             !        X   W   X   K       !       L   DOS
+   is expected since the accessible phase space reflects the
+   DOS. Raising the temperature increases the scattering                                  Figure 11: (Color online) Phonon dispersion relations and phonon
+   rate almost uniformly.                                                                 density of states (PDOS) of Pb at the optimized lattice parameter with
+                                                                                          (red line) and without (blue line) spin-orbit interaction. The experi-
+      It is important to use a sufficiently small Gaussian                                mental data (black dots) at 100 K from neutron scattering are taken
+   broadening to avoid washing out detailed features of the                               from Ref. [138].
+   scattering rate. For this reason, we also present in Fig. 9
+   a zoom of the scattering rate along the high symmetry
+   0.25∆ − X line, using Gaussian broadening of 1 meV.                                       For this study, we used a norm-conserving semi-core
+   The scattering rate is small at zero temperature for en-                               fully relativistic pseudopotential where the 5d10 6s2 6p2
+   ergies lower than the optical phonons (60 meV), since                                  electrons are considered as valence electrons. Struc-
+   only low-energy phonons can be emitted. The evalu-                                     tural relaxation has been performed using DFT within
+   ation of the scattering rate is a key quantity to study                                the LDA [63, 68] and a planewave basis set as im-
+   other phenomena such as carrier mobilities. However,                                   plemented in the Quantum ESPRESSO [62] code. A
+   here we want to emphasize that such calculations are                                   planewave energy cutoff of 90 Ry and a 8 × 8 × 8 shifted
+   computationally affordable, and can now be carried out                                 k-point mesh were required to converge the total en-
+   on a standard desktop computer.                                                        ergy below 0.5 mRy. A Gaussian smearing of 0.05 Ry
+                                                                                          was used in the BZ integration. Using these parame-
+                                                                                          ters, we performed a structural relaxation on the face-
+   10.3. Spectral function and electronic resistivity of Pb
+                                                                                          centered cubic Pb and obtained a lattice parameter of
+         with and without spin-orbit coupling
+                                                                                          9.222 bohr without SOC, and 9.270 bohr when the SOC
+      The third example presents a study on metallic Pb, fo-                              was included. The latter value agrees well with the
+   cusing on the effect of spin-orbit coupling (SOC). This                                low-temperature (5 K) experimental lattice parameter of
+   tutorial can be found in the EPW/examples/pb folder of                                 9.269 bohr [135, 136].
+   EPW. An online version is available at epw.org.uk. We                                     The associated Kohn-Sham electronic bandstructure
+   reproduce the study by Heid and co-workers [134], at                                   is presented in Fig. 10 along the main high-symmetry
+   a significantly lower computational cost owing to Wan-                                 lines of the BZ. We see that SOC leads to avoided cross-
+   nier interpolation.                                                                    ings near the Fermi level, but the Fermi surface itself is
+                                                                                     14
+Figure 12: (Color online) Effect of different fine sampling methods in EPW (homogeneous k and q-point integration against quasi random q-point
+using a Sobol algorithm) on (a) the Eliashberg α2 F and (b) the electron-phonon coupling strength λ of Pb without SOC. Effect of the SOC on (c)
+the Eliashberg α2 F with an electron smearing of 10 meV and (d) on λ when different electron smearing are considered. The phonon smearing is
+0.15 meV. The experimental data points are taken from Ref. [96].
+
+
+almost unmodified [137].                                                           that a 10×10×10 k-point and a 6×6×6 q-point grid was
+   Due to the complex Fermi surface of Pb, a 14 ×                                  enough to obtain phonon frequency within 2 cm−1 of the
+14 × 14 k-point and a 10 × 10 × 10 q-point grid                                    grid used in Fig. 11. Once the electron-lattice vibration
+with a Gaussian broadening of 0.025 Ry were required                               calculations were performed, we used a 6×6×6 k-point
+to achieve convergence. As already shown by Heid                                   and q-point coarse grids in EPW for subsequent electron-
+and co-workers [134], we find that calculations per-                               phonon calculations. The interpolated fine grids need to
+formed without SOC overestimate the phonon frequen-                                be very dense to correctly sample the complex Fermi
+cies with respect to experiment, while calculations in-                            surface. The Eliashberg spectral function α2 F of Pb
+cluding SOC are much closer to the neutron scattering                              was calculated with Eq. (12) using a homogeneous and
+data measured at 100 K [138] (see Fig. 11).                                        a quasi random 3D Sobol sampling. The 3D Sobol quasi
+   To reduce the computational complexity, we noticed                              random generation of points was performed by skip-
+                                                                                   ping the first 1000 values and then retaining every 101st
+                                                                                   point [139]. An additional random linear scramble com-
+            2.5                                                                    bined with a digital shift [140] was applied as coded in
+                      , 2 F without SOC
+                      , 2tr F without SOC                                          the software Matlab R2015a.
+              2
+                                                                  6 tr
+                      , 2 F with SOC
+,2 F ( !)
+
+
+
+
+            1.5       , 2tr F with SOC                            6                   The total electron-phonon coupling strength λ (ob-
+              1                                                                    tained by averaging Eq. (11) over all phonons) for Pb
+                                                                                   without SOC shows that the quasi random Sobol in-
+            0.5
+                                                                                   tegration outperforms the standard homogeneous grid
+              0
+                  0         2               4             6   8          10
+                                                                                   sampling (Fig. 12b). A k-point grid of 400,000 Sobol
+                                                ! (meV)                            points with 27,000 random q points is required to reach
+                                                                                   convergence. Using those converged values, the Eliash-
+Figure 13: (Color online) Calculated isotropic Eliashberg spec-                    berg spectral function is shown in Fig. 12a and reveals
+tral function α2 F(ω) of Pb (blue solid line) and integrated electron-             that calculations without SOC overestimate the exper-
+phonon coupling strength λ (thin blue solid line), compared with the
+Eliashberg transport function (blue dashed line) and the transport cou-            imental spectral function as expected from the phonon
+pling strength λtr (thin dashed blue line). The same data are presented            DOS of Fig. 11. The experimental spectral function was
+with spin-orbit coupling in red.                                                   obtained from tunneling experiments at 1 K [96].
+                                                                              15
+Figure 14: (Color online) Calculated resistivity with (plain red line)
+and without (plain blue line) spin-orbit coupling. The inset shows a
+zoom of the resistivity on the 0-25 K temperature range. The experi-
+mental measurements are from Refs. [141–144].
+
+
+   Figure 12c further shows the effect of including SOC
+using Sobol sampling with the highest q-point grid used
+in Fig. 12b. Finally, Fig. 12d shows that the electron
+smearing for converged grids does not significantly af-
+fect the electron-phonon coupling strength. The phonon
+smearing used for all the calculations was 0.15 meV.
+   After assessing convergence and the effect of SOC,
+we study basic electronic transport properties. As dis-
+cussed in Section 6, the key quantity is the evaluation
+of the electron velocity. Using the electron velocity in
+the local approximation we can compute the Eliashberg
+transport coupling function α2tr F. Fig. 13 shows that                        Figure 15: (Color online) (a) Electronic bandstructure of w-GaN
+both the Eliashberg function and its transport counter-                       along high-symmetry lines in the BZ. The red line highlights the band
+part have very similar magnitude and shape in the case                        considered in the bottom panel. (b) Phonon dispersion interpolated
+                                                                              from a 6 × 6 × 6 Γ-centered q-point grid. The red line is the op-
+of Pb including SOC. In this case, we find λtr = 1.69.                        tical mode considered in the bottom figure. The filled dots are in-
+In general λ and λtr are expected to be different [112].                      elastic X-ray scattering data [145] and the filled triangles are Raman
+These results were obtained using 300,000 quasi ran-                          data [146]. (c) Calculated electron-phonon matrix elements at k = Γ
+                                                                              for the highest band and mode index, starting from a 6 × 6 × 6 electron
+dom Sobol k-point and 50,000 random q-point meshes,
+                                                                              and phonon grids. A gauge-invariant electron-phonon matrix element
+with an electronic Gaussian broadening of 10 meV.                             is obtained by averaging the square moduli over degenerate states.
+   Finally, using the Eliashberg transport function, we                       The blue dashed line shows the standard interpolation, and the red
+can evaluate the resistivity with and without spin-orbit                      line shows the polar interpolation using Eq. (13). The two sets of data
+                                                                              are compared with direct DFPT calculations at each wavevector (filled
+coupling using Ziman’s resistivity formula, Eq. (54).                         dots).
+This is shown in Fig. 14. The calculations were per-
+formed using 400,000 quasi random Sobol k-points and
+27,000 random q-points, with an electronic Gaussian                           conserving pseudopotential library version 1.0 [147].
+broadening of 20 meV. Our results compare very well                           The valence electrons treated explicitly in the calcula-
+with experimental measurements from Refs. [141–144].                          tions are the 3d10 4s2 4p1 and 2s2 2p3 orbitals for Ga and
+We note that the inclusion of SOC significantly im-                           N, respectively. The Perdew and Zunger parametriza-
+proves the agreement with experiment.                                         tion of LDA [63] was used. Convergence studies lead to
+                                                                              the use of a 6 × 6 × 6 Γ-centered Monkhorst-Pack [132]
+10.4. Polar coupling in GaN                                                   k-point sampling of the BZ and a plane wave basis set
+   To illustrate the new capability of EPW to treat po-                       energy cutoff of 160 Ry (the errors in the total energy
+lar materials, we studied the wurtzite gallium nitride                        are below 3 meV/atom).
+(w-GaN). For this example, the pseudopotentials were                             The lattice parameters obtained after structural re-
+generated using the scalar-relativistic ONCVPSP soft-                         laxation were found to be a = 5.955 bohr and c =
+ware [67] and are part of the Schlipf-Gygi norm-                              9.707 bohr, 1.1 % below the experimental lattice param-
+                                                                         16
+eters [148]. The electronic bandstructure shown on top             plied. The first-order potential perturbation and dynam-
+of Fig. 15 was computed at the DFT level, and gave a               ical matrices were calculated using DFPT [42, 44, 45]
+2.2 eV direct bandgap at Γ, underestimating the experi-            on an irreducible 6 × 6 × 6 Γ-centered q-point mesh.
+mental value of 3.47 eV [148] as expected.                            The electronic bandstructure is shown on the top
+   The calculated phonon bandstructure in the middle of            panel of Fig. 16. The associated phonon bandstructure
+Fig. 15 slightly overestimates the single crystal inelastic        at the bottom of Fig. 16 slightly underestimates the in-
+X-ray scattering data (filled dots) [145] and Raman data           elastic X-ray scattering data measured at 300 K [149].
+(filled triangles) [146].                                             The isotropic Eliashberg spectral function α2 F(ω)
+   We present at the bottom of Fig. 15 the direct                  calculated using Eq. (12), and the associated cumula-
+DFPT calculation of the electron-phonon matrix ele-                tive electron-phonon coupling strength λ(ω), are shown
+ments |gmn,ν (k, q)| along high-symmetry directions of             in Fig. 17. The spectral function shows a dominant
+the BZ (filled dots) at k = Γ, m = n being the high-               peak around 60 meV, and a secondary one around
+est valence band, and ν the highest optical mode. The              86 meV. The cumulative electron-phonon coupling
+selected band and mode are indicated in red in the top             strength shown as dashed line in Fig. 17 is calculated
+and middle panels of Fig. 15. The square moduli of                 as:                     Z ω
+electron-phonon matrix elements are averaged over de-                                               2α2 F(ω)
+                                                                                   λ(ω) =      dω            .          (62)
+generate bands and modes. The dashed blue line shows                                         0         ω
+the standard Wannier interpolation of Ref. [46], and has
+to be compared with the red line that implements the
+polar interpolation of Eq. (13) [60].                                                5
+   Figure 15 clearly shows the importance of correctly
+                                                                   E-EF (eV)
+
+
+
+
+treating the long-range interaction in the Wannier inter-                            0
+polation when studying polar semiconductors and in-
+sulators. This feature is activated in EPW by using the                          -5
+lpolar input variable.                                                                                                     (a)      (b)
+                                                                                -10
+                                                                               100
+10.5. Superconductivity in MgB2
+                                                                                 80
+                                                                    ! (meV)
+
+
+
+
+   The last example presented here focuses on the super-
+                                                                                 60
+conducting properties of magnesium diboride (MgB2 ).
+This tutorial can be found in the EPW/examples/mgb2                              40
+
+folder of EPW. An online version is available at                                 20
+                                                                                                                           (c)      (d)
+epw.org.uk. This tutorial is based on the work of                                    0
+Ref. [59] and includes some additional results.                                          !   K M   !     A        H    L     A    DOS
+   MgB2 is the prototypical multi-gap phonon-mediated
+                                                                   Figure 16: (Color online) (a) Electronic bandstructure and (b) DOS
+superconductor, with a critical temperature of T c =               of bulk MgB2 ; (c) phonon bandstructure and (d) PDOS at the experi-
+39 K [150]. The anisotropic gap arises from the σ                  mental lattice parameters. The inelastic X-ray scattering experimental
+and π Fermi-surface sheets [10, 151–155]. This su-                 data (black dots) at 300 K are taken from Ref. [149].
+perconductor has been widely investigated theoreti-                            1.5
+cally [10, 90, 151, 156–167] due to its high Tc . We
+re-investigate here MgB2 using EPW to show that its fas-
+cinating properties can now be computed easily and ac-                           1
+                                                                   ,2 F ( !)
+
+
+
+
+curately.                                                                                                                           6
+   The calculations were performed within DFT-
+                                                                               0.5
+LDA [63, 68] using the Quantum ESPRESSO [62] code.
+The valence electronic wavefunctions were expanded
+in a plane-wave basis set using a kinetic energy cutoff                          0
+of 60 Ry and the charge density is integrated on a Γ-                                0       20    40             60         80      100
+                                                                                                        ! (meV)
+centered 24 × 24 × 24 k-point mesh. The experimental
+lattice parameters a = 5.826 and c/a = 1.142 bohr were             Figure 17: (Color online) Calculated isotropic Eliashberg spectral
+used throughout the calculations [150]. A Methfessel-              function α2 F(ω) of MgB2 (blue solid line) and integrated electron-
+Paxton first-order smearing [122] of 0.02 Ry was ap-               phonon coupling strength λ (black dashed line).
+
+                                                              17
+   The results are obtained by integrating on a 60 ×                              tively offers the possibility to enforce the number of fre-
+60 × 60 homogeneous k-point mesh and a 30 × 30 × 30                               quency points using the variable nswi instead of wscut.
+homogeneous q-point mesh with a Gaussian smearing                                 This corresponds to using a different frequency cutoff
+of 100 meV for the electrons, and 0.65 meV for the                                for each temperature. We choose the former option in
+phonons. The total coupling is λ = 0.75. This is                                  Fig. 18.
+in agreement with previous studies where the isotropic                               The superconducting density of states or the critical
+electron-phonon coupling strength ranges from 0.71 to                             temperature have to be computed on the real energy
+0.78 [10, 54, 155, 168, 169].                                                     axis. At the Fermi level we have that εnk = 0, and there-
+   Figure 18 presents the calculated energy-dependent                             fore Eq. (50) reduces to ω = Enk = <∆nk (ω). This
+superconducting gap of MgB2 from the anisotropic                                  implies that one has to look at the change of the super-
+Eliashberg theory. We show the gap distribution at                                conducting gap with temperature at such frequencies.
+different temperatures along the imaginary energy axis                            However, as shown on the bottom of Fig. 18, the dashed
+(top) and along the real energy axis, as obtained by us-                          line ω = <∆nk (ω) is steep, and the superconducting gap
+ing analytic continuation with Padé functions (bottom).                          is almost constant in that energy range, with a value al-
+Fig. 18 only shows results for states nk which have a                             most equal to its value at ω = 0. In the limit of ω = 0,
+Kohn-Sham energy within 0.1 eV from the Fermi level.                              the superconducting gap along the imaginary and real
+   It is worth noticing the red shift of the main peak                            axes have the same value. As a result, one can use the
+of ∆nk (ω) with temperature, as well as the flatting of                           superconducting gap ∆nk (iω = 0) along the imaginary
+the overall structure towards zero. We note that the so-                          axis, which is computationally more affordable, to de-
+lutions on the imaginary frequency axis become more                               duce the critical temperature without having to perform
+spaced out as the temperature raises. This is a conse-                            analytic continuation to the real axis.
+quence of the fact that the Matsubara frequencies are                                Another way to look at these data is presented in
+given by iω j = i(2 j + 1)πT . The EPW code alterna-                              Fig. 19. Here we show the energy distribution of the
+                                                                                  calculated superconducting gap ∆nk (ω = 0) of MgB2
+                                                                                  as a function of temperature. The superconducting
+                      10                                                          gaps are obtained from analytic continuation using Padé
+                                                                    10K           functions, and the Coulomb potential has been set to
+                       8                                            38K
+                                                                                  µ∗c = 0.16 following Ref. [59]. One can clearly see
+   " nk (i !) (meV)
+
+
+
+
+                                                                    43K
+                       6                                                          the two-gap nature of MgB2 . The gaps vanish at the
+                       4
+                                                                                  critical temperature T c = 51 K. This value overes-
+                                                                                  timates the experimental value of 39 K [150], but it
+                       2                                                          matches previous first-principles calculations based on
+                       0
+                                                                                  the Migdal-Eliashberg [10, 59] or SCDFT [155] formal-
+                               (a)                                                ism. It has been proposed that the overestimation of
+                      -2                                                          the critical temperature could be due to phonon anhar-
+                      30                                            10K
+                                 ! = "n k (!)                       38K                              10
+                      20                                            43K
+" nk (!) (meV)
+
+
+
+
+                                                                                                      8
+                      10
+                                                                                  " nk (!=0) (meV)
+
+
+
+
+                                                                                                      6
+                       0
+                                                                                                      4
+                 -10
+                               (b)
+                                                                                                      2
+                 -20
+                           0     20   40   60   80 100 120 140 160 180 200
+                                                                                                      0
+                                                 ! (meV)                                                  0   10   20       30       40         50
+                                                                                                                        T (K)
+Figure 18: (Color online) Calculated energy-dependent supercon-
+ducting gap of MgB2 from the anisotropic Eliashberg theory at 10 K                Figure 19: (Color online) Calculated distribution of the anisotropic
+(blue), 38 K (green) and 43 K (red) along the imaginary energy axis               superconducting gap ∆nk (ω = 0) of MgB2 on the Fermi surface as a
+(a) and along the real energy axis using analytic continuation with               function of temperature. The superconducting gaps are obtained from
+Padé functions (b). We only show results for states nk which have a              analytic continuation using Padé functions, and the Coulomb potential
+Kohn-Sham energy 0.1 eV around the Fermi level.                                   has been set to µ∗c = 0.16. The dashed lines are guides to the eye.
+
+                                                                             18
+                   2
+                                                                                                              4      Wang et al. Tc = 36.7K
+                                 10K
+                                 38K                "< = 9 meV                                                       Bouqet et al. Tc = 38.7K
+                 1.5             43K                                                                                 Present work Tc = 50.6 K
+Ns (!)=N ("F )
+
+
+
+
+                                                                                                                     2-gap BCS Tc = 39 K
+                                                                                                              2      1-gap BCS Tc = 39 K
+
+
+
+
+                                                                                       ∆ C / T (mJ/mol K2 )
+                   1
+                           ": = 2.5 meV
+
+
+                 0.5                                                                                          0
+
+                   0
+                       0               2       4             6       8       10
+                                                   ! (meV)                                                    -2
+
+
+Figure 20: (Color online) Quasiparticle superconducting DOS at dif-
+ferent temperatures using Eq. (53) with ∆(ω = 0). The dashed black                                            -4
+line is the normal state DOS. The superconducting DOS N s (ω) has
+been scaled so that its high energy tail coincides with the DOS in the                                         0.0     0.2          0.4          0.6   0.8   1.0
+                                                                                                                                           T/Tc (K)
+normal state.
+
+                                                                                       Figure 22: (Color online) Calculated (straight blue line), 2-gap BCS
+                                                                                       model (straight green line), 1-gap BCS model (straight black line)
+                                                                             8
+                                                         K       M                     and experimental (symbols) specific heat of MgB2 . The experimental
+                                           K                                           measurements are from Refs. [157, 159].
+ Γ                                         M             Γ
+                                                                             6
+                                                                         A             flection and scanning tunneling microscopy, that range
+                                                                 L                     from 2.3 to 2.8 meV for the π band and 7.0 to 7.1 meV
+                                           L
+                                                                             4
+A                                                        A                             for the σ band [174–176].
+                                                                                          The superconducting gap can alternatively be shown
+                                                                         Γ
+                                                                             2         on the Fermi surface (see Fig. 21 for T = 10 K). The
+                                                                 M                     Fermi surface consists of two σ sheets along the Γ − Γ
+  Γ                                        M             Γ                             line stemming from the σ-bond of the p x,y orbitals of
+                                                                                       boron, and two π sheets along the K-M and H-L lines
+Figure 21: (Color online) The superconducting energy gaps of MgB2
+                                                                                       arising from the pz orbitals of boron. These results re-
+(expressed in meV) on the Fermi surface for T = 10 K. The Fermi
+surface consists of two σ sheets along the Γ − Γ lines and two tubular                 produce well previous studies [10, 90].
+structures defining a honeycomb lattice and arising from the π states.                    Figure 22 shows the specific heat calculated using
+The rendering has been done using the VESTA software [173].                            Eqs. (46) and (47) as well as the two BCS models. The
+                                                                                       specific heat was obtained by numerically computing
+                                                                                       the second-order derivative of the free energy as a post-
+monicity [10], diagrams beyond the Migdal approxima-                                   processing step. Although our computed specific heat
+tion [54, 170–172], or an anisotropic Coulomb parame-                                  is shifted up by about 10 K, the anisotropic Eliashberg-
+ter. In comparison, the semi-empirical Allen-Dynes for-                                Migdal theory reproduces well the experimental results
+mula of Eq. (16) yields a critical temperature of 15.8 K                               of Refs. [157, 159]. To compare with the previous work
+using an isotropic Coulomb parameter of µ∗c = 0.16.                                    of Ref. [90], we can compute the 1-gap BCS model us-
+   We can compute the DOS in the superconducting                                       ing Eq. (77), p = 3.3, Tc =39 K and ∆(T = 0) = 5 meV.
+state at different temperatures using Eq. (53) with ∆(ω =                              We can also construct a 2-gap BCS model using the val-
+0), as shown in Fig. 20. The DOS can be compared di-                                   ues from Ref. [90] of Tc =39 K, ∆1 (T = 0) = 1.8 and
+rectly with experimental tunneling measurements [153].                                 ∆2 (T = 0) = 6.8 meV, p1 = 1.8 and p2 = 2.9. More
+The dashed black line is the normal state DOS. The su-                                 information is given in the Appendix 14.
+perconducting DOS N s (ω) has been scaled so that its                                     Notably, both the 2-gap BCS model and our first-
+high energy tail coincides with the DOS in the normal                                  principle results recover the observed hump below 10 K
+state. In this figure we notice that, as temperature in-                               whereas the 1-gap BCS model is clearly insufficient.
+creases, the superconducting gap in the DOS tends to
+close. The two-gap nature of MgB2 can clearly be seen.                                 11. Conclusions
+The Fermi-surface averages of these gaps at 10 K are
+∆π =2.5 meV and ∆σ =9 meV. This is close to the ex-                                       In this article we presented the new capabilities of-
+perimental gaps, measured at 4.2 K using Andreev re-                                   fered by the EPW software in the field of electron-phonon
+                                                                                  19
+calculations. We focused on the new developments                  13. Appendix: Time-reversal and separable pseu-
+made in the code since the previous technical paper                   dopotential in EPW
+in 2010 [61]. The code is now fully integrated into
+Quantum ESPRESSO, while retaining its identity via its               Building on the derivation proposed in Ref. [46], we
+dedicated website and specific user support through its           extend the equations to treat the particular case of crys-
+dedicated forum.                                                  tals with no inversion symmetry. In these cases, it is
+                                                                  possible to take advantage of time-reversal symmetry to
+   The code now supports spin-orbit coupling and time-            decrease the number of irreducible q-points required on
+reversal symmetry. Special attention was paid to code             the coarse grid.
+optimization and parallelization as well as code stability           Within linear response, the change of the self-
+through the creation of a test farm.                              consistent potential with respect to a collective ionic
+   The three most notable new features of the code                displacement ∆τqν κp with phonon momentum q and mode
+are the capability to compute anisotropic superconduct-           index ν can be obtained from the screening of the bare
+ing properties within the Migdal-Eliashberg theory, the           ionic potential Vκion (r) as:
+Wannier interpolation in polar materials, and the cal-
+culations of electronic transport properties via the elec-          ∂qν V(r) =
+tronic velocities. Five physically relevant examples                 ∂
+                                                                         Z                  X
+showcasing new features were presented in detail; four                     dr0 ε−1 (r, r0 )     Vκion (r0 − τκp − η∆τqν
+                                                                                                                     κp ), (63)
+                                                                     ∂η                     κ,R
+of them are available as tutorials in the EPW software                                       p
+
+distribution.
+                                                                  where ε−1 (r, r0 ) is the electronic dielectric function and
+   Electronic mobilities using more refined theories like         τκp is the coordinate of each ion κ in the unit cell cen-
+the Boltzmann transport equation or Kubo formalism,               tered at R p .
+exact electronic velocities, first-principle evaluation of            The ionic displacement can be expressed in the basis
+the Coulomb potential, G-vector parallelization and               of the periodic and normalized vibrational eigenmodes
+parallelization for massively parallel architectures are          eνqκ :
+planned for a future release.                                                                 r
+                                                                                                 m0 ν iq · R p
+                                                                                     ∆τqν
+                                                                                        κp =        e e        ,           (64)
+                                                                                                 mκ qκ
+                                                                  where mκ is the ionic mass of atom κ.
+12. Acknowledgments                                                   Following the convention defined in Ref. [179], the
+                                                                  application of a symmetry operation {S|v} on a real
+                                                                  space point r gives {S|v}r = Sr + v, with S the rota-
+                                                                  tion part and v the possible fractional translation.
+   We would like to thank P. Giannozzi and F. Spiga
+                                                                      Considering that the symmetry operation {S|v} maps
+for help and support during the integration of EPW
+                                                                  κp into κ0 p0 , that the dielectric function is invariant un-
+into Quantum ESPRESSO, and S. de Gironcoli, A. Dal
+                                                                  der {S|v}, and that the ionic part of the pseudopotential
+Corso, W. Li, M. Zacharias and S. Baroni for fruitful
+                                                                  is invariant under S, we obtain:
+discussions. We would like to thank M. Filip and M.
+Schlipf for generating the lead, gallium and nitrogen                            ∂Sqν V(r) = ∂qν V({S|v}−1 r).            (65)
+pseudopotentials used in this paper.
+                                                                    The electron-phonon matrix element introduced in
+   The research leading to these results has received
+                                                                  Eq. (2) for momentum transfer Sq then reads:
+funding from the Leverhulme Trust (Grant RL-2012-
+001), the UK Engineering and Physical Sciences                      gmn,ν (k, Sq) =
+Research Council (grants No. EP/J009857/1 and
+                                                                            1
+EP/M020517/1), and the Graphene Flagship (EU FP7                       p          ψmk+Sq (r) ∂qν V({S|v}−1 r) (r)ψnk , (66)
+grant no. 604391). The authors acknowledge the use                        2ωSqν
+of the University of Oxford Advanced Research Com-                which, after a change of spatial variable and noting that
+puting (ARC) facility (http://dx.doi.org/ 10.5281/zen-            ωSqν = ωqν , becomes:
+odo.22558), the ARCHER UK National Supercomput-
+ing Service under the ‘AMSEC’ Leadership project                    gmn,ν (k, Sq) =
+and the ‘CTOA’ RAP project, and the Cartesius Dutch
+                                                                        1
+National Supercomputer under the PRACE DECI-13                       p         ψmk+Sq ({S|v}r) ∂qν V(r) ψnk ({S|v}r) . (67)
+project.                                                               2ωqν
+
+                                                             20
+  To simplify the above equation, in principle one could                tial, and ṽκ,lm is the non-local part defined as:
+use the following relationship:
+                                                                          ṽκ,lm (S−1 k + q + G, S−1 k + G0 ) =
+                 ψmk+Sq ({S|v}r) = ψmS−1 k+q (r).          (68)
+                                                                               cκ,lm β̃∗κ,lm (S−1 k + q + G) β̃κ,lm (S−1 k + G0 ), (72)
+   However, such equality implies a phase relationship
+which is not enforced in electronic structure codes, and                where β̃κ,lm is the Fourier transform of the KB projec-
+therefore does not hold in general.                                     tors:
+                                                                                                               ps
+   In case of a separable pseudopotential based on the                                    βκ,lm (r) = V̂κl (r)φlm (r),     (73)
+Kleinman and Bylander (KB) procedure [180], by using                    and the coefficient cκ,lm are given by:
+                                          P
+the completeness of the planewaves basis G |k+Gihk+
+G| = 1, Eq. (67) becomes:                                                                                   1
+                                                                                       cκ,lm =    ps               ps       .     (74)
+                                                                                                 φlm (r) V̂κl (r) φlm (r)
+  gmn,ν (k, Sq) =                                                                                      ps
+                                                                          In these expression φlm (r) is the atomic pseudo-
+       1 h
+    p         ψmk+Sq ({S|v}r) ∂qν V scf (r) ψnk ({S|v}r)                wavefunction, and V̂κl (r) is the angular momentum com-
+      2ωqν                                                              ponent of the pseudopotential.
+         X
+      +       ψmk+Sq ({S|v}r) k + Sq + G({S|v}r)                          Having expressed the rotated matrix element in the
+           GG0                                                          KB form, we can write the time-reversed version of
+   × k + Sq + G({S|v}r) ∂qν V ion (r) k + G0 ({S|v}r)                   Eq. (70) that we implemented in the code:
+                                                i
+              × k + G0 ({S|v}r) ψnk ({S|v}r) , (69)                       gmn,ν (k, −Sq) =
+                                                                             1 h                                 ∗
+where V scf (r) is the screening contribution (local in                   p          ψmk−Sq ({S|v}r) ∂qν V scf (r) ψnk ({S|v}r)
+DFT) that is computed in real space for convenience and                     2ωqν
+                                                                                 X
+then Fourier transformed back. Since the ionic part of                        +       ψmk−Sq ({S|v}r) k − Sq + G({S|v}r)
+the potential V ion needs to be computed at r we have                            GG0
+introduced a complete plane wave basis set. The ba-                          × S k − q + G(r) ∂−qν V ion (r) S−1 k + G0 (r)
+                                                                                  −1
+sis functions |k + Gi respect the relationship given in                                                                i
+Eq. (68) and therefore we can deduce:                                                 × k + G0 ({S|v}r) ψnk ({S|v}r) . (75)
+
+  gmn,ν (k, Sq) =                                                       14. Appendix: Specific heat in MgB2 and the two-
+       1 h                                                                  gap BCS model
+    p         ψmk+Sq ({S|v}r) ∂qν V scf (r) ψnk ({S|v}r)
+      2ωqν
+         X                                                                 By free energy minimization, Bardeen, Cooper and
+      +       ψmk+Sq ({S|v}r) k + Sq + G({S|v}r)                        Schrieffer obtained an integro-differential equation that
+           GG0                                                          links the inverse of the interaction strength λ to the
+       × S k + q + G(r) ∂qν V ion (r) S−1 k + G0 (r)
+            −1                                                          superconducting gap ∆(T = 0) (see Eq. (3.27) of
+                                                 i                      Ref. [77]):
+               × k + G0 ({S|v}r) ψnk ({S|v}r) . (70)
+                                                                              1       1
+                                                                                =
+   The second term can be expressed in reciprocal space                       λ N(εF )ΩBZ
+as follows, see Eq. (A14) of Ref. [45]:                                                    h
+                                                                                  Z ~ω tanh 1 [ξ2 + ∆2 (T )]1/2
+                                                                                                                i
+                                                                                             2kB T
+                                                                                =      dξ                         ,               (76)
+  S−1 k + q + G ∂qν V ion S−1 k + G0 =                                             0        [ξ2 + ∆2 (T )]1/2
+                                                                        where λ is the isotropic integrated λqν from Eq. (11).
+                                      
+    −i qν + Gν − G0ν )e−i(q+G−G ) · τκ ṽloc
+  X                             0
+                                         κ (q + G − G )
+                                                     0
+
+   κ                                                                    Here ~ and kB are indicated explicitly to be consistent
+            l
+           XX                                                          with the seminal equation in Ref. [77].
+       +              ṽκ,lm (S−1 k + q + G, S−1 k + G0 ) . (71)          They also derived what is now known as the universal
+           l   m=−l                                                     BCS relation for weak coupling (i.e. ~ω  ∆(T = 0)),
+                                                                        see Eq. (3.30) of Ref. [77]:
+  Here the exponential is the structure factor, ṽloc
+                                                  κ is the
+Fourier transform of the local part of the pseudopoten-                                   ∆(T = 0) = 1.75kB T c .                 (77)
+                                                                   21
+    1.0
+                                                                                with
+    0.8                                                                                                  πT X        ω j0
+                                                                                             Zj = 1 +                         λ                 (83)
+                                                                                                         ω j j0
+                                                                                                                q
+    0.6                                                                                                           ω + ∆2 (T )
+                                                                                                                   2
+                                                                                                                        j0
+δ
+
+
+
+
+    0.4
+                  BCS equation                                                  and
+                                                                                                                     πT
+    0.2                     q
+                                                                                                        Z Nj = 1 +      λ,                      (84)
+                  Fit δ = 1−τ3.3                                                                                     ωj
+    0.00.0         0.2           0.4         0.6            0.8     1.0         where the sum over j and j0 has to be numerically trun-
+                                       τ                                        cated so that
+Figure 23: (Color online) Adimentional BCS Calculated (blue line)
+                                                     ∆(T )
+and fitted (red line) superconducting gap ratio δ = ∆(T                                            ω j = (2 j + 1)πT ≤ ωc .                     (85)
+                                                        =0) with respect
+to superconducting temperature ratio τ = TTc of MgB2 .
+                                                                                In our case we used a truncation energy of ωc = 0.3 eV.
+
+  Finally, using a variational approximation to the true
+ground-state, they deduced (see Eq. (2.40) of Ref. [77]):                       References
+
+                           ~ω            h1i                                     [1] C.-H. Park, F. Giustino, M. L. Cohen, S. G. Louie, Ve-
+                                  = sinh    .                     (78)               locity renormalization and carrier lifetime in graphene from
+                         ∆(T = 0)         λ                                          the electron-phonon interaction, Phys. Rev. Lett. 99 (2007)
+                                                                                     086804.
+  We can also define the following two dimensionless                             [2] C.-H. Park, F. Giustino, C. D. Spataru, M. L. Cohen,
+variables:                                                                           S. G. Louie, First-principles study of electron linewidths in
+                                                                                     graphene, Phys. Rev. Lett. 102 (2009) 076803.
+                           ∆(T )                     T
+                  δ=                       and τ =      .         (79)           [3] A. Eiguren, S. de Gironcoli, E. V. Chulkov, P. M. Echenique,
+                         ∆(T = 0)                    Tc                              E. Tosatti, Electron-phonon interaction at the Be(0001) sur-
+                                                                                     face, Phys. Rev. Lett. 91 (2003) 166803.
+   Inserting Eqs. (77) and (78) inside Eq. (76) and per-                         [4] S. Pisana, M. Lazzeri, C. Casiraghi, K. S. Novoselov, A. K.
+                                    ξ
+forming a change of variable z = ∆(T  ) leads to [177]                               Geim, A. C. Ferrari, F. Mauri, Breakdown of the adiabatic
+                                                                                     born-oppenheimer approximation in graphene, Nat. Mater. 6
+          Z δ−1 sinh(1/λ)              h 1.75 δ                                      (2007) 198.
+  1                      dz                                  i
+    =                             tanh          (1 + z 2 1/2
+                                                        )     .                  [5] B. Liao, B. Qiu, J. Zhou, S. Huberman, K. Esfarjani, G. Chen,
+  λ      0           (1 + z2 )1/2          2 τ                                       Significant reduction of lattice thermal conductivity by the
+                                                           (80)                      electron-phonon interaction in silicon with high carrier concen-
+   In the case of MgB2 , λ = 0.75 and therefore Eq. (80)                             trations: A first-principles study, Phys. Rev. Lett. 114 (2015)
+                                                                                     115901.
+can be solved by fixing τ and solving for δ. However,
+                                                                                 [6] M. Lazzeri, F. Mauri, Nonadiabatic Kohn anomaly in a doped
+Eq. (80) is expected to work for weak coupling super-                                graphene monolayer, Phys. Rev. Lett. 97 (2006) 266407.
+conductors in the range of λ ≤ 0.3 (determined empiri-                           [7] E. Kioupakis, P. Rinke, A. Schleife, F. Bechstedt, C. G. Van de
+cally, see Ref. [178], p.112 for more details). Indeed, as                           Walle, Free-carrier absorption in nitrides from first principles,
+                                                                                     Phys. Rev. B 81 (2010) 241201.
+can be seen on Fig. 23, the equation has no solution for                         [8] J. Noffsinger, E. Kioupakis, C. G. Van de Walle, S. G. Louie,
+τ close to 1.                                                                        M. L. Cohen, Phonon-assisted optical absorption in silicon
+   An alternative fitting formula can be used [90]:                                  from first principles, Phys. Rev. Lett. 108 (2012) 167402.
+                                                                                 [9] M. Zacharias, C. E. Patrick, F. Giustino, Stochastic approach
+                           ∆(T )   √                                                 to phonon-assisted optical absorption, Phys. Rev. Lett. 115
+                                  = 1 − τp,                       (81)
+                         ∆(T = 0)                                                    (2015) 177401.
+                                                                                [10] H. J. Choi, D. Roundy, H. Sun, M. L. Cohen, S. G. Louie, The
+where p has to be fitted. By fitting on the solution of                              origin of the anomalous superconducting properties of MgB2 ,
+Eq. (80) in the low τ value range, we found p = 3.3 (see                             Nature 418 (2002) 758.
+                                                                                [11] M. Lüders, M. A. L. Marques, N. N. Lathiotakis, A. Floris,
+Fig. (23)) for λ = 0.75.                                                             G. Profeta, L. Fast, A. Continenza, S. Massidda, E. K. U.
+  Once we have a value for the isotropic superconduct-                               Gross, Ab initio theory of superconductivity. I. density func-
+ing gap ∆(T ), Eqs. (44) and (46) can be simplified to:                              tional formalism and approximate functionals, Phys. Rev. B 72
+                                                                                     (2005) 024545.
+               Xhq                        i                                     [12] M. A. L. Marques, M. Lüders, N. N. Lathiotakis, G. Profeta,
+  ∆F = −πT            ω2j + ∆2 (T ) − ω j                                            A. Floris, L. Fast, A. Continenza, E. K. U. Gross, S. Massidda,
+                     j                                                               Ab initio theory of superconductivity. II. Application to ele-
+                                 h                ωj        i                        mental metals, Phys. Rev. B 72 (2005) 024546.
+                                × Z j − Z Nj q                , (82)            [13] E. R. Margine, F. Giustino, Two-gap superconductivity in
+                                              ω2j + ∆2 (T )                          heavily n-doped graphene: Ab initio migdal-eliashberg theory,
+                                                                                     Phys. Rev. B 90 (2014) 014518.
+
+                                                                           22
+[14] E. R. Margine, H. Lambert, F. Giustino, Electron-phonon                      GaN, Phys. Rev. B 89 (2014) 085202.
+     interaction and pairing mechanism in superconducting Ca-                [35] S. Poncé, G. Antonius, P. Boulanger, E. Cannuccia, A. Marini,
+     intercalated bilayer graphene, Sci. Rep. 6 (2016) 21414.                     M. Côté, X. Gonze, Verification of first-principles codes: Com-
+[15] O. D. Restrepo, K. Varga, S. T. Pantelides, First-principles                 parison of total energies, phonon frequencies, electronphonon
+     calculations of electron mobilities in silicon: Phonon and                   coupling and zero-point motion correction to the gap between
+     coulomb scattering, Appl. Phys. Lett. 94 (2009) 212103.                      ABINIT and QE/Yambo, Comp. Mater. Sci. 83 (2014) 341 –
+[16] C.-H. Park, N. Bonini, T. Sohier, G. Samsonidze, B. Kozinsky,                348.
+     M. Calandra, F. Mauri, N. Marzari, Electron-phonon interac-             [36] S. Poncé, G. Antonius, Y. Gillet, P. Boulanger,
+     tions and the intrinsic electrical resistivity of graphene, Nano             J. Laflamme Janssen, A. Marini, M. Côté, X. Gonze,
+     Lett. 14 (2014) 1113–1119.                                                   Temperature dependence of electronic eigenenergies in the
+[17] A. Franceschetti, First-principles calculations of the tempera-              adiabatic harmonic approximation, Phys. Rev. B 90 (2014)
+     ture dependence of the band gap of Si nanocrystals, Phys. Rev.               214304.
+     B 76 (2007) 161301.                                                     [37] A. Marini, S. Poncé, X. Gonze, Many-body perturbation the-
+[18] H. Kamisaka, K. Kilina, Svetlana V.and Yamashita, O. V.                      ory approach to the electron-phonon interaction with density-
+     Prezhdo, Ab Initio study of temperature and pressure depen-                  functional theory as a starting point, Phys. Rev. B 91 (2015)
+     dence of energy and phonon-induced dephasing of electronic                   224310.
+     excitations in CdSe and PbSe quantum dots, J. Phys. Chem. C             [38] S. Poncé, Y. Gillet, J. Laflamme Janssen, A. Marini, M. Ver-
+     112 (2008) 7800–7808.                                                        straete, X. Gonze, Temperature dependence of the electronic
+[19] Z. A. Ibrahim, A. I. Shkrebtii, M. J. G. Lee, K. Vynck,                      structure of semiconductors and insulators, J. Chem. Phys. 143
+     T. Teatro, W. Richter, T. Trepk, T. Zettler, Temperature depen-              (2015) 102813.
+     dence of the optical response: Application to bulk GaAs using           [39] G. Antonius, S. Poncé, E. Lantagne-Hurtubise, G. Auclair,
+     first-principles molecular dynamics simulations, Phys. Rev. B                X. Gonze, M. Côté, Dynamical and anharmonic effects on the
+     77 (2008) 125218.                                                            electron-phonon coupling and the zero-point renormalization
+[20] R. Ramı́rez, C. P. Herrero, E. R. Hernández, Path-integral                  of the electronic structure, Phys. Rev. B 92 (2015) 085137.
+     molecular dynamics simulation of diamond, Phys. Rev. B 73               [40] P. Hohenberg, W. Kohn, Inhomogeneous electron gas, Phys.
+     (2006) 245202.                                                               Rev. 136 (1964) B864–B871.
+[21] R. Ramı́rez, C. P. Herrero, E. R. Hernández, M. Cardona, Path-         [41] W. Kohn, L. J. Sham, Self-consistent equations including ex-
+     integral molecular dynamics simulation of 3C-SiC, Phys. Rev.                 change and correlation effects, Phys. Rev. 140 (1965) A1133–
+     B 77 (2008) 045210.                                                          A1138.
+[22] R. B. Capaz, C. D. Spataru, P. Tangney, M. L. Cohen, S. G.              [42] S. Baroni, P. Giannozzi, A. Testa, Green’s-function approach
+     Louie, Temperature dependence of the band gap of semicon-                    to linear response in solids, Phys. Rev. Lett. 58 (1987) 1861–
+     ducting carbon nanotubes, Phys. Rev. Lett. 94 (2005) 036801.                 1864.
+[23] C. E. Patrick, F. Giustino, Quantum nuclear dynamics in the             [43] S. Y. Savrasov, Linear response calculations of lattice dynam-
+     photophysics of diamondoids, Nat. Commun. 4 (2013) 2006.                     ics using muffin-tin basis sets, Phys. Rev. Lett. 69 (1992) 2819–
+[24] P. Han, G. Bester, Large nuclear zero-point motion effect in                 2822.
+     semiconductor nanoclusters, Phys. Rev. B 88 (2013) 165311.              [44] X. Gonze, First-principles responses of solids to atomic dis-
+[25] B. Monserrat, N. D. Drummond, R. J. Needs, Anharmonic                        placements and homogeneous electric fields: Implementation
+     vibrational properties in periodic systems: energy, electron-                of a conjugate-gradient algorithm, Phys. Rev. B 55 (1997)
+     phonon coupling, and stress, Phys. Rev. B 87 (2013) 144302.                  10337–10354.
+[26] B. Monserrat, R. J. Needs, Comparing electron-phonon cou-               [45] S. Baroni, S. de Gironcoli, A. Dal Corso, P. Giannozzi,
+     pling strength in diamond, silicon, and silicon carbide: First-              Phonons and related crystal properties from density-functional
+     principles study, Phys. Rev. B 89 (2014) 214304.                             perturbation theory, Rev. Mod. Phys. 73 (2001) 515–562.
+[27] G. Antonius, S. Poncé, P. Boulanger, M. Côté, X. Gonze,              [46] F. Giustino, M. L. Cohen, S. G. Louie, Electron-phonon in-
+     Many-body effects on the zero-point renormalization of the                   teraction using wannier functions, Phys. Rev. B 76 (2007)
+     band structure, Phys. Rev. Lett. 112 (2014) 215501.                          165108.
+[28] B. Monserrat, Vibrational averages along thermal lines, Phys.           [47] W. Li, Electrical transport limited by electron-phonon coupling
+     Rev. B 93 (2016) 014302.                                                     from Boltzmann transport equation: An ab initio study of Si,
+[29] A. Marini, Ab Initio finite-temperature excitons, Phys. Rev.                 Al, and MoS2 , Phys. Rev. B 92 (2015) 075405.
+     Lett. 101 (2008) 106405.                                                [48] T. Gunst, T. Markussen, K. Stokbro, M. Brandbyge, First-
+[30] F. Giustino, S. G. Louie, M. L. Cohen, Electron-phonon renor-                principles method for electron-phonon coupling and electron
+     malization of the direct band gap of diamond, Phys. Rev. Lett.               mobility: Applications to two-dimensional materials, Phys.
+     105 (2010) 265501.                                                           Rev. B 93 (2016) 035414.
+[31] X. Gonze, P. Boulanger, M. Côté, Theoretical approaches to            [49] P. B. Allen, Fermi-surface harmonics: A general method for
+     the temperature and zero-point motion effects on the electronic              nonspherical problems. application to Boltzmann and Eliash-
+     band structure., Ann. Phys. 523 (2011) 168.                                  berg equations, Phys. Rev. B 13 (1976) 1416–1427.
+[32] E. Cannuccia, A. Marini, Effect of the quantum zero-point               [50] A. Eiguren, I. G. Gurtubay, Helmholtz Fermi surface harmon-
+     atomic motion on the optical and electronic properties of di-                ics: an efficient approach for treating anisotropic problems in-
+     amond and trans-polyacetylene, Phys. Rev. Lett. 107 (2011)                   volving Fermi surface integrals, New J. Phys. 16 (6) (2014)
+     255501.                                                                      063014.
+[33] E. Cannuccia, A. Marini, Zero point motion effect on the                [51] N. Marzari, D. Vanderbilt, Maximally localized generalized
+     electronic properties of diamond, trans-polyacetylene and                    Wannier functions for composite energy bands, Phys. Rev. B
+     polyethylene, Eur. Phys. J. B 85 (9) (2012) 1–7.                             56 (1997) 12847–12865.
+[34] H. Kawai, K. Yamashita, E. Cannuccia, A. Marini, Electron-              [52] I. Souza, N. Marzari, D. Vanderbilt, Maximally localized Wan-
+     electron and electron-phonon correlation effects on the finite-              nier functions for entangled energy bands, Phys. Rev. B 65
+     temperature electronic and optical properties of zinc-blende                 (2001) 035109.
+
+                                                                        23
+[53] A. A. Mostofi, J. R. Yates, Y.-S. Lee, I. Souza, D. Vander-                [74] J. M. Luttinger, J. C. Ward, Ground-state energy of a many-
+     bilt, N. Marzari, wannier90: A tool for obtaining maximally-                    fermion system. II, Phys. Rev. 118 (1960) 1417–1427.
+     localised Wannier functions, Comp. Phys. Commun. 178 (9)                   [75] T. Bazhirov, J. Noffsinger, M. L. Cohen, Superconductivity and
+     (2008) 685 – 699.                                                               electron-phonon coupling in lithium at high pressures, Phys.
+[54] M. Calandra, G. Profeta, F. Mauri, Adiabatic and nonadiabatic                   Rev. B 82 (2010) 184509.
+     phonon dispersion in a Wannier function approach, Phys. Rev.               [76] H. Fröhlich, Electrons in lattice fields, Adv. Phys. 3 (1954)
+     B 82 (2010) 165111.                                                             325.
+[55] J. Sjakste, N. Vast, M. Calandra, F. Mauri, Wannier interpo-               [77] J. Bardeen, L. N. Cooper, J. R. Schrieffer, Theory of supercon-
+     lation of the electron-phonon matrix elements in polar semi-                    ductivity, Phys. Rev. 108 (1957) 1175–1204.
+     conductors: Polar-optical coupling in GaAs, Phys. Rev. B 92                [78] W. L. McMillan, Transition temperature of strong-coupled su-
+     (2015) 054307.                                                                  perconductors, Phys. Rev. 167 (1968) 331–344.
+[56] M. Calandra, P. Zoccante, F. Mauri, Universal increase in the              [79] A. Migdal, Interaction between electrons and lattice vibrations
+     superconducting critical temperature of two-dimensional semi-                   in a normal metal, Sov. Phys. JETP 34 (1958) 996.
+     conductors at low doping by the electron-electron interaction,             [80] G. Eliashberg, Interactions between electrons and lattice vibra-
+     Phys. Rev. Lett. 114 (2015) 077001.                                             tions in a superconductor, Sov. Phys. JETP 11 (1960) 696.
+[57] http://epw.org.uk/.                                                        [81] G. Eliashberg, Temperature Green’s function for electrons in a
+[58] http://www.gnu.org/copyleft/gpl.txt.                                            superconductor, Sov. Phys. JETP 12 (1961) 1000.
+[59] E. R. Margine, F. Giustino, Anisotropic Migdal-Eliashberg the-             [82] A. Linscheid, A. Sanna, F. Essenberger, E. K. U. Gross, Ab
+     ory using Wannier functions, Phys. Rev. B 87 (2013) 024505.                     initio theory of superconductivity in a magnetic field. I. spin
+[60] C. Verdi, F. Giustino, Fröhlich electron-phonon vertex from                    density functional theory for superconductors and Eliashberg
+     first principles, Phys. Rev. Lett. 115 (2015) 176401.                           equations, Phys. Rev. B 92 (2015) 024505.
+[61] J. Noffsinger, F. Giustino, B. D. Malone, C.-H. Park, S. G.                [83] A. Linscheid, A. Sanna, E. K. U. Gross, Ab initio theory of
+     Louie, M. L. Cohen, EPW: A program for calculating the elec-                    superconductivity in a magnetic field. II. numerical solution,
+     tronphonon coupling using maximally localized Wannier func-                     Phys. Rev. B 92 (2015) 024506.
+     tions, Comp. Phys. Commun. 181 (12) (2010) 2140 – 2148.                    [84] P. B. Allen, R. C. Dynes, Transition temperature of strong-
+[62] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car,                        coupled superconductors reanalyzed, Phys. Rev. B 12 (1975)
+     C. Cavazzoni, D. Ceresoli, G. L. Chiarotti, M. Cococcioni,                      905–922.
+     I. Dabo, A. D. Corso, S. de Gironcoli, S. Fabris, G. Fratesi,              [85] L. P. Gor’kov, On the energy spectrum of superconductors,
+     R. Gebauer, U. Gerstmann, C. Gougoussis, A. Kokalj,                             Sov. Phys. JETP 7 (1958) 505.
+     M. Lazzeri, L. Martin-Samos, N. Marzari, F. Mauri, R. Maz-                 [86] Y. Nambu, Quasi-particles and gauge invariance in the theory
+     zarello, S. Paolini, A. Pasquarello, L. Paulatto, C. Sbraccia,                  of superconductivity, Phys. Rev. 117 (1960) 648–663.
+     S. Scandolo, G. Sclauzero, A. P. Seitsonen, A. Smogunov,                   [87] J. W. Garland, Band-structure effects in superconductivity. I.
+     P. Umari, R. M. Wentzcovitch, QUANTUM ESPRESSO: a                               formalism, Phys. Rev. 153 (1967) 460–481.
+     modular and open-source software project for quantum sim-                  [88] P. B. Allen, B. Mitrovi, Theory of superconducting Tc, Vol. 37
+     ulations of materials, J. Phys. Condens. Matter 21 (39) (2009)                  of Solid State Phys., Academic Press, 1983, pp. 1 – 92.
+     395502.                                                                    [89] J. P. Carbotte, Properties of boson-exchange superconductors,
+[63] J. P. Perdew, A. Zunger, Self-interaction correction to density-                Rev. Mod. Phys. 62 (1990) 1027–1157.
+     functional approximations for many-electron systems, Phys.                 [90] H. J. Choi, M. L. Cohen, S. G. Louie, Anisotropic Eliashberg
+     Rev. B 23 (1981) 5048–5079.                                                     theory of MgB2 : Tc, isotope effects, superconducting energy
+[64] N. Troullier, J. L. Martins, Efficient pseudopotentials for plane-              gaps, quasiparticles, and specific heat, Phys. C 385 (12) (2003)
+     wave calculations, Phys. Rev. B 43 (1991) 1993–2006.                            66 – 74.
+[65] M. Fuchs, M. Scheffler, Ab initio pseudopotentials for elec-               [91] P. B. Allen, Solids with thermal or static disorder. I. one-
+     tronic structure calculations of poly-atomic systems using                      electron properties, Phys. Rev. B 18 (1978) 5217–5224.
+     density-functional theory, Comp. Phys. Commun. 119 (1)                     [92] B. Chakraborty, P. B. Allen, Theory of temperature dependence
+     (1999) 67 – 98.                                                                 of optical properties of solids, J. Phys. C 11 (1978) L9.
+[66] G. B. Bachelet, D. R. Hamann, M. Schlüter, Pseudopotentials               [93] W. E. Pickett, Generalization of the theory of the electron-
+     that work: From h to pu, Phys. Rev. B 26 (1982) 4199–4228.                      phonon interaction:         Thermodynamic formulation of
+[67] D. R. Hamann, Optimized norm-conserving Vanderbilt pseu-                        superconducting- and normal-state properties, Phys. Rev.
+     dopotentials, Phys. Rev. B 88 (2013) 085117.                                    B 26 (1982) 1186–1207.
+[68] D. M. Ceperley, B. J. Alder, Ground state of the electron gas              [94] F. Marsiglio, J. P. Carbotte, Superconductivity, Springer, 2008.
+     by a stochastic method, Phys. Rev. Lett. 45 (1980) 566–569.                [95] D. J. Scalapino, J. R. Schrieffer, J. W. Wilkins, Strong-coupling
+[69] J. P. Perdew, J. A. Chevary, S. H. Vosko, K. A. Jackson, M. R.                  superconductivity. I, Phys. Rev. 148 (1966) 263–279.
+     Pederson, D. J. Singh, C. Fiolhais, Atoms, molecules, solids,              [96] D. Scalapino, Superconductivity, Dekker, 1969.
+     and surfaces: Applications of the generalized gradient approx-             [97] P. Morel, P. W. Anderson, Calculation of the superconduct-
+     imation for exchange and correlation, Phys. Rev. B 46 (1992)                    ing state parameters with retarded electron-phonon interaction,
+     6671–6687.                                                                      Phys. Rev. 125 (1962) 1263–1271.
+[70] F. Giustino, Electron-phonon interactions from first principles,           [98] J. Bardeen, M. Stephen, Free-energy difference between nor-
+     http://arxiv.org/abs/1603.06965.                                                mal and superconducting states, Phys. Rev. 136 (1964) A1485–
+[71] P. B. Allen, V. Heine, Theory of the temperature dependence                     A1487.
+     of electronic band structures, J. Phys. C 9 (1976) 2305.                   [99] N. E. Phillips, Heat capacity of aluminum between 0.1K and
+[72] P. B. Allen, M. Cardona, Theory of the temperature depen-                       4.0K, Phys. Rev. 114 (1959) 676–685.
+     dence of the direct gap of germanium, Phys. Rev. B 23 (1981)              [100] W. L. McMillan, J. M. Rowell, Lead phonon spectrum calcu-
+     1495–1505.                                                                      lated from superconducting density of states, Phys. Rev. Lett.
+[73] P. B. Allen, M. Cardona, Temperature dependence of the direct                   14 (1965) 108–112.
+     gap of Si and Ge, Phys. Rev. B 27 (1983) 4760–4769.                       [101] J. R. Schrieffer, D. J. Scalapino, J. W. Wilkins, Effective tun-
+
+                                                                          24
+      neling density of states in superconductors, Phys. Rev. Lett. 10                Phys. Rev. B 71 (2005) 064501.
+      (1963) 336–339.                                                           [125] D. Rideau, W. Zhang, Y. Niquet, C. Delerue, C. Tavernier,
+[102] M. J. Holcomb, Finite-temperature real-energy-axis solutions                    H. Jaouen, Electron-phonon scattering in Si and Ge: From
+      of the isotropic Eliashberg integral equations, Phys. Rev. B 54                 bulk to nanodevices, in: Simulation of Semiconductor Pro-
+      (1996) 6648–6660.                                                               cesses and Devices (SISPAD), 2011 International Conference
+[103] H. Vidberg, J. Serene, Solving the Eliashberg equations by                      on, 2011, pp. 47–50.
+      means ofn-point padé approximants, J. Low Temp. Phys. 29 (3-             [126] Y. Sun, S. A. Boggs, R. Ramprasad, The intrinsic electrical
+      4) (1977) 179–192.                                                              breakdown strength of insulators from first principles, Appl.
+[104] C. Leavens, D. Ritchie, Extension of the n-point padé approx-                  Phys. Lett. 101 (2012) 13.
+      imants solution of the Eliashberg equations to T≈ Tc , Solid              [127] M. Bernardi, D. Vigil-Fowler, J. Lischner, J. B. Neaton, S. G.
+      State Commun. 53 (2) (1985) 137 – 142.                                          Louie, Ab Initio study of hot carriers in the first picosecond
+[105] F. Marsiglio, M. Schossmann, J. P. Carbotte, Iterative analytic                 after sunlight absorption in silicon, Phys. Rev. Lett. 112 (2014)
+      continuation of the electron self-energy to the real axis, Phys.                257402.
+      Rev. B 37 (1988) 4965–4969.                                               [128] B. Qiu, Z. Tian, A. Vallabhaneni, B. Liao, J. M. Mendoza,
+[106] A. Sanna, S. Pittalis, J. K. Dewhurst, M. Monni, S. Sharma,                     O. D. Restrepo, X. Ruan, G. Chen, First-principles simulation
+      G. Ummarino, S. Massidda, E. K. U. Gross, Phononic self-                        of electron mean-free-path spectra and thermoelectric proper-
+      energy effects and superconductivity in CaC6 , Phys. Rev. B 85                  ties in silicon, Europhys. Lett. 109 (5) (2015) 57006.
+      (2012) 184514.                                                            [129] N. Tandon, J. D. Albrecht, L. R. Ram-Mohan, Electron-phonon
+[107] S. B. Kaplan, C. C. Chi, D. N. Langenberg, J. J. Chang, S. Ja-                  interaction and scattering in Si and Ge: Implications for
+      farey, D. J. Scalapino, Quasiparticle and phonon lifetimes in                   phonon engineering, J. Appl. Phys. 118 (2015) 4.
+      superconductors, Phys. Rev. B 14 (1976) 4854–4873.                        [130] G. Dolling, Symp. inelastic scattering of neutrons in solids and
+[108] F. Marsiglio, J. P. Carbotte, Aspects of optical properties in                  liquids, IAEA 2 (1963) 37.
+      conventional and oxide superconductors., Austr. J. Phys. 50               [131] G. Nilsson, G. Nelin, Study of the homology between silicon
+      (1997) 975.                                                                     and germanium by thermal-neutron spectrometry, Phys. Rev. B
+[109] F. Marsiglio, J. P. Carbotte, Quasiparticle lifetimes and the con-              6 (1972) 3777–3786.
+      ductivity scattering rate, Austr. J. Phys. 50 (1997) 1011.                [132] H. J. Monkhorst, J. D. Pack, Special points for Brillouin-zone
+[110] J. R. Schrieffer, Theory of Superconductivity, Advanced Book                    integrations, Phys. Rev. B 13 (1976) 5188–5192.
+      Classics, 1964.                                                           [133] W. C. O’Mara, R. B. Haber, L. P. Hunt (Eds.), Handbook of
+[111] J. Ziman, Electrons and Phonons, Oxford University Press,                       Semiconductor Silicon Technology, William Andrew, 1990.
+      1960.                                                                     [134] R. Heid, K.-P. Bohnen, I. Y. Sklyadneva, E. V. Chulkov, Effect
+[112] G. Grimvall, The electron-phonon interaction in metals, North-                  of spin-orbit coupling on the electron-phonon interaction of the
+      Holland Publishing Company, 1981.                                               superconductors Pb and Tl, Phys. Rev. B 81 (2010) 174527.
+[113] N. W. Ashcroft, N. Mermin, Solid State Physics, Brooks/Cole,              [135] Y. S. Touloukian, R. K. Kirby, R. E. Taylor, P. D. Desai, Ther-
+      1976.                                                                           mophysical properties of matter, IFI/Plenum, New York 12
+[114] J. R. Yates, X. Wang, D. Vanderbilt, I. Souza, Spectral and                     (1975) 1436.
+      fermi surface properties from wannier interpolation, Phys. Rev.           [136] B. Grabowski, T. Hickel, J. Neugebauer, Ab initio study of
+      B 75 (2007) 195121.                                                             the thermodynamic properties of nonmagnetic elementary fcc
+[115] J. L. Janssen, Y. Gillet, S. Poncé, A. Martin, M. Torrent,                     metals: Exchange-correlation-related error bars and chemical
+      X. Gonze, Accurate effective masses from density functional                     trends, Phys. Rev. B 76 (2007) 024309.
+      perturbation theory, Phys. Rev. B (accepted).                             [137] A. D. Corso, Ab initio phonon dispersions of face centered cu-
+[116] A. F. Starace, Length and velocity formulas in approximate                      bic Pb: effects of spinorbit coupling, J. Phys. Condens. Matter
+      oscillator-strength calculations, Phys. Rev. A 3 (1971) 1242–                   20 (44) (2008) 445202.
+      1245.                                                                     [138] B. N. Brockhouse, T. Arase, G. Caglioti, K. R. Rao, A. D. B.
+[117] A. J. Read, R. J. Needs, Calculation of optical matrix ele-                     Woods, Crystal dynamics of lead. I. dispersion curves at 100
+      ments with nonlocal pseudopotentials, Phys. Rev. B 44 (1991)                    K, Phys. Rev. 128 (1962) 1099–1111.
+      13071–13073.                                                              [139] P. Bratley, B. L. Fox, Algorithm 659: Implementing Sobol’s
+[118] S. Ismail-Beigi, E. K. Chang, S. G. Louie, Coupling of non-                     quasirandom sequence generator, ACM Trans. Math. Softw.
+      local potentials to electromagnetic fields, Phys. Rev. Lett. 87                 14 (1) (1988) 88–100.
+      (2001) 087402.                                                            [140] H. S. Hong, F. J. Hickernell, Algorithm 823: Implementing
+[119] C. J. Pickard, F. Mauri, Nonlocal pseudopotentials and mag-                     scrambled digital sequences, ACM Trans. Math. Softw. 29 (2)
+      netic fields, Phys. Rev. Lett. 91 (2003) 196401.                                (2003) 95–109.
+[120] E. Blount, Formalisms of band theory, Vol. 13 of Solid State              [141] A. J. Leadbetter, D. M. T. Newsham, N. H. Picton, Energy of
+      Physics, Academic Press, 1962, pp. 305 – 373.                                   formation of lattice vacancies in lead from equilibrium resistiv-
+[121] E. A. Ekimov, V. A. Sidorov, E. D. Bauer, N. N. Mel’nik, N. J.                  ity and quenching studies, Philos. Mag. 13 (122) (1966) 371–
+      Curro, J. D. Thompson, S. M. Stishov, Superconductivity in                      377.
+      diamond, Nature 428 (2004) 542.                                           [142] J. P. Moore, R. S. Graves, Absolute Seebeck coefficient of plat-
+[122] M. Methfessel, A. T. Paxton, High-precision sampling for                        inum from 80 to 340 K and the thermal and electrical conduc-
+      brillouin-zone integration in metals, Phys. Rev. B 40 (1989)                    tivities of lead from 80 to 400 K, J. Appl. Phys. 44 (3) (1973)
+      3616–3621.                                                                      1174–1178.
+[123] F. Giustino, J. R. Yates, I. Souza, M. L. Cohen, S. G. Louie,             [143] J. G. Cook, M. J. Laubitz, M. P. Van der Meer, Thermal con-
+      Electron-phonon interaction via electronic and lattice Wannier                  ductivity, electrical resistivity, and thermoelectric power of Pb
+      functions: Superconductivity in boron-doped diamond reex-                       from 260 to 550 K, J. Appl. Phys. 45 (2) (1974) 510–513.
+      amined, Phys. Rev. Lett. 98 (2007) 047005.                                [144] K. Hellwege, O. Madelung (Eds.), Metals: Electronic Trans-
+[124] M. Calandra, F. Mauri, Electron-phonon coupling and phonon                      port Phenomena: Electrical Resistivity, Kondo and Spin Fluc-
+      self-energy in MgB2 : Interpretation of MgB2 raman spectra,                     tuations Systems, Spin Glasses and Thermopower, Springer,
+
+                                                                           25
+      1983.                                                                    [164] X. Xi, Two-band superconductor magnesium diboride, Rep.
+[145] T. Ruf, J. Serrano, M. Cardona, P. Pavone, M. Pabst, M. Krisch,                Prog. Phys. 71 (2008) 11.
+      M. D’Astuto, T. Suski, I. Grzegory, M. Leszczynski, Phonon               [165] H. Choi, S. Louie, M. Cohen, Anisotropic Eliashberg theory
+      dispersion curves in wurtzite-structure GaN determined by in-                  for superconductivity in compressed and doped MgB2 , Phys.
+      elastic X-ray scattering, Phys. Rev. Lett. 86 (2001) 906–909.                  Rev. B 79 (2009) 9.
+[146] H. Siegle, G. Kaczmarczyk, L. Filippidis, A. P. Litvinchuk,              [166] O. Abah, G. Asomba, C. Okoye, The effect of interband inter-
+      A. Hoffmann, C. Thomsen, Zone-boundary phonons in hexag-                       actions of phonon and charge fluctuation on the superconduct-
+      onal and cubic GaN, Phys. Rev. B 55 (1997) 7000–7004.                          ing parameters of MgB2 , Supercond. Sci. Technol. 23 (2010)
+[147] M. Schlipf, F. Gygi, Optimization algorithm for the genera-                    4.
+      tion of ONCV pseudopotentials, Comp. Phys. Commun. 196                   [167] A. Aperis, P. Maldonado, P. M. Oppeneer, Ab initio theory of
+      (2015) 36 – 44.                                                                magnetic-field-induced odd-frequency two-band superconduc-
+[148] V. Bougrov, M. Levinshtein, S. Rumyantsev, A. Zubrilov,                        tivity in MgB2 , Phys. Rev. B 92 (2015) 054516.
+      Properties of Advanced Semiconductor Materials GaN, AlN,                 [168] K.-P. Bohnen, R. Heid, B. Renker, Phonon dispersion and
+      InN, BN, SiC, SiGe, John Wiley & Sons, 2001.                                   electron-phonon coupling in MgB2 and AlB2 , Phys. Rev. Lett.
+[149] A. Shukla, M. Calandra, M. d’Astuto, M. Lazzeri, F. Mauri,                     86 (2001) 5771–5774.
+      C. Bellin, M. Krisch, J. Karpinski, S. M. Kazakov, J. Jun,               [169] A. Eiguren, C. Ambrosch-Draxl, Wannier interpolation
+      D. Daghero, K. Parlinski, Phonon dispersion and lifetimes in                   scheme for phonon-induced potentials: Application to bulk
+      MgB2 , Phys. Rev. Lett. 90 (2003) 095506.                                      MgB2 , W, and the (1 × 1) H-covered W(110) surface, Phys.
+[150] J. Nagamatsu, N. Nakagawa, T. Muranaka, Y. Zenitani,                           Rev. B 78 (2008) 045124.
+      J. Akimits, Superconductivity at 39 K in magnesium diboride,             [170] E. Cappelluti, S. Ciuchi, C. Grimaldi, L. Pietronero,
+      Nature 410 (2001) 63.                                                          S. Strässler, High Tc superconductivity in MgB2 by nonadi-
+[151] J. Kortus, I. I. Mazin, K. D. Belashchenko, V. P. Antropov,                    abatic pairing, Phys. Rev. Lett. 88 (2002) 117003.
+      L. L. Boyer, Superconductivity of metallic boron in MgB2 ,               [171] W. Pickett, J. An, H. Rosner, S. Savrasov, Role of two dimen-
+      Phys. Rev. Lett. 86 (2001) 4656–4659.                                          sionality in MgB2 , Phys. C 387 (12) (2003) 117 – 121.
+[152] A. Y. Liu, I. I. Mazin, J. Kortus, Beyond Eliashberg super-              [172] A. M. Saitta, M. Lazzeri, M. Calandra, F. Mauri, Giant nona-
+      conductivity in MgB2 : Anharmonicity, two-phonon scattering,                   diabatic effects in layer metals: Raman spectra of intercalated
+      and multiple gaps, Phys. Rev. Lett. 87 (2001) 087005.                          graphite explained, Phys. Rev. Lett. 100 (2008) 226401.
+[153] F. Giubileo, D. Roditchev, W. Sacks, R. Lamy, D. X. Thanh,               [173] K. Momma, F. Izumi, VESTA3 for three-dimensional visual-
+      J. Klein, S. Miraglia, D. Fruchart, J. Marcus, P. Monod, Two-                  ization of crystal, volumetric and morphology data, Journal of
+      gap state density in MgB2 : A true bulk property or a proximity                Applied Crystallography 44 (6) (2011) 1272–1276.
+      effect?, Phys. Rev. Lett. 87 (2001) 177008.                              [174] P. Szabó, P. Samuely, J. Kačmarčı́k, T. Klein, J. Marcus,
+[154] H. J. Choi, D. Roundy, H. Sun, M. L. Cohen, S. G. Louie,                       D. Fruchart, S. Miraglia, C. Marcenat, A. G. M. Jansen, Evi-
+      First-principles calculation of the superconducting transition in              dence for two superconducting energy gaps in MgB2 by point-
+      MgB2 within the anisotropic eliashberg formalism, Phys. Rev.                   contact spectroscopy, Phys. Rev. Lett. 87 (2001) 137005.
+      B 66 (2002) 020513.                                                      [175] M. Iavarone, G. Karapetrov, A. E. Koshelev, W. K. Kwok,
+[155] A. Floris, G. Profeta, N. N. Lathiotakis, M. Lüders, M. A. L.                 G. W. Crabtree, D. G. Hinks, W. N. Kang, E.-M. Choi, H. J.
+      Marques, C. Franchini, E. K. U. Gross, A. Continenza, S. Mas-                  Kim, H.-J. Kim, S. I. Lee, Two-band superconductivity in
+      sidda, Superconducting properties of MgB2 from first princi-                   MgB2 , Phys. Rev. Lett. 89 (2002) 187002.
+      ples, Phys. Rev. Lett. 94 (2005) 037004.                                 [176] R. S. Gonnelli, D. Daghero, G. A. Ummarino, V. A. Stepanov,
+[156] D. G. Hinks, H. Claus, J. D. Jorgensen, The complex nature                     J. Jun, S. M. Kazakov, J. Karpinski, Direct evidence for two-
+      of superconductivity in MgB2 as revealed by the reduced total                  band superconductivity in MgB2 single crystals from direc-
+      isotope effect, Nature 411 (2000) 457–460.                                     tional point-contact spectroscopy in magnetic fields, Phys. Rev.
+[157] F. Bouquet, R. A. Fisher, N. E. Phillips, D. G. Hinks, J. D.                   Lett. 89 (2002) 247004.
+      Jorgensen, Specific heat of Mg11 B2 : Evidence for a second              [177] D. C. Johnston, Elaboration of the -model derived from the
+      energy gap, Phys. Rev. Lett. 87 (2001) 047001.                                 bcs theory of superconductivity, Superconductor Science and
+[158] H. D. Yang, J.-Y. Lin, H. H. Li, F. H. Hsu, C. J. Liu, S.-C. Li,               Technology 26 (11) (2013) 115011.
+      R.-C. Yu, C.-Q. Jin, Order parameter of MgB2 : A fully gapped            [178] P. G. D. Gennes, Superconductivity Of Metals And Alloys,
+      superconductor, Phys. Rev. Lett. 87 (2001) 167003.                             Westview Press, 1999.
+[159] Y. Wang, T. Plackowski, A. Junod, Specific heat in the super-            [179] A. A. Maraduin, S. H. Vosko, Symmetry properties of the nor-
+      conducting and normal state (2-300 K, 0-16 T), and magnetic                    mal vibrations of a crystal, Rev. Mod. Phys. 40 (1968) 1–37.
+      susceptibility of the 38 K superconductor MgB2 : evidence for            [180] L. Kleinman, D. M. Bylander, Efficacious form for model
+      a multicomponent gap, Phys. C 355 (34) (2001) 179 – 193.                       pseudopotentials, Phys. Rev. Lett. 48 (1982) 1425–1428.
+[160] T. Soda, Y. Fukumoto, Theory of the superconductivity of
+      MgB2 , Progr. Theor. Phys. 111 (5) (2004) 707–719.
+[161] S. Punpocha, R. Hoonsawat, I. Tang, Calculation of Tc and
+      the ratio 2∆(0)/kBTc of MgB2 within a two-band model of
+      superconductivity, Solid State Commun. 129 (3) (2004) 151 –
+      156.
+[162] O. V. Dolgov, R. K. Kremer, J. Kortus, A. A. Golubov, S. V.
+      Shulga, Thermodynamics of two-band superconductors: The
+      case of MgB2 , Phys. Rev. B 72 (2005) 024504.
+[163] T. M. Mishonov, S. I. Klenov, E. S. Penev, Temperature depen-
+      dence of specific heat and penetration depth of anisotropic-gap
+      Bardeen-Cooper-Schrieffer superconductors for a factorizable
+      pairing potential, Phys. Rev. B 71 (2005) 024520.
+
+                                                                          26
+

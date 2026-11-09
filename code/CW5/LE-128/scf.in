@@ -1,0 +1,24 @@
+&control
+    calculation = 'scf'
+    prefix = 'si64fp'
+    pseudo_dir = '@PSEUDO@'
+    outdir = './'
+    tprnfor = .true.
+/
+&system
+    ibrav = 1
+    celldm(1) = 20.66
+    nat = 64
+    ntyp = 1
+    ecutwfc = 40
+/
+&electrons
+    conv_thr = 1.0d-9
+    mixing_beta = 0.5
+/
+ATOMIC_SPECIES
+ Si 28.0855 Si_ONCV_PBE-1.2.upf
+ATOMIC_POSITIONS crystal
+ @POSITIONS_END_STATE@
+K_POINTS automatic
+2 2 2 0 0 0

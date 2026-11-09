@@ -1,0 +1,100 @@
+== Aluminum scales ==
+n_e = 1.8064e+23 cm^-3 (12 electrons per cube of a = 4.05 A)
+k_F = 3450.9 eV ; E_F(free) = 11.65 eV ; v_F(free) = 6.7532e-03 (book value v_F = 0.006753240057926687)
+k_TF = 4048 eV
+v_max = 2.6502e-03 ; v_max/v_F = 0.3924 ; v_max/(2 v_F) = 0.1962
+c_LA = sqrt(C11/rho) (0 K C11 = 114.3 GPa) = 6.47 km/s = 2.158e-05 ; c_LA/v_max = 0.0081
+bulk: Delta = 0.18 meV, 2Delta = 0.36 meV, m_min = 2(2Delta)/v_max^2 = 0.103 keV, q_min(2Delta) = 2Delta/v_max = 0.136 eV, coherence length v_F/(pi Delta) = 2.36 um
+film: Delta = 0.30 meV, 2Delta = 0.60 meV, m_min = 2(2Delta)/v_max^2 = 0.171 keV, q_min(2Delta) = 2Delta/v_max = 0.226 eV, coherence length v_F/(pi Delta) = 1.41 um
+ratio film/bulk Delta = 1.667
+m_chi = 1 keV: omega_max = m v_max^2/2 = 3.512 meV ; q_max = 2 m v_max = 5.300 eV ; q_max/k_TF = 1.31e-03
+  y_max (bulk) = 19.51 ; y_max (film) = 11.71
+  Q_max (bulk) = 198.9
+  omega = 2 Delta, m_chi = 103 eV (1.0 m_min): q_min/(omega/v_max) = 2.000
+  omega = 2 Delta, m_chi = 205 eV (2.0 m_min): q_min/(omega/v_max) = 1.172
+  omega = 2 Delta, m_chi = 1000 eV (9.8 m_min): q_min/(omega/v_max) = 1.027
+  omega = 2 Delta, m_chi = 10000 eV (97.5 m_min): q_min/(omega/v_max) = 1.003
+
+== Checks of the closed forms ==
+g_I(2.0001) closed = 1.570757 ; integral = 1.570757
+g_I(2.2) closed = 1.500247 ; integral = 1.500247
+g_I(2.5) closed = 1.418083 ; integral = 1.418083
+g_I(3.0) closed = 1.322120 ; integral = 1.322120
+g_I(4.0) closed = 1.211056 ; integral = 1.211056
+g_I(5.0) closed = 1.150656 ; integral = 1.150656
+g_I(10.0) closed = 1.050502 ; integral = 1.050502
+g_I(100.0) closed = 1.000960 ; integral = 1.000960
+pi/2 = 1.570796
+Im P_bare/Im P_nor at y=2.2, Q=5.606: 1.50024657 vs g_I = 1.50024661
+Im P_bare/Im P_nor at y=3.0, Q=7.645: 1.32211995 vs g_I = 1.32211997
+Im P_bare/Im P_nor at y=5.0, Q=12.741: 1.15065560 vs g_I = 1.15065563
+q -> 0 cancellation y=2.5, Q=0.01: |P_cons| = 5.333e-06, |P_bare| = 1.831e+00, P_cons/(Q^2/3y^2) = 1.00001
+q -> 0 cancellation y=2.5, Q=0.1: |P_cons| = 5.340e-04, |P_bare| = 1.834e+00, P_cons/(Q^2/3y^2) = 1.00128
+omega -> 0 (y = 1e-6, Q = 5): P_bare = -1.000000, P_cons = -1.000000 (static value -1)
+Delta -> 0 at x = v_max/v_F = 0.3924, Q = 1e+03: |P_cons - P_nor|/|P_nor| = 6.21e-05 (mpmath)
+Delta -> 0 at x = v_max/v_F = 0.3924, Q = 1e+04: |P_cons - P_nor|/|P_nor| = 8.24e-07 (mpmath)
+
+== First-order Kramers-Kronig function s_BCS(y) ==
+s_BCS(0.0) = 0.0000
+s_BCS(2.2) = 4.0143
+s_BCS(2.5) = 2.8233
+s_BCS(3.0) = 2.0337
+s_BCS(5.0) = 1.0529
+s_BCS(10.0) = 0.5011
+s_BCS(20.0) = 0.2477
+y s_BCS(y) at y = 20.0: 4.9534 ; pi^2/2 = 4.9348 ; pi^2/(2y) = 0.2467
+y s_BCS(y) at y = 50.0: 4.9378 ; pi^2/2 = 4.9348 ; pi^2/(2y) = 0.0987
+y s_BCS(y) at y = 100.0: 4.9355 ; pi^2/2 = 4.9348 ; pi^2/(2y) = 0.0493
+
+== Loss-function ratios at the kinematic edge q = omega/v_max (bulk Delta) ==
+y      Q       g_I    v_frac   Lb/(gI Ln)  Lc/(gI Ln)  Lc/Ln   Lc/Lb   s_BCS   1-2 s_BCS/Q  2 s_BCS/Q
+2.05   5.224   1.5517 +0.2170  0.2190      0.6805      1.0560  3.1077  6.0134  -1.3023       2.3023
+2.2    5.606   1.5002 +0.4394  0.3260      0.8667      1.3003  2.6588  4.0143  -0.4321       1.4321
+2.5    6.371   1.4181 +0.3466  0.4437      0.9987      1.4163  2.2510  2.8233  0.1136       0.8864
+3.0    7.645   1.3221 +0.2138  0.5681      1.0692      1.4137  1.8822  2.0337  0.4679       0.5321
+4.0    10.193  1.2111 +0.0980  0.7141      1.0820      1.3104  1.5152  1.3715  0.7309       0.2691
+5.0    12.741  1.1507 +0.0521  0.7965      1.0668      1.2275  1.3394  1.0529  0.8347       0.1653
+7.0    17.838  1.0893 +0.0181  0.8816      1.0413      1.1343  1.1812  0.7277  0.9184       0.0816
+10.0   25.482  1.0505 +0.0042  0.9351      1.0226      1.0742  1.0935  0.5011  0.9607       0.0393
+
+== Same at four and sixteen times the edge momentum ==
+x4    y=2.2   Q=22.42    v_frac=+0.2998 Lb/(gI Ln)=0.7069 Lc/(gI Ln)=0.8850 1-2s/Q=0.6420
+x4    y=3.0   Q=30.58    v_frac=+0.1245 Lb/(gI Ln)=0.8671 Lc/(gI Ln)=0.9797 1-2s/Q=0.8670
+x4    y=5.0   Q=50.96    v_frac=+0.0443 Lb/(gI Ln)=0.9534 Lc/(gI Ln)=1.0033 1-2s/Q=0.9587
+x4    y=10.0  Q=101.93   v_frac=+0.0115 Lb/(gI Ln)=0.9880 Lc/(gI Ln)=1.0028 1-2s/Q=0.9902
+x16   y=2.2   Q=89.70    v_frac=+0.0455 Lb/(gI Ln)=0.9147 Lc/(gI Ln)=0.9546 1-2s/Q=0.9105
+x16   y=3.0   Q=122.32   v_frac=+0.0223 Lb/(gI Ln)=0.9665 Lc/(gI Ln)=0.9883 1-2s/Q=0.9667
+x16   y=5.0   Q=203.86   v_frac=+0.0090 Lb/(gI Ln)=0.9893 Lc/(gI Ln)=0.9985 1-2s/Q=0.9897
+x16   y=10.0  Q=407.72   v_frac=+0.0026 Lb/(gI Ln)=0.9974 Lc/(gI Ln)=1.0001 1-2s/Q=0.9975
+
+== Threshold: L/L_nor at Q = 2.05/x_max (edge momentum of y = 2.05) ==
+y-2 = 1e-09: Im P_cons/Im P_nor = 0.0586 ; Im P_bare/Im P_nor = 1.5703 ; Lc/Ln = 0.1507 ; Lb/Ln = 0.0310
+y-2 = 1e-06: Im P_cons/Im P_nor = 0.1427 ; Im P_bare/Im P_nor = 1.5708 ; Lc/Ln = 0.2654 ; Lb/Ln = 0.0595
+y-2 = 1e-04: Im P_cons/Im P_nor = 0.3493 ; Im P_bare/Im P_nor = 1.5708 ; Lc/Ln = 0.4324 ; Lb/Ln = 0.1069
+y-2 = 1e-03: Im P_cons/Im P_nor = 0.6421 ; Im P_bare/Im P_nor = 1.5704 ; Lc/Ln = 0.5808 ; Lb/Ln = 0.1544
+y-2 = 1e-02: Im P_cons/Im P_nor = 1.3024 ; Im P_bare/Im P_nor = 1.5669 ; Lc/Ln = 0.8148 ; Lb/Ln = 0.2392
+y-2 = 3e-02: Im P_cons/Im P_nor = 1.7354 ; Im P_bare/Im P_nor = 1.5592 ; Lc/Ln = 0.9715 ; Lb/Ln = 0.3030
+y-2 = 1e-01: Im P_cons/Im P_nor = 1.9517 ; Im P_bare/Im P_nor = 1.5336 ; Lc/Ln = 1.1813 ; Lb/Ln = 0.3977
+0.03 Delta = 5.4 ueV
+
+== Scan over all momenta reached by halo dark matter (Q from the edge y/x_max to 1e3): L_cons/(g_I L_nor) ==
+y >= 2.5: L_cons/(g_I L_nor) in [0.9384, 1.0840] ; L_bare/L_cons in [0.4442, 0.9997]
+y >= 3.0: L_cons/(g_I L_nor) in [0.9797, 1.0845] ; L_bare/L_cons in [0.5313, 0.9997]
+v_F/Delta_BCS (bulk) = 7.40 um
+mass below which c_LA q_max = 2 c_LA m v_max < 2 Delta (bulk): 3.15 keV
+(c_LA/v_max)^2 = 6.63e-05
+beta*2Delta at 10 mK: 418
+Delta/T at 10 mK: 208.9 (thermal weight e^-Delta/T)
+Delta/E_F = 1.54e-05
+
+== Further checks ==
+s_BCS on 0.1 <= y <= 50 (80 points): min = 0.0062, all positive: True
+g_I(5.0) - 1 = 0.1507 ; (2 ln 2y - 1)/y^2 = 0.1442
+g_I(10.0) - 1 = 0.0505 ; (2 ln 2y - 1)/y^2 = 0.0499
+g_I(20.0) - 1 = 0.0160 ; (2 ln 2y - 1)/y^2 = 0.0159
+y = 5, Q = 1e+02: Q[Re(-P) - Re(-P_nor)] bare = 1.0531, cons = 0.9542 (s_BCS(5) = 1.0529)
+y = 5, Q = 1e+03: Q[Re(-P) - Re(-P_nor)] bare = 1.0529, cons = 1.0479 (s_BCS(5) = 1.0529)
+y = 5, Q = 1e+04: Q[Re(-P) - Re(-P_nor)] bare = 1.0529, cons = 1.0525 (s_BCS(5) = 1.0529)
+y = 5, Q = 1e+05: Q[Re(-P) - Re(-P_nor)] bare = 1.0529, cons = 1.0529 (s_BCS(5) = 1.0529)
+(k_TF/q_max)^2 at q_max = 5.3 eV: 5.83e+05
+(Delta/qv_F)^2 at the edge of y = 5: 0.0062

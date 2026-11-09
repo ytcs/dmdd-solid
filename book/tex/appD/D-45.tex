@@ -1,0 +1,96 @@
+\section{Energy balance and calibration algebra}\label{app:D.45}
+
+This section proves the balance law \cref{eq:19.5-balance}, derives the bias work \cref{eq:19.5-Wbias}, and carries out the algebra behind \cref{eq:19.5-identity,eq:19.5-calib,eq:19.5-first,eq:19.5-bound,eq:19.5-widen,eq:19.5-linear}.
+
+\subsection{Proof of the balance law}
+
+Take as the system the crystal with its electrons and nuclei, the sensor films, holders and other bodies that absorb phonons, the radiation field and the electrodes, held at fixed potentials $V_k$ by an external source. The Hamiltonian of this system is conserved except for the power the source delivers. A charge $\delta Q_k$ that enters electrode $k$ from the source receives the work $V_k\,\delta Q_k$, so
+\begin{equation*}
+  \langle H_{\mathrm{tot}}\rangle(t) - \langle H_{\mathrm{tot}}\rangle(0^-) = \omega + \sum_kV_k\,\Delta Q_k(t) \equiv \omega + W_{\mathrm{bias}}(t) ,
+\end{equation*}
+where $\omega$ is the energy the dark-matter particle leaves at $t = 0$ and $\Delta Q_k(t)$ the charge that has flowed into electrode $k$ since then. The proof consists in writing the left side as the sum of the reservoirs.
+
+Between collisions the state of the crystal has a definite content of carriers, excitons, trapped carriers, defects and phonons. Its energy above the ground state is the sum of four terms. The first is the band energy of each carrier, counted from the Fermi level of the electrodes (see below), with $\Eg - E_x^b$ per exciton and $E_j - \mu_F$ or $\mu_F - E_j$ per trapped carrier. The second is the Coulomb energy of the charges in the crystal. With the electrodes at fixed potential it is
+\begin{equation*}
+  E_{\mathrm{es}} = \frac12\sum_{i,j}q_iq_j\,G(\vect{r}_i,\vect{r}_j) ,
+\end{equation*}
+with $G$ the Green's function of the Poisson equation in the dielectric that vanishes on the electrodes. The terms $i = j$, made finite by the size of the carrier wave packet, are the image energies, and $G$ includes the screening by the dielectric. The third is the configurational energy of the nuclear arrangement relative to the perfect crystal, $E_{\mathrm{st}}$ of \cref{eq:19.1-partition}. The fourth is the vibrational energy above the thermal bath, which includes the zero-point shift $\Delta E_{\mathrm{zp}}$ of the occupied basins. The interactions of the excited carriers among themselves enter in two ways. Their long-range part is $E_{\mathrm{es}}$ and the binding energy of excitons. Their short-range part acts only while two particles are within a collision distance, and its expectation value between collisions is smaller than the sum of the others by the ratio of the collision time to the time between collisions. Put together, the crystal holds $E_{\mathrm{pairs}} + E_{\mathrm{phon}} + E_{\mathrm{st}}$, with $E_{\mathrm{es}}$ inside $E_{\mathrm{pairs}}$. The sensors and holders hold the energy absorbed at the surfaces, $E_{\mathrm{sens}}$, and the radiation field holds $E_{\mathrm{esc}}$. Equating the two expressions for $\langle H_{\mathrm{tot}}\rangle$ gives \cref{eq:19.5-balance}.
+
+The argument applies to each realization of the random history, the sequence of captures, hops, emissions and absorptions in a given event. Each step is a transition between states of definite content that conserves the total energy, or a drift whose energy exchange the bias work and $E_{\mathrm{es}}$ record. It applies in the mean by averaging. Its physical content is that the list of reservoirs is complete: an energy that is in none of them, such as the electrostatic energy of a trapped charge if $E_{\mathrm{es}}$ is omitted, breaks the law.
+
+\paragraph{The energy reference.} Count the carrier energies from an arbitrary level $\mu$: a free electron holds $E_c - \mu$, a free hole $\mu - E_v$. Then
+\begin{equation*}
+  \frac{\partial E_{\mathrm{pairs}}}{\partial\mu} = N_{\mathrm{h}} - N_{\mathrm{e}} ,
+\end{equation*}
+the number of uncollected holes minus that of uncollected electrons, trapped or free. A carrier that enters an electrode thermalizes to the Fermi level $\mu_F$ of the metal and gives up, as phonons at the contact, $E_c - \mu_F$ for an electron and $\mu_F - E_v$ for a hole. If $\mu \ne \mu_F$, the carrier removes $E_c - \mu$ from $E_{\mathrm{pairs}}$ and adds $E_c - \mu_F$ to the phonons, and the difference has to be found elsewhere. It is zero only while $N_{\mathrm{h}} = N_{\mathrm{e}}$, that is, until the first carrier whose partner stays behind is collected. The level $\mu = \mu_F$ is the only one for which every step conserves the sum of the reservoirs. With a bias, each electrode has its own Fermi level and the difference between them is $eV_{\mathrm{bias}}$, which the bias work accounts for.
+
+\paragraph{Bias work and Luke heat.} Let the two electrodes be planes a distance $L$ apart, at potentials $0$ and $V_{\mathrm{bias}}$. A charge $q$ at height $z$ induces on the electrode at $z = L$ the charge $-qz/L$ (Ramo's theorem, with the weighting potential $z/L$ of this geometry). Moving it from $z_1$ to $z_2$ therefore passes the charge $|q|\,|z_2 - z_1|/L$ through the source, and for motion in the direction of the electric force the source does the work $|q|V_{\mathrm{bias}}|z_2 - z_1|/L$. A carrier that crosses the fraction $s$ of the gap in the direction of the force contributes $eV_{\mathrm{bias}}s$, and summing over carriers gives \cref{eq:19.5-Wbias} with $N_{\mathrm{ind}} = \sum_is_i$. For each pair that is fully collected, the electron and the hole together cross the whole gap, whatever the point of creation, and contribute $eV_{\mathrm{bias}}$. In a quasistatic move the work of the source equals the change of $E_{\mathrm{es}}$ plus the work of the field on the carrier. At constant drift velocity the carrier's kinetic energy does not change, and the work of the field goes to phonons. The Luke heat is therefore $W_{\mathrm{bias}} - \Delta E_{\mathrm{es}}$. For pairs created neutral and fully collected, $\Delta E_{\mathrm{es}} = 0$ at the end and the Luke heat is $eV_{\mathrm{bias}}N_{\mathrm{eh}}$, \cref{eq:1.5-luke}.
+
+\subsection{The phonon-yield ratio}
+
+With the signals \cref{eq:19.5-signal}, the electron-recoil calibration multiplies every phonon signal by the factor $k_{\mathrm{cal}}$ for which an electron recoil reads $\omega(1 + g_{\mathrm{cal}})$, with $g_{\mathrm{cal}} = eV_{\mathrm{bias}}/\varepsilon_{\mathrm{cal}}$ the gain of the reconstruction and $g_{\mathrm{Luke}} = eV_{\mathrm{bias}}/\varepsilon_{\mathrm{eh}}$ the true Luke gain:
+\begin{equation*}
+  k_{\mathrm{cal}}\,S_{\mathrm{ER}} = \omega(1 + g_{\mathrm{cal}}) \quad\Longrightarrow\quad
+  k_{\mathrm{cal}} = \frac{1 + g_{\mathrm{cal}}}{\epsilon^{\mathrm{ER}}_{\mathrm{prim}}\,(1 - d_{\mathrm{ER}} + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}})} .
+\end{equation*}
+The nuclear recoil is assigned $k_{\mathrm{cal}}S_{\mathrm{NR}} - f_{\mathrm{ion}}g_{\mathrm{cal}}\omega$, and dividing by $\omega$ gives \cref{eq:19.5-identity}. Write $A = (1 - \delta_{\mathrm{coll}})(1 - d_{\mathrm{NR}})$ and $B = 1 - d_{\mathrm{ER}}$. Multiplying \cref{eq:19.5-identity} by $B + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}$,
+\begin{equation*}
+  (Y_{\mathrm{ph}} + f_{\mathrm{ion}}g_{\mathrm{cal}})(B + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}) = (1 + g_{\mathrm{cal}})(A + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}f_{\mathrm{ion}}) ,
+\end{equation*}
+and the terms in $\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}g_{\mathrm{cal}}f_{\mathrm{ion}}$ cancel, leaving
+\begin{equation}
+  (1 + g_{\mathrm{cal}})A - (Y_{\mathrm{ph}} + f_{\mathrm{ion}}g_{\mathrm{cal}})B = \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}(Y_{\mathrm{ph}} - f_{\mathrm{ion}}) .
+  \label{eq:D.45-linear}
+\end{equation}
+\Cref{eq:D.45-linear} is homogeneous in $(A, B, \mathfrak{r}_{\mathrm{coll}})$: the measurement determines only ratios, $A/B$ and $\mathfrak{r}_{\mathrm{coll}}/B$. At zero bias it reads $Y_{\mathrm{ph}}(0) = A/B$, the heat quenching \cref{eq:19.5-heatq}. Dividing by $B$ and solving for $Y_{\mathrm{ph}}$ with $\mathfrak{r}' = \mathfrak{r}_{\mathrm{coll}}/B$ gives \cref{eq:19.5-calib}; written for the gains of bias $i$, the same division gives \cref{eq:19.5-linear}. Both gains are proportional to the bias, so their ratio $\varepsilon_{\mathrm{cal}}/\varepsilon_{\mathrm{eh}}$ is the same at every bias.
+
+\paragraph{First order.} At $A = B = 1$, \cref{eq:19.5-identity} is
+\begin{equation*}
+\begin{split}
+  Y_{\mathrm{ph}} &= \frac{(1 + g_{\mathrm{cal}})(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}f_{\mathrm{ion}}) - f_{\mathrm{ion}}g_{\mathrm{cal}}(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}})}{1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}} \\
+  &= \frac{1 + g_{\mathrm{cal}} + f_{\mathrm{ion}}(\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})}{1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}} ,
+\end{split}
+\end{equation*}
+and $1 - Y_{\mathrm{ph}} = (\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})(1 - f_{\mathrm{ion}})/(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}})$, the collection term. The derivatives of \cref{eq:19.5-identity} at that point are
+\begin{equation*}
+  \frac{\partial Y_{\mathrm{ph}}}{\partial A} = \frac{1 + g_{\mathrm{cal}}}{1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}} , \qquad
+  \frac{\partial Y_{\mathrm{ph}}}{\partial B} = -\frac{(1 + g_{\mathrm{cal}})(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}f_{\mathrm{ion}})}{(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}})^2} ,
+\end{equation*}
+and with $A - 1 = -(\delta_{\mathrm{coll}} + d_{\mathrm{NR}}) + \delta_{\mathrm{coll}}d_{\mathrm{NR}}$ and $B - 1 = -d_{\mathrm{ER}}$ they give \cref{eq:19.5-first} with $C_{\mathrm{cal}} = (1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}f_{\mathrm{ion}})/(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}})$. Since $Y_{\mathrm{ph}}$ is linear in $A$, the second-order terms are $\delta_{\mathrm{coll}}d_{\mathrm{NR}}$ and those in $d_{\mathrm{ER}}$.
+
+\subsection{The bound on the stored energy}
+
+Put $d_{\mathrm{NR}} = e_{\mathrm{st}} + x_{\mathrm{NR}}$ with $e_{\mathrm{st}} = E_{\mathrm{st}}/\omega$, and $d_{\mathrm{ER}} = x_{\mathrm{ER}}$. Multiply $1 - Y_{\mathrm{ph}} - e_{\mathrm{st}}$ by the denominator $D_{\mathrm{c}} = 1 - x_{\mathrm{ER}} + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}$ of \cref{eq:19.5-identity} and abbreviate $a = 1 - e_{\mathrm{st}}$:
+\begin{align*}
+  (1 - Y_{\mathrm{ph}} - e_{\mathrm{st}})D_{\mathrm{c}} &= aD_{\mathrm{c}} + f_{\mathrm{ion}}g_{\mathrm{cal}}D_{\mathrm{c}} \\
+  &\quad - (1 + g_{\mathrm{cal}})\bigl[(1 - \delta_{\mathrm{coll}})(a - x_{\mathrm{NR}}) + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}f_{\mathrm{ion}}\bigr] \\
+  &= a(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}) - a(1 + g_{\mathrm{cal}}) + (1 + g_{\mathrm{cal}})\delta_{\mathrm{coll}}a \\
+  &\quad + (1 + g_{\mathrm{cal}})(1 - \delta_{\mathrm{coll}})x_{\mathrm{NR}} - (a + f_{\mathrm{ion}}g_{\mathrm{cal}})x_{\mathrm{ER}} \\
+  &\quad + f_{\mathrm{ion}}g_{\mathrm{cal}}(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}) - (1 + g_{\mathrm{cal}})\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}f_{\mathrm{ion}} .
+\end{align*}
+The terms in $a$ free of $\delta_{\mathrm{coll}}$ and $x$ combine to $a(\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})$ and the terms free of $a$ and $x$ to $-f_{\mathrm{ion}}(\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})$, so
+\begin{multline*}
+  (1 - Y_{\mathrm{ph}} - e_{\mathrm{st}})D_{\mathrm{c}} = (\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})(1 - e_{\mathrm{st}} - f_{\mathrm{ion}}) \\
+  + (1 + g_{\mathrm{cal}})\bigl[\delta_{\mathrm{coll}}(1 - e_{\mathrm{st}}) + (1 - \delta_{\mathrm{coll}})x_{\mathrm{NR}}\bigr] - (1 - e_{\mathrm{st}} + f_{\mathrm{ion}}g_{\mathrm{cal}})x_{\mathrm{ER}} ,
+\end{multline*}
+which is \cref{eq:19.5-bound}. Nothing was expanded. With $D_{\mathrm{c}} > 0$ and $e_{\mathrm{st}} < 1$, the right side is non-negative term by term under conditions (a), (b), (d) and (e) of \cref{sec:19.5-yield}, since (b) and (e) give $\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} \ge g_{\mathrm{Luke}} \ge g_{\mathrm{cal}}$, together with (c), which makes the $x$ terms non-negative together. Condition (c) reduces to $x_{\mathrm{NR}} \ge [(1 + f_{\mathrm{ion}}g_{\mathrm{cal}})/(1 + g_{\mathrm{cal}})]\,x_{\mathrm{ER}}$ as $e_{\mathrm{st}}, \delta_{\mathrm{coll}} \to 0$; it holds for every $x_{\mathrm{NR}} \ge 0$ when $x_{\mathrm{ER}} \le 0$, and it allows deficits of either sign.
+
+On the branch $\mathfrak{r}_{\mathrm{coll}} < 1$, set $\delta_{\mathrm{coll}} = x_{\mathrm{NR}} = x_{\mathrm{ER}} = 0$. The identity becomes $(1 - Y_{\mathrm{ph}} - e_{\mathrm{st}})(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}) = (\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})(1 - e_{\mathrm{st}} - f_{\mathrm{ion}})$, linear in $e_{\mathrm{st}}$. Collecting the terms in $e_{\mathrm{st}}$ gives $e_{\mathrm{st}}(1 + g_{\mathrm{cal}}) = (1 - Y_{\mathrm{ph}})(1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}}) - (\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})(1 - f_{\mathrm{ion}})$, and writing $1 + \mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} = (1 + g_{\mathrm{cal}}) + (\mathfrak{r}_{\mathrm{coll}}g_{\mathrm{Luke}} - g_{\mathrm{cal}})$ gives \cref{eq:19.5-widen}.
+
+\subsection{Two biases}
+
+\Cref{eq:19.5-linear} at two biases, with gains $g_{\mathrm{Luke},i}$, $g_{\mathrm{cal},i}$ and measured ratios $Y_i$, is the linear system
+\begin{equation*}
+  \begin{pmatrix} 1 + g_{\mathrm{cal},1} & -g_{\mathrm{Luke},1}(Y_1 - f_{\mathrm{ion}}) \\ 1 + g_{\mathrm{cal},2} & -g_{\mathrm{Luke},2}(Y_2 - f_{\mathrm{ion}}) \end{pmatrix}
+  \begin{pmatrix} Y_{\mathrm{ph}}(0) \\ \mathfrak{r}' \end{pmatrix} =
+  \begin{pmatrix} Y_1 + f_{\mathrm{ion}}g_{\mathrm{cal},1} \\ Y_2 + f_{\mathrm{ion}}g_{\mathrm{cal},2} \end{pmatrix} .
+\end{equation*}
+Its determinant is $\Delta_2 = g_{\mathrm{Luke},1}(1 + g_{\mathrm{cal},2})(Y_1 - f_{\mathrm{ion}}) - g_{\mathrm{Luke},2}(1 + g_{\mathrm{cal},1})(Y_2 - f_{\mathrm{ion}})$. When $Y_1 = Y_2 = Y$ it equals $(Y - f_{\mathrm{ion}})(g_{\mathrm{Luke},1} - g_{\mathrm{Luke},2})$, since $g_{\mathrm{Luke},1}g_{\mathrm{cal},2} = g_{\mathrm{Luke},2}g_{\mathrm{cal},1}$. By Cramer's rule,
+\begin{equation}
+\begin{split}
+  \mathfrak{r}' &= \frac{(1 + g_{\mathrm{cal},1})(Y_2 + f_{\mathrm{ion}}g_{\mathrm{cal},2}) - (1 + g_{\mathrm{cal},2})(Y_1 + f_{\mathrm{ion}}g_{\mathrm{cal},1})}{\Delta_2} , \\
+  Y_{\mathrm{ph}}(0) &= \frac{g_{\mathrm{Luke},1}(Y_1 - f_{\mathrm{ion}})(Y_2 + f_{\mathrm{ion}}g_{\mathrm{cal},2}) - g_{\mathrm{Luke},2}(Y_2 - f_{\mathrm{ion}})(Y_1 + f_{\mathrm{ion}}g_{\mathrm{cal},1})}{\Delta_2} .
+\end{split}
+  \label{eq:D.45-inversion}
+\end{equation}
+The inversion is exact within the signal model \cref{eq:19.5-signal}; it needs no expansion in the deficits and no assumption on the sign of $\mathfrak{r}' - 1$. Equal measured ratios give $\mathfrak{r}' = \varepsilon_{\mathrm{eh}}/\varepsilon_{\mathrm{cal}}$ and $Y_{\mathrm{ph}}(0) = Y$: a ratio that does not change with bias means that the Luke phonons are collected so that $\mathfrak{r}'g_{\mathrm{Luke}} = g_{\mathrm{cal}}$, and that the deficit is in the heat itself. As the bias grows, \cref{eq:19.5-calib} tends to $f_{\mathrm{ion}} + [Y_{\mathrm{ph}}(0) - f_{\mathrm{ion}}]\varepsilon_{\mathrm{eh}}/(\varepsilon_{\mathrm{cal}}\mathfrak{r}')$.

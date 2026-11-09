@@ -1,0 +1,1190 @@
+arXiv:1405.7313v1 [cond-mat.mes-hall] 28 May 2014
+
+
+
+
+                                                    First-principles theory of the luminescence lineshape
+                                                    for the triplet transition in diamond NV centres
+                                                                 Audrius Alkauskas1 , Bob B. Buckley2 , David D. Awschalom2,3 ,
+                                                                 Chris G. Van de Walle1
+                                                                 1
+                                                                   Materials Department, University of California, Santa Barbara, California, USA
+                                                                 2
+                                                                   Center for Spintronics and Quantum Computation, University of California, Santa
+                                                                 Barbara, California, USA
+                                                                 3
+                                                                   Institute for Molecular Engineering, University of Chicago, Chicago, Illinois, USA
+
+                                                                 Abstract. In this work we present theoretical calculations and analysis of the
+                                                                 vibronic structure of the spin-triplet optical transition in diamond nitrogen-vacancy
+                                                                 centres. The electronic structure of the defect is described using accurate first-
+                                                                 principles methods based on hybrid functionals.           We devise a computational
+                                                                 methodology to determine the coupling between electrons and phonons during an
+                                                                 optical transition in the dilute limit. As a result, our approach yields a smooth
+                                                                 spectral function of electron-phonon coupling and includes both quasi-localized and
+                                                                 bulk phonons on equal footings. The luminescence lineshape is determined via
+                                                                 the generating function approach. We obtain a highly accurate description of the
+                                                                 luminescence band, including all key parameters such as the Huang-Rhys factor,
+                                                                 the Debye-Waller factor, and the frequency of the dominant phonon mode. More
+                                                                 importantly, our work provides insight into the vibrational structure of nitrogen
+                                                                 vacancy centres, in particular the role of local modes and vibrational resonances. In
+                                                                 particular, we find that the pronounced mode at 65 meV is a vibrational resonance,
+                                                                 and we quantify localization properties of this mode. These excellent results for the
+                                                                 benchmark diamond nitrogen-vacancy centre provide confidence that the procedure can
+                                                                 be applied to other defects, including alternative systems that are being considered for
+                                                                 applications in quantum information processing.
+
+
+
+
+                                                    Submitted to: New J. Phys.
+Luminescence lineshape of NV centres                                                                                       2
+
+(a)                (b)                                   (c)
+      [111]
+
+                    3                   ms=±1                               DEe
+                    E                   ms=0                                                              luminescence
+
+
+
+
+                                                           total energy
+                                                 1                        absorption     emission
+                                                    A1
+
+
+
+
+                                                                                                      photon energy
+       ex,ey                 EZPL                                                            EZPL
+                                                1
+        a1                                          E
+        N                                                                                  DEg
+                    3                   ms=±1
+                        A2              ms=0
+        C                                                                                                                ZPL
+
+                                                                           configuration coordinate
+
+               Figure 1. (a) Schematic representation of the NV centre. Green: carbon atoms;
+               blue: nitrogen atom. The dashed circle indicates the position of the carbon vacancy.
+               The pink isosurfaces depict the wavefunctions of the single-electron a1 and e states. (b)
+               Energy-level diagram of the negatively charged NV centre. The luminescence occurs
+               between triplet states 3E and 3A2 . EZP L is the energy of the zero-phonon line. (c)
+               One-dimensional cc diagram illustrating luminescence. ∆E{e,g} are relaxation energies
+               in the excited and the ground state.
+
+
+
+1. Introduction
+
+In the past decade, the negatively charged nitrogen-vacancy (NV) centre in diamond [1]
+has emerged as a very versatile solid-state system for studies of quantum information [2].
+The main characteristics that make it unique [1] are its paramagnetic ground state [3],
+bright luminescence, extremely long spin coherence times [4], coupling to nearby nuclear
+spins [5], and the ability to initialize and read out the spin using optical techniques [6, 7].
+Increasingly, NV centres in bulk crystals and nanodiamonds are used for metrological
+applications at the nanoscale, i.e., for measuring local magnetic [8] and electric [9] fields,
+temperature [10, 11, 12], and pressure [13].
+     The negatively charged NV centre possesses C3v symmetry and consists of a
+substitutional nitrogen atom adjacent to a nearby carbon vacancy (figure 1(a)) with
+an additional trapped electron, the total electric charge thus being −1. The electronic
+structure of the ground and the lowest excited states of the centre is mainly determined
+by four electrons in atomically localized states of a1 and e (ex and ey ) symmetries;
+the energy level diagram of the many-electron system is shown in figure 1(b) [14, 15].
+The basics of NV physics is understood in terms of the ground-state triplet 3A2 state
+(configuration a21 e2 ), the excited state triplet 3E state (configuration a11 e3 ), and two
+singlet “dark” states 1 E and 1 A1 (configuration a21 e2 ). The singlets play a crucial role
+in both initialization and read-out of the ground-state spin [1].
+     Nearly all of the applications of NV centres rely on measuring photoluminescence
+between 3E and 3A2 electronic states as a function of other experimental parameters [1].
+At low temperatures the luminescence band [16] consists of a sharp zero-phonon line
+(ZPL) at EZP L = 1.945 eV (637 nm), and ∼ 4 increasingly broad phonon replicas
+Luminescence lineshape of NV centres                                                     3
+
+with a phonon energy of ∼ 63-65 meV, as schematically shown in figure 1(c). A
+detailed analysis of the experimental phonon sideband was performed by Davies [17].
+In particular, he determined the weight of the ZPL wZP L ≈ 2.4 % and a Huang-Rhys
+(HR) factor [18], in essence the average number of phonons emitted during the optical
+transition (see Section 2 for a quantitative definition), S = 3.73.
+      The relevance of the NV centre to a variety of applications and the crucial
+importance of the luminescence band in all these applications raises a question: can the
+luminescence lineshape, i.e., the electron-phonon coupling during the optical transition,
+be calculated using first-principles calculations that require no experimental input?
+Such calculations should address an accurate determination of the Huang-Rhys factor,
+frequencies of dominant phonon modes, as well as the fine structure of the phonon
+sideband, including the coupling to long-range acoustic phonons. Previous work [19, 20]
+has addressed the vibrational structure of NV centres to some extent; however, because
+of finite-size effects the results of these calculations are somewhat ambiguous. No first-
+principles calculation of the luminescence lineshape has been performed to date. Such a
+calculation would provide valuable information about electron-phonon coupling at NV
+centres, which at present is incompletely understood [1]. In addition, if the theory is
+predictive, it can be applied to other defects, for example alternative systems that are
+currently being actively considered for quantum information and metrology applications
+[21, 22, 23, 24], or defects that play an important role in light-emitting diodes [25, 26].
+      In this work we present accurate calculations of the vibronic structure pertaining
+to the triplet luminescence band of the NV centre in diamond. We demonstrate
+that the combination of state-of-the-art first-principles methods, in particular hybrid
+density functional theory [27], and computational techniques to address electron-phonon
+coupling at large enough length scales to accurately include long-wavelength acoustic
+phonons, is very successful in describing the luminescence lineshape and all the related
+parameters. The experimental luminescence spectrum which serves as a benchmark for
+the theoretical study has been measured in our laboratory. The measured luminescence
+band is of a comparable quality to those of Refs. [28] and [29].
+      This paper is organized as follows.           In Section 2 we outline the general
+theory to calculate the vibrational structure of luminescence bands and describe our
+computational approach. In Section 3 the details of acquiring and processing the
+experimental spectrum are presented. The results are presented in Section 4 and
+analyzed in Section 5. Section 6 contains our conclusions. The paper is supplemented
+with four appendices that discuss specific technical issues in more detail.
+
+2. Theory and computational methodology
+
+2.1. Luminescence
+The excited state 3E is an orbital doublet that forms an E ⊗ e Jahn-Teller system via
+coupling to e phonon modes [17, 30, 31]. The Jahn-Teller effect is dynamical, since the
+Luminescence lineshape of NV centres                                                      4
+
+energy splitting between the vibronic sub-levels is larger than the barrier in the adiabatic
+potential energy surface δ ≈ 10 meV [31]. The presence of this effect is manifest in the
+broadening of the ZPL that follows a ∼ T 5 rather than the usual ∼ T 7 dependence at
+low temperatures [30, 31]. However, the effect is weak [31], and we will neglect it when
+calculating the phonon sideband. One way to judge the validity of this approximation
+is via an a posteriori comparison [17]. If a linear model of electron-phonon interactions,
+such as the one employed in this work, accurately describes the lineshape of the optical
+transition, then the Jahn-Teller effect can be considered negligible for this particular
+transition. As we show below, this turns out to be the case for the triplet luminescence
+at NV centres.
+     We also assume that the transition dipole moment ~µeg between the excited and the
+ground state depends weakly on lattice parameters (the Franck-Condon approximation).
+At T = 0 K the absolute luminescence intensity I(h̄ω) (i.e., photons per unit time per
+unit energy) for a given photon energy h̄ω and for one emitting centre is given by (in
+SI units) [32]:
+                          nD ω 3            X
+              I(h̄ω) =         3
+                                   |~µeg |2   |hχgm |χe0i|2 δ (EZP L − Egm − h̄ω) .     (1)
+                         3ε0 πc h̄          m
+
+Here nD = 2.4 is the refractive index of diamond; χe0 and χgm are vibrational levels of
+the excited and the ground state; Egm is the energy of the state χgm , being the sum over
+                                       P
+all vibrational modes k, i.e., Egm = k nk h̄ωk ; and nk is the number of phonons of type
+k in this state. The absolute angle-averaged value of µeg is ∼ 5.2 Debye, as extracted
+from the radiative lifetime τ = 13 ns of the ms = 0 spin state of the 3 E manifold [1].
+A prefactor ω 3 in equation (1) arises from the density of states of photons that cause
+the spontaneous emission (∼ ω 2), and the perturbing electric field of those photons
+  ~ 2 ∼ ω). This prefactor has to be taken into account when determining parameters
+(|E|
+pertaining to the luminescence lineshape, and this will be discussed in Section 2.2. Since
+in both the excited and the ground electronic state the system has C3v symmetry, only
+fully symmetric a1 phonons contribute to the sum in equation (1).
+     The experimental determination of the absolute luminescence intensity given in
+equation (1) is difficult. Thus, in this work we will consider the normalized luminescence
+intensity, defined as
+              L(h̄ω) = Cω 3A(h̄ω),                                                      (2)
+where
+                         X
+              A(h̄ω) =        |hχgm |χe0 i|2 δ (EZP L − Egm − h̄ω)                      (3)
+                          m
+
+is the optical spectral function, and C is the normalization constant: C −1 =
+R
+  A(h̄ω)ω 3d(h̄ω). I(h̄ω) is related to L(h̄ω) via I(h̄ω) = nD /(3Cε0 πc3h̄)L(h̄ω).
+     The evaluation of the overlap integrals hχgm |χe0 i immediately poses a challenge.
+Vibrational modes that enter into equation (3) are not those of the pristine bulk, but
+rather those of the solid with a defect. The use of bulk modes can lead to large
+discrepancies with experiment, as we will show in Section 4. Lattice imperfections
+Luminescence lineshape of NV centres                                                          5
+
+induce localized or quasi-localized vibrational modes that depend on the local electronic
+structure; in addition, the normal modes in the excited state and the ground state can
+be in principle quite different [33]. This results in highly multidimensional integrals that
+can in practice be evaluated only for molecules [34], small atomic clusters [35], or model
+defect systems [36].
+     Some kind of approximation is thus unavoidable. Here we assume that (i) the
+normal modes that contribute to the luminescence lineshape are still those of the solid
+with a defect, but (ii) the modes in the excited electronic state are identical to those in
+the ground state. Such an assumption is implicit in virtually all studies of defects
+in solids [37, 38]. First-principles calculations [19, 20], as well as a comparison of
+experimental absorption and emission spectra [16], indicate that the assumption does
+not strictly hold for the NV centre. Since the more exact calculation is not feasible,
+the validity of this approximation has to be checked by comparing the results with the
+experimental spectrum.
+     When vibrational modes in the ground and the excited state are identical, the
+optical spectral function A(h̄ω) (equation (3)) can be calculated using a generating
+function approach proposed by Lax [38], as well as Kubo and Toyozawa [39]. The
+fundamental quantity that has to be calculated is the spectral function (also called
+spectral density) of electron-phonon coupling [40]
+                            X
+               S(h̄ω) =          Sk δ(h̄ω − h̄ωk ),                                         (4)
+                             k
+
+where the sum is over all phonon modes k with frequencies ωk , and Sk is the (partial)
+Huang-Rhys factor for the mode k. It is defined as [37]
+               Sk = ωk qk2 /(2h̄)                                                           (5)
+with
+                      X
+               qk =        mα1/2 (Re;αi − Rg;αi )∆rk;αi .                                   (6)
+                      αi
+
+α labels atoms, i = {x, y, z}, mα is the mass of atom α (carbon or nitrogen, average
+atomic masses of naturally occurring isotopes were used), R{e,g};αi is the equilibrium
+position in the initial (excited) and the final (ground) excited state, and ∆rk;αi is a
+normalized vector that describes the displacement of the atom α along the direction i
+in the phonon mode k. One can use an alternative expression for qk :
+                     1 X 1
+              qk = 2            (Fe;αi − Fg;αi )∆rk;αi ,                            (7)
+                    ωk αi m1/2
+                             α
+
+where Fe;αi −Fg;αi is the change of the force on the atom α along the direction i for a fixed
+position of all atoms when the electronic state of the defect changes from 3E to 3A2 . The
+latter equation directly follows from the relationship (R~e −R~ g ) = −Ĥ −1 (F~e − F~g ), where
+Ĥ is the Hessian matrix, different from the dynamical matrix only because of additional
+mass prefactors in the latter. The two formulations are completely equivalent in the
+harmonic approximation. In Appendix A we show that if the dynamical Jahn-Teller
+effect is neglected the anharmonicities are indeed minute. While being in principle
+Luminescence lineshape of NV centres                                                     6
+
+equivalent, the use of equation (7) instead of equation (6) offers a huge advantage when
+dealing with large systems, i.e., when extrapolating S(h̄ω) to the dilute limit, and this
+is discussed in Section 2.3 and Appendix B.
+     Once S(h̄ω) is determined, the spectral function A(h̄ω) (equation (3)) is given as
+the Fourier transform of the generating function G(t) [38, 39]:
+                                     Z
+                                   1 ∞
+               A(EZP L − h̄ω) =          G(t)eiωt−γ|t| dt.                            (8)
+                                  2π −∞
+The generating function G(t) itself is defined as
+              G(t) = eS(t)−S(0) ,                                                      (9)
+where
+                       Z ∞
+              S(t) =         S(h̄ω)e−iωt d(h̄ω)                                       (10)
+                       0
+and
+                                  Z ∞                    X
+              S ≡ S(t = 0) =            S(h̄ω)d(h̄ω) =       Sk                       (11)
+                                    0                    k
+
+is the total HR factor for a given optical transition. In equation (8) the parameter
+γ represents the broadening of the ZPL. In real situations this broadening has two
+contributions: the homogeneous broadening due to anharmonic phonon interactions
+[41, 42] and the inhomogeneous broadening due to ensemble averaging. Since neither of
+these two effects is modeled in our approach, γ is chosen to reproduce the experimental
+width of the ZPL.
+
+2.2. Huang-Rhys and Debye-Waller factors
+The partial HR factor Sk defined in equation (5) is the average number of phonons
+of type k emitted during an optical transition [18]. The total HR factor, defined in
+equation (11), is then the number of phonons off all kinds that are emitted during the
+same transition. The HR factor is thus an important parameter that characterizes
+the vibrational structure of the luminescence band. If (i) there was no additional
+prefactor ∼ ω 3 in the expression for the luminescence intensity in equation (2) and (ii)
+the vibrational modes in the excited and the ground state were indeed identical, then
+the weight of the zero-phonon line would be given by [43, 17, 37, 38] wZP L = e−S . Since
+this line corresponds, by definition, to zero absorbed or emitted phonons, wZP L is often
+called the Debye-Waller factor, in analogy with x-ray scattering, where it represents
+the ratio of the elastic to the total scattering cross section. Therefore, we also use this
+nomenclature to comply with the accepted practice.
+     The Debye-Waller factor wZP L is a quantity that is directly measurable in
+experiment, and its determination is therefore unambiguous. In practical situations
+the HR factor is often deduced from the relationship Se = − ln(wZP L ), where we have
+added a “tilde” to distinguish this quantity from the actual HR factor S, which is defined
+by equation (11). Se differs from S because of the additional assumption (i).
+Luminescence lineshape of NV centres                                                        7
+
+     The spectral weight in L(h̄ω) (equation (2)) moves to slightly higher energies in
+comparison to A(h̄ω) due to the prefactor ω 3. This increases the weight of the ZPL,
+wZP L , if determined from L(h̄ω), and thus decreases the value of Se with respect to S.
+This distinction has to be borne in mind when comparing different experimental papers.
+In this paper we will consistently use wZP L and S in their original definitions.
+
+2.3. First-principles approach
+In this work the spectral function of electron-phonon coupling S(h̄ω) (equations (4)-
+(6)) is calculated within density functional theory (DFT). The electronic, atomic, and
+vibrational properties of the NV centre are calculated in the supercell approach [44],
+whereby one defect is embedded in a sufficiently large piece of host material, which is
+periodically repeated. We take a conventional cubic cell with 8 carbon atoms as the
+building block for larger supercells. The cubic supercell N×N×N, for example, contains
+M=8N 3 atomic sites.
+     To study the electronic and vibrational structure of defects we use two different
+exchange-correlation (XC) functionals: the generalized gradient approximation (GGA)
+in the form proposed by Perdew, Burke, and Ernzerhof (PBE) [45] and the screened
+hybrid functional of Heyd, Scuseria, and Ernzerhof (HSE) [27]. PBE is known to describe
+structural properties of many materials with high accuracy, but the calculated band gaps
+of semiconductors and insulators agree poorly with experiment, and this also affects
+the position of defect levels within the band gap. The HSE functional overcomes this
+problem by incorporating a fraction a = 1/4 of screened Fock exchange (screening
+parameter ω = 0.2 Å−1 ). HSE calculations yield excellent results for excitation energies
+for the spin-triplet optical transition in NV centres [46].
+     The properties of the excited state 3E have been calculated using the constrained
+occupation method of Slater [47], as first applied to the NV centre by Gali et al. [46].
+In this method one electron from the a1 orbital is promoted to one of the e orbitals.
+The electronic and the atomic structure is optimized with a hole in the a1 state. To
+circumvent the problems with the Jahn-Teller distortion in the excited state, resulting
+from the degeneracy of the nominal a1 e2x e1y and a1 e1x e2y configurations, the coordinate
+dependence of the total energy in the excited state is studied here by constraining the
+configuration to a1 e1.5 1.5
+                     x ey . This is a practical solution to restrict the excited state density
+to be the average of the two degenerate configurations, retaining a C3v symmetry.
+     We find that while the integrated parameters, for example the total HR factor S
+(equation (11)) converge quickly when the size of the defect supercell is increased, the
+convergence of the spectral function S(h̄ω) (equation (4)) is significantly slower. This
+is a particular concern for the spectral function at lower energies, i.e., coupling to long-
+range acoustic phonons. As an example, let us consider a 2×2×2 simple cubic supercell,
+containing 64 lattice sites. Without a defect, the lowest energy Γ-point vibration of such
+a supercell corresponds to the bulk transverse acoustic (TA) mode at the Λ point with
+an energy of about 68 meV. This is even higher than the experimentally determined
+Luminescence lineshape of NV centres                                                   8
+
+energy of the dominant phonon mode at the NV centre, being h̄ω0 =63-65 meV. Clearly,
+supercells of this size are insufficient to determine S(h̄ω).
+     To obtain converged results and determine the nature of vibrational states, we
+have performed calculations for a series of supercells: from 2×2×2 (64 sites) up to
+11×11×11 (10648 sites). Since a direct approach for supercells containing more than
+a few hundred atoms is computationally too demanding, we have developed a special
+methodology to achieve this goal. First, in Appendix A we show that it is an excellent
+approximation to calculate vibrational properties at the PBE level, since the relevant
+vibrational modes are very similar in the PBE as compared to the HSE functional. This
+presents huge computational savings, since HSE calculations are up to two orders of
+magnitude more expensive. Then in Appendix B we present a methodology to calculate
+vibrational spectra and spectral functions S(h̄ω) for very large systems. In short, the
+procedure is as follows. Partial Huang-Rhys factors for large systems are determined
+from equation (7). Forces F~{e,g} in the large supercell N×N×N (N > 3), needed
+in that approach, are obtained from the calculation of a smaller supercell (4×4×4)
+via a suitable embedding procedure, explained in Appendix B. For these large defect
+supercells, vibrational modes and frequencies, that also appear in expression (7), have
+been determined by diagonalizing the dynamical matrix constructed from dynamical
+matrices of bulk diamond and NV centre in the 3×3×3 supercell. The validity of the
+procedure relies on the fact that the dynamical matrix of diamond is rather short-ranged.
+Specific parameters of the procedure are determined from accurate convergence tests,
+and are discussed in Appendix B.
+     Defect calculations have been performed with the vasp code [48, 49], and the
+interaction with ionic cores was described via the projector-augmented wave (PAW)
+formalism [50]. A kinetic energy cutoff of 400 eV (29.4 Ry) has been used for the
+expansion of electronic wavefunctions. For the 2 × 2 × 2 supercell the Brillouin zone
+was sampled using a 2 × 2 × 2 k-point mesh, and Γ-point sampling was used for larger
+supercells.
+     To produce additional insights, we have also calculated S(h̄ω) (equation (5)) and
+L(h̄ω) (equation (2)) with an additional assumption, namely that phonon modes that
+contribute to the luminescence lineshape are those of the unperturbed host [51, 52]. For
+this purpose we have determined the vibrational modes of bulk diamond using density
+functional perturbation theory [53], reproducing earlier calculations [54]. Vibrational
+modes were determined on a very fine 27×27×27 k-point grid close to the Brillouin zone
+centre, and a courser 9 × 9 × 9 grid elsewhere. These calculations have been performed
+using the quantum espresso code [55] within the local density approximation [56];
+this XC functional describes phonons modes of bulk diamond very well [54]. To evaluate
+S(h̄ω), the modes were mapped to the Γ-point of the desired supercell. The contributions
+from the vacancy site are set to zero in equations (6) and equation (7), while the mass
+of the nitrogen atom was set to be equal to that of the carbon atom in this case.
+Luminescence lineshape of NV centres                                                   9
+
+3. Experimental spectrum
+
+The NV centre photoluminescence (PL) spectrum was taken at 8 K on an ensemble
+of NV centres using a home-built confocal setup. The diamond sample used was a
+Sumitomo high-pressure, high-temperature grown Ib Sumicrystal with a specified
+nitrogen content of 30 − 100 parts per million. The sample was irradiated with 2 MeV
+electrons at a dose of 1 × 1017 electrons/cm2 and annealed at 850 0 C for 2 hours to
+generate a high density of NV centres within the bulk. The NV centres were photo-
+excited with 532 nm light with sufficiently low intensity to suppress the luminescence of
+neutral (NV0 ) centres. Subsequent PL was collected into a spectrometer with ∼0.3 meV
+spectral resolution. The spectrum intensity was calibrated by measuring the nominally-
+known spectrum of an OceanOptics LS-1-LL tungsten halogen light source placed at
+the same position of the diamond sample within the optical setup.
+     The experimentally obtained spectrum was normalized to 1 for comparison with the
+theoretical calculations. For normalization purposes the low-energy tail of the spectrum
+was modeled as an exponential function. The weight of the zero-phonon line (Debye-
+Waller factor) was determined to be ∼ 3.2%. This corresponds to S̃ = 3.45, in very
+close agreement with Ref. [29]. The actual Huang-Rhys factor can be estimated to be
+S ≈ 3.85 ± 0.05.
+
+4. Results
+
+4.1. Excitation energies
+For the 4×4×4 supercell, the largest system for which we have performed actual
+electronic structure calculations, EZP L was calculated to be 1.757 eV using the PBE
+functional, and 2.035 eV using the HSE functional. The latter is thus much closer to
+the experimental value of 1.945 eV. Our calculations agree with those of Gali et al. [46]
+and Weber et al. [21]. The HSE functional is clearly superior for describing the local
+electronic structure of the NV centre [46]. The difference of about 0.1 eV between the
+experimental and calculated ZPL is within the error bar of the HSE calculations, but
+would complicate direct comparisons between theoretical and experimental lineshapes.
+To enable a more meaningful comparison, in all subsequent analysis we set EZP L to the
+experimental value. Thus, the broadening of the ZPL γ in equation (8) and the value
+EZP L are the sole instances where information from experiment has been used in the
+theoretical results.
+
+4.2. Spectral function of electron-phonon coupling S(h̄ω)
+We first analyze the convergence of S(h̄ω) when the size of the supercell is increased.
+In addition to providing justification for the computational procedure, such a study
+provides insights into the origin of vibrational modes that contribute to the phonon
+sideband.
+Luminescence lineshape of NV centres                                                               10
+
+
+
+
+              Figure 2. Spectral functions S(h̄ω) (equation (4)) and partial Huang-Rhys factors
+              (equation (5)) pertaining to the spin-triplet optical transition at NV centres for
+              increasingly larger supercells, from 2×2×2 to 11×11×11 (some intermediate results
+              are not shown). S(h̄ω): left vertical axes and black solid lines; to enable a meaningful
+              comparison the range of these vertical axes is the same for all supercells. Sk : right
+              vertical axes and blue bars; the range of these vertical axes decreases for larger
+              supercells.
+
+
+
+     In figure 2 we show S(h̄ω) (equation (4)) and partial Huang-Rhys factors (equation
+(5)) as a function of the supercell size, from 2×2×2 to 11×11×11 (results for five
+intermediate supercells are omitted). The range of the left vertical axes for S(h̄ω) was
+kept identical for all supercells, but note that this is not the case for the right vertical
+axes that apply to Sk . For the calculation of S(h̄ω) δ-functions in equation (4) were
+replaced by Gaussians with widths σ = 6 meV. HSE results are discussed here.
+     In the case of the smallest 2×2×2 supercell, only a few phonon modes contribute to
+S(h̄ω). The most important of these are modes with energies 60.4 meV and 77.8 meV,
+Luminescence lineshape of NV centres                                                       11
+
+in complete agreement with the results of Gali et al. [19] (59.7 and 77.0 meV), who
+studied local vibrational modes for this size of supercell. While the energy of the first
+mode is close to the energy of the most pronounced phonon mode seen in experiment,
+this agreement is largely fortuitous, since, as mentioned in Section 2.3, the lowest-energy
+bulk TA phonon mode in this supercell has a similar energy. The low-energy tail that
+represents the coupling to long-range phonons (<60 meV) is completely missing for this
+supercell, and the total HR factor S = 3.02 (inset of figure 2) is 20% smaller than the
+converged value S = 3.67.
+     In the case of a larger 3 × 3 × 3 supercell, the most dominant vibration is the 45.9
+meV mode. This result is an artifact resulting from the use of a small cell, since this
+vibration corresponds to the lowest-energy Γ-point bulk TA phonon—it is not an actual
+defect-derived mode. While the total HR factor increases to 3.27, S(h̄ω) is still far
+from converged. This emphasizes possible dangers in drawing conclusions about local
+vibrational modes from small-size supercells [20].
+     When increasing the size of the supercell further, S(h̄ω) slowly attains its converged
+form. figure 3 shows that the spectral function is essentially converged for the two largest
+supercells we use, even though there are still apparent changes in individual partial HR
+factors Sk . The peak of S(h̄ω) occurs at h̄ω0 = 65 meV, in excellent agreement with
+experimental findings (see Sec. 4.3). This is the first time that theoretical calculations
+yield the energy of the peak decisively. Interestingly, the total HR factor, i.e. the integral
+of S(h̄ω), is within ∼1% of the converged value already for the 4 × 4 × 4 supercell.
+     Figure 2 also allows us to draw the following conclusions about lattice distortions
+or, equivalently, coupling to phonons, that occur during the 3E → 3A2 optical transition:
+
+ (i) The 65 meV vibration is not a localized phonon mode, but a defect-induced
+     vibrational resonance: it occurs within the spectrum of bulk phonon modes (0-
+     167 meV). In figure 2 this result is evident from the fact that for larger supercells
+     this mode splits into many closely spaced modes, with a simultaneous decrease of
+     their absolute contributions. The 65 meV resonance is induced by the NV centre
+     itself, and cannot be understood solely by considering bulk phonon spectrum. This
+     is demonstrated in Figure 3 and discussed in more detail in section 4.3.
+(ii) In agreement with a general theory of vibrational broadening of luminescence lines
+     [41], the spectral function is linear for small energies, i.e., S(h̄ω) = αh̄ω for ω → 0.
+     Indeed, partial HR factors corresponding to acoustic modes scale like 1/ω, which,
+     multiplied with the density of states of acoustic modes ∼ ω 2 , yields this linear
+     dependence. While this general behaviour is known [41], we emphasize that the
+     prefactor to the linear dependence is system dependent, and only accurate atomistic
+     calculations such as the ones presented here can provide the actual value. In our
+     case we obtain α ≈ 3.6×10−4 meV−2 = 360 eV−2 . Interaction via acoustic phonons
+     has been recently proposed as a promising mechanism to couple two NV centres in
+     nanodiamonds [57]. The coupling of isolated qubits is essential for any quantum
+     computing protocol. Our calculations provide information about the coupling of
+Luminescence lineshape of NV centres                                                            12
+
+                                 0.1               (i) HSE, S = 3.67
+                                                   (ii) PBE, S = 2.78
+                                                   (iii) bulk phonons, S=4.48
+                                0.08
+
+                S(hω) (1/meV)
+                                0.06
+
+
+                                0.04
+
+
+                                0.02
+
+
+                                  0
+                                   0   50        100           150              200
+                                            energy (meV)
+
+              Figure 3. Comparison of S(h̄ω) calculated using three theoretical approaches: (i) the
+              hybrid functional HSE, (ii) the GGA functional PBE, and (iii) by using bulk phonons,
+              as explained in the text.
+
+
+
+     NV centers to acoustic phonons in bulk diamond, and can be useful pursuing the
+     ideas proposed in Ref. [57] ideas further.
+(iii) 99% of the lattice distortions due to the optical transition, as quantified by their
+      contribution to S(h̄ω), occur within ∼ 12 Å of the NV centre. This follows from
+      our finding that the total HR factor for the 4×4×4 supercell is within 1% of the
+      converged value. However, long-range relaxations, while contributing little to the
+      total HR factor S, are manifest in the low-frequency part of S(h̄ω), and are actually
+      observed in the luminescence lineshape (see Section 4.3).
+
+     In figure 3 we show a comparison of S(h̄ω) calculated using three different
+approaches. From here on we use the following notation when we refer to our
+calculations: (i) “HSE” refers to calculations where atomic displacements or forces in
+equations (6) and (7) are calculated using the HSE hybrid functional, but vibrational
+modes are calculated using the PBE functional. As discussed in Section 2.3 and
+Appendix A, calculations for smaller supercells show that vibrational modes calculated
+at the PBE level are very similar to HSE results. (ii) “PBE” refers to calculations in
+which all quantities are determined at the PBE level. In both (i) and (ii), vibrational
+modes correspond to the defect system. (iii) “Bulk phonons” refers to calculations in
+which atomic distortions or forces were determined at the HSE level, as in (i), but
+vibrational modes correspond to those of the unperturbed host. The comparison of (i)
+and (iii) should inform us whether the introduction of the defect modifies the vibrational
+spectrum, and whether the phonon sideband can be understood by considering bulk
+modes alone.
+     S(h̄ω), calculated at the PBE level, is qualitatively very similar to the HSE result.
+The function has a peak at h̄ω = 64 meV, but the absolute value of S(h̄ω) is smaller for
+Luminescence lineshape of NV centres                                                             13
+
+
+                               5     experiment
+                                     theory, HSE
+                               4
+                L(hω) (1/eV)
+                               3
+
+                               2
+
+                               1
+
+                               0
+                               1.5     1.6         1.7   1.8          1.9
+                                               energy (eV)
+              Figure 4. Measured (black solid line) and calculated (blue solid line) normalized
+              luminescence lineshapes for NV centers in diamond in the energy range 1.5−2.0 eV.
+              The calculations have been performed at the HSE level, as explained in the text.
+              The low-energy tail (<1.5 eV) of the experimental spectrum is less reliable because of
+              calibration issues.
+
+
+
+almost all energies. In particular, the total HR factor is S = 2.78, a quarter smaller than
+in HSE. In contrast, when the bulk phonon spectrum is used, S(h̄ω) is even qualitatively
+completely different. In this case the spectral function closely follows the density of
+vibrational states of bulk diamond [54, 58], with a pronounced peak at h̄ω ≈150 meV.
+The total HR factor is 4.48 in this case. However, the coupling to low-energy (<20
+meV) acoustic modes is very similar to cases (i) and (ii); indeed long-range phonons are
+expected to be little affected by the presence of the defect.
+
+4.3. Comparison with experiment: luminescence lineshape and Huang-Rhys factors
+In figure 4 we compare the luminescence lineshape L(h̄ω) (equations (2) and (8)),
+calculated using the HSE functional, with the experimental one. The agreement
+between theory and experiment is extremely good. Not only is the overall shape of
+the luminescence band described correctly, but all the specific features are described
+very accurately. In particular:
+
+ (i) The weight of the ZPL of the theoretical spectrum wZP L = 3.8% is very close to the
+     experimental result wZP L = 3.2%. Both of these quantities have been determined
+     directly from luminescence lineshapes shown in figure 4, as discussed in Section
+     2.2. The theoretical Huang-Rhys factor S = 3.67 is thus also very close to the
+     experimental HR factor S = 3.85 ± 0.05; the latter has been extracted from the
+     experimental spectrum as described in Sec. 2.2.
+(ii) Both the experimental and the theoretical band show about 4 increasingly broad
+Luminescence lineshape of NV centres                                                               14
+                               6
+                                      (i) theory, HSE
+                                      (ii) theory, PBE
+                                      (iii) theory, bulk phonons
+                L(hω) (1/eV)   4      (iv) experiment
+
+
+
+                               2
+
+
+
+
+                               0
+                               1.2   1.3   1.4    1.5   1.6    1.7   1.8   1.9
+                                                  energy (eV)
+              Figure 5. Comparison of luminescence lineshapes calculated using the three different
+              theoretical approaches described in Section 4.2 (curves (i)-(iii)) with the experimental
+              one (curve (iv)). (i) and (iv) are the same as in figure 4.
+
+
+
+    phonon replicas. The theoretical phonon frequency h̄ω0 =65 meV is in very good
+    agreement with the experimental value h̄ω0 =64 meV.
+(iii) The fine structure near the ZPL, which is representative of the coupling to acoustic
+      phonons, agrees closely.
+
+     We conclude that calculations based on hybrid density functionals describe the
+vibrational properties and the luminescence lineshape of NV centres with a very high
+accuracy.
+     In figure 5 we present luminescence lineshapes calculated using all the three different
+theoretical approaches discussed in Section 4.2. The experimental curve and the one
+that corresponds to the HSE functional are the same as those in figure 4. The lineshape
+calculated at the PBE level is qualitatively similar to the HSE one, but there are
+quantitative differences. In particular, the weights of the first two phonon replicas are
+larger, and the overall band is narrower. Figure 5 also shows that when bulk phonons
+are used instead, the calculated luminescence lineshape bears no resemblance to the
+experimental curve: it is much broader and has a very different fine structure. This
+result clearly shows that the consideration of the bulk phonon spectrum is not sufficient
+to understand the phonon sideband, challenging the discussion of Ref. [29]. Taking into
+account vibrational modes of the defect system is essential.
+
+5. Analysis: localized vs. delocalized phonon modes
+
+In Section 4.2 we mentioned that the 65 meV phonon that dominates the phonon
+sideband, is not a localized mode, but rather a vibrational resonance. This means
+Luminescence lineshape of NV centres                                                                       15
+                       65 meV quasi-local mode                               167 meV local mode
+    (a)       2                                           (d) 0.03
+
+             1.5
+                                                                 0.02
+      Sk
+
+
+
+
+                                                            Sk
+               1
+                                                                 0.01
+             0.5
+
+              0                                                      0
+               2           4        6        8    10                     2     4        6       8     10
+
+    (b) 1500                                               (e)
+                                        3                        100
+                                   ~8N /βk
+          1000
+      IPRk
+
+
+
+
+                                                             IPRk
+                                                                    50                         ~80
+             500
+
+
+              0                                                      0
+                  2        4        6        8    10                     2     4        6       8     10
+                               supercell size N                                    supercell size N
+
+
+    (c)                                                    (f)
+
+                                    V
+
+                                                                                        V
+                                    N
+
+                                    C                                                   N
+
+                                                                                        C
+
+
+                      Figure 6. Partial Huang-Rhys factors Sk ((a) and (c), equation (5)), inverse
+                      participation ratios IP Rk ((b) and (d), equation (12)), and vibrational patterns ((e)
+                      and (f)) for phonon modes with frequencies ∼ 65 meV ((a), (b), and (c)) and ∼ 167
+                      meV ((d), (e), and (f)) as a function of the supercell size.
+
+
+
+that it is formed by a continuum of vibrational modes, all of which have a larger weight
+close to the defect, but none of which are strictly localized in real space. This mode
+gives rise to a peak in S(h̄ω) with a full width at half-maximum (FWHM) of about 32
+meV (figures 2 and 3).
+     We illustrate the fact that the 65 meV is a vibrational resonance in the following
+way. For each defect supercell studied we choose the individual phonon mode that has
+the largest Huang-Rhys factor in the energy range 49 − 81 meV (right axis, figure 2).
+The energy range corresponds to a FWHM of the 65 meV peak in the converged function
+S(h̄ω). In figure 6 (a), we plot this largest value of the partial Huang-Rhys factor Sk
+as a function of the supercell size N. The value of Sk for this mode decreases steadily,
+albeit with some oscillations, as a function of supercell size. Since the total HR factor
+Luminescence lineshape of NV centres                                                   16
+
+does not change much as the system size grows, the decrease of this particular Sk is
+compensated by an increase in other phonon modes (figure 2). This is a signature of a
+vibrational resonance, which is also called a quasi-local mode.
+     To gain more insight, we study the inverse participation ratio (IPR) for the mode
+k [59]:
+                          1
+               IP Rk = P 2 ,                                                       (12)
+                         α pk;α
+
+where
+                       X     2
+              pk;α =       ∆rk;αi .                                                  (13)
+                       i
+
+IP Rk defined in this way measures the number of atoms onto which the vibrational
+mode is localized. If, e.g., only one atom vibrates for a given mode, IP R = 1. If
+all M atoms in the supercell vibrate with the same amplitude, IP R = M. Note that
+the definition in equation (12) is different from the one used in Ref. [20] to analyze
+vibrational modes of the NV centre in a 216-atom supercell, and is more in line with
+the traditional definition [59].
+     In figure 6(b), the IP Rk for the most pronounced mode in the energy range 49 − 81
+meV is shown as a function of the supercell size N. For all supercell sizes IP Rk is but
+a fraction of the total number of atoms M, but steadily increases with N, albeit with
+similar oscillations as for Sk . This underpins the finding that the 65 meV mode is a
+vibrational resonance. This resonance represents the lion’s share of the distortion of the
+defect geometry (cf. equations (6) and (7)). It has the largest amplitude on the four
+atoms surrounding the vacancy, and the vibrational pattern is shown in Fig. 6(c). The
+N atom is vibrating along the defect axis, while the vibrational vectors of the C atoms
+form an angle of ∼110◦ with this axis.
+     By analyzing partial Huang-Rhys factors and inverse participation ratios of all the
+modes we were able to identify a few other, weaker resonances. These are modes with
+frequencies 161, 134, and 120 meV (in the order of decreasing localization). All of these
+weaker resonances were recently identified in the experiment of Kehayias et al. [29].
+The 153 meV resonance seen in the same experiment is not very pronounced in our
+calculations. As a measure of localization we define the “localization ratio” β, which
+is the ratio of the number of atoms in the supercell (M = 8N 3 ) to the largest IP Rk
+corresponding to one of these resonances:
+              βk = 8N 3 /(IP Rk )                                                    (14)
+We obtain the actual value of βk by fitting the IP Rk for a given mode with a function
+8N 3 /βk (see figure 6(b)). The larger the ratio βk , the more pronounced the resonance.
+For a truly localized mode in the limit M → ∞, βk would be infinite, since for a localized
+mode IP Rk remains constant as M increases. The results are summarized in Table 1.
+For example, the localization ratio βk for the 65 meV mode is ∼11. Values for the
+“localization ratio” should be considered as rough estimates, but they are useful when
+comparing different modes.
+Luminescence lineshape of NV centres                                                      17
+
+              Table 1. Quasi-local and local modes of a1 symmetry that couple to the 3E →3 A2
+              optical transition.
+                         Quasi-local modes
+              Energy (meV)     Localization ratio βk
+                   65                  ∼11
+                   120                 ∼3
+                   134                 ∼6
+                   161                 ∼8
+                            Local mode
+              Energy (meV)            IP Rk
+                   167                 ∼80
+
+
+
+     Together with these vibrational resonances, we do find one truly localized defect-
+induced phonon mode. In figure 6(d) we show Sk as a function of the supercell size
+for a phonon mode with a frequency ≈167 meV, which is slightly (≈0.2 meV) above
+the theoretical bulk phonon spectrum. Increasing the size of the system, Sk approaches
+a constant value of ≈0.02. When the size of the supercell grows, the IP Rk of this
+mode also approaches a constant value of ∼80 (figure 6(e)). In analogy with shallow
+defect levels with energies close to bulk band edges, one could name this mode a shallow
+defect-localized vibration. While this mode is “shallow”, half of its total weight is
+distributed over 6 carbon atoms: 3 that are immediately adjacent to the vacancy, and 3
+more that are nearest neighbours of the first trio along the defect axis. The vibrational
+pattern associated with this vibration is shown in figure 6(f). It is an optical mode with
+vibrational vectors of all atoms only slightly off the z direction (by ∼14◦ ) due to the
+influence of the defect. The participation of the nitrogen is negligible in this vibration.
+     The 167 meV mode contributes less than 1 % to the total HR factor of 3.67,
+and therefore its role in the formation of the phonon sideband is not very significant.
+However, since this is a truly localized vibrational mode, it can play an important role in
+other physical processes at nitrogen-vacancy centres. Kehayias et al. [29] recently found
+that a phonon mode that has the signature of a localized vibration and an experimental
+energy of 169 meV plays a noticeable role in the infrared transition 1E →1 A1 . Due to
+very similar atomic geometries of the 3A2 , 1A1 and 1E electronic states [11, 14, 15, 29]
+we suggest that the localized phonon mode found in our current study is the same as
+the one observed in the experiments of Kehayias et al. [29].
+
+6. Conclusions
+
+In this work we have developed a first-principles methodology to calculate the vibrational
+structure of defect luminescence bands. Both localized, quasi-localized, and bulk
+phonons are taken into account on equal footing. The methodology was applied to
+Luminescence lineshape of NV centres                                                   18
+
+study the phonon sideband pertaining to the 1.945 eV spin-triplet transition at nitrogen-
+vacancy centres in diamond. Calculations based on hybrid density functional theory
+yield a luminescence lineshape and all related parameters that are in excellent agreement
+with experiment. The phonon sideband is dominated by a vibrational resonance with
+an energy of ∼ 65 meV, but a few other, weaker resonances, are also identified. 99
+% of all atomic relaxations that contribute to the phonon sideband occur within ∼12
+Å of the defect, but the interaction with long-range acoustic phonons is also directly
+manifest in the luminescence spectra close to the zero-phonon line. We find a truly
+localized phonon mode slightly above the phonon spectrum of bulk diamond. While
+this mode, being localized on ∼ 75 atoms, contributes little to the spin-triplet optical
+transition, it can play an important role in other physical processes at this defect,
+as recent experiments suggest [29]. Our findings provide a deeper understanding of
+the coupling of electronic states to a1 phonon states at nitrogen-vacancy centres. The
+success of the computational methodology developed here provides confidence that it
+can be fruitfully applied to other systems of high current interest that exhibit a complex
+vibrational structure of luminescence bands [21, 22, 23, 24, 25, 26].
+
+Acknowledgments
+
+AA was supported by the Office of Science of the U.S. Department of Energy (Grant
+No. de-sc0010689), and by the Swiss NSF (PA00P2 134127) during the initial phase
+of the project (2011-2012). Experimental work at UCSB was supported by the
+Air Force Office of Scientific Research and the Defense Advanced Research Projects
+Agency. We thank A. L. Falk and D. M. Toyli for useful comments on the manuscript.
+This research used resources of the National Energy Research Scientific Computing
+centre, which is supported by the Office of Science of the U.S. Department of Energy
+under Contract No. DE-AC02-05CH11231, and the Extreme Science and Engineering
+Discovery Environment (XSEDE), supported by NSF (OCI-1053575 and NSF DMR07-
+0072N)
+
+Appendix A. One-dimensional configuration coordinate diagram
+
+The methodology outlined in Section 2.1 relies on the use of the harmonic approximation.
+This ensures the equivalence of formulations based on equations (6) and (7). Also, in
+Section 2.3 we have mentioned that the vibrational modes that are relevant to describe
+the phonon sideband of the triplet luminescence are very similar for the two functionals,
+PBE and HSE, used in this work. The purpose of this appendix is to illustrate these
+points.
+     We map the potential energy surface in the ground state and the excited state along
+the line in the configuration space that linearly interpolates between the equilibrium
+geometries in the two states. This special mode corresponds to a displacement of an atom
+α along the direction i = {x, y, z} that is proportional to ∆Rαi = Re;αi − Rg;αi . In this
+Luminescence lineshape of NV centres                                                            19
+
+
+                                       PBE                  3
+                                       PBE
+                                       PBE                  E
+                              2        HSE
+                                       HSE
+                                       HSE
+
+                Energy (eV)
+                                                                ∆QHSE
+                              1                                                       EZPL
+                                                                ∆QPBE
+                                       3
+                                        A2
+
+                              0
+                                  -0.8 -0.6 -0.4 -0.2   0       0.2 0.4 0.6 0.8   1    1.2
+                                                                   1/2
+                                                        Q (amu Å)
+
+              Figure A1. 1D cc diagram of the NV centre in the 3A2 ground state and the 3E
+              excited state calculated using the PBE and the HSE functionals. EZP L = 1.945 eV
+              is the zero-phonon line; ∆Q (equation A.1) is the mass-weighted atomic displacement
+              between the minima in the ground and the excited state. For a more meaningful
+              comparison the 3E potential energy curve as calculated in PBE is shifted horizontally
+              but ∆QHSE − ∆QP BE . The calculations used a 4 × 4 × 4 (512-atom) supercell.
+
+
+
+one-dimensional model the generalized configuration coordinate Q for values of atomic
+                                                           P
+positions Rαi that correspond to this displacement is Q2 = αi mα (Rαi − Rg;αi )2 . The
+equilibrium geometry of the ground state corresponds to Q = 0, while that of the excited
+states corresponds to Q = ∆Q, where
+                                      X
+               (∆Q)2 =                          2
+                                           mα ∆Rαi .                                         (A.1)
+                                      αi
+                                             P
+A related quantity (∆R)2 = αi ∆Rαi     2
+                                         . is also useful in analyzing theoretical results,
+and can be alternatively used as a measure of atomic displacements during optical
+excitation. The plot that shows the dependence of total energies in the ground and
+the excited states E{e,g} as a function of Q is called the configuration coordinate (cc)
+diagram [32] (cf. figure 1(c)).
+     In figure A1 we present an explicit calculation of the 1D cc diagram for the NV
+centre (results from the 4 × 4 × 4 supercell were used). The HSE calculations (filled
+disks) yield ∆QHSE =0.71 Å·amu1/2 and ∆RHSE =0.20 Å. The PBE calculations (open
+disks) yield somewhat smaller values, ∆QP BE =0.62 Å·amu1/2 and ∆RP BE =0.18 Å. (In
+passing, we note that in their seminal paper Davies and Hamer [16] also estimated the
+total displacement ∆R based on a simple model for the defect. Despite the fact that
+their model turned out to be not entirely correct, their estimated ∆R = 0.18 Å is
+astonishingly close to accurate first-principles results.) In order to more meaningfully
+compare HSE and PBE results, we show the 1D cc diagram calculated at the PBE level
+on the same graph, but shift the potential energy curve of the excited state horizontally
+to Q = ∆QHSE . Both the HSE and PBE curves are adjusted vertically to match the
+Luminescence lineshape of NV centres                                                     20
+
+experimental EZP L = 1.945 eV, as discussed in Section 3. A simple visual inspection of
+figure A1 then shows that if plotted this way the potential energy curves determined in
+the two approaches lie virtually on top of each other.
+     More quantitatively, we have performed numerical fits to these one-dimensional
+potential energy curves using the function E(Q) = 1/2Ω2 Q2 + βQ3 . It can be easily
+shown that Ω determined in this way is the mean square average of all the phonon
+modes contributing to the phonon sideband, the weight of phonon mode k being given
+by qk2 (equations (6) or (7)). For the two functionals, these average frequencies differ by
+1% in the ground state, and 1.6% in the excited state, and in all cases the coefficient β
+is essentially negligible. These findings justify the assumptions at the beginning of this
+section.
+     The similarity of vibrational modes calculated in PBE and HSE can also be
+demonstrated by a direct calculation of the vibrational spectrum of the supercell.
+Because of the high computational cost of the HSE calculation, we have performed this
+calculation only for the smallest 2 × 2 × 2 supercell. Vibrational modes and frequencies
+calculated using the two functionals are indeed very similar, supporting the conclusion
+achieved by analysing figure A1. Therefore, it is a very good approximation to use
+vibrational modes calculated at the PBE level in all calculations, and we adopt it for
+the present study.
+     The main difference between PBE and HSE functionals are the atomic relaxations
+∆Q (or R  ~e − R~ g ). It is because of this difference that spectral functions of electron-
+phonon coupling S(h̄ω) and total Huang-Rhys factors (figure 3) are different in the two
+approaches.
+
+Appendix B. Calculations for very large supercells
+
+A direct evaluation for the dilute limit, i.e., the use of very large supercells that would
+yield a converged S(h̄ω), is nearly impossible not only for an HSE hybrid functional, but
+also for a less expensive PBE functional. This applies, in particular, to the calculation
+of vibrational modes. To obtain results for large systems, we have used the following
+methodology.
+     For the two smallest supercells, i.e., 2×2×2 (64 lattice sites) and 3×3×3 (216 sites)
+a direct approach has been applied. In particular, partial HR factors Sk have been
+evaluated using equations (5) and (6). Vibrational modes and frequencies have been
+determined by diagonalizing dynamical matrices obtained directly from the supercell
+calculation.
+     For larger supercells we have used an alternative approach. First, we performed
+constrained geometry relaxations for the 4×4×4 supercell (512 lattice sites) with a defect
+in the middle of the supercell. In the calculations for the excited state the atoms within
+3 Å of the vacancy were allowed to relax, while the remaining atoms were kept in their
+ideal lattice positions (figure B1(a)). This procedure yields zero forces Fe;αi within this
+chosen radius (white inner circle in figure B1(a)). The forces Fe;αi are non-zero for the
+Luminescence lineshape of NV centres                                                       21
+
+atoms that were kept in their bulk positions. However, actual calculations indicate that
+the forces are appreciable only within ∼7 Å away from the vacancy (i.e., about 4 Å
+away from the atoms that were allowed to relax, indicated as an outer yellow circle in
+figure B1(a)). The crucial point is that there are no net forces exerted on atoms that are
+at the boundary of this supercell. Subsequently, we kept the geometry of the defect as
+optimized according to this procedure, but determined the forces Fg;αi on atoms when
+the electronic state is changed to that of the ground state (figure B1(b)). The resulting
+forces are non-zero in the entire region, shown as a yellow circle in figure B1(b), but
+essentially vanish beyond it. These two calculations yield the difference (Fe;αi − Fg;αi )
+needed to determine partial HR factors via equations (5) and (7). The fact that the
+forces are essentially zero beyond the yellow circle in figure B1 (a) and (b) does not mean
+that these atoms stay in their bulk position. If the constraints were relieved, these atoms
+would move to find their equilibrium positions during a full geometry optimization, since
+the movement of their neighbours during this optimization would result in a build-up
+of forces. The point is that equation (7) includes this automatically.
+     To determine the vibrational spectrum for this supercell we have made use of the
+fact that in covalent semiconductors the dynamical matrix is short-ranged. For example,
+tests show that the inclusion of five nearest-neighbour shells is sufficient to obtain a
+vibrational spectrum of bulk diamond. Thus, if the atoms in the defect system are
+further away from each other than 4 Å, we set the dynamical matrix element to 0.
+Otherwise, if one of the atoms is within 2.5 Å of the vacancy or the nitrogen atom, the
+matrix element is taken from the calculation of the 3×3×3 supercell. For other pairs
+we use bulk diamond values. The choice or parameters leads to a converged vibrational
+spectrum of the 4×4×4 defect supercell. A similar procedure to construct the dynamical
+matrix was recently used for defects in GaN by Shi and Wang [60]. Partial HR factors
+are then determined from equations (5) and (7).
+     For larger supercells N×N×N (N > 4) the procedure is as follows. First, the
+two 4 × 4 × 4 defect supercells from the previous steps were embedded into a larger
+N×N×N supercell for both the excited (figure B1(a)) and the ground state (figure
+B1(d)). This automatically yields the force difference (Fe;αi − Fg;αi ) for this larger
+system. The wavefunction of the NV centre is very localized, and thus we might expect
+that the actual calculation for a larger supercell, were it possible, would yield very similar
+force difference (Fe;αi − Fg;αi ). It is now clear why the formulation based on equation
+(7) is hugely advantageous. When the atoms away from the defect are kept fixed in
+ideal bulk positions during the geometry optimization in figure B1(a) this excludes the
+elastic interaction between periodically repeated replicas of the defect, and eventually
+enables embedding this smaller system into a large one. Vibrational spectra for these
+larger supercells have been determined in the same way as for the 4×4×4 supercell.
+Using these techniques we were able to study supercells as large as 11×11×11 (10648
+lattice sites). Our procedure procedure yields results of nearly the same quality as if
+explicit first-principles calculations were performed for these large supercells.
+Luminescence lineshape of NV centres                                                              22
+                                                                         3
+                          (a) 3E in 4x4x4                           (b) A2 in 4x4x4
+          geometry
+          optimized                              carbon
+              Fe=0                               nitrogen
+                                                 vacancy
+        bulk positions
+              Fe¹0                                          Fg¹0
+
+        bulk positions
+              Fe=0                                          Fg=0
+
+
+
+                            3                                        3
+                         (c) E in NxNxN                            (d) A2 in NxNxN
+
+
+
+       Fe¹0                                         Fg¹0
+
+
+
+
+       Fe=0                                         Fg=0
+
+
+
+
+                Figure B1. The methodology to determine the spectral function S(h̄ω) for large
+                supercells. (a) Constrained geometry optimization in the 4×4×4 supercell for the
+                electronic excited state; (b) single-point calculation in the 4×4×4 supercell for the
+                electronic ground state using the geometry obtained in (a); (c) and (d) embedding
+                calculations obtained in the previous two steps into a larger supercell N ×N ×N . For
+                both the 4×4×4 and the N ×N ×N (N > 4) vibrational modes and frequencies have
+                been determined as described in the text.
+
+
+
+Appendix C. NV centre in the 13 C diamond lattice
+
+In all above discussions, we have considered the NV centre in natural diamond, with
+the atomic mass of carbon atoms set to 12.0111 a.m.u. This is useful when comparing
+calculations to ensemble measurements, as done in the present work. Our results apply
+to NV centres in 12 C diamond as well. We have verified that the frequency of the
+dominant phonon mode h̄ω0 =65.0 meV, the Huang-Rhys factor S=3.67, and the Debye-
+Waller factor wZP L =2.4% in 12 C diamond are within 0.1 % of the values in natural
+diamond.
+     It is of interest, however, to study NV centres in 13 C diamond, where the different
+mass of carbon atoms may lead to more noticeable changes. The comparison of the
+main parameters pertaining to the vibrational sideband of NV centres in natural (or
+12
+   C) diamond vs. 13 C diamond is shown in Table C1. Calculations have been performed
+at the HSE level. Compared to NV centres in natural diamond, the total HR factor
+Luminescence lineshape of NV centres                                                                  23
+
+                Table C1. Comparison of calculated parameters pertaining to the phonon sideband
+                in natural and 13 C diamond. mC is the mass of the carbon atom, h̄ω is the energy of
+                the most pronounced phonon mode, S is the total Huang-Rhys factors, and wZP L is
+                the weight of the zero-phonon line.
+                                                   mC (a.m.u.)     h̄ω0    S     wZP L
+                natural diamond/12 C diamond         12.0111      65.0    3.67   3.8 %
+                         13
+                            C diamond                  13         63.4    3.80   3.4 %
+
+
+                                                                                 q
+S increases by a factor of 1.035, i.e., slightly less than a factor 13/12.0111 ≈ 1.04
+which would be expected if only carbon atoms would couple to the optical transition.
+This corresponds to a decrease of wZP L from 3.8% to 3.4%. The energy of the most
+pronounced phonon decreases only by a factor of 1.02, from 65.0 to 63.4 meV.
+
+ [1] Doherty MW, Manson NB, Delaney P, Jelezko F, Wrachtrup J and Hollenberg LCL 2013 The
+       nitrogen-vacancy colour centre in diamond Phys. Rep. 528 1
+ [2] Toyli DM, Bassett LC, Buckley BB, Calusine G and Awschalom DD 2013 Engineering and quantum
+       control of single spins in semiconductors MRS Bulletin 38 139
+ [3] Loubser JHN and van Wyk JA 1978 Electron spin resonance in the study of diamond Rep. Progr.
+       Phys. 41 1202
+ [4] Balasubramanian G, Neumann P, Twitchen D, Markham M, Kolesov R, Mizuochi N, Isoya J,
+       Achard J, Beck J, Tissler J, Jacques V, Hemmer PR, Jelezko F and Wrachtrup J 2009 Ultralong
+       spin coherence time in isotopically engineered diamond Nature Mat. 8, 383 (2009)
+ [5] Childress L, Gurudev Dutt MV, Taylor JM, Zibrov AS, Jelezko F, Wrachtrup J, Hemmer PR
+       and Lukin MD 2006 Coherent dynamics of coupled electron and nuclear spin qubits in diamond
+       Science 314 281
+ [6] Jelezko F, Gaebel T, Popa I, Domhan M, Gruber A and Wrachtrup J 2004 Observation of coherent
+       oscillation of a single nuclear spin and realization of a two-qubit conditional quantum gate Phys.
+       Rev. Lett. 93 130501
+ [7] Jelezko F, Gaebel T, Popa I, Gruber A and Wrachtrup J 2004 Observation of coherent sscillations
+       in a single electron spin Phys. Rev. Lett. 92 076401
+ [8] Taylor JM, Cappellaro P, Childress L, Jiang L, Budker D, Hemmer PR, Yacoby A, Walsworth R
+       and Lukin MD 2008 High-sensitivity diamond magnetometer with nanoscale resolution Nature
+       Physics 7 270
+ [9] Dolde F, Fedder H, Doherty MW, Nöbauer T, Rempp F, Balasubramanian G, Wolf T, Reinhard
+       F, Hollenberg LCL, Jelezko F and Wrachtrup J 2011 Electric-field sensing using single diamond
+       spins Nature Physics 7 459
+[10] Acosta VM, Bauch E, Ledbetter MP, Waxman A, Bouchard L-S and Budker D 2010 Temperature
+       dependence of the nitrogen-vacancy magnetic resonance in diamond Phys. Rev. Lett. 104 070801
+[11] Toyli DM, Christle DJ, Alkauskas A, Buckley BB, Van de Walle CG and Awschalom DD 2012
+       Measurement and Control of single nitrogen-vacancy centre spins above 600 K Phys. Rev. X 2
+       031001
+[12] Toyli DM, de las Casas CF, Christle DJ, Dobrovitski VV and Awschalom DD 2013 Fluorescence
+       thermometry enhanced by the quantum coherence of single spins in diamond Proc. Nat. Acad.
+       Sci. 110 8417
+[13] Doherty MW, Struzhkin VV, Simpson DA, McGuinness LP, Meng Y, Stacey A, Karle TJ, Hemley
+       RJ, Manson NB, Hollenberg LCL and Prawer S 2014 Electronic properties and metrology
+       applications of the diamond NV centre underpressure Phys. Rev. Lett. 112 047601
+Luminescence lineshape of NV centres                                                               24
+
+[14] Doherty MW, Manson NB, Delaney P and Hollenberg LCL 2011 The negatively charged nitrogen-
+       vacancy centre in diamond: the electronic solution New J. Phys. 13 025019
+[15] Maze JR, Gali A, Togan E, Chu Y, Trifonov A, Kaxiras E and Lukin MD 2011 Properties of
+       nitrogen-vacancy centres in diamond: the group theoretic approach New J. Phys. 13 025025
+[16] Davies G and Hamer MF 1976 Optical studies of the 1.945 eV vibronic band in diamond Proc.
+       Royal Soc. A 348 285
+[17] Davies G 1981 The Jahn-Teller effect and vibronic coupling at deep levels in diamond Rep. Prog.
+       Phys. 44 787
+[18] Huang K and Rhys A 1950 Theory of light absorption and non-radiative transitions in F-centres
+       Proc. Royal Soc. 204
+[19] Gali A, Simon T and J. E. Lowther JE 2011 An ab initio study of local vibration modes of the
+       nitrogen-vacancy centre in diamond New J. Phys. 13 025106
+[20] Zhang J, Wang C-Z, Zhu ZZ and Dobrovitskii VV 2011 Vibrational modes and lattice distortion of
+       a nitrogen-vacancy centre in diamond from first-principles calculations Phys. Rev. B 84 035211
+[21] Weber JR, Koehl WF, Varley JB, Janotti A, Buckley BB, Van de Walle CG and Awschalom DD
+       2010 Quantum computing with defects Proc. Nat. Acad. Sci. 107 8513
+[22] Koehl WF, Buckley BB, Heremans FJ, Calusine G and Awschalom DD 2011 Room temperature
+       coherent control of defect spin qubits in silicon carbide Nature 479, 84
+[23] Gali A 2011 Time-dependent density functional study on the excitation spectrum of point defects
+       in semiconductors Phys. Status Solidi 248 1337
+[24] Baranov PG, Bundakova AP, Soltamova AA, Borovykh IV, Zondervan R, Verberk R and Schmidt
+       J 2011 Silicon vacancy in SiC as a promising quantum system for single-defect and single-photon
+       spectroscopy Phys. Rev. B 83 125203
+[25] Reshchikov MA and Morkoç H 2005 Luminescence properties of defects in GaN J. Appl. Phys 97
+       061301
+[26] Brgoch J, DenBaars SP and Seshadri R 2013 Proxies from ab initio calculations for screening
+       efficient Ce3 + phosphor hosts J. Phys. Chem. C 117 17955
+[27] Heyd J, Scuseria GE and Ernzerhof M 2003 Hybrid functionals based on a screened Coulomb
+       potential J. Chem. Phys. 118 8207
+[28] Santori C, Barclay PE, Fu K-MC, Beausoleil RG, Spillane S and Fisch M 2010 Nanophotonics for
+       quantum optics using nitrogen-vacancy centres in diamond Nanotechnology 21 27400
+[29] Kehayias P, Doherty MW, English D, Fischer R, Jarmola A, Jensen K, Leefer N, Hemmer P,
+       Manson NB and Budker D 2013 Infrared absorption band and vibronic structure of the nitrogen-
+       vacancy centre in diamond Phys. Rev. B 88 165202
+[30] Fu K-MC, Santori C, Barclay PE, Rogers LJ, Manson NB and Beausoleil RG 2009 Observation
+       of the dynamic Jahn-Teller effect in the excited states of nitrogen-vacancy centres in diamond
+       Phys. Rev. Lett. 103 256404
+[31] Abtew TA, Sun YY, Shih B-C, Dev P, Zhang SB and Zhang P 2011 Dynamic Jahn-Teller Effect
+       in the NV− centre in Diamond Phys. Rev. Lett. 107 146403
+[32] Stoneham AM 1975 Theory of defects in solids Oxford University Press
+[33] Duschinsky F 1937 On the interpretation of electronic spectra of polyatomic molecules Acta
+       Physiochim. USSR 7 551
+[34] Borrelli R and Peluso A 2003 Dynamics of radiationless transitions in large molecular systems:
+       A FranckCondon-based method accounting for displacements and rotations of all the normal
+       coordinates J. Chem. Phys. 119 8437
+[35] Patrick CE and Giustino F 2013 Quantum nuclear dynamics in the photophysics of diamondoids
+       Nature Comm. 4 2006 doi: 10.1038/ncomms3006
+[36] Alkauskas A, Lyons JL, Steiauf D and Van de Walle CG 2012 First-principles calculations of
+       luminescence spectrum line shapes for defects in semiconductors: the example of GaN and ZnO
+       Phys. Rev. Lett. 109 267401
+[37] Markham JJ 1959 Interaction of normal modes with electron traps Rev. Mod. Phys. 31 956
+Luminescence lineshape of NV centres                                                                  25
+
+[38] Lax M 1952 The Franck-Condon principle and its application to crystals J. Chem. Phys. 20 1752
+[39] Kubo R and Toyozawa Y 1955 Application of the method of generating function to radiative and
+        non-radiative transitions of a trapped electron in a crystal Prog. Theor. Phys. 13 160
+[40] Miyakawa T and Dexter DL 1970 Phonon sidebands, multiphonon relaxation of excited states,
+        and phonon-assisted energy transfer between ions in solids Phys. Rev. B 1 2961
+[41] Silsbee RH 1962 Thermal broadening of the Mössbauer line and of narrow-line electronic spectra
+        in solids Phys. Rev. 128 1726
+[42] McCumber DE and Sturge MD 1963 Linewidth and temperature shift of the R lines in ruby J.
+        Appl. Phys. 34, 1682
+[43] Davies G 1974 Vibronic spectra in diamond J. Phys. C: Solid St. Phys. 7 3797
+[44] Freysoldt C, Grabowski B, Hickel T, Kresse G, Janotti A, Neugebauer J and Van de Walle CG
+        2014 First-principles calculations for point defects in solids Rev. Mod. Phys. 86 253
+[45] Perdew JP, Burke K and Ernzerhof M 1996 Generalized gradient approximation made simple Phys.
+        Rev. Lett. 77 3865
+[46] Gali A, Janzén E, Déak P, Kresse G and Kaxiras E 2009 Theory of spin-conserving excitation of
+        the N−V− centre in diamond Phys. Rev. Lett. 103 186404
+[47] J. C. Slater 1963-1974 Quantum Theory of Molecules and Solids Vol. 1-4 New York, McGraw-Hill
+[48] Kresse G and Furthmüller J 1996 Efficient iterative schemes for ab initio total-energy calculations
+        using a plane-wave basis set Phys. Rev. B 54 11169
+[49] Kresse G and Joubert J 1999 From ultrasoft pseudopotentials to the projector augmented-wave
+        method Phys. Rev. B 59 1758
+[50] Blöchl PE 1994 Projector augmented-wave method Phys. Rev. B 50 17953
+[51] Kretov MK, Iskandarova IM, Potapkin BV, Scherbinin AV, Srivastava AM and Stepanov NF 2012
+        Simulation of structured 4 T1 →6 A1 emission bands of Mn2+ impurity in Zn2 SiO4 : a first-
+        principle methodology J. Lumin. 132 2143
+[52] Kretov MK, Scherbinin AV and Stepanov NV 2013 Simulating the structureless emission bands
+        of Mn2+ ions in ZnCO3 and CaCO3 matrices by means of quantum chemistry Russian J. Phys.
+        Chem. A 87 245
+[53] Baroni S, de Gironcoli A, Dal Corso A and Giannozzi P 2001 Phonons and related crystal properties
+        from density-functional perturbation theory Rev. Mod. Phys. 73 515
+[54] Pavone P, Karch K, Schnüt O, Windl W, Strauch D, Giannozzi P and Baroni S 1993 Ab initio
+        lattice dynamics of diamond Phys. Rev. B 48 3156
+[55] Giannozzi P et al. 2009 Quantum Espresso: a modular and open-source software project for
+        quantum simulations of materials J. Phys.: Condens. Matter 21 395502
+[56] Perdew JP and Zunger A 1982 Self-interaction correction to density-functional approximations for
+        many-electron systems Phys. Rev. B 23 5048
+[57] Albrecht A, Retzker A, Jelezko F and Plenio MB 2014 Coupling of nitrogen vacancy centres in
+        nanodiamonds by means of phonons New J. Phys. 15 083014
+[58] Zaitsev AM 2000 Vibronic spectra of impurity-related optical centres in diamond Phys. Rev. B 61
+        12909
+[59] Bell RJ, Dean P and Hibbins-Butler DC 1970 Localization of normal modes in vitreous silica,
+        germania and beryllium fluoride J. Phys. C: Solid State Phys. 3 2111
+[60] Shi L and Wang L-W 2012 Ab initio calculations of deep-level carrier nonradiative recombination
+        rates in bulk emiconductors Phys. Rev. Lett. 109 245501
+

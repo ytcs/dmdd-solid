@@ -1,0 +1,1429 @@
+                                                     Anharmonic free energies and phonon dispersions from the stochastic self-consistent
+                                                         harmonic approximation: application to platinum and palladium hydrides
+                                                                                   Ion Errea1,2 , Matteo Calandra1 , and Francesco Mauri1
+                                                                              1
+                                                                                Université Pierre et Marie Curie-Paris 6, CNRS, IMPMC-UMR7590,
+                                                                                   case 115, 4 Place Jussieu, 75252 Paris Cedex 05, France and
+                                                                              2
+                                                                                IKERBASQUE, Basque Foundation for Science, 48011, Bilbao, Spain
+
+                                                                    Harmonic calculations based on density-functional theory are generally the method of choice for
+                                                                 the description of phonon spectra of metals and insulators. The inclusion of anharmonic effects is,
+                                                                 however, delicate as it relies on perturbation theory requiring a considerable amount of computer
+                                                                 time, fast increasing with the cell size. Furthermore, perturbation theory breaks down when the
+arXiv:1311.3083v1 [cond-mat.mtrl-sci] 13 Nov 2013
+
+
+
+
+                                                                 harmonic solution is dynamically unstable or the anharmonic correction of the phonon energies
+                                                                 is larger than the harmonic frequencies themselves. We present here a stochastic implementation
+                                                                 of the self-consistent harmonic approximation valid to treat anharmonicity at any temperature
+                                                                 in the non-perturbative regime. The method is based on the minimization of the free energy with
+                                                                 respect to a trial density matrix described by an arbitrary harmonic Hamiltonian. The minimization
+                                                                 is performed with respect to all the free parameters in the trial harmonic Hamiltonian, namely,
+                                                                 equilibrium positions, phonon frequencies and polarization vectors. The gradient of the free energy
+                                                                 is calculated following a stochastic procedure. The method can be used to calculate thermodynamic
+                                                                 properties, dynamical properties and even anharmonic corrections to the Eliashberg function of
+                                                                 the electron-phonon coupling. The scaling with the system size is greatly improved with respect
+                                                                 to perturbation theory. The validity of the method is demonstrated in the strongly anharmonic
+                                                                 palladium and platinum hydrides. In both cases we predict a strong anharmonic correction to the
+                                                                 harmonic phonon spectra, far beyond the perturbative limit. In palladium hydrides we calculate
+                                                                 thermodynamic properties beyond the quasiharmonic approximation, while in PtH we demonstrate
+                                                                 that the high superconducting critical temperatures at 100 GPa predicted in previous calculations
+                                                                 based on the harmonic approximation are strongly suppressed when anharmonic effects are included.
+
+
+                                                                     I.   INTRODUCTION                              be accounted for. Moreover, harmonic vibrational ener-
+                                                                                                                    gies are temperature independent and, therefore, ther-
+                                                                                                                    modynamic properties at high temperature might not be
+                                                       Describing accurately vibrations of atoms is of
+                                                                                                                    properly accounted within the harmonic approximation.
+                                                    paramount importance in the physical properties of
+                                                                                                                    Despite being computationally challenging for ab initio
+                                                    solids, liquids and molecules. The contribution of atomic
+                                                                                                                    approaches, phonons finite lifetime and the temperature
+                                                    vibrations to the free energy of the system affects equilib-
+                                                                                                                    dependence of their frequencies can be explained treating
+                                                    rium and thermodynamic properties, while the frequen-
+                                                                                                                    third and fourth order terms in the expansion of the BO
+                                                    cies and the deformation potentials determine transport
+                                                                                                                    energy surface within perturbation theory5–9 at a very
+                                                    and superconducting properties. Moreover, the spectra
+                                                                                                                    high computational cost, fast increasing with the system
+                                                    obtained from spectroscopic techniques such as infrared,
+                                                                                                                    size.
+                                                    Raman, and inelastic X-ray or neutron scattering can-
+                                                    not be understood without accounting for atomic vibra-             The validity of perturbation theory is, however, limited
+                                                    tions. The quantum mechanical description of atomic             to situations in which the harmonic potential is consid-
+                                                    vibrations in terms of phonons or vibrons has provided a        erably larger than higher order terms. Then, the pertur-
+                                                    successful framework to describe all these properties1 .        bative correction of vibrational frequencies is small with
+                                                       Nowadays, vibron energies and phonon dispersions             respect to the harmonic result. Nevertheless, whenever
+                                                    in the harmonic approximation are routinely calculated          the displacements of the atoms largely exceed the range
+                                                    from first-principles making use of linear response the-        in which the harmonic potential is valid, the harmonic
+                                                    ory2 or the small displacement method3 , and thermody-          approximation and any perturbative approach based on
+                                                    namic properties can be accounted within the standard           it break down10,11 . This situation occurs whenever a sys-
+                                                    quasiharmonic approximation4 . The harmonic approxi-            tem is close to a dynamical instability, light atoms are
+                                                    mation relies on the following assumptions: (i) the dis-        present, or temperature is high and the solid is not far
+                                                    placement of the atoms from their equilibrium positions         from melting. In these cases, describing the tempera-
+                                                    is small compared to the interatomic distance and, as           ture dependence of the phonon spectra is crucial and in-
+                                                    a consequence, (ii) the ionic potential can be approxi-         corporating anharmonic corrections to the free energy is
+                                                    mated with the truncation at second order of the Born-          mandatory to describe properly thermodynamic proper-
+                                                    Oppenheimer (BO) energy surface. The harmonic ap-               ties. This non-perturbative regime has already been iden-
+                                                    proximation predicts that phonons or vibrons are well-          tified in superconductors12–16 , transition-metal dichalco-
+                                                    defined quasiparticles with an infinite lifetime. Thus, fi-     genides with charge-density waves17–21 , thermoelectric
+                                                    nite values of the thermal conductivity in solids cannot        materials22 , ferroelectrics23,24 , hydrides25 , materials un-
+                                                                                                                         2
+
+der extreme temperature or pressure conditions26–28 , or       ergy of the system and optimizes the free energy with
+in the isotopic fractionation of water29 to mention but        respect to phonon or vibron frequencies, polarization vec-
+a few examples. The development of a non-perturbative          tors and free parameters in the crystal or molecular struc-
+treatment of phonon-phonon scattering is thus a major          ture. The temperature dependence is naturally incor-
+challenge for many fields of physics and chemistry.            porated into the formalism and temperature-dependent
+   Ab initio molecular dynamics (AIMD)30 calculations          phonon dispersions or vibron frequencies can be readily
+are the most common way of treating anharmonicity at           calculated. The method is based on a stochastic evalua-
+any order. However, as they are based on Newtonian             tion of the free energy and its gradient. Thus, the cum-
+mechanics, quantum effects important at low tempera-           bersome evaluation of anharmonic forces12,42 or mapping
+ture are not properly characterized by AIMD, and, con-         the BO energy surface is avoided. The method is named
+sequently, the application of AIMD is limited to temper-       as the stochastic self-consistent harmonic approximation
+atures above Debye temperature. The quantum behav-             (SSCHA). It is perfectly valid to study both lattice or
+ior can be incorporated to AIMD making use of quantum          molecular vibrations, but, in order to simplify the text,
+thermal baths31,32 . However, this approach is exclusively     we will use the language of crystals throughout. The SS-
+valid for harmonic potentials33,34 . The problem is over-      CHA requires the calculation of total energies and forces
+come by path-integral molecular dynamics (PIMD)35 ,            on supercells with suitably chosen ionic configurations,
+but the great computational cost of the method makes           which can be computed at any degree of theory. The
+it challenging for density-functional theory (DFT) state-      SSCHA algorithm is devised to minimize the number of
+of-the-art calculations.                                       total energy and force calculations.
+   Aiming to overcome these difficulties, several methods         We apply the method to the strongly anharmonic plat-
+have been developed recently to deal with anharmonic ef-       inum and palladium hydrides. In both cases the an-
+fects beyond perturbation theory12,36–41 mainly inspired       harmonic correction to the phonon frequencies is larger
+by the self-consistent harmonic approximation (SCHA)           than the harmonic frequencies themselves, invalidating
+devised by Hooton10 . The main idea of the SCHA is that        any perturbative approach. We first study the role of
+the system can be approximated by the harmonic poten-          anharmonicity in PtH at high pressure fully from first-
+tial that minimizes the free energy of the system, which       principles, demonstrating that the high superconducting
+does not necessarily coincide with the potential obtained      critical temperatures predicted in previous works 43–45
+from the second derivatives of the BO energy surface.          are strongly suppressed by anharmonic effects. This re-
+The self-consistent ab initio lattice dynamics (SCAILD)        sult questions the interpretation suggested by several au-
+method36,37 is an iterative way of converging the phonon       thors43–45 of the experiment in silane by Eremets et al.46 ,
+frequencies at different temperatures accounting for an-       where superconductivity was measured for the first time
+harmonic effects, but it does not optimize the eigenvec-       in a high-pressure hydride, stating that the measured su-
+tors of the harmonic potential nor the internal parame-        perconductivity corresponded not to silane but to PtH.
+ters in the crystal or molecular structure, and does not       In palladium hydrides we show how within the SSCHA
+include anharmonic corrections in the free energy. The         we can calculate thermodynamic properties in agreement
+method presented by Antolin et al. does not include such       with experiments in cases where the quasiharmonic ap-
+corrections either38 . The temperature dependent effec-        proximation breaks down.
+tive potential (TDEP) technique can optimize the poten-           The paper is structured as follows. In Sec. II we
+tial with respect to both polarization vectors and internal    present the theoretical foundation of the SCHA and in
+parameters, and, in principle, can include anharmonic          Sec. III the way we implement it in a stochastic manner.
+corrections to the free energy through thermodynamic           In Secs. IV and V we apply the SSCHA to the strongly
+integration39,40 . Nevertheless, as it is based on AIMD        anharmonic platinum and palladium hydrides, where no
+calculations, it might break down below Debye tempera-         perturbative approach is feasible. Finally, summary and
+ture and the thermodynamic integration technique might         conclusions are given in Sec. VI.
+be inefficient in their scheme40 . Finally, Monserrat et al.
+have recently presented a method in which the BO en-
+ergy surface is Taylor expanded as a function of the har-         II.   THE SELF-CONSISTENT HARMONIC
+monic normal coordinates41 . The obtained Hamiltonian                         APPROXIMATION
+is solved variationally. In this scheme, the internal pa-
+rameters of the crystal structure are not optimized, and         The SSCHA method applies to molecules and solids.
+the required mapping of the BO energy surface might            In terms of notation clarity we treat the physical system
+demand a large computational effort.                           as an isolated molecule throughout the manuscript. This
+   In this paper we present a new implementation of the        means that in the case of periodic crystals we take a
+SCHA that is fully variational in the free energy. The free    periodic supercell and treat the system at the Γ point.
+energy is explicitly minimized using a conjugate-gradient      As it will be explained in Sec. II D, in the latter case we
+(CG) algorithm with respect to all the independent co-         take advantage of translational symmetries.
+efficients in a trial harmonic potential. Therefore, the         Within the BO or adiabatic approximation, which as-
+method allows to access directly the anharmonic free en-       sumes that the electrons adapt instantaneously to the
+                                                                                                                            3
+
+ionic positions, the dynamics of the ions in the supercell        the density matrix by any density matrix ρH defined by
+are determined by V , the potential defined by the BO en-         a trial H = T + V Hamiltonian. Then, if
+ergy surface. Normally, this potential is Taylor expanded                                               1
+as a function of the ionic displacements as                                  FH [H] = tr[ρH H] +          tr[ρH ln ρH ]    (8)
+                                                                                                        β
+                                    ∞
+                                    X                             we have the so-called Gibbs-Bogoliubov inequality47 ,
+                      V = V0 +            Vn ,              (1)   namely
+                                    n=2
+                                                                                         FH ≤ FH [H].                      (9)
+where
+                                                                  Adding and subtracting tr[ρH H] in Eq. (8), it is straight-
+             1 X X α1 ...αn s1 α1                                 forward to demonstrate that
+        Vn =                  φ        u . . . usn αn       (2)
+             n! s ...s α ...α s1 ...sn
+                  1   n   1     n                                              FH [H] = FH + tr[ρH (V − V)].              (10)
+and                                                               Obviously, the equality holds in Eq. (9) when H = H.
+                                                                  Thus, if FH [H] is minimized with respect to the trial H
+                      usα = Rsα − Req
+                                   sα
+                                                            (3)   Hamiltonian, a quantum variational principle is estab-
+                                                                  lished valid at any temperature for the ionic problem.
+is the out-of-equilibrium displacement of atom s in the              The SCHA, which was originally proposed by Hooton10
+supercell along Cartesian coordinate α, with Rsα the cor-         and it was further developed by Choquard48 and
+                                         sα
+responding atomic position and Req          the atomic equilib-   Werthamer49 , is obtained by restricting the trial poten-
+                                 α1 ...αn
+rium position. In Eq. (2) φs1 ...sn represents the n-th           tial V to a harmonic one. The SCHA is analogous to
+order derivative of the BO energy surface with respect to         the Hartree-Fock approximation for electrons in the sense
+the atomic displacements calculated at equilibrium:               that it assumes a trial density matrix formed by single-
+                                                                  particle wave functions. As we shall see in Sec. II B, one
+                                 ∂ (n) V
+                                               
+             φα1 ...αn
+                       =                           .        (4)   advantage of taking a harmonic potential is that FH and
+              s1 ...sn
+                           ∂us1 α1 . . . ∂usn αn 0                the probability density to find the system in a general
+                                                                  R ionic configuration, ρH (R) = hR|ρH |Ri, can be ex-
+Note that in Eq. (1) the first order term in the expansion        pressed in a closed form in terms of phonon frequencies,
+vanishes as forces are zero at the equilibrium position.          polarization vectors and equilibrium positions.
+  Once the potential is defined, the dynamics of the ionic           The variational principle proposed by the SCHA allows
+degrees of freedom are determined by the                          us to treat systems beyond perturbation theory since,
+                                                                  even if V − V2 is large compared to V2 itself invalidating
+                            H =T +V                         (5)   any perturbative approach5–9 , the variational principle is
+                                                                  still valid. It should be remarked that in systems with
+Hamiltonian, where
+                                                                  huge anharmonicity phonons remain well-defined quasi-
+                            N X
+                              3                                   particles that are actually measured12–29 . Similarly, elec-
+                            X   (P sα )2                          trons in solids are existing quasiparticles despite being
+                      T =                                   (6)
+                              s=1 α=1
+                                        2Ms                       strongly affected by the electron-electron Coulomb inter-
+                                                                  action. Therefore, once the harmonic potential V that
+is the kinetic-energy operator of the ions, with N the to-        minimizes FH [H] has been found, the eigenvalues of V
+tal number of atoms in the supercell, P sα the momentum           can be ascribed to the phonon spectra renormalized by
+operator of the s-th atom along α, and Ms the mass of             anharmonic effects.
+the s-th atom.
+
+                                                                              B.   The harmonic Hamiltonian
+      A.   Formal definition of the self-consistent
+               harmonic approximation                               The trial harmonic Hamiltonian of the SCHA is writ-
+                                                                  ten in its general
+  The free energy of the ionic Hamiltonian is given by the                  N X
+                                                                              3                     N     3
+sum of the total energy and the entropic contribution:                      X   (P sα )2           1 X X sα αβ tβ
+                                                                      H=                       +        u Φst u           (11)
+                                                                            s=1 α=1
+                                                                                      2Ms          2 st
+                              1                  1                                                       αβ
+        FH = tr[ρH H] +         tr[ρH ln ρH ] = − ln ZH ,   (7)
+                              β                  β                form. The trial force-constants matrix Φαβst is different
+
+where the partition function is ZH = tr[e−βH ], the den-          from the force-constants matrix associated to V2 , φαβst .
+                                                                                                           √
+sity matrix ρH = e−βH /ZH , and β = 1/(kB T ). Calculat-          Diagonalizing the dynamical matrix Φαβ
+                                                                                                       st /   M  M
+                                                                                                                s t  as
+ing FH represents a complicated task due to the many-                          N X
+                                                                                 3
+                                                                               X             Φαβ
+body character of V . Instead, a quantum variational                                     √    st
+                                                                                                  tβ = ωµH
+                                                                                                         2
+                                                                                                            sα
+                                                                                                             µH ,         (12)
+principle in the free energy can be defined substituting                       t=1 β=1
+                                                                                             Ms Mt µH
+                                                                                                                        4
+
+the polarization vectors sα
+                          µH and the ωµH phonon frequn-                C.   The gradient of the free energy
+cies are obtained. These allow us to define the qµ and pµ
+normal coordinates that transform as                             Minimizing the free energy with respect to the trial
+                            3N
+                            X         1 sα                    harmonic Hamiltonian through a CG algorithm requires
+                   usα =          √      qµ          (13)    the knowledge of the gradient of the free energy with
+                            µ=1
+                                      Ms µH                   respect to all the parameters in H. The trial H con-
+                            3N p
+                            X                                 tains two group of parameters: the Req equilibrium po-
+                   P sα =             Ms sα
+                                          µH pµ .     (14)    sitions and the Φαβ  st force-constants matrix. Thus, the
+                            µ=1                               gradient of the free energy can be written as ∇FH [H] =
+                                                              (∇Req FH [H], ∇Φ FH [H]), where ∇Req FH [H] is the gra-
+Applying the change of variables in Eqs. (13) and (14) to
+                                                              dient of the free energy with respect to the equilibrium
+Eq. (11), H can be written as a sum of 3N independent
+                                                              positions and ∇Φ FH [H] the gradient with respect to the
+oscillators:
+                                          !                   force-constants matrix.
+                   3N             2                              First of all, it can be shown that
+                   X     p2µ   ωµH    qµ2
+              H=             +              .        (15)
+                   µ=1
+                          2         2                                                 Z
+                                                                  ∇Req FH [H] = − dR[f (R) − fH (R)]ρH (R), (21)
+In Eqs. (12)-(15) µ is a mode index and the subindex H in
+the phonon frequencies and polarization vectors denotes       where f (R) is the vector formed by all the atomic forces
+that they are associated to the harmonic Hamiltonian H.       for the ionic configuration R and fH (R) denotes the vec-
+  Once H has been written as a sum of 3N independent          tor formed by the forces derived from V. Note that the
+harmonic oscillators, it is easy to observe that the prob-    integral with respect to the harmonic forces fH (R) van-
+ability to find the system in a general ionic configuration   ishes, but, as we shall explain below, it is convenient
+R is (see Appendix A)                                         to write the integral in this form. On the other hand,
+                                                              the gradient with respect to the force-constants matrix
+                          X √ Ms Mt
+                                                     
+                                            tβ                is given by
+  ρH (R) = AH exp −                   sα  usα utβ  ,
+                                2a2µH µH µH                                          r
+                            stαβµ                                               X      Mt sα                           tβ
+                                                      (16)    ∇Φ FH [H] = −                ( ∇Φ ln aµH + ∇Φ sα  µH )µH
+                                                                                       Ms µH
+where AH is the normalization constant and                                     stαβµ
+                                                                    Z
+                                                                  × dR[f sα (R) − fH   sα
+                                                                                          (R)](Rtβ − Req
+                                                                                                      tβ
+                                                                                                         )ρH (R).     (22)
+                 q
+         aµH = ~ coth(β~ωµH /2)/(2ωµH )               (17)
+
+is called the normal length of mode µ, even if it has units   The procedure to derive Eqs. (21) and (22) is sketched in
+of length times square root of mass. Then, the quantum        Appendix A. Let us note that both ∇Φ aµH and ∇Φ sα     µH
+statistical average of any observable O that is exclusively   are analytic functions of phonon frequencies and polar-
+a function of the atomic positions can be computed as         izations as shown in Appendix A.
+                          Z                                      The CG minimization is started from a trial initial har-
+               tr[ρH O] = dRO(R)ρH (R).                (18)   monic Hamiltonian H0 , which is defined following Eqs.
+                                                              (3) and (11) from the Req0 starting equilibrium positions
+                                                              and the starting Φ(0) force-constants matrix. After cal-
+Moreover, for a harmonic Hamiltonian its free energy can
+                                                              culating the gradient as explained in Eqs. (21) and (22),
+be calculated analytically from the well-known
+                                                              the first CG step allows us to update the equilibrium po-
+             3N                                             sitions and the force-constants matrix to Req1 and Φ(1),
+             X    1        1
+      FH =           ~ωµH − ln[1 + nB (ωµH )]         (19)    from which we obtain the H1 Hamiltonian correspond-
+             µ=1
+                   2       β                                  ing to first CG step. Similarly, at each j CG step of
+                                                             the minimization the equilibrium positions and the force-
+equation, where nB (ω) = 1/ eβ~ω − 1 is the bosonic           constants matrix are updated to Reqj and Φ(j), which
+occupation factor. The fact that FH and ρH (R) have           define the Hamiltonian at step j, Hj . The minimization
+the analytic forms given in Eqs. (16) and (19) will allow     should be carried on until the gradient vanishes.
+us to calculate easily the gradient of FH [H]. Let us note
+that from Eqs. (10) and (18) we observe that the free
+energy can be calculated simply as                            D.   Symmetries and the independent coefficients in
+                     Z                                                           the trial H
+    FH [H] = FH + dR[V (R) − V(R)]ρH (R),             (20)
+                                                                We consider that the anharmonic Hamiltonian given
+where V (R) is the BO energy of ionic configuration R         by the SSCHA has the same symmetries as the harmonic
+and V(R) is the trial harmonic energy for the same con-       Hamiltonian. Therefore, at any CG step j the Hamil-
+figuration.                                                   tonian Hj will respect the symmetries of the harmonic
+                                                                                                                                5
+
+Hamiltonian. Considering that Hj is determined by the               Eq. (26) is commonly used in DFT codes to symmetrize
+Φ(j) force-constants matrix and the Reqj equilibrium                the forces on the atoms, and when the electronic k-
+positions, the symmetries of the Hamiltonian are deter-             point mesh is reduced by symmetry. When we sym-
+mined by the symmetries of both Reqj and Φ(j). In the               metrize the basis vectors as shown in Eq. (26), many
+SSCHA we consider translational, time-reversal and crys-            of these χ(s) (l) vectors become linearly dependent. We
+tal symmetries to determine the independent coefficients            pick exclusively the linearly independent vectors apply-
+in the equilibrium positions and the force-constants ma-            ing a Gram-Schmidt orthonormalization procedure. The
+trix.                                                               basis vectors of the symmetrized subspace are labeled as
+   If symmetries were neglected, throughout the mini-               {χ(l)}l=1,...,nw , where nw is the number of linearly in-
+mization the equilibrium positions could change in any              dependent basis vectors after the symmetrization. The
+direction within the unit cell. All these possible displace-        Gram-Schmidt orthonormalization guarantees that the
+ments can be described with 3n size real vectors that form          χ(l) vectors satisfy Eq. (24). The value of nw must be
+a vector space of dimension 3n, where n is the number of            equal to the number of free internal parameters in the
+atoms in the unit cell. The scalar product in this vector           Wyckoff positions of the crystal structure.
+space is defined as                                                    Once we have determined the symmetry reduced ba-
+                            X                                       sis, at a given iteration j in the CG minimization the
+                   hχ, ξi =     χs̄α ξ s̄α ,            (23)        equilibrium position of the atoms can be described as
+                                 s̄α
+                                                                                                   nw
+                                                                                                   X
+                                                                                   s̄α    s̄α
+where χ and ξ are elements of the vector space. Let                               Reqj = Req0 +          κj (l)χs̄α (l),     (27)
+{χ(ns) (l)}l=1,...,3n be an orthonormal basis of this vector                                       l=1
+space. Then, the vectors of the basis satisfy the
+                                                                    where the κj (l) coefficient determines how much the
+                 hχ(ns) (l), χ(ns) (l0 )i = δll0             (24)   atoms are displaced along the symmetrized χ(l) direc-
+                                                                    tion at iteration j. Then, it is easy to relate ∇Req FH [Hj ]
+orthonormality condition. The bar in the atom index s̄              with the derivatives of the free energy with respect to the
+in Eq. (23) denotes that it is an atom of the unit cell and         κj (l) coefficients introduced in Eq. (27):
+the (ns) subscript that the basis vectors have not been
+symmetrized. Thus, the equilibrium positions at a CG                             ∂FH [Hj ] X sα ∂FH [Hj ]
+                                                                                          =    χ (l)   sα  ,                 (28)
+iteration j could be given as                                                     ∂κj (l)            ∂Reqj
+                                                                                            sα
+                                3n
+                                X                                          ∂F [H ]
+                                                                              H     j
+            s̄α
+           Reqj    s̄α
+                = Req0 +              κj(ns) (l)χs̄α                where ∂R          is given in Eq. (21).
+                                                 (ns) (l),   (25)               sα
+                                                                                eqj
+                                l=1                                    In order to determine how Φ can change in the SSCHA
+                                                                    minimization respecting crystal, time-reversal and trans-
+where the κj(ns) (l) coefficients would determine how               lational symmetries, we proceed in an analogous way.
+much the atoms would be displaced along χ(ns) (l) at iter-          In general Φ is a matrix that belongs to the group of
+ation j. Obviously, κ0(ns) (l) = 0. In the SSCHA however            3N × 3N Hermitian matrices. The Hermitian matrices
+we allow the equilibrium positions to change exclusively            form a vector space and the scalar product between two
+in the subspace of this vector space that respects crystal          elements of the vector space is defined as
+symmetries.                                                                                       X αβ αβ∗
+   In order to obtain a basis of the symmetrized subspace                               hG, T i =    Gst Tst ,           (29)
+we need to take into account all the Ŝ ≡ {S, v} symme-                                         stαβ
+try operations of the space group of the crystal. Here, S
+is a 3 × 3 orthogonal matrix and v is the vector defin-             where G and T are two elements of the vector space.
+ing the fractional translation of the crystal operation Ŝ.         We start with the subspace of this vector space that pre-
+The S matrices form the point group of the crystal. We              serves translational symmetries but has not been sym-
+symmetrize the {χ(ns) (l)}l=1,...,3n basis vectors applying         metrized with the Ŝ crystal symmetry operations nor
+all the symmetry operations Ŝ as50                                 time-reversal. Let {G(ns) (m)}m=1,...,(3n)2 N1 N2 N3 be an or-
+                                                                    thonormal basis of this vector space so that
+                        1 X X αβ Ŝ −1 (s̄)β
+          χs̄α
+           (s) (l) =         S χ(ns)         (l),            (26)                  hG(ns) (m), G(ns) (m0 )i = δmm0 .         (30)
+                       NS
+                           Ŝ     β
+
+                                                                    Thanks to Bloch’s theorem, the dimension of this vector
+where Ŝ −1 is the inverse symmetry operation of Ŝ. The            space is (3n)2 ×N1 ×N2 ×N3 , where N1 ×N2 ×N3 is the su-
+sum in Eq. (26) runs over all the NS symmetry op-                   percell size. As any matrix belonging to this vector space
+erations and Ŝ −1 (s̄) labels the atom into which the s̄-          respects translational symmetries, the Fourier transform
+th atom transforms after the application of Ŝ −1 mod-              of a matrix described in the {G(ns) (m)}m=1,...,(3n)2 N1 N2 N3
+ulo a lattice translation vector. The (s) subscript de-             basis is block-diagonal and can be defined with a single
+notes that the vectors respect symmetries. Note that                q vector in the first Brillouin zone (1BZ). Thus, if only
+                                                                                                                                 6
+
+transitional symmetries were considered, the evolution of          III.   THE STOCHASTIC IMPLEMENTATION OF
+the force-constants matrix in the minimization could be                   THE SELF-CONSISTENT HARMONIC
+described as                                                                     APPROXIMATION
+
+
+                    (3n)2 N1 N2 N3                                    The calculation of the integrals in Eqs. (20)-(22)
+                         X
+          Φ(j) =                     cj(ns) (m)G(ns) (m),   (31)   needed to get the free energy and its gradient is a com-
+                        m=1                                        plicated task5 . In principle, it requires the calculation
+                                                                   of high-order φsα11...s...αn
+                                                                                             n
+                                                                                                anharmonic coefficients that al-
+                                                                   low an accurate estimation of the f forces and the V
+where the cj(ns) (m) coefficients would determine the
+                                                                   potential. Third order anharmonic coefficients can be
+value of the force-constants matrix at CG step j. Never-
+                                                                   calculated nowadays through first-principles calculations
+theless, in the SSCHA we allow the force-constants ma-
+                                                                   using the 2n + 1 theorem9 . However, one should note
+trix to vary exclusively in the subspace of this vector
+                                                                   that third order terms do not contribute in Eq. (22).
+space that respects the Ŝ crystal symmetries51 and time-
+                                                                   The reason is that the integrand is odd for third or-
+reversal symmetry.
+                                                                   der terms and, thus, the integral vanishes by symmetry.
+   The elements of the basis are symmetrized according             Therefore, one needs to go at least to the fourth order
+to the Ŝ symmetry operations and time-reversal as shown           to apply the SCHA. The calculation of the fourth or-
+in Appendix B. After the symmetrization, the basis is re-          der anharmonic coefficients is extremely cumbersome as
+duced making use of a Gram-Schmidt orthonormalization              it requires performing first order numerical derivatives
+procedure so that only the linearly independent elements           of third order anharmonic terms or second order numeri-
+of the symmetrized basis are considered. This process              cal derivatives of dynamical matrices calculated in super-
+yields a new {G(m)}m=1,...,NR basis that respects trans-           cells6,8,12,42,52,53 . Consequently, calculating fourth-order
+lational, crystal and time-reversal symmetries. NR is the          anharmonic coefficients remains a complicated compu-
+dimension of the fully symmetrized subspace. We con-               tational problem and these coefficients have been calcu-
+struct the force-constants matrix as                               lated ab initio exclusively for some specific q points in
+                                                                   the 1BZ or in very simple crystal structures6,8,12,42,52,53 .
+                            NR
+                            X                                      Therefore, the SCHA has been applied calculating explic-
+                                         αβ
+                   Φ(j) =         cj (m)Gst (m).            (32)   itly the fourth-order anharmonic coefficients in the whole
+                            m=1                                    1BZ purely ab initio only in the high-pressure simple cu-
+                                                                   bic phase of calcium12,42 . Moreover, the restriction to
+The cj (m) coefficients unambiguously determine the                fourth-order terms is an approximation that could be in-
+force-constants matrix at each CG iteration j. With the            appropriate and should be verified case by case.
+G(m) matrices it is easy to relate the derivative of the              In the SSCHA we take a different approach and, in-
+free energy with respect to the cj (m) coefficients with           stead of calculating φiα11...i
+                                                                                                ...αn
+                                                                                                   n
+                                                                                                      coefficients, we evaluate the
+∇Φ FH [Hj ]. From Eq. (32) straightforwardly                       integrals stochastically using suitably chosen ionic config-
+                                                                   urations in supercells without assuming any Taylor de-
+                                                                   velopment. The stochastic evaluation of the quantum
+           ∂FH [Hj ]   X αβ     ∂FH [Hj ]                          statistical average of any observable is performed taking
+                     =  Gst (m)           ,                 (33)
+            ∂cj (m)
+                            stαβ∂Φαβ
+                                  st (j)                           advantage of the analytic behavior of ρH (R) and making
+                                                                   use of importance sampling and reweighting techniques.
+           ∂F [H ]
+where the ∂ΦHαβ (j)j derivatives are given in Eq. (22).
+              st
+
+  In order to illustrate the reduction of coefficients, let
+us consider a 4 × 4 × 4 supercell of a rock-salt structure.               A.   Stochastic calculation of the gradient
+In this case, the a priori 2304 c(ns) (m) free parameters
+in the force-constants matrix in Eq. (31) are reduced to              As it was mentioned above, the minimization of FH [H]
+simply 50 c(m) parameters in Eq. (32).                             is started from an arbitrary harmonic Hamiltonian H0 .
+   Considering the independent coefficients that we                Then, we create a set of {RI }I=1,...,Nc ionic configura-
+have found after the symmetry analysis, we can                     tions in the supercell according to the ρH0 (R) distribu-
+write the gradient of the free energy as ∇FH [H] =                 tion given in Eq. (16). The distribution is determined by
+(∇κ FH [H], ∇c FH [H]). The number of components in                the starting Req0 equilibrium positions and the starting
+this gradient is much fewer than the components in                 Φ(0) force-constants matrix, and can be created using
+(∇Req FH [H], ∇Φ FH [H]). Therefore, in the SSCHA we               random numbers generated with a pure Gaussian distri-
+work with ∇FH [H] = (∇κ FH [H], ∇c FH [H]). At a given             bution as shown in Appendix C. According to the impor-
+iteration j of the CG minimization, the components of              tance sampling technique, any quantum statistical aver-
+∇κ FH [Hj ] are given in Eq. (28) and the components of            age of an operator that exclusively depends on the atomic
+∇c FH [Hj ] in Eq. (33).                                           positions can be evaluated as an average of the operator
+                                                                                                                                          7
+
+over the created Nc configurations. Namely,                       CG minimization the integral in Eq. (34) is computed as
+                                                                  if the initial {RI }I=1,...,Nc set was generated according
+                                    N
+                                   c
+                                                                  to ρHj (R), namely
+    Z
+                                1 X
+        dRO(R)ρH0 (R) ≃              O(RI ) ≡ hOi,        (34)
+                                Nc                                                                         N
+                                   I=1                                                                     c
+                                                                                                                   ρH (RI )
+                                                                        Z
+                                                                                                        1 X
+                                                                            dRO(R)ρHj (R) ≃                  O(RI ) j
+where O(RI ) denotes the value of the operator O(R) at                                                  Nc         ρH0 (RI )
+                                                                                                           I=1
+the configuration RI . In Eq. (34) the equality holds
+                                                                                                 = hOρHj /ρH0 i.                     (35)
+when Nc → ∞ and the error in the stochastic evalu-
+ation vanishes. Therefore, we evaluate BO energies and            The stochastic error in Eq. (35) can be evaluated as
+atomic forces in the {RI }I=1,...,Nc configurations, V (RI )
+and f (RI ), respectively, and calculate the integrals in                                        1 q 2
+Eqs. (20)-(22) following the stochastic procedure of Eq.                        ∆hOρHj /ρH0 i = √    sOρH /ρH ,                      (36)
+                                                                                                  Nc     j   0
+(34). Once these are computed, ∇FH [H0 ] can be ob-
+tained stochastically and the first CG step can be per-           where
+formed to obtain H1 .
+   After the first CG step, the ionic configurations should                                      c  N
+                                                                                           1    X
+in principle be regenerated as in Eq. (16) using the new                         s2P =             [P (RI ) − hP i]2                 (37)
+                                                                                         Nc − 1
+trial Hamiltonian H1 , which is defined by the Req1 equi-                                        I=1
+librium positions and the Φ(1) force-constants matrix.
+Thus, in order to calculate the gradient we should recal-         is the variance of function P (R)54 . Following Eq. (35),
+culate BO energies and atomic forces in the supercell in          the free energy in Eq. (20) and its gradient in Eqs. (21)
+the new set of configurations defined by ρH1 (R). Con-            and (22) are calculated at a given iteration j of the CG
+sidering that in general hundreds of CG steps are needed          minimization simply as
+to find the minimum of the free energy, calculating BO                                          N
+                                                                                         c
+energies and forces from first-principles at each CG step                             1 X                      ρH (RI )
+                                                                     FH [Hj ] ≃ FHj +      [V (RI ) − Vj (RI )] j
+would make the method prohibitively time-demanding.                                   Nc                       ρH0 (RI )
+                                                                                                I=1
+We adopt a reweighting procedure to avoid this issue
+and use the BO energies and atomic forces of the initial                                                                             (38)
+{RI }I=1,...,Nc set throughout the CG minimization. At                                        Nc
+                                                                                            1 X                               ρHj (RI )
+step j of the CG minimization, this is achieved including            ∇Req FH [Hj ] ≃ −                [f (RI ) − fHj (RI )]
+                                                                                           Nc                                 ρH0 (RI )
+the ρHj (R)/ρH0 (R) factor in the importance sampling                                           I=1
+evaluation of the integrals. Note that in the first j = 0                                                                            (39)
+step the factor is equal to one. Therefore, at step j of the
+
+
+                            r                                          c    N
+                                Mt sα                               1 X                                   tβ ρHj (RI )
+                     X                                          tβ
+  ∇Φ FH [Hj ] ≃ −                  (µHj ∇Φ ln aµHj + ∇Φ sα
+                                                          µHj )µHj      [f sα (RI ) − fH
+                                                                                        sα
+                                                                                           (RI )](RItβ − Reqj )           .
+                                Ms                                  Nc                   j
+                                                                                                                ρH0 (RI )
+                    stαβµ                                                 I=1
+                                                                                                                                     (40)
+
+
+
+In Eqs. (38)-(40) the equality holds when Nc → ∞.                 for the stochastic approach is exemplified if we assume
+                                                                  the V (R) potential is perfectly harmonic and the initial
+   Let us note that, despite the contribution of fH in Eq.
+                                                                  H0 is the harmonic Hamiltonian. Then, the gradient ob-
+(39) vanishes and is analytic in Eq. (40) (see Appendix
+                                                                  tained in the first step stochastically is exactly zero, with
+A), it is convenient to keep this contribution explicitly
+                                                                  no stochastic error, as f (RI ) − fH0 (RI ) = 0. Similarly,
+in the stochastic evaluation of the gradient. Similarly, in
+                                                                  the free energy would not have any stochastic error since
+the stochastic evaluation of the free energy in Eq. (38), it
+                                                                  V (RI ) − V0 (RI ) = 0, and FH [H0 ] = FH0 . If fH0 (RI )
+is convenient to keep the V contribution even if it is ana-
+                                                                  and V0 (RI ) were not included in the sctochastic evalu-
+lytic as well. The reason is that in this way the stochastic
+                                                                  ation of the integrals by using their analytic expression
+analysis is performed exclusively on the anharmonic part
+                                                                  instead, the stochastic error would not vanish.
+of the forces or the BO energies, reducing the stochastic
+error. Therefore, at each step j of the CG minimization             As shown above, the free energy and its gradient can
+fHj (RI ) and Vj (RI ) are calculated, which are analytic         be obtained calculating BO energies and ionic forces on
+functions of the ωµHj frequencies and sα µHj polarizations.      supercells with suitably chosen ionic configurations. The
+The fact that including fHj (RI ) and Vj (RI ) in the eval-       calculation of the BO energies and forces can be per-
+uation of the free energy and its gradient is beneficial          formed using a model or ab initio potentials. It is note-
+                                                                                                                                                  8
+
+                        Define initial trial Hamiltonian                                    B.   Stopping criteria and calculation flowchart
+                                       H0
+                                            j = 0 and j0 = 0                                In principle, the minimization should continue till all
+                                                                                         the components of the gradient are smaller than a given
+                    Create ionic configurations with Hj0
+                                                                                         threshold value. The threshold value should be chosen
+                                {RI }I=1,...,Nc
+                                                                                         so that phonon frequencies and equilibrium positions are
+                                                                                         converged with respect to it. When all components of the
+           Calculate total energies and atomic forces on supercells                      gradient are smaller than the threshold value the mini-
+                              V (RI ) and f(RI )                                         mum of the free energy has been found and Hj is the
+                                                                                         harmonic Hamiltonian that minimizes it, j being the fi-
+                                                                                         nal step. Then, the Reqj are the final equilibrium atomic
+                       Calculate gradient of free energy                                 positions, {ωµHj } form the SSCHA phonon spectra and
+  j0 = j                          ∇FH [Hj ]                                              {sα
+                                                                                           µHj } are the final polarization vectors, which are ob-
+                                                                                         tained diagonalizing the Φ(j) force-constants matrix, and
+                Conjugate gradient step and new parameters                               FH [Hj ] is the final vibrational free energy.
+                               Reqj+1 and Φ(j + 1)                                          Considering that ∇κ FH [Hj ] and ∇c FH [Hj ] have dif-
+                                  j =j+1                                                 ferent units, we should use different threshold values for
+                                                                                         each of them, let’s say ζκ and ζc , respectively. Thus, if
+
+                 Yes                                                                                         |∇ih FH [Hj ]| < ζh ,             (41)
+                             |hρHj /ρHj0 i − 1| ≥ η ?
+                                                                                         where h denotes κ or c and ∇ih FH [Hj ] is the i-th com-
+                                             No                                          ponent of the gradient at CG step j, the i-th parameter
+                                                                                         is not updated in the j + 1 step.
+                                                                                            Due to the stochastic origin of the method, we can
+                                                            No
+                                   np = Np ?                                             account for the error of the gradient as shown in Eq.
+                                                                                         (36) in the minimization and devise a second stopping
+                                                                                         criteria. We define a meaningfulness parameter θ and in
+                                  Yes
+                                                                                         case
+                                                                     Create extra
+                                                           Yes   ionic configurations
+                               Increase precision?
+                                                                                                      θ∆(∇i FH [Hj ]) > |∇i FH [Hj ]|,         (42)
+                                                                  {RI }I=Nc +1,...,Nc̄
+
+                                                                                         where ∆(∇i FH [Hj ]) is the stochastic error of the i-th
+                                  No                                                     component of the gradient, the i-th parameter is not up-
+                               Output quantities                                         dated in the j + 1 step. From now on, let np be the num-
+                                  H = Hj                                                 ber of components of the gradient satisfying Eq. (41)
+                       FH [H], ReqH , {ωµH } and {ǫsα
+                                                   µH }                                  or (42), and Np the total number of components of the
+                                                                                         gradient.
+FIG. 1. (Color online) Schematic representation of the SS-                                 Moreover, if hρHj /ρH0 i deviates significantly from 1
+CHA calculation flowchart. See Sec. III B of the main text                               the gradient cannot be stochastically evaluated accu-
+for the definition of the symbols. The step in the algorithm                             rately because the initial set of configurations does not
+marked in red, the calculation of the total energies and forces                          represent closely the ρHj (R) distribution. Hence, if
+on supercells, is performed with any external total-energy-
+force engine. In case an ab initio approach is taken, it repre-                                            |hρHj /ρH0 i − 1| ≥ η,              (43)
+sents all the computer time of the SSCHA minization.
+                                                                                         where η is a small positive number, generally between 0.2
+                                                                                         and 0.3, we consider that the stochastic evaluation of the
+                                                                                         gradient is poor and the minimization is stopped at the
+                                                                                         CG step j.
+                                                                                            The SSCHA calculation flowchart is sketched in Fig. 1.
+                                                                                         As mentioned above, the minimization is stopped at step
+                                                                                         j if (i) np = Np or (ii) the stochastic evaluation is poor
+worthy that calculating the forces from first-principles                                 according to Eq. (43). If condition (ii) is satisfied at
+requires a negligible additional effort in a total energy cal-                           CG step j, the ρHj (R) probability distribution is used
+culation because of the Hellmann-Feynman theorem55,56 .                                  to create a new set of {RI }I=1,...,Nc configurations for
+Hence, the way of minimizing the gradient sketched                                       which total energies and atomic forces are recomputed.
+above is very convenient for applying the SSCHA fully                                    Then, the minimization continues using this new set of
+from first-principles, specially, due to the reweighting                                 configurations. On the other hand, if condition (i) is
+procedure.                                                                               fulfilled, one needs to see whether the stochastic accuracy
+                                                                                                                         9
+
+is satisfactory. If it is so, the calculation is finished and   j for temperature T at which the free energy wants to be
+the minimum is found. If, on the contrary, one wants to         minimized. We should note that when adopting this re-
+increase the precision in the evaluation of the gradient,       cycling scheme at j = 0 hρH0 (T )/ρH0 (T0 )i is different
+the number of configurations should be increased in order       from one. Thus, we use the criteria defined in Eq. (43)
+to reduce the error. This can be done generating Nc̄ −          to discern whether recycling the configurations created
+Nc new configurations with the last Hamiltonian used            with a different temperature is valid.
+to generate configurations in order to increase the size
+of the set to Nc̄ . Then, new total energies and atomic
+forces are calculated in the new Nc̄ − Nc configurations           IV.
+                                                                     APPLICATION OF THE STOCHASTIC
+and the process continues till the stochastic uncertainty            SELF-CONSISTENT HARMONIC
+is reduced up to a satisfactory level. This should be noted      APPROXIMATION TO PLATINUM HYDRIDE
+in the convergence of the phonon spectra.                                 AT HIGH PRESSURE
+   The calculation of total energies and atomic forces
+needed in the SSCHA algorithm can be performed at                  Motivated by the quest for metallic and supercon-
+any degree of theory with any external total-energy-force       ducting hydrogen at very high pressure57 , many first-
+engine. If an ab initio approach is taken, practically all      principles calculations based on the harmonic approxima-
+the computer time goes in the calculation of the total          tion have been performed in the last years in compressed
+energies and forces. The algorithm sketched in Fig. 1           hydrides predicting high values for the superconducting
+is devised to minimize the number of calls to the total-        critical temperature (Tc )43,58–62 . Nevertheless, the only
+energy-force engine. For instance, one can start with a         experimental evidence so far of superconductivity in hy-
+small number of Nc until the calculation stops because          drides at high pressure was found in SiH4 around 100
+np = Np . The size of the set can be increased at this          GPa with Tc = 17 K46 . However, it is not clear whether
+point to gain accuracy. Thus, the number of calls to the        the superconductivity of SiH4 was actually measured.
+total-energy-force engine can be effectively optimized in       Degtyareva et al. proposed that PtH could have been
+the SSCHA algorithm. Obviously, the number of total             formed in that experiment if silane decomposed releasing
+energy and atomic force calculations is reduced in case         hydrogen that reacted with the platinum electrodes63 . It
+the starting H0 is close to the H Hamiltonian that min-         has been argued45,63 that the formation of PtH might
+imizes the free energy. This way, the need to redefine a        explain the x-ray diffraction pattern observed in Ref. 46,
+new set of of configurations might be avoided. Anyway,          and that the observed superconductivity might be at-
+the final result is independent of the starting H0 .            tributed to the superconductivity of PtH as its calculated
+                                                                Tc is not far from the measured value43–45 . However, in
+                                                                PtH Tc has been calculated within the harmonic approx-
+    C.   Temperature dependence in the SSCHA                    imation and it is not clear whether anharmonicity might
+                                                                affect this result, as it does in the very similar PdH25 .
+   The temperature dependence in the SSCHA is natu-             We apply the SSCHA method to high-pressure PtH to
+rally incorporated. As shown in Eqs. (20)-(22), the free        shine light on this issue.
+energy and its gradient depend on temperature through
+the temperature dependence of FH (see Eq. (19)) and
+ρH (R), which depends on temperature via the normal                             A.   Calculation details
+lengths aµH (see Eqs. (16) and (17)). When creating the
+set of configurations {RI }I=1,...,Nc the temperature de-
+                                                                   We apply the SSCHA in PtH at 100 GPa and 0 K.
+pendence is incorporated as the aµH normal lengths are
+                                                                Even if at ambient conditions Pt and H are immiscible,
+used to generate the set as noted in Appendix C. Thus,
+                                                                at high pressure platinum hydride can be synthesized44 .
+in principle, one should use a given set of configurations
+                                                                Experimentally it was observed that above 42 GPa PtH
+for each temperature, calculating new forces and BO en-
+                                                                adopts a hexagonal closed-packed (hcp) structure44 and,
+ergies for each temperature.
+                                                                consequently, we use the hcp phase in our calculations.
+   Nevertheless, a recycling scheme can be adopted to use
+                                                                We take the lattice parameters that minimize the elec-
+the set of configurations created with a given temperature
+                                                                tronic energy at 100 GPa, namely a = 5.1203 a.u. and
+T0 (and the forces and BO energies calculated for them)
+                                                                c = 8.6471 a.u. The SSCHA is applied fully ab ini-
+to perform the minimization at a different temperature
+                                                                tio with forces and BO energies calculated using DFT
+T . In order to do so, in Eqs. (38)-(40) we modify the
+                                                                within the Perdew-Burke-Ernzerhof generalized gradient
+factor used in the reweighting as
+                                                                approximation64 and using ultrasoft pseudopotentials as
+                ρHj (RI )   ρHj (RI , T )                       implemented in Quantum-ESPRESSO50 . A 60 Ry en-
+                          →                ,            (44)    ergy cutoff is used and a 26 × 26 × 16 mesh for the
+                ρH0 (RI )   ρH0 (RI , T0 )
+                                                                1BZ integrations in the unit cell. Phonon frequencies
+where ρH0 (RI , T0 ) is the probability distribution func-      and deformation potentials are calculated within linear
+tion used to generate the {RI }I=1,...,Nc configurations        response2,50 in a 6 × 6 × 4 q point grid. For the SSCHA
+and ρHj (RI , T ) is the probability distribution at CG step    a 2 × 2 × 1 supercell containing 16 atoms is chosen. Af-
+                                                                                                                                                       10
+
+(a)                                                                                           The initial Φ(0) force-constants matrix of the 2 × 2 ×
+      np <ρHj/ρH0>              1.3                                                           1 supercell does not have any imaginary eigenvalue. If
+                                1.0                                                           it was the case, the force-constants matrix should have
+                                0.7                                                           been modified to avoid initial imaginary frequencies. The
+                                 25                                                           minimization is carried out with the following parame-
+                                                                                              ters: θ = 1, ζc = 0.0003 a.u.2 and η = 0.3. The evolution
+                                  0                                                           of the SSCHA calculation is represented in Fig. 2. As
+                                600                                                           it can be seen in Fig. 2(a), the calculation is stopped
+            F (meV/unit cell)
+
+
+
+
+                                                                                              at j = A when |hρHj /ρH0 i − 1| ≥ η. Then, according
+                                400                                                           to the flowchart in Fig. 1, a new set of configurations is
+                                                                                              created with Nc = 20 and the minimization of the free
+                                200                              Total free energy
+                                                                                              energy continues. New sets of configurations are regen-
+                                                                 Harmonic contribution
+                                                                 Potential contribution       erated at j = B, j = C and j = D. However, at step
+                                  0
+                                                                                              j = E the calculation is stopped because all parameters
+                                 Harmonic     A          B   C       D        E           F   in the gradient satisfy Eq. (41) or Eq. (42) and np = Np .
+                                                    Minimization Step                         The calculation could be stopped here, but in order to
+(b)
+                                              Harmonic                                        increase the accuracy of the result we generate another
+                                              B
+                    1200                      D
+                                                                                              380 configurations using Hj=D and calculate total ener-
+ Frequency (cm )
+
+
+
+
+                                              F                                               gies and atomic forces for them. Generating these config-
+-1
+
+
+
+
+                                900                                                           urations with Hj=D instead of Hj=E , we can recycle the
+                                                                                              previously generated 20 configurations. Thus, the num-
+                                                                                              ber of configurations is increased up to 400. Then, the
+                                600
+                                                                                              minimization restarts till np = Np at step j = F. The
+                                                                                              400 configurations were enough to converge the phonon
+                                300                                                           spectra. Thus, in total 500 ab initio force calculations in
+                                                                                              supercells containing 16 atoms are needed. One should
+                                 0                                                            note that the bulk of the computational effort comes from
+                                      Γ   A          H K         Γ        M L             H   the ab initio calculation of the forces. The other oper-
+                                                                                              ations of the SSCHA minimization require a negligible
+FIG. 2. (Color online) The evolution of the SSCHA calcu-                                      computational time.
+lation in PtH at 0 K and 100 GPa. The starting Hamil-                                            In Fig. 2 we show as well how the free energy is mini-
+tonian is the harmonic one. The parameters of the cal-                                        mized in the calculation. It is noteworthy that both the
+culation are θ = 1, ζc = 0.0003 a.u.2 and η = 0.3 (see                                        harmonic contribution to the free energy, FHj , and the
+Sec. IV A). In (a) we depict the evolution of hρHj /ρH0 i, np ,                               potential contribution, tr[ρHj (V − Vj )], vary a lot in the
+the number of parameters that are not updated according
+                                                                                              minimization. At the minimum, at j = F, the potential
+to Eqs. (41) or (42), and the free energy throughout the
+minimization. In this calculation the total number of pa-                                     contribution to the free energy is not negligible with re-
+rameters in the gradient is Np = 25. In these figures each                                    spect to the harmonic contribution and it should be taken
+point represents a CG step. The total vibrational free energy                                 into account. In Fig. 2(b) the evolution of the phonon
+FH [Hj ] = FHj + tr[ρHj (V − Vj )], the harmonic contribution                                 spectra during the SSCHA minimization is illustrated.
+FHj , and the potential contribution tr[ρHj (V − Vj )] are spec-
+ified in the bottom panel. In (b) the evolution of the phonon
+spectra is plotted presenting the results at iterations B, D,                                 B.   Anharmonic phonon spectra of PtH at 100 GPa
+and F, together with the starting harmonic phonon spectra.
+
+                                                                                                 In Fig. 3 we present the phonon spectra calculated in
+                                                                                              the harmonic approximation and in the SSCHA together
+ter applying symmetries, this gives us Np = 25 parame-                                        with the phonon density of states (PDOS). The obtained
+ters to be optimized. The difference between the SSCHA                                        harmonic phonon spectra is in good agreement with pre-
+force-constants matrix and the harmonic force-constants                                       vious calculations even if we observe a small instability
+matrix in the 2 × 2 × 1 supercell is interpolated to the                                      along ΓM not present in previous calculations43,65 . The
+larger 6 × 6 × 4 supercell. Then, the harmonic 6 × 6 ×                                        anharmonic correction of the phonon spectra given by
+4 force-constants matrix is added to the result yielding                                      the SSCHA is huge. Even if all the modes are affected
+the SSCHA force-constants matrix in the larger 6 × 6 ×                                        by anharmonicity, the biggest effect is attributed to the
+4 supercell. The use of a smaller supercell for the SS-                                       H-character modes with low energy in the harmonic ap-
+CHA than for the harmonic case is justified because the                                       proximation. The small instability present in the har-
+difference between the anharmonic and harmonic force-                                         monic approximation completely disappears in the SS-
+constants matrices is localized in real space.                                                CHA. This suggests that the hcp phase of PtH is stabi-
+   The starting H0 Hamiltonian is the harmonic Hamilto-                                       lized by anharmonic effects down to the pressures where
+nian and the starting number of configurations Nc = 20.                                       it was observed in experiments44 , even if harmonic cal-
+                                                                                                                                                                 11
+
+                                                             Harmonic    SSCHA
+                                Harmonic                         Total      Total                              2
+                   1200                                                                                       α F(ω)
+                                SSCHA                            Pt
+                                                                 H
+                                                                            Pt
+                                                                            H
+                                                                                                    0.8        2
+                                                                                                              α FPt(ω)                                harmonic
+
+
+
+
+                                                                                     α F(ω), λ(ω)
+                                                                                                               2
+                                                                                                    0.6       α FH(ω)
+                    900                                                                                       λ(ω)
+ Frequency (cm )
+-1
+
+
+
+
+                                                                                                    0.4
+
+
+
+
+                                                                                    2
+                    600                                                                             0.2
+
+                                                                                                     0
+                    300
+                                                                                                               2
+                                                                                                              α F(ω)
+                                                                                                    0.8        2
+                                                                                                              α FPt(ω)                                SSCHA
+
+
+
+
+                                                                                     α F(ω), λ(ω)
+                                                                                                               2
+                      0                                                                             0.6       α FH(ω)
+                                                                                                              λ(ω)
+                          Γ A   HK         Γ   ML        H   PDOS        PDOS
+                                                                                                    0.4
+FIG. 3. (Color online) Phonon spectra and PDOS of PtH at
+
+
+
+
+                                                                                    2
+100 GPa and 0 K in the harmonic approximation and in the                                            0.2
+SSCHA.
+                                                                                                     0
+culations predict it to be unstable below 100 GPa43,65 .                                                  0   200      400     600        800 1000 1200
+                                                                                                                                                 -1
+This underlines that the SSCHA is a useful method to                                                                   Frequency (cm )
+treat systems that are apparently unstable in the har-
+monic approximation but are stabilized by anharmonic                                FIG. 4. (Color online) α2 F (ω) and λ(ω) of PtH at 100 GPa
+effects.                                                                            and 0 K in the harmonic approximation (top panel) and in
+   It should be stressed that, even if in the harmonic ap-                          the SSCHA (bottom panel). The contribution of Pt and H
+proximation a mixing between H and Pt character is ob-                              atoms to α2 F (ω) is depicted as well.
+served in the low-energy modes, the mixing is strongly
+suppressed in the anharmonic case. This is evident in
+the projected PDOS shown in Fig. 3. In order to be able                             TABLE I. Calculated λ, ωlog and Tc values for PtH at 100 GPa
+to predict this reduction of the mixing, the free energy                            and 0 K in the harmonic approximation and in the SSCHA.
+must be minimized with respect to the polarization vec-
+tors. It is unclear how methods like SCAILD36,37 and the
+method presented by Antolin et al.38 , which as far as we                                     λ ωlog (meV) Tc [µ∗ = 0.10](K) Tc [µ∗ = 0.13](K)
+understand do not optimize the polarization vectors, be-                            Harmonic 0.82  25.3           14.5              11.8
+                                                                                     SSCHA 0.32    36.1           0.4               0.1
+have in situations where the character of the polarization
+vectors is strongly altered by anharmonicity as in PtH.
+
+
+                    C.     Superconductivity of PtH at 100 GPa                      energy kn measured from the Fermi level (F ), Nk and
+                                                                                    Nq are the number of electron and phonon momentum
+   Once the phonon spectra renormalized by anharmonic-                              points used for the 1BZ sampling, and N (0) is the density
+ity has been obtained using the SSCHA, anharmonic ef-                               of states per spin at F . Note that in Eq. (45) the sum
+fects can be easily incorporated into the electron-phonon                           over atomic indices is limited to the unit cell so that
+coupling calculations. Assuming that the main effect of                             phonon frequencies and polarization vectors are labeled
+anharmonicity is a change in the phonon frequencies and                             with a momentum q. Similarly, us̄α (q) is the Fourier
+polarizations, and that the deformation potential is un-                            transform of usα . We have used a finer 60 × 60 × 36
+changed, the anharmonic Eliashberg function can be cal-                             mesh in the sum over k points in Eq. (45).
+culated as                                                                             The Eliashberg function in the harmonic approxima-
+                          X X s̄α     t̄β∗                                         tion and in the SSCHA is shown in Fig. 4 together with
+               2   1            µH (q)µH (q)                                       the integrated electron-phonon coupling constant
+    α F (ω) =                         √        ×
+              N (0)Nk Nq      2ωµH (q) Ms̄ Mt̄
+                         kqnm                  s̄t̄αβµ
+                                                                                                                         Z ω
+                         t̄β∗                                                                                                         α2 F (ω 0 )
+               ds̄α
+                kn,k+qm dkn,k+qm δ(kn )δ(k+qm )δ(ω − ωµH (q)).(45)                                          λ(ω) = 2         dω 0               .          (46)
+                                                                                                                          0              ω0
+In Eq. (45) ds̄α                  s̄α
+             kn,k+qm = hkn|δV /δu (q)|k + qmi is the
+deformation potential, |kni is a Kohn-Sham state with                               With the electron-phonon coupling constant λ, λ =
+                                                                                                                      12
+
+limω→∞ λ(ω), and the logarithmic frequency average,                          A.    Calculation details
+                       Z ∞
+                               α2 F (ω)
+                                            
+                       2
+         ωlog = exp         dω          ln ω ,       (47)       In the calculations presented here we make use of a
+                       λ 0        ω
+                                                             model potential built on top of first-principles calcula-
+we estimate Tc making use of the Allen-Dynes modified        tions that combines the ab initio harmonic potential with
+McMillan equation66 , using µ∗ = 0.10 and µ∗ = 0.13 for      a fourth-order on-site anharmonic potential. The reader
+the Coulomb pseudopotential. The results for λ, ωlog and     is referred to Ref. 25 for the details of the model poten-
+Tc are summarized in Table I. In the harmonic approxi-       tial and the SSCHA calculation. The model potential
+mation, despite the instability that barely contributes to   allows us to reduce the statistical noise in the calculation
+α2 F (ω), we obtain a λ and Tc in agreement with previous    of the free energy. We calculate the free energy of PdH,
+calculations43 . In the SSCHA, λ is strongly suppressed      PdD and PdT at several volumes and temperatures. The
+due to the enhancement of the frequencies induced by         vibrational contribution to the free energy is a smooth
+anharmonicity. In Fig. 4 we show that the H contribu-        function of the volume that can be fitted accurately to
+tion to the Eliashberg function shifts to higher energies    a low order polynomial. We use a second order poly-
+in the SSCHA, highly reducing the H contribution to          nomial to fit these contributions. Then, the electronic
+λ. While in the harmonic approximation H remarkably          ground state energy is added to the vibrational free en-
+contributes to α2 F (ω) at low energies, this is no longer   ergy to obtain the total free energy. From the minimum
+true in the anharmonic case. This again evidences the        of the free energy at each temperature we calculate the
+fact that the H and Pt mixing of the low-energy modes        dependence of the lattice parameter as a function of tem-
+disappears with anharmonicity.                               perature and the value of the free energy at zero pressure
+   The suppression in λ makes Tc smaller than 1 K. This      for each isotope.
+means that the superconducting critical temperature is
+reduced by an order of magnitude in PtH when anhar-
+monicity is included. Even if we do not include anhar-
+monic corrections in the deformation potential, our re-
+sults indicate that at 100 GPa PtH is not superconduct-
+ing at around 17 K as measured in the experiment of                     B.    Thermodynamic properties
+silane46 . The interpretation that in the experiment in
+Ref. 46 the superconductivity of PtH was measured is
+therefore questioned by our calculations.                       In Fig. 5 we plot the total free energy at zero pressure
+                                                             and the equilibrium lattice parameter for PdH, PdD and
+                                                             PdT as a function of temperature. As it was shown in
+                                                             Ref. 25, the results obtained for the lattice parameter are
+   V.APPLICATION OF THE STOCHASTIC
+     SELF-CONSISTENT HARMONIC
+                                                             in close agreement with experiments67,68 . Here we note
+APPROXIMATION TO PALLADIUM HYDRIDES                          that in the case of palladium hydrides the inclusion of
+                                                             tr[ρH (V −V)] in Eq. (10), which gives the vibrational free
+                                                             energy, is crucial to account for thermodynamic proper-
+   Secondly, we apply the SSCHA to the strongly an-          ties. As it happens in PtH (see Fig. 2) at the minimum
+harmonic palladium hydrides. In palladium hydrides           this potential contribution is not negligible. Indeed, as
+the anharmonic correction of the phonon frequencies is       shown in Fig. 5 the total free energy is systematically
+larger than the harmonic frequencies themselves, inval-      overestimated if it is calculated considering exclusively
+idating any perturbative approach as we have demon-          FH for the vibrational contribution. The overestimation
+strated recently in Ref. 25. The harmonic approximation      is more important the higher the temperature and the
+displays imaginary phonon frequencies for lattice param-     lighter the isotope. In the lattice parameter the effect is
+eters larger than approximately 7.72 a.u. Considering        very remarkable since at 600 K, for example, neglecting
+that experimental lattice parameters of palladium hy-        the potential contribution tr[ρH (V − V)] the lattice pa-
+drides are around 7.73 a.u.67,68 , the quasiharmonic ap-     rameter is underestimated by 0.026 a.u. for PdH. Thus,
+proximation is not valid to study thermodynamic prop-        we can conclude that in palladium hydrides neglecting
+erties as the harmonic energy has no lower bound in          tr[ρH (V − V)] is not a good approximation. For strongly
+case imaginary phonons are present. Moreover, the har-       anharmonic systems a similar behavior is expected.
+monic approximation strongly overestimates supercon-
+ducting transition temperatures in palladium hydrides           We should note that, as far as we understand, the
+and, obviously, does not explain the inversion of the iso-   SCAILD method36,37 and the method presented by An-
+tope effect69–71 . In Ref. 25 we showed how the SSCHA        tolin et al.38 do not include the tr[ρH (V − V)] poten-
+explains the dynamical stability of palladium hydrides,      tial contribution in the free energy. On the contrary, in
+the thermal expansion and even the inverse isotope ef-       the SSCHA we can accurately calculate this contribution
+fect. Here we describe in further detail the thermody-       without applying thermodynamic integration, which is
+namic properties of PdH, PdD and PdT.                        the way it can be incorporated in the TDEP method40 .
+                                                                                                                                                 13
+
+                                                                                      probability distribution defined by the trial Hamiltonian.
+   F (meV / unit cell)        100                                                     Therefore, the SSCHA can be applied at different degrees
+                                                                                      of theory using different total-energy-force engines, e.g.,
+                                                                                      classical potentials, ab initio DFT approaches, or Quan-
+                                0
+                                                                                      tum Monte Carlo (QMC). The SSCHA scheme is devised
+                                         PdH total                                    to minimize the number of calls to the total-energy-force
+                              -100       PdH harmonic                                 engine. The algorithm is such that all the computer time
+                                         PdD total
+                                         PdD harmonic                                 goes in the calculation of total energies and forces if a
+                                         PdT total                                    DFT approach or a more precise approach like QMC is
+                              -200       PdT harmonic
+                                                                                      followed.
+                              7.82                                                       We apply the method to platinum hydride at high-
+                                         Exp. PdH Schirber et al.                     pressure and palladium hydrides. In the case of palla-
+   Lattice parameter (a.u.)
+
+
+
+
+                               7.8       Exp. PdD Schirber et al.                     dium hydrides we demonstrate how within the SSCHA
+                                         Exp PdH Ross et al.
+                                                                                      we can calculate thermodynamic properties in agreement
+                              7.78                                                    with experiments even when the quasiharmonic approx-
+                                                                                      imation breaks down. In PtH, we have reanalyzed the
+                              7.76
+                                                                                      phonon spectra and its superconducting properties at
+                              7.74                                                    100 GPa. We have shown that anharmonicicty strongly
+                                                                                      renormalizes the phonon frequencies beyond the pertur-
+                              7.72                                                    bative regime with a considerable suppression of the su-
+                                                                                      perconducting critical temperature with respect to previ-
+                               7.7                                                    ous harmonic estimates43–45 . This result makes us won-
+                                     0    100      200     300      400   500   600   der whether the interpretation that in the experiment in
+                                                          T (K)
+                                                                                      silane by Eremets et al.46 the superconductivity of PtH
+                                                                                      was measured43–45 is valid. Considering the similar sup-
+FIG. 5. (Color online) Total free energy at zero pressure (top
+                                                                                      pression in palladium hydrides, which explains its inverse
+panel) and the lattice parameter (bottom panel) as a function
+of temperature for PdH, PdD and PdT. In both figures cir-                             isotope effect25 , and the lack of superconductivity mea-
+cles with solid lines represent data obtained with FH [H] for                         sured in AlH3 despite been predicted within the harmonic
+the total vibrational contribution, while squares with dashed                         theory8,72 , it seems that anharmonicity might strongly
+lines represent data with exclusively the harmonic contribu-                          affect the predicted Tc values in several hydrides8,43,58–62 .
+tion FH for the vibrational contribution. Experimental lattice
+parameters obtained by Schirber et al.67 and Ross et al.68 are
+included.
+
+                                                                                                     ACKNOWLEDGMENTS
+                                          VI.    CONCLUSIONS
+                                                                                         I.E. would like to acknowledge financial support
+   The development of a non-perturbative treatment of                                 from the Department of Education, Language Pol-
+anharmonic corrections to the phonon frequencies and                                  icy and Culture of the Basque Government (Grant
+the free energy is a major challenge with impacts in many                             No. BFI-2011-65). The authors acknowledge sup-
+domains of physics and chemistry, including supercon-                                 port from the Graphene Flagship and from the French
+ductivity, charge-density waves, thermoelectric materi-                               state funds managed by the ANR within the Investisse-
+als, ferroelectrics, thermodynamic phase transitions and                              ments d’Avenir programme under reference ANR-11-
+many more. In this work we solve this issue by devel-                                 IDEX-0004-02, ANR-11-BS04-0019 and ANR-13-IS10-
+oping the stochastic self-consistent harmonic approxima-                              0003-01. Computer facilities were provided by CINES,
+tion. This method is non-perturbative and scales favor-                               CCRT and IDRIS (Project No. x2014091202).
+ably with the system size as it can benefit from the lo-
+cality of the anharmonic contribution to the forces acting
+on the atoms. It is variational in the free energy at any
+temperature as it minimizes it with respect to a trial har-
+                                                                                      Appendix A: Calculation of the gradient of the free
+monic density matrix. The gradient of the free energy is
+                                                                                                           energy
+calculated as a function of all the independent param-
+eters in the trial harmonic Hamiltonian, and, thus, the
+SSCHA can calculate the equilibrium positions, phonon                                   In order to calculate the derivatives of FH [H], it is
+frequencies and polarizations vectors beyond perturba-                                convenient to work with normal coordinates. The quan-
+tion theory. The gradient of the free energy is calcu-                                tum statistical average of an operator that exclusively
+lated stochastically from total energies and atomic forces                            depends on atomic positions can be calculated in normal
+on supercells with ionic configurations described by the                              coordinates applying the change of variables defined in
+                                                                                                                                         14
+
+Eq. (13) to Eq. (18), namely                                                    The partial derivative with respect to the polarization
+                                                                                vectors is easily obtained writing again tr[ρH V ] as in Eq.
+                                           3N
+             Z
+                               sα
+                                           X         1 sα                       (A3). In particular,
+tr[ρH O] =        dqO(. . . , Req +              √      qµ , . . . )ρH (q),
+                                                     Ms µH
+                                                                                                                      r
+                                           µ=1                                        ∂FH [H]       ∂tr[ρH V ]    X Mt tβ
+                                                                                                 =             =−            
+                                                    (A1)                                ∂sα
+                                                                                           µH         ∂sα
+                                                                                                        µH              Ms µH
+                                                                                                                   tβ
+where q is a general configuration of the normal coor-                                             Z
+dinates and ρH (q) is the probability to find the system                                         × dRf sα (R)(Rtβ − Req   tβ
+                                                                                                                             )ρH (R). (A8)
+in the configuration q. In normal coordinates, ρH (q) is
+nothing but a product of Gaussians73 :                                          Making use of Eq. (A5) we can write
+                                                                                                                 r
+                               3N                           2
+                                                           qµ                      ∂FH [H]       sα 2  2
+                                                                                                              X Mt tβ
+                               Y           1          −
+                                                          2a2                               =     ω  a
+                                                                                                 µH µH µH   −          
+                  ρH (q) =                 √      e         µH   .      (A2)         ∂sα
+                                                                                       µH                           Ms µH
+                                     aµH 2π                                                                   tβ
+                               µ=1                                                     Z
+                                                                                     × dR[f sα (R) − fH  sα
+                                                                                                            (R)](Rtβ − Req
+                                                                                                                         tβ
+                                                                                                                            )ρH (R).(A9)
+If we make use of the yµ = qµ /aµH change of variables,
+the integral can be written as                                                  On the other hand,
+              Z                             3N                                       ∂FH [H]   ∂ (FH − tr[ρH V]) ∂tr[ρH V ]
+                                sα
+                                            X         1 sα                                   =                  +                     (A10)
+ tr[ρH O] =        dyO(. . . , Req +              √      aµH yµ , . . . )            ∂aµH          ∂aµH           ∂aµH
+                                            µ=1
+                                                      Ms µH
+                  3N                                                            It is straightforward to demonstrate that
+                                 y2
+                  Y  1          − 2µ
+              ×     √ e
+                                                                                                           r
+                                       ,                                (A3)            ∂tr[ρH V ]    X Mt              1
+                     2π                                                                            =−          sα tβ
+                µ=1
+                                                                                          ∂aµH               Ms µH µH aµH
+                                                                                                      stαβ
+where y represents all the set of yµ ’s. Writing the quan-                                          Z
+tum statistical average in this way, the exponential part                                          × dRf sα (R)(Rtβ − Reqtβ
+                                                                                                                            )ρH (R)(A11)
+becomes independent of phonon frequencies, polariza-
+tions vectors and equilibrium positions.                                        if Eq. (A3) is used to write the quantum statistical aver-
+   The only non analytic part in the calculation of                             age. Using Eq. (A5) the equation above can be rewritten
+FH [H] = FH + tr[ρH (V − V)] is the quantum statistical                         as
+                                                                                                                   r
+average of the potential, the tr[ρH V ] term. The analytic                            ∂tr[ρH V ]    2
+                                                                                                               X Mt           tβ  1
+expression of FH is given in Eq. (19) and                                                        = ωµH aµH −            sα
+                                                                                                                         µH µH
+                                                                                        ∂aµH                         Ms          aµH
+                                                                                                              stαβ
+                                     3N
+                                                                                        Z
+                                     X  1     2                                       × dR[f sα (R) − fH  sα
+                                                                                                             (R)](Rtβ − Req
+                                                                                                                          tβ
+                                                                                                                             )ρH (R).(A12)
+                       tr[ρH V] =            ωµH a2µH .                 (A4)
+                                     µ=1
+                                         2
+                                                                                Finally, plugging Eqs. (A12) and (A9) into Eq. (A7),
+Before we demonstrate Eqs. (21) and (22), we also would                         and noting that
+like to note the following analytical relation involving the                                ∂ (FH − tr[ρH V])     2
+fH (R) harmonic forces:                                                                                        + ωµH aµH = 0          (A13)
+                                                                                                 ∂aµH
+            Z                                                                                            X
+               dRfH sα
+                       (R)(Rtβ − Req
+                                   tβ
+                                      )ρH (R) =                                                               sα     sα
+                                                                                                               µH ∇Φ µH = 0,         (A14)
+                                                                                                                 sα
+                     3N
+                                                                                it is straightforward to obtain the expression for
+                           r
+                     X         Ms sα tβ 2 2
+                 −                 ω a .                              (A5)    ∇Φ FH [H] given in Eq. (22).
+                               Mt µH µH µH µH
+                     µ=1                                                           The only elements contributing to ∇Φ FH [H] that have
+  First of all, if we write tr[ρH V ] as in Eq. (A3), it is                     not been specified yet are ∇Φ aµH and ∇Φ sα µH . Consid-
+easy to observe that                                                            ering how eigenvalues and eigenvectors of a matrix are
+                                                                                modified when the matrix itself is varied, we can get the
+                                                                                following expressions for the components of these gradi-
+                                       Z
+  ∇Req FH [H] = ∇Req tr[ρH V ] = − dRf (R)ρH (R).                               ents:
+                                                   (A6)                                                      sα tβ
+                                                                                        ∂aµH       ∂aµH 1 µH µH
+                                                                                              =             √                         (A15)
+             R
+Noting that dRfH (R)ρH (R) = 0, we recover Eq. (21).                                       αβ
+                                                                                        ∂Φst       ∂ωµH 2ωµH Ms Mt
+   Secondly, we calculate ∇Φ FH [H] using the chain rule
+as                                                                                       ∂sα
+                                                                                           µH
+                                                                                                    X                 kγ  tβ
+                                                                                                                       νH µH
+                                                                                            γβ
+                                                                                               =            √                    sα . (A16)
+                                                                                                                        2 − ω 2 ) νH
+                  X ∂FH [H]                          X ∂FH [H]                          ∂Φkt       ν,ν6=µ
+                                                                                                                Mk Mt (ωµH   νH
+∇Φ FH [H] =                         ∇Φ aµH +                         ∇Φ sα
+                                                                         µH .
+                   µ
+                           ∂aµH                      µsα
+                                                             ∂sα
+                                                               µH               The ∂aµH /∂ωµH derivative in Eq. (A15) can be obtained
+                                                                        (A7)    from Eq. (17).
+                                                                                                                                 15
+
+ Appendix B: Symmetrization and reduction of the                 the so-called small group of q. The Ŝ−q operations can
+       basis for the force-constants matrix                      be used to symmetrize the basis because of time-reversal
+                                                                 symmetry. From Eq. (B2) it is straightforward to ob-
+   In order to apply Ŝ and time-reversal symmetries to          serve that the elements of the basis can be symmetrized
+the {G(ns) (m)}m=1,...,(3n)2 N1 N2 N3 basis, it is convenient    as
+to to work in the unit-cell phonon-momentum q space.                                    1 X †
+This is so because any Φ force-constants matrix of this                 Ḡ(s) (q, σ) =       TŜ (q)Ḡ(ns) (σ)TŜq (q)
+                                                                                       NSq      q
+vector space respects translational symmetries and, thus,                                           Ŝq
+its Fourier transform can be labeled with a single q vector                     1
+                                                                                             TŜ†
+                                                                                      X
+                                                                                                           ∗
+of the 1BZ of the unit cell. The number of q points in the                 +                          (q)Ḡ(ns) (σ)TŜ−q (q),   (B5)
+                                                                               NS−q             −q
+1BZ is determined by the supercell size. A N1 × N2 × N3                               Ŝ−q
+supercell means a N1 × N2 × N3 phonon-momentum grid
+in the 1BZ of the unit cell. The Fourier components of           where NSq is the number symmetry operations in the
+the real-space force-constants matrix of the supercell Φ         small group of q and NS−q the number of symmetry
+are labeled as Φ(q). Each Φ(q) is a 3n × 3n Hermitian            operations satisfying Eq. (B4). We perform this sym-
+matrix. Therefore, in practice we do not work with the           metrization at each q ∈ IBZ. The {Ḡ(s) (q, σ)}σ=1,...,(3n)2
+vector space defined by the {G(ns) (m)}m=1,...,(3n)2 N1 N2 N3    basis becomes overcomplete after the symmetrization.
+basis, but with the vector space formed by the 3n × 3n           We reduce the basis applying a Gram-Schmidt orthonor-
+Hermitian matrices. The dimension of this vector space           malization procedure. We label the set of matrices
+is (3n)2 and let {Ḡ(ns) (σ)}σ=1,...,(3n)2 be an orthonormal     that form the basis of the symmetrized subspace as
+basis of it. The elements of the basis satisfy the orthonor-     {Ḡ(q, σ)}σ=1,...,Nr (q) , Nr (q) being the dimension of the
+mality condition defined in Eq. (30). Therefore, any             subspace for q ∈ IBZ.
+Φ(q) can be decomposed in this basis as                             In this framework, it is also easy to impose the acous-
+                                                                 tic sum rule (ASR) as among the Ḡ(s) (Γ, σ) matrices
+                      (3n)2                                      there must exist three translation generators, one for each
+                                                                 Cartesian direction: Gtx , Gty and Gtz . According to the
+                       X
+             Φ(q) =           c(ns) (q, σ)Ḡ(ns) (σ),   (B1)
+                       σ=1                                       ASR, the translation vectors must be eigenvectors of the
+                                                                 force-constants matrix at Γ with vanishing eigenvalue. In
+where the c(ns) (q, σ) coefficients determine the value of       order to impose this property, we redefine all the gener-
+Φ(q).                                                            ators at Γ according to the
+  Any Φ(q) matrix described in the {Ḡ(ns) (σ)}σ=1,...,(3n)2
+basis as in Eq. (B1) transforms under the symmetry                      ḠASR (Γ, σ) = (I − Gt )Ḡ(s) (Γ, σ)(I − Gt )           (B6)
+operations Ŝ of the space group as
+                                                                 projection, where I is the identity matrix and Gt = Gtx +
+                Φ(Sq) = TŜ (q)Φ(q)TŜ† (q),            (B2)     Gty + Gtz . Then, instead of performing the Gram-Schmidt
+                                                                 orthonormalization in the {Ḡ(s) (Γ, σ)}σ=1,...,(3n)2 basis,
+where the unitary TŜ (q) matrices are given in Refs. 51,
+74, and 75. Eq. (B2) shows that many of the q points             we perform it in the {ḠASR (Γ, σ)}σ=1,...,(3n)2 one. This
+in the N1 × N2 × N3 mesh are equivalent by symmetry              procedure gives us the {Ḡ(Γ, σ)}σ=1,...,Nr (Γ) basis of the
+since the force-constants matrices at Sq points of the 1BZ       symmetric subspace at Γ.
+are related by symmetry to the force-constants matrix at            Once the symmetry reduced basis is found for all q ∈
+q. The set of symmetry related Sq points is named as             IBZ, we decompose the initial force-constants matrix
+the star of q and we denote it as {q∗ }. The q points            Φ(0) in the basis. In order to decompose it, it is sufficient
+not related by Eq. (B2) form the irreducible Brillouin           to decompose the Fourier transformed force-constants
+zone (IBZ). Therefore, we can restrict the Φ(q) Fourier-         matrices at q ∈ IBZ. The decomposition of each of these
+components of the supercell force-constants matrix at the        matrices is given as
+q points in the IBZ. Indeed, all the N1 × N2 × N3 Φ(q)
+                                                                                              Nr (q)
+matrices can be generated by symmetry using Eq. (B2).                                          X
+   Eq. (B2) can be used to symmetrize the elements of                          Φ(q, 0) =                  c0 (q, σ)Ḡ(q, σ),    (B7)
+                                                                                               σ=1
+the {Ḡ(ns) (σ)}σ=1,...,(3n)2 basis with respect to the Ŝ op-
+erations and time-reversal. For instance, if                     where the c0 (q, σ) coefficients can be obtain from the
+                       Sq q = q + Gq                    (B3)
+                                                                                 c0 (q, σ) = hΦ(q, 0), Ḡ(q, σ)i                (B8)
+or
+                                                                 scalar product. The scalar product in Eq. (B8) is defined
+                    S−q q = −q + G−q ,                  (B4)     in Eq. (29) though, in this case, the sum over atom
+                                                                 indices is limited to the unit cell. It is clear that the
+we can use the Ŝq and Ŝ−q symmetry operations to sym-          total number of coefficients needed
+                                                                                                P to determine Φ(0), or
+metrize the basis. The Ŝq symmetry operations form              in general any Φ(j), is NR = q∈IBZ Nr (q).
+                                                                                                                                           16
+
+  Finally, in order to obtain Eq. (32), we need to Fourier                      where the sum runs over the NR different coefficients.
+transform to real space the Ḡ(q, σ) matrices. The Ḡ(q0 , σ)                   Obviously at CG step j Eq. (B11) holds as in Eq. (32).
+matrices for all q0 ∈ {q∗ } can be obtained using Eq.
+(B2). The
+
+     αβ            1      X                           0
+    Gst (q, σ) =                    Ḡs̄αβ    0
+                                         t̄ (q , σ)e
+                                                     iq (Rss̄ −Rtt̄ )
+                                                                         (B9)   Appendix C: Creating the set of ionic configurations
+                   Nq
+                        q0 ∈{q∗ }
+
+Fourier transform gives us the value of the matrix in real                         In order to create the {RI }I=1,...,Nc set of ionic config-
+space. In Eq. (B9) Nq = N1 ×N2 ×N3 is the total number                          urations according to the probability distribution ρH (R),
+of q points in the 1BZ and Rss̄ is the lattice vector that                      we take advantage of the Gaussian character of ρH (q)
+connects the s-th atom of the supercell with the equiv-                         (see Eq. (A2)). First of all, a set of {yµI }I=1,...,Nc con-
+alent atom s̄ in the unit cell, Rss̄ = Rseq − Rs̄eq . Note                      figurations is created. Each yµI is a random number cre-
+          αβ                                                                    ated according to a purely Gaussian distribution. Then,
+that Gst     (q, σ) denotes an element of the symmetrized                       we multiply each yµI by the corresponding aµH normal
+basis in real space and that q, σ is nothing but the la-                        length. This operation gives us a set of configurations
+bel of a matrix in the basis. Moreover, as for q0 ∈ {q∗ }                       for the normal coordinates described by the ρH (q) prob-
+c0 (q0 , σ) = c0 (q, σ), the Φ(0) force-constants matrix in                     ability distribution: {qµI = aµH yµI }I=1,...,Nc . From Eq.
+real space can be calculated as                                                 (13), these normal coordinates define a set of configura-
+                                                                                tions for the ionic positions {RI }I=1,...,Nc , where each
+                    X NX
+                       r (q)
+                                                                                component is given as
+       Φαβ
+        st (0) =
+                                              αβ
+                                    c0 (q, σ)Gst (q, σ).                (B10)
+                   q∈IBZ σ=1
+                                                                                                          3N
+                                                                                                          X         1 sα
+Simplifying the notation as m ≡ q, σ we get                                                RIsα = Req
+                                                                                                   sα
+                                                                                                      +         √      aµH yµI .       (C1)
+                                                                                                          µ=1
+                                                                                                                    Ms µH
+                              NR
+                              X
+                   Φ(0) =             c0 (m)G(m),                       (B11)
+                              m=1
+
+
+1
+   M. Born and K. Huang, Dynamical Theory of Crystal Lat-                          E. Gregoryanz, Phys. Rev. Lett. 99, 155505 (2007).
+                                                                                16
+   tices (Oxford University Press, Oxford, 1954).                                  Z. P. Yin, S. Y. Savrasov, and W. E. Pickett, Phys. Rev.
+ 2
+   S. Baroni, S. de Gironcoli, A. Dal Corso, and P. Giannozzi,                     B 74, 094519 (2006).
+                                                                                17
+   Rev. Mod. Phys. 73, 515 (2001).                                                 M. Leroux, M. Le Tacon, M. Calandra, L. Cario, M.-
+ 3
+   G. Kresse, J. Furthmüller, and J. Hafner, EPL (Euro-                           A. Méasson, P. Diener, E. Borrissenko, A. Bosak, and
+   physics Letters) 32, 729 (1995).                                                P. Rodière, Phys. Rev. B 86, 155125 (2012).
+ 4                                                                              18
+   B. Fultz, Progress in Materials Science 55, 247 (2010).                         M. Calandra, I. I. Mazin, and F. Mauri, Phys. Rev. B 80,
+ 5
+   A. A. Maradudin and A. E. Fein, Phys. Rev. 128, 2589                            241108 (2009).
+                                                                                19
+   (1962).                                                                         M. Calandra and F. Mauri, Phys. Rev. Lett. 106, 196406
+ 6
+   M. Lazzeri, M. Calandra, and F. Mauri, Phys. Rev. B 68,                         (2011).
+                                                                                20
+   220509 (2003).                                                                  M. D. Johannes and I. I. Mazin, Phys. Rev. B 77, 165135
+ 7
+   M. Lazzeri and S. de Gironcoli, Phys. Rev. B 65, 245402                         (2008).
+                                                                                21
+   (2002).                                                                         M. D. Johannes, I. I. Mazin, and C. A. Howells, Phys.
+ 8
+   B. Rousseau and A. Bergara, Phys. Rev. B 82, 104504                             Rev. B 73, 205102 (2006).
+                                                                                22
+   (2010).                                                                         O. Delaire, J. Ma, K. Marty, A. F. May, M. A. McGuire,
+ 9
+   L. Paulatto, F. Mauri, and M. Lazzeri, Phys. Rev. B 87,                         M.-H. Du, D. J. Singh, A. Podlesnyak, G. Ehlers, M. D.
+   214303 (2013).                                                                  Lumsden, and B. C. Sales, Nat. Mater. 10, 614 (2011).
+10                                                                              23
+   D. J. Hooton, Philosophical Magazine Series 7 46, 422                           W. Zhong, D. Vanderbilt, and K. M. Rabe, Phys. Rev. B
+   (1955).                                                                         52, 6301 (1995).
+11                                                                              24
+   I. Errea, B. Rousseau, and A. Bergara, Journal of Physics:                      R. Yu and H. Krakauer, Phys. Rev. Lett. 74, 4067 (1995).
+                                                                                25
+   Conference Series 377, 012060 (2012).                                           I. Errea, M. Calandra, and F. Mauri, Phys. Rev. Lett.
+12
+   I. Errea, B. Rousseau, and A. Bergara, Phys. Rev. Lett.                         111, 177002 (2013).
+                                                                                26
+   106, 165501 (2011).                                                             L. Vocadlo, D. Alfè, M. J. Gillan, I. G. Wood, J. P. Brod-
+13
+   G. Profeta, C. Franchini, N. N. Lathiotakis, A. Floris,                         holt, and G. D. Price, Nature 424, 536 (2003).
+                                                                                27
+   A. Sanna, M. A. L. Marques, M. Lüders, S. Massidda,                            W. Luo, B. Johansson, O. Eriksson, S. Arapan, P. Sou-
+   E. K. U. Gross, and A. Continenza, Phys. Rev. Lett. 96,                         vatzis, M. I. Katsnelson, and R. Ahuja, Proc. Natl. Acad.
+   047003 (2006).                                                                  Sci. USA 107, 9962 (2010).
+14                                                                              28
+   F. Mauri, O. Zakharov, S. de Gironcoli, S. G. Louie, and                        G. Grimvall, B. Magyari-Köpe, V. Ozoliņš, and K. A.
+   M. L. Cohen, Phys. Rev. Lett. 77, 1151 (1996).                                  Persson, Rev. Mod. Phys. 84, 945 (2012).
+15                                                                              29
+   O. Degtyareva, M. V. Magnitskaya, J. Kohanoff, G. Pro-                          T. E. Markland and B. J. Berne, Proceedings of the Na-
+   feta, S. Scandolo, M. Hanfland, M. I. McMahon, and                              tional Academy of Sciences 109, 7988 (2012).
+                                                                                                                               17
+
+30                                                                  hOρHj /ρH0 i
+   R. Car and M. Parrinello, Phys. Rev. Lett. 55, 2471 (1985).       hρHj /ρH0 i
+                                                                                   . In this case, the error would not be given by
+31
+   H. Dammak, Y. Chalopin, M. Laroche, M. Hayoun, and
+                                                                    Eq. (36), but a slightly modified version. Both ways of
+   J.-J. Greffet, Phys. Rev. Lett. 103, 190601 (2009).
+32                                                                  calculating the integral become identical in the Nc → ∞
+   M. Ceriotti, G. Bussi, and M. Parrinello, Phys. Rev. Lett.
+                                                                    limit.
+   103, 030603 (2009).                                           55
+33                                                                  H. Hellmann, Einfürung in die Quantumchemie (Deuticke,
+   A. H. Barrozo and M. de Koning, Phys. Rev. Lett. 107,
+                                                                    1937).
+   198901 (2011).                                                56
+34                                                                  R. P. Feynman, Phys. Rev. 56, 340 (1939).
+   H. Dammak, M. Hayoun, Y. Chalopin, and J.-J. Greffet,         57
+                                                                    N. W. Ashcroft, Phys. Rev. Lett. 21, 1748 (1968).
+   Phys. Rev. Lett. 107, 198902 (2011).                          58
+35                                                                  D. Y. Kim, R. H. Scheicher, H.-k. Mao, T. W. Kang, and
+   D. M. Ceperley, Rev. Mod. Phys. 67, 279 (1995).
+36                                                                  R. Ahuja, Proc. Natl. Acad. Sci. USA 107, 2793 (2010).
+   P. Souvatzis, O. Eriksson, M. I. Katsnelson, and S. P.        59
+                                                                    G. Gao, A. R. Oganov, P. Li, Z. Li, H. Wang, T. Cui,
+   Rudin, Phys. Rev. Lett. 100, 095901 (2008).
+37                                                                  Y. Ma, A. Bergara, A. O. Lyakhov, T. Iitaka, and G. Zou,
+   P. Souvatzis, O. Eriksson, M. Katsnelson, and S. Rudin,
+                                                                    Proc. Natl. Acad. Sci. USA 107, 1317 (2010).
+   Computational Materials Science 44, 888 (2009).               60
+38                                                                  G. Gao, A. R. Oganov, A. Bergara, M. Martinez-Canales,
+   N. Antolin, O. D. Restrepo, and W. Windl, Phys. Rev. B
+                                                                    T. Cui, T. Iitaka, Y. Ma, and G. Zou, Phys. Rev. Lett.
+   86, 054119 (2012).
+39                                                                  101, 107002 (2008).
+   O. Hellman, I. A. Abrikosov, and S. I. Simak, Phys. Rev.      61
+                                                                    P. Cudazzo, G. Profeta, A. Sanna, A. Floris, A. Conti-
+   B 84, 180301 (2011).
+40                                                                  nenza, S. Massidda, and E. K. U. Gross, Phys. Rev. Lett.
+   O. Hellman, P. Steneteg, I. A. Abrikosov, and S. I. Simak,
+                                                                    100, 257001 (2008).
+   Phys. Rev. B 87, 104111 (2013).                               62
+41                                                                  M. Martinez-Canales, A. R. Oganov, Y. Ma, Y. Yan, A. O.
+   B. Monserrat, N. D. Drummond, and R. J. Needs, Phys.
+                                                                    Lyakhov, and A. Bergara, Phys. Rev. Lett. 102, 087005
+   Rev. B 87, 144302 (2013).
+42                                                                  (2009).
+   I. Errea, B. Rousseau, and A. Bergara, Journal of Applied     63
+                                                                    O. Degtyareva, J. E. Proctor, C. L. Guillaume, E. Gre-
+   Physics 111, 112604 (2012).
+43                                                                  goryanz, and M. Hanfland, Solid State Communications
+   D. Y. Kim, R. H. Scheicher, C. J. Pickard, R. J. Needs,
+                                                                    149, 1583 (2009).
+   and R. Ahuja, Phys. Rev. Lett. 107, 117002 (2011).            64
+44                                                                  J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev.
+   T. Scheler, O. Degtyareva, M. Marqués, C. L. Guillaume,
+                                                                    Lett. 77, 3865 (1996).
+   J. E. Proctor, S. Evans, and E. Gregoryanz, Phys. Rev. B      65
+                                                                    G. Gao, H. Wang, L. Zhu, and Y. Ma, The Journal of
+   83, 214106 (2011).
+45                                                                  Physical Chemistry C 116, 1995 (2012).
+   X.-F. Zhou, A. R. Oganov, X. Dong, L. Zhang, Y. Tian,         66
+                                                                    P. B. Allen and R. C. Dynes, Phys. Rev. B 12, 905 (1975).
+   and H.-T. Wang, Phys. Rev. B 84, 054543 (2011).               67
+46                                                                  J. E. Schirber and B. Morosin, Phys. Rev. B 12, 117 (1975).
+   M. I. Eremets, I. A. Trojan, S. A. Medvedev, J. S. Tse,       68
+                                                                    D. K. Ross, V. E. Antonov, E. L. Bokhenkov, A. I.
+   and Y. Yao, Science 319, 1506 (2008).
+47                                                                  Kolesnikov, E. G. Ponyatovsky, and J. Tomkinson, Phys.
+   A. Isihara, J. Phys. A: Gen. Phys. 1, 539 (1968).
+48                                                                  Rev. B 58, 2591 (1998).
+   R. Choquard, The anharmonic crystal (W. A. Benjamin           69
+                                                                    B. Stritzker and W. Buckel, Zeitschrift für Physik 257, 1
+   Inc., New York, 1967).
+49                                                                  (1972).
+   N. R. Werthamer, Phys. Rev. B 1, 572 (1970).                  70
+50                                                                  J. E. Schirber and C. J. M. Northrup, Phys. Rev. B 10,
+   P. Giannozzi et al., J. Phys. Condens. Matter 21, 395502
+                                                                    3818 (1974).
+   (2009).                                                       71
+51                                                                  J. E. Schirber, J. M. Mintz, and W. Wall, Solid State
+   A. A. Maradudin and S. H. Vosko, Rev. Mod. Phys. 40, 1
+                                                                    Communications 52, 837 (1984).
+   (1968).                                                       72
+52                                                                  I. Goncharenko, M. I. Eremets, M. Hanfland, J. S. Tse,
+   G. Lang, K. Karch, M. Schmitt, P. Pavone, A. P. Mayer,
+                                                                    M. Amboage, Y. Yao, and I. A. Trojan, Phys. Rev. Lett.
+   R. K. Wehner, and D. Strauch, Phys. Rev. B 59, 6182
+                                                                    100, 045504 (2008).
+   (1999).                                                       73
+53                                                                  S. Rossano, F. Mauri, C. J. Pickard, and I. Farnan, The
+   N. Bonini, M. Lazzeri, N. Marzari, and F. Mauri, Phys.
+                                                                    Journal of Physical Chemistry B 109, 7245 (2005).
+   Rev. Lett. 99, 176802 (2007).                                 74
+54                                                                  J. L. Warren, Rev. Mod. Phys. 40, 38 (1968).
+   At step j of the CG minimization,R one could also cal-        75
+                                                                    Z. Hendrikse, M. Elout, and W. Maaskant, Computer
+   culate the integral in Eq. (34) as dRO(R)ρHj (R) ≃
+                                                                    Physics Communications 86, 297 (1995).
+

@@ -1,0 +1,2215 @@
+                                             Dark matter direct detection from the single phonon to the nuclear recoil regime
+
+                                                           Brian Campbell-Deem,1 Simon Knapen,2, 3, 4 Tongyan Lin,1 and Ethan Villarama1
+                                                                1
+                                                                  Department of Physics, University of California, San Diego, CA 92093, USA
+                                                      2
+                                                          Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA
+                                                                       3
+                                                                         Berkeley Center for Theoretical Physics, Department of Physics,
+                                                                              University of California, Berkeley, CA 94720, USA
+                                                                         4
+                                                                           CERN, Theoretical Physics Department, Geneva, Switzerland
+                                                                                            (Dated: August 28, 2023)
+
+                                                      In most direct detection experiments, the free nuclear recoil description of dark matter scattering
+                                                      breaks down for masses ≲ 100 MeV, or when the recoil energy is comparable to a few times the typical
+                                                      phonon energy. For dark matter lighter than 1 MeV, scattering via excitation of a single phonon
+arXiv:2205.02250v2 [hep-ph] 25 Aug 2023
+
+
+
+
+                                                      dominates and has been computed previously, but for the intermediate mass range or higher detector
+                                                      thresholds, multiphonon processes dominate. We perform the first calculation of the scattering rate
+                                                      via multiphonon production for the entire keV-GeV dark matter mass range, assuming a harmonic
+                                                      crystal target. We provide an analytic description that connects the single phonon, multiphonon,
+                                                      and the nuclear recoil regimes. Our results are implemented in the public package DarkELF.
+
+
+                                                                CONTENTS                                                   I.   INTRODUCTION
+
+
+                                           I. Introduction                                          1       The effort to directly detect dark matter (DM) is en-
+                                                                                                          tering the sub-GeV mass regime, thanks to experimental
+                                          II. Dynamic structure factor                              2     innovations which allow for ever lower energy thresholds.
+                                              A. Coherent and incoherent structure factors          3     For kinematic reasons, this regime is especially challeng-
+                                              B. Incoherent approximation                           5     ing for DM which primarily couples to hadronic matter.
+                                                                                                          For a DM mass (mχ ) below 1 GeV, the energy that the
+                                          III. Processes                                            7     DM can deposit in an elastic collision with a nucleus of
+                                               A. Single phonon production                          7     mass mN is bounded by
+                                               B. Two-phonon production (q < qBZ )                  8
+                                               C. Multiphonon production                           11                                   2v 2 m2χ
+                                                                                                                                 EN ≤            .                (1)
+                                               D. The impulse approximation (q ≫ qBZ )             12                                    mN
+                                               E. Summary                                          14
+                                                                                                          For mχ ≪ mN this is only a small fraction of the to-
+                                          IV. Results                                              14     tal available DM kinetic energy, which can make it very
+                                              A. Massive hadrophilic mediator                      15     difficult to detect. This problem can be mitigated to
+                                              B. Massless hadrophilic mediator                     16     some extent by choosing light element targets such as
+                                                                                                          H [1], He [2–4], or diamond [5] and by pushing for lower
+                                              C. Dark photon mediators                             17
+                                                                                                          thresholds. Alternatively, one may leverage inelastic pro-
+                                          V. Conclusions and outlook                               18     cesses such as the Migdal effect [6–8] or bremsstrahlung
+                                                                                                          [9]. Inelastic processes occur at substantially lower rate,
+                                              Acknowledgments                                      19     but are not subject to the constraint in (1) and can also
+                                                                                                          yield signals that are more easily detected than a nu-
+                                          A. Two phonon analytic structure factors                 19     clear recoil, such as electronic excitations, ionizations or
+                                             1. Long-wavelength approximation                      19     X-rays. Which approach is preferable depends on the
+                                             2. Incoherent approximation                           20     characteristics of the detector.
+                                                                                                             At sufficiently low energy and momentum scales, DM-
+                                          B. Impulse approximation                                 21
+                                                                                                          nucleus scattering is also not subject to (1) because atom-
+                                                                                                          atom interactions become important. In particular, the
+                                          C. Implementation in DarkELF                             22
+                                                                                                          relevant excitations in a crystal target are phonons in-
+                                          D. Additional results                                    23     stead of elastic nuclear recoils. For mχ ≲ MeV, the
+                                                                                                          momentum transfer from DM scattering corresponds to
+                                              References                                           28     wavelengths comparable or larger than the interatomic
+                                                                                                                                                              2
+
+spacing of a typical target. In this regime, the dominant                                              Massive Scalar Mediator
+                                                                                  10−37
+process will be coherent scattering off multiple atoms,                                                                                     3 events/kg-yr
+
+with creation of a single phonon. For crystalline targets
+                                                                                  10−39
+with phonon energies as high as ∼100 meV, the energy
+deposited from DM can be well above the naive estimate                            10−41
+
+
+
+
+                                                                      σp [cm2 ]
+in (1). Single phonon excitation has been studied exten-
+sively for sub-MeV dark matter, where numerical and an-                           10−43
+alytic calculations by different groups are in good agree-
+ment [10–17]. These calculations have also been extended                          10−45
+                                                                                          Diamond          Si                GaAs
+                                                                                             1 meV             1 meV              1 meV
+to diphonon production from sub-MeV dark matter1 [25]                                        100 meV           100 meV            100 meV
+                                                                                             1 eV              1 eV               1 eV
+as well as to single phonon production from MeV-GeV                               10−47
+                                                                                            10−2        10−1         100            101     102         103
+dark matter by including Umklapp processes [12, 14].                                                              mχ [MeV]
+However, so far there has not been a complete description
+of DM scattering for intermediate energy and momentum
+                                                                     FIG. 1. Cross sections needed for 3 events/kg-year for var-
+transfers, where multiphonon processes are expected to               ious target materials and threshold energies. A massive
+dominate.                                                            hadrophilic mediator is assumed.
+   In this work, we develop an analytic treatment of DM
+scattering that interpolates between the single phonon
+                                                                     of the DarkELF public code [29].2
+and nuclear recoil regimes. The relevant approximations
+                                                                        The remainder of this paper is organized as follows: In
+are set primarily by the momentum transfer q. For sin-
+                                                                     Sec. II we introduce the dynamic structure factor, which
+gle phonon excitations and q < 2π/a, where a is typi-
+                                                                     captures the material-dependence of the DM scattering
+cal atomic lattice spacing, we use a long-wavelength ap-
+                                                                     cross section, and motivate the incoherent approximation
+proximation used earlier in the literature [10, 11, 13, 25].
+                                                                     for the structure factor. In Sec. III, we describe our ana-
+For q > 2π/a, we employ the incoherent approximation,
+                                                                     lytic approximations in detail across the different regimes
+which neglects interference effects between the response
+                                                                     in energy and momentum transfer. We perform checks
+of neighboring atoms. This allows us to organize the
+                                                                     on our use of the incoherent approximation by comparing
+calculation as a systematic expansion in the number of
+                                                                     with previous calculations for single-phonon production
+final state phonons, where each additional phonon comes
+                     √                                               and analytic calculations for diphonon production. Our
+with a factor of q/ 2md ω̄d . Here, md and ω̄d are the
+                                                                     results for GaAs are discussed in detail in Sec. IV and we
+mass and average oscillation frequency of the atom in
+                                         √                           conclude in Sec. V. Appendix A contains the formulas
+the position indexed by d. For q < 2md ω̄d it is nu-
+                                                                     for diphonon production and Appendix B provides de-
+merically practical to compute the rate order-by-order in
+                                                                     tails on the impulse approximation. The implementation
+terms of the phonon density of states of the material.
+           √                                                         in DarkELF is documented in Appendix C. We further
+For q ≫ 2md ω̄d , scattering into many phonons dom-
+                                                                     provide numerical results for Ge, Si and diamond in Ap-
+inates and the perturbation series requires increasingly
+                   √                                                 pendix D.
+large orders in q/ 2md ω̄d to converge. It can however be
+resummed by making use of the impulse approximation,
+which in turn smoothly matches onto the free nuclear re-                           II.    DYNAMIC STRUCTURE FACTOR
+coil regime. A similar expansion in number of modes has
+been performed previously for the integrable toy model                  Our starting point will be a general potential for spin-
+that is the harmonic oscillator [26]. Here we have gen-              independent DM-nucleus interactions, although the for-
+eralized the approach to a harmonic crystal, analogous               malism below could also be applied to spin-dependent
+to the procedure followed in [27] and [28], in calculations          interactions. For a DM particle of mass mχ incident on
+of the Migdal effect and X-ray backgrounds, respectively.            a crystal with N unit cells and n ions per unit cell, the
+Fig. 1 illustrates our results from applying these approxi-          potential in Fourier space is given by
+mations. All of our calculations are implemented as part                                                                 N    n
+                                                                                                  2πbp        XX
+                                                                                          Ṽ(q) =      F̃ (q)    fℓd eiq·rℓd .                               (2)
+                                                                                                   µχ
+                                                                                                                         ℓ   d=1
+1 Analogous calculations were performed for superfluid He [18–24],
+
+  for which diphonon production is the leading observable process
+  for mχ ≲ 1 MeV.                                                    2 https://github.com/tongylin/DarkELF
+                                                                                                                                        3
+
+Here, we sum over the N unit cells, labeled by lattice           dependent3 or mass-dependent interactions, respectively.
+vectors ℓ, and atoms within the unit cell, labeled with          This can be accounted for by averaging over a large col-
+the index d, such that all atoms in the crystal with po-         lection of target samples. With a large number of nuclei
+sitions rℓd are summed over. The DM-proton scattering            in the crystal, we expect the exact distribution of inter-
+length bp is defined by the DM-proton scattering cross           action strengths in a given sample to be inconsequential
+section σp ≡ 4πb2p at some reference momentum, and µχ            relative to the result averaged over many samples. We
+is the DM-proton reduced mass. We first consider a gen-          can keep track of fluctuations away from the average con-
+eral coupling strength fℓd of the nucleus labeled by ℓ, d        figuration by splitting the scattering rate into a coherent
+relative to that of a single proton. fℓd is specified for var-   and incoherent contribution, as explained below.
+ious interactions in Section IV, such as nucleon number             We follow the procedure of Refs. [31, 32] and first re-
+for scalar mediators and the effective electric charge for       express (4) by expanding the square and Fourier trans-
+scattering via a dark photon mediator. In the latter case        forming the δ-function, giving
+fℓd is q dependent when accounting for screening effects.                                     N X
+                                                                                                n
+                                                                                              X
+   We consider two form factors in (2) representing limit-                     S(q, ω) =                    fℓd fℓ∗′ d′ Cℓ′ d′ ℓd      (5)
+ing cases of interactions: scattering via a heavy mediator,                                   ℓ, ℓ′ d, d′
+where F̃ (q) = 1; and scattering via a massless mediator,
+                                                                 where Cℓ′ d′ ℓd is the time-dependent two-point function:
+where F̃ (q) = q02 /q 2 with a model-dependent reference
+momentum q0 .                                                                          Z∞        X
+                                                                                   1
+   Collecting the overall factor 2πbp F̃ (q)/µχ , we define            Cℓ′ d′ ℓd ≡          dt         ⟨0|e−iq·rℓ′ d′ (0) |Φf ⟩
+                                                                                   V
+                                                                                       −∞         f
+the differential cross section as
+                                                                                                      × ⟨Φf |eiq·rℓd (t) |0⟩ e−iωt
+          dσ      b2p 1 Ωc                                                             Z∞
+                =          |F̃ (q)|2 S(q, ω) δ (ω − ωq )   (3)                   1
+        d3 q dω   µ2χ v 2π                                                     ≡            dt ⟨e−iq·rℓ′ d′ (0) eiq·rℓd (t) ⟩e−iωt .   (6)
+                                                                                 V
+                                                                                       −∞
+where v is the initial velocity of the dark matter (incident
+on a target at rest), Ωc = V /N is the volume of the unit        In the second line we used the completeness of the basis of
+cell in the crystal, and ωq = q · v − q 2 /2mχ is the kine-      states. It will also be advantageous to define a shorthand
+matic constraint on the momentum and energy transfers            notation for the auto-correlation function for an atom
+to the crystal q and ω. We have in turn also defined the         with itself as
+dynamic structure factor                                                 Cℓd ≡ Cℓdℓd
+                                                2                                 Z∞
+          2π X X X
+                      N    n                                                    1
+S(q, ω) ≡          ⟨Φf |fℓd eiq·rℓd |0⟩ δ (Ef − ω) .                         ≡       dt ⟨e−iq·rℓd (0) eiq·rℓd (t) ⟩e−iωt .             (7)
+          V                                                                    V
+                 f    ℓ   d=1                                                       −∞
+                                                         (4)
+                                                                    We assume that the fℓd are random throughout the
+Note that the convention for S(q, ω) varies across the
+                                                                 crystal. Under this assumption, the average of fℓd fℓ∗′ d′
+literature; here we use the convention that gives a similar
+                                                                 over target configurations, fd fd∗′ , must be independent
+S(q, ω) definition for both phonon interactions and DM-
+                                                                 of the lattice sites ℓ, ℓ′ . Making this replacement in (5)
+electron interactions [12, 30]. We also assume the system
+                                                                 gives
+is initially in its ground state |0⟩ prior to the collision,
+                                                                                                 N X
+                                                                                                 X n
+corresponding to a zero temperature system. We sum
+over final states with energies Ef , such that each term                        S(q, ω) =                      fd fd∗′ Cℓ′ d′ ℓd       (8)
+                                                                                                 ℓ, ℓ′ d, d′
+represents the probability to excite the final state |Φf ⟩.
+                                                                 where the averages may be written as
+
+                                                                              d ̸= d′ :                     fd fd∗′ = fd fd∗′ ,
+   A.    Coherent and incoherent structure factors
+                                                                              d = d′ :                      fd fd∗′ = fd2 .
+
+   For a given crystal there are many possible configura-
+tions of interaction strengths fℓd which may vary even
+                                                                 3 For spin-dependent interactions, f
+for different samples of the same material, e.g. the exact                                          ℓd is an operator rather than
+
+distribution of spins or isotopes in the material for spin-        a parameter, but otherwise the analysis proceeds analogously.
+                                                                                                                                                         4
+
+For the d ̸= d′ case we assumed that the expectation                                tributes. For spin-dependent dark matter scattering, the
+values of the fd for different atoms in the unit cell are                           average will be the quantum expectation value of the spin
+uncorrelated. This allows one to split the structure factor                         operator, resulting in fd2 ̸= (fd )2 . We therefore expect
+into two contributions:                                                             the incoherent piece in (11) to be important in this case.
+             N X
+               n                                 N X
+                                                   n
+                                                                                    In this paper we focus exclusively on spin-independent
+             X                                   X
+S(q, ω) =                  fd fd∗′ Cℓ′ d′ ℓd +                   fd2 Cℓd      (9)   scattering in the single isotope limit and the correspond-
+             ℓ̸=ℓ′ d̸=d′                             ℓ       d                      ing coherent structure factors. The coherent structure
+             N X
+             X n                                 n 
+                                               N X
+                                               X                                   factors are however more difficult to evaluate, due to the
+         =               fd fd∗′ Cℓ′ d′ ℓd +                     fd2 − (fd )2 Cℓd   conservation of crystal momentum that is built into (6).
+             ℓ,ℓ′ d,d′                           ℓ       d                          This results in increasingly complicated phase space in-
+                                                                            (10)    tegrals for multiphonon processes [25]. For our purposes,
+         ≡S    (coh)
+                       (q, ω) + S   (inc)
+                                            (q, ω)                          (11)    the utility of studying the incoherent structure factor will
+                                                                                    be that the auto-correlation function can be used to ob-
+where the second line is obtained by adding and sub-                                tain a reasonable and more manageable approximation
+tracting the term proportional to (fd )2 and regrouping.                            of the coherent structure factor at sufficiently high mo-
+The first and second term in (11) are usually referred to                           menta. Our results can also be extended to the case of
+as the coherent and incoherent structure factors in the                             spin-dependent scattering, but we leave this for future
+neutron scattering literature.                                                      work.
+   The coherent structure factor relays the scattering rate                            Before venturing further into this approximation and
+if the interaction strengths of all atoms in equivalent lat-                        its validity, we must first develop the structure factors
+tice sites are equal to a common value fd . For example,                            into a form which lends itself to a direct calculation. In
+one can consider low energy, spin-independent neutron                               order to evaluate the structure factors in (4)–(8), the po-
+scattering in a very pure crystal with only a single iso-                           sition vector of each atom may be decomposed in terms
+tope per atom type. This implies fd = fℓd = Ad , with Ad                            of the equilibrium lattice positions and displacement vec-
+the atomic mass number, such that the incoherent con-                               tors, rℓd = ℓ + r0d + uℓd . Here r0d is the equilibrium lo-
+tribution in (11) vanishes exactly. The sum in (10) then                            cation of atom d relative to the origin of the primitive
+crucially includes position correlators between differing                           cell and uℓd is the displacement relative to that equi-
+nuclei, which capture the interference between different                            librium. Following this decomposition, we quantize the
+lattice sites. In practice, this interference leads to a co-                        displacement vector in the harmonic approximation with
+herence condition, which demands that the momentum                                  a phonon mode expansion
+in the scattering process must be conserved up to a recip-
+rocal lattice vector. In particular, the 0th order term in a                                    3n X
+                                                                                                X             1                                0
+
+low q expansion of (6) corresponds to Bragg diffraction.                            uℓd (t) =          p                   eν,d,k âν,k eik·(ℓ+rd )−iων,k t
+                                                                                                 ν   k
+                                                                                                         2N md ων,k
+   The incoherent structure factor on the other hand                                                                               0
+                                                                                                                                              
+accounts for the statistical variations in interaction                                                 + e∗ν,d,k â†ν,k e−ik·(ℓ+rd )+iων,k t          (12)
+strengths between different scattering centers in the lat-
+tice. The second sum in (10) contains no cross terms and                            The index ν denotes the phonon branches, of which there
+thus does not include interference between different lat-                           are 3n, and k labels the phonon momentum in the first
+tice sites. There is therefore no corresponding coherence                           Brillouin Zone (BZ). The â†ν,k and âν,k are the creation
+condition and the incoherent structure factor does not                              and annihilation operators for the phonons, ων,k is the
+enforce momentum conservation.4                                                     energy of the phonon, eν,d,k is the phonon eigenvector for
+                                                                                                                              P
+   For most earlier DM direct detection calculations the                            atom d normalized within a unit cell, d e∗ν,d,k · eµ,d,k′ =
+focus has been on spin-independent scattering in high                               δµν δk,k′ , and md is the mass of atom d.
+purity crystals with little isotopic variation. In this sce-                          The structure factor in (8) can then be explicitly eval-
+nario, we take the single isotope approximation fd2 −                               uated by applying (12) to (6). For a pure single isotopic
+(fd )2 = 0, implying that only the coherent scattering con-                         crystal with fd2 = (fd )2 , this is given by [25]
+
+
+4 An alternative but equivalent point of view is that for coherent
+                                                                                      invariance is therefore fully broken, resulting in the complete loss
+  scattering, translation symmetry is broken up to a shift sym-                       of momentum conservation.
+  metry, since all unit cells are identical. For incoherent scattering
+  the scattering centers are treated as independent and translation
+                                                                                                                                                  5
+
+                                                                    N     n                     2
+                                                       2π X X X
+                                  S   (coh)
+                                              (q, ω) =          fd e−Wd (q) Mℓd δ (Ef − ω)                                                      (13)
+                                                       V
+                                                               f     ℓ    d
+
+where
+                                                                                                             
+                                                                         X q · e∗ν,k,d
+                                           iq·(ℓ+r0d )                                                    0
+                            Mℓd ≡ e                      ⟨Φf | exp i     p               â†ν,k e−ik·(ℓ+rd )  |0⟩                             (14)
+                                                                      k,ν
+                                                                           2N  m  d ω ν,k
+
+
+
+
+is the matrix element for scattering into the final state                     larger than 2π/a with a the inter-particle spacing. Then
+of the crystal denoted by f . The Debye-Waller fac-                           the phase factors associated with the interference terms
+tor e−Wd (q) is given in terms of the function Wd (q) ≡                       are expected to add up to a small correction compared
+                2
+1
+2 ⟨(q · uℓd (0)) ⟩. We may Taylor expand the inner expo-                      to the ℓ = ℓ′ , d = d′ terms in the sum. For an argument
+nential in powers of q where the nth term can excite a                        justifying (15) we refer to [31, 34].
+final state consisting of n phonons. The phonon eigenvec-                        For momentum transfers within the first Brillouin
+tors and energies may be obtained numerically using Den-                      zone, single phonon scattering always dominates the in-
+sity Functional Theory (DFT) (see e.g. [33]); using these,                    clusive scattering rate. It is however possible that the
+the leading single phonon structure factor has been calcu-                    detector threshold is such that single phonon processes
+lated [11, 14, 17]. These DFT-based calculations quickly                      cannot be accessed but the double or multiphonon pro-
+become cumbersome, however, and have not yet been                             cesses can. In this case the incoherent approximation
+performed for generic n-phonon terms. Analytic calcu-                         cannot a priori be taken for granted. We nevertheless use
+lations may be performed more easily, and have been                           it, but verify the results against our earlier two-phonon
+carried out for the single- and two-phonon terms [25],                        calculations [25] whenever possible (Sec. III B), finding
+but are only tractable when assuming an isotropic crys-                       satisfactory agreement. The accuracy of the calculations
+tal and that |q| is small relative to the size of the first                   in this part of phase space is however less well understood
+Brillouin zone. Such analytic calculations likewise lack                      and further work is needed.
+scalability for higher order phonon terms.
+                                                                                To evaluate the auto-correlation function, we first re-
+   In summary, since the direct evaluation of (13) is very
+                                                                              place the atomic positions rℓd in (11) with their dis-
+tedious and not always possible, we will rely instead on
+                                                                              placement operator decomposition, noting that the ℓ+r0d
+an approximate form of S (coh) (q, ω), bypassing the need
+                                                                              constant cancels, amounting to a simple substitution of
+to deal with (13). This is described in the next section.
+                                                                              rℓd → uℓd :
+
+                                                                                                    Z∞
+            B.   Incoherent approximation                                                     1
+                                                                                        Cℓd =            dt ⟨e−iq·uℓd (0) eiq·uℓd (t) ⟩e−iωt    (16)
+                                                                                              V
+                                                                                                    −∞
+  The incoherent approximation amounts to dropping
+the cross terms in (ℓ ̸= ℓ′ or d ̸= d′ ) from the sum
+                                                                              The expectation value may be rewritten with an applica-
+in (10), thus neglecting the interference between non-
+                                                                              tion of the Baker–Campbell–Hausdorff formula, Bloch’s
+identical atoms. In other words, one approximates the
+                                                                              identity ⟨eÂ ⟩ = e 2 ⟨Â ⟩ , and some matrix algebra [11]
+                                                                                                  1    2
+
+coherent structure factor by
+                                                                              giving:
+                                N X
+                                X n
+             S (coh) (q, ω) ≈       (fd )2 Cℓd .                   (15)                      Z∞
+                                                                                        1
+                                 ℓ     d                                          Cℓd =           dt e−2Wd (q) e⟨q·uℓd (0) q·uℓd (t)⟩ e−iωt .   (17)
+                                                                                        V
+The incoherent structure factor remains unchanged, and                                      −∞
+
+the total structure factor is then given by S (tot) (q, ω) ≈
+PN Pn 2                                                                       When we deployed Bloch’s identity, we implicitly used
+  ℓ    d fd Cℓd . In this work we will focus only on pure
+crystals with a single isotope for each type of atom, so                      the harmonic approximation, by only considering dis-
+that the total structure factor can be computed with                          placement operators of the form in (12).
+(15). The incoherent approximation is expected to be                            The correlator ⟨q · uℓd (0) q · uℓd (t)⟩ may be evalu-
+a good approximation when the momentum transfer is                            ated with the form of the displacement operator in (12),
+                                                                                                                                                             6
+
+wherein the ℓ dependence cancels. This gives
+                                                                                           0.4
+                                                                                                      Ga
+                             X X |q · eν,k,d |2                                                                                                  TO
+                                                       iων,k t                                        As
+ ⟨q · ud (0) q · ud (t)⟩ =                         e             (18)
+                                      2N md ων,k                                           0.3        GaAs
+
+
+
+
+                                                                          Dd (ω) [1/meV]
+                              ν   k                                                                                                                   LO
+
+
+which can be simplified further by averaging over the                                      0.2               TA
+direction of momentum vector q
+
+                             q 2 X X |eν,k,d |2 iων,k t                                    0.1                    LA
+ ⟨q · ud (0) q · ud (t)⟩ ≈                      e       (19)
+                             3 ν    2N md ων,k
+                                      k
+                                                                                           0.0
+                               Z
+                               +∞
+                            q2        Dd (ω ′ ) iω′ t                                            0           10             20                  30
+                         =       dω ′          e                 (20)                                                  ω [meV]
+                           2md         ω′
+                                  −∞
+
+where we defined the partial density of states for each
+                                                                        FIG. 2. Partial and total density of states for GaAs [35]. La-
+atom in the primitive cell as                                           bels indicate the regions in which a particular phonon branch
+                1 XX                                                    dominates.
+     Dd (ω) ≡              |eν,k,d |2 δ(ω − ων,k ). (21)
+               3N ν
+                             k
+
+The partial density of states was normalized to sat-
+      R +∞                                                                 Returning now to the calculation of the autocorrelation
+isfy −∞ dωDd (ω) = 1. This can be shown by using
+                                                                        function, we can expand the exponential term in (17)
+the eigenvector completeness condition, which imposes
+P ∗                                                                     using the form of the correlator in (20). This yields an
+   ν eν,k,d,i eν,k,d,j = δij for fixed k, d, where i, j are spa-        explicit representation of Cℓd as an expansion in number
+tial indices. In addition, the total density of states of the
+                                                                        of phonons n being excited:
+material is defined by
+                X               1 XX                                                                                  2 n
+     D(ω) ≡         Dd (ω) =                δ(ω − ων,k ),   (22)                                 2π −2Wd (q) X 1       q
+                               3N ν                                                        Cℓd = e
+               d                          k                                                      V           n
+                                                                                                                n! 2md
+                  R +∞                                                                                               !            
+which satisfies −∞ dωD(ω) = n with n the number of                                                 Yn Z                  X
+                                                                                                            Dd (ωi )
+atoms in the unit cell.5 In materials such as Ge, Si,                                          ×        dωi           δ    ωj − ω                        (23)
+                                                                                                              ωi
+or GaAs all atoms in the primitive cell have the same                                              i=1                   j
+
+or similar mass and as such contribute roughly equally
+to the density of states, see Fig. 2. One could therefore               where thePdelta function arises from the time integral
+approximate Dd (ω) ≈ D(ω)/n in (20) for these materials.                 1
+                                                                           R
+                                                                        2π   dt ei( ωi )t e−iωt and ensures energy conservation.
+We however choose to keep track of the partial density                  Here, by using (20), the Debye-Waller function takes the
+of states, to keep the calculations as general as possible.             form of
+   For mono-atomic lattices, the density of states can be
+extracted directly from neutron scattering data through                                                                Z
+                                                                                                               q2                 Dd (ω ′ )
+the incoherent structure factor. This is not always possi-                                           Wd (q) =              dω ′             .              (24)
+                                                                                                              4md                  ω′
+ble for multi-atomic lattices, since the scattering is only
+                                 P
+sensitive to the combination d |fd |2 Dd (ω)/md . To in-
+fer the individual Dd (ω) as well as D(ω), one therefore                Thus, in comparison to the difficulties discussed sur-
+needs a set of scattering techniques which allows one to                rounding (13), inputting this form of the correlator into
+effectively vary the fd . This is not available for all mate-           (15) gives an analytic approximation for all phonon terms
+rials, and it is therefore often most convenient to extract             in the appropriate regime of validity.
+the Dd (ω) from DFT calculations. A comprehensive li-                      In this paper, we utilize the incoherent approximation
+brary of results has been made available by the materials               to calculate the contributions from higher-order phonon
+project [35].                                                           terms to an arbitrary degree in a simple and fast manner.
+                                                                        This allow us to make rate predictions for the entire rel-
+                                                                        evant mass range, going from the low-mass (mχ ≳ keV)
+5 In the literature, the density of states is also sometimes normal-
+                                                                        single phonon regime to the high-mass (mχ ≳ 50 MeV)
+  ized to 3na , where na is the atomic density.                         nuclear recoil regime.
+                                                                                                                             7
+
+                   III.    PROCESSES                             and optical phonons. As discussed in Sec. II, DFT-based
+                                                                 calculations for both single acoustic and single optical
+  Using the autocorrelation function, (23), we can esti-         phonon excitations have been performed across a large
+mate the scale at which a generic n-phonon term starts           dark matter mass range (∼keV to GeV) [11, 14, 17].
+becoming a relevant contribution to scattering. To orga-         Meanwhile analytic calculations so far have been limited
+nize the multiphonon expansion, it is useful to define an        q ≲ 1 keV, which corresponds to mχ ≲ MeV [10, 25]. Al-
+average phonon energy                                            though the DFT-based calculations span the entire mass
+                      Z                                          range of interest and can provide information such as di-
+                 ω̄d ≡ dω ′ ω ′ Dd (ω ′ ).           (25)        rectional dependence, the numerics are more intensive;
+                                                                 the phonon band structure, eigenvectors and structure
+While ω̄d technically depends on the atom d, this just           factors must be calculated from first principles for each
+gives an O(1) dependence in the phonon scale. Since              material. For high q, the sum over the reciprocal lat-
+n! ∝ nn at large n, we see that the nth term of the series       tice must also be accounted for [12, 16]. Here we extend
+(23) will roughly begin giving an O(1) contribution when         the analytic calculations to the high q regime by using
+                            q2                                   the incoherent approximation. The comparison with the
+                                  ∼ n.                   (26)
+                          2md ω̄d                                DFT results of [11] will also serve as a validation of the
+                                                                 incoherent approximation.
+This means that for a given q (or consequently, mχ ) one
+                                                                    To organize the calculations, it is useful to define a mo-
+can determine the dominant scattering processes. When
+   q2                                                            mentum scale (qBZ ) which approximately reflects the size
+2md ω̄d ≲ 1, single phonon excitations will be the primary
+                                                                 of the first Brillouin zone. We take qBZ = 2π    a ≈ 2 keV,
+channel; for md ∼ 30 GeV and ω̄d ∼ 30 meV, this cor-
+                                                    2            where a is the lattice constant. We first review the single
+responds to q ≲ 30 keV. Conversely, when 2mqd ω̄d ≫ 1,
+                                                                 phonon response for q < qBZ . In this regime, we com-
+phonons are no longer a suitable description and the scat-
+                                                                 pute the structure factors in the isotropic approximation
+tering is instead well modeled by the recoil of a single nu-
+                                                    √            and in the limit q ≪ qBZ . For this purpose we assume
+cleus. This transition occurs roughly at q ≳ 2 2md ω̄d .
+                                                                 linear dispersions ω = cs q for the longitudinal acous-
+In between these two extremes, we have n ∼ few, indicat-
+                                                                 tic (LA) and transverse accoustic (TA) modes, with cs
+ing multiphonon excitations as the primary process. The
+                                                                 replaced by cLA and cTA for the longitudinal and trans-
+precise nature of the dominant process for a given mχ
+                                                                 verse sound speeds, respectively. The optical modes are
+will vary based on the mediator mass and experimental
+                                                                 assumed to have flat (constant) dispersions for the longi-
+threshold.
+                                                                 tudinal optical (LO) and transverse optical (TO) phonon
+   In this section, we describe analytic approaches for
+                                                                 energies ωLO and ωTO . The sound speeds and optical
+characterizing the structure factor in crystal targets,
+                                                                 phonon energies are taken to be their long-wavelength
+broken into subsections corresponding to the previously
+                                                                 values (q = 0). We will refer to this set of assumptions
+mentioned processes. Secs. III A and III B deal with sin-
+                                                                 as the long-wavelength approximation.
+gle phonon and two phonon excitations. Here we can also
+                                                                    The matrix element is given by the leading non-trivial
+compare calculations of the full structure factor with the
+                                                                 term in the small q expansion of (14). The only relevant
+incoherent approximation. Sec. III C deals with many
+                                                                 contributions for q ≪ qBZ are those of the single LA
+phonon excitations, and Sec. III D describes the impulse
+                                                                 and LO phonons. We approximate the long-wavelength
+approximation, which gives a good approximation to the
+                                                                 acoustic eigenvectors as
+structure factor for momenta approaching the nuclear re-
+                                                                                                √
+coil limit. For all numerical results in this section, we will                                     Ad
+assume a coupling to nucleons (replacing the generic av-                            eLA,k,d ≈ pP           k̂;             (27)
+                                                                                                   d ′ Ad
+                                                                                                         ′
+
+erage interaction strength fd with the nucleon number
+Ad ) for both massive and massless mediators, and take           note that this form is valid for generic crystal targets
+a GaAs target as a typical example of a simple cubic             and not limited to GaAs. For the LO phonon, we use the
+crystal of interest.                                             following eigenvectors, which are only valid for diatomic
+                                                                 lattices [25]
+                                                                                            √
+             A.   Single phonon production                                                    A2
+                                                                               eLO,k,1 ≈ √          k̂,                (28)
+                                                                                           A1 + A2
+                                                                                               √
+  If the unit cell contains at least two atoms, there are                                        A1           0
+                                                                               eLO,k,2 ≈ − √            e−ik·r2 k̂     (29)
+two types of phonons that can be produced: acoustic                                           A1 + A2
+                                                                                                                           8
+
+where the first atom is taken to be at the origin of the       comparison with the isotropic approximation. The top
+primitive cell, and the second atom is taken to be at the      panels show the structure factors in (32) as a func-
+coordinate r02 = (a/4, a/4, a/4) for GaAs. The acous-          tion of q, integrated over ω. The top left panel shows
+tic and optical transverse eigenvectors are orthogonal to      S(q, ω) integrated over ω ∈ [1 meV, 27 meV] to select the
+these, but do not contribute to the scattering into a single   acoustic phonon branches only and the top right panel
+phonon. With these approximations and taking fd = Ad ,         shows the integral over ω ∈ [27 meV, 40 meV] for opti-
+the analytic expressions for the single phonon contribu-       cal phonon branches. The analytic approximations are
+tions to the structure factor are [25]                         in good agreement with the DFT result in their respec-
+                      P                                        tive regimes of validity. For q < qBZ , integrating (32)
+                  2π ( d′ Ad′ ) q 2
+Sn=1,LA (q, ω) ≈                    δ(ω − ωLA,q )Θ(ωLO − ω)    leads to respectively ∼ q and ∼ q 4 scaling, while the in-
+                  Ωc 2mp ωLA,q
+                                                               coherent approximation in (33) always scales as ∼ q 2 . As
+                                                        (30)
+                                                               discussed above, the ω-dependence of the analytic struc-
+                   2π q 4 a2    A1 A2                          ture factors is quite different in the two regimes, with
+Sn=1,LO (q, ω) ≈                          δ(ω − ωLO )
+                   Ωc 32ωLO mp (A1 + A2 )                      the coherent structure factor giving a resonant response
+                                                        (31)   around the single-phonon dispersion while the incoher-
+ (q<q    )                                                     ent approximation is continuous in ω. However, the inte-
+Sn=1 BZ (q, ω) = Sn=1,LA (q, ω) + Sn=1,LO (q, ω)        (32)
+                                                               grated result matches the full DFT calculation of the co-
+with Ωc the volume of the primitive cell. Here we have in-     herent structure factor well, indicating that the analytic
+troduced a cut-off of ω = ωLO to the longitudinal acoustic     approach will be useful in calculating integrated quanti-
+branch to avoid overestimating the scattering rate with        ties such as rates. Furthermore, the analytic approach
+the LA mode near the edge of the Brillouin zone. The           provides physical insight into the change in the q-scaling
+q 4 scaling and appearance of the lattice constant a in the    of the structure factor in Fig. 3a.
+optical structure factor comes from averaging over angles         The plots in Fig. 3b show single phonon integrated
+with the eigenvectors, giving (q · r02 )2 ≈ q 2 a2 /16 [13].   rates for both massive and massless scalar mediators.
+   For dark matter with a standard velocity dispersion         For the massless mediator, scattering into the acoustic
+v ∼ 10−3 , the typical momentum transfer begins to             phonon specifically favors small q due to the ∝ q −4 con-
+fall outside the first Brillouin zone for mχ ≳ 1 MeV.          tribution of the mediator form factor. The analytic result
+Physically, this corresponds to the wavelength becoming        of (30) therefore applies across the entire DM mass range,
+smaller than the interatomic spacing, and the long-wave        as the large q contributions are negligible. For all other
+length formulas from (27) to (31) are no longer valid. We      cases the structure factor scales with a positive power
+can however utilize the incoherent approximation in (15)       of q so that large q contributions are the most impor-
+and (23), which yields                                         tant. We therefore see a change in slope of the σp reach
+                        n
+                    2π X −2Wd (q)         q 2 Dd (ω)           around mχ ∼ MeV, when q ≳ qBZ becomes kinematically
+  (q>q       )
+ Sn=1 BZ (q, ω) ≈       e         (fd )2             . (33)    accessible. These features are captured by the q > qBZ
+                    Ωc                   2md ω
+                        d                                      analytic description from the incoherent approximation,
+The forms of the structure factor are qualitatively quite      and again agree with the DFT results.
+different in the two q regimes. In the coherent regime
+q < qBZ , summing over the response of multiple atoms
+with constructive interference leads to a resonant re-                 B.    Two-phonon production (q < qBZ )
+sponse in (32). The impact of the interference is greatly
+reduced for q > qBZ , such that the incoherent approxi-          We next turn to the use and accuracy of the incoherent
+mation becomes a viable description.                           approximation for two-phonon production, in particular
+   While the sharp transition in the structure factor is       for q < qBZ . Single phonon production always dominates
+an artifact of our approximations, (32)-(33) can accu-         in this regime if above threshold [25]. It is however ex-
+rately describe the integrated structure factor above or       pected that there will be a phase in the experimental
+below qBZ . Fig. 3 compares our combined analytic sin-         program for which the energy threshold will still be too
+gle phonon description with numerical DFT calculations.        high to access single optical and accoustic phonons, such
+For the DFT result we follow [11], computing the dy-           that the formally subleading double phonon production
+namical matrix and phonon dispersions with respectively        can be relevant.
+VASP [36] and phonopy [33] (see also [14]), and take             While the incoherent approximation is expected to be
+the angular average of S(q, ω) over all q directions for       the least accurate for q < qBZ , it is still useful to compare
+                                                                                                                                                                                               9
+
+                                       GaAs (1 meV < ω < 27 meV)                                                                               GaAs (ω > 27 meV)
+                        104                                                                                              104
+                                      DFT                                                                                               DFT
+                                                                                                                         103
+
+
+
+
+                                                       q = qBZ
+                        10   3                                                      nt                                                                                          nt
+                                                                                 ere ion                                                                                    here
+                                                                              coh imat                                   102                                         Inco ximatio
+                                                                                                                                                                                   n
+                                                                            n
+                                                                           I rox                                                                                         r o
+   dωS(q, ω) [keV3 ]
+
+
+
+
+                                                                                                    dωS(q, ω) [keV3 ]
+                                                                              p                                                                                     Ap p
+                                                                           Ap
+                        102                                                                                              101
+                                                                                                                         100
+                             1
+                        10                c                                                                             10−1
+                                     lyti
+
+
+
+
+                                                                                                                                      ica ic
+                                  Ana ustic
+
+
+
+
+                                                                                                                                    pt yt
+                                                                                                                                         l
+                                                                                                                                   O nal
+                                   Aco
+  R
+
+
+
+
+                                                                                                    R
+                                                                                                                        10−2
+
+
+
+
+                                                                                                                                    A
+
+
+
+
+                                                                                                                                                      q = qBZ
+                        100
+                                                                                                                        10−3
+                       10−1                                                                                             10−4
+                          10−1                10   0
+                                                                  10   1
+                                                                                           10   2
+                                                                                                                           10−1                100               101                   102
+                                                       q [keV]                                                                                        q [keV]
+
+ (a) Comparison of the integrated single phonon structure factor for GaAs. The left panel shows the structure factor integrated
+ over ω = 1 − 27 meV for acoustic phonon branches only and the right panel has ω = 27 − 40 meV for optical phonon branches only.
+ The dashed line shows the DFT result, averaged over all q directions, while the solid line shows our analytic approximation based
+ on joining (32) (valid for q < qBZ ) with the incoherent approximation (33) (valid for q > qBZ ).
+
+
+                                       GaAs, Massive Scalar Mediator                                                                    GaAs, Massless Scalar Mediator
+                        10−34                                                                                            10−34
+                                                                                 3 events/kg-yr                                                                             3 events/kg-yr
+
+
+                                                                       ω > 1 meV                                                                                   ω > 1 meV
+                        10−36                                                                                            10−36
+                                                                       DFT (ω > 1 meV)                                                                             DFT (ω > 1 meV)
+                                                                       ω > 20 meV                                                                                  ω > 20 meV
+                        10−38                                          DFT (ω > 20 meV)                                  10−38                                     DFT (ω > 20 meV)
+            σp [cm2 ]
+
+
+
+
+                                                                                                             σp [cm2 ]
+
+
+
+
+                        10−40                                                                                            10−40
+
+
+                        10−42                                                                                            10−42
+
+
+                        10−44 1                                                                                          10−44 1
+                            10                102                  103                       104                             10                 102               103                   104
+                                                       mχ [keV]                                                                                       mχ [keV]
+
+   (b) Cross sections giving a rate of 3 events/kg-year, assuming fd = Ad . The rate is computed using our analytic single phonon
+   structure factor approximation (solid) or with DFT calculations (dashed). We find that the analytic approach agrees with the
+   DFT calculations within an O(1) factor.
+
+                                                                   FIG. 3. Single phonon production.
+
+
+it with existing analytical results for the structure factor.                                                    values and make a number of additional assumptions to
+The analytic results are obtained in the long-wavelength                                                         model the self-interactions of the optical modes, thus giv-
+approximation, as defined in Sec. III A. In this limit, the                                                      ing the complete structure factor. For these reasons the
+Wilson coefficients of the self-interaction operators for                                                        calculations in this section should however be considered
+the acoustic modes can be extracted from the measured                                                            only a toy model of a GaAs-like crystal. We will show
+or calculated elasticity parameters. With these assump-                                                          below that for this toy model and in the limit of small
+tions, one can explicitly evaluate (13) to second order in                                                       momentum transfer, the incoherent and long-wavelength
+   √
+q/ md ω [25].                                                                                                    approximations give qualitatively similar DM scattering
+                                                                                                                 rates.
+   In this work, we will extend the long-wavelength calcu-                                                         From Ref. [25], the two-phonon structure factor can be
+lations to all final states (see Appendix A) and compare                                                         written as
+them with the incoherent approximation. For this pur-
+pose we extrapolate the results of Ref. [25] to higher q                                                                           S(q, ω) = S (harm) (q, ω) + S (anh) (q, ω)                (34)
+                                                                                                                               10
+
+in the long-wavelength limit. The first term is the struc-           from Fig. 2. The dashed line shows the harmonic limit,
+ture factor in the harmonic limit (also referred to as the           meaning that S (anh) is neglected. This is the case that
+contact piece in [25]), where anharmonic corrections to              is most directly comparable to the incoherent approx-
+the atomic potentials are neglected. It can be obtained              imation, which assumes the harmonic mode expansion
+by expanding (14) to second order, and evaluated ana-                in (12). For the dotted line, the leading phonon self-
+lytically in the long-wavelength limit. The second term              interactions were included.
+contains contributions to the structure factor from an-                 In the harmonic limit, all modes scale as ∼ q 4 except
+harmonic interactions. In order to evaluate this, one                for optical-acoustic final state, which scales as ∼ q 6 . The
+needs to include a phonon self-interaction Hamiltonian               incoherent approximation naturally misses these more
+in computing (14), as described in detail in [25]. The in-           subtle destructive interference effects, but still captures
+teractions of acoustic phonons are based on an effective             the correct q 4 scaling for most of the modes. We see
+three-phonon Hamiltonian valid in the long-wavelength                in Fig. 4 that the incoherent approximation is within a
+limit, but to obtain a more complete picture we include              factor of ∼ 5 of the long-wavelength approximation for
+a highly approximate three-phonon Hamiltonian for in-                all ω > ωLO , for both the toy model and true density of
+teractions involving optical phonons. These calculations             states. The difference at smaller ω is not experimentally
+are summarized in Appendix A.                                        relevant, as the single phonon rate will completely dom-
+   To perform the most meaningful comparison between                 inate in this region. There are also delta-function terms
+the incoherent and long-wavelength approximations, we                from the optical-optical branches which do not appear in
+assume the following Debye model for the partial density             the plot; their contributions to the overall scattering rate
+of states for a diatomic crystal                                     are comparable for the incoherent and long-wavelength
+                                                                     approximations as well. See Appendix A for details.
+                      1       1                                      These terms dominate the scattering rate at higher en-
+        D1,2 (ω) =    3 A +A                                         ergies, and overall we see in Fig. 4 that the incoherent
+                     qBZ 1   2
+                                                                     approximation reproduces the structure factor in the har-
+                           ω2                                        monic limit to within a factor of few.
+                      A1,2 3 Θ(cLA qBZ − ω)Θ(ω)
+                          cLA                                           When anharmonic interactions are included, the differ-
+                           2ω 2                                      ence becomes larger and the incoherent approximation
+                     + A1,2 3 Θ(cTA qBZ − ω)Θ(ω)
+                           cTA                                       may under-predict the rate by up to an order of mag-
+                            q3                                       nitude in our estimate. However, as discussed above,
+                     + A2,1 BZ δ(ω − ωLO )                           the anharmonic Hamiltonian used is itself also only valid
+                             3              !
+                               3
+                            2qBZ                                     at the order of magnitude level, particularly for opti-
+                     + A2,1      δ(ω − ωTO ) .               (35)    cal modes. We expect that our approach can model the
+                              3
+                                                                     rate in this regime at the order-of-magnitude level, but a
+which is derived from the long-wavelength approximation              proper DFT calculation is needed for it to be rigorously
+as described in Sec. III A.6 The explicit structure factor           validated.
+from using this toy density of states in (23) is given in               Finally, we show in the bottom panel of Fig. 4 a com-
+Appendix A, which for simplicity we evaluate with A1 =               parison of the cross sections corresponding to a rate of
+A2 for GaAs.                                                         3 events/kg year, with the different approximations for
+   The top panel of Fig. 4 compares the calculations of              the two-phonon structure factor. We assume ω > 40
+the two-phonon structure factor in the incoherent and                meV, since for lower thresholds the rate is dominated
+long-wavelength approximations. For the incoherent ap-               by single-phonon production [25]. We emphasize that
+proximation, we show the result with the toy density of              here we are only illustrating that the incoherent approx-
+states in (35) as well as with the true density of states            imation is within a factor of few of the full structure
+                                                                     factor, as long as the same assumptions are made for
+                                                                     the phonon dispersion relations. Therefore, we restrict
+                                                                     our comparison to mχ < MeV such that we can restrict
+6 Here the maximum momentum of the modes is determined by re-
+                                                                     to q < qBZ . The incoherent approximation underesti-
+  quiring that the sum over all modes is equal to the total number
+  of degrees of freedom. For GaAs and in the isotropic approxi-      mates the rate by a factor of few in the harmonic limit,
+  mation, the exact momentum cutoff is about 2% different from       and up to an order of magnitude when anharmonic in-
+  qBZ = 2π/a. This error is negligible compared to the uncertain-    teractions are included. Using the true density of states
+  ties on the other assumptions made in this section.                slightly improves the agreement. Though this compari-
+                                                                                                                                                       11
+
+                                             GaAs 2-phonon, q = 0.5 keV
+                                   5
+
+
+                                   4                                                                   Incoherent Approximation,
+                  S(q, ω) [keV2]                                                                       Toy Model
+                                   3                                                                   Incoherent Approximation,
+                                                                                                       True Density of States
+                                                                                                       Coherent Calculation,
+                                   2                                                                   Toy Model (Harmonic Only)
+                                                                                                       Coherent Calculation,
+                                                                                                       Toy Model (With Anharmonic Interaction)
+                                   1
+
+
+                                   0
+                                       0    10   20     30     40      50   60   70    80
+                                                             ω [meV]
+                                                                            GaAs 2-phonon, (ω > 40 meV)
+                                                      Massive Scalar Mediator                             Massless Scalar Mediator
+                   10−30                                                          3 events/kg-yr                                     3 events/kg-yr
+
+
+                   10−32
+
+
+                   10−34
+      σp [cm2 ]
+
+
+
+
+                   10−36
+
+
+                   10−38
+
+
+                   10−40
+                                                        102                                   103             102                                103
+                                                               mχ [keV]                                             mχ [keV]
+
+
+FIG. 4. Two phonon production. Top: Comparison of the two-phonon structure factor calculated with various approxi-
+mations, where the toy model assumes the long-wavelength approximation. Optical-optical channels give a δ-function and are
+not plotted. Bottom: Cross sections for producing two phonons at a rate of 3 events/kg-year using the same approximations
+as above. We restrict the mass range to mχ ≲ 1 MeV so that typical q values are below qBZ , where our long-wavelength
+approximations are valid. The energy threshold is taken to be 40 meV, above the single phonon energies.
+
+
+son only applies to a limited q range, our result suggests                                    order-of-magnitude estimate only. For q > qBZ , it is
+that the incoherent approximation should give a reason-                                       however on firm ground [31, 34] and is used routinely
+able, order-of-magnitude estimate for multiphonon pro-                                        to measure the density of states from neutron scattering
+duction even at low q. We expect this uncertainty to                                          data [31]. Moreover, in the q ≫ qBZ regime multiphonon
+decrease for larger q where the incoherent approximation                                      processes become important. This follows from the form
+is most justified, and in particular we will see that the                                     of the structure factor, obtained by inserting (23) into
+incoherent approximation reproduces the expected rate                                         the incoherent approximation (15):
+in the free nuclear recoil limit, as discussed in the next
+                                                                                                           2π X
+                                                                                                               n                  X  q 2 n
+                                                                                                                      2 −2Wd (q)
+sections.                                                                                       S(q, ω) ≈        (fd ) e
+                                                                                                           Ωc                      n
+                                                                                                                                       2md
+                                                                                                               d
+                                                                                                                                !             
+                                                                                                             n Z
+                                                                                                         1 Y           Dd (ωi )      X
+                                   C.      Multiphonon production                                     ×           dωi             δ    ωj − ω  . (36)
+                                                                                                        n! i=1           ωi          j
+
+  In the previous section, where we dealt with q < qBZ ,                                      From the discussion around (26), the typical number
+                                                                                                                     2
+the incoherent approximation should be viewed as an                                           of phonons is n ∼ 2mqd ω̄d . With ω̄d ≳ 30 meV and
+                                                                                                                                 12
+                                                                                      2
+md ≳ 30 GeV for most crystals, the self-consistency con-               where ∆2d ≡ q2mω̄dd . This approximation is referred to as
+dition for the incoherent approximation (q ≳ qBZ ) is                  the impulse approximation since the saddle-point around
+therefore always satisfied for n > 2 processes. The evo-               t = 0 dominates the rate. The true peak is shifted slightly
+lution of (36) for increasingly large q is shown in Fig. 5a.           from the result (38), which can be corrected by includ-
+  We can obtain an approximate scaling for (36) by sep-                ing higher orders in the expansion [37]. Including these
+arating each term in the sum over n into q-dependent                   additional terms has negligible impact on later results.
+and ω-dependent parts. The ω-dependent part is given                      From (38), we see that the structure factor in the im-
+by the second line of the equation, which is only non-zero             pulse approximation is
+at ω ≲ n ωLO in order to satisfy the delta function. This                                        s                       !
+                                                                                     Xn                             q2 2
+part of the structure factor can be estimated to have                      IA              (fd )2 2π          ω − 2m
+                                                                         S (q, ω) =                    exp −          d
+                                                                                                                              (39)
+at most the value of 1/(n! ω̄dn+1 ); this is illustrated in                                  Ωc    ∆2d           2∆2d
+                                                                                       d
+Fig. 11 of Appendix C, where we plot the numerical re-                                                                     √
+              √                                                        which is a sum of Gaussians peaked around q = 2md ω,
+sult. For q ≲ 2md ω̄d (left and center panels of Fig. 5a),
+the Debye-Waller factor can be neglectedand the struc-               one for each atom in the unit cell. In Fig. 5a we see
+                                                                                                                           √
+                                     P 1        q2
+                                                      n                that (39) is a reasonable approximation for q ≈ 2md ω̄d
+ture factor then scales as S(q, ω) ∝ n n!     2md ω̄d   . For
+                                                                       and converges rapidly to the full result in (36) for q ≳
+q 2 /(2md ω̄d ) ≲ 1, the structure factor therefore scales as           √
+                                                                       2 2md ω̄d . As expected, it does not capture the features
+S(q, ω) ∼ q 2m , with m the lowest number of phonons that                                                  √
+                                                                       in the structure factor for q ≲ 2md ω̄d . In our final
+is kinematically allowed. This scaling will be useful in                                             √
+                                                                       results, we use (39) for q > 2 2md ω̄d , as it is numerically
+Sec. IV, where we use it to extract the approximate scal-              much faster than (36). For crystals composed of multiple
+ing behavior of the DM cross section curves. It no longer                                                           √        
+                   √                                                   atoms, we define the boundary as maxd 2 2md ω̄d . At
+holds for q ≳ 2md ω̄d (right-hand panel of Fig. 5a),                   this scale, the average number of phonons is about four,
+where many modes contribute equally. This regime how-                  and it is sufficient to truncate the sum at n = 10 for all
+ever can be understood in the impulse approximation,                   smaller q.
+which is the subject of the next section.                                As we consider larger DM masses which access larger q
+                                                                       and ω, the Gaussian becomes more sharply peaked. This
+      D.   The impulse approximation (q ≫ qBZ )                        can be seen by comparing the width ∆d to the peak value
+                                                                       ω = q 2 /2md . In the large-q limit, we have
+   For q ≫ qBZ the sum of the multiphonon terms asymp-                                                  r
+                                                                                                  ∆d        ω̄d
+totes to an approximately Gaussian envelope, as can be                                        lim     ≈                         (40)
+                                                                                             q→∞ ω           ω
+seen most clearly from the rightmost panel in Fig. 5a.
+This asymptotic form can be derived directly with a                    so the Gaussian becomes narrow for ω well above the typ-
+steepest descent approximation, also known as the im-                  ical phonon energy. Then the narrow width limit exactly
+pulse approximation. It is valid whenever the interaction              reproduces the expected free nuclear recoil delta function
+with the probe particle happens on a time scale short                  response:
+                                                                                                           
+compared to that of the phonon modes.                                                       2π           q2
+   To derive this, it is most insightful to take a step back                    lim Cℓd =      δ ω−                          (41)
+                                                                             q, ω→∞         V           2md
+from (36) and return to using (20) in (17). The auto-                                       X 2π                   
+                                                                                                                 q2
+correlation function is then                                                  S FR (q, ω) =        (fd )2 δ ω −       .      (42)
+                                                                                                Ωc              2md
+                                                                                            d
+                     Z∞                    D (ω ′ )
+      1                           q2 R              ′
+                                       dω ′ dω′ eiω t                  We therefore recover the familiar free nuclear recoil re-
+ Cℓd = e−2Wd (q)          dt e   2md
+                                                        e−iωt . (37)
+      V                                                                sponse for each individual atom in the unit cell.
+                    −∞
+                                                                          In Fig. 5b we show cross section curves with a GaAs
+            √
+When q ≫ 2md ω̄d , the exponent involving the density                  target, for both massive and massless scalar mediators.
+of states integral will be highly oscillatory in t, and the            We compare the reach obtained with the full structure
+integral may be approximated by expanding about t = 0                  factor (in the incoherent approximation), the impulse
+through a steepest descent method. (See Appendix B).                   approximation, and the free nuclear recoil limit. For
+Doing so gives                                                         mχ ≲ 20−40 MeV, the full structure factor must be used
+                    s                          !                      to capture the rate, depending on the mediator mass and
+                                          q2 2
+                  1 2π             ω − 2m                              threshold. For mχ ≳ 20 − 40 MeV, the q values compat-
+           Cℓd ≈          exp −             d
+                                                       (38)
+                  V ∆2d               2∆2d                             ible with the impulse approximation start to dominate,
+                                                                                                                                                                                           13
+
+                                                                         GaAs, Multiphonon Response
+                                                   1
+                                                     √                                                       √                                                 √
+                         ×108 q = 27.5 keV ≈ 2 2md ω̄d                          q = 55 keV ≈                     2md ω̄d                        q = 110 keV ≈ 2 2md ω̄d
+                    5
+                                                                                                                                                             n=1            n=7
+                                                                                                                                                             n=2            n=8
+                    4                                                                                                                                        n=3            n=9
+                                                                                                                                                             n=4            n = 10
+  S(q, ω) [keV2 ]
+
+
+
+
+                                                                                                                                                             n=5            Total
+                    3                                                                                                                                        n=6            IA
+
+
+                    2
+
+
+                    1
+
+
+                    0
+                         0      50        100            150         0          50              100                  150          0              50       100         150
+                                         ω [meV]                                            ω [meV]                                                     ω [meV]
+
+ (a) The first ten phonon structure factors in the incoherent approximation for GaAs, plotted for various fixed q. At sufficiently
+             √
+ large q > 2md ω̄d , the total structure factor converges to the impulse approximation (IA, dashed line). In the right panel, there
+ is a slight difference between the peak of the true structure factor and the impulse approximation. This can be accounted for in the
+ impulse approximation by including higher orders in the steepest descent expansion [37].
+
+
+                                     GaAs, Massive Scalar Mediator                                                           GaAs, Massless Scalar Mediator
+                    10−37                                                                                    10−37
+                                                                           3 events/kg-yr                                                                              3 events/kg-yr
+
+                                                                            40 meV
+                                                                            40 meV (IA)
+                    10−39                                                   40 meV (NR)                      10−39
+                                                                            100 meV
+                                                                            100 meV (IA)
+                                                                            100 meV (NR)
+  σp [cm2 ]
+
+
+
+
+                                                                                                 σp [cm2 ]
+
+
+
+
+                                                                            1 eV
+                         −41
+                    10                                                      1 eV (IA)                        10−41         40 meV
+                                                                            1 eV (NR)                                      40 meV (IA)
+                                                                                                                           40 meV (NR)
+                                                                                                                           100 meV
+                                                                                                                           100 meV (IA)
+                    10−43                                                                                    10−43
+                                                                                                                           100 meV (NR)
+                                                                                                                           1 eV
+                                                                                                                           1 eV (IA)
+                                                                                                                           1 eV (NR)
+                    10−45 3                                                                                  10−45 3
+                        10                 104                 105                        106                    10                       104                   105                  106
+                                                    mχ [keV]                                                                                      mχ [keV]
+
+ (b) Cross sections for 3 events/kg-yr in GaAs for a hadrophilic mediator. Rates are computed with the n ≤ 10 phonon terms in
+ the incoherent approximation (solid lines), the impulse approximation (IA; dashed), and the analytic free nuclear recoil result (NR;
+ dotted). We see that at sufficiently high masses–and hence momentum transfers–the impulse approximation sufficiently recovers the
+ result of summing the phonon terms. Likewise, for yet larger momenta the impulse approximation merges onto the free nuclear recoil
+ result, as discussed in Sec. III D.
+
+                                            FIG. 5. Multiphonon transition into the nuclear recoil regime.
+
+
+and we see that it reproduces the full result very closely.                                         of Fig. 5a. From (40) this gives ∆d /ω ≈ 0.5 which is
+At even higher masses, the free nuclear recoil response                                             not particularly small. The nuclear recoil approximation
+becomes an excellent approximation, as expected.                                                    nevertheless works remarkably well. The reason is that
+   A particular feature to notice from Fig. 5b is that the                                          phase space integral in (3) has a trivial ω dependence
+free nuclear recoil rate agrees with the impulse approx-                                            aside from the S(q, ω) factor, since the delta function in
+imation result even in regions of the q, ω phase space                                              ω just determines the region of phase space that is inte-
+where the Gaussian is not narrow. For example, for the                                              grated over. Therefore, as long as the energy threshold is
+massive mediator and mχ = 50 MeV, the rate will be                                                  small compared to the peak in ω, the phase space integral
+dominated by momentum transfers q ∼ 2mχ v ∼ 100                                                     over (39) and (42) yields similar answers.
+keV, corresponding most closely to the rightmost panel
+                                                                                                                                                                                                       14
+
+                                             S(q, ω) approximations                                                                Log10[S(q, ω)/keV2]
+                                                                                                                                                                                  √
+                                                                                                                                              qBZ                                2 2md ω̄d
+                                                                                              200
+
+
+
+
+                                                                                                                                                                               mχ = 30 MeV
+                                                                         q2
+                                         n-ph incoherent
+
+
+
+
+                                                                          d
+                                                                       2m
+                                         approximation                                                                                                                                                 8
+ Energy deposition ω
+
+
+
+
+                                                                   ω=
+                                                                                              150
+
+
+
+
+                                                                                                                                                                 mχ = 10 MeV
+                                                                                    ω [meV]
+
+
+
+
+                                                                                                                                         mχ = 1 MeV
+                                                                      Impulse                                                                                                                          6
+
+
+
+
+                                                                                                                    mχ = 0.3 MeV
+                                                                   approximation              100
+                                   e
+                                pac
+                               se s
+
+
+
+
+                                                                                                                                                                                                   d
+                                                                                                                                                                                               q2
+                                                                                                                                                                                              2m
+                           pha
+
+
+
+
+                                                                                                                                                                                                       4
+
+
+
+
+                                                                                                                                                                                              ω=
+                                                                                               50
+                          DM
+
+
+
+
+                                                                                                           ω = ωLO
+
+      ωLO                                                                                                  ω = cL
+                                                                                                                    Aq
+
+                        1-ph long                                                               0                                                                                                      2
+                       wavelength                                                                   10−1                           100                     101                               102
+                                                            √                                                                                         q [keV]
+                                       qBZ                 2 2md ω̄d
+                                              Momentum transfer q
+                                                                                   FIG. 7. GaAs structure factor. Density plot of the
+FIG. 6. Schematic figure (not to scale) depicting the ap-                          structure factor in the same regimes of (q, ω) as shown in
+proximation used to calculate the structure factor in various                      Fig. 6. Dotted lines are phase space boundaries for various
+regions of phase space. The “1-ph long wavelength” regime is                       DM masses with a typical initial velocity v = 10−3 . At low q
+discussed in Sec. III A, the “n-ph incoherent approximation”                       and ω, the solid yellow lines are the dispersion relations of the
+regime in Sec. III B and III C and the “Impulse approxima-                         single LA and LO phonons. At large q, the black dashed line
+tion” region in Sec. III D.                                                        is the free nuclear recoil dispersion relation; in general, there
+                                                                                   are separate lines for Ga and As but for clarity we show only
+                                                                                   one line corresponding to the average mass of Ga and As.
+                                               E.    Summary
+
+
+   Fig. 6 schematically illustrates the various approxima-                         of the impulse approximation, which ultimately transi-
+tions for the structure factor discussed in this section.                          tions into the well-known free nuclear recoil regime. This
+The boundaries reflect only our choice of approximation                            was explained in Sec. III D.
+and not a sharp transition in the behavior of the structure                           Fig. 7 shows our full calculation of the structure fac-
+factor. The dotted gray parabola represents the phase                              tor for GaAs, overlaid with the phase space boundaries
+space boundary for a given mχ and v (see Sec. IV). This                            for a few representative DM masses. In the low q, sin-
+parabola extends upwards and rightwards as mχ is in-                               gle phonon regime, the response is given by a set of δ-
+creased, such that multiple different regimes are sampled                          functions on the LO and LA phonon dispersions, repre-
+for high enough mχ .                                                               sented by the orange curves. At intermediate and high q,
+   For the single phonon excitations (n = 1) described                             the structure function is modeled by a continuous func-
+in Sec. III A, we use the long-wavelength and incoherent                           tion, where the layered structure for ω ≲ 50 meV re-
+approximations for q < qBZ and q > qBZ , respectively.                             flects the various single and multiphonon contributions.
+This combination gives good agreement with a full DFT                              At higher q and ω the individual resonances cease to be
+calculation of the scattering rate, at least for a cubic                           visible and one transitions into the smooth S(q, ω) pre-
+crystal such as GaAs.                                                              dicted by the impulse approximation. At very high ω
+   For multiphonon excitations (n ≥ 2), we use the in-                             the structure function converges towards its free nuclear
+coherent approximation for the structure factor for all q                          recoil form, which is represented by the black dashed line.
+               √
+below maxd [2 2md ω̄d ]. This is motivated by Sec. III B,
+where we argued that the incoherent approximation can
+serve as an order-of-magnitude estimate even for q ≪
+qBZ . Given the limitations of the long-wavelength ap-                                                                              IV.               RESULTS
+proximation, a dedicated DFT calculation is needed in
+this regime. For multiphonon excitations, we sum terms                               In this section we convert our newly-gained under-
+in (36) until we achieve convergence, as explained in                              standing of the structure factor into concrete predictions
+                                    √
+Sec. III C. Finally, for q ≥ maxd [2 2md ω̄d ] we make use                         for the DM scattering rate in a crystal target. The event
+                                                                                                                                                                           15
+
+                                GaAs, Massive Scalar Mediator                                                           GaAs, Massless Scalar Mediator
+                10−37                                                     3 events/kg-yr
+                                                                                                        10−37                                           3 events/kg-yr
+
+
+                10−39                                                                                   10−39
+
+
+                10−41                                                                                   10−41
+    σp [cm2 ]
+
+
+
+
+                                                                                            σp [cm2 ]
+                10−43                                                                                   10−43
+                            Threshold Energy                                                                       Threshold Energy
+                             1 meV           80 meV                                                                 1 meV      80 meV
+                10−45        20 meV          100 meV
+                                                                                                        10−45       20 meV     100 meV
+                             40 meV          200 meV                                                                40 meV     200 meV
+                             60 meV          1 eV                                                                   60 meV     1 eV
+                10−47 −2                                                                                10−47 −2
+                   10           10−1           100            101        102          103                  10           10−1     100         101       102          103
+                                                 mχ [MeV]                                                                             mχ [MeV]
+
+
+FIG. 8. Cross section plots corresponding to a rate of 3 events/kg-yr for massive and massless scalar mediators in GaAs for
+various thresholds. The structure factors used are the analytic results demarcated in Fig. 6 for each corresponding regime in
+the (q, ω) phase space. For the massive mediator, we see the dominance of the single acoustic phonon at low masses and low
+thresholds, and of the optical phonon for intermediate thresholds. Eventually, for sufficiently high masses the process becomes
+dominated by the free nuclear recoil response. For the massless mediator, the q −4 form factor favors small momenta, and the
+rate is dominated by the lowest accessible mode for a given threshold.
+
+
+rate per unit of target mass is                                                                where ωth is the energy threshold of the experiment, and
+                                                                                               the other integration limits7 are
+                                                                                                                             s            !
+                                    Z                   Z                                                                           2ωth
+                         1    ρχ                                        dσ                                   q± ≡ mχ v 1 ± 1 −                     (46)
+    R= P                                  d3 v vf (v)        d3 q dω              (43)                                             mχ v 2
+                        d m d m χ                                      dqdω
+                                                                                                                                     q2
+                                                                                                                        ω+ ≡ qv −       .                                 (47)
+                                                                                                                                    2mχ
+
+where the experimental energy threshold is implicit in                                         Note (47) defines the phase space boundary shown in
+the boundary of the ω integral. f (v) is the DM velocity                                       Fig. 6 for a given mχ and v. Finally, ρT is the mass
+distribution, which we take to be                                                              density of the target material and we have recast the
+                                                                                               rate in terms of the DM-proton scattering cross section
+                                                                                               σp ≡ 4πb2p .
+                  "             #
+                              2
+          1         (v + ve )
+ f (v) =      exp −               Θ (vesc − |v + ve |) ,
+         N0             v02                                                                                        A.    Massive hadrophilic mediator
+                                       2 
+                    vesc        vesc         v
+ N0 = π 3/2 v03 erf         −2       exp − esc        , (44)                                      In the case of a massive mediator coupling to baryon
+                     v0          v0           v02
+                                                                                               number, we calculate the scattering rate by taking
+                                                                                               fd = Ad and F̃ (q) = 1. The cross sections correspond-
+                                                                                               ing to a rate of 3 events/kg-year exposure are shown in
+with v0 = 220 km/s, the Earth’s average velocity ve =                                          the left panel of Fig. 8, assuming a GaAs target and for
+240 km/s, and vesc = 500 km/s the approximate local                                            different energy thresholds. The same figures for Si, Ge
+escape velocity of the Milky Way. The scattering rate                                          and diamond can be found in Appendix D.
+can be further simplified in the isotropic limit; using (3),                                      We can understand the numerical results in Fig. 8 ana-
+                                                                                               lytically using the scaling of the structure factor discussed
+
+                               Z                 Zq+ Zω+
+     1 ρχ σp                          3 f (v)
+R=                                  d v             dq  dω q |F̃ (q)|2 S(q, ω)                  7 In numerical implementations of (45), as done in DarkELF, it is
+   4πρT mχ µ2χ                            v                                                             beneficial to change the order of integration by first integrating
+                                                 q−         ωth
+                                                                                  (45)                  over v, then q, and finally over ω.
+                                                                                                                            16
+
+in Secs. III A–III D. First, from (45), the mχ dependence       depends on whether the threshold captures an apprecia-
+of the rate is contained in                                     ble part of the LA branch. If so, the leading contribution
+                                                                comes from the acoustic mode (30), which gives
+                          Zq+ Zω+
+                 σp
+             R∝              dq dω q S(q, ω).           (48)                   2m
+                                                                                Z χv          Z
+                mχ µ2χ                                                  σp                2
+                          q−   ωth                                    R∝ 3         dq q           dω δ(ω − cLA q) ∝ σp ,   (50)
+                                                                        mχ
+The structure factor only contains positive powers of q
+across the entire phase space, so for a massive media-          approximately independent of mχ . This behavior is
+tor, the integral (48) will be dominated by the largest         clearly reproduced in Fig. 8 for the 1 meV threshold,
+kinematically accessible momentum transfers.                    for which the acoustic branch is always accessible. If the
+  For mχ ≫ 30 MeV, the kinematically allowed phase              threshold is too high to access the acoustic branch, but
+space is extended to q and ω where the free nuclear re-         can detect the optical branch, the structure factor has an
+coil approximation can be used. The rate therefore ap-          extra q 3 scaling and we find R ∝ m3χ . This case occurs
+proximately scales as R ∼ 1/mχ for mp ≳ mχ ≫ 30                 for mχ ≲ 0.3 MeV on the 20 meV curve in Fig. 8. For
+MeV. For low enough thresholds, this scaling holds even         mχ ≳ 0.3 MeV the DM can excite the acoustic branch,
+as the dark matter mass comes within O(few) of 30 MeV,          resulting in a sharp enhancement of the rate.
+where the structure factor is relatively broad in ω. The
+reason is that the kinematically allowed phase space is
+                                                                          B.   Massless hadrophilic mediator
+wide enough in ω that the integral over the Gaussian in
+the impulse approximation gives within a factor of few of
+the integral over the delta function in (42), as discussed         If we instead have a massless mediator that couples to
+earlier in Sec. III D.                                          baryon number, then by convention, the mediator form
+                                                                                                    m χ v0 4
+                                                                factor is taken to be |F̃ (q)|2 =             with v0 = 220
+  For dark matter masses of 1 to 30 MeV, the allowed                                                  q
+                                                  √             km/s. The cross section curves for this scenario are given
+phase space is restricted to values of q <          2md ω̄.
+                                                                in the right panel of Fig. 8 again for different thresholds.
+Here the structure factor can be expanded in powers of
+  √                                                                As in Sec. IV A, we can analytically explain the scaling
+q/ 2md ω̄ and favors small ω. As noted in Sec. III C
+                                                                of the different curves across the DM mass range. The
+the structure factor scales as ∼ q 2m , with m the small-
+                                                                main difference with the massive mediator case is that for
+est number of phonons whose total energy is above the
+                                                                a massless mediator, there is a 1/q 4 scaling in the form
+energy threshold. We see there is significant threshold
+                                                                factor, which leads to a scattering rate that generally
+dependence: the single phonon final state strongly dom-
+                                                                favors low q and ω. The main contribution to the rate
+inates the rate if it is above the energy threshold, while
+                                                                will therefore be much more threshold dependent across
+for higher thresholds only multiphonons contribute. The
+                                                                all DM masses.
+rate integral now scales as
+                                                                   If the threshold is small enough to access single acous-
+                  2m
+                   Z χv        Z                                tic phonon excitations, then this will be the dominant
+           σp
+         R∝ 3         dq q 2m+1 dω ∝ σp m2m−1
+                                         χ    ,         (49)    contribution to the rate at all masses. Again from (45)
+           mχ                                                   and using the analytic acoustic structure factor, the
+                               ωth
+                                                                rate for thresholds that are sensitive to a single acous-
+where q was evaluated at its maximum q ∼ 2mχ v. The ω           tic phonon scales as
+integral does not contribute to the mχ scaling of the rate,                            Z       Z
+since the integrand is peaked in ω somewhere near the                                        1
+                                                                           R ∝ σp mχ dq 2 dω δ(ω − cLA q).             (51)
+energy threshold ωth . This expression then gives the ap-                                   q
+                                                                                   ωth /cLA
+proximate scaling R ∝ m2m−1χ     . Since m is dependent on
+the energy threshold, this explains why different thresh-       The integrand is largest at the smallest q, so we estimate
+olds in Fig. 8 result in a different scaling as a function of   the q integral by evaluating the integrand at q ≈ ωth /cLA
+mχ .                                                            in (46). The integrand therefore has no mχ dependence
+   At even lower dark matter masses (mχ < 1 MeV),               and gives the scaling R ∝ mχ for the ω > 1 meV curve
+the phase space is restricted to q values within the first      in Fig. 8. Note however that this scaling behavior is sen-
+Brillouin zone, which is dominated by single phonon pro-        sitive to our convention for the reference momentum in
+duction in the long wavelength regime. If the threshold is      F̃ (q). For example, in models with both electron and nu-
+low enough to access a single phonon, the scaling further       cleon couplings one often chooses to normalize the form
+                                                                                                                              17
+
+factor with the reference momentum q0 = αme , which                      35
+                                                                                    C          Ge                        33
+
+would yield R ∝ m−3χ .                                                   30         Si         As
+                                                                                                                         32
+                                                                                                                         31
+
+                                                                                    Ga
+   If the LA branch is not accessible but the LO branch
+                                                                         25
+is, the production of a single LO mode will generally
+dominate. This introduces a different mχ dependence,                     20
+
+
+
+
+                                                                Zd (q)
+which can be seen in Fig. 8 by comparing the 1 meV                       15                                              14
+
+and 20 meV curves in the region with mχ ≲ 30 MeV. If
+                                                                         10
+mχ < 1 MeV, using the expression in (31) gives
+                                                                                                                         6
+                                                                          5
+                       2m
+                        Z χv     Z
+                                                                          0
+           R ∝ σp mχ      dq q       dω δ(ω − ωLO ).   (52)                   102        103         104     105   106
+                                                                                                    q [eV]
+Unlike for the acoustic phonon, the structure factor fa-
+vors high q so that the largest contribution is near          FIG. 9. Momentum dependence of the effective ion charge for
+q ∼ 2mχ v, giving R ∝ m3χ . If mχ > 1 MeV, the rate           atomic elements, as computed in [38].
+integrand is dominated by momentum transfers q ∼ qBZ .
+This is because when q > qBZ and ω ≤ ωLO we are us-
+ing the incoherent approximation for single phonon pro-                             C.   Dark photon mediators
+duction, where the q integrand drops as q −1 . Thus, we
+estimate the rate by integrating up to qBZ only:                 The defining feature of a dark photon mediator is that
+                                                              it couples to the electric charge of the SM particles. In
+                    ZqBZ Z
+                                                              the regime where phonons are the relevant degrees of
+           R ∝ σp mχ dq q dω δ(ω − ωLO ),              (53)
+                                                              freedom, the charge of the nucleus is (partially) screened
+                                                              by the electrons. This means that we need a notion of
+and find that R ∝ mχ . This is the reason why the 20
+                                                              an effective charge, as seen by the DM, which is mo-
+meV curve in Fig. 8 changes slope around mχ ∼ 1 MeV.
+                                                              mentum dependent. For individual atoms, this effec-
+  We next turn to the intermediate mass range (1 − 30
+                                                              tive charge interpolates between zero in the low momen-
+MeV) with ωth > ωLO , such that n ≥ 2 phonons. In
+                                                              tum, fully screened regime and the nuclear charge in the
+Fig. 8 this corresponds to the curves with thresholds of
+                                                              high momentum regime. We use the calculations from
+40 meV and above. As in Sec. IV A, we again notice
+                                                              Brown et. al. [38] of the effective charge for individual
+that the leading contribution to the structure factor will
+                                                              atoms, as shown in Fig. 9. We expect this approximation
+be given by the smallest number of phonons, m, that can
+                                                              to hold only for q ≳ qBZ , since additional many-body ef-
+exceed the threshold energy. In this regime, the integrand
+                                                              fects should be relevant for q < qBZ . This is particularly
+∝ S(q, ω)/q 3 scales with positive powers of q for m ≥ 2
+                                                              true for a polar material such as GaAs, where the Born
+phonons, since (23) grows faster than q 3 . The analysis
+                                                              effective charge of the Ga and As atoms is non-zero in
+for multiphonons then follows exactly the same logic as
+                                                              the q → 0 limit. In this regime a full DFT calculation
+the discussion in the previous section and we find that
+                                                              of the momentum dependence of the effective charge is
+R ∝ m2m−1
+       χ    .
+                                                              needed, which we do not attempt here.
+  For large dark matter masses (≫ 30 MeV), again if the
+threshold is well above the single phonon energy, we can         In this work, we will therefore focus on the momentum
+apply the free nuclear recoil approximation to obtain the     regime q ≳ qBZ , which corresponds to mχ ≳ MeV. In
+scaling. Using the free nuclear structure factor gives        this case we can use the incoherent approximation and
+               Z                                              take fd = Zd (q), with Zd (q) the atomic effective charges
+         σp             m v 4 Z             q2 
+                          χ 0                                 in Fig. 9. This allows us to compute scattering rates with
+    R∝ 3          dq q            dω δ ω −         . (54)
+         mχ√              q                 2md               dark photon mediators for the production of two or more
+             2md ωth
+                                                              phonons, which is dominated by the highest kinemati-
+The q-integral is dominated by low-momentum transfers         cally accessible momentum transfers.
+along the free nuclear recoil dispersion, so we evaluate         The regime q < qBZ is relevant primarily for massless
+                                                     q2
+the integral at the intersection of ω = ωth and ω = 2m    ,   dark photon mediators. (For massive dark photon me-
+        √                                               d
+or q = 2md ωth . Then, the approximate scaling in this        diators, there are strong BBN constraints that severely
+regime is R ∝ mχ /ωth , which we verify numerically in        limit the scattering rate for sub-MeV dark matter, see
+Fig. 8.                                                       e.g. [40].) In this regime, there are substantial devia-
+                                                                                                                                                                         18
+
+                                  GaAs, Massive Dark Photon                                                            GaAs, Massless Dark Photon
+                 10−37                                                                               10−38
+                                                                     3 events/kg-yr
+
+                 10−39            2e −
+                                                                                                     10−39               2e −
+                      −41
+                 10
+                                                                                                     10−40
+    σ̄e [cm2 ]
+
+
+
+
+                                                                                        σ̄e [cm2 ]
+                 10−43
+
+                 10−45                                                                               10−41
+                 10−47
+                            Threshold Energy                                                         10−42        Threshold Energy
+                 10−49       40 meV              200 meV                                                           40 meV         200 meV
+                             120 meV             1 eV                                                              120 meV        1 eV
+                                                                                                                                                       3 events/kg-yr
+                 10−51 0                                                                             10−43 0
+                     10                    101                 102                103                    10                     101              102               103
+                                                    mχ [MeV]                                                                          mχ [MeV]
+
+
+FIG. 10. Cross section plots for a rate of 3 events/kg-year in GaAs, for massive and massless dark photon mediators. For
+comparison, the dashed black lines represent the cross sections required for DM-electron scattering with a 2e− ionization
+threshold with the same exposure, as computed using DarkELF [29, 39].
+
+
+tions from the atomic effective charges due to the delo-                                                     V.    CONCLUSIONS AND OUTLOOK
+calized nature of the valence electrons. For instance, a
+polar material such as GaAs, SiC and sapphire can have a                                      It is well-known that DM scattering in crystals can
+residual dipole moment associated with atomic displace-                                    lead to one or more phonons being produced if DM has
+ments even for q → 0. The effective couplings f¯d in this                                  MeV-scale mass, as well as a recoiling nucleus if DM has
+limit are given by Zd∗ /ϵ∞ , where Zd∗ is the Born effective                               GeV or higher mass. These processes are two sides of the
+charge and ϵ∞ is a screening due to valence electrons; the                                 same coin, depending on whether the momentum transfer
+Born effective charges can be calculated with DFT meth-                                    is comparable to the inverse of the interparticle spacing
+ods [11, 14, 16]. This was treated in previous studies of                                  and whether the energy deposition is comparable to the
+single-phonon production through a massless dark pho-                                      typical phonon energy ∼ ω̄. When both momentum and
+ton mediator [10–17]. For non-polar materials such as Si,                                  energy scales are small, single phonon production domi-
+Ge and diamond, the Born effective charges vanish and                                      nates, and when both are large, nuclear recoils dominate.
+instead multiphonon production is expected to dominate.                                    Here we studied the intermediate regime which is domi-
+This can be estimated with the energy loss function [29],                                  nated by many phonons, which allows us to smoothly in-
+at least for sub-MeV dark matter. Since this q < qBZ                                       terpolate between single phonon production and nuclear
+regime is already included in DarkELF [29], we restrict                                    recoils (see Fig. 8).
+our results here to multiphonon processes with q > qBZ                                        To make the multiphonon calculation tractable, we re-
+and ω > ωLO .                                                                              lied on the isotropic, incoherent, and harmonic crystal
+   Our results are shown in Fig. 10 for GaAs; the results                                  approximations. This allowed us to obtain analytic re-
+for Ge, Si and diamond are deferred to Appendix D. As                                      sults for the scattering rate in terms of the phonon den-
+is conventional for dark photon mediators, we choose the                                   sity of states in the crystal. These approximations are
+reference momentum for the massless mediator to be q0 =                                    expected to be very good for q ≫ qBZ (mχ ≫ 1 MeV),
+αme and present the results in terms of the effective DM-                                  as they explicitly reproduce the nuclear recoil limit when
+                                                                                                  √
+electron cross section σ̄e [41], with                                                      q ≫ 2mN ω̄. For q ≲ qBZ (mχ ≲ 1 MeV) the ex-
+                                                  µ2χe                                     perimental threshold determines which theoretical treat-
+                                         σ̄e =         σp                     (55)         ment is most appropriate: for single phonon production,
+                                                  µ2χ
+                                                                                           one can obtain analytic formulas by instead using a long
+and µχe the DM-electron reduced mass. In our calcu-                                        wavelength, isotropic approximation. These results are
+lations using the atomic effective charges, we impose                                      currently only valid for cubic crystals such GaAs, Si, Ge
+q > qBZ to ensure we are not sampling the area of phase                                    and diamond. For strongly anisotropic materials such as
+space for which these charges are clearly invalid. This                                    sapphire, one must find a way to generalize them further
+means that our rate calculations for mχ ≲ 10 MeV are a                                     or rely on DFT calculations. For multiphonon produc-
+slight underestimate of the true result.                                                   tion and q ≲ qBZ , the situation is more complicated:
+                                                                                                                     19
+
+in this case it cannot be taken for granted that anhar-      and anharmonic contributions
+monic corrections to the various multiphonon channels
+                                                                      S(q, ω) = S (harm) (q, ω) + S (anh) (q, ω)   (A1)
+can be neglected. The anharmonic multiphonon contri-
+butions involving optical modes are particularly difficult   which do not interfere at leading order in the long wave-
+to model analytically, and at the moment we perform a        length limit. The first term involves expanding (13) to
+simple estimate in a toy model to justify extrapolating      second order; note that it was referred to as the contact
+the incoherent and harmonic approximations to q ≲ qBZ .      term in [25]. The anharmonic term is computed using
+A dedicated DFT calculation is needed to improve their       an anharmonic phonon interaction Hamiltonian to first
+accuracy.                                                    order. The specific matrix elements to be used are given
+   Our approach provides a smooth description of sub-        in equations (12) and (13) of [25]. We take the long-
+GeV dark matter scattering down to keV masses for            wavelength approximation for the phonon modes, as de-
+hadrophilic mediators. For dark photon mediators, a          scribed in Sec. III A. For a crystal with two atoms in the
+DFT calculation of the momentum-dependent couplings          unit cell, the longitudinal eigenvectors can be approxi-
+in the q ∼ qBZ regime is needed to complete the interpo-     mated by
+lation. For both mediators, we have provided results for                                √
+                                                                                           A1
+multiple direct detection materials of interest, and also                 eLA,k,1 ≈ √           k̂,               (A2)
+                                                                                       A1 + A2
+included our calculation as part of the DarkELF public                                  √
+code package. These will be essential to interpret direct                                  A2          0
+                                                                          eLA,k,2 ≈ √           e−ik·r2 k̂        (A3)
+detection results as experimental thresholds for calori-                               A1 + A2
+                                                                                        √
+metric detectors reach the eV scale and lower.                                             A2
+                                                                          eLO,k,1 ≈ √           k̂,               (A4)
+                                                                                       A1 + A2
+                                                                                          √
+                                                                                            A1           0
+                                                                          eLO,k,2 ≈ − √            e−ik·r2 k̂.    (A5)
+               ACKNOWLEDGMENTS                                                           A1 + A2
+
+                                                             with k̂ the unit vector along the phonon propagation di-
+   We are grateful to So Chigusa, Sinéad Griffin, Bashi     rection. Note that the r02 dependence was neglected in
+Mandava and Mukul Sholapurkar for useful discussions.        the LA eigenvector in (27) and in [25]; here we have kept
+BCD, TL, and EV were supported with Department               this additional phase so that the acoustic and optical
+of Energy grants DE-SC0019195 and DE-SC0022104, as           eigenvectors are explicitly orthogonal across a unit cell.
+well as a UC Hellman fellowship. SK was supported by         This additional phase factor will only be relevant in cases
+the Office of High Energy Physics of the U.S. Department     where there is a destructive interference in the leading
+of Energy under contract DE-AC02-05CH11231. EV is            coupling to acoustic phonons, which occurs for some final
+supported by a Sloan Scholar Fellowship.                     states [13]. The transverse eigenvectors lay in the plane
+                                                             perpendicular to k̂ and have analogous normalizations.
+                                                                Analytic expressions for the harmonic structure fac-
+Appendix A: Two phonon analytic structure factors            tor were provided in Ref. [25] for acoustic-acoustic fi-
+                                                             nal states only. We require expressions for the optical-
+  In Sec. III B we compared the long-wavelength and in-      optical and optical-acoustic final states as well to per-
+coherent approximations for the two-phonon final states,     form the comparison with the incoherent approximation.
+for q within the first BZ. In this appendix we provide the   A straightforward application of (16) in [25] to the lowest
+analytic expressions for both approximations.                order in q gives
+
+                                                                   (harm)   2π    π q4
+                                                                 SLOLO =               2 δ(ω − 2ωLO )
+                                                                            Ωc 120m2p ωLO
+         1.   Long-wavelength approximation
+                                                                   (harm)   2π     π q4
+                                                                 SLOTO =          2
+                                                                                            δ(ω − (ωLO + ωTO ))
+                                                                            Ωc 90mp ωLO ωTO
+   Here we discuss how we extend the analytic calcula-
+                                                                   (harm)   2π   π q4
+                                                                                      2 δ(ω − 2ωTO )
+tions from [25] for the coherent two-phonon structure            STOTO =                                           (A6)
+                                                                            Ωc 45m2p ωTO
+factor to additional combinations of final state phonon
+pairs. As in Sec. III B, we assume a hadrophilic mediator    for the optical-optical modes.
+with fd = Ad throughout this appendix. It was shown            For the optical-acoustic modes, the harmonic structure
+in [25] that the structure factor separates into harmonic    factors are of the form
+                                                                                                                           20
+
+                                                                  where c ≡ (cLA + cTA )/2. We have also assumed that the
+                          5
+                                                            7   Grüneisen constant γG ≈ 1.
+ (harm)      2π        a           A1 A2           ω − ωLO
+SLOLA =                2
+             Ωc 2304π cLA mp ωLO (A1 + A2 )2
+                     2     2                         cLA
+                 (harm)
+              × gLOLA (x) Θ(cLA qBZ − (ω − ωLO )),      (A7)                   2.   Incoherent approximation
+               cLA q
+where x ≡ ω−ω        . The other structure factors for
+                  LO
+                                                                     The second result needed for the comparison in
+optical-acoustic final states are given by relabelings
+                                                                  Sec. III B is the two-phonon structure factor for GaAs
+LO → TO, LA → TA, where the expressions g expanded
+                                                                  in the incoherent approximation. To calculate this, we
+at small q are
+                                                                  use the simplified density of states in (35) correspond-
+       (harm)               3 6 1 8         1                     ing to the long-wavelength limit. Performing the n = 2
+      gLOLA (x ≪ 1) ≈         x − x + x10
+                           10       7      15                     integral in (23) gives
+        (harm)             1       12        4 10
+       gLOTA (x ≪ 1) ≈ x6 + x8 −               x
+                           5       35      105                             Sn=2 (q, ω) = SLALA + SLATA + . . .          (A10)
+        (harm)             1       1      1
+       gTOLA (x ≪ 1) ≈ x6 + x8 − x10
+                           5       7     15                       where each S is a contribution to the n = 2 structure
+        (harm)             4       12        4 10
+       gTOTA (x ≪ 1) ≈ x6 − x8 +               x .      (A8)      factor from the part of the density of states associated
+                           5       35      105                    with the subscripted modes, and the ellipsis indicates we
+We see that at leading order in small q, the optical-             sum over all combinations of modes. The first term of
+acoustic structure factors are all suppressed by an ad-           the sum in (A10) is
+ditional factor of q 2 relative to the optical-optical modes,
+which is due to destructive interference. Since we will be                   2π       q4         3
+comparing with the incoherent approximation at small q,            SLALA =              6 m2 ω Θ(cLA qBZ − ω)
+                                                                             Ωc 96c6LA qBZ  p
+we can effectively neglect these final states.                                                               
+                                                                             − 4c3LA qBZ
+                                                                                       3
+                                                                                          − 6c2LA qBZ
+                                                                                                   2
+                                                                                                      ω + ω3
+   We would also like to compute the anharmonic con-                                                                !
+tributions to the 2-phonon structure factor, which we do
+                                                                                × Θ(ω − cLA qBZ )Θ(2cLA qBZ − ω) , (A11)
+with the inclusion of an anharmonic interaction Hamilto-
+nian. For acoustic phonons in the long-wavelength limit,
+we have an effective Hamiltonian for acoustic phonons             and STATA is given by SLALA with the replacement
+where the interactions are given in terms of macroscopic          LA → TA and an additional overal factor of 4. The
+properties of the crystal through the Lamé parameters, as        same procedure gives the LATA term as
+described in [25]. For the interactions of optical phonons,
+however, it is more difficult to write down a reliable an-                    2π      q4          ω3
+                                                                   SLATA =          3   6 m2          Θ(cTA qBZ − ω)
+alytic Hamiltonian. In this case we use (45) of Ref. [25],                    Ωc 24cLA qBZ p     c3TA
+                                                                              3         2
+which comes from [42]. This Hamiltonian should be taken               −2cTA qBZ  + 3ωqBZ
+                                                                    +                     Θ(ω − cTA qBZ )Θ(cLA qBZ − ω)
+only at the order-of-magnitude level. We restrict the use                     cTA
+of both effective Hamiltonians to the first BZ. The ana-                               3
+                                                                      −2(c3LA + c3TA )qBZ + 3(c2LA + c2TA )qBZ
+                                                                                                            2
+                                                                                                               ω − ω3
+                                                                    +
+lytic expressions for the acoustic-acoustic and acoustic-                                   3
+                                                                                           cTA
+optical final states are given already, so we complete this                                                      !
+by calculating the optical-optical terms. At leading order              × Θ(ω − cLA qBZ )Θ((cLA + cTA )qBZ − ω) .       (A12)
+in q, this gives
+      (anh)      2π π c2LA          2
+                                   ωLO q4                         as well as the LOLA term,
+    SLOLO =               2
+                 Ωc 6m2p c ((2ωLO )2 − (cLA q)2 )2                                                
+                                                                                2π    a5 qBZ 2
+                                                                                               q4
+                 × δ(ω − 2ωLO )                                         SLOLA =                        (ω − ωLO )
+                                                                                Ωc 768π 5 c3LA m2p ωLO
+     (anh)       2π 2π c2LA      ωLO ωTO q 4
+    SLOTO =               2
+                                                                         × Θ(ω − ωLO )Θ((cLA qBZ + ωLO ) − ω).          (A13)
+                 Ωc 3mp c ((ωLO + ωTO )2 − (cLA q)2 )2
+                      2
+
+                 × δ(ω − ωLO − ωTO )                              Again we may find SLOTA , STOLA , and STOTA by rela-
+           2π 2π c2LA          2
+                             ωTO  q4                              belings and inserting relevant factors of two for polar-
+    (anh)
+   STOTO =                                                        izations. Note that, since the incoherent approximation
+           Ωc 3m2p c2 ((2ωTO )2 − (cLA q)2 )2
+                                                                  does not recover the q 6 scaling resulting from interfer-
+                 × δ(ω − 2ωTO ),                        (A9)      ence, we have written the structure factor here using
+                                                                                                                                                 21
+
+qBZ = 2π/a to make the comparison more explicit. At                In obtaining this form, we have assumed that any other
+lowest order in x and for A1 ≈ A2 , such a comparison           local maxima in t gives a subdominant contribution to
+of (A7) and (A13) shows a relative factor of 40/π 3 ≈ 1         the t = 0 maximum. In particular, aside from the t = 0
+for the LOLA channel. Lastly, for the remaining optical-        point, which is a global maximum in Re[f (t)], there are
+optical channels we find                                        local maxima in the real part which will generally be
+                                                                near integer multiples of 2π/ω̄d . The leading order con-
+                  2π    q4
+       SLOLO =               2 δ(ω − 2ωLO )
+                                                                tribution from each additional maxima tmax is given by
+                  Ωc 144m2p ωLO
+                                                                evaluating the real part in the exponential at the location
+                  2π      q4                                    of the maxima.
+       SLOTO =          2
+                                  δ(ω − (ωLO + ωTO ))
+                  Ωc 36mp ωLO ωTO                                  This must necessarily be smaller than the t = 0 contri-
+                  2π    q4                                      bution since the following inequality is always satisfied
+    STOTO =                 2 δ(ω − 2ωTO ).             (A14)
+                  Ωc 36m2p ωTO                                        Z                                  Z
+                                                                             Dd (ω ′ )                               ′
+                                                                                                              ′ Dd (ω )
+                                                                        dω ′           cos(ω ′
+                                                                                               t max ) <   dω           . (B5)
+  A comparison now of (A6) and (A14) shows the inco-                          ω′                                 ω′
+herent approximation gives a smaller structure factor by
+                                                                Since tmax ∼ 2π/ω̄d , the left hand side will be suppressed
+factors of 2π/5 – 6π/5 ≈ 2 – 4.
+                                                                by an O(1) amount due to presence of the cos(ω ′ tmax ).
+                                                                Then, the contribution from the local maxima will be
+          Appendix B: Impulse approximation                     exponentially suppressed:
+                                                                      q2               Dd (ω ′ )                   q2               Dd (ω ′ )
+                                                                                dω ′               (ω′ tmax ) ≪ e 2m         dω ′
+                                                                            R                                            R
+                                                                                                 cos
+   In this section we discuss how to obtain the im-                 e 2md                ω′                          d                ω′        (B6)
+pulse approximation form of the structure factor, (39)
+in Sec. III D. To achieve this we must approximate the t        as long as the following condition is satisfied
+integral in (37) for large q. The expression in (37) can
+                                                                                          q2        1
+be written as                                                                                ≫R          ′ ) ∼ ω̄d .                            (B7)
+                                                                                         2md    dω Dd (ω
+                                                                                                  ′
+                                                                                                       ′      ω
+                                      Z∞
+                         1 −2Wd (q)                                                    R
+                 Cℓd =     e            dt ef (t) .      (B1)   Here we have taken dω ′ Ddω(ω
+                                                                                                  ′
+                                                                                                    )
+                                                                                                      ∼ 1/ω̄d as a typical scale
+                         V                                                                      ′
+                                    −∞                          for this integral, although it will differ by an O(1) factor.
+with                                                            Therefore, as long as the free nuclear recoil energy ω =
+                    Z                                           q 2 /(2md ) is well above the typical phonon energy ω̄d for a
+                 q2        Dd (ω ′ )
+    Re[f (t)] ≡       dω ′           cos(ω ′ t)                 scattering off of atom d, the t = 0 maximum is dominant
+                2md         ω′
+                    Z                                           and the impulse approximation should be accurate.
+                 q2        Dd (ω ′ )
+    Im[f (t)] ≡       dω ′           sin(ω ′ t) − ωt.    (B2)       In the regime where q 2 /2md is comparable to ω̄d , the
+                2md          ω′                                 contributions from the additional maxima in t can be-
+From this, we see there is a global maximum in the real         come important. Nevertheless, the impulse approxima-
+part and a global minimum in the modulus of the imagi-          tion is still accurate at large ω even in this case be-
+nary part at t = 0. This allows us to perform a steepest-       cause of cancellations from the rapidly changing phase
+descent expansion about t = 0, giving                           in Im[f (t)]. When ω ≫ ω̄d , then Im[f (t)] ≈ −ωt for t
+                                                                around tmax ∼ 2π/ω̄d . This implies large oscillations of
+                         Z∞                2 q 2 ω̄
+                  1                 2
+                               it( q −ω)− t2 2m d               f (t) around tmax , which suppresses the contribution from
+            Cℓd ≈          dt e 2md               d ,    (B3)
+                  V                                             these local maxima. On the other hand, if ω ≲ ω̄d , there
+                         −∞
+                                                                may be large corrections to the impulse approximation
+                     R
+where again ω̄d = dω ′ ω ′ Dd (ω ′ ). Note that the leading     due to these additional maxima.
+term in the expansion about t = 0 cancelled the Debye               These effects were shown in Fig. 5a when compar-
+Waller factor, assuming the form given in (24). Evaluat-        ing the multiphonon expansion result to the impulse
+ing the above gives                                             approximation. The middle panel showed the result if
+                                                                       √
+                                           2                   q = 2md ω̄d , in the mGa ≈ mAs approximation. For
+                       s            ω−
+                                        q2
+                     1 2π − 2∆2        2md                      ω ≳ ω̄d the structure factor falls smoothly and can be
+               Cℓd ≈          e          d    ,        (B4)     reasonably captured by the impulse approximation, while
+                     V ∆2d
+                                                                for ω ≲ ω̄d ≈ 22 meV or at the optical phonon energies
+which is the impulse approximation result.                      31 and 33 meV there are sharp peaks in the multiphonon
+                                                                                                                                              22
+
+                                       GaAs n-phonon ω-dependence                       where now the integration limits are given by
+                         10−1
+                                                                 n=1     n=5
+                                                                 n=2     n=6
+                                                                                                                     s
+                              −2                                 n=3     n=7                                            2
+                                                                                                                                2ω 
+                         10                                      n=4     n=8                      q± = mχ vmax ±       vmax −               (C2)
+                                                                                                                                mχ
+   ω̄ n Fn (ω) [1/meV]
+
+
+
+
+                         10−3                                                                            1     2
+                                                                                                  ω+ =     mχ vmax                          (C3)
+                                                                                                         2
+                         10−4                                                         with vmax = vesc + ve the maximum DM speed in the lab
+                                                                                      frame. The η function is given by
+                         10−5
+                                                                                                            Z
+                                                                                                                  f (v)
+                                                                                                 η(vmin ) = d3 v        Θ(v − vmin )  (C4)
+                         10−6                                                                                       v
+                                   0         50          100       150     200
+                                                                                                            q
+                                                       ω [meV]                        with vmin (q, ω) = 2m   χ
+                                                                                                                + ωq .
+                                                                                         To evaluate the rate using incoherent approximation,
+FIG. 11. Here we have plotted ω̄ n Fn (ω), where Fn (ω) is the                        we provide look-up tables for the structure factor. At
+ω-dependent part of the structure factor in the incoherent                            each n for the sum in (36), the q and ω parts of the
+approximation and given explicitly in (C5). At fixed q, the                           integral are separable, so we can capture the ω-dependent
+structure factor decreases quickly with increasing ω.
+                                                                                      part with the family of functions
+                                                                                                           n Z
+                                                                                                                                !           !
+                                                                                                      1 Y              Dd (ωi )     X
+                                                                                          Fn,d (ω) ≡             dωi              δ   ωi − ω ,
+response that are not captured by the impulse approxi-                                               n! i=1             ωi
+                   √                                                                                                                i
+mation. For q = 2 2md ω̄d the many multiphonon peaks                                                                                         (C5)
+merge and add up to a shape similar to the impulse ap-                                and calculate the rate in terms of functions Fn,d . These
+proximation over the whole ω range. Practically, for our                              functions are simple to calculate numerically up to n ≤
+calculations, we use the impulse approximation for the                                10, which we have tabulated and provided in DarkELF
+                          √
+structure factor at q > 2 2md ω̄d . Though the approxi-                               as look-up tables to speed up the calculation. The com-
+mation has small differences with the exact result when                               bination ω̄ n Fn (ω) is shown in Fig. 11 for GaAs in the
+      √
+q ∼ 2 2md ω̄d , integrating over the allowed phase space                              mGa ≈ mAs approximation. For increasingly high n, the
+for the rate largely washes out these differences.                                    Fn,d become increasingly smooth.
+                                                                                         We have added several additional functions to DarkELF
+                                                                                      for the differential and integrated rate calculations from
+                                                                                      the single phonon to the nuclear recoil regime. Tab. I
+                         Appendix C: Implementation in DarkELF                        describes some of the new relevant functions. These
+                                                                                      functions currently work for materials with up to two
+                                                                                      atoms per unit cell. We have included the necessary data
+   In the main text, we presented the formulas in the
+                                                                                      files for the multiphonon calculation for GaN, Al, ZnS,
+manner which is most clear from the point of view of
+                                                                                      GaAs, Si, and Ge from a combination of DFT and ex-
+the various approximations and their regimes of validity.
+                                                                                      perimental sources. We also allow the user to input their
+These formulas were not always suitable however for an
+                                                                                      own calculations or extractions of the (partial) density
+efficient numerical implementation, which we address in
+                                                                                      of states, as well as momentum-dependent dark matter-
+this section. We also provide details on their implemen-
+                                                                                      nucleon couplings. Before calculating multiphonon scat-
+tation in the DarkELF package [29].
+                                                                                      tering rates in DarkELF, it is necessary to tabulate the
+  In the main text we gave the rate in the isotropic limit,                           auxiliary function (C5) for each atom. This is done us-
+(45). In order to calculate the rate for any mediator and                             ing the DarkELF function create Fn omega. This step is
+to obtain the differential rate dR/dω, it is convenient to                            the most time consuming part of the calculation, so we
+perform the v-integral first and rewrite the rate as:                                 provide these pre-tabulated for the aforementioned ma-
+                                                                                      terials. For calculations with a user-supplied (partial)
+                                       Zω+ Zq+                                        density of states, these tables must first be updated by
+     1 ρχ σp
+R=                                        dω dq q |F̃ (q)|2 S(q, ω) η(vmin (q, ω))    running create Fn omega. DarkELF will save these new
+   4πρT mχ µ2χ
+                                       ωth        q−                                  look-up tables for future computations, such that this
+                                                                               (C1)   step only need to be performed once. Next we describe
+                                                                                                                                                                    23
+
+                                                DM-multiphonon scattering
+   function                                    description                                                                       available for
+   dRdomega_multiphonons_no_single(omega) Differential rate dR/dω in 1/kg/yr/eV                                                  all except SiO2 , Al2 O3
+                                          excluding long-wavelength single phonons
+   R_multiphonons_no_single(omega)        Total phonon rate in 1/kg-yr                                                           all except SiO2 , Al2 O3
+                                          excluding long-wavelength single phonons
+   sigma_multiphonons(omega)              Nucleon cross section to produce 3 events/kg-yr                                        all except SiO2 , Al2 O3
+
+TABLE I. List of public functions in DarkELF related to multiphonon excitations from DM scattering. Only mandatory
+arguments are shown; for optional arguments and flags, see text and the documentation in repository. Some functions are only
+available for select materials, as indicated in the righthand column.
+
+
+the functions that return important results. All of the                                                      Density of States
+following straightforwardly apply equations (C1-C4).                              0.5
+                                                                                                 Ge
+   R single phonon: This function takes the energy                                0.4
+threshold and DM-nucleon cross sections and outputs the
+rate in the long-wavelength single phonon regime using                            0.3
+the analytic functions (30-31).                                                   0.2
+   R multiphonons no single: This function takes the en-
+ergy threshold and DM-nucleon cross section as inputs                             0.1
+
+and calculates the total integrated rate, excluding the                           0.0
+single phonon processes at long wavelengths q < qBZ .                                   0    5         10             15         20         25      30        35
+In other words, this calculation includes only the purple                        0.25
+(multiphonon expansion) and red (impulse approxima-                                              Si
+
+tion) phase space regions in Fig. 6.                                             0.20
+                                                                 Dd(ω) [1/meV]
+
+
+
+
+   sigma multiphonons: This takes the energy thresh-                             0.15
+old as input and returns the necessary DM-nucleon
+                                                                                 0.10
+cross section to produce three events per kg-year for
+any number of phonons.          In order to return this                          0.05
+cross section, this function first calculates the total
+                                                                                 0.00
+rate by summing the outputs of R single phonon and
+                                                                                        0    10             20              30         40          50         60
+R multiphonons no single, so it includes the entire cal-
+                                                                                 0.08
+culation scheme depicted in Fig. 6.                                                              Diamond
+    dR domega multiphonons no single: This function
+                                                                                 0.06
+takes the energy transfer ω and DM-nucleon cross sec-
+tion and returns the differential rate dR dω at that energy                      0.04
+excluding single phonons in the long wavelength regime.
+This comes from equation (C1) without evaluating the                             0.02
+ω integral. We exclude the single coherent phonon here
+since the long-wavelength approximation has delta func-                          0.00
+tions in energy in the differential rate.                                               0   20        40         60         80        100    120        140   160
+                                                                                                                           ω [meV]
+
+              Appendix D: Additional results                    FIG. 12. Densities of states for germanium, silicon, and dia-
+                                                                mond [35].
+  Here, we provide additional results for Ge, Si, and di-
+amond. Concretely, Fig. 12 shows the density of states          plots corresponding to an integrated rate of 3 events/kg-
+for these three materials, as extracted from [35]. Fig. 13      year for Ge, Si, and diamond, respectively. The electron
+shows the differential scattering rate via a massive scalar     recoil cross sections shown (dashed black lines) are based
+mediator for two example DM masses in GaAs, Ge and Si           on calculations in [39] for Ge, Si and in [43] for diamond.
+targets. Finally, Figs. 14, 15, and 16 are the cross section
+                                                                                                                                     24
+
+
+
+
+                                                     GaAs, Massive Scalar Mediator, σp = 10−38 cm2
+                                ×108           mχ = 10 MeV                      ×107          mχ = 100 MeV
+                          4                                                   2.5
+                                                                                                Total Differential Rate
+   dω [Events/kg/yr/eV]
+
+
+
+
+                                                                              2.0               Nuclear Recoil Approximation
+                          3
+                                                                              1.5
+                          2
+                                                                              1.0
+                          1
+                                                                              0.5
+   dR
+
+
+
+
+                          0                                                   0.0
+                              0          50         100       150       200         0     50        100         150            200
+                                                  ω [meV]                                         ω [meV]
+
+                                                      Ge, Massive Scalar Mediator, σp = 10−38 cm2
+                                ×108           mχ = 10 MeV                       ×107          mχ = 100 MeV
+                          4                                                   2.5
+                                                                                                Total Differential Rate
+   dω [Events/kg/yr/eV]
+
+
+
+
+                                                                              2.0               Nuclear Recoil Approximation
+                          3
+                                                                              1.5
+                          2
+                                                                              1.0
+                          1
+                                                                              0.5
+   dR
+
+
+
+
+                          0                                                   0.0
+                              0          50         100       150       200         0     50        100         150            200
+                                                  ω [meV]                                         ω [meV]
+
+                                                        Si, Massive Scalar Mediator, σp = 10−38 cm2
+                                  ×108          mχ = 10 MeV                        ×106          mχ = 100 MeV
+                          1.0                                                   5
+                                                                                                Total Differential Rate
+  dω [Events/kg/yr/eV]
+
+
+
+
+                          0.8                                                   4               Nuclear Recoil Approximation
+
+                          0.6                                                   3
+
+                          0.4                                                   2
+
+                          0.2                                                   1
+  dR
+
+
+
+
+                          0.0                                                   0
+                                  0       50         100      150       200         0      50       100         150            200
+                                                   ω [meV]                                        ω [meV]
+
+FIG. 13. Differential rate for various materials and a massive scalar mediator, compared with the nuclear recoil approximation.
+The single phonon contribution from the long wavelength regime is not shown, since it gives a delta function contribution.
+                                                                                                                                                                            25
+
+
+
+
+                                 Ge, Massive Scalar Mediator                                                       Ge, Massless Scalar Mediator
+             10−37                                                  3 events/kg-yr
+                                                                                                   10−37                                                  3 events/kg-yr
+
+
+             10−39                                                                                 10−39
+
+
+             10−41                                                                                 10−41
+σp [cm2 ]
+
+
+
+
+                                                                                      σp [cm2 ]
+             10−43                                                                                 10−43
+                          Threshold Energy                                                                    Threshold Energy
+                            1 meV         80 meV                                                               1 meV            80 meV
+             10−45          20 meV        100 meV
+                                                                                                   10−45       20 meV           100 meV
+                            40 meV        200 meV                                                              40 meV           200 meV
+                            60 meV        1 eV                                                                 60 meV           1 eV
+             10−47 −2                                                                              10−47 −2
+                10             10−1            100     101         102          103                   10          10−1               100     101         102          103
+                                                mχ [MeV]                                                                              mχ [MeV]
+
+                                      Ge, Massive Dark Photon                                                           Ge, Massless Dark Photon
+             10−37                                                                                 10−38
+                                                                   3 events/kg-yr                                                                         3 events/kg-yr
+
+             10−39
+                               2e −                                                                10−39
+                  −41
+             10
+                                                                                                                        2e −
+                                                                                                   10−40
+σ̄e [cm2 ]
+
+
+
+
+                                                                                      σ̄e [cm2 ]
+
+
+
+
+             10−43
+
+             10−45                                                                                 10−41
+             10−47
+                           Threshold Energy                                                        10−42      Threshold Energy
+             10−49          40 meV         200 meV                                                             40 meV            200 meV
+                            120 meV        1 eV                                                                120 meV           1 eV
+             10−51 0                                                                               10−43 0
+                 10                      101                 102                103                    10                      101                 102                103
+                                                mχ [MeV]                                                                              mχ [MeV]
+
+
+                        FIG. 14. Cross section plots for a rate of 3 events/kg-year exposure for different thresholds in Ge.
+                                                                                                                                                                               26
+
+
+
+
+                                 Si, Massive Scalar Mediator                                                           Si, Massless Scalar Mediator
+             10−37                                                     3 events/kg-yr
+                                                                                                      10−37                                                  3 events/kg-yr
+
+
+             10−39                                                                                    10−39
+
+
+             10−41                                                                                    10−41
+σp [cm2 ]
+
+
+
+
+                                                                                         σp [cm2 ]
+             10−43                                                                                    10−43
+                          Threshold Energy                                                                       Threshold Energy
+                            1 meV        80 meV                                                                   1 meV            80 meV
+             10−45          20 meV       100 meV
+                                                                                                      10−45       20 meV           100 meV
+                            40 meV       200 meV                                                                  40 meV           200 meV
+                            60 meV       1 eV                                                                     60 meV           1 eV
+             10−47 −2                                                                                 10−47 −2
+                10             10−1           100         101         102          103                   10          10−1               100     101         102          103
+                                               mχ [MeV]                                                                                  mχ [MeV]
+
+                                     Si, Massive Dark Photon                                                                Si, Massless Dark Photon
+             10−37                                                                                    10−38
+                                                                      3 events/kg-yr                                                                         3 events/kg-yr
+
+             10−39
+                                                                                                      10−39
+                  −41                               2e−
+             10
+                                                                                                                           2e −
+                                                                                                      10−40
+σ̄e [cm2 ]
+
+
+
+
+                                                                                         σ̄e [cm2 ]
+
+
+
+
+             10−43
+
+             10−45                                                                                    10−41
+             10−47
+                          Threshold Energy                                                            10−42      Threshold Energy
+             10−49         80 meV         200 meV                                                                 80 meV            200 meV
+                           120 meV        1 eV                                                                    120 meV           1 eV
+             10−51 0                                                                                  10−43 0
+                 10                     101                     102                103                    10                      101                 102                103
+                                               mχ [MeV]                                                                                  mχ [MeV]
+
+
+                        FIG. 15. Cross section plots for a rate of 3 events/kg-year exposure for different thresholds in Si.
+                                                                                                                                                                      27
+
+
+
+
+                           Diamond, Massive Scalar Mediator                                                Diamond, Massless Scalar Mediator
+             10−37                                              3 events/kg-yr
+                                                                                               10−37                                                3 events/kg-yr
+
+
+             10−39                                                                             10−39
+
+
+             10−41                                                                             10−41
+σp [cm2 ]
+
+
+
+
+                                                                                  σp [cm2 ]
+             10−43                                                                             10−43
+                         Threshold Energy                                                                 Threshold Energy
+                          1 meV      80 meV                                                                1 meV      80 meV
+             10−45        20 meV     100 meV
+                                                                                               10−45       20 meV     100 meV
+                          40 meV     200 meV                                                               40 meV     200 meV
+                          60 meV     1 eV                                                                  60 meV     1 eV
+             10−47 −2                                                                          10−47 −2
+                10           10−1         100      101         102          103                   10          10−1         100      101            102          103
+                                            mχ [MeV]                                                                         mχ [MeV]
+
+                            Diamond, Massive Dark Photon                                                     Diamond, Massless Dark Photon
+             10−37                                                                             10−38
+                                                               3 events/kg-yr                                                             −         3 events/kg-yr
+                                                                                                                                        2e
+             10−39                                     2e−
+                                                                                               10−39
+                  −41
+             10
+                                                                                               10−40
+σ̄e [cm2 ]
+
+
+
+
+                                                                                  σ̄e [cm2 ]
+
+
+
+
+             10−43
+
+             10−45                                                                             10−41
+             10−47
+                         Threshold Energy                                                      10−42      Threshold Energy
+             10−49        200 meV     600 meV                                                              200 meV     600 meV
+                          400 meV     1 eV                                                                 400 meV     1 eV
+             10−51 0                                                                           10−43 0
+                 10                 101                  102                103                    10                101                     102                103
+                                            mχ [MeV]                                                                         mχ [MeV]
+
+
+                   FIG. 16. Cross section plots for a rate of 3 events/kg-year exposure for different thresholds in diamond.
+                                                                                                                               28
+
+
+
+
+ [1] Q. Arnaud et al. (NEWS-G), Astropart. Phys. 97, 54                arXiv:2012.01432 [hep-ph].
+     (2018), arXiv:1706.04934 [astro-ph.IM].                      [23] G. Baym, D. H. Beck, J. P. Filippini, C. J. Pethick, and
+ [2] W. Guo and D. N. McKinsey, Phys. Rev. D87, 115001                 J. Shelton, Phys. Rev. D 102, 035014 (2020), [Erratum:
+     (2013), arXiv:1302.0534 [astro-ph.IM].                            Phys.Rev.D 104, 019901(E) (2021)], arXiv:2005.08824
+ [3] Y.-S. Liu, D. McKeen, and G. A. Miller, Phys. Rev. Lett.          [hep-ph].
+     117, 101801 (2016), arXiv:1605.04612 [hep-ph].               [24] K. T. Matchev, J. Smolinsky, W. Xue, and Y. You,
+ [4] S. A. Hertel, A. Biekert, J. Lin, V. Velan,           and         (2021), arXiv:2108.07275 [hep-ph].
+     D. N. McKinsey, Phys. Rev. D 100, 092007 (2019),             [25] B. Campbell-Deem, P. Cox, S. Knapen, T. Lin, and
+     arXiv:1810.06283 [physics.ins-det].                               T. Melia, Phys. Rev. D 101, 036006 (2020), [Erratum:
+ [5] N. A. Kurinsky, T. C. Yu, Y. Hochberg, and B. Cabrera,            Phys.Rev.D 102, 019904(E) (2020)], arXiv:1911.03482
+     Phys. Rev. D99, 123005 (2019), arXiv:1901.07569 [hep-             [hep-ph].
+     ex].                                                         [26] Y. Kahn, G. Krnjaic, and B. Mandava, Phys. Rev. Lett.
+ [6] J. D. Vergados and H. Ejiri, Phys. Lett. B 606, 313               127, 081804 (2021), arXiv:2011.09477 [hep-ph].
+     (2005), arXiv:hep-ph/0401151.                                [27] S. Knapen, J. Kozaczuk, and T. Lin, Phys. Rev. Lett.
+ [7] R. Bernabei et al., Int. J. Mod. Phys. A 22, 3155 (2007),         127, 081805 (2021), arXiv:2011.09496 [hep-ph].
+     arXiv:0706.1421 [astro-ph].                                  [28] K. V. Berghaus, R. Essig, Y. Hochberg, Y. Shoji, and
+ [8] M. Ibe, W. Nakano, Y. Shoji, and K. Suzuki, JHEP 03,              M. Sholapurkar, (2021), arXiv:2112.09702 [hep-ph].
+     194 (2018), arXiv:1707.07258 [hep-ph].                       [29] S. Knapen, J. Kozaczuk, and T. Lin, Phys. Rev. D 105,
+ [9] C. Kouvaris and J. Pradler, Phys. Rev. Lett. 118, 031803          015014 (2022), arXiv:2104.12786 [hep-ph].
+     (2017), arXiv:1607.01789 [hep-ph].                           [30] Y. Kahn and T. Lin, (2021), arXiv:2108.03239 [hep-ph].
+[10] S. Knapen, T. Lin, M. Pyle, and K. M. Zurek, Phys.           [31] H. Schober, Journal of Neutron Research 17, 109 (2014).
+     Lett. B785, 386 (2018), arXiv:1712.06598 [hep-ph].           [32] G. L. Squires, Introduction to the Theory of Thermal
+[11] S. Griffin, S. Knapen, T. Lin, and K. M. Zurek, Phys.             Neutron Scattering (Dover Publications, Inc., Mineola,
+     Rev. D98, 115034 (2018), arXiv:1807.10291 [hep-ph].               New York, 1996).
+[12] T. Trickle, Z. Zhang, K. M. Zurek, K. Inzani, and S. Grif-   [33] A. Togo and I. Tanaka, Scr. Mater. 108, 1 (2015).
+     fin, JHEP 03, 036 (2020), arXiv:1910.08092 [hep-ph].         [34] G. Placzek, B. R. A. Nijboer, and L. V. Hove, Phys.
+[13] P. Cox, T. Melia, and S. Rajendran, Phys. Rev. D 100,             Rev. 82, 392 (1951).
+     055011 (2019), arXiv:1905.05575 [hep-ph].                    [35] A. Jain, S. P. Ong, G. Hautier, W. Chen, W. D. Richards,
+[14] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang,                   S. Dacek, S. Cholia, D. Gunter, D. Skinner, G. Ceder,
+     and K. M. Zurek, Phys. Rev. D101, 055004 (2020),                  and K. a. Persson, APL Materials 1, 011002 (2013).
+     arXiv:1910.10716 [hep-ph].                                   [36] G. Kresse and J. Furthmüller, Phys. Rev. B 54, 11169
+[15] T. Trickle, Z. Zhang, and K. M. Zurek, Phys. Rev. D               (1996).
+     105, 015001 (2022), arXiv:2009.13534 [hep-ph].               [37] Z.-L. Liang, C. Mo, F. Zheng, and P. Zhang, (2022),
+[16] S. M. Griffin, Y. Hochberg, K. Inzani, N. Kurinsky,               arXiv:2205.03395 [hep-ph].
+     T. Lin, and T. C. Yu, Phys. Rev. D 103, 075002 (2021),       [38] P. J. Brown, A. G. Fox, E. N. Maslen, M. A. O’Keefe,
+     arXiv:2008.08560 [hep-ph].                                        and B. T. M. Willis, “Intensity of diffracted intensities,”
+[17] A. Coskuner, T. Trickle, Z. Zhang, and K. M. Zurek,               in International Tables for Crystallography (American
+     Phys. Rev. D 105, 015010 (2022), arXiv:2102.09567 [hep-           Cancer Society, 2006) Chap. 6.1, pp. 554–595.
+     ph].                                                         [39] S. Knapen, J. Kozaczuk,          and T. Lin,       (2021),
+[18] K. Schutz and K. M. Zurek, Phys. Rev. Lett. 117, 121302           arXiv:2101.08275 [hep-ph].
+     (2016), arXiv:1604.08206 [hep-ph].                           [40] S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D96,
+[19] S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D95,               115021 (2017), arXiv:1709.07882 [hep-ph].
+     056019 (2017), arXiv:1611.06228 [hep-ph].                    [41] R. Essig, M. Fernandez-Serra, J. Mardon, A. Soto,
+[20] F. Acanfora, A. Esposito, and A. D. Polosa, Eur. Phys.            T. Volansky, and T.-T. Yu, JHEP 05, 046 (2016),
+     J. C79, 549 (2019), arXiv:1902.02361 [hep-ph].                    arXiv:1509.01598 [hep-ph].
+[21] A. Caputo, A. Esposito, and A. D. Polosa, Phys. Rev.         [42] G. Srivastava, Journal of Physics and Chemistry of Solids
+     D100, 116007 (2019), arXiv:1907.10635 [hep-ph].                   41, 357 (1980).
+[22] A. Caputo, A. Esposito, F. Piccinini, A. D. Polosa,          [43] Z.-L. Liang, C. Mo, F. Zheng, and P. Zhang, (2020),
+     and G. Rossi, Phys. Rev. D 103, 055017 (2021),                    arXiv:2011.13352 [hep-ph].
+

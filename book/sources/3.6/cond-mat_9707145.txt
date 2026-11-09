@@ -1,0 +1,1640 @@
+                                                                Maximally-localized generalized Wannier functions for composite energy bands
+
+                                                                                                     Nicola Marzari and David Vanderbilt
+                                                                          Department of Physics and Astronomy, Rutgers University, Piscataway, NJ 08855-0849, USA
+                                                                                                              (July 10, 1997)
+
+
+                                                                        We discuss a method for determining the optimally-localized set of generalized Wannier functions
+arXiv:cond-mat/9707145v1 [cond-mat.mtrl-sci] 14 Jul 1997
+
+
+
+
+                                                                        associated with a set of Bloch bands in a crystalline solid. By “generalized Wannier functions”
+                                                                        we mean a set of localized orthonormal orbitals spanning the same space as thePspecified set of
+                                                                        Bloch bands. Although we minimize a functional that represents the total spread     n
+                                                                                                                                                              hr 2 in − hri2n
+                                                                        of the Wannier functions in real space, our method proceeds directly from the Bloch functions as
+                                                                        represented on a mesh of k-points, and carries out the minimization in a space of unitary matrices
+                                                                          (k)
+                                                                        Umn describing the rotation among the Bloch bands at each k-point. The method is thus suitable
+                                                                        for use in connection with conventional electronic-structure codes. The procedure also returns the
+                                                                        total electric polarization as well as the location of each Wannier center. Sample results for Si,
+                                                                        GaAs, molecular C2 H4 and LiCl will be presented.
+
+
+
+
+                                                                            I. INTRODUCTION                                  ever, there is another motivation that goes back to a
+                                                                                                                             theme that has recurred frequently in the chemistry lit-
+                                                              The study of periodic crystalline solids leads naturally       erature over the last 40 years, namely the study of “lo-
+                                                           to a representation for the electronic ground state in            calized molecular orbitals.”20–25 The idea is to carry out,
+                                                           terms of extended Bloch orbitals ψnk (r), labeled via their       for a given molecule or cluster, a unitary transformation
+                                                           band n and crystal-momentum k quantum numbers. An                 from the occupied one-particle Hamiltonian eigenstates
+                                                           alternative representation can be derived in terms of lo-         to a set of localized orbitals that correspond more closely
+                                                           calized orbitals or Wannier functions wn (r − R), that            to the chemical (Lewis) view of molecular bond-orbitals.
+                                                           are formally defined via a unitary transformation of the          It seems not to be widely appreciated that these are
+                                                           Bloch orbitals, and are labeled in real space according to        the exact analogues, for finite systems, of the Wannier
+                                                           the band n and the lattice vector of the unit cell R to           functions defined for infinite periodic systems. Various
+                                                           which they belong.1–4                                             criteria have been introduced for defining the localized
+                                                              The Wannier representation of the electronic problem           molecular orbitals,20–23 two of the most popular being
+                                                           is widely known for its usefulness as a starting point for        the maximization of the Coulomb22 or quadratic23 self-
+                                                           various formal developments, such as the semiclassical            interactions of the molecular orbitals. One of the motiva-
+                                                           theory of electron dynamics or the theory of magnetic             tions for such approaches is the notion that the localized
+                                                           interactions in solids. But until recently, the practical         molecular orbitals may form the basis for an efficient rep-
+                                                           importance of Wannier functions in computational elec-            resentation of electronic correlations in many-body ap-
+                                                           tronic structure theory has been fairly minimal. How-             proaches, and indeed this ought to be equally true in the
+                                                           ever, this situation is now beginning to change, in view          extended, solid-state case.
+                                                           of two recent developments. First, there is a vigorous ef-           One major reason why the Wannier functions have seen
+                                                           fort underway on the part of many groups to develop so-           little practical use to date in solid-state applications is
+                                                           called “order-N” or “linear-scaling” methods, i.e., meth-         undoubtedly their non-uniqueness. Even in the case of
+                                                           ods for which the computational time for solving for the          a single isolated band, it is well known that the Wan-
+                                                           electronic ground state scales only as the first power of         nier functions wn (r) are not unique, due to a phase inde-
+                                                           system size,5 instead of the third power typical of conven-       terminacy eiφn (k) in the Bloch orbitals ψnk (r). For this
+                                                           tional methods based on solving for Bloch states. Many            case, the conditions required to obtain a set of maximally
+                                                           of these methods are based on solving directly for local-         localized, exponentially decaying Wannier functions are
+                                                           ized Wannier or Wannier-like orbitals that span the occu-         known.2,26
+                                                           pied subspace,6–13 and thus rely on the localization prop-           In the present work we discuss the determination of
+                                                           erties of the Wannier functions. Second, a modern theory          the maximally localized Wannier functions for the case
+                                                           of electric polarization of crystalline insulators has just       of composite bands. Now a stronger indeterminacy is
+                                                                                                                                                                                     (k)
+                                                           recently emerged;14–19 it can be formulated in terms of           present, representable by a free unitary matrix Umn
+                                                           a geometric phase in the Bloch representation, or equiv-          among the occupied Bloch orbitals at every wavevector.
+                                                                                                                                                                           (k)
+                                                           alently, in terms of the locations of the Wannier centers.        We require the choice of a particular set of Umn according
+                                                              The linear-scaling and polarization developments are           to the criterion that the sum Ω of the second moments
+                                                           at the heart of the motivation for the present work. How-         of the corresponding Wannier functions be minimized.
+
+
+                                                                                                                         1
+(This is the exact analogue of the criteria of Boys23 for         tems. Finally, in Sec. VII, we discuss the significance of
+the molecular-orbital case.) We show that Ω can be de-            the work, emphasizing possible applications of our ap-
+composed into a sum of two contributions. The first is            proach. Some details of the real-space, discrete k-space,
+                                (k)                               and continuous k-space formulations are deferred to Ap-
+invariant with respect to the Umn and reflects the k-space
+dispersion of the band projection operator, while the sec-        pendices A, B, and C, respectively. In particular, the re-
+ond reflects the extent to which the Wannier functions            lationship of the present work to the theory of adiabatic
+fail to be eigenfunctions of the band-projected position          quantum phases and quantum distances is discussed in
+operators. We show how this formulation reduces to pre-           Appendix C.
+vious ones in the case of a single isolated band, or in one
+dimension, or for centrosymmetric crystals.
+   We also describe a numerical algorithm for computing                            II. PRELIMINARIES
+the optimally localized Wannier functions on a k-space
+mesh. The algorithm is designed to operate in a post-                        A. Isolated and composite bands
+processing mode after a conventional band-structure cal-
+culation, taking as its input the Bloch functions com-               We confine ourselves here to the case of an inde-
+puted on a mesh of k-points. (Thus, it is not a linear-           pendent-particle Hamiltonian H = p2 /2m + V (r) with
+scaling method.) We present sample results for the opti-          a real periodic potential V (r). We thus assume the ab-
+mally localized Wannier functions in Si, GaAs, molecular          sence of electric and magnetic fields, and we suppress
+C2 H4 , and LiCl. It should be emphasized that this pro-          spin. The eigenfunctions of H are the Bloch functions
+cedure generates incidentally a set of Wannier-center po-         ψnk (r) labeled by band n and wavevector k.
+sitions; these by themselves can sometimes be very useful            A Bloch band is said to be isolated if it does not become
+for analyzing the electronic polarization of disordered or        degenerate with any other band anywhere in the Brillouin
+distorted insulating materials.                                   zone (BZ). Conversely, a group of bands are said to form a
+   In this work, we have not considered any further               composite group if they are connected among themselves
+generalizations of the problem, although several inter-           by degeneracies, but are isolated from all lower or higher
+esting possibilities come to mind. For example, one               bands. For example, in Si the four valence bands form a
+could relax the constraint that the Wannier functions             composite group, while in GaAs the lowest valence band
+should be orthonormal to each other (in this case                 is isolated and the higher three form a composite group.
+they should probably not be called “Wannier func-                    In the case of isolated bands, it is natural to define
+tions”). Such functions would correspond to the “local-           Wannier functions individually for each band. That is,
+ized orbitals” or “support functions” appearing in cer-           the Wannier function for band n (together with its peri-
+tain linear-scaling methods6,10,12 and in the chemical-           odic images) spans the same space as does the isolated
+pseudopotential approach.27–29 Alternatively, one could           Bloch band. In the case of composite bands, however, it
+retain the orthonormality requirement, but ask to find a          is more natural to consider a set of J “generalized Wan-
+larger set of functions spanning a space containing the           nier functions” that (together with their periodic images)
+desired bands as a subspace. For example, in Si one               span the same space as the composite set of J Bloch
+could ask for a maximally-localized set of four Wannier-          bands. That is, the “generalized Bloch functions” ψnk
+like functions per atom spanning a space twice as large           that are connected with the n’th generalized Wannier
+as, but containing, the space of the four occupied va-            function will not necessarily be eigenstates of the Hamil-
+lence bands.4 Again, this is very similar to what is done         tonian at this k, but will be related to them by a J × J
+in certain linear-scaling methods.10–12 These interesting         unitary transformation.
+generalizations deserve investigation, but have not been             The formulation that follows is designed to apply
+pursued here.                                                     equally to the isolated and composite cases. For the
+   The manuscript is organized as follows. The problem            isolated case, J = 1, and sums over n can be ignored.
+is introduced in Sec. II. Expressions for the spread func-        For the composite case, the terms “Bloch function” and
+tional, and for its decomposition into gauge-invariant and        “Wannier function” should be understood to be meant
+gauge-dependent parts, are developed first in real space          in the generalized sense discussed above.
+in Sec. III. Section IV then formulates the correspond-              It may sometimes be convenient to consider a group of
+ing expressions in discrete k-space (that is, on a mesh           bands as composite even when some of the members are
+of wavevectors). Special features that arise in one di-           actually isolated. For example, one may wish to consider
+mension, or for a single isolated band, or for a crystal          all of the occupied valence bands of an insulator as a com-
+with inversion symmetry, are also discussed there, as is          posite group. This is rather natural in connection with
+the steepest-descent minimization algorithm that we use.          linear-scaling algorithms and the theory of electronic po-
+Some discussion and speculation about the asymptotic              larization. Thus, for GaAs, one may choose to regard all
+localization properties, and the real vs. complex nature          four valence bands as a composite group. In this case
+of the Wannier functions, appear in Sec. V. In Sec. VI            the Wannier functions will resemble σ-bonded pairs of
+we present test results for Si, GaAs, C2 H4 , and LiCl sys-
+
+
+                                                              2
+sp3 hybrids, arguably the most natural choice. More-               Introducing the notation r̄n = h0n|r|0ni and hr2 in =
+over, the GaAs Wannier functions defined in this way               h0n|r2 |0ni for the diagonal elements in the cell at the
+turn out to be considerably more localized than those of           origin, we have
+the top three or bottom valence bands separately. Again,                                    Z
+the formulation below should be taken to apply equally                                  V
+                                                                              r̄n = i         dk hunk |∇k |unk i        (7)
+to this case, with n running over the J adjacent bands                                (2π)3
+that are being considered as a composite group.
+                                                                   and
+   Finally, the formalism applies equally to any isolated                                    Z
+band or composite group that may exist in a metal or                                   V                        2
+                                                                               2
+insulator, regardless of occupation. However, because                        hr in =             dk |∇k unk i       .      (8)
+                                                                                     (2π)3
+the expectation values of physical operators only depend
+upon occupied states, one is usually interested in the case        This last follows from Eq. (6) after an integration by
+of occupied bands in insulators.                                   parts.
+
+
+                      B. Definitions                                C. Arbitrariness in definition of Wannier functions
+
+  We denote by wn (r − R) or |Rni the Wannier function                As is well known, Wannier functions are not unique.
+in cell R associated with band n, given in terms of the            For a single isolated band, the freedom in choice of the
+Bloch functions as                                                 Wannier functions corresponds to the freedom in the
+                        Z                                          choice of the phases of the Bloch orbitals as a function of
+                    V
+          |Rni =          dk e−ik·R |ψnk i ,        (1)            wavevector k. Thus, given one set of Bloch orbitals and
+                  (2π)3                                            associated Wannier functions, another equally good set
+                                                                   is obtained from
+so that
+                          X                                                        |unk i → eiφn (k) |unk i                (9)
+               |ψnk i =       eik·R |Rni .              (2)
+                          R
+                                                                   where φn is a real function of k. Such a transforma-
+Here V is the real-space primitive cell volume. It is easily       tion preserves the Wannier center r̄n modulo a lattice
+shown that the Wannier functions form an orthonormal               vector,3,14,15 but of course it does not preserve the spread
+set. As usual, the periodic part of the Bloch function is          hr2 in − r̄2n .
+defined as                                                            For a composite set of bands, the corresponding free-
+                                                                   dom is
+               unk (r) = e−ik·r ψnk (r) .               (3)                                  X
+                                                                                                    (k)
+                                                                                   |unk i →       Umn   |umk i             (10)
+As shown by Blount,3 matrix elements of the position                                         m
+operator between Wannier functions take the form
+                                                                   where Umn is a unitary matrix that mixes the bands at
+                       Z
+                   V                                               wavevector k. Eq. (9) can be regarded as a special case
+  hRn|r|0mi = i          dk eik·R hunk |∇k |umk i , (4)            of Eq. (10) that results when the U are chosen diagonal.
+                 (2π)3
+                                                                   The transformation (10) does not preserve the individ-
+the converse relation being                                        ual Wannier centers, but does preserve the sum of the
+                          X                                        Wannier centers, modulo a lattice vector.14 We shall fre-
+     hunk |∇k |umk i = −i   e−ik·R hRn|r|0mi .          (5)        quently refer to this freedom as a “gauge freedom” and
+                              R                                    the transformation (10) as a “gauge transformation.”
+                                                                      Our goal is to pick out, from among the many arbi-
+In equations like these the ∇k is understood to act to the         trary choices of Wannier functions, the particular set that
+right, i.e., only on the ket. The consistency of these two
+                                                                   is maximally localized according to some criterion. Our
+equations is easily checked; the latter can be derived by          choice of criterion is introduced and justified in the fol-
+noting that
+                                                                   lowing subsection. Of course, some arbitrariness will re-
+      hunk |um,k+b i = hψnk |e−ib·r |ψm,k+b i                      main: (i) there will always be an arbitrary overall phase
+                       X                                           of each of the J Wannier functions;30 (ii) there is a free-
+                     =    e−ik·R hRn|e−ib·r |0mi ,                 dom to permute the J Wannier functions among them-
+                          R                                        selves; and (iii) there is a freedom to translate any one
+                                                                   of the J Wannier functions by a lattice vector (that is,
+and then equating first orders in b. Similarly, equating
+                                                                   to decide which Wannier functions belong to the “home”
+second orders in b leads to
+                         Z                                         unit cell labeled by R = 0). Aside from these trivial re-
+                     V                                             maining degrees of freedom, we expect to find a unique
+  hRn|r2 |0mi = −           dk eik·R hunk |∇2k |umk i . (6)
+                   (2π)3                                           set of maximally localized Wannier functions.
+
+                                                               3
+                                                                                     X
+  III. SPREAD FUNCTIONAL IN REAL SPACE                                        ΩI =        h0n|rα Qrα |0ni
+                                                                                     nα
+                                                                                     X
+  As a measure of the total delocalization or spread of                         =         trc [P rα Qrα ]
+the Wannier functions, we introduce the functional                                   α
+                   X                                                          = kP xQk2c + kP yQk2c + kP zQk2c .           (16)
+              Ω=        hr2 in − r̄n2              (11)
+                           n                                          Here trc indicates the trace per unit cell, and kAk2c =
+                                                                      trc [A† A]. The last form makes it obvious that Ω I is
+(recall r̄n = hrin ). Eq. (11) is to be minimized with
+                                               (k)                    positive definite. Operators of the form P rQ have been
+respect to the unitary transformations Umn . A func-                  discussed extensively by Nenciu;33 unlike r itself, P rQ
+tional of this form has previously appeared as one possi-             commutes with lattice translations, and its expectation
+ble definition23 of the “localized molecular orbitals”20–25           value is well defined in any (normalizable) extended state.
+discussed in the chemistry literature. Other localization             Thus, it follows that Ω I is gauge-invariant (i.e., invari-
+criteria, such as maximizing the sum of Coulomb self-                 ant with respect to the choice of Wannier functions, or
+energies of the orbitals22 or the the product of the sepa-            equivalently to the choice of the unitary mixing matrices
+rations of the centroids21 have also been suggested. We                 (k)
+                                                                      Umn ). This will become even clearer in Sec. IV, where Ω I
+focus on the Wannier function obtained by minimizing                  is expressed in a finite-difference k-space representation.
+Eq. (11) for the following reasons. (i) The Wannier func-                It was stated earlier that in 1D the set of Wannier
+tions so determined correspond precisely to those con-                functions that minimizes the spread functional, Eq. (11),
+sidered by previous authors for the isolated-band case in             turns out to be identical to the set of eigenfunctions of
+1D2,3,31 and 3D.3 (ii) In the 1D multiband case, the opti-            the projected position operator P xP . This can now be
+mally localized Wannier functions defined by minimizing               seen as follows. Choose the Wannier functions |0mi to be
+Eq. (11) turn out to be identical to the eigenfunctions               eigenfunctions of P xP with associated eigenvalues x̄0m .
+of the projected position operator P xP ,31,32 as will be             Then
+demonstrated shortly. (Here P is the projection opera-
+tor onto the group of bands under consideration,                         hRn|x|0mi = hRn|P xP |0mi = x̄0m δR,0 δm,n .        (17)
+             X                 X
+        P =      |RnihRn| =        |ψnk ihψnk | ,      (12)           Clearly Ω e vanishes, and since ΩI is gauge-invariant, this
+             Rn                 nk                                    minimizes Eq. (13). Thus in 1D the solution is essentially
+and Q = 1 − P is the projection operator onto all other               trivial, even in the multi-band case, and Ωmin = Ω I at
+bands.) (iii) It is one of the functionals proposed in the            the solution.
+chemistry literature.23 (iv) It leads to a particularly ele-             From this point of view, it can now be understood that
+gant formalism, allowing, for example, the decomposition              the essential difficulty in the 3D case is that the opera-
+into invariant, diagonal, and off-diagonal contributions as           tors P xP , P yP , and P zP do not commute (or, in the
+described below.                                                      language of Appendix A, that matrices X, Y , and Z do
+  We find it convenient to decompose the functional (11)              not commute.) For if they did, one could choose the
+into two terms,                                                       Wannier functions to be simultaneous eigenfunctions of
+                                                                      all three, and one could again make Ω     e vanish. But this
+                                e ,
+                       Ω = ΩI + Ω                          (13)       is not generally the case, and the problem is to find a
+                                                                      set of Wannier functions that makes the best possible
+where                                                                 compromise in the attempt to diagonalize all three si-
+                   "                                   #              multaneously. Indeed, it appears very natural that the
+               X               X                   2                  criterion should be simply to reduce, as far as possible,
+                       2
+        ΩI =        hr in −         hRm|r|0ni              (14)       the mean-square average of all off-diagonal matrix ele-
+               n               Rm
+                                                                      ments of x, y, and z between Wannier functions; this is
+and                                                                   precisely the criterion encoded into Ω.   e A procedure for
+                                                                      carrying out this minimization directly in real space is
+                   X X                     2
+           e=
+           Ω                   hRm|r|0ni       .           (15)       sketched in Appendix A. However, for crystalline solids
+                   n Rm6=0n
+                                                                      with periodic boundary conditions, it is more straight-
+                                                                      forward to work in k-space as discussed in the following
+Clearly the second term is positive definite. While it is             section.
+not immediately obvious, the first term is also positive                                                                         e
+                                                                         Finally, for later reference, it is useful to decompose Ω
+definite, and moreover it is gauge-invariant (i.e., inde-             into band-off-diagonal and band-diagonal pieces,
+pendent of the choice of unitary transformations among
+the bands). To see this, we use the definitions of P and                                   e = ΩOD + ΩD ,
+                                                                                           Ω                                 (18)
+Q in terms of the Wannier functions to write
+                                                                      where
+
+
+                                                                  4
+                      XX                          2                                         (k,b)
+            ΩOD =                 hRm|r|0ni               .   (19)                         Mmn    = humk |un,k+b i              (25)
+                      m6=n R
+                                                                         and, for a given n, k, and b̂, let
+and
+                                                                                   (k,b)            1
+                     XX                       2                                   Mnn    = 1 + ixb + yb2 + O(b3 ) .             (26)
+             ΩD =                 hRn|r|0ni           .       (20)                                  2
+                         n R6=0
+                                                                         By expanding hun,k+b |un,k+b i = 1 order by order in b,
+                                                                         it is easy to check that x and y are real. Then, referring
+                                                                         to Eqs. (22) and (23), we have
+      IV. SPREAD FUNCTIONAL IN K-SPACE                                                 (k,b)
+                                                                                      Mnn    − 1 = ixb + O(b2 ) ,               (27)
+                   A. Transition to k-space
+                                                                                            (k,b)
+                                                                                  2 − 2 Re Mnn    = −yb2 + O(b3 ) .             (28)
+                                         e etc. in terms
+   We now derive expressions for Ω, ΩI , Ω,
+of a discretized k-space mesh. We begin by substituting                  It is also easy to check that
+expressions (7) and (8) into Eq. (11), and making use of
+                                                                                                   (k,b)
+                     Z                                                              ixb = i Im ln Mnn    + O(b2 ) ,             (29)
+                 V             1 X
+                   3
+                       dk →            ,             (21)
+               (2π)            N
+                                        k
+                                                                                − yb2 = 1 − |Mnn
+                                                                                              (k,b) 2
+                                                                                                   | + x2 b2 + O(b3 ) .         (30)
+where N is the number of real-space cells in the system,
+or equivalently, the number of k-points in the Brillouin                 Thus, in place of Eq. (22) we write
+zone. Using the finite-difference expressions for ∇k and                                     1 X             (k,b)
+∇2k introduced in Appendix B, we have                                             r̄n = −        wb b Im ln Mnn    ,            (31)
+                                                                                             N
+                                                                                                k,b
+                 i X
+         r̄n =       wb b [hunk |un,k+b i − 1]                (22)
+                 N                                                       and, in place of Eq. (23),
+                    k,b
+                                                                                           h                i h           i2 
+and                                                                               1 X
+                                                                         hr2 in =       wb           (k,b) 2
+                                                                                               1 − |Mnn              (k,b)
+                                                                                                          | + Im ln Mnn         .
+                                                                                  N
+                 1 X                                                                 k,b
+      hr2 in =       wb [2 − 2 Re hunk |un,k+b i] .           (23)
+                 N                                                                                                              (32)
+                   k,b
+
+Here b are vectors connecting each k-point to its near                   When inserted in Eq. (11), this gives our operational def-
+neighbors and wb are associated weights (see Appendix                    inition of the spread functional Ω.
+B).                                                                         It is easy to check that Eqs. (31)-(32) obey conditions
+   Clearly, these expressions reduce to Eqs. (7) and (8)                 (24) exactly, while still reducing to Eqs. (7) and (8) in
+in the limit of dense mesh spacing (N → ∞, b → 0).                       the continuum limit. The expression for the Wannier cen-
+However, we should like to insist on a second desir-                     ter, Eq. (31), is strongly reminiscent of the Berry-phase
+able property as well: namely, that for a given k-mesh,                  expression of Refs. 14 and 15, and reduces to it for an
+r̄n and hr2 in should transform as expected when the                     isolated band in 1D. [It is also exactly invariant, modulo
+definition of |0ni is shifted by a lattice vector. (This                 a lattice vector, under any change of phases of the form
+corresponds to changing the choice of which Wannier                      of Eq. (9), provided that the phases still vary smoothly
+functions belong to the “home” unit cell.) That is,                      enough with k to prevent ambiguity in the choice of
+                                                                                                         (k,b)
+when |unk i → |unk ie−ik·R , so that hunk |un,k+b i →                    branch when evaluating ln Mnn . Of course, it is not
+hunk |un,k+b ie−ib·R , we should find                                    invariant under an arbitrary gauge transformation, Eq.
+                                                                         (10)].
+              r̄n → r̄n + R ,                                               Note that expression (32) for hr2 in is not unique, even
+           hr in → hr2 in + 2r̄n · R + R2 ,
+             2
+                                                              (24)       when insisting on the invariance condition (24). For ex-
+                                                                         ample, replacing
+so that Ω will be unchanged. Expressions (22) and (23)
+                                                                                        (k,b) 2            (k,b)
+do not obey these requirements, but can be modified to                            1 − |Mnn   | → −2 Re ln Mnn                   (33)
+do so. As long as the modifications leave the summands
+unchanged to order b and b2 in Eqs. (22) and (23) re-                    results in an equally valid finite-difference formula for Ω.
+spectively, they will still reduce to Eqs. (7) and (8) in                However, use of the form (32) facilitates a connection
+the continuum limit.                                                     with the decomposition of Ω = ΩI + ΩOD + ΩD into in-
+  Let                                                                    variant, off-diagonal, and diagonal components as in Eqs.
+
+
+                                                                     5
+                                                                                                                (k)
+(13) and (18). Following the lines of the formalism above,                We seek an expression for dΩ/dWmn . We use the con-
+one finds that Eq. (14) becomes                                           vention
+                                                !                                            
+                1 X             X                                                          dF          dF
+          ΩI =        wb J −            (k,b) 2
+                                    |Mmn |                                                          =                    (39)
+               N                                                                          dW nm       dWmn
+                         k,b    mn
+                     1 X                                                  (note the reversal of indices), so that
+               =               wb tr [P (k) Q(k+b) ] ,         (34)
+                     N
+                         k,b                                                                d tr [dW B]
+                                                                                                        =B ,                    (40)
+         (k)
+                     P                       (k)         (k)                                     dW
+where P    = n |unk ihunk |, Q       = 1 − P , and the
+band indices m, n run over 1, ..., J. Similarly, Eqs. (19)
+and (20) become                                                                          d Re tr [dW B]
+                                                                                                        = A[B] ,                (41)
+                                                                                               dW
+                 1 X    X
+                            (k,b) 2
+           ΩOD =     wb   |Mmn   |                             (35)
+                 N
+                               k,b    m6=n                                               d Im tr [dW B]
+                                                                                                        = S[B] ,                (42)
+and                                                                                            dW
+
+         1 X X          (k,b)
+                                         2                               where A and S are the superoperators A[B] = (B−B † )/2
+  ΩD =      wb   −Im ln Mnn    − b · r̄n    . (36)                        and S[B] = (B + B † )/2i. As we shall see shortly, it is
+         N     n
+               k,b                                                        possible to cast dΩ into the form of the numerators of
+                                                                          Eqs. (41) and (42).
+From these expressions, it is again evident that ΩI , ΩOD ,
+                                                                            For the present purpose it is convenient to write Ω =
+and ΩD are all positive definite.
+                                                                          ΩI,OD + ΩD , where ΩD is the diagonal part given by Eq.
+   Eq. (34) also now shows clearly that ΩI is gauge-
+                                                                          (36), and the invariant and off-diagonal parts are com-
+invariant [i.e., independent of the choice of the Wan-
+                                                                          bined into
+nier functions, Eq. (10)]. Heuristically, ΩI represents
+the degree of dispersion of the band projection opera-                          ΩI,OD = ΩI + ΩOD
+tor P (k) through the Brillouin zone. That is, ΩI is small                                       Xh               i
+                                                                                        1 X
+insofar as P (k) is nearly independent of k. (Note that                               =       wb          (k,b) 2
+                                                                                                    1 − |Mnn   |    .           (43)
+tr[P1 Q2 ] = kP1 − P2 k2 /2 represents the “spillage,” or de-                           N        n
+                                                                                            k,b
+gree of mismatch, between the spaces 1 and 2.) Since ΩI
+is invariant with respect to gauge transformations (10), it               From Eq. (38) it follows that
+can be evaluated once and for all in the initial gauge (i.e.,
+                                                                             (k,b)
+using the initial unk ) before performing the minimization                 dMnn    = −[dW (k) M (k,b) ]nn + [M (k,b) dW (k+b) ]nn .
+procedure outlined below.
+                                                                                                                                (44)
+   It is amusing to note, following the ideas of Refs. 34–36,
+that one can define a “quantum distance”     ′
+                                                between two               Using M (k,b) = [M (k+b,−b) ]† and dW = −dW † , the
+wavevectors k and k′ as dl2 = tr[P (k) Q(k ) ], thus induc-               second term in Eq. (44) can be transformed to become
+ing a metric upon the k-space. The invariant part of the                  −[dW (k+b) M (k+b,−b)]∗nn . Defining
+spread functional, ΩI , turns out to be nothing other than
+the Brillouin-zone average of the trace of this metric. We                                (k,b)
+                                                                                         Rmn       (k,b)
+                                                                                                = Mmn     (k,b)∗
+                                                                                                         Mnn     ,              (45)
+discuss the properties of this metric, and speculate about
+its utility, in Appendix C.                                               we thus find
+                                                                                            4 X
+                                                                                 dΩI,OD =       wb Re tr [dW (k) Rmn
+                                                                                                                  (k,b)
+                                                                                                                        ] .     (46)
+           B. Gradient of spread functional                                                 N
+                                                                                                k,b
+
+
+  We now consider the first-order change of the spread                    Similarly, defining
+functional Ω arising from an infinitesimal gauge transfor-
+mation, Eq. (10), given by                                                            qn(k,b) = Im ln Mnn
+                                                                                                       (k,b)
+                                                                                                             + b · r̄n          (47)
+
+                      (k)
+                     Umn            (k)
+                          = δmn + dWmn  ,                      (37)       and
+                                                                                                        (k,b)
+where dW is an infinitesimal antiunitary matrix, dW † =                                     e (k,b) = Mmn ,
+                                                                                            R                                   (48)
+                                                                                              mn       (k,b)
+−dW , so that                                                                                         Mnn
+                          X
+                                 (k)                                      Eq. (36) gives for the diagonal part
+       |unk i → |unk i +     dWmn    |umk i .      (38)
+                                     m
+
+
+                                                                      6
+           2 X X (k,b)             e(k,b)                                  A good starting guess that will make ΩOD rather small
+  dΩD =       wb   qn  Im [−dW (k) R
+           N     n                                                      (and keep ΩD = 0) can be constructed as follows. We first
+             k,b
+                                                                        establish a notion of “parallel transport” of the Bloch
+                                     e(k+b,−b)]nn .
+                           +dW (k+b) R                       (49)       functions. Starting with some arbitrary choice (from
+              (k+b,−b)             (k,b)
+                                                                        among all possible J × J unitary rotations) of the |unk0 i
+Substituting qn        = −qn               , the two terms can be       at an initial k-point k0 , we choose the |un,k0 +b i at the
+combined, resulting in                                                                                             (k ,+b)
+                                                                        next point k0 + b by insisting that Mmn0           should be
+                  4 X                                                   hermitian. [This choice is uniquely given by the singu-
+        dΩD = −       wb Im tr [dW (k) T (k,b) ] ,           (50)       lar value decomposition M = V ΣW † , where V and W
+                  N
+                     k,b                                                are unitary and Σ is a diagonal matrix with nonnega-
+                                                                        tive diagonal elements. Then M = (V ΣV † )(V W † ); and
+where                                                                   by appropriate unitary rotation, the V W † term can be
+                (k,b)  e (k,b) q (k,b) .                                eliminated, leaving M hermitian.] This procedure is re-
+               Tmn    =R mn     n                            (51)
+                                                                        peated, progressing from k-point to k-point [and using
+We thus arrive at the desired expression for the gradient               un,−π/a (x) = un,π/a (x) e2πix/a when crossing the Bril-
+of the spread functional,                                               louin zone boundary] until the loop is completed, estab-
+                                                                        lishing a new set of states at k0 that are related to the
+            dΩ       X                                                initial ones by a unitary transformation Λ. (This matrix
+  G(k) =      (k)
+                  =4  wb A[R(k,b) ] − S[T (k,b)] .                      Λ is the generalization of the Berry phase37 to a non-
+           dW
+                           b                                            Abelian multi-dimensional manifold.19,38–40 ) Next, one
+                                                             (52)       diagonalizes Λ = V λV † , and rotates the bands at every
+                                                                        k-point by the same unitary matrix V . Having done this,
+We note, for completeness, that making the replacement                  one finds that each state |unk0 i is carried onto itself by
+(33) has just the effect of replacing R by R e in the first             parallel transport around the loop, except that it returns
+                                                                                                                                 −1/N
+term above.                                                             with an excess phase λn . Finally, defining γn = λn
+   The condition for having found a minimum is that the                                                               j
+                                                                        and modifying the phases as |unkj i → γn |unkj i, we ar-
+above expression should vanish. We discuss the numer-                   rive at the desired solution (parallel-transport gauge).
+ical minimization of the spread functional by steepest                     At this solution, each Mmn
+                                                                                                      (k,+b)      (k)
+                                                                                                             = Kmn γn with K her-
+descents, using this gradient expression, in Sec. IV D.                                                       (k,+b)
+                                                                        mitian. It follows that the Im ln Mnn        are independent
+                                                                        of k, the Wannier centers x̄n are determined by the λn ,
+                                                                        and thus ΩD of Eq. (36) vanishes. From Eq. (35) it can
+                      C. Special cases
+                                                                        be seen that ΩOD does not generally vanish. However,
+                                                                                                                  (k)
+                                                                        ΩOD depends only on the matrices Kmn , and these can
+                      1. One dimension                                                                                      (k,+b)
+                                                                        be shown to scale as δmn + O(b2 ), so that |Mmn |2 is
+                                                                        expected to scale as O(b4 ), and ΩOD as O(b2 ).
+   As mentioned in Sec. III, in 1D it should be possible
+                                                                           If a minimization of Ω is then carried out starting from
+to choose the Wannier functions to be eigenfunctions of
+                                                                        this parallel-transport solution, one expects ΩD to remain
+the band-projected position operator P xP , and thus to
+                                                                        zero and ΩOD to be reduced slightly, the reduction again
+make Ω e = ΩOD +ΩD vanish. Unfortunately, on a finite k-
+                                                                        being expected to be O(b2 ). The Wannier centers will
+mesh Ω e cannot generally be made to vanish completely.
+                                                                        also presumably shift slightly.
+At the minimum, ΩD does vanish, but ΩOD does not,                          If one is mainly interested in the Wannier centers in
+leaving a remainder that is expected to approach zero as                the 1D case, it may be preferable to take these from
+O(b2 ) with mesh spacing b.                                             the parallel-transport solution (i.e., from the λn ), rather
+   First, note that starting from any given gauge, it is                than from the x̄n at the minimum. The former ap-
+straightforward to adjust the phases of the |unkj i in or-              proach corresponds more closely with the Berry-phase
+der to make ΩD = 0 without affecting ΩOD whatsoever.
+                                          QN −1 (k ,+b)                 viewpoint,14–16,19 and indeed the sum of the Wannier
+For each n, let λn = sn /|sn | where sn = j=0 Mnnj                      centers so defined corresponds to the usual formula for
+(thus λn is the “Berry phase” of band n); then, start-                  the electronic polarization.14,15 (Actually, for this pur-
+ing from the first point j = 0, recursively set the phase               pose, the full parallel-transport construction need not be
+                          (k ,+b)    1/N                                carried out. Λ may be calculated as the product of the
+of |un,kj +b i such that Mnnj     = λn , for successive k-
+                               (k ,+b)                                  unitary parts of the M matrices in any given representa-
+points j. Then all the Mnnj    will have the same phase
+                                                                        tion, and the λn obtained as its eigenvalues. By “unitary
+and ΩD will vanish. This operation has no effect whatso-                part” we mean the V W † taken from the singular value
+                                              (k,+b)
+ever on the magnitudes of the elements of Mmn , and                     decomposition M = V ΣW † .) On the other hand, the
+so, by Eq. (35), it leaves ΩOD unchanged. This argu-                    parallel-transport formulation does not easily generalize
+ment demonstrates that ΩD = 0 and thus Ω    e = ΩOD at                  to higher dimensions. Thus, the approach of minimizing
+the minimum.
+
+                                                                    7
+the Ω functional appears to be the most natural one in             ish for an isolated band in a crystal with inversion sym-
+higher dimensions, and it gives results that differ only           metry (see Sec. IV C 3); in this case the solution for A(k)
+very slightly from the parallel-transport solution for rea-        is a perfectly uniform one, and ΩD vanishes at the solu-
+sonable meshes in 1D.                                              tion. In a non-centrosymmetric crystal, however, this is
+                                                                   not the case, since a non-zero Berry curvature is generally
+                                                                   present. This provides a complementary viewpoint, for
+          2. Isolated band in multiple dimensions                  the single-band case, on the fact that the non-invariant
+                                                                   part Ωe of the spread functional cannot generally be made
+   For the case of an isolated band in multiple dimensions,        to vanish.
+the problem of finding the optimally localized Wannier
+function maps onto the problem of solving the Laplace
+equation for a phase field,3,41 as described next. ΩOD is                            3. Inversion symmetry
+not present, and the problem reduces to minimizing ΩD ,
+so that only the second term in Eq. (52) appears. Clearly             When inversion symmetry V (r) = V (−r) is present,
+Re is identically one and T (k,b) = q (k,b) is real, so that       the cell-periodic Bloch functions can be chosen to be
+Eq. (52) becomes                                                   real
+                                                                   P in the reciprocal representation; that is, unk (r) =
+                       X                                              G unk (G) exp(iG · r) with unk (G) real.       It might
+            G(k) = 4i      wb Im ln M (k,b) .           (53)                                        (k,b)
+                                                                   naively appear that all the Mmn matrices could then
+                      b                                            be chosen real, and that the solution of the minimiza-
+At the solution, this expression must vanish. Starting             tion problem might be trivial in some sense. This is not
+from some initial guess on the phases of the |uk i and             quite true. Even for an isolated band, there is the com-
+making the substitution of Eq. (9), it can be seen that            plication that the Berry phase of the band may be −1
+Eq. (53) corresponds to a solution of the Laplace equation         instead of +1; in this case the unk (G) can be chosen real
+for the phase field φ(k). This corresponds closely to the          locally (i.e., in a small neighborhood around any given
+discussion in the vicinity                                         k), but not globally. But this really only means that
+                        P of Eq. (5.15) of Ref. 3.                 the corresponding Wannier function has definite symme-
+   The quantity − b wb b Im ln M (k,b) is a finite-
+difference representation of the vector field A(k) =               try under inversion through a symmetry center (“Wyck-
+ihuk |∇k |uk i; in the language of the theory of geometrical       off position”) other than the one at the origin, and the
+phases, A(k) is known as the “gauge potential” or “Berry           Berry phase can be reset to +1 by a shift of origin. For
+connection.”19,37,39 The average value of A(k) is gauge-           the case of composite bands, however, the problem is to
+invariant (modulo a quantum) and is set by the Berry               choose a particular gauge transformation [Eq. (10)], not
+phase,14–16 but A(k) is locally gauge-dependent. The               just a phase transformation [Eq. (9)], and for this the
+minimization of Ω via the solution of the Laplace equa-            presence of inversion symmetry does not provide any ob-
+tion selects the gauge that makes ∇ · A vanish, but its            vious solution.
+curl, B = ∇ × A, is generally non-zero. In fact, B, which             For example, consider the case of the four valence
+is known as the “Berry curvature,” is a gauge-invariant            bands of Si. (Numerical results for this case appear in
+quantity; it can be regarded as an intrinsic property of           Sec. VI A.) Taking the origin at the center of the bond
+the band.19,40                                                     oriented along [111], it turns out to be possible to choose
+   Since A(k) is periodic in k-space, one can alternatively        one of the Wannier functions to have inversion symme-
+think in terms of the Fourier coefficients A(R). These             try about the origin, while the other three have inversion
+can be divided into three contributions: the uniform part,         symmetry about other Wyckoff positions (those corre-
+A(R = 0); and, for R 6= 0, the longitudinal and trans-             sponding to the other three bond centers), and the re-
+verse parts AL (R) and AT (R), i.e., the components of             maining Wyckoff positions (tetrahedral and octahedral
+                                                                   interstitial positions) are unoccupied.4 This would have
+A(R) parallel and perpendicular to R̂, respectively. The
+                                                                   been hard to guess based on symmetry alone (although
+uniform part gives the Wannier center; the longitudinal
+                                                                   it is natural from a chemical point of view). Because
+part is the part that can be made to vanish by appro-
+                                                                   each Wannier function does have its own inversion sym-
+priate choice of gauge; and the transverse part is gauge-
+                                                                   metry, it turns out that ΩD does vanish for Si. However,
+invariant (it is related to the Berry curvature) and deter-
+                                                                   ΩOD 6= 0. The contribution to ΩOD from a given pair
+mines the minimum value of ΩD . In fact, the individual
+                                                                   {mn} of Wannier functions is related to the matrix ele-
+Fourier components A(R) can be related to the matrix
+                                                                   ments hRm|r|0ni. These matrix elements can be shown
+elements hR|r|0i of Eq. (15); it thus follows that at the
+                                                                   to vanish if, in addition to obeying inversion symmetry
+solution, the latter are purely transverse, A(R) · R = 0.
+                                                                   individually, the two Wannier functions are translational
+Unfortunately, the picture does not appear to remain so
+                                                                   images of one another; but this is certainly not gener-
+simple in the multiband case, as discussed in Appendix
+                                                                   ally the case. (In the language of Appendix C, the fact
+C.
+                                                                   that ΩOD 6= 0 for Si is related to the fact that the Berry
+   The Berry curvature, or equivalently, the transverse
+                                                                   curvature tensor does not vanish for this system.)
+part of the Berry connection, can easily be shown to van-
+
+                                                               8
+  Finally, in some cases it might be possible to choose all                    D. Steepest-descent minimization
+the Wannier functions to have definite symmetry under
+inversion, but the solution that minimizes Ω may spon-                                          1. Algorithm
+taneously break the inversion symmetry. Some cases of
+this sort are discussed in Secs. VI C and VI D below.                   In order to minimize the spread functional Ω by steep-
+                                                                     est descents, we make small updates to the unitary ma-
+                                                                     trices, as in Eq. (37), choosing
+     4. Molecular supercells and single k-point sampling
+                                                                                          dW (k) = ǫ G(k)                  (55)
+   In the context of plane-wave pseudopotential and
+related approaches, it is common to study molecules                  where ǫ is a positive infinitesimal. We then have, to first
+or clusters in an artificial periodic superlattice                   order in ǫ,
+arrangement.42 In such a case, a single k-point (usually                                  X
+k0 = Γ) sampling of the Brillouin zone suffices for con-                           dΩ =        tr [G(k) dW (k) ]
+ventional quantities such as energies, forces, and charge                                   k
+densities, since the errors in these quantities will be expo-                                   X
+                                                                                       = −ǫ          kG(k) k2 ,            (56)
+nentially small as long as the overlap between wavefunc-
+                                                                                                 k
+tions in neighboring supercells is negligible. However,
+under the same conditions, the calculation of Ω using our                              P
+                                                                     where kAk2 =                 2
+                                                                                         mn |Amn | and we have made use of
+approach introduces small errors that nevertheless scale              †
+                                                                     G = −G. Thus, use of Eq. (55) is guaranteed to make
+only as L−2 , where L is the supercell dimension (see,               dΩ < 0, i.e., to reduce Ω.
+e.g., Sec. VI C). The problem essentially arises from the              In practice,
+use of the simplest finite-difference representation of ∇k ,                     P we take a fixed finite step with ǫ = α/4w,
+                                                                     where w = b wb , so that
+involving only nearest-neighbor k-points (see Appendix
+                                                                                    αX                             
+B). If higher accuracy is need, this problem can be over-
+                                                                        ∆W (k) =          wb A[R(k,b) ] − S[T (k,b)] . (57)
+come in either of two ways: (i) by using the solution at                            w
+                                                                                      b
+k0 to construct solutions on a denser mesh of k-points,
+uk (r) = uk0 (r) exp[i(k0 − k) · r], being sure to take the          The wavefunctions are then updated according to the
+discontinuity of (k0 − k) · r near the supercell boundary            matrix exp[∆W (k) ], which is unitary because ∆W is an-
+where uk0 (r) is negligible; or (ii), construct periodic func-       tihermitian. The choice of prefactor above is designed
+tions x e(r), ye(r), ze(r) such that xe = x, ye = y, ze = z in       so that in the single-band case, and for simple k-meshes
+the molecular region, with (possibly smoothed) disconti-             (e.g., simple cubic), the “highest-frequency mode” asso-
+nuities at the supercell boundaries, and then apply the              ciated with phase rotations is just marginally stable with
+theory of Appendix A to the matrices X, Y , Z computed               the choice α = 1. That is, if one starts with the true so-
+as Xmn = humk0 |e     x|unk0 i, etc. Approach (i) is a “quick        lution and rotates the phases of the wavefunctions on all
+fix” requiring very little reprogramming, while approach             k-points simultaneously by an angle ±γ, with the oppo-
+(ii) is preferable in principle.                                     site sense of rotation on nearest-neighbor k-points, then
+   It is also common practice to use single k-point sam-             from Eq. (47) ∆q (k,b) = ±2γ on every link, and the above
+pling for supercell calculations on extended systems, pro-           choice of ∆W exactly returns the system to the solution
+vided that the supercell is sufficiently large in all three          if α = 1/2, and is marginally unstable at α = 1. We
+dimensions. In such cases, our procedure can again be ap-            find that α = 1 is still a safe choice for all the systems
+plied, but it should be kept in mind that the convergence            studied; more efficient strategies, if needed, can also be
+of Ω with supercell size should be expected to be slower             implemented straightforwardly, using, e.g., a conjugate-
+than the convergence of total energies and forces. More-             gradient approach in composing subsequent descent di-
+over, the electronic polarization that would be computed             rections, and by choosing at each step the optimal α for
+from the sum of our Wannier centers is not guaranteed to             the line minimization.
+be exactly identical to the one that would be computed                  It should be noted that the evolution towards the min-
+from the Berry-phase formula14,43                                    imum requires only the relatively inexpensive updating
+                                                                     of the unitary matrices, and not of the wavefunctions, as
+              −2e                                                                                                           (0)
+  Pel · G =       Im ln det h umk0 | e−iG·r | unk0 i . (54)          follows. We choose a reference set of Bloch orbitals |unk i
+               V
+                                                                     and compute once and for all the inner-product matrices
+used in recent molecular-dynamics simulations of infrared
+                                                                                  (0)(k,b)           (0)   (0)
+absorption spectra.43 However, the two should be very                            Mmn       = humk |un,k+b i .              (58)
+close, and should become identical in the limit of large
+supercell size.                                                      We then represent the |unk i (and thus, indirectly, the
+                                                                                                          (0)
+                                                                     Wannier functions) in terms of the |unk i and a set of
+                                                                                       (k)
+                                                                     unitary matrices Umn ,
+
+                                                                 9
+                          X             (0)                                                         (0)
+                                  (k)
+              |unk i =           Umn  |umk i .        (59)         random phase rotation to each unk individually, or a ran-
+                             m                                                                                    (0)
+                                                                   dom J × J unitary rotation to the set of unk at each
+                             (k)                                   k. With such starting guesses, we find that while the
+We begin with all the Umn initialized to δmn . Then, each          steepest-descent procedure sometimes does lead to the
+step of the steepest-descent procedure involves calculat-          desired global minimum, it often can get stuck in local
+ing ∆W from Eq. (57), updating the unitary matrices                minima. That is, we find that the spread functional Ω,
+according to                                                                                               (k)
+                                                                   viewed as a function of the set of Umn , does typically
+            U (k) → U (k) exp[∆W (K) ] ,              (60)         have false local minima that must be avoided.
+                                                                      We find that this problem is not associated with the
+and then computing a new set of M matrices according               presence of a large number of bands, and in particular it
+to                                                                 never arose in the case of Γ-only sampling in orthorhom-
+                                                                   bic supercells (say, even for a disordered 64-atom cell
+         M (k,b) = U (k)† M (0)(k,b) U (k+b) .        (61)         of Si). Instead, it tends to be associated with finer k-
+                                                                   point meshes, regardless of whether one is treating sin-
+The cycle is then repeated until convergence is obtained.
+                                                                   gle or multiple bands. In the case of multiple bands,
+Note that the exponential in Eq. (60) is a matrix oper-
+                                                                   some Wannier functions at the local minimum have an
+ation, which we perform by transforming to a diagonal
+                                                                   almost normal behavior, with reasonable spread, while
+representation of ∆W and back again.
+                                                                   other functions are abnormal, with spreads an order of
+   Typically, we prepare a set of reference Bloch orbitals
+  (0)                                                              magnitude larger than expected. Moreover, we found all
+|unk i by projecting from a set of initial trial orbitals          the false minima to be characterized by Wannier func-
+gn (r) corresponding to some rough initial guess at the            tions that are genuinely complex (for the true global min-
+Wannier functions. For example, for these gn (r) we have           imum we always found the Wannier functions to be real,
+used Gaussian functions centered at or near mid-bond               apart from a trivial overall phase). The Wannier func-
+positions. The initialization procedure involves first pro-        tions associated with false local minima usually display
+jecting onto Bloch states of the set of bands at wavevector        erratic and unphysical oscillations.
+k,                                                                    The problem appears to lie in the possibility of mak-
+                      X                                            ing inconsistent choices in the branch cuts when evalu-
+             |φnk i =    |ψmk ihψmk |gn i .            (62)        ating the logarithms of complex argument in (47). In a
+                        m
+                                                                   naive implementation, the branch cuts are simply cho-
+                                                                                    (k,b)
+Since these are not orthonormal, we then perform a sym-            sen so that |qn | ≤ π. At a good global minimum,
+metric orthonormalization to form a set of                                       (k,b)
+                                                                   all of the |qn | ≪ π, while at a false local minimum
+                       X                                                           (k,b)
+             |φenk i =  (S −1/2 )mn |φmk i          (63)           some of the |qn | approach π. We find that the system
+                         m
+                                                                   can be excited out of these local minima by an itera-
+                                                                   tive process of switching the branch cut by 2π for the
+(where Smn = hφmk |φnk i), and finally convert to cell-            few qn ’s with the largest magnitudes, followed by further
+periodic functions via                                             steepest-descent minimization, and that such a process
+                (0)
+                                                                   almost always leads fairly quickly into the basin of at-
+              unk (r) = e−ik·r φenk (r) .             (64)         traction of the global minimum.
+                                                                      Moreover, we have never observed the system to be-
+(In practice, the above steps are combined.) This pro-             come trapped in a false local minimum when starting
+cedure is similar in principle to the one introduced by            from reasonable trial projection functions, Eqs. (62-64).
+Satpathy and Pawlowska,44 although it differs in that we           If physically motivated trial functions are not available,
+do the orthonormalization in k-space. We then use this             we find that another effective heuristic approach is to
+set of reference Bloch orbitals as a starting point for the        use as trial projection functions Gaussians that are either
+steepest-descent procedure. In practice, we find that this         centered at random locations, or on arbitrary meshes in
+starting guess is usually quite good, as will be shown for         the unit cell.
+the cases of Si and GaAs in Sec. VI.                                  In summary, while false local minima can occur in our
+                                                                   minimization scheme, they do not seem to pose a problem
+                                                                   in practice.
+                      2. False local minima
+
+   We have also carried out tests in which we initialize            V. PROPERTIES OF OPTIMALLY-LOCALIZED
+the steepest-descent procedure with more arbitrary start-                    WANNIER FUNCTIONS
+                                                      (0)
+ing guesses. For example, we have let the starting unk
+consist of energy-ordered Hamiltonian eigenstates with
+quasi-random phases, as in the typical output of a band-
+structure code. We have also tried applying a completely
+
+                                                              10
+        A. Asymptotic localization properties                       point of view, the essential difficulty in 3D is that the
+                                                                    Wannier functions can no longer generally be chosen to
+   Following from the early work of Kohn,2 it is generally          be eigenfunctions of all three band-projected position op-
+expected that Wannier functions can be chosen to have               erators simultaneously.
+exponential localization. While it is not the purpose of               Returning to the general 3D case, we find that it is
+the present work to study questions of exponential decay            not easy to carry out numerical tests of exponential lo-
+in the tails of the Wannier functions, we nevertheless give         calization using the present method, which is based on
+a brief discussion of these issues here.                            discretization in k space. The Wannier functions that we
+   Kohn2 proved the existence of exponentially localized            obtain are thus not truly localized, being instead artifi-
+Wannier functions for the case of an isolated band in               cially periodic with a periodicity inversely proportional
+1D, for a crystal with inversion symmetry. However, the             to the mesh spacing.
+method does not easily generalize. Blount demonstrated
+the analyticity of the Bloch functions for the single-band
+case in 3D,3 and claimed (end of Sec. 5 of Ref. 3) that                  B. Conjecture: optimally localized Wannier
+this would imply the exponential localization of the Wan-                            functions are real
+nier functions (see also Ref. 41); but this claim was later
+shown to be faulty by Nenciu (footnote on first page of                It seems not to be widely appreciated that the Wannier
+Ref. 45), who pointed out the global topological aspects            functions wn (r) can always be chosen real. This depends
+of the problem. Des Cloizeaux proved the exponential lo-            only on the Hamiltonian H = p2 /2m + V (r) being her-
+calization of the band projection operator P of Eq. (12)            mitian, and not on any symmetry of the (real) potential
+for an arbitrary set of composite bands in 3D.46 Unfortu-           V (r). Indeed, from Eq. (1) it is clear that one only needs
+nately, this does not immediately imply that the Wannier            to choose
+functions are exponentially localized (although the con-
+verse would follow). In a following paper, des Cloizeaux                              unk (r) = u∗n,−k (r)                 (65)
+was able to prove the possibility of choosing exponentially
+localized Wannier functions for an isolated band (i) in 1D          to insure that the Wannier functions wn (r) are real. This
+generally, or (ii) in the centrosymmetric 3D case.47 The            condition is automatically satisfied if one starts with ini-
+summary (Sec. V) of Ref. 47 gives a good discussion of the          tial Wannier functions projected from real trial functions,
+difficulties and partial progress towards a solution of the         as discussed at the end of the previous subsection; alter-
+general composite-band problem. More recently, Nenciu               natively, it can be imposed by hand. From Eq. (25),
+                                                                                                     (k,b)     (−k,−b)∗
+completed a proof for the case of an isolated band in 3D            condition (65) implies that Mmn = Mmn               , which
+                                                                                        (k)      (−k)∗
+without centrosymmetry.45 To our knowledge, however,                in turn implies Gmn = Gmn , so that Eq. (65) con-
+the problem remains unsolved for the general case of com-           tinues to be satisfied during the steepest-descent update
+posite bands in 3D. Finally, note that some discussion of           procedure. In this way, one will eventually arrive at a
+the exponential localization of the “generalized Wannier            set of maximally localized real Wannier functions. (Sim-
+functions” defined for the cases of surfaces and defects            ilarly, working in real space, it is easy to see from Ap-
+has been given in Refs. 26,48–50.                                   pendix A that a real initial guess will result in a set of
+   It is natural to speculate that the “optimally localized”        real optimally-localized solutions.)
+Wannier functions that are obtained by minimizing the                  We conjecture that a stronger result is true: namely,
+spread functional of Eq. (11) are exponentially localized.          that the optimally localized Wannier functions are always
+Actually, one should distinguish between a “weak con-               real (apart from a trivial overall phase of each Wannier
+jecture” that the optimally localized Wannier functions             function). That is, we conjecture that the minimum that
+have exponential decay, and a “strong conjecture” that              is arrived at subject to the constraint (65) is actually the
+they have the same exponential decay as that of the band            global minimum.
+projection operator P . At the present time, we can only               We have not found a proof of this conjecture, but it is
+speculate that in 3D, the weak conjecture, at least, will           supported by our empirical experience. More precisely, in
+hold.                                                               the tests to be reported in Sec. VI, we find that whenever
+   In 1D, we are on firmer footing. As shown in Secs.               we arrive at the global minimum, the Wannier functions
+III and IV C 1, the functions that are obtained by mini-            always turn out to be real, apart from a trivial overall
+mizing Eq. (11) correspond, in principle, with those con-           phase. (However, we do find that the Wannier functions
+sidered by previous authors, and for which exponential              are typically complex at false local minima, as discussed
+localization has been demonstrated.2,3,31,32 In particular,         in Sec. IV D 2.)
+we have shown in Sec. III that these will be eigenfunc-
+tions of the band-projected position operator P xP ; Niu
+has given a simple and elegant argument, based on this                                   VI. RESULTS
+fact alone, from which one may conclude that the Wan-
+nier functions decay faster than any power.32 From this
+
+
+                                                               11
+                          A. Si                                       TABLE I. Minimized localization functional Ω in Si, and
+                                                                   its decomposition into invariant, off-diagonal, and diagonal
+                                                                   parts, for different k-point meshes (see text). Units are Å2 .
+   For Si, the four occupied valence bands have to be
+taken together as a single composite group, because of             k set              Ω             ΩI           ΩOD          ΩD
+degeneracies between the bottom two bands at X, and                1×1×1             2.024          1.999        0.025         0
+between the top three bands at Γ. Thus, we take J = 4              2×2×2             4.108          3.707        0.401         0
+and look for a set of four Wannier functions per prim-             4×4×4             6.447          5.870        0.577         0
+itive unit cell. These are expected to be centered on              6×6×6             7.611          7.048        0.563         0
+the bond centers, and to have roughly the character                8×8×8             8.192          7.671        0.520         0
+of σ-bond orbitals, i.e., even linear combinations of the
+two sp3 hybrids projecting toward the bond center from
+the two neighboring atoms.4 Wannier functions of this              tial choice of phases given by the Gaussians, and using
+type have been computed previously by a variety of                 a simple fixed-step steepest-descent procedure. Starting
+methods.44,51–54 It is tempting to imagine that the re-            with a set of randomized phases requires roughly one or-
+quirement of spanning the given set of valence bands,              der of magnitude more iterations, and adds the possibil-
+together with the symmetry requirement that each Wan-              ity that the system may get trapped for a while in some
+nier function has the expected inversion, mirror, and              local minimum. As previously pointed out, the evolu-
+three-fold rotational symmetries about its corresponding           tion does not require additional scalar products between
+bond center, might be enough to uniquely determine the             Bloch orbitals, and so it is in any case pretty fast. Be-
+Wannier functions. We emphasize that this is not the               cause of symmetry, the Wannier centers do not move dur-
+case, and we proceed to determine the particular set of            ing the minimization procedure, and the spreads of the
+Wannier functions that minimize the spread functional              four Wannier functions remain identical with each other.
+Ω.                                                                    What is perhaps most striking about Table I is that
+   Our                                         calculations        ΩI ≫ ΩOD ; and while Ω converges fairly slowly with k-
+are carried out within the local-density approximation to          point density, this poor convergence is almost entirely
+Kohn-Sham density-functional theory,55 using a standard            due to the ΩI contribution. Incidentally, since the ΩI
+plane-wave pseudopotential approach and an all-bands               contribution is gauge-invariant, it can be calculated once
+conjugate-gradient minimization.56 We have used norm-              and for all at the starting configuration, for any given k-
+conserving pseudopotentials57 in the Kleinman-Bylander             point set; the quantities that are actually minimized are
+representation, with plane-wave cutoffs ranging from 200           ΩD and ΩOD . The former vanishes at the minimum, and
+eV to 650 eV, depending on the systems studied. The                the latter is found to converge quite rapidly with k-point
+sampling of the Brillouin-zone is performed with equis-            sampling. It would be interesting to explore whether use
+paced Monkhorst-Pack grids58 that have been offset in              of a higher-order finite-difference representation of ∇k
+order to include Γ. Since the crystal is fcc in real space,        might improve this convergence, especially that of ΩI ,
+the grid is bcc in k-space, and we use the simplest possi-         but we have not investigated this possibility.
+ble finite-difference representation of ∇k using only the             In Fig. 1, we present plots showing one of these
+Z=8 nearest neighbors of each k-point (see Appendix B).            maximally-localized Wannier functions in Si, for the
+The computed Bloch functions are stored to disk, and the           8 × 8 × 8 k-point sampling. The other three are iden-
+construction of the Wannier functions is carried out as a          tical (related to the first by the tetrahedral symmetry
+separate, post-processing operation.                               operations) and are located on the other three tetrahe-
+   Table I shows the convergence of the spread functional          dral bonds. Each displays inversion symmetry about its
+and its various contributions as a function of the density         own bond center, and it is real apart from an overall com-
+of the k-point mesh used. We confirm that ΩD does van-             plex phase. Again, all these properties are not trivial, and
+ish (to machine precision) as expected from the presence           would not be satisfied by a generic choice of phases. (Our
+of inversion symmetry, as discussed in Sec. IV C 3. Since          initial guess based on Gaussians centered in the middle
+ΩI is invariant, the minimization of Ω reduces to the min-         of the bonds does insure all these properties, but without
+imization of ΩOD . For each k-point set, the minimization          optimizing the localization.)
+was initialized by starting with trial Gaussians of width             From an inspection of the contour plot it becomes
+(standard deviation) 1 Å located at the bond centers. We          readily apparent that the Wannier functions are essen-
+find that for the case of crystalline Si, these provide an         tially confined to the first unit cell, with very small (and
+excellent starting guess; for the 8 × 8 × 8 case, for ex-          decreasing) components in further-neighbor shells. The
+ample, we find an initial ΩD =0 and ΩOD =0.565, whereas            general shape corresponds to a chemically intuitive view
+at the minimum ΩOD is 0.520. Had we started with the               of sp3 hybrids overlapping along the Si-Si bond to form
+random phases provided by the ab-initio code, we would             a σ bond-orbital, with the smaller lobes of negative am-
+have obtained an initial ΩD =622.1 and ΩOD =42.3. We               plitude clearly visible in the back-bond regions. These
+find that typically 20 iterations are needed to converge to        results clearly illustrate how the Wannier functions can
+the minimum with good accuracy, starting with the ini-             provide useful intuitive understanding about the forma-
+
+
+                                                              12
+                                                                        TABLE II. Minimized localization functional Ω in GaAs,
+                                                                     and its decomposition into invariant, off-diagonal, and diag-
+                                                                     onal parts, for different k-point meshes, together with the
+                                                                     relative position β of the centers along the Ga-As bond (see
+                                                                     text). Units for the Ω’s are Å2 .
+                                                                     k set            Ω        ΩI      ΩOD        ΩD         β
+                                                                     1×1×1           2.217     2.088   0.125      0.0035    0.593
+                   (a)                                               2×2×2
+                                                                     4×4×4
+                                                                                     4.409
+                                                                                     6.785
+                                                                                               3.898
+                                                                                               6.170
+                                                                                                       0.503
+                                                                                                       0.610
+                                                                                                                  0.0078
+                                                                                                                  0.0055
+                                                                                                                            0.602
+                                                                                                                            0.613
+                                                                     6×6×6           7.982     7.386   0.590      0.0058    0.616
+                                                                     8×8×8           8.599     8.038   0.555      0.0059    0.617
+                                                                     12 × 12 × 12    9.146     8.635   0.504      0.0061    0.617
+
+            0.2
+
+                                                                     tion of chemical bonds.
+    (a0 )
+  -3/2
+
+
+
+
+            0.1
+
+                                                                                               B. GaAs
+                                     Si Si
+            0.0
+                                                                        In GaAs the lower valence band is never degenerate
+                                                                     with the other (top) three valence bands, and thus sev-
+                                                                     eral possibilities arise: (a) We can treat the four bands
+            -0.1                                                     as a group, as was done for silicon, obtaining solutions
+                             [111] Axis                              that are very similar to the Si case, except for the loss
+                                                                     of inversion symmetry about the bond centers. (b) We
+                   (b)                                               can deal separately with the bottom band and the top
+                                                                     three bands; the latter would be considered as a group,
+                                                                     while the former is a single isolated band. The solution
+                                                                     at the minimum should resemble atomic orbitals for the
+                                                                     more electronegative species (the As anion), in the form
+                                                                     of three p orbitals and one s orbital respectively. (c) Fi-
+                                                                     nally, it might be interesting to consider the case in which
+                                                                     the four bands are treated together, but using the solu-
+                                                                     tion of the Ω minimization for the 1-band and 3-band
+                                                                     cases, without proceeding further with the minimization.
+                                                                     This does not correspond to a true minimum for the 4-
+                                                                     band Ω surface, but just to a stationary (saddle) point.
+                                                                        Starting with the case in which all the four bands are
+                                                                     treated as a group, we show in Table II the convergence
+                                                                     of the spread functional and its various contributions as
+                                                                     a function of the density of the k-point sampling. In
+                                                                     analogy with the case of Si, the procedure is initialized
+                                                                     using trial Gaussians of width 1 Å, centered in the mid-
+                                                                     dle of the bonds; this is again a very good starting guess,
+                                                                     and (for the 8 × 8 × 8 mesh), gives an initial ΩD =0.1164
+  FIG. 1. Maximally-localized Wannier function in Si, for the        and ΩOD =0.593, that are reduced to 0.0059 and 0.555
+8 × 8 × 8 k-point sampling. (a) Profile along the Si-Si bond.        respectively by the minimization procedure. As it was
+(b) Contour plot in the (110) plane of the bond chains. The          the case for Si, k-point convergence is fairly slow, even
+other Wannier functions lie on the other three tetrahedral           though most of it is due to the slow convergence of the
+bonds and are related by tetrahedral symmetries to the one           invariant part. On the other hand, the general shape of
+shown.                                                               the Wannier functions at the minimum is already given
+                                                                     rather accurately with coarser samplings (although the
+                                                                     tails are then not so easy to characterize, since in prac-
+                                                                     tice the Wannier functions are periodically repeated in a
+                                                                     supercell conjugate to the k-point mesh). In particular,
+                                                                     the k-point convergence of the Wannier centers is quite
+                                                                     rapid, as is evident from the last column of Table II,
+
+
+                                                                13
+   TABLE III. Localization functional Ω and its decompo-
+sition in invariant, off-diagonal, and diagonal parts, for the
+case of GaAs (units are Å2 ). The bottom valence band, the
+top three valence bands, and all four bands are separately in-
+cluded in the minimization. The star (⋆ ) refers to the case
+in which the minimization is not actually performed, and the
+solution for the 1-band and 3-band cases is used. Sampling is
+performed with a 8 × 8 × 8 mesh of k-points.
+k set            Ω           ΩI         ΩOD            ΩD
+                                                                                         (a)
+1 band          1.968        1.944       0             0.0238
+3 bands        10.428        9.844      0.560          0.0245
+4 bands⋆       12.396        8.038      4.309          0.0483
+4 bands         8.599        8.038      0.555          0.0059
+                                                                                  0.2
+
+
+where we show the relative position of the centers along
+
+
+
+
+                                                                          (a0 )
+                                                                        -3/2
+                                                                                  0.1
+the Ga-As bonds. Here β is the distance between the Ga
+atom and the Wannier center, given as a fraction of the
+bond length (in Si the centers were fixed by symmetry to                                                    Ga As
+be in the middle of the bond, β = 0.5, irrespective of the                        0.0
+sampling).
+   In Fig. 2, we present plots showing one of these
+maximally-localized Wannier functions in GaAs, for the                            -0.1
+8 × 8 × 8 k-point sampling. Again, at the minimum Ω,                                               [111] Axis
+all four Wannier functions have become identical (under
+the symmetry operations of the tetrahedral group), and
+they are real, except for an overall complex phase. The                                  (b)
+shape of the Wannier functions is again that of sp3 hy-
+brids combining to form σ-bond orbitals; inversion sym-
+metry is now lost, but the overall shape is otherwise
+closely similar to what was found in Si. The Wannier
+centers are still found along the bonds, but they have
+moved towards the As, at a position that is 0.617 times
+the Ga-As bond distance. It should be noted that these
+Wannier functions are also very similar to the localized
+orbitals that are found in linear-scaling approaches,54
+where orthonormality, although not imposed, becomes
+exactly enforced in the limit of an increasingly large lo-
+calization region. This example highlights the connec-
+tions between the two approaches. The characterization
+of the maximally-localized Wannier functions indicates
+the typical localization of the orbitals that can be ex-
+pected in the linear-scaling approach. Moreover, such in-
+formation ought to be extremely valuable in constructing
+an intelligent initial guess at the solution of the electronic
+structure problem in the case of complex or disordered                  FIG. 2. Maximally-localized Wannier function in GaAs, for
+systems.                                                              the 8 × 8 × 8 k-point sampling. (a) Profile along the Ga-As
+   As pointed out before, in GaAs we can have different               bond. (b) Contour plot in the (110) plane of the bond chains.
+choices for the Hilbert spaces that can be considered, so             The other Wannier functions lie on the other three tetrahedral
+we also studied the case in which only the bottom band,               bonds and are related by tetrahedral symmetries to the one
+or the top three, are used as an input for the the min-               shown.
+imization procedure. Table III shows the spread func-
+tional and its various contributions for these different
+choices, where the bottom band is first treated as iso-
+lated; next the three p bands are treated as a separate
+group; then these two solutions are used to construct a
+four-band solution, without further minimization; and fi-
+
+
+                                                                 14
+                                                                    TABLE IV. Coordinates (in Å) of the atoms and of the 6
+                                                                   Wannier centers in the ethylene molecule.
+                                                                   Species          x              y              z
+                                                                   H              -1.235          0.936          0.000
+                                                                   H               1.235         -0.936          0.000
+                                                                   H               1.235          0.936          0.000
+                                                                   H              -1.235         -0.936          0.000
+                                                                   C               0.660          0.000          0.000
+                                                                   C              -0.660          0.000          0.000
+                                                                   WF              rx             ry             rz
+                                                                   1              -1.049          0.622          0.000
+                                                                   2               1.049         -0.622          0.000
+                                                                   3               1.049          0.622          0.000
+                                                                   4              -1.049         -0.622          0.000
+                                                                   5               0.000          0.000          0.327
+                                                                   6               0.000          0.000         -0.327
+
+
+
+   FIG. 3. Contour plot, in (110) plane, of the maxi-                                C. Molecular C2 H4
+mally-localized Wannier function in GaAs for the 8 × 8 × 8
+k-point sampling when only the bottom valence band is con-
+sidered.
+                                                                      We have also studied the case of the ethylene molecule
+                                                                   (C2 H4 ), in order to make the connection with some stan-
+                                                                   dard chemistry concepts, and to highlight the relation of
+nally, this is compared with the full four-band minimiza-          our formalism (derived from a k-space representation of
+tion. In composing the results for the 1-band and 3-band           extended Bloch orbitals) to the case of an isolated sys-
+cases, we take the 1 × 1 and 3 × 3 unitary matrices that           tem as discussed in Sec. IV C 4. First of all, the molecule
+would give the minimum solution for the 1- and 3-band              is modeled in periodic boundary conditions, in a super-
+cases, and build from them a set of 4 × 4 block-diagonal           cell that is large enough to make the interaction with
+unitary matrices. The 4-band Ω that is obtained is ex-             the periodic images negligible. Consequently, the band
+actly the sum of the two initial Ω’s. Nevertheless, the            dispersion becomes also negligible, and Γ sampling is
+bookkeeping changes: ΩI is reduced, with an equal and              all that is needed for total energies, forces, and densi-
+opposite contribution reappearing in ΩOD . (The ΩD ’s              ties. However, the spread functional is expected to con-
+sum up exactly, as they must.) If we then minimize this            verge slightly slower with k-point sampling, as discussed
+(saddle-point) solution, we recover the 4-band minimum:            in Sec. IV C 4. We thus tested several k-point meshes.
+the invariant part (obviously) does not change, while ΩD           For the single k-point case, the mesh in reciprocal space
+increases to permit a larger reduction in ΩOD , in corre-          is that formed by the Γ point and all its periodical im-
+spondence to an increased interband mixing.                        ages, i.e., the reciprocal lattice vectors; our formalism
+   In Fig. 3, we show the contour plot for the maximally-          remains equally applicable to such a case. One should
+localized one-band Wannier function in GaAs, for the               bear in mind that if the supercell is not cubic, appropri-
+8 × 8 × 8 k-point sampling. The function is again real,            ate weight factors have to be added in the calculation of
+and it shows the typical characteristics of an s orbital           the derivatives (see Appendix B).
+centered around the anion; the tetrahedral symmetry of                We show in Table IV the coordinates for the C and
+the lattice deforms the spherical orbital, introducing con-        H atoms at the structural minimum, together with the
+tributions that point along the two bond-chains (one in            Wannier centers. We have used the local-density approx-
+the (110) plane plotted, and one perpendicular to that             imation for the exchange-correlation functional.55 In this
+plane). In the three-band case, on the other hand, the             molecule, there are six occupied valence eigenstates, the
+Wannier functions resemble three orthogonal atomic p or-           lowest five being of C–H or C–C σ-bonding character,
+bitals. It should be stressed that only when all the four          and the top (frontier) orbital being of C–C π-bonding
+bands are treated simultaneously do we achieve the over-           character. If we treat the lowest five bonds as a compos-
+all maximum localization. This reinforces the picture in           ite group, we find as expected that the minimization of
+which the maximally localized orbitals correspond to the           Ω leads to σ-bond-orbitals located on each of the C–H or
+most natural “chemical bonds” in the system.                       C–C bonds. However, treating all six bands together, we
+                                                                   find that the C–C π-bonding orbital mixes strongly with
+                                                                   the C–C σ-bonding orbital to give two Wannier func-
+                                                                   tions that are symmetrically disposed above and below
+                                                                   the x − y plane. Contour plots for the resulting C–H and
+                                                                   C=C Wannier functions are shown in Fig. 4, and the lo-
+
+
+                                                              15
+  TABLE V. The functional Ω and its decomposition, with
+increasing k-point sampling, for ethylene (units are Å2 ).
+k set             Ω            ΩI           ΩOD           ΩD
+1×1×1            4.041         3.657        0.384          0
+2×2×2            4.503         4.124        0.380       6× 10−7
+3×3×3            4.600         4.222        0.377       3× 10−7
+
+                                                                                 (a)
+cations of the Wannier centers are reported in Table IV.
+The picture that emerges from this “natural” symmetry
+breaking of the planar geometry is just the Lewis picture
+of the C=C double bond.
+   In our calculations we have used a cubic supercell of
+side 7 Å; this gives to each band a dispersion that is al-
+ways smaller than 0.02 eV, and that originates from the
+interaction with the superperiodic images. Increasing the
+k-point sampling has negligible effects on the equilibrium
+positions of the C and H atoms and on the location of
+the Wannier centers. But it does still affect the localiza-
+tion functional, which displays a slower convergence with
+respect to the number of k-points used (although much
+faster than was the case for Si or GaAs). The results
+are summarized in Table V, where we show the Ω con-
+tributions for the maximally-localized Wannier functions
+with increasing k-point sampling. It is readily seen that
+the slow convergence is coming mostly from the invari-
+ant part of the functional; a finer k-point mesh provides
+both a more detailed sampling of the Brillouin Zone and                          (b)
+a more accurate calculation of the gradients.
+
+
+                            D. LiCl
+
+   It is also interesting to look at a more ionic system, to
+understand the effect of electronegativity and band gap
+on the location and localization of the Wannier functions.
+We have studied rocksalt LiCl, treating all four valence
+bands (roughly Cl 3s and 3p) as a unit, and again using
+an 8 × 8 × 8 k-point sampling.
+   One could expect the Wannier functions to localize
+much more strongly around the anion than was the case
+for GaAs, and indeed this is what we find. However, we
+also find that the Wannier functions can reduce Ω further
+by mixing to form sp3 hybrids, sitting on the vertices of
+a tetrahedron centered around the Cl atom, with each
+center at a distance of 0.449 Å from the Cl (the Li-Cl
+distance being 2.57 Å). We anticipated that these hy-
+brids might prefer to align along the {111, 1̄1̄1, 1̄11̄, 11̄1̄}            FIG. 4. Contour plots for the maximally-localized Wannier
+or {111̄, 11̄1, 1̄11, 1̄1̄1̄} sets of directions; if this were the        functions in ethylene, C2 H4 . (a) One of the four C–H Wannier
+                                                                          functions, shown in the x − y plane. (b) One of the two C=C
+case, the choice between the two sets (two degenerate
+                                                                          Wannier functions, shown in x − z plane.
+global minima of Ω) would constitute a kind of unphys-
+ical or “anomalous” symmetry breaking from cubic to
+tetrahedral. Instead, we find that Ω is, at least to our
+machine precision, rotationally invariant with respect to
+the orientation of the sp3 hybrids, just as would be the
+case for an isolated Cl− ion in free space. This implies
+that the tetrahedron of the Wannier centers around each
+
+
+                                                                     16
+Cl atom is free to rotate without any discernible decrease           of the Wannier functions (or, closely related, the den-
+of localization.                                                     sity matrix), the present scheme might be a simple and
+   Finally, consistent with the idea that a larger gap               useful way to characterize the degree of localization for
+is linked to a higher degree of localization, we find                a given target material. This information might then
+a total Ω=4.159 Å2 , with ΩI =3.354, ΩOD =0.805 and                 help predict whether the material is a good candidate for
+ΩD =1.2×10−5 Å2 .                                                   a linear-scaling method; and if so, what type of linear-
+                                                                     scaling method is likely to work best, and what real-space
+                                                                     cutoff parameter is likely to be required.
+                   VII. DISCUSSION                                      Finally, an important feature of the present approach
+                                                                     is that it generates a list of the locations of the Wannier
+   We have discussed a technique for obtaining a set of              centers. This information alone can often be of crucial
+well-localized Wannier functions for a given band or com-            importance. In fact, we envisage a number of interest-
+posite set of bands in a crystalline solid. We have in mind          ing applications in which one essentially throws away all
+several kinds of applications for this method.                       other information about the Wannier functions, keeping
+   First, we believe that this approach may help to obtain           only their locations. For example, the shift of the Wan-
+chemical intuition about the nature of chemical bonds in             nier center away from the bond center might serve as a
+solids, and to characterize trends in bonding properties             kind of measure of bond ionicity. Also, the vector sum
+within classes of solids. As emphasized in the introduc-             of the Wannier centers immediately gives the bulk elec-
+tion, the Wannier functions defined here are the natu-               tronic polarization P; all three Cartesian components of
+ral generalization of the concept of “localized molecular            P can thus be determined simultaneously using a con-
+orbitals”20–25 to the case of solids. As illustrated in the          ventional k-mesh, instead of constructing separate spe-
+examples of GaAs and ethylene (C2 H4 ) above, the de-                cial k-point strings to compute each separate Cartesian
+termination of the Wannier functions can give chemical               component of P as is needed otherwise.14
+intuition into the nature of the bond orbitals of the mate-             But more importantly, the information on the locations
+rial, including the spontaneous symmetry breaking that               of the Wannier functions may open the possibility of cal-
+occurs in the Lewis picture of a double or triple bond.              culating properties that cannot otherwise be obtained,
+We also suspect that it may be instructive to generate,              especially for distorted, defective, or disordered systems.
+characterize and plot the Wannier functions across a se-             For example, it becomes possible not only to calculate
+ries of compounds, e.g., for II-VI semiconductors as one             the Born (dynamical) effective charge Z ∗ , but also to de-
+varies from wide- to narrow-gap members, or in cubic                 compose it into displacements of individual neighboring
+perovskites of varying composition. Moreover, as em-                 Wannier centers. To illustrate this idea, we have car-
+phasized by Hierse and Stechel,10 the Wannier functions              ried out a calculation on a cubic supercell of GaAs con-
+may be transferable to a considerable degree for similar             taining 64 atoms (Γ-only k-point sampling), in which all
+bonds in different chemical systems (for example, for C-H            atoms are in their equilibrium positions except for one Ga
+or C-C bonds in a variety of hydrocarbons). It should be             atom that is displaced by 0.1 Å along the [111] direction.
+noted, however, that this is even more likely to be true             Observing the consequent displacement of the Wannier
+for non-orthogonal Wannier-like functions,10 as opposed              centers from their bulk crystalline positions, we find a to-
+                                                                            ∗
+to the orthogonal ones studied here.                                 tal ZGa    of 2.04, in good agreement with the established
+   Second, it is possible that the Wannier functions may             theoretical value of 1.99 as calculated by linear-response
+prove suitable as a basis for use in constructing theo-              methods.59 Moreover, in arriving at the total electronic
+                                                                       ∗,el
+ries of interacting or strongly-correlated electron systems.         ZGa    =-0.96, we find contributions of -1.91, +0.65, and
+For example, it might be possible to build good approx-              +0.30 from the groups of four first-neighbor, 12 second-
+imate correlated wavefunctions from sums of Slater de-               neighbor, and remaining further-neighbor Wannier cen-
+terminants of the Wannier functions. For this purpose,               ters, respectively. It is interesting to note that inclusion
+one would clearly need to choose a set of bands that                 of nearest-neighbor contributions alone would thus sig-
+                                                                                                                    ∗,el
+includes some low-lying unoccupied states of the one-                nificantly overestimate the magnitude of ZGa        , and that
+particle mean-field Hamiltonian. Similarly, it might be              the second-neighbor Wannier centers move in the oppo-
+possible to build accurate model Hamiltonians for for                site direction to the Ga atom motion. If we repeat the
+magnetic systems, or for transport properties of metals.             calculation displacing one As atom, we obtain a total
+(Again, for metals it would appear necessary to choose a               ∗
+                                                                     ZAs    of -2.07 (the acoustic sum rule60 is only approxi-
+composite group of bands that brackets the Fermi level,              mately satisfied with a finite k-point sampling). The to-
+and to specify the occupation as a kind of density matrix                              ∗,el
+                                                                     tal electronic ZAs     =-7.07 has now contributions of -1.74,
+in the Wannier indices.)                                             -4.63, and -0.71 from the groups of four first-neighbor, 12
+   Third, the present scheme might prove useful for pre-             second-neighbor, and remaining further-neighbor Wan-
+dicting the suitability of linear-scaling methods for differ-        nier centers, respectively.
+ent kinds of insulating materials. Since the linear-scaling             In fact, the pattern of displacements of the Wannier
+methods5 depend strongly on the localization properties              centers can be regarded as defining a kind of coarse-
+
+
+                                                                17
+grained representation of the polarization field, P(r). To            although it should be noted that matrix elements of x,
+illustrate this idea more directly, we have carried out a             y, and z (and, for ΩI , also of r2 ) would be needed, in ad-
+calculation for bulk GaAs in which a long-wavelength                  dition to the Hamiltonian and overlap matrix elements.
+transverse optical (TO) phonon has been frozen in. We                 Going beyond the scope of the present work, it might
+take the wavevector q = (π/4a)(x̂+ ŷ) (a is the lattice pa-          be interesting to other explore localization criteria e.g.,
+rameter) and relative displacements ξ(r) = ξ0 sin(q · r)ẑ            the maximization of the Coulomb self-interaction of the
+in a 16-atom supercell, composed of 8 unit cells repeated             Wannier functions. It would also be of great interest
+in the (110) direction. We assign a displacement ampli-               to develop a corresponding theory of maximally-localized
+tude ξ0 = 0.01a to the Ga sublattice, and −ξ0 MGa /MAs                non-orthogonal Wannier-like functions. (While the direct
+to the As sublattice (MGa and MAs are the masses of                   connection to the polarization properties would be lost,
+the two species; the center of mass doesn’t move). Ob-                there would be important implications for some linear-
+serving the resulting displacements of the Wannier cen-               scaling algorithms.) Finally, there are many questions
+ters, we can obtain a picture on how the local polar-                 of a mathematical character that deserve further study.
+ization changes from cell to cell (say, by summing all                For example, is it possible to prove that our Wannier
+the 4 Wannier centers surrounding one As atom); fitting               functions (those that minimize Ω) have exponential de-
+these to the same form P(r) = P0 sin(q · r)ẑ, we obtain a            cay, even in the general non-centrosymmetric multi-band
+                                                ∗,el    ∗,el          case? Are they always real, as conjectured in Sec. V B?
+P0 =0.249, and, via the acoustic sum rule (ZGa       + ZAs   =
+                ∗,el               ∗,el
+−8), we get ZGa = −1.52 and ZAs = −6.48. These re-                    And are there further results that can be derived re-
+sults are only in fair agreement with the bulk values; the            garding the interrelations between the metric tensor, the
+discrepancies might be due to the finite size of our super-           Berry connection, and the Berry curvature, as discussed
+cell, or to not having used the proper eigenvector for the            in Appendix C? We hope that our work will stimulate
+phonon mode considered. However, the main point of                    some investigations of these questions.
+this demonstration is that, given the calculation on the
+supercell containing the frozen TO phonon, there is no
+                                                                                       ACKNOWLEDGMENTS
+other way that the transverse component of the polariza-
+tion field could have been obtained. Since the mode is
+transverse, P(r) cannot be determined from the charge                   This work was supported by NSF grants DMR-96-
+density; since q 6= 0, the Berry-phase approach does not              13648 and ASC-96-25885. We would like to thank
+apply; and since the displacement is finite, the linear-              R. Resta for calling our attention to Refs. 34–36;
+response approach is not directly applicable. However,                E. Stechel for pointing out the connection to Refs. 20–25;
+the present scheme allows a direct finite-difference calcu-           and W. Kohn, Q. Niu, and R. Resta for illuminating dis-
+lation of the transverse polarization field, a quantity that          cussions.
+was previously unavailable.
+   It would be interesting to apply this kind of analysis
+to supercell simulations of amorphous systems such as                    APPENDIX A: MINIMIZATION OF SPREAD
+a-H2 O or a-GaAs. Once again, while only the longitu-                        FUNCTIONAL IN REAL SPACE
+dinal part of P(r) can be determined from the charge
+density, a similar determination of both the longitudi-                  In Sec. III above, the problem of finding the opti-
+nal and transverse components is possible with access to              mally localized Wannier functions for a periodic system
+the displacements of the Wannier centers, thus leading                was formulated directly in real space. In this Appendix,
+to a more complete theory of the dielectric properties                we briefly reformulate the problem for the case of a fi-
+of such systems. This information might be used to as-                nite system (cluster, molecule, etc.), and sketch how the
+sist the approach of Ref. 43, in which the infrared ab-               minimization of the functional can be performed in this
+sorption spectrum of an amorphous system is extracted                 case. This provides a complementary perspective to the
+from a molecular-dynamics simulation. As a limited test,              k-space procedure discussed in the main text.
+we have carried out calculations for a 64-atom supercell                 We change notation |Rni → |ii and now refer to the i
+of crystalline Si with random displacements typical of                as “localized orbitals” rather than “Wannier functions,”
+∼1000K, and find that the calculation of the displaced                but their meaning is the same: they are a set of orthonor-
+Wannier centers is straightforward.                                   mal orbitals spanning the Hamiltonian eigenstates in an
+   Finally, we conclude by pointing out that our work                 energy range of interest (e.g., for the occupied valence
+opens numerous possibilities for further development and              states of a molecule or cluster).
+future study. On a practical level, it might be use-                  PFollowing
+                                                                               2       2
+                                                                                         the approach of Sec. III, we P   decompose Ω =
+ful to explore the use of more accurate, higher-order fi-                i [hr   ii −r̄i ] into
+                                                                                           P     an  invariant  part ΩI =   α tr [P rα Qrα ]
+nite difference formulas for ∇k (see Appendix B) to see               (where P =              i |iihi| and Q = 1 − P ) and a remain-
+whether convergence with respect to k-point sampling                  der Ω  e = P P                          2
+                                                                                        α     i6=j |hi|rα |ji| . Defining matrices Xij =
+can be improved. It might be interesting to apply our                                                       ′
+                                                                      hi|x|ji, XD,ij = Xij δij , X = X − XD , and similarly for
+analysis within the semi-empirical tight-binding context,             Y and Z, this can be rewritten
+
+
+                                                                 18
+              e = tr [X ′2 + Y ′2 + Z ′2 ] .
+              Ω                                         (A1)          (B1) is satisfied with wb = 3/Zb2 (single shell). Tak-
+                                                                      ing next the slightly more complicated case of an or-
+Thus if X, Y , and Z could be simultaneously diagonal-                thorhombic lattice, one can let b run over the two near-
+ized, then Ωe could be minimized to zero, but for non-                est neighbors in each Cartesian direction (Z = 6), with
+commuting matrices this is not possible. In a sense, our              wb = 1/2b2x for the two neighbors at ±bx x̂, etc. Even
+job is to perform the optimal approximate simultaneous                in the worst case of minimal (triclinic) symmetry, only
+co-diagonalization of the three Hermitian matrices X,                 six pairs of neighbors (Z = 12) should be needed, as the
+Y , and Z by a single unitary transformation. We are                  freedom to choose six weights should allow one to satisfy
+not aware of a formal solution for this problem, but a                the six independent conditions comprising Eq. (B1).
+steepest-descent numerical solution is fairly straightfor-               Now, if f (k) is a smooth function of k, its gradient can
+ward. Since tr [X ′ XD ] = 0, etc.,                                   be expressed as
+                                                                                         X
+         dΩ = 2 tr [X ′ dX + Y ′ dY + Z ′ dZ] .         (A2)                  ∇f (k) =       wb b [f (k + b) − f (k)] .      (B2)
+                                                                                           b
+We consider P an infinitesimal unitary transformation
+|ii → |ii+ j Wji |ji (where dW is antihermitian), from                We can check the correctness of this finite-difference
+which dX = [X, dW ], etc. Inserting in Eq. (A2) and us-               formula by applying it to the case of a linear func-
+ing tr [A[B, C]] = tr [C[A, B]] and [X ′ , X] = [X ′ , XD ],          tion f (k)
+                                                                      P       P = f0 + g · k, for which we find ∇α f (k) =
+we obtain dΩ = tr [dW G] where                                           b wb   β bα gβ bβ = gα . In a similar way,
+            n                                     o                                        X
+     G = 2 [X ′ , XD ] + [Y ′ , YD ] + [Z ′ , ZD ] ,   (A3)                  |∇f (k)|2 =           wb [f (k + b) − f (k)]2 .   (B3)
+                                                                                               b
+so that the desired gradient is dΩ/dW = G as given
+                                                                         We note that improved accuracy and k-set convergence
+above. The minimization can then be carried out using
+                                                                      might be obtained by utilizing improved, higher-order
+steepest descents following the general approach outlined
+                                                                      finite-difference formulas involving more shells of neigh-
+in Sec. IV D. More sophisticated but related methods are
+                                                                      boring k-points, but we have not explored this possibility
+discussed in Ref. 25.
+                                                                      here.
+   If this approach is applied to a finite system having
+a crystalline interior, the solutions in the interior are
+expected to correspond precisely with the maximally-                  APPENDIX C: GEOMETRIC PROPERTIES AND
+localized Wannier functions as determined using the k-                   COMPLEXITY OF ELECTRON BANDS
+space methods of the main text. In the vicinity of sur-
+faces or defects, or for disordered materials, the solutions
+will essentially correspond to the “generalized Wannier                  Consider a manifold of J orthonormal states |ψn (λ)i,
+functions” discussed by previous authors.26,48–50                     n = 1, ..., J, depending on a continuous d-dimensional
+                                                                      parameter λ. Alternatively, oneP  can view these as rep-
+                                                                      resenting the projection P (λ) = n |ψn (λ)ihψn (λ)|. For
+       APPENDIX B: FINITE-DIFFERENCE                                  the application to electron bands in crystals, we identify
+        FORMULAS FOR k-SPACE GRIDS                                    λ → k and ψn (λ) → unk . Here, we investigate the ge-
+                                                                      ometric properties of such a manifold, generalizing the
+                                                                      single-state (J = 1) results of Refs. 34–36 to the multi-
+   We assume that the Brillouin zone has been discretized
+                                                                      state case.
+into a uniform Monkhorst-Pack mesh.58 Let b be a vector
+                                                                         One can define two kinds of intrinsic geometric prop-
+connecting a k-point to one of its near neighbors, and let
+                                                                      erties: a geometric distance and a geometric phase. We
+Z be the number of such neighbors to be included in the
+                                                                      consider the former first. The geometric distance D12
+finite-difference formulas. We seek the simplest possible
+                                                                      between two points λ1 and λ2 is here taken to be
+finite-difference formula for ∇k , i.e., the one involving
+the smallest possible Z. When the Bravais lattice point                        2
+                                                                              D12 = tr[P1 Q2 ] = 12 kP1 − P2 k2 ,              (C1)
+group is cubic, it will only be necessary to include the first
+shell of Z = 6, 8, or 12 k-neighbors for simple cubic, bcc,           where Q(λ) = 1 − P (λ). In the case of a single state, this
+or fcc k-space meshes, respectively. Otherwise, further               becomes D12 2
+                                                                                     = 1−|hψ1 |ψ2 i|2 , which for small separations
+shells must be included until it is possible to satisfy the           is consistent with the slightly different definition D122
+                                                                                                                                 =
+condition                                                             2 − 2|hψ1 |ψ2 i| of Ref. 34. Considering the distance for
+                   X                                                  infinitesimal separations, one can define a Riemannian
+                        wb bα bβ = δαβ                  (B1)          metric34
+                    b
+                                                                                               X
+                                                                                     2
+                                                                                  Dλ,λ+dλ   =      gαβ dλα dλβ .              (C2)
+by an appropriate choice of a weight wb associated with
+                                                                                                    αβ
+each shell |b| = b. For the three kinds of cubic mesh, Eq.
+
+
+                                                                 19
+                                                                                         X
+Introducing the notation ψn,α = dψn /dλα , etc., and                             Fαβ =          hψn,α |Q|ψn,β i           (C9)
+making use of                                                                               n
+
+           0 = hψn |ψm,α i + hψn,α |ψm i ,            (C3)         where again Q = 1 − P , and using Eq. (C3) to show
+                                                                   that the second term in Eq. (C5) is intrinsically real,
+                                                                   we obtain simply gαβ = Re Fαβ and tr Bαβ = 2 Im Fαβ .
+  0 = hψn |ψm,αβ i + hψn,αβ |ψm i + 2 Re hψn,α |ψm,β i ,           This suggests that there may be some deep connections
+                                                      (C4)         between the two quantities.34–36 In the case where the
+                                                                   states ψn are eigenstates of a Hamiltonian H(λ), one
+which follow from the fact that the ψn remain orthonor-            moreover has19
+mal at first and second order in dλ, the metric gαβ be-                       J      ∞
+                                                                              X      X      hψn |Hα |ψm ihψm |Hβ |ψn i
+comes, after some manipulation,                                       Fαβ =                                              (C10)
+           X                   X                                              n=1 m=J+1
+                                                                                                  (En − Em )2
+ gαβ = Re      hψn,α |ψn,β i −   hψn,α |ψm i hψm |ψn,β i ,
+            n                  mn                                  where Hα = dH(λ)/dλα .
+                                                      (C5)            We now return to the case of electron bands in crys-
+                                                                   tals, λ → k and ψn (λ) → unk , and discuss the geometric
+which reduces in the single-band case to the expression            properties induced by the band projection operator P (k) .
+of Pati.34                                                         Note that g, A, and B have units of l2 , l, and l2 , respec-
+   From Eq. (C1) it is obvious that the distance, and              tively. Again focusing first on the metric, and comparing
+thus the metric, are gauge-invariant quantities. These are         Eq. (34) with the definitions (C1) and (C2), we find
+therefore intrinsic properties of the manifold. One way
+of thinking about the metric is to observe that for any                              1 XX
+                                                                              ΩI =        wb gαβ bα bβ                   (C11)
+given path in λ space, the line integral of g 1/2 along the                          N
+                                                                                         k,b αβ
+path provides a measure of the total “quantum distance”
+along the path; intuitively, it is a measure of the amount         or, using Eq. (B1) and restoring the continuum limit,
+of change of character of the states as one traverses the                                 Z
+path. The physical meaning of this distance for the case                              V
+                                                                              ΩI =             dk Tr g(k) ,          (C12)
+of temporal evolution of quantum states is discussed in                             (2π)3 BZ
+Refs. 34–36.
+   The second type of geometric object that can be de-             where the integral is over the Brillouin zone. Thus, the
+fined is a “geometric phase” or “Berry phase.”37 Here,             invariant part of the spread functional is nothing other
+one is interested in considering closed paths in λ space,          than the Brillouin-zone average of the trace of the metric!
+and relating the phase (or, for the multi-state case, the            It may be interesting to see whether other global prop-
+unitary rotation) induced by adiabatic (“parallel”) trans-         erties of the metric might be given some physical inter-
+port along the path. The multi-state (“non-Abelian”)               pretation. In particular, we define a dimensionless and
+case has been discussed by Wilczek and Zee38 , Mead,39             gauge-invariant quantity
+and Resta.19 One can define a (non-gauge-invariant)                                  Z
+Berry connection                                                                 C=      dk det1/2 g(k) .               (C13)
+                                                                                       BZ
+                Aα,nm = i hψn |ψm,α i                 (C6)
+                                                                   We shall call this the “complexity” of the bands. Math-
+and a (gauge-covariant) Berry curvature                            ematically, it is really nothing other than the volume of
+                                                                   the Brillouin zone as measured according to the metric
+   nm
+  Bαβ = −∂α Aβ,nm + ∂β Aα,nm + i [Aα , Aβ ]nm .       (C7)         g. However, we have called it the “complexity” because
+                                                                   it measures the variation of the character of the band
+The invariants of the latter, such as                              projection operator P (k) throughout the Brillouin zone.
+                         X                                         Everything said here applies to any isolated band or com-
+          tr Bαβ = 2 Im      hψn,α |ψn,β i ,          (C8)         posite group of bands, but we have in mind primarily the
+                           n                                       case where all the occupied valence bands in an insulator
+                                                                   are considered as a composite group. In this case, and as-
+[see Eq. (3.29) of Ref. 19] are thus gauge-invariant. (We          suming that one is only interested in quantities (such as
+shall use the notation ‘tr’ and ‘Tr’ to denote electronic          total energies and forces) that can be expressed as a trace
+and Cartesian traces, respectively.)                               over the bands, the complexity might thus be expected to
+   There is a tantalizing similarity between the metric            reflect (and even predict) the number of k-points needed
+gαβ , Eq. (C5), and the quantum trace of the Berry cur-            for an accurate sampling of the Brillouin zone. We have
+vature, Eq. (C8). In fact, defining the gauge-invariant            not tested this idea numerically, but this would clearly
+quantity                                                           be an interesting avenue for future exploration.
+
+
+                                                              20
+   Turning now to phase properties, we note that a finite-                        curvature will vanish if and only if the band-projected
+different representation of the Berry connection is                               position operators P xP , P yP , and P zP commute with
+                 X          h              i                                      one another; as discussed following Eq. (17), this is also
+                                (k,b)                                                                     e vanishes at the minimum.
+      Aα,mn = i       wb bα Mmn       − δmn .       (C14)                         just the condition that Ω
+                     b
+
+Restoring the continuum limit in k-space, we can write
+                      Z
+                  V
+          r̄n =           dk Ann (k) ,           (C15)
+                (2π)3 BZ
+                                                                                   1
+and more generally,                                                                  G.H. Wannier, Phys. Rev. 52, 191 (1937).
+                                                                                   2
+                                Z                                                    W. Kohn, Phys. Rev. 115, 809 (1959).
+                                                                                   3
+                       V                                                             E.I. Blount, Solid State Physics 13, 305 (1962).
+   h0m|r|Rni =                           dk Amn (k) eik·R .         (C16)          4
+                                                                                     W. Kohn, Phys. Rev. B 7, 4388 (1973).
+                     (2π)3      BZ                                                 5
+                                                                                     G. Galli, Curr. Opin. Sol. State Mater. Sci. 1, 864 (1996).
+                                                                                   6
+The right-hand side is just Amn (R), the Fourier coeffi-                             G. Galli and M. Parrinello, Phys. Rev. Lett. 69, 3547
+cient of the Berry curvature. Eq. (C15) is just the ex-                              (1992).
+                                                                                   7
+pression for the position of the Wannier center, which                               F. Mauri, G. Galli, and R. Car, Phys. Rev. B 47, 9973
+contributes to the electronic polarization.3,14,16,19 More-                          (1993); F. Mauri and G. Galli, Phys. Rev. B 50, 4316
+over,                                                                                (1994).
+                                                                                   8
+                                                                                     P. Ordejón, D. Drabold, M.P. Grumbach, and R.M. Martin,
+           X V Z                              2                                      Phys. Rev. B 48, 14646 (1993); Phys. Rev. B 51, 1456
+    e
+   ΩD =                   dk | Ann (k) − r̄n | ,      (C17)
+               (2π)3                                                                 (1995).
+           n           BZ                                                          9
+                                                                                     W. Kohn, Chem. Phys. Lett. 208, 167 (1993).
+                                                                                  10
+                                                                                     W. Hierse and E. B. Stechel, Phys. Rev. B 50, 1781 (1994).
+              X                 Z                                                 11
+                                                                                     J. Kim, F. Mauri and G. Galli, Phys. Rev. B 52, 1640
+                       V
+     e OD =
+     Ω                                   dk | Amn (k) |2 .          (C18)            (1995).
+                     (2π)3          BZ                                            12
+              m6=n                                                                   E. Hernández and M.J. Gillan, Phys. Rev. B 51, 10157
+                                                                                     (1995); E. Hernández, M. J. Gillan, and C.M. Goringe,
+Eqs. (C17-C18) show that the non-invariant parts of the                              Phys. Rev. B 53, 7147 (1996).
+spread functional are also conveniently written in terms                          13
+                                                                                     P. Ordejón, E. Artacho and J.M. Soler, Phys. Rev. B 53,
+of the Berry connection. If the above equations are reex-                            R10441 (1996).
+                                                                                  14
+pressed in terms of the Fourier coefficients Amn (R), Eqs.                           R.D. King-Smith and D. Vanderbilt, Phys. Rev. B 47, 1651
+(19) and (20) are immediately recovered.                                             (1993).
+                                                                                  15
+   In the single-band case, we showed in Sec. IV C 2 that                            D. Vanderbilt and R.D. King-Smith, Phys. Rev. B 48, 4442
+the minimum value of Ω e could be related to the transverse                          (1993).
+                                                                                  16
+part of the Berry connection, which in turn is determined                            R. Resta, Rev. Mod. Phys. 66, 899 (1994).
+                                                                                  17
+by the gauge-invariant Berry curvature. In the multiband                             G. Ortiz and R.M. Martin, Phys. Rev. B 49, 14202 (1994).
+                                                                                  18
+case, the Berry curvature Bαβ mn
+                                 (k) is no longer gauge-                             R.W. Nunes and D. Vanderbilt, Phys. Rev. B 50, 17611
+invariant, and it is not obvious whether it is possible to                           (1994).
+                                                                                  19
+                                                                                     R. Resta, Berry Phase in Electronic Wavefunctions,
+make a corresponding decomposition. Nevertheless, one
+                                                                                     Troisième Cycle Lecture Notes (Ecole Polytechnique
+can derive similar correspondences as those above for A.
+                                                                                     Fédérale, Lausanne, Switzerland, 1996).
+So,                                                                               20
+                                                                                     S.F. Boys, Rev. Mod. Phys. 32, 296 (1960).
+                                                                                  21
+  mn
+ Bαβ (k) = −i h um,α | Q | un,β i + i h um,β | Q | un,α i ,                          J.M. Foster and S.F. Boys, Rev. Mod. Phys. 32, 300 (1960).
+                                                                                  22
+                                                                                     C. Edmiston and K. Ruedenberg, Rev. Mod. Phys. 35, 457
+                                                                    (C19)            (1963).
+                                                                                  23
+                                                                                     S.F. Boys, in Quantum Theory of Atoms, Molecules, and
+    mn
+                                                                                     the Solid State, P.-O. Löwdin, ed. (Academic Press, New
+   Bαβ (R) = −i h um | rα Qrβ − rβ Qrα | un i .                     (C20)            York, 1966), p. 253.
+                                                                                  24
+                                                                                     H. Weinstein, R. Pauncz, and M. Cohen, Adv. At. Mol.
+Making use of rα Qrβ − rβ Qrα = [P rα P, P rβ P ], one finds                         Phys. 7, 97 (1971).
+                                                                                  25
+                          XX                                                         J.M. Leonard and W.L. Luken, Theoret. Chim. Acta 62,
+k [P rα P, P rβ P ] k2c =        mn
+                              | Bαβ (R) |2                                           107 (1982); Int. J. Quant. Chem. 25, 355 (1984).
+                                    mn                                            26
+                            R
+                                     Z                                               W. Kohn and J. Onffroy, Phys. Rev. B 8, 2485 (1973).
+                                                                                  27
+                             V                                 2                     P.W. Anderson, Phys. Rev. Lett. 21, 13 (1968).
+                         =                    dk k Bαβ (k) k       . (C21)        28
+                                                                                     D. Bullett, in Solid State Physics: Advances in Research
+                           (2π)3         BZ
+                                                                                     and Applications, edited by H. Ehrenreich and D. Turnbull
+Each form above is manifestly gauge-invariant and                                    (New York, Academic, 1980), p. 129.
+                                                                                  29
+positive-definite. Thus, it can be seen that the Berry                               W.M.C. Foulkes and D.M. Edwards, J. Phys. Cond. Matt.
+
+
+                                                                             21
+   5, 7987 (1993).
+30
+   We find empirically that the maximally localized Wannier
+   functions are always real, once the arbitrary overall phase
+   is removed. This observation is discussed and justified in
+   Sec. V B.
+31
+   S. Kivelson, Phys. Rev. B 26, 4269 (1982).
+32
+   Q. Niu, Mod. Phys. Lett. B 5, 923 (1991).
+33
+   A. Nenciu and G. Nenciu, J. Phys. A 15, 3313 (1982); G.
+   Nenciu, Rev. Mod. Phys. 63, 91 (1991).
+34
+   A.K. Pati, Physics Letters A 159, 105 (1991).
+35
+   J. Anandan and Y. Aharonov, Phys. Rev. Lett. 65, 1697
+   (1990).
+36
+   A.K. Pati and A. Joshi, Phys. Rev. A 47, 98 (1993).
+37
+   M. V. Berry, Proc. R. Soc. Lond. A 392, 45 (1984).
+38
+   F. Wilczek and A. Zee, Phys. Rev. Lett. 52, 2111 (1984).
+39
+   C.A. Mead, Rev. Mod. Phys. 64, 51 (1992).
+40
+   M.-C. Chang and Q. Niu, Phys. Rev. B 53, 7010 (1996).
+41
+   G. Weinreich, Solids: Elementary Theory for Advanced
+   Students (Wiley, New York, 1965), Ch. 8.
+42
+   This discussion also applies to the k-point sampling in the
+   surface-normal direction for periodic slab supercell calcu-
+   lations.
+43
+   A. Debernardi, M. Bernasconi, M. Cardona and M. Par-
+   rinello, submitted to Appl. Phys. Lett; P.L. Silvestrelli, M.
+   Bernasconi and M. Parrinello, submitted to Chem. Phys.
+   Lett.
+44
+   S. Satpathy and Z. Pawlowska, Phys. Stat. Sol. (b) 145,
+   555 (1988).
+45
+   G. Nenciu, Commun. Math. Phys. 91, 81 (1983).
+46
+   J. des Cloizeaux, Phys. Rev. 135, A685 (1964).
+47
+   J. des Cloizeaux, Phys. Rev. 135, A698 (1964).
+48
+   J.J. Rehr and W. Kohn, Phys. Rev. B 10, 448 (1974).
+49
+   M.R. Geller and W. Kohn, Phys. Rev. B 48, 14085 (1993).
+50
+   A. Nenciu and G. Nenciu, Phys. Rev. B 47, 10112 (1993).
+51
+   E.O. Kane and A.B. Kane, Phys. Rev. B 17, 2691 (1978).
+52
+   C. Tejedor and J.A. Verges, Phys. Rev. B 19, 2283 (1979).
+53
+   M.R. Pederson and C.C. Lin, Phys. Ref. B 35, 2273 (1987).
+54
+   P. Fernández, A. Dal Corso, F. Mauri, and A. Baldereschi,
+   Phys. Rev. B 55, R1909 (1997).
+55
+   See, e.g., R. O. Jones and O. Gunnarsson, Rev. Mod. Phys.
+   61, 689 (1989).
+56
+   M. C. Payne, M. P. Teter, D. C. Allan, T. A. Arias, and
+   J. D. Joannopoulos, Rev. Mod. Phys. 64, 1045 (1992); D.
+   Vanderbilt, Phys. Rev. B 41, 7892 (1990).
+57
+   J. S. Lin, A. Qteish, M. C. Payne, and V. Heine, Phys.
+   Rev. B 47, 4174 (1993).
+58
+   H.J. Monkhorst and J.D. Pack, Phys. Rev. B 13, 5188
+   (1976).
+59
+   S. de Gironcoli, S. Baroni, and R. Resta, Phys. Rev. Lett.
+   62, 2853 (1989).
+60
+   R. Pick, M. H. Cohen and R. M. Martin, Phys. Rev. B 1,
+   910 (1970).
+
+
+
+
+                                                                   22
+

@@ -1,0 +1,587 @@
+                                                                                                                                                                           APS/123-QED
+
+                                                      Comparison of charged-defect finite-size supercell correction methods in a general
+                                                                                         framework
+                                                                                            Hannu-Pekka Komsa∗ and Tapio T. Rantala1†
+                                                                                      Semiconductor Physics Laboratory, Department of Physics,
+                                                                                    Tampere University of Technology, FIN-33101 Tampere, Finland
+                                                                                                      (Dated: November 12, 2018)
+                                                                     Starting from the total energy expressions within density functional theory, we are able to perform
+                                                                  a comparison of several currently used charged-defect finite-size supercell correction schemes in a
+arXiv:0906.1283v1 [cond-mat.mes-hall] 6 Jun 2009
+
+
+
+
+                                                                  unified manner. This approach also provides a framework for a further development of corrections
+                                                                  not only for DFT supercell calculations, but also for more advanced methods and for complex
+                                                                  geometries. The comparison is performed for three separate defect cases: a gallium vacancy in
+                                                                  GaAs, a beryllium interstitial in GaAs and a vacancy in diamond. We found two methods working
+                                                                  sufficiently well for all three cases: a method which is very similar to one presented by Freysoldt,
+                                                                  [1] and a slightly altered potential alignment method.
+
+                                                                  PACS numbers:
+
+
+                                                                      I.   INTRODUCTION                                last one is briefly considered in the discussion part, but
+                                                                                                                       mostly left for later study.
+                                                      The usual low concentration of defects in connection                Finally, we compare these methods for three defects:
+                                                                                                                       gallium vacancy in GaAs, carbon vacancy in diamond
+                                                   with the long-range Coulomb interaction is a difficult
+                                                   case for the supercell calculations within the density func-        and beryllium interstitial in GaAs. In order to find the
+                                                                                                                       results to compare at, we use a set of calculations with
+                                                   tional theory (DFT) framework. Especially if the defect
+                                                   is charged, the calculated formation energies strongly de-          increasing supercell sizes to extrapolate the results to the
+                                                   pend on the supercell size. Several correction schemes              low concentration limit.
+                                                   have been proposed to allow a calculation of defect prop-
+                                                   erties in an effectively low concentration by using only
+                                                   a small supercell. [1, 2, 3, 4] However, a consensus on                          II.   CORRECTION SCHEME
+                                                   the validity and applicability of each method seems to
+                                                   be missing, although numerical comparisons have been                  The defect calculation is usually approached through
+                                                   done. [5]                                                           the concept of the formation energy, defined as [3]
+                                                      In this paper, we start by deriving a generalized
+                                                   approach for the charged defect supercell calculations,                     E f [X q ] = Etot [X q ] − Etot [bulk] −
+                                                                                                                                            X
+                                                   which is based on the construction and comparison of                                         ni µi + q[EF + Ev + ∆V ],          (1)
+                                                   the DFT total energy equations for the supercell and for                                    i
+                                                   a much larger cell. This is useful in several ways: a)
+                                                   This allows us to properly compare several contributions            where Etot [X q ] is the total energy of the supercell with
+                                                   of the corrections and several previous correction meth-            the defect X (in the charge state q) and Etot [bulk] is
+                                                   ods. We show how several schemes come out as limits                 the total energy of the supercell of bare GaAs or GaAsN
+                                                   or approximations of the general equations. We particu-             bulk, depending on the case. The chemical potentials
+                                                   larly concentrate on the method recently introduced by              µi of ni added or removed atoms allow us to describe
+                                                   Freysoldt et al.,[1] and also the Makov-Payne [2] and the           various growth conditions. Here, Ev is the valence band
+                                                   potential alignment schemes [3] are reviewed. b) It shows           maximum (VBM) at Γ-point in the bulk material, EF
+                                                   the required approximations in a clear manner. Even if              is the Fermi energy with respect to Ev , and ∆V is the
+                                                   the final results look intuitively simple, the way to get           shift term used to align the potentials in between the two
+                                                   there has a few corners. c) Paves the way for the de-               supercells.
+                                                   velopment of even better schemes. We present two more                  Before moving on to the finite-size supercell considera-
+                                                   schemes in this paper. d) It should prove useful in de-             tions, we divide the comparison of charge defect and bulk
+                                                   veloping correction schemes for more advanced methods               cases in to two parts: comparison of a neutral defect to
+                                                   such as hybrid-functionals or GW , and for more com-                the bulk, and the comparison of a charged defect to a
+                                                   plex geometries such as interfaces or clusters. The first           neutral defect
+                                                   three items are considered in detail in this article. The                                                      X
+                                                                                                                                 E f [X 0 ] = E[X 0 ] − E[bulk] −   n i µi     (2)
+                                                                                                                                                                       i
+
+                                                   ∗ Electronic address: hannu.komsa@tut.fi
+                                                   † Electronic address: tapio.rantala@tut.fi                                         E f [X q ] = E f [X 0 ] + ∆E f [X q ]        (3)
+                                                                                                                                           2
+
+where                                                                     not be done for the electrostatic energy, but we can now
+                                                                          write the total energy differences in the large and small
+   ∆E f [X q ] = E[X q ] − E[X 0 ] + q(Ev [X 0 ] + EF )
+                                                      
+                                                                  (4)     supercell, and find, that their difference, which is the
+                                                                          correction that we are looking for, depends only on the
+We see, that in this approach the addition/removal of                     electrostatic energy difference
+electrons, the VBM energy is in the energy reference of
+the neutral defect. The implications of this will be dis-                                                                                
+cussed later. Moreover, Comparison of charge densities                    ∆E = E Ω [ρ0 + qd ] − E Ω [ρ0 ] − E Ω̃ [ρ0 + q̃d ] − E Ω̃ [ρ0 ]
+and potentials between charged defect and bulk can be
+                                                                                                                                           
+                                                                                     Ω               Ω           Ω̃                Ω̃
+                                                                                = Ees  [ρ0 + qd ] − Ees [ρ0 ] − Ees [ρ0 + q̃d ] − Ees [ρ0 ]
+difficult, especially in the case of relaxed geometry. On
+the other hand, comparison of charged defect and neutral
+defect properties is often much easier.                                     The electrostatic potential corresponding to ρ0 is de-
+   Naturally, defect calculations within DFT-LDA also                     noted as V0 (consisting of the external potential and the
+suffer from the band-gap problem. This problem is im-                     Hartree potential). The electrostatic energy is (omitting
+portant to acknowledge in the analysis of the results, but                dr3 for brevity)
+does not affect the analysis of the supercell-size correc-                            Z
+                                                                                                 1
+                                                                                                   Z          Z
+                                                                                                                          1
+tion methods.                                                              Ees [ρ0 ] = ρ0 Vext +     ρ0 VH = ρ0 (Vext + VH ) (7)
+                                                                                                 2                        2
+
+A.     Charged-defect finite-size supercell corrections
+                                                                          where the 21 takes care of the double counting of electron-
+                                                                          electron interactions. Moving on to the charged case,
+                                                                          there is a change in the Hartree potential VH → VH +Vq/0
+  We will start by writing and comparing the total en-                    and subsequently in the electrostatic potential V0 → V0 +
+ergies for neutral defect, charged defect in a small super-               Vq/0 . The electrostatic energy is then
+cell, and a charged defect in a much larger supercell. For
+the neutral defect charge distribution ρ0 the total energy                                   Z
+                                                                                                                     1       1
+                                                                             Ω
+within the DFT framework is                                                Ees  [ρ0 + qd ] =    (ρ0 + qd + n)(Vext + VH + Vq/0(8)  )
+                                                                                              Ω                      2       2
+              E[ρ0 ] = T [ρ0 ] + Ees [ρ0 ] + Exc [ρ0 ]            (5)
+                                                                          where n = −q/Ω is the neutralizing background. Ṽq/0
+Adding a localized charge distribution δq results in a re-                is the change of electrostatic potential in small supercell,
+distribution of the surrounding electrons. We circumvent                  which is also, due to the linearity of Poisson equation, the
+this problem, by just writing the total density as ρ0 + qd .              solution for qd . In the periodic case, we have similarly
+Moreover, we denote the periodically repeating charge                     added charge q̃d ≈ qd , but per unit cell of volume Ω̃,
+distribution of small supercell as q̃d . The total energies               so the compensating background charge is ñ = −q/Ω̃,
+for the supercell of volume Ω̃ and a large cell of volume                 giving
+Ω are then
+                                                                                                                         1    1
+                                                                                               Z
+                                                                              Ω̃
+                                                                            Ees  [ρ0 + q̃d ] =     (ρ0 + q̃d + ñ)(Vext + VH + Ṽq/0(9)
+                                                                                                                                     )
+E Ω̃ [ρ0 + q̃d ] = T Ω̃ [ρ0 + q̃d ] + Ees
+                                       Ω̃                Ω̃
+                                          [ρ0 + q̃d ] + Exc [ρ0 + q̃d ]                         Ω̃                       2    2
+  Ω                  Ω                 Ω                 Ω
+E [ρ0 + qd ] = T [ρ0 + qd ] + Ees [ρ0 + qd ] + Exc [ρ0 + qd ]
+                                                                          Notice, that often ñ (and n) term is not included in DFT
+Usually, one would like to calculate the formation energy                 codes in the calculation of the electrostatic energy. How-
+of a single defect in an infinite crystal, or at least of much            ever, for the moment, we still leave this term in.
+lower concentation of defects than is possible to obtain                    It can be easily shown that
+in the supercell calculations i.e., we would like to have
+                                                                                               1                          1
+                                                                           Z                           Z
+E Ω [ρ0 + qd ]. Instead, what we get from the supercell                        (qd + n)(Vext + VH ) = (q̃d + ñ)(Vext + VH ) (10)
+                                                                                               2                          2
+calculations is E Ω̃ [ρ0 + q̃d ]. Thus, what we are looking                  Ω                           Ω̃
+
+for in here, is a correction ∆E, such that E Ω [ρ0 + qd ] −               and
+E Ω [ρ0 ] required for Eq. 4 can be obtained from E Ω̃ [X q ]−                                  Z             Z
+E Ω̃ [X 0 ] + ∆E. Also notice, in the following, we have                                            qd V0 =       ρ0 Vq/0               (11)
+taken the ionic configuration to be the same in all three
+cases.                                                                    so that we are left with
+   Due to the locality of the kinetic energy T and the
+                                                                                     1                   1
+                                                                                       Z                   Z
+exchange-correlation energy Exc , and the localization of
+                                                                               ∆E =       (qd + n)Vq/0 −      (q̃d + ñ)Ṽq/0           (12)
+qd in the supercell, we will now assume that                                         2 Ω                 2 Ω̃
+
+     T Ω [ρ0 + qd ] = T Ω̃ [ρ0 + qd ] + T Ω [ρ0 ] − T Ω̃ [ρ0 ]    (6)        We have arrived at a rather intuitive form, which is
+                                                                          often taken as a starting point for developing the defect
+and similarly for Exc , so it follows that T Ω [ρ0 + qd ] −               correction formulae. Deriving this formula, qd was de-
+T Ω [ρ0 ] = T Ω̃ [ρ0 + qd ] − T Ω̃ [ρ0 ]. Unfortunately, this can         fined as the charge difference between the charged and
+                                                                                                                                                                     3
+
+neutral defect calculations. In order to find more sim-
+                                                                                                        5
+ple correction formula, an analytic form is assumed for                                                                                                   0.2
+qd . In this case, however, one should also keep in mind                                                                                                  0.5
+that the corresponding potential needs to be correctly                                                  4                                                 1
+
+
+
+
+                                                                               Energy correction [eV]
+screened, which depends on the whole system. One can                                                                                                      2
+                                                                                                                                                          4
+use the static dielectric constant and arrive at the Makov-                                             3                                                 8
+Payne correction [2]. Alternatively, as was done in Ref.                                                                                                  MP1
+1, Vq/0 can be divided in to the long- and short-range
+parts, where the screening only in the long-range poten-                                                2
+tial is handled with the static dielectric constant.
+                                                                                                        1
+
+        1.   Separation of long and short-range potentials
+                                                                                                        0
+                                                                                                         5    10   15        20       25          30     35   40
+  In Ref. 1, te long and short-range parts of the electro-                                                                  Cell size L [Å]
+static potentials were separated as
+                          Vq/0 = Vqlr + Vq/0
+                                          sr
+                                                                   (13)   FIG. 1: The correction as a function of the width of the gaus-
+                                                                          sian charge density. (Color online.)
+where Vqlr is the potential solved from qd using the static
+dielectric constant. Similar separation is done for the
+Ṽq/0 , which is known from the calculation, and can then
+                                                                            Finally, because Ω̃ ñṼqlr = 0 and 21 n Ω Vqlr → 0 as
+                                                                                             R                      R
+be used to determine the short-range            potentials. Since
+                                    R
+qd Ris localized to the unit cell, Ω qd Vq/0 can be changed               Ω → ∞, a very simple result is obtained:
+to Ω̃ qd Vq/0 and a little rearrangement results in
+                                                                                                                      1
+                                                                                                                           Z
+           1
+             Z
+                                         1
+                                              Z
+                                                        1
+                                                           Z                                                 − ∆E =              (qd + δqd )(Ṽqlr − Vqlr )        (19)
+−∆E =           (qd +ñ)(Ṽq/0 −Vq/0 )+ ñ       Vq/0 − n     Vq/0                                                    2     Ω̃
+           2 Ω̃                          2 Ω̃           2 Ω
+                                                             (14)         We see that there is no dependence on the potential shift
+Which equals to Eqs. (6) and (7) in Ref. 1, when n → 0,                   C, nor shifts A or B, but this is not really in disagreement
+except the second last term has an extra 21 . The minus-                  with Ref. 1. In our approach, similar potential alignment
+sign comes from the difference in the definition of the                   term comes from taking the VBM with respect to the
+potential. Note also, that when given in this form, it is                 neutral defect energy reference (see Eqs. 2–4).
+possible to calculate the correction corresponding to any
+concentration of defects (i.e., per volume Ω).
+    In calculations, the averages of potentials V0 , Ṽq , and
+                                                                                                                      2.       Makov-Payne
+Ṽq/0 are all set to zero. Next, we can choose Vq/0 such
+that it Papproaches zero as r → ∞. Moreover, let’s write
+   sr           sr                                                          Makov-Payne correction [2] is
+Ṽq/0  = R Vq/0     + C as in Ref. [1]. With these consider-
+ations
+                   1
+                     Z                                                                                                                          2πqQr
+      − ∆E =             (qd + δqd + ñ)(Ṽqlr − Vqlr + C)                                                     ∆E = q 2 α/2εr L +                                  (20)
+                   2 Ω̃                                                                                                                         3εr L3
+                   1                      1
+                       Z                       Z
+              + ñ (Vqlr + Vqsr ) − n (Vqlr + Vqsr )(15)                  where
+                   2 Ω̃                   2 Ω
+                                                                                                                                    Z
+since
+   Z             Z                 Z                         Z                                                             Qr =         qd r2                      (21)
+        Vqsr =       Ṽqsr − C =       Ṽq/0 − Ṽqlr − C =       C (16)
+      R        R                                                          is the second radial moment of the density difference. For
+and ñ Ω̃ C = n Ω C, we get                                               SC lattice α = 2.8373 [6]. When qd approaches delta-
+                 1                                                        function, the Eq. 19 approaches Makov-Payne equation.
+                   Z
+      − ∆E =           (qd + δqd + ñ)(Ṽqlr − Vqlr )                     This is demonstrated in Figure 1 for different supercell
+                 2 Ω̃
+                                                                          sizes and widths of qd . Similar calculations were also
+                 1                    1
+                     Z                     Z
+             + ñ (Vqlr + C) − n (Vqlr + C) (17)                          presented in Ref. 7.
+                 2 Ω̃                 2 Ω
+                                                                             When qd is estimated as a gaussian distribution, the
+                 1
+                   Z
+             =         (qd + δqd + ñ)(Ṽqlr − Vqlr )                     correction becomes somewhat smaller and the depen-
+                 2 Ω̃                                                     dence on the supercell size decreases. Also note, that
+                 1             1
+                     Z            Z
+                                                                          for a Gaussian qd , some of these terms can be calculated
+             + ñ          lr
+                         V − n (Vqlr ).               (18)
+                 2 Ω̃ q        2 Ω                                        analytically (see e.g. Ref. 8.)
+                                                                                                                      4
+
+             B.   Potential alignment method                     2. Find gaussian qd which gives close match to the
+                                                                    resulting change in the electrostatic potential be-
+   In the potential alignment scheme, the difference of             tween charged and neutral defects. (When far from
+the electrostatic potential far from defect with respect            the defect.)
+to the bulk, ∆V , is read, essentialy resulting in energy
+                                                                 3. Apply Eq. 19 to get the final formation energy,
+correction ∆E = q∆V .
+                                                                    along with the Eqs. 2–4.
+   We calculated ∆V for a simple model charge density
+of a (nearly) point charge and a neutralizing background      This is the scheme I.
+in a simple-cubic supercell geometry, expecting to obtain       We also found, that the following scheme (scheme II)
+a simple dependence of ∆V on dielectric constant and          seems to work surprisingly well:
+supercell size. Indeed, we find the following form for the
+potential at the farthest point                                  1. Obtain the VBM alignment (Ev [X 0 ]) as before
+                                    q                            2. Correct the formation energies by using the analyt-
+                       ∆V ≈ 0.78                      (22)
+                                   εr L                             ical form for the potential alignment Eq. 22.
+
+where L is given in the units of bohr and the potential
+in the units of Hartree. The energy correction has again                       III.   APPLICATIONS
+the same q 2 /εr L scaling although the constant is smaller
+than in the Makov-Payne correction for the cubic cell            In all of the calculations, we use planewave density-
+(2.8373/2 ≈ 1.419). Later in this article, this energy        functional theory code VASP within the PAW-LDA for-
+correction is called analytic potential alignment.            malism. [9, 10, 11] In GaAs calculations, we have chosen
+   The similarity of the calculated and analytic potential    gallium to have 3d frozen in the core and 400 eV cutoff.
+alignments can be seen in Figures 2, 3, and 6.                In diamond calculations, the cutoff is 500 eV. We use
+                                                              64-atom supercells with 4 × 4 × 4 k-points, 216-atom su-
+                                                              percells with 2 × 2 × 2 k-points, and 512-atom supercells
+                  C.   Energy comparison                      with 2 × 2 × 2 k-points.
+                                                                 We will now consider three test cases: a gallium va-
+   Here we consider how to best evaluate the VBM energy       cancy in GaAs, a vacancy in diamond, and a beryl-
+Ev [X 0 ] in Eq. 4. In case there are no defect states near   lium interstitial in GaAs. All of these are calculated in
+the VBM, there is no problem in the first place. However,     both the unrelaxed and the relaxed geometries. In all of
+even if there are defect states mixing with VBM, in the       the following formation energy figures, lines of the form
+case of neutral defect, the electrostatic potential should    aL−1 + bL−3 + c are fitted to the calculated values to ob-
+converge to the bulk value fast (faster than r−1 ), and it    tain extrapolated values in the limit L−1 → 0 (L → ∞).
+can be obtained easily from the comparison of the po-
+tentials of the neutral defect calculation and of the bulk
+calculation.                                                              A.    Gallium vacancy in GaAs
+   We find that taking the electrostatic potential differ-
+ence from the ion cores or the plane-averaged over the          The application of several correction schemes for the
+supercell far from defect gives very similar result. Espe-    gallium vacancy are shown in Figure 2. Makov-Payne
+cially so in the unrelaxed geometries, but in the relaxed     scheme seems to work well, potential alignment underes-
+geometries the former probably proves easier to use. The      timates the formation energies. Scheme I tends to over-
+usage of Ev [X 0 ] from the neutral defect calculation in-    estimate the formation energies about 100 meV in large
+stead of bulk Ev is later denoted as VBM alignment.           supercells and somewhat more in the 64-atom supercell.
+Notice the difference to the potential alignment method,      With VBM alignment, formation energies converge to a
+where the potential difference is taken for each charged      lower value. Consequently, scheme II energies are slightly
+supercell of interest.                                        lower than the extrapolated value from the uncorrected
+                                                              energies. However, the energies have very little variation
+                                                              over the supercell sizes in this scheme.
+        D.    Complete method and discussion
+
+                                                                         B.    Carbon vacancy in diamond
+  Here we outline two correction schemes that seemed to
+work well for the studied cases.
+  To sum up, the final correction scheme is then the fol-       Similar to Ref. 1, we calculate the carbon vacancy in
+lowing:                                                       diamond for neutral, +2 and −4 charge states. In this
+                                                              case, due to the large band gap of diamond, there is no
+   1. Obtain VBM alignment (Ev [X 0 ]) from the compar-       energy overlap of the defect states and the band edge
+      ison of neutral defect and bulk.                        states. This, along with large variations in stable charge
+                                                                                                                                                                                 5
+
+
+                                  6                                      4.5                                      5.6                                         4.2
+
+                                                                                                                  5.4                                          4
+
+
+
+
+                                                                                                                                      Formation energy [eV]
+         Formation energy [eV]
+
+
+
+
+                                                 Formation energy [eV]
+
+
+
+
+                                                                                          Formation energy [eV]
+                                 5.5                                      4                                       5.2
+                                                                                                                                                              3.8
+                                                                                                                   5
+                                                                                                                                                              3.6
+                                  5                                      3.5                                      4.8
+                                                                                                                                                              3.4
+                                                                                                                  4.6
+                                                                                                                                                              3.2
+                                 4.5                                      3                                       4.4
+
+                                                                                                                  4.2                                          3
+
+                                  4                                      2.5                                       4                                          2.8
+                                   0     0.05                               0     0.05                              0     0.05                                   0       0.05
+                                        −1  −1                                   −1  −1                                  −1  −1                                      −1     −1
+                                       L [Å ]                                   L [Å ]                                  L [Å ]                                       L    [Å ]
+
+
+
+FIG. 2: Corrections for V−3 Ga in unrelaxed (left subfigure) and relaxed (right subfigure) cases. Color coding in left figure: no
+corrections (blue, solid), VBM alignment (blue, dashed), Madelung correction (red, solid), Madelung with VBM alignment (red,
+dashed), analytic potential alignment (green, solid), and calcuted potential alignment (green, dashed). Color coding in right
+figure: no corrections (blue, solid), analytic potential alignment with VBM alignment (scheme II) (green, solid), calculated
+potential alignment with VBM alignment (green, dashed), gaussian charge correction with VBM alignment (scheme I) (red,
+dashed) gaussian charge correction with charged cell VBM alignment (magenta, dashed). (Color online.)
+
+
+states, makes the case particularly suitable for studying                                    The potentials Ṽqlr and Vqlr and the calculated potential
+finite-size supercell interactions without having to worry                                are shown in Figure 4. We see that the potentials match
+about the band-gap errors.                                                                very well when compared to the neutral case. This justi-
+   The formation energies are shown in figure 3. Espe-                                    fies the division of formation energy calculation into two
+cially for the +2 case, Makov-Payne notably overcorrects.                                 parts.
+Potential alignment seem to work fairly well. Scheme
+II surprises again, with very little variation and ener-
+gies close to the extrapolated value. Note, however, that
+                                                                                                                        C.    Beryllium interstitial in GaAs
+for the V+2C defect the analytic and calculated potential
+alignments differ considerably.
+   Scheme I overcorrects again, but more than in the                                         In order to test the method with something other than
+case of gallium vacancies. A reason can be traced to                                      a vacancy, we calculated beryllium interstitial in GaAs.
+the charge distribution difference among the charged                                      It was chosen, because we know from our previous studies
+and neutral cases. The charge distribution difference                                     [15], that the defect states are well localized with very
+of the relaxed V+2            −4                                                          little geometric distortion. The formation energies are
+                   C and VC with respect to the bulk
+case are shown in Figure 5. The charge difference seems                                   shown in Figure 6. General features for the neutral and
+good in the neutral case, but in the charged cases, the                                   charged cases are similar to the gallium vacancy case.
+added/removed charge is almost completely delocalized,                                       Makov-Payne corrections work even better than in the
+except that e.g. V−4C does not converge to −4, but −3.5.
+                                                                                          case of gallium vacancy. Potential alignments without
+As the Poisson equation solution is also governed by the                                  VBM correction tend to somewhat underestimate forma-
+charge distribution away from the defect (large volume                                    tion energies as before. Here, scheme I works really well,
+at large distance r), it seems worth trying to use these                                  and scheme II also relatively well even if it extrapolates
+charges in the correction schemes. This fixes nicely the                                  again to a lower value.
+formation energies produced by scheme I, and also im-                                        It seems, that using only the calculated potential
+proves Makov-Payne results, except for the unrelaxed 64-                                  alignment already corrects the formation energies about
+atom supercell result.                                                                    halfway, giving a fair confidence on the results reported
+   In any case, these charge distribution graphs seem to                                  in our previous study of beryllium defects.[15]
+contradict with the basic premise of the correction meth-                                    Comparison of the relaxed and unrelaxed cases for all
+ods that there is a localized charge. Still, the corrections                              defect types (and as can be seen in Figures 2 and 6) show
+work fairly well. The occupied/emptied state was local-                                   no systematic difference in the applicability of the correc-
+ized around the defect (not a host band), meaning that                                    tion methods. During the derivation, these effects were
+there must be a compensating change in the valence band                                   approximated to be small, and this would indeed seem
+electron density. This behavior in the charge differences                                 to be the case, although these defect cases were chosen
+was found in all three defect cases.                                                      especially chosen to show no major relaxation effects.
+                                                                                                                                                                                                                                                        6
+
+
+                                   9                                                            28                                                      8.5                                                        26
+
+                                  8.5                                                           26
+          Formation energy [eV]                                                                                                                          8                                                         24
+
+
+
+
+                                                                        Formation energy [eV]
+
+
+
+
+                                                                                                                                Formation energy [eV]
+
+
+
+
+                                                                                                                                                                                           Formation energy [eV]
+                                   8                                                            24
+                                                                                                                                                        7.5                                                        22
+                                  7.5                                                           22
+                                                                                                                                                         7                                                         20
+                                   7                                                            20
+
+                                                                                                                                                        6.5                                                        18
+                                  6.5                                                           18
+
+                                   6                                                            16                                                       6                                                         16
+                                    0       0.05 0.1                                              0       0.05 0.1                                        0             0.05 0.1                                     0         0.05 0.1
+                                               −1 −1                                                         −1 −1                                                         −1 −1                                                  −1 −1
+                                             L [Å ]                                                        L [Å ]                                                        L [Å ]                                                 L [Å ]
+
+
+
+FIG. 3: Corrections for unrelaxed V+2                                   −4
+                                     C (left subfigure) and unrelaxed VC (right subfigure) cases. Color coding as in Figure
+2, except for the dash-dotted lines: Makov-Payne with effective charges (magenta, dash-dot), scheme I with effective charges
+(red, dash-dot). (Color online.)
+
+
+
+      0.015                                                         0.005                                                                                       5                                                          5
+
+       0.01                                                            0                                                                                        0
+
+      0.005                                                                                                                                                   −5
+                                                                   −0.005
+
+         0                                                                                                   V   lrp                                          −10
+                                                                    −0.01                                                                                                                                                  0
+     −0.005                                                                                                  Vlr                                              −15
+                                                                                                             Vcalc
+                                               Vlrp                −0.015
+      −0.01                                                                                                  V         −Vlrp                                  −20                VC(0)−bulk
+                                               Vlr                                                               calc
+                                                                    −0.02                                                                                                        VC(+2)−bulk
+                                               Vcalc
+     −0.015                                                                                                                                                   −25                VC(−4)−bulk
+                                               V      −Vlrp
+                                                   calc                                                                                                                                                                  −5
+                                                                   −0.025
+      −0.02                                                                                                                                                   −30
+
+                                                                    −0.03
+     −0.025                                                                                                                                                   −35
+
+      −0.03                                                        −0.035                                                                                     −40
+
+                                                                                                                                                                                                                         −10
+     −0.035                                                         −0.04                                                                                     −45
+                0                       5     10              15            0                         5     10             15                                       0      100     200                      300                  50   100   150   200
+
+
+
+
+FIG. 4: The xy-averaged potentials from 512-atom super-                                                                         FIG. 5: The xy-averaged charge difference (multiplied with
+cell, similar to Fig. 2 in Ref. 1, of V+2
+                                       C against bulk (left)                                                                    cell volume) of V+2        −4
+                                                                                                                                                   C and VC to the bulk. Unrelaxed geom-
+and against V0C (right). Blue solid: from calculation. Red                                                                      etry (left) and relaxed geometry (right) with horizontal lines
+dash-dotted: analytic periodic. Green dashed: the difference.                                                                   roughly denoting the charge difference far from defect. (Color
+Magenta dotted: analytic aperiodic. (Color online.)                                                                             online.)
+
+
+
+                                            IV.           DISCUSSION                                                            geometries. [12, 13, 14]
+                                                                                                                                  Extending these correction schemes to more complex
+   Another problem with the extrapolation method is the                                                                         geometries such as interfaces requires again a proper
+amplification of errors in the set of calculations. If one                                                                      model for the screening. This is straightforward enough.
+of the calculations has an error of 100 meV for any rea-                                                                        Alternatively, one could try to divide the space even fur-
+son, it can result in 1 eV difference in the extrapolated                                                                       ther and write the total energy as the sum of the contri-
+formation energy. Thus, it is advantageous to get rid of                                                                        butions in these regions. So far, very limited number of
+the extrapolation scheme. Taking this idea even further,                                                                        studies has been performed on defects at interfaces and
+a working correction scheme might allow to use lower                                                                            warrants further investigations.
+precision in the calculation. One possibility would be                                                                            When developing a correction for e.g the GW method,
+to use coarser k-point meshes, although naturally other                                                                         to the first approximation, the same trick could be done
+properties might also degrade. For example, it has been                                                                         for the self-energy as was done here for the XC-energy,
+reported that coarse k-point mesh can lead to incorrect                                                                         eventually yielding the same corrections. Of course, GW
+                                                                                                                                                                                        7
+
+
+                                 2.2                                           1.8                                      2.1                                          1.6
+
+                                                                                                                         2                                           1.5
+         Formation energy [eV]    2                                            1.6
+
+
+
+
+                                                       Formation energy [eV]
+
+
+
+
+                                                                                                Formation energy [eV]
+
+
+
+
+                                                                                                                                             Formation energy [eV]
+                                                                                                                        1.9
+                                                                                                                                                                     1.4
+                                 1.8                                           1.4                                      1.8
+                                                                                                                                                                     1.3
+                                                                                                                        1.7
+                                 1.6                                           1.2                                                                                   1.2
+                                                                                                                        1.6
+                                                                                                                                                                     1.1
+                                                                                                                        1.5
+                                 1.4                                            1
+                                                                                                                        1.4                                           1
+
+                                                                               0.8                                      1.3                                          0.9
+                                   0      0.05                                    0     0.05                               0     0.05                                   0       0.05
+                                            −1
+                                             −1                                        −1  −1                                   −1  −1                                      −1     −1
+                                        L [Å ]                                        L [Å ]                                   L [Å ]                                       L    [Å ]
+
+
+
+FIG. 6: Corrections for Be+2
+                          I  in unrelaxed (left subfigure) and relaxed (right subfigure) cases. Color coding as in Figure 2.
+(Color online.)
+
+
+provides a proper dielectric function for the screening                                         tions hidden in each method. This framework should also
+which could be taken advantage of. Unfortunately, as                                            prove helpful in future development of methods for more
+GW calculations usually do not provide total energies, a                                        advanced methods and for more complex geometries.
+somewhat different approach is probably needed.                                                    We found that the method introduced by Freysoldt [1]
+                                                                                                works generally well. Moreover, during the inspection
+                                                                                                of the potential alignment method, we found a method
+                                       V.        CONCLUSIONS                                    which also worked surprisingly well, even if formally looks
+                                                                                                as just a scaled Madelung-energy.
+   A comparison of several previously introduced defect
+correction methods and a few new ones are compared in
+both analytical and numerical levels. First, we divide
+the problem of comparing charged defects in to bulk into                                                                                 Acknowledgments
+comparison of neutral defect to bulk and further compar-
+ison of charged defect to neutral case. Then, by explicitly                                       This work was supported by Tekniikan edistämissäätiö.
+writing the total energies for a neutral defect, a charged                                      We are thankful for the Centre for Scientific Computing
+defect in a small supercell, and a charged defect in a                                          (CSC) and Material Sciences National Grid Infrastruc-
+large supercell, it is possible to inspect the approxima-                                       ture (M-grid, Akaatti) for the computational resources.
+
+
+
+
+ [1] C. Freysoldt, J. Neugebauer, and C. G. Van de Walle,                                        [9] G. Kresse and J. Hafner, Phys. Rev. B 47, 558 (1993).
+     Phys. Rev. Lett. 102, 016402 (2009).                                                       [10] G. Kresse and J. Furthmüller, Comput. Mat. Sci. 6, 15
+ [2] G. Makov and M. C. Payne, Phys. Rev. B 51, 4014                                                 (1996).
+     (1995).                                                                                    [11] G. Kresse and J. Furthmüller, Phys. Rev. B 54, 11169
+ [3] C. G. Van de Walle and J. Neugebauer, J. Appl. Phys.                                            (1996).
+     95, 3851 (2004).                                                                           [12] C. W. M. Castleton and S. Mirbt, Phys. Rev. B 70,
+ [4] P. A. Schultz, Phys. Rev. Lett. 584, 1942 (2000).                                               195202 (2004).
+ [5] C. W. M. Castleton, A. Höglund, and S. Mirbt, Phys.                                       [13] J. Shim, E.-K. Lee, Y. J. Lee, and R. M. Nieminen, Phys.
+     Rev. B 73, 035215 (2006).                                                                       Rev. B 71, 245204 (2005).
+ [6] M. Leslie and M. J. Gillan, J. Phys. C: Solid State Phys.                                  [14] M. J. Puska, S. Pöykkö, M. Pesola, and R. M. Nieminen,
+     18, 973 (1985).                                                                                 Phys. Rev. B 58, 1318 (1998).
+ [7] D. Segev and S.-H. Wei, Phys. Rev. Lett. 91, 126406                                        [15] H.-P. Komsa, E. Arola, J. Pakarinen, C. S. Peng, and
+     (2003).                                                                                         T. T. Rantala, Phys. Rev. B 79, 115208 (2009).
+ [8] J. M. Lento, Ph.D. thesis, Helsinki University of Tech-
+     nology (2003).
+

@@ -1,0 +1,1009 @@
+# R8 / WP0-v3: architecture of the Unified Response Framework (URF), corrected standalone version after the R7 hostile review
+
+Revision agent, brief R8/REV3-WP0. Supersedes returns/R6/WP0-v2.md (v2) and returns/R4/WP0.md (v1), which stay as the historical record. Applies
+every verdict of the two R7 referees (referees/R7/REF-WP0-A.md, REF-WP0-B.md; items cited A-Vn, B-Vn), the cross-package items of SOTA "R7
+referee reports" (the ×1.8 of (8.3) from the WP6 referees; the (4.7) referee disagreement; the CONVENTIONS §8 index order), and keeps every v2
+correction (v2 closing table, §13). Conventions: CONVENTIONS.md; symbols: NOTATION v4 (new symbols in §15).
+Checks: `code/WP0-v3/checks.py` (sympy only, exact arithmetic, **82 checks, all PASS, ≈ 20 s** after R9; 76 at R8); cited as WP0v3-Cn. C1–C14 are v2's checks
+(C10g re-labelled and now run pair by pair, C12 re-labelled "algebra only", C14d,e added); C15–C22 are new.
+Tags: **[D]** derived (hypotheses stated), **[D, sketch]**, **[D in Xn]** derived in return Xn and imported, **[E]** estimated, **[C]** conjectured;
+literature **[FT]** full text, **[ABS]** abstract, R7 literature ratings CONFIRMED / REFUTED / UNRESOLVED (§14).
+Status: v2 content REFEREED (R×2 complete, R7) with the corrections below; the new derivations of v3 ((4.7) limit, orbit–orbit, (4.5)/(4.7)
+normalisation, L17 electron channel) are CLAIMED pending R×2. New sections: §16 (referee disagreements, settled), §17 (rebuttals), §18 (R7
+closing table). Equation numbers of v2 are kept; new objects are primed.
+**R9 clean-up (in place, coordinator brief R9):** R8 verification new items (VER-WP0-A N1–N3, VER-WP0-B N1–N2) and every AUDIT-2 row addressed to
+WP0 (blocking B1–B3, minor m4–m7, m10, m12, m17, m22–m25, m31, and the unapplied §8 flags) are applied; closing table §19. Checks now 82/82 PASS (C19k, C23a–c, C24, C25 new; C20c Si figure removed).
+
+---
+## 0. What changed
+**v2 → v3 (R7 referees; closing table §18).**
+| v2 | v3 | change |
+|---|---|---|
+| (3.4), (7.3), P(N_eh) tr[𝔇S] | same slots | **Σ_ab𝔇_abS_ab ≡ tr[𝔇ᵀS]** (A-V2; WP0v3-C15) |
+| §2 "every 𝒪_i at most linear in v_s" | §2 | 𝒪₂ = (v^⊥)² excluded (needs a v_s⊗v_s row) (A-V3) |
+| §2 J_T transversality under (L) | §2, §9.1(α) | needs SU(2)-invariant H: SOC = 0, H_hf and B₀ off (B-V1; C21) |
+| (1.2), (4.6′) "only mass-velocity" | (1.2), (4.6′), (4.6″) | Breit orbit–orbit term added: δ_oo = −(4/3)E′_ee/(N_em_e) [D, E] (A-V4; C18) |
+| (4.2) R^∞_jj = 𝓃/m | (4.2) | R^∞ ≡ 0 for all operators; diamagnetic term in R^{phys} (A-V5, B-V3; C17) |
+| (4.3) odd part 2q·𝐛_NR | (4.3) | per operator: O(q³) for densities (B-V3; C22) |
+| (4.5) S_ab[O] + S_ab[O†] | (4.5) | **S_ab[O] + S_ba[O†]** (B-V4; C16) |
+| (4.7) q → 0: 𝓃_e(R_κ) | (4.7), (4.7′) | **[𝓃_e(R_κ) + 2𝓃_e]**, thermodynamic limit first; ω³ normalisation; O(q³) at T_d sites (A-V8 vs B-V6, §16.1; C19) |
+| (5.3) Bohm–Staver ε_e | (5.3) | clamped electronic ε(q,0) (A-V11, B-V8) |
+| (5.5) four classes | (5.5) | three Coulomb-line classes + ionic phonon-bridge insertions; [D, sketch]; TR stated (A-V12, B-V9) |
+| (5.7) W^{scr} unqualified | (5.7) | W^{scr}(P,ω_f) retarded, final-pair index first; 𝔗 written out (B-V10, A-V13) |
+| §6.2 scope, O(κ_BO^{n+1}) | §6.2 | magnetic insulators removed (FALLS in part, B-V12); O(κ_BO^{2(n+1)}); smeared nuclei; N-uniformity; leakage (A-V15, B-V12) |
+| (6.3) no prefactor; b_λ, 𝒞_adm undefined | (6.3) | (4π/V) and definitions (A-V16, B-V13) |
+| (8.3) "up to ×1.8" | (8.3) | ×1.35 (M type) / ×1.57 (linear), like for like (REF-WP6-A/B; C14d) |
+| §9.2 (ii), (iii) | §9.2 | electron channel with relaxed lattice not bounded (counterexample 2.30); citation fixed (A-V18, B-V15; C20) |
+
+**v1 → v2 (R6; kept).**
+| v1 | v2 | change |
+|---|---|---|
+| (1.2) hyperfine (2/3)σ·𝐈 | (1.2) | +(2/3)g_eμ_Bg_Iμ_N s·𝐈δ³ = +(1/3)…σ·𝐈δ³ (WP4-D1) |
+| (1.2) δ_rel "from SOC", Ge sizes 0.27/0.05 | (1.2), (4.6′) | only mass-velocity: −(5/3)⟨T⟩/m_e; (Zα)² = 0.055 Ge 1s, ~10⁻³ Ge 3d (WP1-D2, D3) |
+| (4.6), (5.3) [H,n] = q·j + (q²/2m)n | (4.6), (5.3) | [T_e, n_e(q)] = q·j_e(q) exactly (WP1-D1) |
+| (4.9) soft limit [C], ℓ_Q with N inside | (4.9) | = X1 (X1), C7a–e; ℓ_Q N outside (WP3-1, CONVENTIONS §5) |
+| (5.3) j_T, spins "unscreened" | (5.3) | j_T LFE-screened; spins (SOC = 0) f_xc^T-renormalised (WP1-D4, D5) |
+| (5.5) three channels | (5.5) | four classes (X2 §3), topological proof |
+| (5.6) D2-normalised projected form | (5.6) | X2 (2.3) with M̃, D1 normalisation |
+| (5.7) M̃ (projected) | (5.7), (5.7′) | (5.7) = X2 (2.2); v1 form kept as truncation (5.7′) (WP3-2) |
+| Table 6.1, τ | Table 6.1, §6.1 | x_coh retired, 2W_κ = q·B_κ·q, K labels, metadata, WP4-D4 rows |
+| Theorem D (H2), (i), (ii), (iv), dictionary | §6.2 | scope; PSD only in window; m_A/δM_κ; O4 (iv′)/(iv″); S_eκ any c_ec_κ ≠ 0 |
+| (7.1)–(7.2) | (7.1)–(7.2) | no plasmon label in RPA (WP5-3); out-state external weight derived (§7.2, §10) |
+| (7.3) | (7.3) | WP5 (W6): q integral and 𝔇 trace inside the Λ sum (WP5-1, 2, 4) |
+| (8.1)–(8.3) | (8.1)–(8.3) | WP6 M/A/E/Δ types; ∫_ℝωS = π𝓃_eq²/m_e; three reported objects (WP6-W1–W4) |
+| (9.1) "isotropic f_χ" | (9.1) | hypothesis (I): angle-averaged S (WP6-W5) |
+| (9.3) table | (9.7) table | L7d split, L12 deterministic, L15 GRPA, L16 ε_bg, L19 P,T-broken, L6 pointer; source quotes per entry |
+
+---
+## 1. Hamiltonian and degrees of freedom
+
+**(1.1) [D]** Electrons i = 1..N_e (r_i, p_i, spin s_i = σ_i/2); nuclei I of species κ(I), charge Z_κ, mass M_κ, (R_I, P_I), nuclear spin
+𝐈_I. Species s ∈ {e, κ}, density operators n_e(k) = Σ_i e^{ik·r_i}, n_κ(k) = Σ_{I∈κ} e^{ik·R_I}, charge numbers z_e = −1, z_κ = Z_κ, charge
+density ρ_c(k) = e Σ_s z_s n_s(k), number densities 𝓃_s = N_s/V. With v_C(k) = e²/k²:
+
+  H = Σ_i p_i²/2m_e + Σ_I P_I²/2M_κ(I) + (1/2V) Σ_{k≠0} v_C(k)[ρ_c(k)†ρ_c(k)/e² − Σ_s z_s²N_s] + H_rel + H_hf + H_ext ≡ H_C + H_rel + H_hf + H_ext.
+
+H_C is the exact non-relativistic Coulomb Hamiltonian (point nuclei; finite nuclear size enters the DM vertices only through F^M_κ, F^Σ_κ of §2,
+and the Coulomb terms through the nuclear **charge** form factor F^{ch}_κ(k), F^{ch}_κ(0) = 1, i.e. Z_κ → Z_κF^{ch}_κ(k) in ρ_c, when smeared nuclei
+are needed, §6.2 (H1)); k = 0 is removed
+by neutrality. Every e–N and N–N interaction is Coulomb, so phonons, g and screening are derived objects (§5, §6).
+
+**(1.2) Options** (switches; each later WP states which it uses).
+- *Breit–Pauli [D].* H_rel = Σ_i[−p_i⁴/8m_e³ + (1/8m_e²)∇_i²V_pot + (1/4m_e²)σ_i·(∇_iV_pot × p_i)] + H_oo + two-body Darwin, SOO, SSO, with the
+  **orbit–orbit term** H_oo = −(α/2m_e²)Σ_{i<j}[p_i·p_j + (p_i·r̂_ij)(r̂_ij·p_j)]/r_ij (omitted in v2; A-V4). Two terms change the f-sum.
+  (a) Mass-velocity: δ_mv = −(5/3)⟨T⟩/m_e − q²/4m_e² (4.6′), i.e. −0.18% (Si), −0.58% (Ge) with all electrons [E, WP1]. (b) Orbit–orbit: δ_oo =
+  −(4/3)E′_ee/(N_em_e) (4.6″) [D for the operator identity, E for the size], ≈ (4/15)δ_mv in Thomas–Fermi, so δ_rel ≈ −0.23% (Si), −0.73% (Ge) [E].
+  Darwin (one- and two-body) and SSO are multiplicative; SOC and SOO are linear in the momenta at fixed r. All four give an exactly zero double
+  commutator (WP0v3-C4g,h).
+- *Relativistic cores [D, WP1 §5].* With full Dirac bilinears ψ̄Γψ the factorisation of DM physics from target physics is exact (the
+  operator set grows; WP1 O_Γ). The 16-row basis of §2 is the O(v_e¹) Foldy–Wouthuysen truncation; corrections are O(⟨v_e²⟩) ≈ (Zα)²:
+  0.010 (Si 1s), **0.055 (Ge 1s), ~10⁻³ (Ge 3d)** [E] (WP0v3-C4i; v1's 0.27/0.05 were wrong). In 4-component codes without no-pair
+  projection the double commutator vanishes; the NR f-sum is restored only by the negative-energy states, so Dirac cores must be projected.
+  For halo DM the Ge 3d band dominates, and there the XC placement (4.5 eV) outweighs relativistic operator corrections (WP1 §5.4).
+- *Hyperfine [D] (WP4-D1).* H_hf = Σ_{i,I} (+2/3) g_eμ_B g_Iμ_N s_i·𝐈_I δ³(r_i − R_I) = (+1/3) g_eμ_B g_Iμ_N σ_i·𝐈_I δ³(…) (Fermi contact,
+  HL units, μ₀ = 1, from H = −𝛍_e·B_contact with 𝛍_e = −g_eμ_B s, B_contact = (2/3)g_Iμ_N𝐈δ³; g_I carries the sign of the nuclear moment;
+  WP0v3-C8) + orbital, dipolar and quadrupole terms. With B₀ = 0 and nuclear–nuclear dipolar couplings dropped, it is the only coupling of 𝐈_I to
+  the rest of the system; otherwise the nuclear Zeeman term −g_Iμ_N𝐈_I·B₀ and the N–N dipolar term also couple 𝐈_I (B-V16).
+- *External fields [D].* p_i → p_i + eA₀(r_i): paramagnetic current plus diamagnetic (e²/2m_e)A₀²; Zeeman g_eμ_B B₀·s_i. B₀ enters g_aγγ (2.9).
+- *Broken-symmetry references [D].* Magnetic order and superconductivity do not change H; they change the reference state (WP4 (1.1)):
+  (3.1)–(4.6) need only stationarity and hold unchanged, provided the response is computed in a **conserving** (Baym–Kadanoff)
+  approximation; a bare bubble in a broken-symmetry basis violates (4.6) and (4.8) (WP4-K2). New small parameters (§6.1) are not finite
+  orders of the e–ph expansion; the reference is metadata `ref` in τ (CONVENTIONS §11).
+
+---
+## 2. DM interaction basis
+
+**(2.1) Kinematics [D].** The DM goes p → p − q, spin projection s → s′, optionally χ₁ → χ₂ with Δ_χ = m_{χ₂} − m_{χ₁} (exothermic if Δ_χ < 0):
+
+  ω_q = q·v − q²/2m_χ − Δ_χ.                                                                                                    (2.1)
+
+q is never folded; ω < 0 is allowed at T > 0. On shell v_min = (ω + Δ_χ)/q + q/2m_χ and v_∥ = (ω + Δ_χ)/q. Galilean relative velocity
+(2009.13534 Eq. (13) [FT]): v^⊥ = v_χ − v_s, with v_χ ≡ v − q/2m_χ a DM-side c-number and v_s ≡ (k + k′)/2m_s a target-side operator.
+
+**Target operator basis [D].** Every Fitzpatrick operator 𝒪_i with i ∈ {1, 3, 4, …, 15} is at most linear in 𝐒_s and in v_s (1203.3542 [ABS];
+2009.13534 Table III [FT]). **𝒪₂ = (v^⊥)² is excluded:** it is quadratic in v_s and needs an extra v_s⊗v_s (kinetic-stress) row per species, of
+the same kind as the 𝒯_e absorption row below (A-V3). With that exclusion the complete basis per species is 16 operators O_a, a = (s, Γ), rows Γ ∈ {0, b, a, ab} (density, spin, current, spin-current); Cartesian
+components are α, β:
+
+| Γ | operator | electrons (Σ over i) | nuclei of species κ (Σ over I ∈ κ) |
+|---|---|---|---|
+| 0 | number density | n_e(q) = Σ e^{iq·r_i} | n_κ^F(q) = F^M_κ(q) Σ e^{iq·R_I} |
+| b | spin density | s_e^β(q) = Σ e^{iq·r_i} s_i^β | I_κ^β(q) = F^Σ_κ(q) h^I_κ Σ e^{iq·R_I} 𝐈_I^β |
+| a | paramagnetic current | j_e^α(q) = Σ ½{p_i^α/m_e, e^{iq·r_i}} | j_κ^α(q) = F^M_κ Σ ½{P_I^α/M_κ, e^{iq·R_I}} |
+| ab | spin-current | J_e^{αβ}(q) = Σ ½{p_i^α/m_e, e^{iq·r_i}} s_i^β | J_κ^{αβ} = F^Σ_κ h^I_κ Σ ½{P_I^α/M_κ, e^{iq·R_I}} 𝐈_I^β |
+
+h^I_κ is the nucleon-spin content per unit nuclear spin (WP2's spin coupling; 𝒥_κ is the nuclear spin quantum number). With x_α = R_I + y_α
+and frozen internal nuclear states (ω ≪ keV), the internal factors collapse to F^M_κ(q) → f_pZ_κ + f_n(A_κ − Z_κ) at q → 0 (Helm) and F^Σ_κ;
+composite internal responses (orbital 𝐋_s, 𝐋_s⊗𝐒_s, 2009.13534 Eq. (27)) are higher order in q·y and can be added as rows.
+
+**Matching [D].** Write each 𝒪_i^{(s)} with v^⊥ = v_χ − v_s and map 1, 𝐒_s, v_s, 𝐒_s⊗v_s onto the rows. Examples: 𝒪₁ → n; 𝒪₄ = 𝐒_χ·𝐒_s →
+𝐒_χ^β s^β; 𝒪₇ = 𝐒_s·v^⊥ → v_χ^β s^β − δ_{αβ}J^{αβ}; 𝒪₈ = 𝐒_χ·v^⊥ → 𝐒_χ·v_χ n − 𝐒_χ^α j^α; 𝒪₃ = i𝐒_s·(q/m_s × v^⊥) →
+iε_{βγδ}(q^γ/m_s)(v_χ^δ s^β − J^{δβ}). The "a/b" split of 2009.13534 is this decomposition. Then
+
+  ⟨p−q, s′|H_int|p, s⟩ = V^{-1} Σ_a 𝒱_a^{s′s}(q, v_χ) O_a(q),   𝒱_a = (4m_χm_s)^{-1} Σ_i c_i^{(s)} F_DM,i(q) A_i^a(q, v_χ, 𝐒_χ),          (2.2)
+
+A_i^a read off from the expansion, F_DM,i the mediator factor. Anchor: 𝒱_{n_e} = c₁/(4m_χm_e), σ̄_e = μ_χe²|c₁|²/(16πm_χ²m_e²) (in vacuum,
+at q₀ = αm_e), and **|𝒱_{n_e}|² = πσ̄_eF_DM²/μ_χe² = |Ṽ|²** (D1 N5, D2 §0). On shell, for local H and elastic DM, q·v^⊥ acts as zero, so only
+the transverse projections P_Tv_χ and j_T survive in any rate (WP1 §2.2, [E4]; uses (4.6) continuity, i.e. (L)). **For the spin-current rows**
+the same reduction (only J_T survives) needs q_αJ^{αβ}(q) = [H, Σ_ie^{iq·r_i}s_i^β], i.e. [H, s_i] = 0: an SU(2)-invariant H with SOC = 0 and
+H_hf, Zeeman off. (L) alone is not enough: the contact term s·𝐈δ³ is multiplicative in r but does not commute with s_i (B-V1; WP0v3-C21).
+
+**DM tensor [D].** 𝔇_ab(q,v) ≡ (2j_χ+1)^{-1} Σ_{ss′} 𝒱_a^{s′s*}𝒱_b^{s′s}: Hermitian PSD (a sum of rank-one projectors). On shell
+𝔇 = 𝔇^{(0)} + 𝔇^{(1)}·v_T + v_T·𝔇^{(2)}·v_T (WP6 (1.2)).                                                                        (2.3)
+
+**Absorption couplings [D]** (DM boson φ, ω ≃ m_φ, |k_φ| ≃ m_φv ~ 10⁻³ω):
+- *Dark photon:* κ_mix e A′_μJ^μ_em, J^μ_em = (ρ_c, J_c), J_c = eΣ_s z_s(j_s + diamagnetic).
+- *ALP–electron:* 2106.12586 Eq. (18) [FT]. LO −(g_aee/2m_e)(∇φ)·σ → s_e(k), O(k)-suppressed; NLO ∝ (g_aee/4m_e²)(∂_tφ)ψ†σ·∇↔ψ → 2 tr J_e(k)
+  = Σ½{σ_i·p_i/m_e, e^{ik·r_i}}: ALP absorption probes the trace of the spin-current row, equal to the current response only at SOC = 0 (L9b).
+- *ALP–photon in B₀:* −g_aγγ φ E·B₀ is a source current ∥ B₀: a dark photon with κ_mix m_φ² → g_aγγB₀m_φ (2.9).
+- *Scalar:* y_φ φψ̄ψ. LO operator n_e(k) (n_κ for nucleons), suppressed at k → 0 by charge conservation; NLO (1/8m_e²)ψ†∇↔²ψ (2106.12586
+  Table I [FT]) = the kinetic-energy density 𝒯_e(k), an extra absorption row a = (e, 𝒯). WP3 adds a phonon-assisted 𝒯_e channel (L9b).
+
+---
+## 3. Master rate formulae
+
+**(3.1) Response matrix [D].** With p_i = e^{−βE_i}/𝒵:
+
+  S_ab(q,ω) = (2π/V) Σ_{i,f} p_i ⟨i|O_a(q)†|f⟩⟨f|O_b(q)|i⟩ δ(ω − E_f + E_i),     S ≡ S_ee.                                              (3.1)
+
+  R_ab(q,ω) = −(i/V)∫₀^∞dt e^{iωt}⟨[O_a(q,t)†, O_b(q,0)]⟩ = (1/V)Σ_{if}(p_i − p_f)⟨i|O_a†|f⟩⟨f|O_b|i⟩/(ω − E_f + E_i + i0).                 (3.2)
+
+**(3.2) Scattering [D].** Hypotheses: first Born in H_int; DM plane waves in V; Gibbs target; unpolarised DM. Per DM particle:
+
+  Γ_χ(v) = ∫ d³q/(2π)³ Σ_ab 𝔇_ab(q,v) S_ab(q, ω_q),                                                                                (3.3)
+
+  dℛ/dω = (ρ_χ/m_χρ_T) ∫d³v f_χ(v) ∫ d³q/(2π)³ tr[𝔇ᵀ(q,v)S(q,ω)] δ(ω − ω_q)      (per unit target mass).                               (3.4)
+
+**Index order [D] (A-V2).** The golden rule pairs 𝒱_a* with O_a†, so (3.3) is Σ_ab𝔇_abS_ab = tr[𝔇ᵀS] = tr[𝔇S*], **not** tr[𝔇S] = Σ_ab𝔇_abS_ba
+as printed in v2 (3.4), (7.3) and CONVENTIONS §8. Writing S = S_R + iS_I and 𝔇 = 𝔇_R + i𝔇_I (real symmetric R parts, real antisymmetric I parts,
+by Hermiticity), tr[𝔇S] − tr[𝔇ᵀS] = −2tr[𝔇_IS_I] (WP0v3-C15a–c). It is nonzero when both have antisymmetric imaginary parts, e.g. j^α–s^β
+rows with SOC (S_I ∝ ε_{αβγ}q^γ) against 𝒪₃-type couplings (explicit i in 𝔇). The definition of 𝔇 (CONVENTIONS §7) is kept; only the
+contraction changes. Γ_χ ≥ 0 holds because 𝔇ᵀ = 𝔇* is PSD, and (4.4) is unchanged since 𝔇ᵀ has the eigenvalues of 𝔇.
+
+Bookkeeping: 2πΣ_{p′}|V^{-1}Σ𝒱O|²δ = ∫d³q/(2π)³(2π/V)(…). For one density operator, (3.1) is D2's S, 𝔇 = |Ṽ|², and (3.3) is D1 eq. (3)
+= D2 §0 = KKL 2101.08275 Eqs. (4), (6), (13) [FT via WP1] (KKL's n_{−k} has the opposite sign of q, immaterial unless P and T are both
+broken, §4.3). At T > 0, (3.3) contains ω_q < 0 weighted by (4.3). 1509.01598 Eq. (17) is per target, 2311.04957 Eq. (3) per cell (WP6 (1.6)).
+
+**(3.3) Absorption [D].** Quantise φ = Σ_k(2ωV)^{-1/2}(a^φ_k ε e^{ik·x} + h.c.), H_int = y_φ∫d³x φ(x)O(x):
+
+  Γ_abs = (y_φ²/2ω) S_OO(k_φ, ω),   Γ_net = Γ_abs − Γ_emit = −(y_φ²/ω) Im R_OO(k_φ, ω),   ω = m_φ (+ k_φ²/2m_φ),                          (3.5)
+
+  R_OO = R̃_OO + R̃_{Oμ} 𝒟^γ_{μν}(k_φ,ω) R̃_{νO}   (full = photon-proper part + photon-reducible part),                                  (3.6)
+
+R̃ irreducible with respect to one photon line; 𝒟^γ the in-medium photon propagator (Coulomb part v_C/ε_L, transverse part
+1/(ω² − k_φ² − Π^γ_T)). With y_φ²R̃_OO = Π_φφ, y_φR̃_{Oμ} = Π_φA this is 2106.12586 Eqs. (20)–(21) [FT]. ℛ = ρ_φΓ_net/(ρ_Tm_φ).
+
+---
+## 4. Exact relations at master level
+Hypotheses: H of (1.1), Gibbs (or any stationary) state, operators of §2; extras stated per line.
+
+**(4.1) FDT [D]** (WP0v3-C3a,b): (1 − e^{−βω})S_ab = i[R_ab − R_ba*]; diagonal S_aa = −2 Im R_aa/(1 − e^{−βω}).                             (4.1)
+**(4.2) Spectral / KK [D]:** R_ab = ∫(dω′/2π)(1 − e^{−βω′})S_ab(q,ω′)/(ω − ω′ + i0). R as defined in (3.2) is a pure Lehmann sum, so
+**R^∞ ≡ 0 for every operator**, paramagnetic currents included (A-V5, B-V3a; WP0v3-C17a). The diamagnetic contact term belongs to the physical
+current kernel R^{phys}_{j^αj^β} ≡ R_{j^αj^β} + δ_{αβ}𝓃_s/m_s. Gauge invariance is the statement R^L_{jj}(q,0) = −𝓃_s/m_s (exact for the spectral R
+at any T, from (q·j)_fi = ω_fi n_fi and (4.6); WP0v3-C17b), i.e. R^{phys,L}(q,0) = 0. CONVENTIONS §6's Π^γ_T = e²(R_{j_Tj_T} + 𝓃_e/m_e) uses this
+paramagnetic R and is consistent.                                                                                                     (4.2)
+**(4.3) Detailed balance [D]:** S_ab[O](q,−ω) = e^{−βω}S_ba[O†](q,ω); for densities S_ab(−q,−ω) = e^{−βω}S_ba(q,ω). With inversion or time
+reversal S(q,−ω) = e^{−βω}S(q,ω) and S(q,ω) = S(−q,ω). **Converse (WP4-D6):** with P and T both broken, S is nonreciprocal. The order is operator-dependent (B-V3b): for
+operators with O(1) matrix elements at q → 0 (spin rows) S_aa(q,ω) − S_aa(−q,ω) = 2q·𝐛_NR(ω) + O(q³); for densities n_fi(q) = O(q) (f ≠ i), so
+**S_ee(q,ω) − S_ee(−q,ω) = 2q_αq_βq_γ𝐁^{NR}_{αβγ}(ω) + O(q⁵)** (dipole–quadrupole interference; WP0v3-C22). 𝐁^{NR}_{αβγ} is the object WP4-v3 [3.2′] and WP6-v3 (1.5) write as b^{NR}_{αβγ}/ω²; one NOTATION row
+is owed (AUDIT-2 m17). The rate has a part odd in the DM wind (WP4 [3.1]–[3.2]); then the campaign sign of q (§2.1) is
+binding. Chiral T-even targets show enantiomer differences only via 𝒪₅×𝒪₈ interference (WP4 [3.3]). Pointer: L19.                       (4.3)
+**(4.4) Positivity [D]** (WP0v3-C3c): Σc_a*c_bS_ab = (2π/V)Σp_i|⟨f|Σc_bO_b|i⟩|²δ ≥ 0, so S is Hermitian PSD at each (q,ω) and Γ_χ ≥ 0;
+|S_ab|² ≤ S_aaS_bb (e.g. |S_eκ| ≤ √(S_eeS_κκ)), Γ_χ = tr[𝔇ᵀS] ≤ ∫d³q/(2π)³ λ_max(𝔇) tr S.                                            (4.4)
+**(4.5) Moment matrices [D]** (B-V4). Here S_ab[O†] denotes (3.1) with O_a → O_a†, O_b → O_b†. For any stationary state and k ≥ 0,
+V^{-1}⟨[O_a†, ad_H^kO_b]⟩ = ∫(dω/2π)ω^k[S_ab[O] − (−1)^kS_ba[O†]], with ad_HX ≡ [H, X] (Lehmann; i ↔ f relabelling in the second term). Hence
+
+  𝓜¹_ab(q) ≡ V^{-1}⟨[O_a†,[H,O_b]]⟩ = ∫(dω/2π) ω[S_ab[O] + S_ba[O†]],   𝓜³_ab(q) ≡ V^{-1}⟨[[O_a†,H],[H,[H,O_b]]]⟩ = ∫(dω/2π) ω³[S_ab[O] + S_ba[O†]].   (4.5)
+
+v2 wrote S_ab[O†] in the first-moment formula. That is correct on the diagonal and false off it (S_ba[O†] and S_ab[O†] are complex conjugates;
+WP0v3-C16a–d). It agrees with (4.3), which already pairs S_ab[O] with S_ba[O†]. The same slip is in CONVENTIONS §6 (Interface flag G3). 𝓜¹ and 𝓜³
+are also the ω⁻² and ω⁻⁴ coefficients of the large-ω expansion of R_ab (used in §16.1).
+
+**(4.6) f-sum rules [D]** (WP0v3-C4a–c, e). Extra hypothesis (L): every term of H besides the kinetic energies is multiplicative in all
+coordinates (true for H_C, H_hf contact, Zeeman; false for mass-velocity, non-local pseudopotentials). **[T_s, n_s(q)] = q·j_s(q) exactly**
+(no (q²/2m)n term; WP1-D1, WP0v3-C4e), so [H, n_s(q)] = q·j_s(q) involves only species-s momenta and
+
+  𝓜¹_{ss′} = δ_{ss′} q² 𝓃_s/m_s,   s, s′ ∈ {e, κ};   for densities with inversion  ∫_{−∞}^{∞}dω ω S_ss(q,ω) = π𝓃_sq²/m_s.              (4.6)
+
+- (a) 𝓜¹_ee = 𝓃_eq²/m_e at every order in g and BO, any T, dynamic nuclei, all electrons (cores included); D2 §3 generalised. The integral
+  runs over ω < 0 at T > 0. The normalisation is π, not 2π (WP6-W1, WP0v3-C9).
+- (b) 𝓜¹_κκ = 𝓃_κq²/M_κ (× |F^M_κ|²).
+- (c) **𝓜¹_eκ = 0**, i.e. ∫ω[S_eκ + S_κe[O†]]dω = 0. At T = 0 (S = 0 for ω < 0) Re S_eκ must change sign in ω > 0, so a one-signed Migdal or
+  e–N interference spectrum is wrong; at T > 0 the zero is a statement over ℝ and does not force a sign change on ω > 0 (A §8). Its electronic/lattice split is
+  not zero: 𝓜¹^{(L)}_eκ = −𝓜¹^{(e)}_eκ = 𝓃_κ(q²/M_κ)𝓕_κ(q) [D in WP3 J7].
+- (d) Charge: 𝓜¹_cc = q²Σ_s z_s²e²𝓃_s/m_s ≡ q²ω_{p,c}², ω_{p,c}² = ω_{p,e}²(1 + Σ_κZ_κ²𝓃_κm_e/(𝓃_eM_κ)); the nuclear part is ~10⁻⁴.
+- (e) Spin, SU(2) (SOC = 0, B₀ ∥ z, hyperfine contact term dropped: s·𝐈δ³ does not commute with s^z(q); A-V6): 𝓜¹_{s^zs^z} = 𝓃_eq²/(4m_e).
+- (L) violated: 𝓜¹_ee = 𝓃_eq²/m_e + V^{-1}⟨[n_e†,[H_nl,n_e]]⟩. Mass-velocity (Breit–Pauli, closed shells; WP0v3-C4g; WP1 [E11]):
+
+  𝓜¹_ee = (𝓃_eq²/m_e)[1 − (5/3)⟨T⟩/m_e − q²/4m_e² + O(m_e^{-4})],   ⟨T⟩ = mean kinetic energy per electron.                              (4.6′)
+
+  Orbit–orbit (Breit–Pauli two-body, A-V4; WP0v3-C18): [n_e†,[H_oo,n_e]] = 2Σ_{i<j} q·𝒦^{oo}_ij·q cos(q·r_ij), 𝒦^{oo}_ij = −(α/2m_e²)(𝟙 + r̂_ijr̂_ij)/r_ij,
+  exactly (C18a). The kernel is transverse in Fourier space, FT[(𝟙 + r̂r̂)/r](k) = (8π/k²)(𝟙 − k̂k̂), so the uniform (G = 0, Hartree) part of the pair
+  density contributes **exactly zero** (C18c) and only the inhomogeneous and exchange–correlation parts survive. Where those pair distances obey
+  q r_ij ≪ 1 (cores), the angular average ⟨1 + (q̂·r̂)²⟩ = 4/3 (C18b) gives
+
+  𝓜¹_ee ⊃ (𝓃_eq²/m_e) δ_oo,   δ_oo = −(4/3)E′_ee/(N_em_e),   E′_ee ≡ ⟨Σ_{i<j}α/r_ij⟩ minus its uniform (G = 0) Hartree part,                    (4.6″)
+
+  finite per electron (the bare E_ee of an extended solid is not; §17.1). Thomas–Fermi: E′_ee ≈ E_ee^{atom} ≈ ⟨T⟩N_e/3, so δ_oo/δ_mv ≈ 4/15 ≈ 0.27
+  [E] (C18d): δ_rel ≈ −0.23% (Si), −0.73% (Ge) [E]. The q⁴ term and the valence pairs with q r_ij ≳ 1 are below this estimate's accuracy.
+  Non-local pseudopotentials give the nonlocal f-sum owed in SOTA R2 (exact with the generalised current incl. [g^{NL}, q·r]).
+
+**(4.7) Third-moment mixed sum rule [D]** (WP0v3-C4d, C16d, C19; under (L)). With the electron–nucleus potential energy −U_κ(r)
+(U_κ(p) = Z_κ(p)e²/p², WP3) and the normalisation of (4.5):
+
+  𝓜³_eκ(q) ≡ V^{-1}⟨[[n_e†,H],[H,[H,n_κ]]]⟩ = ∫(dω/2π)ω³[S_eκ[O] + S_κe[O†]] = (1/(V m_eM_κ))⟨Σ_{i, I∈κ} e^{iq·(R_I−r_i)} (q·∇)² U_κ(r_i − R_I)⟩.   (4.7)
+
+The operator identity is exact at all q (C4d in 1D; re-derived in 3D by both referees, A-V7, B-V6). V_NN and V_ee drop out.
+
+**(4.7′) Limit q → 0 [D] (A-V8; settles the A/B disagreement, §16.1).** Let 𝓃_e^{(κ)}(y) be the electron density at R_κ + y conditional on a
+nucleus κ at R_κ, with 𝓃_e^{(κ)}(0) = 𝓃_e(R_κ) (contact density) and 𝓃_e^{(κ)}(y) → 𝓃_e (mean density) at large |y|. For a static crystal
+𝓃_e^{(κ)}(y) = Σ_G𝓃^{(κ)}_Ge^{iG·y}, 𝓃^{(κ)}_0 = 𝓃_e, Σ_G𝓃^{(κ)}_G = 𝓃_e(R_κ). For point nuclei, FT[(q·∇)²U_κ](k) = −(q·k)²Z_κe²/k², and (4.7) is
+
+  𝓜³_eκ(q) = −(𝓃_κZ_κe²/(m_eM_κ)) Σ_G 𝓃^{(κ)}_G (q·(q−G))²/|q−G|²   (thermodynamic limit, q ≠ 0).
+
+- *G = 0:* the term is 𝓃_e(q·q)²/q² = 𝓃_eq², **exactly, at every q** (WP0v3-C19a). It is non-analytic at q = 0 and does not vanish as q → 0.
+- *G ≠ 0:* (q·G)²/G² + O(q³/G); on a cubic site every star gives |star|·q²/3 (C19b). With Σ_{G≠0}𝓃^{(κ)}_G = 𝓃_e(R_κ) − 𝓃_e:
+
+  **𝓜³_eκ(q) = −q²Z_κe²𝓃_κ[𝓃_e(R_κ) + 2𝓃_e]/(3m_eM_κ) + O(q³/G_min)**   (point nuclei, cubic sites, 1/L ≪ q ≪ G_min).                (4.7′)
+
+The expansion (q·(q−G))²/|q−G|² → (q·Ĝ)² needs q ≪ |G| for every star with weight, so the range is q ≪ G_min ≈ 2π/a (≈ 2.3 keV in Si), not
+q ≪ 1/a_core (VER-WP0-B N1). For G_min ≲ q ≪ 1/a_core the exact form is
+
+  𝓜³_eκ(q) = −(q²Z_κe²𝓃_κ/(m_eM_κ))[𝓃_e(R_κ)/3 + 𝓃_e + Σ_{G≠0}𝓃^{(κ)}_G((q·(q−G))²/(q²|q−G|²) − 1/3)],                               (4.7″)
+
+where stars with |G| ≪ q act like G = 0 (weight 1 instead of 1/3; WP0v3-C19k). The bracket lies between 𝓃_e(R_κ)/3 + 2𝓃_e/3 and
+𝓃_e(R_κ)/3 + O(𝓃_val). Only the contact term is universal over the DM range of q (keV to tens of keV); the conclusion "fixed by contact densities up
+to ~10⁻⁴" is unaffected.
+
+Real-space reading: (q·∇)²(Z_κα/y) = −(q²/3)Z_κe²δ³(y) + 2Z_καq²P₂(q̂·ŷ)/y³. The contact term gives −(q²/3)Z_κe²𝓃_e(R_κ) with a phase equal to 1 on
+its support (exact at all q; B's point). The ℓ = 2 term is conditionally convergent. Against the uniform part 𝓃_e and the phase e^{−iq·y}, the
+angular integral gives −2j₂(qy) (C19c), and ∫₀^∞dx j₂(x)/x = 1/3 (C19d), so it contributes −(2/3)q²Z_κe²𝓃_e **independently of q** (C19e, g).
+The weight sits at |y| ~ 1/q, so the small-qy expansion of j₂ does not apply to it. Order of limits: (4.7′) holds for L → ∞ at fixed q, then
+qa ≪ 1. That is the physical order for DM transfers (qL ≫ 1 always). The opposite order (q → 0 in a finite spherical sample, qL ≪ 1) kills the
+uniform ℓ = 2 term (∫P₂ = 0, C19i) and gives v2's 𝓃_e(R_κ) alone. The same holds for the q-independent on-site operator ⟨(q·∇_R)²V_pot⟩, where
+the electrons and the other nuclei combine into a neutral, absolutely convergent sum (the WP2-v2 (5.2′) κκ face).
+**Independent check (RPA):** for two uncorrelated plasmas (𝓃_e^{(κ)} ≡ 𝓃_e) the ω⁻⁴ coefficient of R_eκ from the species Dyson equation (5.1) is
+−Z_κe²𝓃_e𝓃_κq²/(m_eM_κ). That is (4.7′) at 𝓃_e(R_κ) = 𝓃_e, and three times v2's form (C19h).
+**Next order [D, sketch]:** the O(q³) term is odd in G. It cancels at centrosymmetric (O_h) sites, leaving O(q⁴). At T_d sites (Si, Ge, diamond,
+GaAs; Im𝓃^{(κ)}_G odd in G) it survives as an imaginary term ∝ iq_xq_yq_z (C19j). Non-cubic sites add an O(q²) electric-field-gradient term.
+The contact term itself additionally needs q ≪ 1/a_core (REF-WP2-B: contact relation 9% off at 51 keV for Ge 1s).
+**Size [E, A-V8]:** 2𝓃_e/𝓃_e(R_κ) ≈ 1×10⁻⁴ (all-electron Si), ≈ 5×10⁻³ (diamond). So "the ω³ moment of Migdal-type mixed spectra is fixed by contact
+densities" holds only up to this e–ion plasma cross term, −(2/3)q²ω_{p,e}²Ω_{p,κ}²/(Z_κe²) per unit volume. Not found in the literature searched
+[E for novelty]. Consequence for F4 (WP2-v2 (5.2′), WP3-v2 J8): Interface flag G5.
+
+**(4.8) Translation Ward identities [D]** (WP0v3-C4f). P_tot = Σp_i + ΣP_I commutes with H_C, H_rel, H_hf. The mass density
+ρ_M(q) = Σ_s m_sn_s(q) obeys [H, ρ_M(q)] = q·𝐠(q) exactly, 𝐠 the momentum density, 𝐠(0) = P_tot. For any B and ω ≠ 0:
+Σ_s m_s S_{Bs}(q,ω) = (q/ω)·S_{B𝐠}(q,ω), one order in q higher than the individual terms. For B with O(1) matrix elements each term is O(q)
+and the sum O(q²). For B = n_e each S_{Bs} is O(q²) and the sum O(q³) (B minor).                                                        (4.8)
+- (i) *Acoustic sum rule.* Rigid displacement u_κ = u ∀κ with adiabatic electrons: Σ_κ∂_{u_κ}V_pot^{scf} = −∇V_pot^{scf}; Σ_κΦ^{(2)}_{κα,κ′β}(0) = 0,
+  Σ_κZ*_κ = 0; for the acoustic branch at Q = 0, g_mn(k,0) = (ε_nk − ε_mk)𝔄_mn with 𝔄 = −iℓ_Q ê·p, so g_nn(k,0) = 0 (X1 H3; holds with
+  non-local PPs that move with the ions).
+- (ii) The strictly Q = 0 acoustic mode is the centre-of-mass mode (H = P_tot²/2M_tot + internal part): its creation amplitude by any O(q)
+  is iℓ_Q(ê·q)O, the contact term of (4.9). At small Q ≠ 0 the mode is a strain wave; the limit is (4.9).
+
+**(4.9) Soft acoustic limit = X1 (X1) [D in X1, under X1 H1–H4; algebra of the two forms WP0v3-C12]** (C7 = X1 §5 C7a–e; WP3 confirmed;
+denominators and contact term re-derived by A-V10; the numerators are X1's and are not derived here). D1 normalisation of M^{(2)}
+(no 1/√N), ℓ_Q = (2M_cellω_{Qν})^{-1/2} with N outside, upper sign = emission of −Q, index order Q̂·Ξ^n·ê, Ξ^n = D^n + v^g_n ⊗ p_nn:
+
+  M^{(2)}_{cvν,±}(k,q,Q→0) = iℓ_Q ρ_cv(k,q) [ ê·q + (Q̂·D^c·ê ∓ c_ν ê·p_cc)/(Q̂·v^g_c ± c_ν) − (Q̂·D^v·ê ∓ c_ν ê·p_vv)/(Q̂·v^g_v ± c_ν) ] + O(|Q|^{1/2}),  (4.9)
+
+with v^g_c, p_cc at k+q and v^g_v, p_vv at k; D^n the frozen-strain (comoving) deformation tensors, the only material constants
+(|D|/c_ν ~ 10² keV ≫ q). Equivalent lab form: iℓ_Qρ_cv[ê·(q − p_cc + p_vv) + Q̂·Ξ^c·ê/(Q̂·v^g_c ± c_ν) − Q̂·Ξ^v·ê/(Q̂·v^g_v ± c_ν)].
+v1's (4.9) differs by ê·(p_cc − p_vv) (lab reading) and carried N inside ℓ_Q (M_v1 = M_X1/√N); it agrees only at band extrema (WP3 [C1d]).
+Consequences (X1 §6–§7) [D]: inside the window |Q| ≥ Q_min ≃ (E_min(q) − ω)/(v_max^g + c_ν) on shell, so no IR feature; no subtraction,
+detuning-form denominators, zero weight at acoustic Γ, σ ≪ δ₀. Outside the window: Low-type soft bremsstrahlung, finite in 3D for
+deformation coupling, BN-log only for piezo (GaAs) where the ZPL is open; Cherenkov-cone poles are the real cascade (not counted twice).
+
+---
+## 5. Screening from first principles
+
+**(5.1) Definition [D].** Restrict v_C to the external channel {q+G}. R̃ is irreducible with respect to one Coulomb line of that channel,
+in the super-space (a; G) (exact: the response to the total external + Hartree potential of the channel). Lines at all other momenta stay
+inside R̃. H_C couples only through ρ_c, so
+
+  R = R̃ + R̃ Zᵀ v_C Z R,   (Z)_{G; sG′} = z_s δ_{GG′},   v_C = diag v_C(q+G).                                                      (5.1)
+
+**(5.2) Screened formula [D]** (WP0v3-C1, C2). With R̃_ac ≡ Σ_s R̃_as z_s and the total longitudinal dielectric matrix (electrons + nuclei, LFE)
+
+  ε_{GG′}(q,ω) ≡ δ_{GG′} − v_C(q+G) R̃_{cc,GG′}(q,ω),                                                                              (5.2)
+
+  R_ab = R̃_ab + R̃_ac ε^{-1} v_C R̃_cb   for arbitrary operators a, b (matrices in G; DM vertex at G = 0, unreduced-q convention §2 of CONVENTIONS). (5.3)
+
+Rank one (no LFE): R_ab = R̃_ab + v_C R̃_acR̃_cb/ε (Sherman–Morrison in species space). TDDFT: v_C → f_Hxc in the proper part, ε → ε̃.
+
+**Dependence on the coupling vector c_s [D]** (O_c = Σ_s c_sn_s):
+- *Total charge (dark photon), |c⟩ ∝ |z⟩:* R_zz = v_C^{-1}[(ε^{-1})_00 − 1], so S_zz = (2q²/e²)Im[−(ε^{-1})_00]/(1 − e^{−βω}) with the **total**
+  ε (WP0v3-C1b). This is the ELF form.                                                                                            (5.4)
+- *Electron density only, |c⟩ = |e⟩ = −|z⟩ + Σ_κZ_κ|κ⟩:* R_ee = R_zz − Σ_κZ_κ(R_zκ + R_κz) + Σ_{κκ′}Z_κZ_κ′R_κκ′.                          (5.5)
+  S_ee = (2q²/e²)L holds iff the nuclear terms vanish: (i) exactly at clamped nuclei (WP0v3-C1c), or (ii) at ω ≫ ω_max up to O(κ_BO⁴).
+  In general ε_e^{-1} ≡ 1 + v_CR_ee gives S_ee = (2q²/e²)Im[−ε_e^{-1}]/(1 − e^{−βω}) exactly, with ε_e ≠ ε.
+- *Nucleon number, |c⟩ = Σ_κA_κF^M_κ|κ⟩:* R_NN = R̃_NN + R̃_Ncε^{-1}v_CR̃_cN, the electronic plus ionic screening of the DM–nucleus vertex.
+  The **external vertex stays A_κF^M_κ**; the Z*/ε_∞ structure appears only inside the Dyson series that turns TO into LO (WP2 (4.4)); an
+  external Z*/ε_∞ vertex belongs to charge coupling (WP2-C1, WP2 (4.2)). Two-component limit: Bohm–Staver ω² = Ω²_{p,ion}/ε(q,0)|_clamped [D],
+  with the **clamped-nucleus electronic** dielectric function (= ε_∞(q) in an insulator), not ε_e of (5.5). ε_e contains the ionic response and
+  the acoustic pole itself (A-V11, B-V8a).
+- *Non-density operators [D].* (5.3) screens a only through R̃_ac. By (4.6), q·j_L = [H, n], so S_{n j_L} = (ω/q)S_nn and S_{j_Lj_L} = (ω/q)²S_nn,
+  screened or not: **j_L is screened exactly like n**. **j_T is screened through local fields**: j_T(q) couples to n(q_r + G ≠ q), so
+  R̃_{j_T, n(q_r+G)} ≠ 0, ≈ 10–30% [E] (WP1-D4). In non-cubic targets, or at finite q off high-symmetry directions, longitudinal–transverse
+  mixing gives R̃_{j_T(q),n(q)} ≠ 0 already at G = 0 (B-V8b); (5.3) covers both; the transverse-photon part is O(ω_p²/q²) ≈ 2×10⁻⁵ at 4 keV. **Spins at SOC = 0** are not
+  Coulomb-screened (singlet/triplet decoupling); beyond IP the leading term is the **triplet W^{scr} ladder plus f_xc^T**, with R̃_s ≡ 4R_{s^zs^z}
+  (WP1-v3 IF-13; ×1.3–2 within ~1 eV of the edge), S_{s^αs^β} = (δ_{αβ}/4)S^{IP}_nn at IP, with no 1/|ε|² (WP1-D5, [E6]); with SOC or magnetic order R̃_{s,c} ≠ 0 (Si ≲ 2%, Ge ≲ 10% in amplitude near the edge [E]). Rule: screen
+  every operator with R̃_ac ≠ 0 (L3 correction).
+
+**(5.5) Coulomb-line classes and no double counting [D, sketch; RPA/TDH (ring) level, ALDA adds the k_xc source term of WP3-v3 §M7; X2 §3–§4; A-V12, B-V9].** Consider the
+Coulomb-proper O(g²) contribution to S_ee with one external vertex pair (q,ω) and one emitted phonon (Q,ω_Q), drawn as the cut polarisation
+graph (loops = nodes; Coulomb and phonon lines = edges; the emitted phonon is one edge, cut). Two cases.
+- **Case 1: the phonon edge closes a cycle** (Q integrated freely). Every Coulomb line is then in exactly one of three classes:
+  - *external* (q+G, ω): bridges at q, resummed into ε̃^{-1}_{G0}(q,ω) with local fields (v1 kept only G = 0);
+  - *DFPT* (Q+G, ν ≈ ω_Q): the cycle segments adjacent to the ion vertices, carrying Q+G by momentum conservation, which make the screened g.
+    Static DFPT errs by O(ω_Q²/E_g²) ≈ 3×10⁻³: below the gap, time reversal (R(Q,−ν) = R(Q,ν)ᵀ*, R Hermitian) makes ε̃(Q,ν) even and analytic
+    in ν. TR is needed and inversion is not (B-V9). For magnetic references evenness fails and the error can be O(ω_Q/E_g) (A-V12 iii). The non-adiabaticity of the
+    amplitude, O(ω_Q/δ), is separate (D1 §4);
+  - *pair* (P+G, ω_f), P = q+Q, ω_f = ω ∓ ω_Q: the cycle segment between the two q-injection points, W^{scr}(P,ω_f) = ε̃^{-1}(P,ω_f)f_Hxc(P)
+    between two triangles. Box graphs (both injection points on one loop) have no pair segment; that is harmless.
+- **Case 2: a phonon edge is a bridge** (the "X" graph). It carries q mod G inside the external chain (or P mod G inside the pair chain). It is
+  not a Coulomb-line class. It is an **ionic insertion**: the ionic part of ε_tot(q,ω) (or ε_tot(P,ω_f)), at O(g²Z*²/M) relative order
+  (A-V12 ii, B-V9). At amplitude level it is a second phonon line beside the emitted one, so it lies outside the one-phonon hypothesis of
+  Case 1. It is resummed by using the total ε in the external and pair chains. Size ≲ 10⁻⁴ in Si, ~10⁻³ absolute in polar targets (X2 §7) [E].
+*Proof sketch.* Removing the emitted phonon edge from the cut graph leaves a tree of loops joined by Coulomb lines. Re-inserting it closes exactly
+one cycle (Case 1) or joins two components (Case 2, bridge). In Case 1 a Coulomb line off the cycle is a bridge carrying q+G (external,
+resummed once as improper chains). On the cycle, momentum conservation fixes Q+G next to each ion vertex and P+G between the injection points.
+The frequency assignment follows the same way (ω on bridges, ν on DFPT segments, ω_f on the pair segment). The case with both injection
+points on one arc, and frequency routing through several loops, are not written out: [D, sketch]. The classification is topological, so it
+holds at q → 0 (P = Q) and Q → 0 (P → q). Lines inside one loop (ladder, direct W) are excitonic and beyond this level [C].
+
+**(5.6) PAER rate with full screening [D; X2 (2.3)]** (H5 window; RPA/TDH, KS bands, O(g²), harmonic, static DFPT g; ALDA adds the k_xc source term Σ_Gρ_cv(k,P+G)(ε̃^{-1}k_xc[δn_qδn_Q])_G, size ≲ δ_LF
+[E] (WP3-v3 §M7, IF-12)):
+
+  S^{X+}_ee(q,ω) = (4π/Ω) ⟨⟨Σ_{cvν±}(n_{Qν}+½±½) |M̃_{cvν,±}(k,q,Q)|² δ(ε_{c,k+P} − ε_{vk} ± ω_{Qν} − ω)⟩⟩ = (2q²/e²)L^{PA}(q,ω),            (5.6)
+
+⟨⟨·⟩⟩ = N^{-2}Σ_{kQ}, spin 2 included, T ≪ E_g. At T > 0 the left-hand side with band occupation factors f_v(1 − f_c) inserted is S^{X+}, and L^{PA} computed with (f_v − f_c) gives
+S^{X+} = (2q²/e²)L^{PA}/(1 − e^{−βω}) by (4.1): the thermal factor is applied once, never on top of f(1 − f) weights (B minor; REF-WP3-A/B,
+Interface flag F7). Inside the window ε̃^{-1}(q,ω) is non-absorptive **to O(g²)** (ε₂^{PA}(q,ω) = O(g²); A-V13), so (5.6) is exact to O(g⁴) at this level
+(the ε₂²-term of |ε|² is O(g⁴); D1's H2 is redundant there). ε(P,ω_f) **is** absorptive (the final pair is on shell); C7a handles the totals and
+(5.7) the pair-resolved weights.
+
+**(5.7) Screened amplitude [D; X2 (2.2)]:**
+
+  M̃_± = M^{(2)}_±[ρ̃] + Σ_{GG′} ρ_cv(k, P+G) W^{scr}_{GG′}(P, ω_f) 𝔗_{G′}(P),   ρ̃_mn(k,q) = Σ_G (ε̃^{-1})_{G0}(q,ω) ρ_mn(k, q+G),           (5.7)
+
+M^{(2)} = D1 eq. (1) (unrestricted m sum, D1 normalisation; D2's is M^{(2)}/√N). 𝔗 is X2 (2.1), the second-order KS density at P+G
+(all band pairs a, b, including occ–occ and emp–emp rearrangements):
+
+  𝔗_G(P) = (2/V)Σ_kΣ_{a,b}⟨ψ_{b,k}|e^{−i(P+G)·r}|ψ_{a,k+P}⟩N_ab(k)/(ω_f − ε_{a,k+P} + ε_{b,k} + i0),   N = [F^{(1)}, r^{(2)}] + [F^{(2)}, r^{(1)}],     (5.7a)
+
+with F^{(1)} = ρ̃ (field at (q,ω)), F^{(2)} = g (field at ∓ω_Q) and first-order density matrices r^{(i)}_{ab} = F^{(i)}_{ab}(f_b − f_a)/(ω_i − ε_a + ε_b + i0)
+(X2 §1–§2 [D in X2]). **W^{scr}_{GG′}(P,ω_f) is retarded, in the (3.2) index order with the final-pair index G first (as printed)** (B-V10). Since
+pairs are open at (P,ω_f), R(P,ω_f) is not Hermitian there. The pair-resolved |M̃|² then depends on retarded vs advanced W exactly as (7.2)
+depends on its weight, while the totals agree (C7a). The out-state (prompt final state) labelling of §7.2 requires the retarded choice, and the
+pair-resolved WP5 seeding inherits it (Interface flag G8). Limits [D]: coherent
+potential (M = Uρ for all pairs) gives M̃ = M/ε(P,ω_f) exactly (WP0v3-C7b); the rigid (convective, e^{iq·u}) component is screened by
+ε(q,ω_f) to all orders in ω_Q/ω (REF-A's prescription, exact only there); no 1/|ε|⁴ arises.
+**(5.7′) v1's projected form is a truncation** (WP3-2): G = G′ = 0, the triangle restricted to resonant pairs, M continued off shell:
+
+  M̃^{(5.7′)}_{cvk} = M_{cvk} + ρ_cv(k,P)[v_C(P)/ε(P,ω_f)] R̃⁰_{ρ†M}(P,ω_f),   R̃⁰_{ρ†M}(P,ω_f) = (2/V)Σ_{k′c′v′} ρ*_{c′v′}(k′,P)M_{c′v′k′}/(ω_f − ε_{c′,k′+P} + ε_{v′k′} + i0),
+
+with the optical-theorem identity Im[R̃⁰_MM + R̃⁰_{M†ρ}v_Cε^{-1}R̃⁰_{ρ†M}] = Σ|M̃|²Im(…) (WP0v3-C7a). v1's prediction (two factors: external
+plus projected pair channel, reducing to |ε(P,ω_f)|^{-2} iff M ∝ ρ; REF-A's ε(q,ω∓ω_Q) as the Q → 0 case) is CONFIRMED by X2 and WP3.
+**Sizes [E] (X2 §6):** δ_ω ≈ 1–2%, δ_LF ≈ 5–20%, δ_pair ≈ −(10–50)% (sign [C]); interim systematic on L^{PA}: factor **[0.4, 1.8] [E/C]** until
+X2-N2/N3, the multiplicative composition with the signs of δ_LF and δ_pair left open (WP3-v3 IF-10; WP6-v3 (5.2): log-symmetric, median 0.85,
+σ_ln 0.75; WP0v3-C23c). v2/v3's [0.5, 1.2] assumed the sign of δ_pair that this paragraph tags [C], and is withdrawn (AUDIT-2 B1). The dark photon adds no PAER amplitude at O(e·g) (ions only via ε_tot in the external and pair channels). Recommended code
+route: ZG/frozen-phonon supercell with RPA local fields in the supercell basis (contains every class). Same structure at q → 0 (L9).
+
+---
+## 6. Expansion hierarchy and decomposition theorem
+
+**Table 6.1. Small parameters** (Si values [E]):
+
+| symbol | definition | Si | controls |
+|---|---|---|---|
+| κ_BO | (m_e/M)^{1/4}; u^{zp} ~ κ_BO × bond length, ω_ph ~ κ_BO² E_el, non-adiabatic mixing ~ κ_BO³ | 0.066 | BO order n_B |
+| η_ep(q,ω) | ⟨\|g\|²⟩/δ², δ = off-shell distance (D1 §5; |d| ≥ min(E_min(q) − ω, E_g − ω_max)) | 10⁻³–10⁻¹ | e–ph order n_g |
+| η_anh | ⟨u²⟩^{1/2}\|Φ^{(3)}\|/\|Φ^{(2)}\| | 0.01–0.03 (T = 0) | n_A |
+| η_xc | ‖f_xcR̃‖/‖v_CR̃‖ (LFE); E_x^b/E_g | 0.2–0.5; 0.013 | ladder 𝒳: **not small**, error = computed next-rung difference |
+| t_ph, t_g | T/ω_ph, T/E_g | 10⁻³ at 50 mK | thermal order n_T |
+| x_R | q²/(2M⟨ω⟩) | 0.05 at 10 keV | 1-ph → multiphonon → impulse (K) |
+| 2W_κ(q) | q·B_κ·q, B_κ = ⟨u_κu_κ⟩; = (q²/2M_κ)⟨coth(βω/2)/ω⟩ only for cubic sites | ≈ x_R (Einstein) | FC weight e^{−2W} (direction-dependent in general, enters L19) |
+| n_ph; z_ΔR\|j₀(qΔR)\|c̄_ΔR^{n_ph} | phonon order; shell parameter (WP2 (2.3)–(2.4)) | — | coherent vs incoherent (replaces x_coh, retired) |
+| σ_c | ΔE_e/(q v_rel) | — | sudden vs adiabatic Migdal (𝔐) |
+| ξ_D | q_e r_n (q_e = q for ER, ≈ m_eq/M for Migdal) | — | multipole order n_D |
+| broken symmetry | SC: Δ_BCS/E_F (~10⁻⁵), (T_c/ω_D)²ln, 1/k_Fℓ_mfp (O(1) in amorphous WSi), Δ_BCS/v_Fq (≤ 0.2; enters at first order, −2(Δ_BCS/qv_F)𝔰_BCS𝔤_IL^{nor}, WP4-v3 I12; WP4's Q₊ < 1 holds only for q < 4.24 keV, m_χ ≲ 0.80 MeV, I16); magnets: 1/(2\|𝐒_j\|), (hopping/Hubbard U)², q·r_3d (form factor) | — | reference metadata (WP4-D4) |
+
+x_coh = q/G_min is neither sufficient (at n_ph = 1 the coherent S stays a δ on the dispersion at any q) nor necessary (n_ph ≥ 2 incoherent is
+accurate in ω-integrated rates even below q_BZ [E]) (WP2-D1). The BZ-average identity behind "incoherent = BZ-averaged coherent S" (WP2 (2.4)) is exact
+only for Bravais lattices and only asymptotically for q ≫ max(n_ph, 2W_κ)q_BZ; with a basis every inter-sublattice pair adds a shell term (WP2-v3 IF-10). A one-phonon **incoherent** regime exists at q_BZ < q ≪ √(2Mω̄) (Si 5–20 keV)
+(WP2-D3). Truncation N-phonon loses P[Pois(2W) ≥ N] of the f-sum for one site; with several sites the |c_κ|²/M_κ-weighted mean (WP2-v3 (3.4″), IF-3); at
+T > 0 it refers to the signed first moment.
+
+**Truncation multi-index (CONVENTIONS §11).** τ = (n_B, n_g, n_A, 𝒳, n_T, K, 𝔐, n_D), 𝒳 ∈ {IP, RPA, RPA+LFE, TDDFT, BSE},
+K ∈ {1ph-coh, 1ph-inc, multi-coh, multi-inc, imp}, 𝔐 ∈ {ad, sud}; n_T is an order, never a temperature. Mandatory metadata (not orders):
+T; ref ∈ {normal, BCS, LSWT, …}; scr ⊆ {ext, LFE, DFPT, pair, ion}; conv ∈ {window, DC}. Library string
+`nB=0|ng=0|nA=0|X=RPA+LFE|nT=0|K=-|Mg=-|nD=-` + `T=130K;ref=normal;scr=ext,LFE;conv=window`. Every LIMITS entry is a point τ (table (9.7));
+the error model is the increment Δ^τ_k = S^{τ+e_k} − S^τ entered by type (§8).
+
+**§6.2 Decomposition theorem.**
+*Hypotheses.* (H1) H = H_C plus optional local terms obeying (L); **nuclei of finite size** (rigid smeared charges Z_κF^{ch}_κ(k), F^{ch}_κ the nuclear charge (proton) form factor, F^{ch}_κ(0) = 1; not the
+DM–nucleon F^M_κ, which depends on the DM couplings and contains neutrons; VER-WP0-A N1),
+so that the Spohn–Teufel smoothness condition H_k holds (for point nuclei it fails: math-ph/0104024 [FT via B-V12d]). The electron–electron
+Coulomb term is R-independent and does not enter H_k. (H2) The adiabatic electronic ground state Φ₀(r;R) is non-degenerate and gapped,
+Δ_ad(R) ≥ E_g > 0, on the **essential** support of the vibrational state (up to exponentially small tails; B-V12f) (insulator, no conical
+intersection there). (H3) Harmonic ground-surface
+vibrations plus perturbative anharmonicity. (H4) T ≪ E_g. (H5), for the X0/X+ split only: every intermediate state in the excited block is
+off shell by δ ≫ widths (D1 §5.4 window, ω ≤ E_min^{ren}(q,T) − δ₀).
+**Scope of (H2) (WP4-D2) [D that it fails].** (H2) fails for every gapless target: metals, superconductors, semimetals (Δ_ad = 0 on the Fermi
+surface; in superconductors Δ_BCS ≪ ω_D reverses the adiabatic hierarchy). For these the sectors must be quasiparticle-number sectors
+(Bogoliubov quasiparticles and phonons via Migdal–Eliashberg, small parameter ω_D/E_F ~ κ_BO²), not adiabatic projectors [C]. Theorem D
+applies to non-magnetic insulators, gapped Dirac materials with Δ_D ≫ ω_ph, and deep defects. **Magnetic insulators are outside (H2)** (B-V12a,
+verdict FALLS in part, accepted). At clamped nuclei magnons are electronic excitations: gapless (Goldstone) for a continuous broken symmetry, a
+(2S+1)-fold degenerate ground manifold for a ferromagnet, anisotropy gaps ≲ meV generally below ω_ph, and magnon–phonon crossings (g_mp) where
+adiabatic decoupling fails. They join the gapless targets of F5, unless the magnon gap is ≫ ω_ph. For gapless fermionic targets WP4-v3 §8 gives **Theorem D-g**
+(quasiparticle-number sectors): (a) [D given U_qp and hypothesis (G5)], cross-term bound WP4 [8.1], ‖C^{cross}‖ ≤ c_g𝔥_off/Δω_bin², with exact
+completeness only in the conserved-number limit (WP4-v3 I1). D-g covers fermionic quasiparticles only; magnon targets remain open (OW0-17).
+*Construction.* 𝒫₀ = ∫dR|Φ₀(R)⟩⟨Φ₀(R)| ⊗ |R⟩⟨R|, 𝒫_⊥ = 1 − 𝒫₀. Space-adiabatic perturbation theory (PST, math-ph/0201055 [FT via B-V12b,c];
+Spohn–Teufel math-ph/0104024 [FT via B-V12]) has small parameter (m_e/M)^{1/2} = **κ_BO²** and gives, under (H1)–(H2), U_n with
+𝒫_⊥U_n†HU_n𝒫₀ = **O(κ_BO^{2(n+1)})** in the semiclassical scaling (nuclear momenta O(1)) (A-V15a, B-V12b). v2's O(κ_BO^{n+1}) assumed a
+re-indexing for low-lying vibrational states (∇_R ~ κ_BO^{-1}) that is plausible but not derived; it is not used. The PST symbol class assumes a
+bounded-operator-valued H(q,p) and a gap uniform in phase space, with constants that depend on the number 3N_nuc of slow coordinates. Sectors: **GS** f ∈ U_n𝒫₀ℋ (electronic ground manifold); **X0** f ∈ U_n𝒫_⊥ℋ with zero net
+change of reference phonon number; **X+** f ∈ U_n𝒫_⊥ℋ with ≥ 1 net phonon; X = X0 ∪ X+.
+*Theorem D* **[D for finite systems with smeared nuclei; C for the crystal limit]** (A-V15c, B-V12e). For all a, b:
+
+  S_ab = S_ab^{GS} + S_ab^{X0} + S_ab^{X+} + O(κ_BO^{2(n+1)}).                                                                         (6.1)
+
+The order O(κ_BO^{2(n+1)}) holds in the semiclassical regime (nuclear momenta O(1)). **For low-lying vibrational states, the regime in which every
+application of Theorem D (ZPL, sidebands, Migdal at small q) lives, the order of the remainder is not derived [C]** (VER-WP0-B N2; OW0-13/14).
+
+The genuine rigour gap is the **uniformity in the number of nuclei**: the PST constants (C_b^k bounds and the phase-space-uniform gap) are not
+N_nuc-uniform, and the crystal has a gapless acoustic branch. Point-nucleus Coulomb is not the obstruction (it is removed by (H1)).
+- **(i)** [D given U_n] GS and X = X0 ∪ X+ come from orthogonal projectors 𝒫_GS + 𝒫_X = 1, 𝒫_GS ≡ U_n𝒫₀U_n† (A-V15b). Inserted once next to δ(ω − H), they give sectors
+  that sum exactly but are PSD only up to O(κ_BO^{2(n+1)}) leakage. Inserted as 𝒫δ(ω − H)𝒫, they give PSD sectors that sum up to that leakage.
+  Both are distributions, so "each PSD, no double counting, nothing omitted" holds against test functions smooth on the leakage scale, i.e. for
+  bins (the same qualifier as for X0/X+ below). The X0/X+ projectors exist only
+  under (H5): **per-sector PSD of X0 and X+ holds inside the window, or for bins ≳ δ** (O4 §9). Outside, the split is the DC assignment
+  (iv′) on H₀: S^{X+}_DC contains fp(1/δω²), negative against a narrow positive test function (WP0v3-C13a), and Z_Λ₀ may exceed 1.
+- **(ii)** O′ = U_n†OU_n, leading order. [Boost amplitude and δM = N_em_e re-derived by A-V15e, B-V12.] (O′_e)_{GS,GS} = ρ̄_e(q;R) = ⟨Φ₀(R)|n_e(q)|Φ₀(R)⟩: electrons follow the nuclei (Z*, ε_∞, phonon peaks
+  in the electron channel; 𝓜¹ weight O(κ_BO⁴)). (O′_e)_{X,GS} = ⟨Φ_n(R)|n_e|Φ₀(R)⟩: expanding in u gives the ZPL with FC e^{−2W} (X0) plus the
+  Herzberg–Teller sideband (X+, O(κ_BO²)); non-adiabatic error O(κ_BO²ω_ph/δ) (D1 §4). (O′_κ)_{X,GS} ≈ (q/M_κ)·⟨Φ_n|∇_RΦ₀⟩/(E^ad_n − E^ad_0)e^{iq·R}:
+  **Migdal is purely non-adiabatic** (agrees with 2505.08864 Eq. (21) [FT via WP3]), amplitude ~ (q × bond length)κ_BO⁴. For one nucleus
+  ∇_RV_eN = −Σ_i∇_{r_i}V_eN and ⟨n|Σ∇_iV_eN|0⟩ = m_e(E^ad_n − E^ad_0)²⟨n|Σr_i|0⟩, so the amplitude is the boost (m_eq/M_κ)⟨n|Σr_i|0⟩ [D, sketch]. **Boost
+  mass (WP3-5):** with electron drag the lattice sees M_κ + δM_κ, δM_κ ≡ 2Σ_{a≠0}Re⟨0|∇_{R_κ}V_eN|a⟩⟨a|∇_{R_κ}V_eN|0⟩/(E^ad_a − E^ad_0)³; for an atom
+  δM = N_em_e, so the atomic L7a uses m_A (1707.07258 Eq. (73)), the crystal uses M_κ with the tensor δM_κ (δM/M ≈ 2.7×10⁻⁴ Si [E]: an estimate, not a bound; WP3-v3 IF-13).
+- **(iii)** Partial sum rules [D]. 𝓜¹_ee: X0 + X+ = 𝓃_eq²/m_e − O(κ_BO⁴); the SOTA #3 compensation is a **first-moment** statement (X+ gains
+  what X0 loses through the Fan + vertex non-phonon cuts, as a sum; not the AH tadpole). 𝓜¹_κκ: the **electronic-label** moment 𝓜¹^{(e)}_κκ = 𝓃_κ q·δM_κ·q/M_κ²
+  (Migdal energy moment E^{Mig}_1(q) = q·δM_κ·q/(2M_κ²) per nucleus; [D in WP3 J3]) is **not** the X-sector moment: an X event also carries the nuclear
+  recoil ≈ q²/2M_κ, so per nucleus the X-sector energy moment is E^{Mig}_1 + P_Mig q²/2M_κ, i.e. 𝓜¹_X = 2𝓃_κ[E^{Mig}_1 + P_Mig q²/2M_κ] in the
+  (4.5) normalisation, and GS carries 𝓜¹_GS = 2𝓃_κ[(1 − P_Mig)q²/2M_κ − E^{Mig}_1] (WP5-v3 §3.1, WP5v3-C20b, IF-R8-1; AUDIT-2 B3). The GS seed is
+  **(1 − P_Mig)S^{GS} evaluated with mass M_κ + δM_κ**, exact through first order (WP0v3-C25; size ≲ 1% at keV). 𝓜¹_eκ = 0 summed over sectors, with the
+  nonzero split of (4.6c). **Zeroth moments:** there is no global rule for n_e (REF-B, WP3 J4). O4's identity Z_Λ₀ + (1/2π)fp∫Γ_Λ₀/δω² = 1
+  holds per X0 pair **for the Fan (self-energy) part only**; the vertex term Re Υ_Λ₀ changes |ρ^{ren}|² (CORRECTIONS O4 §3 scope). For n_κ
+  (incoherent) GS is depleted by P_Mig(q) (WP3 J4). The soft sector obeys the X1 coherent-state (BN) rule.
+- **(iv)** X0/X+ split. *Inside the window:* unique to O(η_ep) [D]. *Outside:* fixed by the **Dyson convention DC** (O4 (iv′), CONVENTIONS §10):
+
+  S^{X0}_DC = (4π/V)Σ_Λ₀ Z_Λ₀|ρ^{ren}_Λ₀|²δ(ω − Ẽ_Λ₀);   S^{X+}_DC per Λ₊: (4π/V)δ(ω − E_Λ₊)|g|²[|ρ|² fp(1/δω²_Λ₀) + 2Re(a^{off*}ρ)PV(1/δω_Λ₀) + |a^{off}|²],  (6.3)
+
+  normalised as (3.1)/(7.2) (spin 2 included at SOC = 0; with SOC (2π/V) and spinor labels; A-V16, B-V13). δω_Λ₀ ≡ ω − Ẽ_Λ₀ is the detuning, a^{off}
+  the off-shell path amplitude per g (O4 λ_f). δ part → X0 (handed to the cascade), fp and PV parts → X+. The expansion of |gρ/(δω + iΓ/2) + a^{off}|²
+  into (2π/Γ)|gρ|²δ + fp + PV + Fano δ-term + O(Γ) was re-derived by A-V16 [D in O4; re-derived]. Inside the window DC = D1 eq. (4) with no δ part. Results (O4):
+  (iv″a) [D in O4] totals are convention-independent to O(g², Γ²/δ²) against test functions smooth on δ; (iv″b) [D in O4] the cascade-convolved
+  P(N_eh|q,ω) is invariant if the cascade is Markov in Λ and its first-emission kernel uses the same g, ω_Q, energies and includes the Fano
+  term 𝔉_{Λ₀,ν} (zero for PT-symmetric Si and diamond at SOC = 0 by the real-gauge argument [D, sketch]; Ge has SOC (PT² = −1, Kramers doublets,
+  no real gauge), so 𝔉 = 0 there needs a doublet-summed argument, not given: [C] (A-V15d); generically ≠ 0 in GaAs [C]); (iv″c) [D in O4] within the admissible class 𝒞_adm(ℓ_win) the
+  split moves by |Δw₀|/w₀ ≲ (1.1 + b_λ)Γ/δ, and is FALSE universally (the t → ∞ convention moves O(1)). *Definitions (O4 §5):* a convention is in
+  𝒞_adm(ℓ_win) if it differs from DC only by (α) X0 weight Z^p|ρ̃|², p ∈ [1, 2]; (β) a normalised kernel of width ≤ Γ in place of δ inside
+  |δω| < ℓ_win; (γ) assigning all weight within |δω| < ℓ_win to X0, Γ ≪ ℓ_win ≤ δ. w₀ = ∫_B S^{X0} over a bin B ⊃ [Ẽ − ℓ_win, Ẽ + ℓ_win], and
+  b_λ ≤ 1 + 2|a^{off}|δ/|ρ| + |a^{off}|²δ²/|ρ|². The general bound is (5/2π)Γ_max/δ + Γ_max/(πℓ_win) + b_λΓ_maxℓ_win/δ², optimised at ℓ_win ≈ δ.
+  It is useful only for Γ/δ ≪ 1; (iv″d) code pairs must satisfy O4 d1–d11
+  (one kernel; same g, energies, width Γ(ω), Z and vertex, first emission once, 𝔉 export, smearing, T, non-phonon channels in the cascade
+  only, edge shell) [imported from O4; internally consistent, B-V13]. Mixed conventions double count: Lorentzian ZPL + fp sideband is O(g²), Lorentzian ZPL + resummed sideband is O(1)
+  (O4 T3a,b). Within |ω − E_min(q)| ≲ few Γ (Si Γ/δ₀ ≈ 0.007–0.2 at δ₀ = 0.3 eV [E], WP3-v3 §M4; v3's 0.02–0.6 was at δ₀ = 0.1 eV, which violates δ₀ ≫ ω_max) only totals and P(N_eh) from the unexpanded Dyson form are quoted.
+  A mathematically rigorous version needs a fibred limiting-absorption principle, a C*-dynamical thermodynamic limit, Coulomb stability
+  with dynamical lattice, and an IR-safe X+ definition (O4 §8) [C].
+
+*Sector dictionary* (the final state decides, not the coupling):
+
+| | GS | X0 | X+ |
+|---|---|---|---|
+| S_ee | adiabatic electron-following | ZPL: clamped/ZPR-renormalised response, FC-reduced (L1–L3, L10–L11, L14) | PAER (L8), L9, exciton–phonon replicas |
+| S_κκ | 1-phonon, multiphonon, NR (L4–L6, L18) | zero-phonon Migdal: n = 0 term of L7d, δ(ω_ph) part of WP3 (W.5) | Migdal with phonons/recoil (L7a–c), n ≥ 1 of L7d |
+| S_eκ | Born-charge interference | ionic screening of the ZPL | Migdal–PAER interference for **any 𝔇 with c_ec_κ ≠ 0** |
+
+The X sector of S_eκ carries a fixed negative ω_e-moment, −𝓃_κq²𝓕_κ/M_κ, equal and opposite to the lattice-energy weight of the GS
+Born-charge interference (WP3 J7, WP3-4): a one-signed model of it is wrong.
+*Double-counting rules [D]:* (a) multiphonon S_κκ normalised to 𝓃_κq²/M_κ plus Migdal overcounts the per-nucleus first moment by
+E^{Mig}_1 + P_Mig q²/2M_κ (𝓜¹ by 2𝓃_κ[E^{Mig}_1 + P_Mig q²/2M_κ]) and the zeroth moment by P_Mig (≤ 3×10⁻⁴); the remedy is (1 − P_Mig)S^{GS} with
+M_κ + δM_κ (WP5-v3 §3.1; WP3 N1 owes the same rewording; AUDIT-2 B3); (b) never add the resonant sideband to the ZPL (D1 §5.2; O4 T3); (c) measured ELF/σ₁ contain
+X0 + X+: never add a computed sideband to data, nor PAER to a ZG spectrum (WP3 N4, N5); (d) with c_ec_κ ≠ 0, Migdal and PAER amplitudes to
+the same final state interfere (bounded by (4.4)); (e) neutron-calibrated yields contain Migdal: fit Y_tot, never Y_casc plus Migdal (WP3 N3).
+
+---
+## 7. From response to signal: the final-state-resolved response
+
+**(7.1) Definition [D].** Orthogonal projectors {P_Λ} on prompt final states, Σ_ΛP_Λ = 1:
+
+  S_ab(q,ω;Λ) = (2π/V)Σ_i p_i⟨i|O_a†P_Λ δ(ω − H + E_i) O_b|i⟩,   Σ_Λ S_ab(q,ω;Λ) = S_ab(q,ω).                                             (7.1)
+
+Each S(·;Λ) is PSD (inside the window; outside, per §6.2(i)). Λ = prompt state after dressing (~1/E_g), before relaxation (~1/ω_ph):
+e–h (n_e,k_e,E_e; n_h,k_h,E_h; spin, valley), E_e − E_h = ω_e (carrier energies E_e, E_h); phonon content n_ph, {Q_jν_j}, ω_ph = ω − ω_e
+(WP3 joint response (W.1)); core hole (shell; seeds Auger); nuclear: E_R, direction, defect label. **Within RPA there is no separate
+plasmon label:** the plasmon is a pole of ε^{-1}, its decay products are already the cvk pairs of (7.2) (WP5-3, Theorem C (a)); a collective
+label is needed only beyond RPA or when the mode can escape or convert (films, WP4). **Exception (WP5-v3 IF-R8-3):** the statement holds where
+ε₂(ω_pl) > 0; an undamped RPA pole (metals, q < q_c) is a final state 𝔱 = pl with its own decay (WP5-v3 §1.1(a), §5).
+
+**(7.2) IP and screened pair-resolved forms [D].** IP: S(q,ω;cvk) = (4π/V)|ρ_cv(k,q)|²δ(ω − ε_{c,k+q} + ε_vk). RPA+LFE (TDDFT: ε → ε̃):
+
+  S(q,ω;cvk) = (4π/V) |Σ_G (ε̃^{-1})_{G0}(q,ω) ρ_cv(k,q+G)|² δ(ω − ε_{c,k+q} + ε_vk),   (ε^{-1})_{G0} = δ_{G0} + v_C(q+G) R_{G0}(q,ω),        (7.2)
+
+with **retarded** R_{G0} in the index order of (3.2) (a = n_e(q+G), b = n_e(q)). *Proof.* At RPA/TDDFT level, two exact factorisations hold for
+any target (WP0v3-C10a) [D]: R − R† = (1 + R†f)(R⁰ − R⁰†)(1 + fR) = (1 + Rf)(R⁰ − R⁰†)(1 + fR†), f = v_C (RPA) or f_Hxc. The first gives (7.2): the
+external potential induces the total potential (ε̃^{-1})_{G0}φ_ext at q+G (causal, retarded), which creates bare outgoing pairs, i.e. the
+**out-state** (prompt-final-state) labelling. This identification is [D] within time-dependent mean-field (TDH/ALDA) linear response, where the
+bare pair is the asymptotic state of the mean-field evolution (equivalently ⟨ψ_f^{(−)}| = ⟨φ_f|(1 + VG^{(+)}) brings in retarded R; A-V14). It is
+[D, sketch] as a statement about interacting many-body final states, whose eigenstates are not pair-labelled (B-V11). The second is the in-state labelling, weight δ_{G0} + f(q+G)R^A_{G0} = [(1 + Rf)_{0G}]*. Both sum
+to the same exact Im R_00 for every target, centrosymmetric or not (WP0v3-C10b,c); pair by pair they differ when pairs are open at (q,ω)
+(WP0v3-C10d) and coincide when R(q,ω) is Hermitian (WP0v3-C10e). In the PAER window the external R(q,ω) is Hermitian only to O(g²), so there they
+coincide to O(g²) and the rate difference is O(g⁴) (A-V14b). The pair channel W^{scr}(P,ω_f) of (5.7) is evaluated where pairs are open and needs the
+retarded choice (B-V10). Σ_cvk reproduces (5.4); the
+pair-channel dressing (5.7) applies to X+. Relation to WP1 [E2] and CORRECTIONS WP1-D6: §10 (contested) and flag F1.
+
+**(7.3) Interface to WP5 [D given (7.1); WP5 (W5)–(W6)].** Seeding keeps q, v and the operator structure inside the final-state sum:
+
+  dℛ/d𝐍 = (ρ_χ/m_χρ_T) ∫d³v f_χ(v) ∫d³q/(2π)³ Σ_Λ tr[𝔇ᵀ(q,v) S(q,ω_q;Λ)] P_casc(𝐍|Λ),   𝐍 = (N_eh, ℋ, E_st, N_FP, E_esc, …),            (7.3)
+
+and at fixed (q, ω, v) the quanta distribution is P(N_eh|q,ω) = Σ_Λ tr[𝔇ᵀS(q,ω;Λ)]P_casc(N_eh|Λ)/tr[𝔇ᵀS(q,ω)] (the single-operator ratio of
+v1 holds only for one operator; spin and current rows populate (E_e, E_h, k) differently; WP5-2). v1's ∫dω(dℛ/dω)P(N_eh|q,ω) integrated q
+out before seeding and is ill defined (WP5-1). **Hand-over to WP5:** per operator, the joint density of (E_e, E_h, k_e, k_h | q, ω); for X+:
+n_ph and ω_ph (WP3 (W.1)); for GS (NR): E_R and direction (multiphonon S^{GS}_κκ and final-state phonon spectrum ρ^{ph}_κ, WP2 (3.6)); core-hole
+shell fractions; under DC the O4 d6 seeds (X0 at (Λ₀, Ẽ_Λ₀, n_ph = 0) with first emission in the cascade, X+ at (Λ₊, n_ph = 1) with none) and,
+for non-PT targets, 𝔉_{Λ₀,ν} (O4 d7). Only the first generation keeps the q memory (WP5 (W7)). **R&K (L21)** is a photon-seed (q ≈ 0) fit,
+not the Λ-marginal of the DM seed (WP5-4); using it is the WP5 θ_seed nuisance.
+
+---
+## 8. Uncertainty structure (interface to WP6)
+
+**(8.1) Nuisance per truncation [D as a definition, WP6 (5.1); E as to sizes].** For each active truncation k in τ, with Δ^τ_k = S^{τ+e_k} − S^τ
+(computed; for the ladder 𝒳 always the computed next-rung difference) and r^M_k = Δ^τ_k/S^τ:
+(**= WP6-v3 (5.1)–(5.1″)**; AUDIT-2 B1, WP6 IF6-4, IF6-14, IF6-15.)
+- (M) multiplicative log-normal **on scalar responses** (S_ee or a contracted A^{(n)} per operator class): s(θ) = s^τΠ_k(1 + r^M_k)^{θ_k},
+  θ_k ~ 𝒩(0,1), positive for all θ, equal to the additive form at first order (WP0v3-C14c). **On the matrix S_ab** elementwise powers are not
+  PSD-preserving (WP0v3-C23a) and r_ab is undefined where S^τ_ab = 0; use the **PSD geodesic** S(θ) = S^{τ½}(S^{τ−½}S^{τ+e_k}S^{τ−½})^θS^{τ½}, PSD for
+  all θ, equal to S^τ, S^{τ+e_k} at θ = 0, 1 (C23a; pseudo-inverses on ker S^τ, supp S^{τ+e_k} ⊆ supp S^τ, otherwise type A);
+- (A) additive for support-opening truncations (S^τ = 0 on part of (q,ω), e.g. the PAER window): S = S^τ + a^A_kΔ^τ_k, a^A_k > 0 log-normal,
+  central value includes Δ^τ_k once computed. **PSD for all a > 0 iff Δ^τ_k is PSD** (C23b): true for the in-window sideband and new exciton lines,
+  false outside the window (the DC X+ part is not PSD, §6.2(i)). PAER: interim factor [0.4, 1.8], median 0.85, σ_ln 0.75 (WP3-v3 IF-10; C23c);
+- (E) energy shift S(q, ω − θ_Eσ_E) (edges, ZPR, E_g(T));
+- (Δ) discrete model choices: discrete profiling or envelope;
+- (L) affine, support-restricted (S^τ + Σθ_kX_k with the support {S ≥ 0} imposed; v2's "A" for constrained truncations): the only type not PSD by
+  construction, kept only as the linearisation of type T;
+- (T) exponentially tilted constrained nuisance (WP6-v3 (5.1″)): S = S_c exp[θ_Aψ + Σ_bλ_b(θ)y_R^b], PSD by construction and exact on the linear
+  moment constraints; the anharmonic nuisance uses T (WP6 IF6-14; WP2-v3 normalisation n_κ = (2π/Ω)|c_κ|²).
+v1's additive Gaussian S^τ + Σθ_kΔ_k violated (4.4) wherever |Δ_k| ≳ S^τ (WP6-W2) and is withdrawn. One θ_k per truncation, applied
+coherently across (q,ω), targets and experiments sharing the physics.                                                             (8.1)
+
+**(8.2) Exact constraints [D].** f-sum: ∫_{−∞}^{∞}dω ω S(q,ω;θ) = π𝓃_eq²/m_e (densities with inversion; ω < 0 included at T > 0;
+WP6-W1). It is **vacuous** (∫ωΔ^τ_k = 0) for every conserving truncation, i.e. every rung of the 𝒳 ladder with local potentials (WP6-W3),
+and informative only for non-conserving ones: q/band cutoffs (closed analytically by an f-sum-saturating impulse tail, WP6 (5.2)),
+non-local pseudopotentials, a sideband without its Fan/vertex compensation, and the non-local quasiparticle rungs actually adopted (scissor,
+GW–BSE; WP6-v3 (5.3)); relativistic factor −0.23%/−0.73% (G4). **Positivity is automatic for M on scalars, for the PSD geodesic, for A with PSD Δ, and
+for T; not for M elementwise on S_ab, for A with non-PSD Δ, or for L** (= WP6-v3 (5.3); AUDIT-2 B1). L17 (9.6) restricts the support of θ (it is not a
+prior), only where its static step holds (ch = c, clamped ch = e; G6). Anti-correlations follow from shared physics (PAER sideband vs ZPL loss, SOTA #3).                   (8.2)
+
+**(8.3) Propagation and reporting [D, WP6 (6.1)–(6.3)].** ℒ(σ̄_e,θ,θ^det) = Π_{ex,i}Pois(n|σ̄_e s_{ex,i}(θ, θ^det_ex) + b) Π_kπ_k(θ_k) Π_{ex}π(θ^det_ex),
+halo fixed (2105.00599). Report three objects: WP6-R1 nominal (θ = 0, central τ*), WP6-R2 theory-profiled (headline), WP6-R3 band (envelope
+over |θ_k| ≤ 1, separate halo band, halo-independent bound). Profiling costs O(δ²) (1 + 2.71δ²/4), the envelope O(δ); the choice must be declared (WP0v3-C14a,b; WP6-W4). **Like for like** at δ = 0.5 the
+envelope/profile ratio is **×1.35 for the M type** (envelope (1 + δ) = 1.5, profile 1.112) and **×1.57 for a linear nuisance** (envelope 1/(1 − δ) = 2.0,
+profile 1.276). v2's "up to ×1.8" divided the linear envelope by the log-normal profile and is withdrawn (REF-WP6-A §F, REF-WP6-B F6; WP0v3-C14d).
+The linear profile has no solution for δ > 2.71^{−1/2} = 0.607 (C14e).                                                                 (8.3)
+
+---
+## 9. L0 and L17 derived; pointers for every LIMITS entry
+
+**§9.1 L0 [D].** Chain: (3.3) → single operator (𝔇 = |𝒱_{n_e}|²δ_{a,n_e}δ_{b,n_e}) → Δ_χ = 0 → Born → (2.2) anchor:
+
+  Γ_χ = ∫d³q/(2π)³ |Ṽ(q)|² S_ee(q, ω_q),   |Ṽ|² = πσ̄_eF_DM²/μ_χe²,   ω_q = q·v − q²/2m_χ.                                             (9.1)
+
+**Hypothesis (I): S angle-averaged (S → S̄), or an isotropic target** (not isotropic f_χ; the lab-frame SHM is anisotropic; WP6-W5). Then
+⟨δ(q̂·v − v_min)⟩_q̂ = Θ(v − v_min)/(2v), so 𝒢(q,ω) = ∫d³v f_χδ(ω − ω_q) → η(v_min)/(2q) with η built from the full f_χ (WP0v3-C11a) and
+
+  dℛ/dω = (ρ_χ/m_χρ_T)(πσ̄_e/μ_χe²)∫q²dq/(2π²) F_DM² [η(v_min)/2q] S̄_ee = (ρ_χσ̄_e/(4πm_χρ_Tμ_χe²)) ∫q dq F_DM² η(v_min) S̄_ee(q,ω).        (9.2)
+
+(9.2) = D1 eq. (3) with 𝒢 = η/(2q) (D1's η/q owes a factor 2) = WP6 (1.4) = Hochberg 2101.08263 (S.9) = 1509.01598 Eq. (17) via
+|f_crys|² = Ωq³S̄_ee/(4παm_e²) (WP1 [E12], 2101.08275 Eq. (16) [FT via WP1]) (WP0v3-C11b).
+*Validity:* (a) Born, |Ṽ|μ_χq/4π ≪ 1; (b) only 𝒪₁^{(e)}, or the other 𝔇_ab suppressed by v and q/m_e powers of (2.2); (c) elastic DM;
+(d) S_ee is the full electron-density response; the ELF form needs (5.5)(i) or (ii).
+*Leading corrections:* (α) cross-operator terms 2Re𝔇_{n,j}S_{n,j} ~ (q/m_e)(v_χ, v_el): longitudinal velocity operators reduce to n exactly
+(S_{nj_L} = (ω/q)S_nn, local H), and on shell only P_Tv_χ and j_T survive (WP1 [E4]); for the spin-current rows (only J_T surviving) this
+needs in addition an SU(2)-invariant H (SOC = 0, H_hf and B₀ off; B-V1); (β) second Born ~ μ_χ|Ṽ|q/4π; (γ) T > 0: the ω < 0 branch
+∝ e^{−β|ω|} (4.3); (δ) anisotropy: first correction ℓ = 4 in cubic crystals, no ℓ = 2 (WP6 (1.5)); P,T-broken targets add a v-odd part (4.3), O(q³) for densities.
+**Status: DERIVED.**
+
+**§9.2 L17 [D].** For a coupling channel ch ∈ {c (total charge), e (electrons only)}:
+
+  L_ch(q,ω) ≡ (e²/2q²)(1 − e^{−βω})S_chch(q,ω) = −v_C Im R_chch = Im[−ε_ch^{-1}],   ε_c ≡ ε (5.2),  ε_e^{-1} ≡ 1 + v_CR_ee.             (9.3)
+
+Exact relations: positivity gives L_ch ≥ 0 for ω > 0; with inversion or TR, L_ch is odd in ω; KK at ω = 0 (R^∞ = 0):
+
+  ∫₀^∞(dω/ω) L_ch = (π/2)[1 − ε_ch^{-1}(q,0)] = (π/2)(−v_CR_chch(q,0)) ≥ 0     (2110.01587 Eq. (1); 2608.05282 Eq. (1) [FT]),               (9.4)
+
+  ∫₀^∞dω ω L_ch = (π/2)ω_{p,ch}²,   ω_{p,e}² = e²𝓃_e/m_e (all electrons),   ω_{p,c}² = ω_{p,e}² + Σ_κZ_κ²e²𝓃_κ/M_κ,                          (9.5)
+
+  K_n^{(ch)}(q) ≡ ∫₀^∞dω ω^n L_ch ≤ (π/2) ω_{p,ch}^{n+1}[1 − ε_ch^{-1}(q,0)]^{(1−n)/2},   −1 ≤ n ≤ 1   (Hölder; WP0v3-C5),                (9.6)
+
+which is 2608.05282 Eq. (8) [FT; CONFIRMED R7]; inserted in (3.4) with η_n^max it gives their Eq. (9) and the n = −1 rate bound of 2110.01587
+Eqs. (8)–(9) [CONFIRMED R7, A-V18]. 2110.01587 Eq. (4) is the partial-range inequality ∫dω/ω Im(−1/ε_L) ≤ (π/2)(1 − ε_L^{-1}(0,k)), not a rate
+formula (v2 citation slip; A-V18c, B-V15). It underlies tightening (iv).
+*URF content.* (i) Holds at all orders in g, BO, anharmonicity and the 𝒳 ladder, at any T (with the factor (1 − e^{−βω_th})^{-1});
+the X+ sideband cannot violate it; a truncated "static ZPL + sideband" can, by up to 𝓜₁^{SB} (D2 §3). With (4.6′) and (4.6″), ω_{p,e}² carries the
+relativistic factor. (ii) **Channel:** electron-only coupling needs ε_e(q,0) (fully relaxed, lattice included); dark photon needs the total
+ε(q,0) and ω_{p,c}; the two are equal at clamped nuclei. With the lattice relaxed they differ, and **not** as "ε₀ vs ε_∞" (A-V18b): in the
+two-fluid model of (5.3) (R̃_eκ = 0, static, q → 0) with 𝔞_e ≡ −v_CR̃_ee = ε_∞ − 1 and 𝔞_ion ≡ −v_CZ_κ²R̃_κκ = ε₀ − ε_∞,
+
+  ε_c^{-1} = 1/(1 + 𝔞_e + 𝔞_ion) = 1/ε₀,   ε_e^{-1}(q→0, 0) = (1 + 𝔞_ion − 𝔞_e𝔞_ion)/(1 + 𝔞_e + 𝔞_ion),                                         (9.4′)
+
+so ε_e(0) = ε₀/(1 + 𝔞_ion − 𝔞_e𝔞_ion), which is neither ε_∞ nor ε₀ (WP0v3-C20a,d). (iii) **Conservative step 1 − ε_ch^{-1}(q,0) ≤ 1** needs
+ε_ch^{-1}(q,0) ≥ 0 (for "≤ 1"); positivity of the step, 1 − ε_ch^{-1} = −v_CR_chch(q,0) ≥ 0, holds for every channel by Lehmann (A-V18d, B-V15).
+- *ch = c, and ch = e at clamped nuclei:* **PROVEN at RPA+LFE for any insulator** (WP1 [E3]: 0 < (ε^{-1})_00(q,0) ≤ 1, all q, LFE included) [D];
+  beyond RPA it needs the proper response to stay negative definite, **(−R⁰)^{-1} + f_xc > 0 (f_xc, not f_Hxc; WP1-v3 (1.4′), IF-12)**, true for
+  Si, Ge (r_s ≈ 2, below the HEG compressibility instability at r_s ≈ 5.25) [E]. v3's "1 − f_HxcR⁰ > 0" is withdrawn (WP1-v3 §1.4 counterexample;
+  AUDIT-2 B2; WP0v3-C24); for arbitrary materials negative static ε at q ≠ 0 is not excluded
+  (Dolgov–Kirzhnits–Maksimov), so there it remains [C].
+- *ch = e with the lattice relaxed:* **not bounded, and false in general** (A-V18a, B-V15). By (9.4′), 1 − ε_e^{-1} = 𝔞_e(1 + 𝔞_ion)/(1 + 𝔞_e + 𝔞_ion)
+  > 1 whenever 𝔞_e𝔞_ion > 1 + 𝔞_ion (C20b). GaAs-like q → 0 (𝔞_e = 9.9, 𝔞_ion = 2.0): ε_e^{-1} = −1.30, 1 − ε_e^{-1} = **2.30** (C20c) [E for the inputs]. (v3's Si
+  figure 1.32 is dropped: the R̃_eκ = 0 model cannot describe non-polar Si, where ε₀ = ε_∞ requires R̃_eκ to cancel 𝔞_ion; VER-WP0-A N2. The GaAs-like
+  case suffices for "false in general".) The ions over-screen through positive feedback. ε_e is not the response to a charge probe, so no
+  stability theorem bounds it; 2110.01587 §VII warns of this for leptophilic couplings with nuclear motion [per B-V15, FT]. For electron-only
+  couplings use (iv) with ω_th above the phonon band, or K_{−1} ≤ (π/2)(1 − ε_e^{-1}(q,0)) with the computed ε_e.
+(iv) **Tightening [E]:** for ω_th above the phonon band subtract the GS dω/ω weight: ∫_{ω_th}^∞(dω/ω)L ≤ (π/2)[1 − ε_∞^{-1}(q)] + O(κ_BO⁴) if
+ε_∞ is the physical above-phonon value including zero-point renormalisation, + O(κ_BO²) if it is the clamped DFT value (B-V15). This is the
+usable bound for electron-only coupling, not only "strictly tighter for polar targets". (v) **L17′ [D]:** any operator with
+a kinetic-only first moment obeys (9.6) with ω_p² → e²𝓜¹/q² and 1 − ε^{-1}(q,0) → −v_CR(q,0); e.g. the spin channel (4.6e), giving bounds for
+𝒪₄-type couplings [E for usefulness]; for magnon targets these are loose unless restricted to the projected manifold (WP4 (1.3)).
+**Status: DERIVED** at RPA+LFE for insulators for ch = c and for clamped ch = e; ch = e with relaxed lattice: computed ε_e required, the (iii) step
+is false in general (counterexample above). O5 is closed for ch = c only.
+
+**(2.9) ALP–photon absorption [D, k → 0, uniform B₀]** (cited in §2). Map κ_mix m_φ² → g_aγγB₀m_φ in the dark-photon result
+−Im[m²Π^γ/(m² − Π^γ)]/m = m Im(−1/ε) (WP0v3-C6): Γ_abs = g_aγγ²B₀² Im[−1/ε_∥(m_φ)]/m_φ, ε_∥ along B₀. Agrees with 2305.05681 [ABS];
+prefactors against its full text: open (O6).                                                                                          (2.9)
+
+**(9.7) Pointer table.** "τ / chain" names the truncation that produces each entry; ✔ chain confirmed, ✎ corrected. "Source" gives arXiv ID
+and equation of the source formula, read in full text by the owner return named in brackets (CONVENTIONS §12; quoted forms in those returns).
+
+| # | τ / chain (URF) | source formula [owner, FT] | ✔/✎ |
+|---|---|---|---|
+| L0 | (3.3) single n_e row, Born, (9.1) | Γ = ∫d³q/(2π)³\|V\|²[2(q²/e²)Im(−1/ε(q,ω_q))]: 2101.08263 Eq. (1), (S.9) [CONFIRMED R7]; KKL 2101.08275 Eqs. (4), (6), (13) [WP1] | DERIVED |
+| L1 | S^{X0}_ee, n_B = 0, 𝒳 = IP, unscreened, (I), spin 2 | 1509.01598 Eqs. (17), (21): dR/dlnE_e = (ρ_χ/m_χ)N_cellσ̄_eα(m_e²/μ²)∫dlnq(E_e/q)ηF²\|f_crystal\|²; \|f_crys\|² = Ωq³S̄/(4παm_e²) [WP1] | ✔ (D1's 2πα ✎) |
+| L2 | (5.4)/(5.5): ELF needs clamped nuclei or ω ≫ ω_max (O(κ_BO⁴)); 𝒳 = RPA or exact | 2101.08275 Eq. (6): S = (k²/2πα)(1 − e^{−βω})^{-1}Im[−1/ε_L] [WP1] | ✎ (condition) |
+| L3 | multi-operator (3.3), 𝒳 = IP + screening of every a with R̃_ac ≠ 0 (n, j_L; j_T via LFE; s via f_xc^T; s–n mixing with SOC); on-shell transverse projection | 2105.02233 Eqs. (11), (36)–(42); 2210.14917 Eqs. (18), (23), (70)–(71); 2510.25835 Eqs. (5)–(6) [WP1] | ✎ |
+| L4 | S^{GS}_κκ, S^{GS}_cc; adiabatic (O′_e)_{GS,GS} → Z*, ε_∞; harmonic, K = 1ph-coh; dark photon = (5.4) ≡ Born-charge form (Sherman–Morrison) | 1910.08092 Eqs. (92), (104)–(106); 1807.10291 Eqs. (29)–(32) [WP2; Eq. (32) = isotropic one-branch \|ℳ\|², WP2-v2] | ✔ |
+| L5 | S^{GS}_κκ harmonic all orders, K = multi-inc; control n_ph + shell parameter (not x_coh) | 2205.02250 Eqs. (15), (23)–(24), (36); 2011.09477 Eqs. (7)–(12) [WP2] | ✎ (control) |
+| L6 | S^{GS}_κκ at x_R → ∞, K = imp: mean exact (𝔨₁ = q²/2M), Gaussian width with the true ⟨p²⟩, skewness 𝔨₃^{GS} from the BO curvature, remainder in X | Helm: hep-ph/0608035 Eqs. (5), (9)–(11) [WP2] | ✎ (WP2-D4) |
+| L7a | S^X_κκ, isolated atom, K = imp, σ_c ≪ 1, n_D = 1; boost mass m_A | 1707.07258 Eqs. (55), (57), (73), (86), (91)–(92) [WP3] | ✔ (m_A ✎) |
+| L7b | S^X_κκ, K = imp, soft limit, long-range ionic field → ELF | 2011.09496 Eq. (6): dP/dω = 4α∫d³k/(2π)³Z_ion²\|v_N·k\|²Im[−1/ε]/(ω⁴k²) [WP3] | ✔ |
+| L7c | S^X_κκ with GS-sector phonon final states, leading non-adiabatic, harmonic | 2210.06490 Eq. (3.8); 2505.08864 Eq. (21) [WP3] | ✔ |
+| L7d | DM–N × virtual phonon × e–ph, incoherent: **n = 0 term X0, n ≥ 1 terms X+** | 2205.03395 Eqs. (3.1)–(3.4) (Σ_n T_n incl. T₀ = δ(E)) [WP3] | ✎ (v1 "X0, not X+") |
+| L8 | S^{X+}_ee at n_g = 2 with (5.6)–(5.7), DC outside the window | this campaign: D1 eq. (4) with M → M̃, X2 (2.3) | ✎ (pair channel, LFE) |
+| L9 | q → 0 of L8, pair channel at (Q, ω∓ω_Q) | 2302.08085 Eqs. (60)–(63); 1202.3454 Eq. (1): prefactor 8π²α/(Ωω²) confirmed [WP3] | ✎ |
+| L9b | (3.5)–(3.6) at k ≈ 0; A′: Γ = κ_mix²m Im(−1/ε); ALP–e: tr J_e (= current only at SOC = 0); aγγ: (2.9); X+ part and T-transfer of σ₁ (WP3) | 1608.01994 Eqs. (2), (3), (6), (7), (10); 2106.12586 Eqs. (20)–(22) [WP3] | ✔ + caveats |
+| L10 | jellium limit of WP1 RPA (Lindhard, Mermin) | 2101.08275 Eqs. (17)–(24) [WP1] | ✔ |
+| L11 | plasmon = zero of ε in (5.4); no separate final state in RPA (§7.1) | 2003.12077 Eqs. (5), (7); 2002.06937 Eqs. (13)–(14) [WP1] | ✔ |
+| L12 | X0 ⊕ X+ at n_g = 2, adiabatic (ω_Q/δ → 0), phonon energy dropped from δ: **ZG = deterministic one-shot quadrature of the Williams–Lax average** | 1604.02394 Eqs. (1), (3)–(6), (24); 1603.06965 Eqs. (157)–(160) [WP3] | ✎ (v1 "stochastic") |
+| L13 | spin row of (2.2), magnetic reference (LSWT, 1/(2\|𝐒_j\|)), magnetic form factor F^{mag}_j | 1905.13744 Eqs. (5)–(12); 2009.13534 Eq. (38) [WP4] | ✔ |
+| L14 | 𝒳 = BSE in R̃ | 2507.14345 Eqs. (1)–(2) [WP1] | ✔ |
+| L15 | BCS reference (not a finite n_g order) + **conserving GRPA** (bare bubble violates (4.6)) | 2609.06423 Eqs. (6)–(9); 2101.08263 Eqs. (1), (3), (S.13)–(S.16); 1512.04533 Eqs. (11)–(14) [WP4] | ✎ (WP4-D3) |
+| L16 | low-energy Dirac H + RPA (5.4) with the **remote-band background ε_bg inside the total ε** | 2101.08263 Eq. (4); 1708.08929 Eqs. (2.6), (3.7), (3.11); 1910.02091 Eqs. (2.5)/(2.7), (3.13)–(3.14) [WP4; κ² overstatement REFEREED R×2, WP4-v3 §5.3; their absorption rates also ×ε_bg too large, WP4-v3 §5.5, I10] | ✎ (WP4-D5) |
+| L17 | §9.2 (ch = c; clamped ch = e) | 2110.01587 Eqs. (1), (4) (partial range), (8)–(9) (rate bound); 2608.05282 Eqs. (1), (8), (9) [WP0, FT; CONFIRMED R7] | DERIVED (ch = c) ✎ (ch = e relaxed) |
+| L18 | n_A = 1 on S^{GS}_κκ (three exact linear constraints on θ_A) | 2309.10839 Eqs. (9)–(10), (23)–(26) [WP2] | ✔ |
+| L19 | (3.3) with full q-vector S; cubic: ℓ = 4 first; 2W_κ direction-dependent; **P,T-broken targets: nonreciprocal S, v-odd rate (4.3)** | 2607.06005 Eqs. (6), (10); 2411.03433 Eqs. (18)–(24) [WP1, WP2] | ✎ (WP4-D6) |
+| L20 | WP5 first moment of (W3), GS seed with K = imp | 2001.06503 Eqs. (3)–(7); 2209.04503 Eq. (2) [WP5] | ✔ |
+| L21 | WP5 cascade with Λ-seeding (7.3); R&K = photon-seed fit | 2004.10709 Eqs. (5)–(9) [WP5] | ✎ |
+| L22 | BO surface + WP5 NR partition (stored energy ≠ E_d) | 1805.09942 Eqs. (1), (4); 2301.06592 Eq. (8) [WP5] | ✔ |
+| L23 | second moment of the WP5 cascade | 2004.10709 Eqs. (3), (16); 2004.11499 [WP5] | ✔ |
+| L24 | (3.4) + (I) + WP6 halo functional and (8.3) | 1509.01598 Eq. (17); 2311.04957 Eqs. (9)–(11), (13), (19)–(20) [WP6] | ✔ |
+
+---
+## 10. Contested corrections
+
+**CC-1. CORRECTIONS §6 row "§7.2 weight (ε^{-1})_{G0} → general weight (1+Rv)_{0G}" (WP1-D6). Applied in modified form.** R7: STANDS (A-V14,
+re-derived and physically confirmed); STANDS WITH CORRECTION (B-V11: tag, C10g label, pair-channel extension). All applied below and in (5.7), (7.2).
+*Claim contested:* that (7.2)'s (ε^{-1})_{G0} is valid only with R_{GG′} = R_{G′G} and must be replaced by (1 + Rv)_{0G} in GaAs.
+*Derivation [D, RPA/TDDFT, any target; the out-state identification D within TDH, D, sketch beyond (§7.2)].* Let f = v_C (or f_Hxc), R = R⁰ + R⁰fR = R⁰ + RfR⁰. Then R = R⁰(1 + fR) and R† = (1 + R†f)R⁰†, so
+(1 + R†f)(R⁰ − R⁰†)(1 + fR) = (1 + R†f)R − R†(1 + fR) = R − R†. Likewise R = (1 + Rf)R⁰, R† = R⁰†(1 + fR†) give
+(1 + Rf)(R⁰ − R⁰†)(1 + fR†) = R − R†. With S⁰_{GG′} = Σ_pair ρ_G*ρ_{G′}δ(…) ∝ the anti-Hermitian part of R⁰ (IP pairs), the 00 element gives
+S = Σ_pair|Σ_G w_Gρ_cv(k,q+G)|²δ with either w^{out}_G = (1 + fR)_{G0} = δ + f(q+G)R_{G0} (retarded; (7.2)) or
+w^{in}_G = (1 + fR†)_{G0} = [(1 + Rf)_{0G}]* (advanced). Both are exact in total for every target (WP0v3-C10a–c). The prompt final state
+of (7.1) is the outgoing state: in linear response the causal (retarded) induced potential screens the external one,
+V_tot(q+G) = (ε̃^{-1})_{G0}φ_ext (CONVENTIONS §3 sign, (3.2) order), and the total potential creates bare pairs; equivalently the
+golden-rule amplitude to |f^{(−)}⟩ carries retarded propagators. Hence **(7.2) with retarded (ε̃^{-1})_{G0} in (3.2) order is the general
+out-state form, valid without inversion**; (1 + Rf)_{0G} is the in-state labelling and must enter conjugated. They coincide pair by pair
+wherever R(q,ω) is Hermitian (no open pairs at (q,ω)) (WP0v3-C10e). In the PAER window this covers the **external** factor of X2 (2.2)/(5.7), to
+O(g²). It does not cover the pair-channel factor W^{scr}(P,ω_f), which is evaluated where pairs are open and must be taken retarded (B-V10; §5.7).
+v2's "X2 (2.2)/(5.7) is unaffected" is withdrawn.
+*Consequence for WP1 [E2] as printed*, |Σ_G(1 + Rv)_{0G}ρ(q_r+G)|²: with TR + inversion (real symmetric R⁰, S⁰) it equals (7.2) pair by
+pair (WP0v3-C10g, now tested pair by pair; v2's check compared totals only, B-V11); without inversion its total misses Im R_00 unless ρ is read as
+ρ* (WP0v3-C10f). This is flagged to WP1/WP3 (F1);
+CONVENTIONS §13 item 16's instruction "use the WP0 (3.2) index order" is satisfied by (7.2). Totals (rates) are never affected; the
+pair-resolved seeding of WP5 in GaAs is.
+
+No other owed correction is contested. Rebuttals of R7 referee points: §17.
+
+---
+## 11. Interface flags
+**New in v3 (R7 corrections that change a quantity another package or file uses).**
+| # | Owner / user | Quantity | Recorded form | v3 form / action |
+|---|---|---|---|---|
+| G1 | **CONVENTIONS §8** (rate line), WP6 (1.x) rate, WP5 seeding P(N_eh), LIMITS multi-operator entries | rate contraction | tr[𝔇S] | **Σ_ab𝔇_abS_ab = tr[𝔇ᵀS]** (§3.2). Single-operator rates (L0, L1, L2, L4–L12, …) are unchanged. Multi-operator rates with antisymmetric Im parts (SOC j–s rows × 𝒪₃-type) change. CONVENTIONS §8 must be amended (cross-package item; coordinator) |
+| G2 | CONVENTIONS §7 ("𝒪_i, i = 1…15"), WP1, WP4 | operator set of the 16-row basis | all 15 | 𝒪₂ excluded, or a v_s⊗v_s row added |
+| G3 | **CONVENTIONS §6** (Moments line), WP2, WP3 (moment identities) | 𝓜¹_ab off-diagonal | S_ab[O] + S_ab[O†] | **S_ab[O] + S_ba[O†]**; same pairing for 𝓜³ (4.5). Diagonal moments, (4.6), (8.2), (9.5) unchanged |
+| G4 | WP1 (δ_rel, [E11]), WP6 (f-sum, L17 ω_p²) | relativistic f-sum shift | −0.18% Si, −0.58% Ge (mass-velocity) | ≈ −0.23% Si, −0.73% Ge with orbit–orbit (4.6″) [E] |
+| G5 | WP2-v2 (5.2′)(c), WP3-v2 J8(ii) and IF-2 (F4) | 𝓜³_eκ(q → 0) | −q²Z_κe²𝓃_κ𝓃_e(R_κ)/(3m_eM_κ) | **× [𝓃_e(R_κ) + 2𝓃_e]/𝓃_e(R_κ)** (4.7′). The κκ face (q-independent, neutral sum) keeps 𝓃_e(R_κ). So "𝓜³_κκ\|_{V_eN} = −(m_e/M_κ)𝓜³_eκ" and "𝓜³_eκ(q→0) = −2𝓃_κ(M_κ/m_e)(𝔨₃^X + 𝔨₃^{GS})" hold up to a relative 2𝓃_e/𝓃_e(R_κ) ≈ 10⁻⁴ (Si), 5×10⁻³ (diamond). The ω normalisation asked in IF-2 is now fixed by (4.5)/(4.7). F4 is re-opened at this level and closes when WP2/WP3 add the term |
+| G6 | LIMITS L17, WP6 (θ support, (8.2)), SOTA O5 | static step 1 − ε_ch^{-1}(q,0) ≤ 1 | PROVEN for ch = e | ch = c and clamped ch = e only; relaxed ch = e: false in general (2.30 GaAs-like); use (iv) or computed ε_e |
+| G7 | WP6-v2 (6.2), §8 (cross-package, from the WP6 referees) | envelope/profile spread | ×1.8 | ×1.35 (M) / ×1.57 (linear) (8.3) |
+| G8 | WP5 pair-resolved seeding, WP3, X2 (2.2) | W^{scr}(P,ω_f) | unqualified | retarded, (3.2) order, final-pair index first (5.7) |
+| G9 | WP4 (F5), SOTA Theorem D | Theorem D scope | includes magnetic insulators | excluded (B-V12 FALLS in part); magnon targets go to the gapless-target theorem of F5 |
+| G10 | every user of Theorem D's remainder (WP2, WP3, WP5, O4) | BO remainder | O(κ_BO^{n+1}) | O(κ_BO^{2(n+1)}); (6.1) is [D] for finite systems with smeared nuclei, [C] for the crystal limit |
+| G11 | NOTATION (new row), CONVENTIONS §6 | R^∞ / current kernel | R^∞_jj = 𝓃/m (v2 only) | R^∞ ≡ 0; R^{phys}_{j^αj^β} = R + δ_αβ𝓃_s/m_s; CONVENTIONS' Π^γ_T is consistent |
+| G12 | WP4 (L19, [3.2]), WP1 | nonreciprocal part of S_ee | 2q·𝐛_NR + O(q³) | O(q³) for densities (4.3); agrees with REF-WP4-B's "[3.2] odd part O(q³)" |
+| G13 | WP1 ([E4]), WP4 (spin rows), L3, L9b | on-shell J_T reduction | under (L) | needs SU(2)-invariant H (SOC = 0, H_hf, B₀ off) |
+| G14 | WP5 Theorem C (F2) | Coulomb-line classes | four classes | three classes + ionic phonon-bridge insertions (5.5); the "every line resummed once" argument is unchanged |
+| G15 | WP2 (Bohm–Staver uses) | ε in Bohm–Staver | ε_e | clamped electronic ε(q,0) |
+
+**v2 flags, status at v3.**
+| # | Owner | Status |
+|---|---|---|
+| F1 | WP1, WP3 | CLOSED: CC-1 STANDS (A-V14); tag refined (B-V11); WP1 [E2] ρ → ρ* accepted by WP1-v2 §1.3, WP3-v2 §M7 |
+| F2 | WP5 | superseded by G14 |
+| F3 | WP5, WP3 | consistent (no plasmon label in RPA; (7.3) = WP5 (W6), now with tr[𝔇ᵀS], G1) |
+| F4 | WP2, WP3 | re-opened at the 10⁻⁴ level by G5; CLOSED at R9 (WP2-v3 (5.2″), WP3-v3 J8(ii) identical to (4.7′), AUDIT-2 §3) |
+| F5 | WP4 | Theorem D-g (WP4-v3 §8, (G5)) for fermionic gapless targets; extended by G9 (magnetic insulators: open, OW0-17) |
+| F6 | WP2 | CLOSED |
+| F7 | WP3 | thermal factor: applied once, S^{X+} = (2q²/e²)L^{PA}/(1 − e^{−βω}) with L^{PA} from (f_v − f_c), never on top of f(1 − f) weights (5.6); consistent with REF-WP3-A/B (double count in WP3-v2 (W.4c)) |
+| F8 | WP3, WP5 | open (𝔉 in GaAs); for Ge also open (§6.2(iv″b), A-V15d) |
+| F9 | WP6 | τ string (CONVENTIONS §11) |
+| F10 | NOTATION | E_e, E_h row |
+| F11 | all | static DFPT error O(ω_Q²/E_g²) with TR; can be O(ω_Q/E_g) for magnetic references (no TR; (5.5)) |
+
+---
+## 12. Open items handed on
+- Closed since v1: O1 (X2 confirms (5.6c–d)); O2 for (4.9) (X1, WP3) and the L9 pair channel (X2, P = Q); O3 (WP1 §2, §5); O4 at physics
+  rigour (O4 (iv′)/(iv″)).
+- O6: (2.9) and the (3.5)–(3.6) absorption prefactors against the full text of 2305.05681.
+- OW0-8 / F4: re-opened by G5 at the 10⁻⁴ level in v3, then CLOSED: WP2-v3 (5.2″) and WP3-v3 J8(ii) carry the 2𝓃_e term (AUDIT-2 §3). OW0-9:
+  gapless targets: Theorem D-g of WP4-v3 §8 for fermionic quasiparticles (F5); magnons open (OW0-17).
+- OW0-10: size of 𝔉 in GaAs and the Γ_Λ₀/δ map over (q,ω) in Si for the d11 edge shell (O4). OW0-11: the rigorous version (O4 §8).
+- OW0-12: X2-N1…N4 (pair channel, δ_LF) and the Umklapp re-check of the Si window (SOTA R2).
+- OW0-7: CLOSED by R7 (CC-1 STANDS, A-V14; B-V11 corrections applied).
+- O5: closed for ch = c (and clamped ch = e) only; relaxed ch = e needs a computed ε_e (§9.2, G6).
+- New (v3): OW0-13 a doublet-summed argument for 𝔉 = 0 in Ge (SOC) (A-V15d). OW0-14 an N_nuc-uniform PST bound for the crystal (the rigour gap of
+  (6.1); B-V12e), and the order of the (6.1) remainder for low-lying vibrational states ([C], VER-WP0-B N2). OW0-15 an all-electron value of E′_ee (orbit–orbit f-sum shift) beyond the Thomas–Fermi estimate (4.6″). OW0-16 the v_s⊗v_s row
+  if 𝒪₂ is wanted (A-V3). OW0-17 the doublet/magnon replacement of Theorem D for magnetic insulators, with F5 (WP4).
+
+---
+## 13. v2 closing table (R6 corrections; all still applied in v3)
+| # | Correction (ID / source) | Where applied | How |
+|---|---|---|---|
+| 1 | Hyperfine factor and sign (WP4-D1; audit A18) | (1.2) | +(2/3)g_eμ_Bg_Iμ_N s·𝐈δ³ = +(1/3)…σ·𝐈δ³; derivation from −𝛍_e·B; WP0v3-C8 |
+| 2 | SOC/Darwin give zero to f-sum; mass-velocity only (WP1-D2) | (1.2), (4.6′) | [E11] form with derivation; WP0v3-C4g,h |
+| 3 | Ge core sizes (WP1-D3) | (1.2) | 0.055 (1s), ~10⁻³ (3d); WP0v3-C4i; Dirac-bilinear factorisation and no-pair projection added |
+| 4 | Commutator [T, n] = q·j exactly (WP1-D1; audit A13) | (4.6), (4.8), (5.3) | extra (q²/2m)n removed; WP0v3-C4e,e′,f |
+| 5 | Soft limit (4.9) incomplete; ℓ_Q N inside (WP3-1; CONVENTIONS §5, §13 items 5–6) | (4.8)(i)–(ii), (4.9) | replaced by X1 (X1) in CONVENTIONS order and sign; lab form; v1 difference stated; WP0v3-C12 |
+| 6 | j_T screened via LFE (WP1-D4) | (5.3), L3 | stated with size and the transverse-photon estimate |
+| 7 | Spins xc-renormalised by f_xc^T (WP1-D5) | (5.3), L3 | [E6] form; SOC mixing sizes |
+| 8 | Z*/ε_∞ belongs to charge coupling (WP2-C1) | (5.3) nucleon bullet | external vertex A_κF^M_κ; Z*/ε_∞ only inside the TO → LO Dyson series |
+| 9 | (5.6)–(5.7) D2-normalised truncation (WP3-2; NOTATION-APPLY D7) | (5.5)–(5.7′) | X2 (2.2)/(2.3) adopted with D1 normalisation; v1 form kept as (5.7′) truncation; WP0v3-C7 |
+| 10 | Table 6.1: x_coh, K label, 2W (WP2-D1, D2, D3) | Table 6.1 | x_coh retired → n_ph + shell parameter; 2W_κ = q·B_κ·q; 1ph-inc regime; K labels |
+| 11 | Table row "1/S, Δ/E_F" (WP4-D4) | Table 6.1 | SC and magnet parameter rows |
+| 12 | (H2) scope for gapless targets (WP4-D2) | §6.2 | scope paragraph; replacement [C] (F5) |
+| 13 | Theorem D (i) per-sector PSD (O4 §9; CONVENTIONS §13 item 20) | §6.2 (i) | only in window or bins ≳ δ; Z may exceed 1; WP0v3-C13a |
+| 14 | Theorem D (iv) [C] → O4 (iv′)/(iv″), DC, d1–d11 | §6.2 (iv), (6.3) | DC formulas, (a)–(d) results, T3a/b, edge shell, rigour gaps |
+| 15 | Boost mass m_A vs M (WP3-5; CONVENTIONS §13 item 22) | §6.2 (ii), L7a | drag-mass tensor δM_κ; atom: M + δM = m_A |
+| 16 | S_eκ X+ "dark photon only"; X-sector ω_e moment (WP3-4) | dictionary, (4.6c) | any 𝔇 with c_ec_κ ≠ 0; J7 split and sign |
+| 17 | O4 zeroth-moment scope (CORRECTIONS §13; coordinator; CONVENTIONS §13 item 17) | §6.2 (iii) | Z + fp = 1 per pair for the Fan part only; no global n_e rule |
+| 18 | Plasmon label double count (WP5-3; CONVENTIONS §13 item 21) | (7.1), L11 | Λ = cvk only within RPA |
+| 19 | Multi-operator seeding weight (WP5-2) | (7.3) | tr[𝔇S(Λ)]/tr[𝔇S] (v3: tr[𝔇ᵀS(Λ)]/tr[𝔇ᵀS], A-V2) |
+| 20 | q integrated before seeding (WP5-1) | (7.3) | WP5 (W6) with q integral and 𝔇 trace inside the Λ sum |
+| 21 | R&K is a photon-seed fit (WP5-4) | (7.3), L21 | stated; θ_seed nuisance |
+| 22 | External weight (1+Rv)_{0G} (WP1-D6; CONVENTIONS §13 item 16) | (7.2), §10 | **contested in part**: retarded out-state form derived as general; WP0v3-C10 |
+| 23 | Additive Gaussian violates positivity (WP6-W2) | (8.1) | M/A/E/Δ types; WP0v3-C14c |
+| 24 | f-sum constraint 2π → π, over ℝ (WP6-W1; audit A12; CONVENTIONS §13 item 12) | (4.6), (8.2) | ∫_ℝωS = π𝓃_eq²/m_e; WP0v3-C9 |
+| 25 | f-sum constraint vacuous for conserving truncations (WP6-W3) | (8.2) | stated; informative cases listed |
+| 26 | Envelope vs profile (WP6-W4; CONVENTIONS §13 item 13) | (8.3) | three reported objects; orders O(δ²)/O(δ); WP0v3-C14a,b |
+| 27 | (9.1) hypothesis: angle-averaged S (WP6-W5) | (9.1) | hypothesis (I) |
+| 28 | L7d sector (WP3-3; CONVENTIONS §13 item 15) | dictionary, L7d | n = 0 → X0, n ≥ 1 → X+ |
+| 29 | L12 ZG deterministic (WP3-6; CONVENTIONS §13 item 14) | L12 | deterministic one-shot quadrature of Williams–Lax |
+| 30 | L15 GRPA, L16 ε_bg (WP4-D3, D5) | L15, L16 | conserving GRPA; ε_bg inside the total ε |
+| 31 | P,T-broken nonreciprocity (WP4-D6) | (4.3), L19, (9.1)(δ) | converse flagged with WP4 [3.1]–[3.3] |
+| 32 | L6 pointer incomplete (WP2-D4; not in CORRECTIONS) | L6 | mean exact, true ⟨p²⟩ width, BO skewness 𝔨₃^{GS} |
+| 33 | Static DFPT error order (X2 §2 item 2) | (5.5) | O(ω_Q²/E_g²) replaces O(ω_Q/E_g) |
+| 34 | Four Coulomb classes incl. ionic, external LFE (X2 §3; R1 "two channels" withdrawn, CONVENTIONS §7) | (5.5) | class list and topological proof |
+| 35 | τ amendments: 𝒳, K labels, metadata T/ref/scr/conv (CONVENTIONS §11; NOTATION-APPLY D9) | §6.1, (1.2) | adopted with library string |
+| 36 | §10 symbols superseded by NOTATION v3 (CORRECTIONS §6 last row and §0) | throughout | G → GS, X → 𝒳, ψ → s, a/b → α/β, v_k → v_C, τ_e → 𝒯_e, M¹ → 𝓜¹, ε_e/ε_h → E_e/E_h, c_s → c_ν, Ξ_n → Ξ^n, v_n → v^g_n, P_n → p_nn, O_i → 𝒪_i, F_i → F_DM,i, n_s → 𝓃_s, κ → κ_mix, Γ(v) → Γ_χ, R (rate) → ℛ, Z → 𝒵, J_κ → 𝒥_κ, τ_ph,g → t_ph,g, Δ_k → Δ^τ_k, ρ_m → ρ_M, g(q) → 𝐠(q), S_χ → 𝐒_χ |
+| 37 | L17 (iii) status (WP1 [E3] answers O5) | (9.2)(iii) | DERIVED at RPA+LFE for insulators |
+| 38 | Relativistic-core matching (WP1 §5 answers O3) | (1.2) | factorisation exact with Dirac bilinears; O(⟨v_e²⟩) truncation |
+| 39 | AUDIT A2: 𝔨₃ naming, q → 0 qualifier, stale flags | (4.7), F1, F4, F6, OW0-7, OW0-8 | qualifier qa ≪ 1 added (ℓ = 2 average at finite q); cite WP2-v2 (5.2′), WP3-v2 J8; F1, F4, F6, OW0-8 closed; OW0-7 narrowed to the referee check |
+| 40 | AUDIT A3: L4 source equations | (9.7) L4 | 1807.10291 Eqs. (29)–(32) |
+| 41 | AUDIT A4: bare c and V for potential energy | (1.2), (4.8)(i), §6.2(ii), (8.3) | 2.71 written explicitly; V_pot, V_eN for potential energies (V = crystal volume) |
+| 42 | AUDIT A5: O6 cross-reference | §12 | "(2.9) and the (3.5)–(3.6) absorption prefactors" |
+| 43 | NOTATION v4 renames (CORRECTIONS §17) | (8.1), §6.2 (ii), §15 | a_k → a^A_k (A-type amplitude); adiabatic energies E_n, E_a, E₀ → E^ad_n, E^ad_a, E^ad_0; 2.71 and V_pot, V_eN already in place (#41); ℒ, π_k, s_{ex,i}, b_{ex,i} now have NOTATION rows; §15 updated to v4. Notational only |
+
+**Count:** 42 corrections applied (38 owed at R6 + 4 AUDIT fixes A2–A5; #22 applied in modified form and argued in §10). Contested: 1 (partial, #22). Row 43 (NOTATION v4 renames) is notational and outside this count.
+
+---
+## 14. Literature, with the R7 ratings
+WP0-v2 claimed **no** published paper wrong. Both referees agree, so nothing is REFUTED. Status of every literature claim WP0 makes:
+- **CONFIRMED in full text by the R7 WP0 referees:** 2101.08263 Eq. (1), (S.9) (A-V17, B-V14); 2110.01587 Eq. (1) (A, B), Eq. (4) as the
+  partial-range inequality (B; v2's description of it as a rate formula was a citation slip, now fixed), Eqs. (8)–(9) as the n = −1 rate bound (A);
+  2608.05282 Eqs. (1), (2), (4), (6), (8), (9) (A, B); 2101.08275 (KKL) Eqs. (4), (6), (13) and its n_{−k} sign convention (B); math-ph/0201055
+  (PST) and math-ph/0104024 (Spohn–Teufel): small parameter κ_BO², bounded-symbol class, failure of H_k for point nuclei (B-V12; this upgrades
+  v2's [ABS] and supports the corrections of §6.2).
+- **UNRESOLVED (not rated in R7):** 2305.05681 (O6; [ABS]); 1203.3542 ([ABS]; the quadratic structure of 𝒪₂ is used, A-V3); 2009.13534 Table III and
+  Eqs. (13), (15)–(27), (38), 2105.02233, 2106.12586 Table I and Eqs. (18)–(22) (read in full text for v1, not re-rated); Klein–Martinez–Seiler–Wang
+  (Hunziker distortions; [UNVERIFIED], cited by A-V15c only as an alternative to smeared nuclei).
+- **§9.7 source formulas (owner returns, FT there).** R7 ratings by the owner packages' referees (SOTA "R7 referee reports"): CONFIRMED: 1708.08929 and
+  1910.02091 κ² overstatement (L16; REF-WP4-A/B), 2101.08263 Eq. (3), 1512.04533 Eq. (13), 2609.06423 Eqs. (7)–(8) (L15; REF-WP4-B),
+  2309.10839 Eq. (9) (L18; REF-WP2-A/B), 2311.04957 D1, D3/D5 (L24; REF-WP6-A), 2001.06503 / 2209.04503 10% statements (L20; REF-WP5-B), R&K
+  2004.10709 units and |M|² (L21, L23; REF-WP5-B), 1604.02394 Eq. (24) as the declared adiabatic limit (L12; REF-WP3-B). All other §9.7 entries are
+  UNRESOLVED at R7. REFUTED in owner packages but **not used** by WP0: the 2205.02250 "peak shift" (L5 cites only its Eqs. (15), (23)–(24), (36)),
+  the 2603.13052 m_N² fix. 2209.04503's Z₁ claim is UNRESOLVED and not used.
+
+---
+## 15. Symbols introduced/used
+All symbols follow NOTATION v4 and CONVENTIONS. v2's "no deviations" was not quite true (A §8: ε_e misused in Bohm–Staver, now fixed). The
+remaining deviations are the corrected CONVENTIONS lines flagged in G1 and G3 (v4 renames: CORRECTIONS §17, v2 closing-table row 43). Used as defined there: q, ω, ω_q, Δ_χ, v, v_χ, v^⊥, v_s, v_T, v_∥, v_min,
+𝒪_i, c_i^{(s)}, 𝒱_a^{s′s}, 𝔇, Ṽ, σ̄_e, F_DM, F_DM,i, 𝐒_χ, j_χ, κ_mix, g_aee, g_aγγ, B₀, φ, a^φ_k, k_φ, Γ_χ, Γ_abs, Γ_net, ℛ; s, z_s, n_s(q), N_s,
+𝓃_s, ρ_c, ρ_M, 𝐠, O_a, Γ (rows {0,b,a,ab}), j_e^α, s_e^α, J_e^{αβ}, 𝒯_e, T_e, ⟨T⟩, 𝐈_I, 𝒥_κ, h^I_κ, F^M_κ, F^Σ_κ, I_κ^α, j_κ^α, J_κ^{αβ},
+𝐋_s, g_e, g_I, μ_B, μ_N, 𝛍_e, H, H_C, H_rel, H_hf, H_ext, 𝒵, p_i, E_i, E_f; S, S_ab, S̄, R, R̃, R⁰, ε, ε̃, ε_e, ε_mac, ε_∞, ε₀, ε_L, ε_bg,
+ε_∥ (component of ε), v_C, f_xc, f_xc^T, f_Hxc, Π^γ_T, L, L_ch, K_n^{(ch)}, 𝓜¹, 𝓜³, 𝓜₁^{SB}, ω_p, ω_{p,e}, ω_{p,c}, Ω_{p,ion}, Z*_κ, 𝓕_κ, ρ̄_e,
+U_κ, δM_κ, E^{Mig}_1, P_Mig; ρ_mn, ρ̃_mn, ρ^{ren}, M^{(2)}, M̃, W^{scr}, 𝔗_G, P, ω_f, ℓ_Q, ê, Q̂, c_ν, D^n, Ξ^n, v^g_n, p_nn, 𝔄, Q_min,
+g_mnν, b_{Qν}, n_{Qν}, ω_{Qν}, Φ^{(n)}, B_κ, 2W_κ, n_ph, z_ΔR, j₀, c̄_ΔR, x_R, κ_BO, η_ep, η_anh, η_xc, t_ph, t_g, σ_c, ξ_D, τ, 𝒳, K, 𝔐,
+θ_k, Δ^τ_k, r^M_k, a^A_k, σ_E, θ^det_ex, ℒ, π_k, s_{ex,i}, b_{ex,i}, θ_E; GS, X0, X+, X, 𝒫₀, 𝒫_⊥, U_n, Δ_ad, Λ, P_Λ, Λ₀, Λ₊, Ẽ_Λ₀, Z_Λ₀, Γ_Λ₀, δω, fp, PV, DC, a^{off}, Υ_Λ₀,
+𝔉_{Λ₀,ν}, 𝒞_adm(ℓ_win), w₀, b_λ, δ, δ₀, E_min, E_min^{ren}; N_eh, 𝐍, ℋ, E_st, N_FP, E_esc, P_casc, ρ^{ph}_κ, E_R, ω_e, ω_ph; ρ_χ, f_χ, η, 𝒢,
+𝐛_NR, Δ_BCS, Δ_D, E_F, k_F, v_F, ℓ_mfp, 𝐒_j, F^{mag}_j, E_x^b, ρ_T, Ω, N, V, κ, M_κ, M_cell, Z_κ, A_κ, m_A.
+Introduced here (new objects, no collision; proposed NOTATION rows): **y_φ** (absorbed-boson coupling to a target operator, (3.3));
+**𝒟^γ_{μν}** (in-medium photon propagator, (3.6)); **Φ₀(r;R), Φ_n(R)** (adiabatic electronic states of Theorem D, energies E^ad_n(R), NOTATION v4 §M; force constants always carry
+a superscript, Φ^{(n)}); **P_tot, M_tot** (total momentum, total mass, (4.8)); **𝓃_e(R_κ)** (electron contact density, (4.7));
+**δ_rel** (relativistic f-sum shift, WP1's symbol, (1.2)); **V_pot, V_pot^{scf}, V_eN** (potential energies, as WP2-v2; NOTATION v4 §M row V_pot, V_ee, V_eN, V_NN); the χ²₁ 90% quantile is written as the number 2.71, never bare c (NOTATION v4 §M); **E_e, E_h** (carrier energies, per CORRECTIONS §0; NOTATION row missing, F10).
+**Introduced in v3 (proposed NOTATION rows; no collision found in NOTATION v4):** **R^{phys}_{j^αj^β}** = R_{j^αj^β} + δ_αβ𝓃_s/m_s (physical
+current kernel, (4.2); B's "K" is not used since K is the τ label); **ad_H** (ad_HX ≡ [H, X], (4.5); not L, which is the loss function);
+**H_oo, 𝒦^{oo}_ij** (Breit orbit–orbit term and its kernel, (1.2), (4.6″); not K); **δ_oo, δ_mv** (orbit–orbit and mass-velocity parts of δ_rel);
+**E′_ee** (e–e Coulomb energy without its uniform G = 0 Hartree part, (4.6″)); **𝓃_e^{(κ)}(y), 𝓃^{(κ)}_G** (electron density conditional on a
+nucleus κ, and its Fourier components, (4.7′)); A's "𝓃̄_e" is 𝓃_e (mean density); **𝐁^{NR}_{αβγ}** (cubic nonreciprocity tensor of S_ee, (4.3));
+**𝔞_e, 𝔞_ion** (two-fluid static susceptibilities −v_CR̃_ee, −v_CZ_κ²R̃_κκ, (9.4′); A/B's "a, b" collide with the operator indices);
+**F^{ch}_κ(k)** (nuclear charge form factor, F^{ch}_κ(0) = 1, (1.1) and §6.2 (H1); R9, VER-WP0-A N1); **G_min** (shortest nonzero reciprocal vector, (4.7′)); **𝒫_GS, 𝒫_X** (sector projectors, §6.2(i); not Π, which is D2's R̃_ee and Π^γ); **N_nuc** (number of nuclei); **Γ_max** (O4's maximal width in the
+𝒞_adm bound). Used as defined in NOTATION: j₂, P₂ (Bessel, Legendre), δω_Λ₀, a^{off}, 𝒞_adm(ℓ_win), ℓ_win, w₀, b_λ, ε_∞, ε₀, 𝓃_e(R_κ), κ_BO.
+Labels: WP0v3-Cn (checks), CC-1 (contested), F1–F11, G1–G15 (flags), OW0-n (open items), A-Vn / B-Vn (R7 referee items).
+
+---
+## 16. Referee disagreements, settled
+
+**16.1 (4.7) q → 0 limit: REF-A V8 (missing uniform-density term) vs REF-B V6 (exact, cubic correction O(q⁴)). REF-A is right for the physical
+order of limits; REF-B is right about the contact term and about the opposite order.** Derivation (4.7′), checks WP0v3-C19a–j:
+1. Exact Fourier form in the thermodynamic limit: 𝓜³_eκ = −(𝓃_κZ_κe²/m_eM_κ)Σ_G𝓃^{(κ)}_G(q·(q−G))²/|q−G|².
+2. The G = 0 term is 𝓃_eq² at every q ≠ 0 (C19a): non-analytic at q = 0, so it survives q → 0. The G ≠ 0 terms give (q²/3)(𝓃_e(R_κ) − 𝓃_e) on
+   cubic sites (C19b). Sum: −(q²/3)Z_κe²𝓃_κ[𝓃_e(R_κ) + 2𝓃_e]/(m_eM_κ).
+3. Real space: contact part −(q²/3)Z_κe²𝓃_e(R_κ), exact at every q (B correct). The ℓ = 2 part against the uniform density is
+   −(2/3)q²Z_κe²𝓃_e·[3∫₀^∞j₂(x)/x dx] = −(2/3)q²Z_κe²𝓃_e, q-independent (C19c–e, g). B's estimate "O(q⁴∫yρ_e dy)" expands j₂(qy) for small qy. That
+   fails for the uniform part, whose weight sits at y ~ 1/q (∫yρ_e dy diverges), so the B estimate holds only for the G ≠ 0 (oscillating) part.
+4. Independent route: in RPA (uncorrelated pair density, 𝓃_e(R_κ) → 𝓃_e) the ω⁻⁴ coefficient of R_eκ is −Z_κe²𝓃_e𝓃_κq²/(m_eM_κ). That is A's form,
+   and three times B's (C19h).
+5. Order of limits: A's form is L → ∞ at fixed q, then qa_core ≪ 1 (physical: qL ≫ 1 for every DM transfer). B's form is q → 0 in a finite spherical
+   sample (qL ≪ 1; ∫P₂ dΩ = 0, C19i), and it is also the correct κκ-face result for the q-independent on-site curvature (WP2-v2 (5.2′)), where
+   electrons and nuclei form a neutral, absolutely convergent sum.
+6. Remainder: O(q⁴) at O_h sites (B correct there); O(q³) ∝ iq_xq_yq_z at T_d sites (Si, Ge, GaAs) (C19j). So B's "+O(q⁴) (cubic)" sharpening is
+   corrected to "+O(q³) (T_d), O(q⁴) (O_h)".
+Numerically the difference is 2𝓃_e/𝓃_e(R_κ) ≈ 10⁻⁴ in Si (A's estimate) [E]; the qualitative statement "fixed by contact densities" is withdrawn.
+
+**16.2 CC-1 tag: REF-A V14 (STANDS, out-state confirmed via ⟨ψ^{(−)}|) vs REF-B V11 (identification is [D, sketch]).** Both are right at different
+levels. Within TDH/ALDA linear response the bare outgoing pair is the asymptotic state of the mean-field evolution, and the retarded weight
+follows (A's Lippmann–Schwinger argument): [D] at that level. As a statement about many-body eigenstates, pair labels are not eigenstates of the
+interacting H (B): [D, sketch]. §7.2 now carries both tags.
+
+**16.3 (5.6)–(5.7): REF-A V13 (STANDS; ε(P,ω_f) absorptive, handled by C7a) vs REF-B V10 (needs retarded W).** Compatible: totals are
+convention-independent (A, C7a), while pair-resolved |M̃|² needs the retarded W^{scr}(P,ω_f) (B). Both applied in (5.7).
+
+**16.4 (5.5) ionic class: REF-A V12 (a second phonon line, not a Coulomb class) vs REF-B V9 (the phonon line is a bridge).** The same object at
+amplitude level (A) and in the cut polarisation graph (B). Applied as Case 2 of (5.5).
+
+**16.5 Theorem D: REF-A V15 (STANDS WITH CORRECTION) vs REF-B V12 (FALLS in part).** No conflict: B's FALLS concerns the magnetic-insulator scope,
+which A did not examine; it is accepted (scope narrowed). On the shared points (κ_BO² parameter, N-uniformity, Coulomb) the referees agree, and
+both are applied.
+
+---
+## 17. Rebuttals (returned to the named referee)
+
+**17.1 To REF-WP0-A, V4 (partial; the correction is applied).** The operator identity [n†,[H_oo,n]] = 2Σ_{i<j}q·𝒦^{oo}_ij·q cos(q·r_ij) and the
+coefficient 4/3 are correct (C18a,b). But δ_oo = −(4/3)E_ee/(N_em_e) with E_ee = ⟨Σ_{i<j}α/r_ij⟩ cannot be read literally for an extended solid: E_ee per
+electron diverges with the sample size (uniform Hartree term), and A's "q r_core ≪ 1" step replaces cos(q·r_ij) by 1 for all pairs, including
+pairs at r_ij ≫ 1/q. *Derivation.* FT[(𝟙 + r̂r̂)/r](k) = (8π/k²)(𝟙 − k̂k̂) (C18c), so
+⟨[n†,[H_oo,n]]⟩ = −(e²/m_e²)∫d³k/(2π)³ k⁻² q·(𝟙 − k̂k̂)·q ⟨Σ_{i≠j}(e^{i(k+q)·r_ij} + e^{i(k−q)·r_ij})⟩/2. The uniform part of the pair density
+forces k = ∓q, where q·(𝟙 − q̂q̂)·q = 0. Only the inhomogeneous (G ≠ 0) and exchange–correlation parts contribute, which are finite per electron.
+A's result therefore holds with E_ee → E′_ee (uniform Hartree part removed) and for the pairs (cores) with q r_ij ≪ 1. A's Thomas–Fermi
+estimate uses the neutral-atom E_ee, which is finite and dominated by core pairs, so the number δ_oo ≈ 0.27δ_mv [E] is kept (4.6″).
+
+**17.2 To REF-WP0-B, V6 (the verdict "the qualifier is right" is rebutted).** B's statement that the finite-q correction to 𝓜³_eκ at cubic sites is
+O(q⁴) and vanishes as q → 0 is false in the thermodynamic limit. The ℓ = 2 term against the uniform electron density contributes −(2/3)q²Z_κe²𝓃_e at
+every q (C19e), because the j₂(qy) weight sits at y ~ 1/q, where the small-qy expansion behind "O(q⁴∫yρ_e dy)" does not apply (∫yρ_e dy diverges
+for the uniform part). RPA confirms the total independently (C19h). B's form is the opposite (qL ≪ 1) order of limits (C19i). B's two other
+points are accepted: the contact term is q-exact, and 𝓜³ needed an ω normalisation (now (4.5)/(4.7), C16d). At T_d sites the remainder is
+O(q³), not O(q⁴) (C19j). Full derivation: (4.7′), §16.1.
+
+---
+## 18. R7 closing table (one row per referee item)
+Status: **applied** (correction made; for STANDS items with a remark, the remark applied), **no change** (STANDS, nothing to do), **rebutted** (§17),
+**dropped** (claim removed: FALLS).
+| Item | Verdict | Status | Where |
+|---|---|---|---|
+| A-V1 master rate, anchor | STANDS | no change | (3.3), (2.2) |
+| A-V2 index order tr[𝔇ᵀS] | SWC | applied | (3.4), index-order paragraph, (4.4), (7.3), P(N_eh); G1 (CONVENTIONS §8); C15 |
+| A-V3 𝒪₂ not in basis | SWC | applied | §2 basis; G2; OW0-16 |
+| A-V4 orbit–orbit term | SWC | applied, with partial rebuttal (E′_ee) | (1.2), (4.6″); §17.1; G4; C18 |
+| A-V5 R^∞ in (4.2) | SWC | applied | (4.2); G11; C17 |
+| A-V6 f-sums; (e) needs H_hf off | STANDS | applied (remark) | (4.6)(e) |
+| A-V7 (4.7) operator form; moment reading | STANDS | applied (moment normalisation added) | (4.5), (4.7); C16d |
+| A-V8 (4.7) q → 0 limit | SWC | applied (v2 limit replaced) | (4.7′); §16.1; G5; C19 |
+| A-V9 Ward identity, g_nn(k,0) = 0 | STANDS | no change | (4.8) |
+| A-V10 (4.9) imported | STANDS | applied (tag [D in X1]) | (4.9); C12 label |
+| A-V11 screening; Bohm–Staver ε_e | STANDS | applied (notation) | (5.3); G15 |
+| A-V12 (5.5) ionic class, [D, sketch], TR | SWC | applied | (5.5); §16.4; G14 |
+| A-V13 (5.6)–(5.7): "to O(g²)", 𝔗 pointer | STANDS | applied (remarks) | (5.6), (5.7a) |
+| A-V14 CC-1; "at RPA/TDDFT"; "to O(g²)" | STANDS | applied (caveats) | (7.2), §10; §16.2 |
+| A-V15 Theorem D: κ_BO², leakage, N-uniformity, Ge 𝔉 | SWC | applied | §6.2 hypotheses, construction, (6.1), (i), (iv″b); G10; OW0-13, 14 |
+| A-V16 (6.3) prefactor; b_λ, 𝒞_adm undefined | STANDS | applied | (6.3), (iv″c) definitions |
+| A-V17 L0 | STANDS | no change | §9.1; §14 CONFIRMED |
+| A-V18 L17 (iii), (ii), citation | SWC | applied (ch = e relaxed part of (iii) withdrawn) | §9.2 (9.4′), (iii), (iv), status; G6; C20 |
+| A-m1 (4.6c) sign change only at T = 0 | minor | applied | (4.6)(c) |
+| A-m2 imported steps retagged [D in Xn] | minor | applied | (4.9), (iii) J3, (iv″a–d) |
+| A-m3 "no deviations from NOTATION" | minor | applied | §15 |
+| A-m4 numbers re-checked | minor (confirms) | no change | — |
+| B-V1 J rows need [H, s_i] = 0 | SWC | applied | §2, §9.1(α); G13; C21 |
+| B-V2 master formulas | STANDS | no change | §3 |
+| B-V3 R^∞; nonreciprocity order | SWC | applied | (4.2), (4.3); G11, G12; C17, C22 |
+| B-V4 (4.5) off-diagonal | SWC | applied | (4.5); G3; C16 |
+| B-V5 f-sum, (4.6′) | STANDS | no change | (4.6) |
+| B-V6 (4.7) "qualifier right", O(q⁴) | STANDS | rebutted (contact-exactness and ω normalisation accepted) | §17.2, §16.1, (4.7′); C19 |
+| B-V7 (4.9) import, Q_min | STANDS | applied (tag) | (4.9) |
+| B-V8 Bohm–Staver; j_T L–T mixing | SWC | applied | (5.3); G15 |
+| B-V9 (5.5) bridge case | SWC | applied | (5.5); §16.4 |
+| B-V10 (5.7) retarded W | SWC | applied | (5.7), (7.2), §10; §16.3; G8 |
+| B-V11 CC-1 tag; C10g label; pair channel | SWC | applied | (7.2), §10; C10g |
+| B-V12 Theorem D scope (magnetic insulators), ε order, FT, smeared nuclei, N-uniformity, essential support | FALLS in part | **dropped** (magnetic insulators removed); rest applied | §6.2; G9, G10; OW0-14, 17 |
+| B-V13 (iv′)/(iv″) import; definitions; normalisation | STANDS | applied | (6.3), (iv″c), (iv″d) |
+| B-V14 L0 | STANDS | no change | §9.1 |
+| B-V15 L17 electron channel; citation | SWC | applied (claim restricted) | §9.2; G6; C20 |
+| B-V16 hyperfine; "only coupling of 𝐈" | STANDS | applied (remark) | (1.2) |
+| B-m1 (4.8) order depends on B | minor | applied | (4.8) |
+| B-m2 (5.6) thermal wording | minor | applied | (5.6); F7 |
+| B-m3 C3c, C5, C4d single-instance | minor | no change (used as checks, not proofs) | — |
+| B-m4 §9.2 citation slip | minor | applied | §9.2 |
+| X-1 ×1.8 in (8.3) (WP6 referees) | cross-package | applied (×1.35 / ×1.57) | (8.3); G7; C14d,e |
+| X-2 (4.7) A/B disagreement | cross-package | settled for A, by derivation | §16.1; C19 |
+| X-3 rate index order in CONVENTIONS §8 | cross-package | flagged | G1 |
+
+**Count (42 referee items: A 18 + 4 minor, B 16 + 4 minor):** applied **32** (A 18, B 14; A-V4 also carries a partial rebuttal, §17.1),
+no change **8** (A 4, B 4), rebutted **1** (B-V6, §17.2; plus the partial rebuttal inside A-V4), dropped **1** (B-V12, magnetic-insulator scope;
+its other parts applied). 32 + 8 + 1 + 1 = 42. Cross-package: X-1 applied, X-2 settled (for REF-A), X-3 flagged. Checks: 76/76 PASS.
+
+---
+## 19. R9 clean-up closing table (coordinator brief R9; one row per item)
+| Item | Source | Status | Where |
+|---|---|---|---|
+| VER-A N1 nuclear charge form factor in (H1) | VER-WP0-A | applied: F^{ch}_κ (charge, F^{ch}(0) = 1) replaces F^M_κ; new symbol row | (1.1), §6.2 (H1), §15 |
+| VER-A N2 unsupported Si L17 figure | VER-WP0-A | applied: Si 1.32 dropped (R̃_eκ = 0 model invalid for Si); GaAs-like case kept | §9.2 (iii); C20c |
+| VER-A N3 stale §12 lines | VER-WP0-A | applied: "O5 at RPA+LFE" and the open OW0-7 line deleted; OW0-8/F4 status updated | §12, F4 row |
+| VER-B N1 (4.7′) range q ≪ G_min | VER-WP0-B | applied: range 1/L ≪ q ≪ G_min, remainder O(q³/G_min); exact (4.7″) for G_min ≲ q ≪ 1/a_core | (4.7′), (4.7″); C19k |
+| VER-B N2 (6.1) remainder for low-lying states | VER-WP0-B | applied: [C] for low-lying vibrational states; O(κ_BO^{2(n+1)}) semiclassical only; OW0-14 | §6.2 (6.1), §12 |
+| AUDIT-2 B1 (blocking) nuisance positivity; PAER factor | AUDIT-2 §1 (WP6 IF6-4, IF6-14, IF6-15; WP3 IF-10) | applied: (8.1) = WP6-v3 (5.1)–(5.1″) (M on scalars / PSD geodesic, A iff PSD Δ, L, T); (8.2) positivity = WP6 (5.3); [0.5, 1.2] → [0.4, 1.8] (median 0.85, σ_ln 0.75) | (5.7) Sizes, (8.1), (8.2); C23a–c |
+| AUDIT-2 B2 (blocking) beyond-RPA condition | AUDIT-2 §1 (WP1 IF-12) | applied: (−R⁰)^{-1} + f_xc > 0 (WP1-v3 (1.4′)) replaces 1 − f_HxcR⁰ > 0 | §9.2 (iii); C24 |
+| AUDIT-2 B3 (blocking) Migdal moment bookkeeping | AUDIT-2 §1 (WP5 IF-R8-1) | applied: 𝓜¹^{(e)} ≠ X moment; X per nucleus E^{Mig}_1 + P_Mig q²/2M_κ; GS seed (1 − P_Mig)S^{GS} with M_κ + δM_κ; rule (a) overcount restated | §6.2 (iii), rule (a); C25 |
+| m4 RPA/TDH level; ALDA k_xc | AUDIT-2 (WP3 IF-12) | applied | (5.5), (5.6) headers |
+| m5 Si Γ/δ values | AUDIT-2 (WP3 §M4) | applied: 0.007–0.2 at δ₀ = 0.3 eV | §6.2 (iv″d) |
+| m6 plasmon exception | AUDIT-2 (WP5 IF-R8-3) | applied | (7.1) |
+| m7 cite Theorem D-g | AUDIT-2 (WP4 I1) | applied: WP4-v3 §8, (G5), bound [8.1] | §6.2 scope; F5, §12 OW0-9 |
+| m10 Table 6.1 and paragraph | AUDIT-2 (WP2 IF-3, IF-10; WP4 I12, I16) | applied (text only) | Table 6.1 row, paragraph after it |
+| m12 spin-row screening | AUDIT-2 (WP1 IF-13) | applied: triplet W^{scr} ladder + f_xc^T, R̃_s ≡ 4R_{s^zs^z} | (5.3) |
+| m17 𝐁^{NR} ≡ b^{NR}/ω² | AUDIT-2 | applied (identification stated; NOTATION row is the coordinator's) | (4.3) |
+| m22 L16 status | AUDIT-2 (WP4 I8, I10) | applied: REFEREED R×2; absorption ×ε_bg | §9.7 L16 |
+| m23 OW0-7 duplicate | AUDIT-2 | applied (= VER-A N3) | §12 |
+| m24 "δM/M ≤" | AUDIT-2 (WP3 IF-13) | applied: "≈", estimate | §6.2 (ii) |
+| m25 CONVENTIONS §7 𝒪_i range | AUDIT-2 | not in this file: coordinator file; already flagged (G2) | G2 |
+| m31 new-symbol NOTATION rows | AUDIT-2 | not in this file: NOTATION v5 pass; WP0 list in §15 (F^{ch}_κ, G_min added) | §15 |
+| §8 unapplied flags for WP0 | AUDIT-2 §8 (WP1 IF-12, IF-13; WP2 IF-3, IF-10; WP3 IF-10, IF-13; WP4 I1, I8, I16; WP5 IF-R8-1, IF-R8-3; WP6 IF6-4, IF6-14, IF6-15) | applied, via B1–B3, m6, m7, m10, m12, m22, m24 above | as listed |
+**Count:** 21 rows; 19 applied in this file, 2 (m25, m31) belong to coordinator files and are flagged. Checks: 82/82 PASS.

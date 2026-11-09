@@ -1,0 +1,102 @@
+\section{Polarization of Dirac electrons}\label{app:D.22}
+
+Near a Dirac point the bands are $\pm E_{\vect{k}}$ with $E_{\vect{k}} = (v_{\mathrm{D}}^2k^2 + \Delta_{\mathrm{D}}^2)^{1/2}$, and an undoped material at $T = 0$ screens through interband pairs alone, whose energy $E_{\vect{k}} + E_{\vect{k}+\vect{q}}$ is at least $(v_{\mathrm{D}}^2q^2 + 4\Delta_{\mathrm{D}}^2)^{1/2}$. The linear dispersion makes the Lindhard sum of \cref{sec:4.5} look like the vacuum polarization of quantum electrodynamics with $v_{\mathrm{D}}$ in place of the speed of light, and the sum diverges logarithmically at large momentum, so the answer depends on where the linear dispersion ends. This section first shows how the Kramers degeneracy brings the $\vect{k}\cdot\vect{p}$ block of \cref{eq:7.3-block} to the Dirac form, and then evaluates the polarization sum with a hard momentum cutoff $\Lambda_{\mathrm{D}}$ in closed form, for any $\vect{q}$ and $\omega$ in the regime $q, \omega/v_{\mathrm{D}}, \Delta_{\mathrm{D}}/v_{\mathrm{D}} \ll \Lambda_{\mathrm{D}}$. Both results are used in \cref{sec:7.3}.
+
+\subsection*{The Dirac form}
+
+Start from the block Hamiltonian \cref{eq:7.3-block}, with $M(\delta\vect{k}) = \sum_i\delta k_iM_i$ the $2\times2$ matrix of the velocity between the conduction and the valence doublet. As \cref{sec:7.3} shows, the Kramers degeneracy of both bands at every $\delta\vect{k}$ requires $MM^\dagger \propto \mathbb{1}$ for every $\delta\vect{k}$. For $\delta\vect{k}$ along the axis $i$ this says $M_iM_i^\dagger \propto \mathbb{1}$. For $\delta\vect{k}$ along the diagonal of the axes $i$ and $j$ it says $(M_i + M_j)(M_i + M_j)^\dagger \propto \mathbb{1}$, which with the first condition requires
+\begin{equation}
+  M_iM_i^\dagger \propto \mathbb{1} , \qquad M_iM_j^\dagger + M_jM_i^\dagger \propto \mathbb{1} ,
+  \label{eq:D.22-kramers}
+\end{equation}
+with real coefficients of proportionality. We write the Pauli matrices that act within a doublet as $\sigma^{\mathrm{d}}_1, \sigma^{\mathrm{d}}_2, \sigma^{\mathrm{d}}_3$, and $\vect{c}\cdot\boldsymbol{\sigma}^{\mathrm{d}} = \sum_lc_l\sigma^{\mathrm{d}}_l$.
+
+\emph{Step 1: reduce to one direction.} Assume $M_1 \ne 0$. By \cref{eq:D.22-kramers}, $M_1M_1^\dagger = m^2\mathbb{1}$ with $m > 0$, so $W = M_1/m$ is unitary. Define $N_i = M_iM_1^{-1}$, so that $M_i = N_iM_1$ and $N_1 = \mathbb{1}$. Then $M_iM_1^\dagger = N_iM_1M_1^\dagger = m^2N_i$ and $M_iM_i^\dagger = N_iM_1M_1^\dagger N_i^\dagger = m^2N_iN_i^\dagger$, and \cref{eq:D.22-kramers} with $j = 1$ becomes
+\begin{equation*}
+  N_i + N_i^\dagger \propto \mathbb{1} , \qquad N_iN_i^\dagger \propto \mathbb{1} .
+\end{equation*}
+
+\emph{Step 2: the form of each $N_i$.} Every $2\times2$ matrix is the sum of a Hermitian part $\frac12(N + N^\dagger)$ and an anti-Hermitian part, which is $\ii$ times a Hermitian matrix, and every Hermitian matrix is a real combination of $\mathbb{1}$ and the $\sigma^{\mathrm{d}}_l$. The first condition makes the Hermitian part a real multiple $x_i\mathbb{1}$, and the anti-Hermitian part is $\ii(y_i\mathbb{1} + \vect{c}_i\cdot\boldsymbol{\sigma}^{\mathrm{d}})$ with real $y_i$ and $\vect{c}_i$. Hence $N_i = z_i\mathbb{1} + \ii\,\vect{c}_i\cdot\boldsymbol{\sigma}^{\mathrm{d}}$ with $z_i = x_i + \ii y_i$. With $(\vect{c}\cdot\boldsymbol{\sigma}^{\mathrm{d}})^2 = c^2\mathbb{1}$,
+\begin{equation*}
+  N_iN_i^\dagger = \bigl(z_i\mathbb{1} + \ii\,\vect{c}_i\cdot\boldsymbol{\sigma}^{\mathrm{d}}\bigr)\bigl(z_i^*\mathbb{1} - \ii\,\vect{c}_i\cdot\boldsymbol{\sigma}^{\mathrm{d}}\bigr) = \bigl(|z_i|^2 + c_i^2\bigr)\mathbb{1} + 2y_i\,\vect{c}_i\cdot\boldsymbol{\sigma}^{\mathrm{d}} ,
+\end{equation*}
+and the second condition requires $y_i = 0$ unless $\vect{c}_i = 0$. A direction with $\vect{c}_i = 0$ and $y_i \ne 0$ is excluded by \cref{eq:D.22-kramers} for a pair $i, j \ne 1$: if $N_i = z_i\mathbb{1}$ and $N_j = x_j\mathbb{1} + \ii\,\vect{c}_j\cdot\boldsymbol{\sigma}^{\mathrm{d}}$ with $\vect{c}_j \ne 0$, then $N_iN_j^\dagger + N_jN_i^\dagger = 2x_jx_i\mathbb{1} + 2y_i\,\vect{c}_j\cdot\boldsymbol{\sigma}^{\mathrm{d}}$, which requires $y_i = 0$. The only escape is that all $\vect{c}_i$ vanish. Then $M = (\delta k_1 + z_2\delta k_2 + z_3\delta k_3)M_1$ is one complex number times $M_1$, the bands $\pm(\Delta_{\mathrm{D}}^2 + m^2|\delta k_1 + z_2\delta k_2 + z_3\delta k_3|^2)^{1/2}$ do not disperse along the line in $\delta\vect{k}$ on which that complex number vanishes, and we exclude this nongeneric case. Every $N_i$ is therefore a real combination $x_i\mathbb{1} + \ii\,\vect{c}_i\cdot\boldsymbol{\sigma}^{\mathrm{d}}$, described by the real four-vector $(x_i, \vect{c}_i)$, and $N_1$ is the four-vector $(1, 0, 0, 0)$.
+
+\emph{Step 3: remove $M_1$.} A change of basis within the valence doublet, $M \to MU_{\mathrm{v}}^\dagger$ with the unitary $U_{\mathrm{v}} = W$, turns $M_i = N_iM_1 = mN_iW$ into $mN_i$. Absorbing $m$ into the velocities, $M = m\sum_i\delta k_i\,(x_i\mathbb{1} + \ii\,\vect{c}_i\cdot\boldsymbol{\sigma}^{\mathrm{d}})$.
+
+\emph{Step 4: rotate the four-vectors.} A matrix $Q = x\mathbb{1} + \ii\,\vect{c}\cdot\boldsymbol{\sigma}^{\mathrm{d}}$ with real $(x, \vect{c})$ has $\det Q = x^2 + c^2$, the squared length of its four-vector. A change of basis in both doublets, $Q \to U_{\mathrm{c}}QU_{\mathrm{v}}^\dagger$ with $U_{\mathrm{c}}$ and $U_{\mathrm{v}}$ unitary of unit determinant, maps such matrices onto such matrices, linearly, and preserves the determinant. It therefore acts on the four-vector as an orthogonal transformation, and continuity from $U_{\mathrm{c}} = U_{\mathrm{v}} = \mathbb{1}$ makes it a rotation. Every rotation of four-dimensional space arises in this way. Choosing $U_{\mathrm{c}} = U_{\mathrm{v}}$ gives the rotations of the three components $\vect{c}$ that leave $x$ fixed. Choosing $U_{\mathrm{c}} = \ee^{\ii\phi\sigma^{\mathrm{d}}_3}$ and $U_{\mathrm{v}} = \ee^{-\ii\phi\sigma^{\mathrm{d}}_3}$ gives $Q \to \ee^{\ii\phi\sigma^{\mathrm{d}}_3}Q\,\ee^{\ii\phi\sigma^{\mathrm{d}}_3}$, which on $Q = \mathbb{1}$ yields $\cos2\phi\,\mathbb{1} + \ii\sin2\phi\,\sigma^{\mathrm{d}}_3$, a rotation in the plane of $x$ and $c_3$. Rotations of $\vect{c}$ together with rotations in one plane that contains the $x$ axis generate all rotations of four-dimensional space. The three four-vectors $(x_i, \vect{c}_i)$ span at most three dimensions, and a rotation can bring that subspace into the one orthogonal to $(1, 0, 0, 0)$, which removes every component along $\mathbb{1}$. A phase $-\ii$ in the conduction doublet then removes the factor $\ii$, and
+\begin{equation*}
+  M = \sum_{i,l}\delta k_i\,A_{il}\,\sigma^{\mathrm{d}}_l
+\end{equation*}
+with a real $3\times3$ matrix $A$.
+
+\emph{Step 5: principal axes.} The singular-value decomposition writes $A = R\,\mathrm{diag}(v_1, v_2, v_3)\,R'^{\mathrm{T}}$ with two rotations $R$ and $R'$ and real $v_i$, one of which may be negative when both rotations are chosen proper. The rotation $R$ is a choice of crystal axes for $\delta\vect{k}$. The rotation $R'$ is undone by the same unitary $U$ in both doublets, since $U\sigma^{\mathrm{d}}_lU^\dagger = \sum_{l'}R'_{ll'}\sigma^{\mathrm{d}}_{l'}$ for a suitable $U$, by the correspondence between unitary $2\times2$ matrices of unit determinant and rotations. In the resulting basis $M = \sum_iv_i\,\delta k_i\,\sigma^{\mathrm{d}}_i$, which is the block of the Dirac Hamiltonian \cref{eq:7.3-H}.
+
+\subsection*{The bubble}
+
+Take one isotropic Dirac cone, $H_{\vect{k}} = v_{\mathrm{D}}\boldsymbol{\alpha}_{\mathrm{D}}\cdot\vect{k} + \Delta_{\mathrm{D}}\beta_{\mathrm{D}}$, with $\vect{k}$ measured from the node and $\boldsymbol{\alpha}_{\mathrm{D}}$ and $\beta_{\mathrm{D}}$ the $4\times4$ Dirac matrices, which anticommute pairwise and square to one. Then $H_{\vect{k}}^2 = E_{\vect{k}}^2$, and each band $\pm E_{\vect{k}}$ is doubly degenerate, with the projector $P^\pm_{\vect{k}} = \frac12(1 \pm H_{\vect{k}}/E_{\vect{k}})$ of rank two. The density matrix element between Bloch states near the cone is the overlap of the band spinors: for $q$ small compared with the reciprocal lattice, the factor $\ee^{\ii\vect{q}\cdot\vect{r}}$ acts on the slowly varying envelope and conserves the spinor index~\cite[App.~A.3]{hochberg2018detection}. Summed over the two degenerate states of each band, the squared overlap is $\Tr[P^+_{\vect{k}'}P^-_{\vect{k}}]$, and with $\Tr(\alpha_{\mathrm{D}}^i\alpha_{\mathrm{D}}^j) = 4\delta_{ij}$, $\Tr\beta_{\mathrm{D}}^2 = 4$ and $\Tr(\alpha_{\mathrm{D}}^i\beta_{\mathrm{D}}) = 0$,
+\begin{equation}
+  \mathcal{F}(\vect{k},\vect{k}') = \frac12\Tr\bigl[P^+_{\vect{k}'}P^-_{\vect{k}}\bigr] = \frac12\Bigl(1 - \frac{v_{\mathrm{D}}^2\,\vect{k}\cdot\vect{k}' + \Delta_{\mathrm{D}}^2}{E_{\vect{k}}E_{\vect{k}'}}\Bigr)
+  \label{eq:D.22-F}
+\end{equation}
+per state, in agreement with Ref.~\cite[Eq.~(A.7)]{hochberg2018detection}. It vanishes at $\vect{k}' = \vect{k}$, because the two bands are orthogonal, and grows as $q^2$. Let $g_{\mathrm{deg}}$ count the degenerate states per band and wavevector, summed over cones: 2 for one four-component cone, and $2$ times the number of cones in general. At $T = 0$, with the chemical potential in the gap, the occupations are $1$ in the lower band and $0$ in the upper. Of the bubble \cref{eq:4.7-bubble}, continued to real frequency, the interband terms remain:
+\begin{equation*}
+  R^0_{\mathrm{D}}(\vect{q},\omega) = \frac{g_{\mathrm{deg}}}{\Vol}\sum_{|\vect{k}| < \Lambda_{\mathrm{D}}}\mathcal{F}(\vect{k},\vect{k}+\vect{q})\left[\frac{1}{\omega - E_{\vect{k}} - E_{\vect{k}+\vect{q}} + \ii0^+} - \frac{1}{\omega + E_{\vect{k}} + E_{\vect{k}+\vect{q}} + \ii0^+}\right] .
+\end{equation*}
+
+\subsection*{Reduction to one integral}
+
+The bracket depends on $\vect{k}$ only through the pair energy $S = E + E'$, with $E = E_{\vect{k}}$ and $E' = E_{\vect{k}+\vect{q}}$. Use $k = |\vect{k}|$ and $k' = |\vect{k}+\vect{q}|$ as coordinates; with the azimuth about $\vect{q}$ integrated out, $\dd^3k = 2\pi kk'\,\dd k\,\dd k'/q$ over the region $|k - k'| \le q \le k + k'$. Since $k\,\dd k = E\,\dd E/v_{\mathrm{D}}^2$, this is $\dd^3k = 2\pi EE'\,\dd E\,\dd E'/(v_{\mathrm{D}}^4q)$. In the overlap, $2\vect{k}\cdot\vect{k}' = k^2 + k'^2 - q^2$ and $v_{\mathrm{D}}^2k^2 = E^2 - \Delta_{\mathrm{D}}^2$, so
+\begin{equation*}
+  \mathcal{F} = \frac{v_{\mathrm{D}}^2q^2 - (E - E')^2}{4EE'} .
+\end{equation*}
+The factors $EE'$ cancel. With $S = E + E'$ and $D = E - E'$, $\dd E\,\dd E' = \frac12\dd S\,\dd D$, and the boundary of the region follows from $(k^2 + k'^2 - q^2)^2 \le 4k^2k'^2$. Rewritten with the energies this is $D^2(S^2 - v_{\mathrm{D}}^2q^2) \le v_{\mathrm{D}}^2q^2(S^2 - v_{\mathrm{D}}^2q^2 - 4\Delta_{\mathrm{D}}^2)$. Write $u = S^2 - v_{\mathrm{D}}^2q^2$, the squared energy of the pair in its rest frame, and $D_{\mathrm{m}} = v_{\mathrm{D}}q(1 - 4\Delta_{\mathrm{D}}^2/u)^{1/2}$. Then $|D| \le D_{\mathrm{m}}$, pairs exist only for $u \ge 4\Delta_{\mathrm{D}}^2$, and
+\begin{equation*}
+  \int_{-D_{\mathrm{m}}}^{D_{\mathrm{m}}}\dd D\,\bigl(v_{\mathrm{D}}^2q^2 - D^2\bigr) = 2D_{\mathrm{m}}\Bigl(v_{\mathrm{D}}^2q^2 - \frac{D_{\mathrm{m}}^2}{3}\Bigr) = \frac43v_{\mathrm{D}}^3q^3\rho(u), \qquad
+  \rho(u) = \Bigl(1 - \frac{4\Delta_{\mathrm{D}}^2}{u}\Bigr)^{1/2}\Bigl(1 + \frac{2\Delta_{\mathrm{D}}^2}{u}\Bigr) .
+\end{equation*}
+Collecting the factors, $\Vol^{-1}\sum_{\vect{k}}\mathcal{F}\,h(S) = (q^2/24\pi^2v_{\mathrm{D}})\int\dd S\,\rho(S^2 - v_{\mathrm{D}}^2q^2)\,h(S)$ for any function $h$. The bracket in $R^0_{\mathrm{D}}$ is $2S/[(\omega + \ii0^+)^2 - S^2]$, and with $\dd u = 2S\,\dd S$,
+\begin{equation}
+  R^0_{\mathrm{D}}(\vect{q},\omega) = -\frac{g_{\mathrm{deg}}\,q^2}{24\pi^2v_{\mathrm{D}}}\int_{4\Delta_{\mathrm{D}}^2}^{4v_{\mathrm{D}}^2\Lambda_{\mathrm{D}}^2}\dd u\,\frac{\rho(u)}{u - s - \ii0^+\operatorname{sgn}\omega}, \qquad s = \omega^2 - v_{\mathrm{D}}^2q^2 .
+  \label{eq:D.22-R}
+\end{equation}
+The cutoff $|\vect{k}| < \Lambda_{\mathrm{D}}$ has become $u < 4v_{\mathrm{D}}^2\Lambda_{\mathrm{D}}^2$, which differs from the exact boundary by terms of relative order $q/\Lambda_{\mathrm{D}}$ and $\Delta_{\mathrm{D}}^2/v_{\mathrm{D}}^2\Lambda_{\mathrm{D}}^2$. The response depends on $\vect{q}$ and $\omega$ through the factor $q^2$ and the invariant $s$ alone, as Lorentz invariance with $v_{\mathrm{D}}$ in the role of the speed of light requires; the cutoff breaks the invariance in these neglected terms and nowhere else.
+
+\subsection*{The dielectric function}
+
+The remote bands, far from the Dirac point, respond to small $q$ and $\omega$ as a constant background $\varepsilon_{\mathrm{bg}}$, and the Dirac electrons add their random-phase polarization, $\varepsilon = \varepsilon_{\mathrm{bg}} - v_{\mathrm{C}}(q)R^0_{\mathrm{D}}$ with $v_{\mathrm{C}} = e^2/q^2$ (\cref{sec:4.5}). The factor $q^2$ in \cref{eq:D.22-R} cancels the Coulomb $1/q^2$, and with $e^2 = 4\pi\alpha$ and $\tilde\alpha = \alpha/(\varepsilon_{\mathrm{bg}}v_{\mathrm{D}})$,
+\begin{equation*}
+  \frac{\varepsilon(\vect{q},\omega)}{\varepsilon_{\mathrm{bg}}} = 1 + \frac{g_{\mathrm{deg}}\tilde\alpha}{6\pi}\int_{4\Delta_{\mathrm{D}}^2}^{U}\dd u\,\frac{\rho(u)}{u - s - \ii0^+\operatorname{sgn}\omega}, \qquad U = 4v_{\mathrm{D}}^2\Lambda_{\mathrm{D}}^2 .
+\end{equation*}
+The imaginary part needs no cutoff. By \cref{eq:2.4-SP}, for $\omega > 0$,
+\begin{equation}
+  \frac{\Imag\varepsilon(\vect{q},\omega)}{\varepsilon_{\mathrm{bg}}} = \frac{g_{\mathrm{deg}}\tilde\alpha}{6}\Bigl(1 - \frac{4\Delta_{\mathrm{D}}^2}{s}\Bigr)^{1/2}\Bigl(1 + \frac{2\Delta_{\mathrm{D}}^2}{s}\Bigr)\Theta(s - 4\Delta_{\mathrm{D}}^2) ,
+  \label{eq:D.22-Im}
+\end{equation}
+which is Ref.~\cite[Eq.~(2.6)]{hochberg2018detection} with the degeneracy written separately from the coupling. Absorption starts where the invariant energy of a pair reaches $2\Delta_{\mathrm{D}}$, at $\omega = (v_{\mathrm{D}}^2q^2 + 4\Delta_{\mathrm{D}}^2)^{1/2}$, and far above it $\Imag\varepsilon$ tends to the constant $\varepsilon_{\mathrm{bg}}g_{\mathrm{deg}}\tilde\alpha/6$, independent of $q$: the loss of a Dirac material grows with neither momentum nor frequency.
+
+For the real part, split $\rho(u)/(u - s) = \rho(u)/u + s\rho(u)/[u(u - s)]$. The integral of $\rho/u$ is elementary with $u = 4\Delta_{\mathrm{D}}^2/(1 - b^2)$, in which $\rho\,\dd u/u = b^2(3 - b^2)(1 - b^2)^{-1}\dd b = [b^2 - 2 + 2/(1 - b^2)]\dd b$; integrated to $b_U = (1 - 4\Delta_{\mathrm{D}}^2/U)^{1/2}$ it gives $\frac13 - 2 + \ln[(1 + b_U)/(1 - b_U)] = \ln(U/\Delta_{\mathrm{D}}^2) - \frac53$ for $U \gg \Delta_{\mathrm{D}}^2$. The subtracted integral converges, and its cutoff may be sent to infinity. Write $\ln(1 - s/a) = -s\int_a^\infty\dd u/[u(u - s)]$ with $a = \Delta_{\mathrm{D}}^2/x(1 - x)$ and integrate over $x$ with the weight $6x(1 - x)$. Exchanging the integrals, a given $u$ contributes for $x(1 - x) \ge \Delta_{\mathrm{D}}^2/u$, between $x_\pm = \frac12(1 \pm b)$ with $b = (1 - 4\Delta_{\mathrm{D}}^2/u)^{1/2}$, and $\int_{x_-}^{x_+}6x(1 - x)\,\dd x = b(3 - b^2)/2 = \rho(u)$. Hence $s\int\rho\,\dd u/[u(u - s)] = -6\int_0^1\dd x\,x(1 - x)\ln[1 - x(1 - x)s/\Delta_{\mathrm{D}}^2]$, and
+\begin{equation}
+  \begin{split}
+  \frac{\varepsilon(\vect{q},\omega)}{\varepsilon_{\mathrm{bg}}} &= 1 + \frac{g_{\mathrm{deg}}\tilde\alpha}{6\pi}\biggl[\ln\frac{4v_{\mathrm{D}}^2\Lambda_{\mathrm{D}}^2}{\Delta_{\mathrm{D}}^2} - \frac53\\
+  &\qquad - 6\int_0^1\dd x\,x(1 - x)\ln\Bigl(1 - x(1 - x)\frac{\omega^2 - v_{\mathrm{D}}^2q^2}{\Delta_{\mathrm{D}}^2} - \ii0^+\operatorname{sgn}\omega\Bigr)\biggr] ,
+  \end{split}
+  \label{eq:D.22-eps}
+\end{equation}
+with the branch of the logarithm that gives $-\ii\pi$ where its argument is negative, which reproduces \cref{eq:D.22-Im}. This is Ref.~\cite[Eq.~(2.6)]{hochberg2018detection} with $\Lambda_{\mathrm{D}}$ replaced by $\ee^{-5/6}\Lambda_{\mathrm{D}}$: the constant $-\frac53$ is what a hard cutoff on $|\vect{k}|$ adds to the subtraction made there, which that reference absorbs into the cutoff. A hard cutoff and a subtraction differ in this constant and in nothing else. Either way, $\Lambda_{\mathrm{D}}$ is a model parameter, fixed by matching to the computed band structure.
+
+\subsection*{Static and long-wavelength limits}
+
+At $q \to 0$ and $\omega = 0$ the integral in \cref{eq:D.22-eps} vanishes, and the static long-wavelength constant of a gapped material is
+\begin{equation}
+  \varepsilon(0,0) = \varepsilon_{\mathrm{bg}}\Bigl[1 + \frac{g_{\mathrm{deg}}\tilde\alpha}{3\pi}\Bigl(\ln\frac{2v_{\mathrm{D}}\Lambda_{\mathrm{D}}}{\Delta_{\mathrm{D}}} - \frac56\Bigr)\Bigr] .
+  \label{eq:D.22-static}
+\end{equation}
+For $\Delta_{\mathrm{D}} \to 0$ at fixed $s$, the logarithm becomes $\ln[-x(1 - x)s/\Delta_{\mathrm{D}}^2]$, and with $\int_0^1x(1 - x)\ln[x(1 - x)]\,\dd x = -5/18$ the constants cancel:
+\begin{equation}
+  \frac{\varepsilon(\vect{q},\omega)}{\varepsilon_{\mathrm{bg}}} = 1 + \frac{g_{\mathrm{deg}}\tilde\alpha}{6\pi}\ln\frac{4v_{\mathrm{D}}^2\Lambda_{\mathrm{D}}^2}{|v_{\mathrm{D}}^2q^2 - \omega^2|} + \ii\,\frac{g_{\mathrm{deg}}\tilde\alpha}{6}\,\Theta(\omega - v_{\mathrm{D}}q) ,
+  \label{eq:D.22-gapless}
+\end{equation}
+which is Ref.~\cite[Eq.~(2.7)]{hochberg2018detection} for a hard cutoff. In the static gapless case, $\varepsilon(q,0) = \varepsilon_{\mathrm{bg}}[1 + (g_{\mathrm{deg}}\tilde\alpha/3\pi)\ln(2\Lambda_{\mathrm{D}}/q)]$. The screening grows logarithmically as $q \to 0$, no faster; a semimetal with no Fermi surface has no Thomas--Fermi screening length, because the density of states vanishes at the node. The logarithm also controls how strongly the material screens a dark-matter probe: $\varepsilon/\varepsilon_{\mathrm{bg}} - 1$ is of order $g_{\mathrm{deg}}\tilde\alpha$ times a logarithm, and perturbation theory in $\tilde\alpha$ is reliable for $g_{\mathrm{deg}}\tilde\alpha\ln(\Lambda_{\mathrm{D}}/q) \lesssim 1$.
+
+Take an anisotropic cone with velocities $v_x, v_y, v_z$. The substitution $k_i \to k_i/v_i$ maps the sum onto the isotropic one with unit velocity, at the rescaled momentum $\tilde{\vect{q}} = (v_xq_x, v_yq_y, v_zq_z)$ and with the Jacobian $1/(v_xv_yv_z)$, so that $R^0_{\mathrm{D}}$ is \cref{eq:D.22-R} with $v_{\mathrm{D}} = 1$, $q^2 \to \tilde q^2$ and an overall factor $1/(v_xv_yv_z)$~\cite[Eq.~(B.1)]{hochberg2018detection}; the cutoff is then an ellipsoid in $\vect{k}$.

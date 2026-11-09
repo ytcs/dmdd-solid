@@ -1,0 +1,1614 @@
+                                                     Predominance of non-adiabatic effects in zero-point renormalization of
+                                                     the electronic band gap.
+                                                               Anna Miglio,1, a) Véronique Brousseau-Couture,2, a) Emile Godbout,2 Gabriel Antonius,3, 4 Yang-Hao Chan,3
+                                                               Steven G. Louie,3 Michel Côté,2 Matteo Giantomassi,1 and Xavier Gonze∗ 1, 5, b)
+                                                               1) Institute of Condensed Matter and Nanosciences, UCLouvain, B-1348 Louvain-la-Neuve,
+                                                               Belgium
+                                                               2) Département de Physique et Regroupement Québécois sur les Matériaux de Pointe, Université de Montreal, C.P. 6128,
+                                                               Succursale Centre-Ville, Montreal, Canada H3C 3J7
+                                                               3) Department of Physics, University of California at Berkeley, California 94720, USA and Materials Sciences Division,
+                                                               Lawrence Berkeley National Laboratory, Berkeley, California 94720, USA
+                                                               4) Département de Chimie, Biochimie et Physique, Institut de recherche sur l’hydrogène, Université du Québec à Trois-Rivières,
+arXiv:2011.12765v1 [cond-mat.mtrl-sci] 25 Nov 2020
+
+
+
+
+                                                               Trois-Rivières, Canada
+                                                               5) Skolkovo Institute of Science and Technology, Skolkovo Innovation Center, Nobel St. 3, Moscow, 143026,
+                                                               Russia.
+                                                               (Dated: 26 November 2020)
+                                                               Electronic and optical properties of materials are affected by atomic motion through the electron-phonon interaction:
+                                                               not only band gaps change with temperature, but even at absolute zero temperature, zero-point motion causes band-gap
+                                                               renormalization. We present a large-scale first-principles evaluation of the zero-point renormalization of band edges
+                                                               beyond the adiabatic approximation. For materials with light elements, the band gap renormalization is often larger
+                                                               than 0.3 eV, and up to 0.7 eV. This effect cannot be ignored if accurate band gaps are sought. For infrared-active
+                                                               materials, global agreement with available experimental data is obtained only when non-adiabatic effects are taken
+                                                               into account. They even dominate zero-point renormalization for many materials, as shown by a generalized Fröhlich
+                                                               model that includes multiple phonon branches, anisotropic and degenerate electronic extrema, whose range of validity
+                                                               is established by comparison with first-principles results.
+
+                                                               This is a post-peer-review, pre-copy-edited version of the article published in npj Computational Materials
+                                                               (2020) 6:167. The final authenticated version is available online at: http://dx.doi.org/10.1038/s41524-020-00434-z
+                                                               Note that the supplementary material, included in the main file, is structured differently than in the published version,
+                                                               with a different numbering scheme.
+
+
+                                                        The electronic band gap is arguably the most important                       Despite being state-of-the-art, such studies ignored com-
+                                                     characteristic of semiconductors and insulators. It determines               pletely the electron-phonon interaction. The electron-phonon
+                                                     optical and luminescent thresholds, but is also a prerequisite               interaction drives most of the temperature dependence of the
+                                                     for characterizing band offsets at interfaces and deep elec-                 electronic structure of semiconductors and insulators, but also
+                                                     tronic levels created by defects1 . However, accurate band gap               yields a zero-point motion gap modification at T = 0 K, of-
+                                                     computation is a challenging task. Indeed, the vast majority                 ten termed zero-point renormalization of the gap (ZPRg ) for
+                                                     of first-principles calculations relies on Kohn-Sham Density-                historical reasons.
+                                                     Functional Theory (KS-DFT), valid for ground state proper-                      The ZPRg had been examined 40 years ago, by Allen,
+                                                     ties2 , that delivers a theoretically unjustified value of the band          Heine and Cardona (AHC)9,10 who clarified the early theories
+                                                     gap in the standard approach, even with exact KS potential3–5 .              by Fan11 and Antoncik12 . Their approach is, like the GW ap-
+                                                        The breakthrough came from many-body perturbation the-                    proximation, rooted in many-body perturbation theory, where,
+                                                     ory, with the so-called GW approximation, first non-self-                    at the lowest order, two diagrams contribute, see Fig. 1, the
+                                                     consistent (G0 W0 ) by Hybertsen and Louie in 19866 , then                   so-called “Fan" diagram, with two 1st -order electron-phonon
+                                                     twenty years later self-consistent (GW)7 and further improved                vertices and the “Debye-Waller" diagram, with one 2nd -order
+                                                     by accurate vertex corrections from electron-hole excitations                electron-phonon vertex. In the context of semi-empirical cal-
+                                                     (GWeh)8 . The latter methodology, at the forefront for band-                 culations, the AHC method was applied to Si and Ge, intro-
+                                                     gap computations, delivers a 2%-10% accuracy, usually over-                  ducing the adiabatic approximation, in which the phonon fre-
+                                                     estimating the experimental band gap. GWeh calculations                      quencies are neglected with respect to electronic eigenenergy
+                                                     are computationally very demanding, typically about two or-                  differences and replaced by a small but non-vanishing imag-
+                                                     ders of magnitude more than G0 W0 , itself two orders of                     inary broadening10 . It was later extended without caution to
+                                                     magnitude more time-consuming than KS-DFT calculations,                      GaAs and a few other III-V semiconductors13,14 .
+                                                     roughly speaking.                                                               In this work, we present first-principles AHC ZPRg calcu-
+                                                                                                                                  lations beyond the adiabatic approximation, for 30 materials.
+                                                                                                                                  Comparing with experimental band gaps, we show that adding
+                                                     a) Anna Miglio and Véronique Brousseau-Couture contributed equally to this   ZPRg improves the GWeh first-principles band gap, and more-
+                                                     work.                                                                        over, that the ZPRg has the same order of magnitude as the
+                                                     b) Electronic mail: xavier.gonze@uclouvain.be
+                                                                                                                                  G0 W0 to GWeh correction for half of the materials (typically
+                                                                                                                                       2
+
+                                                                         By the same token, we also show the domain of validity and
+                                                                      accuracy of model Fröhlich large-polaron calculations based
+                                                                      on the continuum hypothesis, that have been the subject of
+                                                                      decades of research37–43 . Such model Fröhlich Hamiltonian
+                                                                      capture well the ZPR for about half of the materials in our
+                                                                      list, characterized by their strong infrared activity, while it be-
+                                                                      comes less and less adequate for decreasing ionicity. In the
+                                                                      present context, the Fröhlich large-polaron model provides an
+FIG. 1. Lowest-order diagrams for the contribution of the electron-   intuitive picture of the physics of the ZPRg .
+phonon interaction to the zero-point renormalization of the gap
+ZPRg . (a) Fan diagram, with two first-order screened electron-
+phonon vertices; (b) Debye-Waller diagram, with one second-order      RESULTS
+screened electron-phonon interaction vertex.
+
+                                                                      Zero-point renormalization: experiment versus first prin-
+                                                                      ciples.
+materials with light atoms, e.g. O, N ...) on which GWeh has             Fig. 2 compares first-principles ZPRg with experimental
+been tested. Hence, the GWeh level of sophistication misses           values. As described in the METHODS section, and in SI
+its target for many materials with light atoms, if the ZPRg is        Sec.II.C, the correction due to zero-point motion effect on
+not taken into account. With it, the theoretical agreement with       the lattice parameter, ZPRlatg , has been added to fixed vol-
+direct measurements of experimental ZPRg is improved. This            ume results from both non-adiabatic AHC (present calcula-
+also demonstrate the crucial importance of phonon dynamics            tions) and ASC methodologies35 . While for a few materials
+to reach this level of accuracy.                                      experimental ZPRg values are well established, within 5-10%,
+   Indeed, first-principles calculations of the ZPRg using the        globally, experimental uncertainty is larger, and can hardly be
+AHC theory are very challenging, and only started one decade          claimed to be better than 25% for the majority of materials,
+ago, on a case-by-case basis (see Refs15–26 , and the SI II.D),       see Sec.II.A in the SI. This will be our tolerance.
+usually relying on the adiabatic approximation, and without              Let us focus first on the ASC-based results. For the 16 ma-
+comparison with experimental data. An approach to the ZPRg ,          terials present in both Ref. 35 and the experimental set de-
+alternative to the AHC one, relies on computations of the band        scribed in the SI Table S1, the ASC vs experimental discrep-
+gap at fixed, distorted geometries, for large supercells (see         ancy is more than 25% for more than half of the materials 44 .
+Refs.)18,27–34 and the SI26 , Sec.II.D). As the adiabatic approx-     There is a global trend to underestimation by ASC, although
+imation is inherent in this approach, we denote it as ASC, for        CdTe is overestimated.
+“adiabatic supercell". A recent publication by Karsai and co-            By contrast, the non-adiabatic AHC ZPRg (blue full circles)
+workers35 presents ASC ZPRg based on DFT values as well               and experimental ZPRg agree with each other within 25% for
+as based on G0 W0 values for 18 semiconductors, with ex-              16 out of the 18 materials. The outliers are CdTe with a 43%
+perimental comparison for 9 of them. Both AHC and ASC                 overestimation by theory and GaP with a 33% underestima-
+methodologies have been recently reviewed36 .                         tion. For none of these the discrepancy is a factor of two or
+   Although the adiabatic approximation had already been              larger. On the contrary, from the ASC approaches, several
+criticized by Poncé et al. in 201524 (SI Sec.III.A) as caus-          materials show underestimation of the ZPRg by more than a
+ing an unphysical divergence of the adiabatic AHC expression          factor of 2. The materials showing such large underestima-
+for infrared-active materials with vanishing imaginary broad-         tion (CdS, ZnO, SiC) are all quite ionic, while more covalent
+ening, thus invalidating all adiabatic AHC calculations ex-           materials (C, Si, Ge, AlSb, AlAs) are better described.
+cept for non-infrared-active materials, the full consequences            Therefore, Fig. 2 clearly shows that the non-adiabatic
+of the adiabatic approximation have not yet been recognized           AHC approach performs significantly better than the ASC ap-
+for ASC. We will show that the non-adiabatic AHC approach             proach. AHC ZPRg and ASC ZPRg also differ by more than
+outperforms the ASC approach, so that the predictions arising         a factor of two for TiO2 and MgO (see SI Sec.II.D), although
+from the mechanism by which the ASC approach bypass the               no experimental ZPRg is available for these materials to our
+adiabatic AHC divergence problem for infrared-active mate-            knowledge.
+rials are questionable. This is made clear by a generalized              We now examine band gaps. Fig. 3 presents the ratio be-
+Fröhlich model with a few physical parameters, that can be            tween first-principles band gaps and corresponding experi-
+determined either from first principles or from experimental          mental values, for 12 materials. The best first-principles val-
+data.                                                                 ues at fixed equilibrium atomic position, from GWeh8 , are
+   Although the full electronic and phonon band structures do         represented, as well as their non-adiabatic AHC ZPR cor-
+not enter in this model, and the Debye-Waller diagram is ig-          rected values.
+nored, for many materials it accounts for more than half the             For GWeh without ZPRg , a 4% agreement is obtained only
+ZPRg of the full first-principles non-adiabatic AHC ZPRg .            for two materials (CdS and GaN). There is indeed a clear, al-
+As this model depends crucially on non-adiabatic effects, it          beit small, tendency of GWeh to overestimate the band gap
+demonstrates the failure of the adiabatic hypothesis be it for        value, except for the 3 materials containing shallow core d-
+the AHC or the ASC approach.                                          electrons (ZnO, ZnS and CdS) that are underestimated. By
+                                                                                                                                          3
+
+
+
+
+                                                                       FIG. 3. Ratio between first-principles band gaps and experimental
+                                                                       ones46 . First-principles results without electron-phonon interation8
+                                                                       are based on G0 W0 (diamonds) or on GWeh (squares). Blue full cir-
+                                                                       cles are the GWeh results to which AHC ZPRg and lattice ZPRlat     g
+                                                                       have been added, while empty red circles are the GWeh results to
+                                                                       with only AHC ZPRg was added. GWeh usually overshoots, while
+                                                                       adding the electron-phonon interaction gives better global agree-
+                                                                       ment. See numerical values in Table S3 of the SI.
+
+
+
+FIG. 2. Absolute values of first-principles band gap renormalization   between -157 meV (ZnO) and -699 meV (BeO), while, rel-
+ZPRg compared with experimental ones. Blue full circles: present       atively to the experimental band gap, it ranges from -4.6%
+calculations, using non-adiabatic AHC, based on KS-DFT ingredi-        (ZnO) to -10.8% (TiO2 -t). This can hardly be ignored in ac-
+ents; red empty triangles: adiabatic supercell KS-DFT Dashed lines:    curate calculations of the gap.
+limits at which the smallest of both ZPR is 25% smaller than the
+largest one (note that the scales are logarithmic). For consistency,
+the computed lattice ZPRlat
+                                                                       Generalized Fröhlich model.
+                           g were added to both ASC and AHC. The
+majority of non-adiabatic AHC-based results fall See numerical val-       We now come back to the physics from which the ZPRg
+ues in Table S2 of the SI.                                             originates, and explain our earlier observation that the ASC
+                                                                       describes reasonably well the more covalent materials, but
+                                                                       can fail badly for ionic materials. We argue that, for many
+contrast, if the non-adiabatic AHC ZPRg is added to the GWeh           polar materials, the ZPRg is dominated by the diverging
+data (blue dots), a 4% agreement is obtained for 9 out of the          electron-phonon interaction between zone-center LO phonons
+12 materials (8 if ZPRlat
+                        g is not included).                            and electrons close to the band edges, and the slow (non-
+   For ZnO and ZnS, with a final 10-12% underestimation,               adiabatic) response of the latter: the effects due to compar-
+and CdS with a 5% underestimation, we question the GWeh                atively fast phonons are crucial. This was already the mes-
+ability to produce accurate fixed-geometry band gaps at the            sage from Fröhlich37 and Feynman38 , decades ago, initiating
+level obtained for the other materials, due to the presence of         large-polaron studies. However, large-scale assessment of the
+rather localized 3d electrons in Zn and 4d electrons in CdS.           adequacy of Fröhlich model for real materials is lacking. In-
+   As a final lesson from Fig. 3, we note that for 4 out of the        deed, the available flavors of Fröhlich model, based on con-
+12 materials (SiC, AlP, C, and BN), the ZPRg is of similar             tinuum (macroscopic) electrostatic interactions, do not cover
+size than the G0 W0 to GWeh correction, and it is a significant        altogether degenerate and anisotropic electronic band extrema
+fraction of it also for Si, GaN and MgO. As mentioned ear-             or are restricted to only one phonon branch, unlike most real
+lier, GWeh calculations are much more time-consuming than              materials47–50 .
+G0 W0 calculations, possibly even more time-consuming than                In this respect, we introduce now a generalized Fröhlich
+ZPR calculations (although we have not attempted to make               model, gFr, whose form is deduced from first-principles equa-
+a fair comparison). Thus, for materials containing light ele-          tions in the long-wavelength limit (continuum approxima-
+ments, first row and likely second row (e.g. AlP) in the peri-         tion). Such model covers all situations and still uses as in-
+odic table, GWeh calculations miss their target if not accom-          put only long-wavelength parameters, that can be determined
+panied by ZPRg calculations. A review of the variance and ac-          either from first principles (SI Sec.IV.D) or from experiment
+curacy of G0 W0 calculations for these materials is discussed          (SI Sec.IV.E). We then find the corresponding ZPRg from per-
+in Ref. 45.                                                            turbation theory at the lowest order, evaluate it for our set of
+   Table S5 of the SI gathers our full set of ZPR results, be-         materials, and compares its results to the ZPRg obtained from
+yond those present in the ASC or experimental sets. It also            full first-principles computations. The corresponding Hamil-
+includes 10 oxides, while the experimental set only includes           tonian writes (see the SI Sec.IV.B for detailed explanations):
+three materials containing oxygen (ZnO, MgO and SrTiO3 ),
+and there are none in Karsai’s ASC set. The ZPRg of the band
+                                                                                                    gFr     gFr      gFr
+gap for materials containing light elements (O or lighter) is                            Ĥ gFr = Ĥel + Ĥph + ĤEPI ,                 (1)
+                                                                                                                                                     4
+
+with (i) an electronic part
+
+                          gFr            k2
+                         Ĥel = ∑               ĉ+ ĉ ,
+                                          ∗ (k̂) kn kn
+                                                                          (2)
+                                    kn 2m n
+
+that includes direction-dependent effective masses m∗n (k̂),
+governed by so-called Luttinger parameters in case of degen-
+eracy, electronic creation and annihilation operators, ĉ+
+                                                         kn and
+ĉkn , with k the electron wavevector and n the band index, (ii)
+the multi-branch phonon part,
+                           gFr
+                         Ĥph = ∑ ω j0 (q̂)â+
+                                             q j âq j ,                  (3)
+                                    qj
+
+with direction-dependent phonon frequencies ω j0 (q̂), phonon
+creation and annihilation operators, â+
+                                       q j and âq j , with q the
+phonon wavevector and j the branch index, and finally (iii)
+the electron-phonon interaction part
+      gFr
+    ĤEPI =     ∑ 0 ggFr (q j, kn0 n)ĉ+k+qn0 ĉkn (âq j + â+−q j ) .   (4)
+              q j,kn n
+                                                                                FIG. 4. Zero-point renormalization of the band gap: comparison
+The k and q sums run over the Brillouin zone. The sum over                      between first-principles AHC values and the values obtained from
+n and n0 runs only over the bands that connect to the degen-                    the generalized Fröhlich model fed with first-principles values, see
+erate extremum, renumbered from 1 to ndeg . The generalized                     Eq. (39), for 27 materials (non-ionic group IV materials are omitted).
+                                                                                The markers identify materials of similar ionicity: oxides (purple cir-
+Fröhlich electron-phonon interaction51,52 is
+                                                                                cles), other II-VI materials containing S, Se or Te (yellow squares),
+                                 i 4π       1       1/2 q̂.p (q̂)             nitrides (green diamonds), other III-V materials, containing P, As,
+                                                               j
+      ggFr (q j, kn0 n) =                                                       or Sb (dark blue triangles), and group IV material SiC (light blue
+                                 q Ω0 2ω j0 (q̂)VBvK       ε ∞ (q̂)             hexagon). Dashed lines: limits at which the smallest of both ZPR is
+                                ×∑ sn0 m (k̂0 )(snm (k̂))∗ .              (5)   25% smaller than the largest one. Dotted lines: limits at which the
+                                   m                                            Fröhlich model ZPR misses respectively 50% and 66% of the AHC
+                                                                                values (note that the scales are logarithmic). See numerical values in
+This expression depends on the directions k̂, q̂, and k̂0 (k0 =                 Table S5 of the SI.
+k + q), but not explicitly on their norm (hence only long-
+wavelength parameters are used), except for the 1q factor. The
+electron-phonon part also depends only on few quantities:                       from experimental measurements, but are most easily com-
+the Born effective charges (entering the mode-polarity vectors                  puted from first principles, using density-functional perturba-
+p j ), the macroscopic dielectric tensor ε ∞ , and the phonon fre-              tion theory with calculations only at q = Γ (e.g. no phonon
+quencies ω j0 , the primitive cell volume Ω0 , the Born-von Kar-                band structure calculation). Eq. (39) can be evaluated for all
+man normalisation volume VBvK corresponding to the k and q                      band extrema in our set of materials, irrespective of whether
+samplings. The s tensors are symmetry-dependent unitary ma-                     the extrema are located at Γ or other points in the Brillouin
+trices, similar to spherical harmonics. Eqs. (1-29) define our                  Zone (e.g. X for the valence band of many oxides, with
+generalized Fröhlich Hamiltonian. Although we will focus on                     anisotropic effective mass), whether they are degenerate (e.g.
+its T = 0 properties within perturbation theory, such Hamilto-                  the three-fold degeneracy of the top of the valence band of
+nian could be studied for many different purposes (non-zero                     many III-V or II-VI compounds), and irrespective of the num-
+T, mobility, optical responses ...), like the original Fröhlich                 ber of phonon branches (e.g. 3 different LO frequencies
+model, for representative materials using first-principles or ex-               for TiO2 , moreover varying with the direction along which
+perimental parameters.                                                          q → 0).
+                             gFr
+    The corresponding ZPRc can be obtained with a perturba-                        Fig. 4 compares the band gap ZPR from the first-principles
+tion treatment (SI Sec.IV.C), giving                                            non-adiabatic AHC methodology and from the generalized
+                            1
+                                    Z               1/2                        Fröhlich model.
+         ZPRgFr
+            c   = − ∑ 2Ω n 4π d q̂ m∗n (q̂)
+                        √                                                          The 30 materials can be grouped into five sets, based on
+                    jn       0 deg
+                                                                                their ionicity: 11 materials containing oxygen, rather ionic,
+                           −3/2  q̂.p j (q̂) 2                               for which the Born effective charges and the ZPR are quite
+                × ω j0 (q̂)                       .                       (6)
+                                    ε ∞ (q̂)                                    large, 6 materials containing chalcogenides, also rather ionic,
+                                                                                4 materials containing nitrogen and 5 III-V materials, less
+                                                                    gFr
+  A similar expression exists for the valence ZPRv . The                        ionic, and 4 materials from group-IV elements, non-ionic, ex-
+few material parameters needed in Eq. (39) can be obtained                      cept SiC.
+                                                                                                                                        5
+
+   For oxygen-based materials, the ZPR ranges from 150 meV
+to 700 meV, and the gFr model captures this very well, with
+less than 25% error, with only one exception, BeO. The
+chalcogenide materials are also reasonably well described by
+the gFr model, capturing at least two-third of the ZPR. Glob-
+ally their ZPR is smaller (note the logarithmic scale).
+   For the nitride materials and for SiC, the gFr captures about
+50% of the quite large ZPR (between 176 meV and 406 meV).
+The adequacy of the gFr model decreases still with the III-V
+materials and the three non-ionic IV materials. In the latter
+case, the vanishing Born effective charges result in a null ZPR
+within the gFr model. (These three materials are omitted from
+Fig. 4).
+   For the oxydes and chalcogenides, the ZPR is thus dom-
+inated by the zone-center parameters (including the phonon
+frequencies), and the physics corresponds to the one of the
+large-polaron picture38 , namely, the slow electron motion is
+correlated to a phonon cloud that dynamically adjusts to it.
+This physics is completely absent from the ASC approach.
+Even for nitrides, the gFr describes a significant fraction of
+the ZPR.
+   A perfect agreement between the non-adiabatic AHC first-
+principles ZPR and the generalized Fröhlich model ZPR is not        FIG. 5. Schematic representation of the long-wave phonon-induced
+expected. Indeed, differences can arise from different effects:     potential and corresponding electronic wavefunction, real part (oscil-
+lack of dominance of the Fröhlich electron-phonon interac-          lating with lattice periodicity) and envelope: (a) Adiabatic case, (b)
+tion in some regions of the Brillouin Zone, departure from          non-adiabatic, time-dependent case. In the non-adiabatic case, the
+                                                                    electron does not have the time to adjust to the change of potential,
+parabolicity of the electronic structure (obviously, the elec-
+                                                                    see text.
+tronic structure must be periodic so that the parabolic behavior
+does not extend to infinity), interband contributions, phonon
+band dispersion, incomplete cancellation between the Debye-         conduction band has a Bloch type wavefunction, with an en-
+Waller and the acoustic phonon mode contribution.                   velope phase factor characterized by the wavevector kc mul-
+   It is actually surprising to see that for so many materi-        tiplying a lattice-periodic function. Its density is lattice peri-
+als, the generalized Fröhlich model matches largely the first-      odic. With such long-wavelength potential, as a function of
+principles AHC results. Anyhow, as a conclusion for this sec-       the amplitude of the atomic displacements, the corresponding
+tion, for a large number of materials, we have validated, a pos-    electronic eigenenergy changes first quadratically (as the av-
+teriori and from first principles, the relevance of large-polaron   erage of the lowering and increase of potential for this Bloch
+research based on Fröhlich model despite the numerous ap-           wavefunction forbids a linear behaviour except in case of de-
+proximations on which it relies.                                    generacy), but for larger amplitudes, it behaves linearly, as
+                                                                    the electron localizes in the lowered potential region and the
+                                                                    minimum of the potential is linear in the amplitude of the
+DISCUSSION                                                          atomic displacements. This is referred to as "nonquadratic
+                                                                    coupling" in Ref. 33. A wavepacket is formed, by combining
+   We focus on the mechanism by which the AHC divergence            Bloch wavefunctions with similar lattice periodic functions
+of the ZPR in the adiabatic case for infrared-active materials24    but slightly different wavevectors (kc , kc + q, kc − q, etc),
+is avoided, either using the ASC methodology or using the           coming from a small interval of energy ∆ε 0 ∝ q2 ∝ 1/(∆L)2 ,
+non-adiabatic AHC methodology. As Fröhlich and Feynman              see Fig. 5(a) "Wavefunction" part. This nonquadratic effect is
+have cautioned us37,38 , and already mentioned briefly in pre-      actually illustrated in Fig. 4 of Ref. 23 (see the frozen-phonon
+vious sections, the dynamics of the “slow” electron is crucial      eigenvalues), as well as in Fig. 2 of Ref. 33.
+in this electron-phonon problem.                                       By contrast, in the time-dependent case, as illustrated in
+   In the ASC approach, the bypass of this divergence can           Fig. 5(b), the wavepacket will require a characteristic time
+be understood as follows, see Fig. 5(a). Consider a long-           ∆τ, to form or to displace. This will be given by the Heisen-
+wavelength fluctuation of the atomic positions, frozen in time.     berg uncertainty relation, ∆ε 0 ∆τ & h̄, hence ∆τ & h̄/∆ε 0 ∝
+At large but finite wavelength, the potential is periodically       ∆L2 . For long wavelengths, the characteristic time diverges.
+lowered in some regions of space and increased in some other        As soon as ∆τ is larger than the phonon characteristic time
+regions of space, in an oscillatory manner with periodicity         τph ∼ 1/ωLO , the “slow” electron will lag behind the phonon,
+∆L ∝ 1/q, where q is the small wavevector of the fluctua-           and the static or adiabatic picture described above is no longer
+tion, see Fig. 5(a) "LO phonon potential" part. Without such        valid.
+long-wavelength potential, the electron at the minimum of the          In all adiabatic approaches, either AHC or ASC, the elec-
+                                                                                                                                 6
+
+tron is always supposed to have the time to adjust to the          renormalization: after including it, the average overestima-
+change of potential, in contradiction with the time-energy un-     tion from GWeh nearly vanishes. There are some exceptions,
+certainty principle. Furthermore, the adiabatic AHC approach       materials in which transition metals are present, for which the
+only considers the quadratic region for the above-mentioned        addition of zero-point renormalization worsens the agreement
+dependence of eigenvalues with respect to amplitudes of dis-       of the band gap. For the latter materials, we believe that the
+placements. This results in a diverging term24 . At variance       GWeh approach is not accurate enough.
+with the AHC case, the ASC approach samples a whole set
+of amplitudes, including the onset of the asymptotic linear
+regime, in which case the divergence does not build up. How-       METHODS
+ever, this ASC picture does not capture the real physical mech-
+anism that prevent the divergence to occur, the impossibility      First-principles electronic and phonon band structures.
+for the electron to follow the phonon dynamics, that we have       Calculations have been performed using ABINIT53 with
+highlighted above. By contrast, such physical mechanism is         norm-conserving pseudopotentials and a plane-wave basis set.
+present both in the non-adiabatic AHC approach and in the          Table S1 of the SI provides calculation parameters: plane-
+(generalized) Fröhlich model: the “slow" electron does not         wave kinetic cut-off energy, electronic wavevector sampling
+follow adiabatically (instantaneously) the atomic motion. The      in the BZ, and largest phonon wavevector sampling in the
+divergence of the adiabatic AHC is indeed avoided in the non-      BZ. For most of the materials, the GGA-PBE exchange-
+adiabatic picture by taking into account the non-zero phonon       correlation functional54 has been used and the pseudopoten-
+frequencies.                                                       tials have been taken from the PseudoDojo project55 . For di-
+   Thus the ASC avoids the adiabatic AHC divergence for the        amond, BN-zb, and AlN-wz, results reported here come from
+wrong reason, which explains its poor predictive capability for    Ref. 24, where the LDA has been used, with other types of
+the more ionic materials emphasized by Fig. 2. To be clear,        pseudopotentials.
+we do not pretend the nonquadratic effects are all absent, but        The calculations have been performed at the theoretical op-
+the non-adiabatic effects have precedence, at least for mate-      timized lattice parameter, except for Ge for which the gap
+rials with significant infrared activity, and the nonquadratic     closes at such parameter, for GaP, as at such parameter the
+localization effects will be observed only if the electrons have   conduction band presents unphysical quasi-degenerate val-
+the time to physically react. The shortcomings of the ASC          leys, and for TiO2 , as the GGA-PBE predicted structure is un-
+approach are further developed in the SI Sec.V, and as a con-      stable56 . For these, we have used the experimental lattice pa-
+sequence of such understanding, all the results obtained for       rameter. The case of SrTiO3 is specific and will be explained
+strongly infrared-active materials using the adiabatic frozen-     later.
+phonon supercell methodology should be questioned.                    Density-functional perturbation theory57–59 has been used
+   For non-infrared-active materials, the physical picture that    for the phonon frequencies, dielectric tensors, Born effective
+we have outlined, namely the inability of slow electrons to fol-   charges, effective masses, and electron-phonon matrix ele-
+low the dynamics of fast phonons, is still present, but does not   ments.
+play such a crucial role: the electron-phonon interaction by       First-principles calculations of zero-point renormaliza-
+itself does not diverge in the long-wavelength limit as com-       tion. We first detail the method used for the AHC calculations.
+pared to the infrared-active electron-phonon interaction, see      In the many-body perturbation theory approach, an electronic
+Eq. (29), only the denominator of the Fan self-energy di-          self-energy Σ appears due to the electron-phonon interaction,
+verges, which nevertheless results in an integrable ZPR24 . In     with Fan and Debye-Waller contributions at the lowest order
+such case, neglecting non-adiabatic effects, as in the ASC ap-     of perturbation36 :
+proach, is only one among many approximations done to ob-
+tain the ZPR.                                                                         Σkn (ω) = ΣFan       DW
+                                                                                                 kn (ω) + Σkn .                 (7)
+   Beyond the discovery of the predominance of non-adiabatic       The Hartree atomic unit system is used throughout (h̄ = me =
+effects in the zero-point renormalization of the band gap          e = 1). An electronic state is characterized by k, its wavevec-
+for many materials, in the present large-scale first-principles    tor, and n, its band index, ω being the frequency. These
+study of this effect, we have established that electron-phonon     two contributions correspond to the two diagrams presented
+interaction diminishes the band gap by 5% to 10% for ma-           in Fig. 1.
+terials containing light atoms like N or O (up to 0.7 eV for          Approximating the electronic Green’s function by its non-
+BeO), a decrease that cannot be ignored in accurate calcula-       interacting KS-DFT counterpart without electron-phonon in-
+tions of the gap. Our methodology, the non-adiabatic Allen-        teraction, gives the standard result for the T = 0 K retarded
+Heine-Cardona approach, has been validated by showing that,        Fan self-energy36 :
+for nearly all materials for which experimental data exists, it
+achieves quantitative agreement (within 25%) for this prop-                          1 BZ                 (1)
+erty.                                                                   ΣFan
+                                                                         kn (ω) =
+                                                                                     Nq ∑   ∑ |hk + qn0 |Hq j |kni|2 ×
+                                                                                        q j n0
+   We have also shown that most of the discrepancies with
+                                                                                 1 − fk+qn0
+                                                                                                                         
+                                                                                                          fk+qn0
+respect to experimental data of the (arguably) best available                                     +                         .
+methodology for the first-principles band-gap computation,                  ω − εk+qn0 − ωq j + iη ω − εk+qn0 + ωq j + iη
+denoted GWeh, originate from the first-principles zero-point                                                                    (8)
+                                                                                                                                     7
+
+   In this expression, contributions from phonon modes with          the bottom of the conduction band) are obtained from
+harmonic phonon energy ωq j are summed for all branches j,
+and wavevectors q, in the entire Brillouin Zone (BZ). The                         hεc (T )i = ZI−1 ∑ exp(−β Em )hεc im ,          (11)
+                                                                                                   m
+limit for infinite number Nq of wavevectors (homogeneous
+sampling) is implied. Contributions from transitions to elec-        where β = kB T (with kB the Boltzmann constant), T the tem-
+tronic states hk + qn0 | with KS-DFT electron energy εk+qn0          perature, ZI the canonical partition function among the quan-
+and occupation number fk+qn0 (1 for valence, 0 for conduc-           tum nuclear states m with energies Em (ZI = ∑m exp(−β Em )),
+tion, at T = 0 K) are summed for all bands n0 (valence and           and hεc im the band edge average taken over the corresponding
+                       (1)
+conduction). The Hq j is the self-consistent change of po-           many-body nuclear wavefunction. At zero Kelvin, this gives
+tential due to the q j-phonon36 . Limit of this expression for       an instantaneous average of the band edge value over zero-
+vanishing positive η is implied. For the Debye-Waller self-          point atomic displacements, computed while the electron is
+energy, ΣDW                                                          NOT present in the conduction band (or hole in the valence
+          kn , we refer to Refs. 21 and 36.
+   In the non-adiabatic AHC approach, the ZPR is obtained            band) thus suppressing all correlations between the phonons
+directly from the real part of the self-energy, Eq. (7), evaluated   and the added (or removed) electron.
+at ω = εkn 36 :                                                      Convergence of the calculation. As previously noted24,25 ,
+                                                                     the sampling of phonon wavevectors in the Brillouin zone is a
+                 ZPRAHC
+                    kn = ℜeΣkn (ω = εkn ).                    (9)    delicate issue, and has been thoroughly analyzed in Sec.IV.B.2
+                                                                     of Ref. 24. In particular, for infrared-active materials treated
+If the adiabatic approximation is made, the phonon frequen-          with the non-adiabatic effects, at the band structure extrema,
+cies ωq j are considered small with respect to eigenenergy dif-           −1/3
+                                                                     a Nq      convergence of the value is obtained. We have taken
+ferences in the denominator of Eq. (8) and are simply dropped,       advantage of the knowledge acquired in Ref. 24 to acceler-
+while a finite η, usually 0.1 eV, is kept. With a vanishing η,       ate the convergence by three different methodologies. In the
+the adiabatic AHC ZPR at band edges diverges for infrared-                                  −1/3
+                                                                     first one, we fit the Nq    behavior for grids of different sizes,
+active materials, see SI Sec.IV.A.
+                                                                     and extrapolate to infinite Nq . In the second one, we estimate
+   Summing the Fan and Debye-Waller self-energies, and
+                                                                     the missing contribution to the integral around q = 0, at the
+working also with the rigid-ion approximation for the Debye-
+                                                                     lowest order, see SI Sec.I.B, using ingredients similar to those
+Waller contribution delivers the non-adiabatic AHC ZPR,
+                                                                     needed for the generalized Fröhlich model, except the effec-
+given explicitly in Eqs. (16) and (17) of Ref. 24. We do not
+                                                                     tive masses. For ZnO and SrTiO3 , a third correcting scheme,
+work with the approach called dynamical AHC, also men-
+                                                                     further refining the region around the band edge with an ex-
+tioned in Ref. 24. It corresponds to Eq. (166) of Ref. 36. Both
+                                                                     tremely fine grid, is used.
+non-adiabatic and dynamical AHC ZPR flavors were studied
+                                                                     The special case of SrTiO3 . While phonons in most materi-
+e.g. in Ref. 23, but the comparison with the diagrammatic
+                                                                     als in the present study are well addressed within the harmonic
+quantum Monte Carlo results for the Fröhlich model, see e.g.
+                                                                     approximation, this is not the case for SrTiO3 . This material
+Fig. 1 of Ref. 25, is clearly in favor of the non-adiabatic AHC
+                                                                     is found in the cubic perovskite structure at room temperature,
+approach. Actually, this also constitutes a counter-argument
+                                                                     and undergoes a transition to a tetragonal phase below 150 K,
+to the claim by Cannuccia and Marini, Ref. 17, that band
+                                                                     characterized by tilting of the TiO6 octahedra60 . Within our
+theory might not apply to carbon-based nanostructures. As
+                                                                     first-principles scheme in the adiabatic approximation, the cu-
+shown in Ref. 25, the cumulant expansion results for the spec-
+                                                                     bic phase remains unstable with respect to tilting of the octa-
+tral function demonstrates that the dynamical AHC spectral
+                                                                     hedra. Quantum fluctuations of the atomic positions actually
+function is unphysical, with only one wrongly placed satel-
+                                                                     play a critical role in stabilizing the cubic phase at high tem-
+lite. The physical content of the present non-adiabatic AHC
+                                                                     perature61 , as well as suppressing the ferroelectric phase at
+theory, focusing on the crucial role of the LO phonons, is very
+                                                                     low temperature 62,63 .
+different from the physical analysis of Ref. 17, based on the
+                                                                        Since SrTiO3 is however a material for which large po-
+dynamical AHC theory.
+                                                                     laron effects are clearly identified, see e.g. Ref. 49 and ref-
+   The imaginary smearing of the denominator in the ZPR
+                                                                     erences therein, we decided to study it as well. We addressed
+computation is 0.01eV, except for SiC, where 0.001 eV is
+                                                                     the anharmonic stabilization problem using the state-of-the-
+used. Other technical details are similar to previous studies
+                                                                     art TDep methodology64 . We used VASP molecular dynam-
+by some of ours, e.g. Refs. 24 and 25.
+                                                                     ics to generate 40 configurations in a 2x2x2 cubic cell of STO
+   The dependence of the electronic structure on zero-point
+                                                                     at 300 K, producing 20,000 steps with 2fs per step and sam-
+lattice parameter corrections is computed from
+                                                                     pling the 40 configurations out of the last 5000 steps. Then we
+            ZPRlat         T =0
+                                }) − εkn ({Rfix                      computed the forces with ABINIT and performed TDep cal-
+               kn = εkn ({Ri                i }),            (10)
+                                                                     culations with the ALAMODE code65 . Our calculation stabi-
+where the lattice parameters {Rfix i } minimize the Born-            lizes the acoustic phonon branches and yields a phonon band
+Oppenheimer energy without phonon contribution, while                structure in good agreement with experimental data.
+{RTi =0 } minimizes the free energy that includes zero-point         Sources of discrepancies between experiment and theory.
+phonon contributions, see SI Sec.II.C.                               The anharmonic corrections to phonon frequencies are not
+  At variance with the AHC approach, in the ASC the                  the only reasons for potential differences between the exper-
+temperature-dependent average band edges (here written for           imental ZPRg and our non-adiabatic AHC ZPRg values. The
+                                                                                                                                 8
+
+following phenomena may also play a role: (1) the rigid-           AUTHOR CONTRIBUTIONS
+ion approximation18,21 ; (2) the nonquadratic behaviour of the
+eigenenergies with collective displacements of the nuclei, in         A. Miglio has conducted calculations for most oxyde mate-
+reference to the ASC, especially emphasized in Ref. 33; (3)        rials, with help from M. Giantomassi. V. Brousseau-Couture
+the reliance on GGA-PBE eigenenergies and eigenfunctions,          has conducted calculations for most other materials. G. An-
+instead of more accurate (e.g. GW) ones, as in Ref. 30, also       tonius and Yang-Hao Chan have conducted calculations for
+discussed in Ref. 35; (4) self-trapping effects, overcoming        SrTiO3 and ZnO. E. Godbout has conducted calculations of
+the quantum fluctuations, yielding small polarons, see e.g.        the lattice ZPR of 6 materials. X. Gonze has worked out the
+Ref. 66. There is still little knowledge about each of these       generalized Fröhlich model and perturbative treatment. X.
+effects when correctly combined to predict the ZPRg beyond         Gonze and M. Côté have supervised the work. All authors
+the AHC picture.                                                   have contributed to the writing of the manuscript.
+   As an example, in Ref. 35, the difference between the ASC-
+PBE and the ASC-GW was argued to be only a few meV, but
+a more careful look at their values show that it is often bigger   COMPETING INTERESTS
+than 10% of the ASC-PBE. Unfortunately, the convergence of
+the ASC-GW results with respect to supercell size could not           The authors declare no competing financial or non-financial
+be convincingly achieved in Ref. 35. It remains to be seen         interests.
+whether a non-adiabatic AHC treatment based on GW ma-
+trix elements would differ by such relative ratio, see Sec.V.C
+of the SI. Altogether, it would be hard to claim more than         DATA AVAILABILITY
+25% accuracy with respect to experimental data, from our
+non-adiabatic AHC ZPRg calculations. Together with the ex-            The numerical data used to create all the figures in the main
+perimental uncertainties, this explains our choice for the 25%     text have been collected in the the Supplementary Informa-
+accuracy comparative limit used in Fig. 2.                         tion.
+
+
+                                                                   CODE AVAILABILITY
+ACKNOWLEDGMENTS
+                                                                      ABINIT is available under GNU General Public Licence
+   We acknowledge fruitful discussions with Y. Gillet and          from the ABINIT web site (http://www.abinit.org).
+S. Poncé. This work has been supported by the Fonds de
+la Recherche Scientifique (FRS-FNRS Belgium) through the
+PdR Grant No. T.0238.13 - AIXPHO, the PdR Grant No.
+T.0103.19 - ALPS, the Fonds de Recherche du Québec Na-
+ture et Technologie (FRQ-NT), the Natural Sciences and
+Engineering Research Council of Canada (NSERC) under
+grants RGPIN-2016-06666. Computational resources have
+been provided by the supercomputing facilities of the Uni-
+versité catholique de Louvain (CISM/UCL), the Consortium
+des Equipements de Calcul Intensif en Fédération Wallonie
+Bruxelles (CECI) funded by the FRS-FNRS under Grant
+No. 2.5020.11, the Tier-1 supercomputer of the Fédération
+Wallonie-Bruxelles, infrastructure funded by the Walloon Re-
+gion under the grant agreement No. 1117545, as well as
+the Canadian Foundation for Innovation, the Ministère de
+l’Éducation des Loisirs et du Sport (Québec), Calcul Québec,
+and Compute Canada. This work was supported by the Cen-
+ter for Computational Study of Excited-State Phenomena in
+Energy Materials (C2SEPEM) at the Lawrence Berkeley Na-
+tional Laboratory, which is funded by the U.S. Department
+of Energy, Office of Science, Basic Energy Sciences, Mate-
+rials Sciences and Engineering Division under Contract No.
+DE-AC02-05CH11231, as part of the Computational Ma-
+terials Sciences Program. This research used resources of
+the National Energy Research Scientific Computing Center
+(NERSC), a DOE Office of Science User Facility supported
+by the Office of Science of the U.S. Department of Energy
+under Contract No. DE-AC02-05CH11231.
+                                                                                                                                             9
+
+SUPPLEMENTARY INFORMATION
+                                                                     TABLE S1. List of the thirty materials considered in the present
+                                                                     study, with parameters used in the first-principles computations.
+   In the Supplementary Information, the tables with the nu-         From left to right: material; Materials Project ID67 ; energy cut-off
+merical data used to create the figures in the main text have        for the planewave basis set; wavevector sampling for the electronic
+been collected, as well as information and comments about            states; wavevector sampling for the phonon states. Abbreviations
+such data (including the corresponding bibliographical refer-        for crystal structures: sc=simple cubic, rs=rocksalt, zb=zinc-blende,
+ences for results that have not been computed in the present         w=wurtzite, dia=diamond, t=tetragonal, rh=rhombohedral.
+work). Experimental data for the ZPR are critically exam-                                       Ecut        k-point            q-point
+ined and discussed. The gap ZPR values are also discussed                                                  sampling           sampling
+with respect to previously published values, highlighting the            Material ID         (Ha)
+importance of the control of phonon wavevector grid conver-              Ge-dia     mp-32    40 6x6x6 (x4shifts) 48x48x48
+gence and imaginary broadening. The non-quadratic effects                Si-dia     mp-149 20 6x6x6 (x4shifts) 100x100x100
+and GW approximation versus DFT approach are further dis-                GaAs-zb mp-2534 40 6x6x6 (x4shifts) 64x64x64
+cussed in the light of previously published data.                        CdTe-zb mp-406 50 6x6x6 (x4shifts) 48x48x48
+                                                                         AlSb-zb mp-2624 40 6x6x6 (x4shifts) 48x48x48
+                                                                         CdSe-zb mp-2691 50 6x6x6 (x4shifts) 48x48x48
+                                                                         AlAs-zb mp-2172 40 6x6x6 (x4shifts) 48x48x48
+I. FIRST-PRINCIPLES AHC CALCULATIONS: LIST OF                            ZnTe-zb mp-2176 40 6x6x6 (x4shifts) 48x48x48
+MATERIALS, PARAMETERS, ACCURACY                                          GaP-zb     mp-2690 40 6x6x6 (x4shifts) 48x48x48
+                                                                         SiC-zb     mp-8062 35 6x6x6 (x4shifts) 48x48x48
+A.   List of materials and calculation parameters                        CdS-zb     mp-2469 45 6x6x6 (x4shifts) 48x48x48
+                                                                         AlP-zb     mp-1550 25 8x8x8 (x4shifts) 48x48x48
+                                                                         ZnSe-zb mp-1190 40 6x6x6 (x4shifts) 48x48x48
+   We have evaluated Eqs. (8) and (9) of the main text for               TiO2 -t    mp-2657 40      6x6x8         20x20x32
+thirty materials. The list of these materials, with Materials            SrTiO3 -sc mp-5229 70      8x8x8         48x48x48
+Project IDs67 , is presented in Table S1. It includes three              GaN-w      mp-804 40       8x8x8         64x64x64
+non-polar materials (C, Si, Ge), and one of their combina-               GaN-zb mp-830 40 6x6x6 (x4shifts) 48x48x48
+tions (SiC), nine III-V compounds (GaAs, AlAs, AlP, GaN-w,               ZnO-w      mp-2133 50      6x6x6         48x48x48
+GaN-zb, AlN, BN, AlSb, GaP) among which four nitrides,                   SnO2 -t    mp-856 40       6x6x8         20x20x32
+ten oxides (TiO2 , ZnO, SnO2 , BaO, SrO, CaO, Li2 O, MgO,                ZnS-zb     mp-10695 40 6x6x6 (x4shifts) 48x48x48
+SiO2 -stishovite, BeO) and SrTiO3 , as well as six non-oxide             BaO-rs     mp-1342 40      8x8x8         32x32x32
+                                                                         SrO-rs     mp-2472 40      8x8x8         32x32x32
+II-VI compounds (CdTe, CdSe, CdS, ZnS, ZnSe, ZnTe).
+                                                                         C-dia      mp-66    30 6x6x6 (x4shifts) 125x125x125
+   With this set of materials, we have (i) a large overlap               AlN-w      mp-661 35       6x6x6         34x34x34
+with well established experimental ZPRg values, as discussed             BN-zb      mp-1639 35 8x8x8 (x4shifts) 100x100x100
+in Sec. II A, and complete coverage of the set of materials              CaO-rs     mp-2605 40      8x8x8         32x32x32
+for which ASC ZPRg calculations have been done by Kar-                   Li2 O      mp-1960 50      8x8x8         32x32x32
+sai et al.35 ; (ii) nearly entire coverage of the set of materi-         MgO-rs mp-1265 50 8x8x8 (x4shifts) 96x96x96
+als for which GWeh computations have been performed, from                SiO2 -t    mp-6947 40      6x6x8         20x20x32
+Shishkin et al.68 ; and we include also (iii) a dozen of binary          BeO-w      mp-2542 50     12x12x6        32x32x16
+oxyde infrared-active materials for which the trends in ZPR
+can be analyzed.
+   Table S1 also lists the parameters used in the first-principles   Γ. For ZnO and SrTiO3 , we have used the latter, with a
+computations. Within Density-Functional Perturbation The-            192x192x192 fine grid.
+ory (see METHODS section), the computation of phonons at                The second methodology is the following. According to
+arbitrary q-points is done without any supercell calculation,        Ref. 24, the (Nq )−1/3 behavior is associated with a q = 0 dis-
+thus allowing us to rely on the very fine q-point sampling grids     carded (missing) part of the Brillouin zone in the Fan contri-
+mentioned in Table S1 at affordable CPU time cost. Still the         bution, Eq. (8) of the main text. We denote Ωq=0 this region
+convergence with respect to such sampling is extremely slow,         of the BZ, and estimate its contribution using the generalized
+and is adressed below.                                               Fröhlich electron-phonon interaction, however neglecting the
+                                                                     electronic dispersion in this small region (unlike in the gener-
+                                                                     alized Fröhlich model of the main text). The estimation of the
+B.   Accuracy of the Brillouin Zone sampling in the AHC case         dominant correction to the ZPRAHC
+                                                                                                     c     thus reads
+
+                                                                                               1                         q̂.p j (q̂) 2
+                                                                                                       Z          
+   As mentioned in the METHODS section of the main text,                 ∆q=0 ZPRAHC
+                                                                                 c   =−                    dq ∑                          .
+                                                                                              πΩ0             j       qω j0 (q̂)ε ∞ (q̂)
+the convergence with respect to the q-point sampling can be                                         Ωq=0
+improved by three different techniques: either by a linear ex-                                                                           (12)
+trapolation based on the expected scaling (Nq )−1/3 , or by the
+computation of the coefficient of such scaling behaviour, as         Note that the sum over degenerate states has been cancelled
+explained below, or by explicitly refining the region around         by the ndeg denominator. The volume of the missing region is
+                                                                                                                                         10
+
+actually the BZ volume (ΩBZ = (2π)3 /Ω0 ) divided by Nq , the
+number of points sampling the BZ. The equivalent sphere has
+a cut-off radius
+                          3 1/3
+                 qc = 2π          (Nq )−1/3 .           (13)
+                          4πΩ0
+We then replace the integral over Ωq=0 by an integral in the
+sphere with radius qc , evaluate the radial part of the integral,
+and obtain
+                           8π  3 1/3
+       ∆q=0 ZPRAHC
+                c    ≈−                    (Nq )−1/3 Kav , (14)
+                           Ω0 4πΩ0
+where Kav is the angular average of the q̂-dependent quantities
+in Eq. (12), namely,
+                     1                        q̂.p j (q̂) 2
+                         Z             
+            Kav =             d q̂ ∑                         .   (15)
+                    4π   4π       j        ω j0 (q̂)ε ∞ (q̂)            FIG. S1. The ZPRAHC       of MgO is computed without correction
+                                                                                             c
+                                                                        (black squares), and then with correction Eq. (14) (red circles),
+The correction is of opposite sign for the top of the valence           for different phonon wavevector Monkhorst-Pack q-grid samplings,
+band, due to the change of occupation number.                           characterized by NMP . The points correspond to NMP = 96, 48, 32, 20
+   This technique and the linear extrapolation technique have           and 10. Dotted lines show linear extrapolation with respect to 1/NMP
+been tested for most materials in our list. Later (Tables S2 and        from the NMP = 48 and NMP = 96 grids, to the infinitely large NMP
+S5), we will report the values obtained with the correction             value.
+from Eq. (14), except for the following materials: the non-
+infrared-active materials (C, Si and Ge), for which there is no
+such correction, and also AlN-w and BN-zb, for which the
+convergence study had been done in Ref. 24, based on the                both methods are not identical, due to different physics, and
+linear extrapolation69 .                                                the rate of convergence is quite different.
+   Fig. S1 compares Eq. (14) and the linear extrapolation tech-
+nique in the case of MgO. The q-grids are (NMP × NMP × NMP )               In the ASC methodology, for which the divergence of the
+Monkhorst-Pack samplings of the BZ,70 thus cubic grids                  harmonic approximation is removed by the inclusion of the
+shifted four times, with a total number of points Nq = 4 · NMP3 .       nonquadratic coupling, the convergence is much faster. This
+A 10% accuracy (20 meV in this case) is obtained from cor-              is partly because, as argued in the DISCUSSION section of
+rected points already with a NMP = 20 grid (without extrapola-          the main text, “for larger amplitudes, hthe eigenenergyi be-
+tion), while, without correction, linear extrapolation from the         haves linearly, as the electron localizes in the lowered poten-
+NMP = 20 and NMP = 32 data gives it as well. Without correc-            tial region and the minimum of the potential is linear in the
+tion neither extrapolation, such accuracy is only reached with          amplitude of the atomic displacements.". This is at variance
+the finest NMP = 96 grid. Still, the correction Eq. (14) does not       with the quadratic behaviour found from the AHC perturba-
+exactly removes the 1/NMP behaviour, although it decreases it           tive theory.
+by more than a factor of ten. The coefficient to the (Nq )−1/3             Let us examine a numerical proof of this difference. In
+factor computed from this equation is only approximate.                 Ref. 35, Karsai and coauthors quote their detailed conver-
+   Still another technique to speed up the convergence, based           gence study for diamond (their Table 2) from 3x3x3 to 6x6x6
+on Fröhlich model, but not restricted to lowest order, has been         supercells, with apparent convergence within 6 meV for a
+sketched in Ref. 71. However, in this reference, it has only            ZPR around 330 meV (values: −0.278, −0.365, −0.315, and
+fully been elaborated for materials with isotropic character-           −0.321 eV). With the AHC, we checked that fluctuations of
+istics. It should be possible to develop it further using the           ZPRs between corresponding q-point grids are on the order
+generalized Fröhlich model introduced in the present work.              of 100 meV or larger, which is in line with the results from
+                                                                        Ref. 22 for random wavevector grids. Fluctuations becomes
+                                                                        less than 100 meV only above 8x8x8. Thus, converged values
+C. Comparing the AHC Brillouin Zone sampling and the                    are much easier to reach with the ASC methodology than with
+ASC supercell size                                                      the AHC methodology. Still, as emphasized in the main text,
+                                                                        the ASC avoids the adiabatic AHC divergence for the wrong
+   One might wonder why even with the above-mentioned                   physical reason, and the better convergence rate of ASC is
+corrections, the AHC approach needs a grid with typically               misleading, as the converged value is not the right one.
+NMP = 20 to obtain reasonably converged values, while for
+the ASC approach, results with 5x5x5 or 6x6x6 supercells,
+corresponding to grid NMP = 5 or NMP = 6 are apparently
+converged at the same level35 . We argue that the needs of
+                                                                                                                                        11
+
+II. BAND GAP ZERO-POINT RENORMALIZATION
+FROM EXPERIMENT AND FROM THE THEORETICAL                            TABLE S2. For eighteen materials: experimental fundamental gap
+APPROACHES (AHC AND ASC)                                            and type (d=direct, i=indirect); experimental zero-point renormaliza-
+                                                                    tion of the gap; lattice contribution to the zero-point renormalization
+                                                                    of the gap; first-principles AHC zero-point renormalization of the
+   Table S2 compares ZPRg data from experiment and from             gap; ratio R between sum of AHC and lattice values and experimen-
+                                                                                                                   exp
+different computations. These data are used in Fig. 2 of the        tal values (see text) (ZPRAHC
+                                                                                               g    +ZPRlatg )/ZPRg ; first-principles ASC
+                                                                                                                                exp
+main text. Further computed ZPRg data are provided in Table         zero-point renormalization of the gap. Experimental ZPRg data are
+S3, although the latter focuses on band gaps, to be analyzed        obtained from extrapolation of temperature dependence of the gap,
+in the next section (Sec. III). Gathering experimental ZPRg         or isotopic mass derivatives of the gap. The latter are indicated with
+data needed some care, as explained below. Also, theoretical        an asterisk. For SiC, the experimental data refer to the 15R poly-
+data ought to be discussed in view of previous works. For the       morph, while the theoretical data refer to the 3C (zb) polymorph.
+in-depth discussion of the theoretical data among themselves,       They have similar sp3 topology, but differ by stacking sequence. For
+                                                                    SrTiO3 , the ZPRlat
+                                                                                      g was hardly computable with the TDep methodol-
+we refer to Sec. V. We also complete the list of references in
+                                                                    ogy presented in the METHODS section of the main text. We have
+which ZPRg have been computed, that had been mentioned in           estimated it combining experimental data for the zero-point correc-
+the main text.                                                      tion to the volume72 and theoretical data for the derivative of the gap
+                                                                    with volume73 , see text. The reference experimental value for AlN
+                                                                    is the average of the reported values from Refs. 74 and 75, see text.
+A.   Experimental data: discussion
+                                                                               Eg            ZPRg         ZPRlat
+                                                                                                             g   ZPRg           R ZPRg
+                                                                               exp           exp                  AHC              ASC
+   As explained by Cardona and Thewalt, in relation to the                                                      present             PBE
+Table 3 of their review Ref. 46, the experimental ZPR are ob-                 [76]                                work              [35]
+tained by two different techniques. The first one starts from        Material (eV)        (meV)           (meV) (meV)             (meV)
+measurements of the band gap energy for different samples of         Ge-dia 0.74 (i)      -52 [77]*         -10     -33      0.83    -50
+a material with varying isotopic content. The derivative(s) of                            -52 [74]
+the band gap with respect to the mass(es) are extracted, fol-        Si-dia  1.17 (i)     -59 [78]*    +9             -56    0.80     -65
+lowed by extrapolation to infinite mass(es). The second one                               -72 [74]
+relies on measurements of the band gap energy in a large tem-        GaAs-zb 1.52 (d)     -60 [74]    -29            -18 0.78        -53
+                                                                     CdTe-zb 1.61 (d)     -16 [74]     -8            -20 1/0.57      -15
+perature range, including the low-temperature regime, but also
+                                                                     AlSb-zb 1.69 (i)     -35 [74]     +6            -51 0.78        -43
+the high-temperature regime, where a linear asymptote must           CdSe-zb 1.85 (d)     -38 [74]     -7            -34 1/0.93      -21
+be reached. In this case, the ZPR is the difference between          AlAs-zb 2.23 (i)     -50 [74]     +8            -74 1/0.76      -63
+the measured zero-temperature limit and the linear extrapola-        GaP-zb 2.34 (i)      -85 [74]     +8            -65 0.67        -57
+tion of the high-temperature asymptote to zero temperature,          ZnTe-zb 2.39 (d)     -40 [74]    -18            -22 1.00        -24
+as shown for Ge in Fig. 21 of Ref. 46. When both techniques          SiC     2.40 (i)     -215 [74]    +6           -179 0.80       -109
+agree, the experimental result can be reasonably trusted.            CdS-zb 2.58 (d)      -62 [79]*   -10            -70 1/0.78      -29
+   For the latter technique (extrapolation of temperature-                                -34 [74]
+dependent data), we rely on the analysis of Pässler74,75 , that      ZnSe-zb 2.82 (d)     -55 [74]    -17             -44 1/0.90      -28
+superceeds his earlier work86 on which Ref. 46 relied. The           ZnS-zb 3.84 (d)      -105 [80]*  -24             -88 1/0.94      -44
+                                                                                          -78 [74]
+two publications by Pässler74,75 yield essentially equivalent
+                                                                     C-dia   5.48 (i)     -338 [81]*  -27           -330 1/0.95     -320
+results, except for AlN. For this material, we have taken the                             -334 [74]
+mean of the two reported values as reference. However, also          SrTiO3 3.25 (i) [82] -336 [83] ≈ +20           -290 0.80
+in the latter case, our results are within the 25% limit. We         ZnO-w 3.44 (d)       -164 [84]*  -17           -157 1/0.94       -57
+have surveyed the literature after 2003, but were unable to          GaN-w 3.47 (d)       -180 [74]   -49           -189 1/0.75       -94
+find more reliable data.                                             AlN-w 6.20 (d)       -417        -85           -399 1/0.88
+   For the isotopic extrapolation, to our surprise, a large frac-                         -350 [74]
+tion of the data provided in the related column of Table 3 of                             -483 [75]
+Ref. 46 do NOT report actual isotopic extrapolation analysis.
+We have thus extensively examined the primary literature, and
+have obtained that such isotopic extrapolation is available re-     fer for CdS (about a factor of 2). Pässler74 does not provide
+liably for the following materials in our list: Ge, Si, C, CdS,     data for ZnO. In Fig.2 of the main text, we have taken the
+ZnO and ZnS. They are clearly identified as such in table S2.       isotopic extrapolation result as reference, since the extrapola-
+Moreover, we have also realized that a non-negligible num-          tion of temperature-dependent data is often plagued with in-
+ber of data available through other secondary references are        sufficient sampling of the high-temperature region, which is
+misleading. We will not elaborate further on this problem, but      crucial for the correct extrapolation, as discussed at length
+generally speaking, we warn the reader about the unreliabil-        in Ref. 86. For the above-mentioned CdS discrepancy, the
+ity of several publications in the field. The above-mentioned       global expected trend due to the change of mass, comparing
+works of Pässler are apparently free of such problem.               with CdSe and CdTe, or with the Zn series, appears more
+   Anyhow, the two techniques agree very well for Ge or C,          reasonable from the isotopic technique than from extrapola-
+or reasonably (within 25%) for Si and ZnS, but clearly dif-         tion of temperature-dependent data. Also, the comparison of
+                                                                                                                                        12
+
+                                                                         sidering the numerical noise. For the purpose of computing
+TABLE S3. Electronic gaps and corrections due to the zero-
+                                                                         the self-energy (which was the focus of Sec. II of Ref. 23),
+point motion (ZPRAHC
+                 g   and ZPRlat
+                            g ), for thirteen materials: one-
+                                                                         or computing the importance of “anharmonic effects” in the
+shot GW calculation of Eg , without ZPR (EG  g
+                                               0 W0
+                                                    ); self-consistent   adiabatic approximation (Sec. III of Ref. 23), such numeri-
+GW with electron-hole corrections (EgGWeh ) which is the best            cal noise was addressed by keeping a large finite imaginary
+theoretical Eg without ZPR ; first-principles ZPRAHC   g     and firs-   broadening (between 0.1-0.4 eV) and a fixed wavevector sam-
+principles ZPRlat                                     GWeh (E +ZPR ),
+               g (this work); ZPR-corrected Eg                 g         pling 32x32x32. The choice of the value of the imaginary
+namely Eg+ZPR =EgGWeh +ZPRAHC  +ZPR  lat ; experimental gap (E exp ).    broadening was detailed in the Appendix of this paper, which
+                            g        g                           g
+                                  exp                          exp       was explicitly mentioned in the caption of this Table 1: “See
+The ratios between EgG0 W0 and Eg , between EgGWeh and Eg , be-
+tween EgGWeh +ZPRAHC
+                             exp                           exp
+                        and Eg and between Eg+ZPR and Eg , are           Appendix for the values of the η parameters used". Such
+                  g
+                                                         ZPR
+shown in Fig. 3, but not reported here. Then, the ratio RGWeh be-
+                                                                         imaginary broadening was determined to ensure removal of
+                                                                         the noise in the self-energy, in order to produce Fig. 1 and 2,
+tween ZPRgAHC+lat and the correction brought by the scGWeh ap-
+                                                                         but however did not deliver an accurate absolute value for the
+proximation EgGWeh with respect to EgG0 W0 , is mentioned. The values    ZPR in Table I of Sec. II.
+for EgG0 W0 are taken from Ref. 68, except for Ge-dia, that comes from      Indeed, in another publication of some of ours (even
+Ref. 85.                                                                 slightly before Ref. 23), namely Ref. 24, the proper limit
+                                                         exp
+          EgG0 W0 EgGWeh ZPRAHC
+                            g    ZPRlat +ZPR E
+                                     g Eg       g   RZPR
+                                                     GWeh                of vanishing imaginary broadening with much improved
+         [68,85]     [8]                  [76]                           wavevector sampling was performed, for C and BN (up to
+Material      eV     eV       eV    eV     eV eV                         125x125x125 grid). The same values for C and BN as men-
+Ge-dia      0.53 0.81 -0.033 -0.010       0.77 0.74 -0.15                tioned in our current manuscript, namely -330 meV and -406
+Si-dia      1.12 1.24 -0.056 0.009        1.19 1.17 -0.39                meV, were found (with one more digit, see Table VII, column
+GaAs-zb     1.30 1.62 -0.024 -0.029       1.57 1.52 -0.17                “Non-adiabatic"). MgO was not examined in Ref. 24, but the
+SiC-zb      2.27 2.53 -0.179 0.006        2.36 2.40 -0.67                MgO band gap ZPR was then mentioned in Ref. 25, still an-
+CdS-zb      2.06 2.39 -0.070 -0.010       2.31 2.42 -0.24                other publication from some of ours, page 11, end of second
+AlP-zb      2.44 2.57 -0.093 0.010        2.49 2.45 -0.64
+                                                                         paragraph of first column, 526 meV. Such value is very simi-
+GaN-w       2.80 3.27 -0.189 -0.049       3.03 3.20 -0.51
+ZnO-w       2.12 3.20 -0.157 -0.017       3.03 3.44 -0.16
+                                                                         lar to the values in our manuscript. The extrapolation scheme,
+ZnS-zb      3.29 3.60 -0.088 -0.024       3.49 3.91 -0.36                differing from the one chosen in the present paper, explains
+C-dia       5.50 5.79 -0.330 -0.027       5.43 5.48 -1.23                the difference of 2 meV for MgO. The analysis of LiF is not
+BN-zb       6.10 6.59 -0.406 -0.017       6.17 6.25 -0.86                done in the current work because an estimate of the Fröhlich
+MgO-rs      7.25 8.12 -0.524 -0.117       7.48 7.67 -0.74                parameter for the valence bands yields α bigger than 8, see
+                                                                         Ref. 25, which is beyond the validity of the present perturba-
+                                                                         tive treatment. By the way, the top of the valence band does
+the different analyses by Pässler, in 1999, 2002, and 2003,              not occur at Γ (see e.g. Ref. 67, which was not mentioned in
+Refs. 74, 75, and 86, shows stability for a few materials, but,          Ref. 25).
+more generally, non-negligible variations, at the 10-25% level.
+On this basis, one can infer that, globally speaking, the relia-
+bility of the experimental data is on the order of 25%, which            C. Modification of the ZPR due to lattice parameter
+is the reason of our use of this value in the main text.                 changes
+   Note that Karsai et al.35 quotes experimental data (most
+from secondary sources) for about half the materials they                   The ZPRAHCg    is computed at the fixed theoretical lattice pa-
+compute, but miss many available data, especially those that             rameters and internal coordinates minimizing the DFT energy
+do not compare well with their results.                                  (or fixed experimental lattice parameters in the case of Ge,
+                                                                         GaAs and TiO2 ). The phonon population effects on the lattice
+                                                                         parameters, and induced change of band gap, are not taken
+B.   Theoretical AHC data: discussion                                    into account in such procedure. This corresponds strictly to
+                                                                         the harmonic approximation.
+   The values quoted in Tables S2 and S3 for the band                       In the so-called quasi-harmonic approximation, the equilib-
+gap ZPR of C, BN, and MgO, respectively -330 meV,                        rium lattice parameters and possibly internal coordinates are
+-406 meV, and -524 meV, differ from those previously pub-                relaxed in order to minimize the free energy of the system.
+lished in Ref. 23, authored by some of us, giving respectively           This makes such parameters depend on the temperature (ther-
+-366 meV, -370 meV, and -341 meV. We emphasize that                      mal expansion), but also induces their zero-point change at
+the same first-principles method as in our current manuscript            T = 0 K. In turn, such changes modifies the gap, an effect
+(non-adiabatic AHC) was used to obtain these data. The dif-              to be accounted for in order to compare with the experimental
+ferences with the present data are entirely due to the sampling          ZPRg . This effect has been investigated by Garro and cowork-
+of the Brillouin Zone and associated imaginary broadening                ers, Ref. 87. It is also included in several first-principles cal-
+factor.                                                                  culations of the ZPR, see e.g. Ref. 88.
+   In Ref. 23, the sampling of the Brillouin Zone was already               In the present work, we have indeed added this effect be-
+emphasized as an important technical issue, especially con-              yond the harmonic approximation: we have computed the
+                                                                                                                                    13
+
+equilibrium lattice parameters with and without zero-point          that they obtain do not change the overall assessment of the
+motion, then evaluated the change of gap. In the first case,        adiabatic approach that we present here: for some materials,
+we have minimized the Born-Oppenheimer energy without               the agreement with experiment is slightly improved or deteri-
+phonon contribution, giving {Rif ix }. In the second case, the      orated.
+free energy, including zero-point phonon contributions com-            Studies of strongly infrared-active materials using the ASC
+puted at different lattice parameters and interpolated between      include e.g. hydrogen-containing materials HF, H2 O, NH3
+them, was minimized, giving {RTi =0 }. This procedure is sim-       and CH4 in Ref. 33, where a giant electron-phonon interac-
+ilar to the one described in Ref. 89, albeit extended to two        tion in molecular crystal and related important nonquadratic
+dimensions (uniaxial and basal lattice parameters) in the case      coupling had been investigated, the study of ice in Ref. 34,
+of wurtzite materials. The differences in band gap values for       and the study of LiF, MgO and TiO2 in Ref. 105, and some of
+such lattice parameters form the lattice ZPR modification of        the results from Ref. 35 for IR-active materials.
+the electronic structure:                                              In addition to these references, the electron-phonon inter-
+                                                                    action has been directly incorporated in GW calculations in
+            ZPRlat         T =0
+               kn = εkn ({Ri    }) − εkn ({Rif ix }).       (16)
+                                                                    Refs. 110–112. These are further commented upon in the next
+   In such approach, one supposes that there is no cross-           section.
+influence of the modification of lattice parameters on the AHC         Table S4 presents KS-DFT ASC data that were not re-
+ZPR. Also, one relies on the approximation that the inter-          ported in Table S2, as the latter only mentioned such data
+nal parameters, if not determined by symmetry, are those that       from Ref. 35. This table S4 still focuses on our set of ma-
+minimize the Born-Oppenheimer energy at the corresponding           terials, for which AHC data are available. For the indirect gap
+Ri lattice parameters. In other words, the deviatoric thermal       of Si and of SiC, as well as both the direct and indirect gaps of
+forces and their effect on the band gap are not included, but the   C, the different ASC calculations agree very well. The agree-
+deviatoric thermal stresses are taken into account, following       ment is less good for GaAs and the direct gap of Si. Anyhow,
+Ref. 90. In the list of materials of Tables S2 and S3, deviatoric   these data confirm that AHC and ASC calculations of the fun-
+thermal forces only appear for wurtzite materials, that have a      damental band gap reasonably agree for covalent materials,
+quite symmetric tetrahedral environment, and thus, very small       but strongly disagree for strongly IR-active materials (SiC-zb,
+expected effect.                                                    TiO2 -t, MgO-rs).
+
+
+D.   A survey of zero-point renormalization computations                                                        exp
+                                                                    TABLE S4. Experimental fundamental gap Eg and type (d=direct,
+                                                                    i=indirect), first-principles zero-point renormalization of the gap
+   In complement to the references given in the introduction        ZPRAHC
+                                                                        g    : from the AHC (present work), and from the ASC.
+of the main text, we list additional ones in view of further                               Eg        ZPRg         ZPRg
+comparisons, without pretending to be exhaustive. Refs. 15–                                exp       AHC           ASC
+25, 71, 88, 91–101 report calculations of the ZPRg based on                                        present      KS-DFT
+the AHC approach with KS-DFT wavefunctions and eigenen-                                   [76]       work
+ergies. Refs. 18, 27–35, 92, 102–108 report calculations of                      Material (eV)      (meV)        (meV)
+the ZPRg based on the ASC approach, usually based on KS-                         Si-dia   1.17 (i)     -56     -60 [32]
+DFT, but also sometimes based on GW, see Refs. 30, 35, and                                                    -57 [106]
+105. As analyzed by the present generalized Fröhlich model,                                                    -65 [35]
+the ASC might be reasonably predictive for purely covalent                                                    -75 [113]
+materials (e.g. C, Si, Ge), or weakly infrared-active ones                                 3.40 (d)    -42 ≈ -28 [105]
+(e.g. GaAs), however, when the ZPRgFr is a significant frac-                                                  -44 [106]
+                                                                                 GaAs-zb 1.52 (d)      -18     -23 [30]
+tion of the ZPR, the predictive capability of the ASC ap-
+                                                                                                              -32 [106]
+proaches should be questioned. Even in the covalent case,                                                      -53 [35]
+non-adiabatic corrections can be sizeable (5...15%), see Table                   SiC       2.40 (i)   -179    -109 [32]
+VII of Ref. 24. The ASC GW calculations performed until                                                       -109 [35]
+now30,35,105 rely at most on 4x4x4 supercells, which is at the                                               -145 [113]
+limit of convergence. Going from 4x4x4 to 5x5x5 supercells                       TiO2 -t   3.03 (d)   -337 ≈ -150 [105]
+for KS-DFT indeed still brings some modification, as shown                       C-dia     5.48 (i)   -330    -334 [32]
+by Ref. 35. For this reason, the effect of relying on GW cor-                                                -345 [106]
+rections can hardly be clarified in the present context, which                                                -320 [35]
+focuses on the non-adiabatic effects.                                                                        -437 [113]
+   In a very recent publication109 , Engel and coworkers have                              7.07 (d)   -416    -437 [30]
+                                                                                                           ≈ -410 [105]
+proposed a new method to compute the ZPR, combining su-
+                                                                                                             -450 [106]
+percell calculations with an interpolation method, still in the                  MgO-rs 7.67 (i)      -524 ≈ -220 [105]
+adiabatic approximation. They applied it for 9 materials, a                                                  -281 [113]
+subset of those examined by Karsai and coworkers35 (focus-
+ing only on covalent or weakly ionic materials). The results
+                                                                                                                                      14
+
+III. GAP VALUES FROM EXPERIMENT AND                                 gram, at variance with the adiabatic approximation, we sum-
+DIFFERENT COMPUTATIONS                                              marize first the discussion of the AHC case given in Ref. 24.
+                                                                    Then, we derive the generalized Fröhlich Hamiltonian from
+   Table S3 compares gap values from experiment and from            Eq. (8) of the main text.
+different computations. These data are used in Fig. 3. The
+set of 12 materials in this table includes all those for which
+self-consistent GW calculations with electron-hole correc-          A. The divergence of the adiabatic AHC for IR-active
+                                                                    materials
+tions have been performed in Ref. 8, except Ne, LiF and Ar.
+We did not include them in our study for the following rea-
+sons. Ne and Ar are strongly affected by weak van der Waals            Under the adiabatic approximation, the phonon frequen-
+interactions. Much more than the other materials, they will be      cies ωq j are neglected when compared to differences between
+modified by the zero-point lattice corrections, discussed ear-      electronic eigenenergies. In other words, one supposes that
+lier. For LiF, as mentioned previously, the estimated value         the electron (or hole) responds instantaneously to the atomic
+of α show that the present perturbative treatment is likely in-     vibrations, even for those electronic transitions with a charac-
+valid. For all three materials, excitonic effects are strong, and   teristic time scale (inversely proportional to the eigenenergy
+should likely be included for meaningful comparison with ex-        difference) larger than the phonon oscillation period. This
+perimental data.                                                    simplification is of course questionable for intraband transi-
+                                             G W
+   Suppplementary Table III quotes Eg 0 0 values from               tions with small momentum transfer, as shown in Ref. 24.
+Ref. 68, except for Ge-dia, that comes from Ref. 85. The            Suppressing ωq j in the denominators of Eq. (8) , and evalu-
+                                  G W                               ating the AHC ZPR according to Eqs. (7) and (9) yields
+latter reference also presents Eg 0 0 values for many materi-
+                                                                                                                (1)
+                                                                                                                 0 2
+als, including more than half of those reported in Table S3.                            1 BZ |hk + qn|Hq j |kn i|
+               G W                                                      ZPRadiab
+                                                                           kn =ℜe             ∑0 εkn − εk+qn0 + iη + ΣDW
+                                                                                                                      kn .
+Many other Eg 0 0 values for those materials have been pub-                             Nq ∑
+                                                                                           qj n
+lished. The spread in such values for one material can be as
+                                                        G W                                                                          (17)
+large as 0.5 eV. A comparative study of published Eg 0 0 val-
+ues is out-of-scope of the present publication, but is presented       For band edges, in particular the top of the valence band
+                             G W                                    or the bottom of the conduction band, and considering at
+in Ref. 45. The values Eg 0 0 in Table S3 have the goal to
+                                 G W                                present non-degenerate bands, the intraband (n0 = n) contri-
+show the typical size of the Eg 0 0 to EGWeh
+                                           g     correction, and
+                                                                    bution when η = 0 has two different types of divergences for
+point out that the ZPR correction is of the same order of mag-
+                                                                    q → 0, reinforcing each others: (i) for IR-active materials, the
+nitude for materials with light nuclei.                                                                                    (1)
+   In addition to the AHC and ASC methodologies, there has          electron-phonon interaction matrix elements of Hq j diverge
+also been attempts to incorporate directly the electron-phonon      like δnn0 /q, while (ii) the denominator behaves like q2 /2m∗q̂ .
+interaction inside the GW approach110–112 to obtain modified        In these expressions, q is the norm of the q wavevector, and
+gap values or ZPRg . The first publication on the subject, by       m∗q̂ is the effective mass along direction q, represented by the
+Botti and Marques110 was later shown by Lambrecht, Bhan-            unit vector q̂, with q = q · q̂. The effective mass is the inverse
+dari and van Schilfgaarde111 to ignore the range of the Fröh-       of the second derivative of the eigenenergy with respect to the
+lich interaction, yielding an erroneous integration over the        wavevector along q̂ at the band extremum.
+Brillouin Zone. Even in the latter work, there is a factor of          Thus, the integrand at small q behaves like 1/q4 . Focusing
+2 difference for the Fröhlich α compared to the usual def-          on the ZPRadiabc    of the bottom of the conduction band (the
+inition, used in the present work. Their ZPRg results (Ta-          handling of the top of the valence band is similar) one finds,
+ble I of Ref. 111 and 112) for MgO, GaN-zb and SrTiO3 ,             in spherical coordinates, and introducing a spherical cut-off qc
+resp. (-219 meV, -67 meV, -404 meV) can be compared with            whose limit qc → 0 has to be taken:
+ours (-517 meV, -171 meV, -290 meV), see Table S5. They
+                                                                                                        f adiab (qq̂)
+                                                                                            Z   Z
+very clearly differ, with strong underestimation with respect to      ZPRadiab
+                                                                         c     (qc < q) =                                 q2 dqd q̂, (18)
+                                                                                                         q2
+                                                                                                        2m∗q̂ + O(q )
+                                                                                                                     
+ours for MgO, GaN-zb, and strong overestimation for SrTiO3 .                                 4π qc q2              3
+
+For SrTiO3 , our results agree better with the experimental
+data (-336 meV), see Table S2. For MgO and GaN-zb, a                where f adiab (qq̂) is a smooth function of q (it does not diverge,
+direct measurement of ZPRg is not available. Still, experi-         but also does not tend to zero for q → 0). As announced24 ,
+mental value for the other polymorph of GaN, namely GaN-w           ZPRadiab
+                                                                         c   (qc < q) diverges like 1/qc when qc → 0.
+(-180 meV) is reported in Table S2 and matches very well our           By contrast, if phonon frequencies are not suppressed in
+ZPRAHC
+     g    value (-189 meV) for GaN-w.                               Eq. (8), which is the non-adiabatic case, one falls back to
+                                                                    an integral of the type (here considered for one isotropic
+                                                                    phonon branch only, and one non-degenerate isotropic elec-
+IV. FROM THE ADIABATIC AHC APPROACH TO THE                          tronic band):
+GENERALIZED FRÖHLICH HAMILTONIAN                                             ZPRnon−adiab
+                                                                                c         (qc < q) =
+                                                                                                f non−adiab (qq̂)
+                                                                                   Z   Z
+  In order to help understand why the generalized Fröhlich                                                              q2 dqd q̂,   (19)
+                                                                                                 q2
+                                                                                                2m∗q̂ − ω0 + O(q )
+                                                                                                                  
+                                                                                     4π qc q2                   2
+Hamiltonian captures correctly the physics of the Fan dia-
+                                                                                                                                   15
+
+where the O(q2 ) contribution in the denominator comes from         where VBvK is the Born-von Karman normalisation volume
+the curvature of ωq with respect to q, usually much smaller         corresponding to the k and q samplings, q is the norm of q
+than the curvature of the electronic eigenenergies governed         and q̂ is its direction, q = q · q̂, ε ∞ is the optical dielectric
+by m∗q̂ , explicitly mentioned in Eq. (19). ZPRnon−adiab
+                                               c         (qc < q)   constant, and ε 0 is the low-frequency dielectric constant. The
+does not diverge for qc → 0, provided ω0 is non-zero.               sums over k and q run over the whole reciprocal space.
+   Acoustic modes should not be forgotten. Their eigenfre-            At the lowest order of perturbation theory, this yields the
+quency ω0 tends to zero in the q → 0 limit. However, the cor-       well-known result37,38,116 for the polaron binding energy (that
+responding first-order electron-phonon matrix element does          we denote ZPRFr ):
+not diverge like 1/q, and also, it has been shown by Allen and
+Heine9 that, thanks to translational symmetry, the contribution
+                                                                                                     r
+                                                                             Fr                    1   m∗
+                                                                                                       1
+to the Fan term from acoustic modes is exactly cancelled by             ZPR = −αωLO , with α = ∞ − 0        .                    (25)
+                                                                                               ε  ε    2ωLO
+the Debye-Waller term, in the q → 0 limit. Thus no divergence
+arises from them.                                                   Accurate diagrammatic Monte Carlo simulations39 have
+   To summarize, finite phonon frequencies at q = 0 remove          demonstrated reasonable validity of this lowest-order pertur-
+the AHC divergence in the non-adiabatic case.                       bation result in a range that extends to about α ≈ 8. Beyond
+                                                                    this, electronic self-trapping becomes too important, and the
+                                                                    lowest-order result deviates strongly from the exact results.
+B.     The generalized Fröhlich Hamiltonian
+                                                                       Multiphonon generalisations of the Fröhlich model Hamil-
+                                                                    tonian have been considered in several occasions, but only in
+   Instead of suppressing phonon frequencies appearing in the       the cubic case, while the anisotropy of the electronic effective
+Fan self-energy Eq.(8), like in the adiabatic approximation,        mass has been accounted for in an approximate way, and not
+a radically different strategy is followed in the generalized       altogether with the degeneracy of band edges, that has either
+Fröhlich Hamiltonian: one uses only parameters at q = 0, in-        been treated approximately, or for a spherical model, with-
+cluding crucially the phonon frequencies, and extends them          out warping, or only considering one phonon branch see e.g.
+to the whole q-space, using simple behavior for medium and          Refs. 47–50, 71, and 112.
+large-q (i.e. parabolic electronic dispersion and no phonon            Our generalized Fröhlich model includes all the features of
+dispersion). This corresponds to macroscopic electrostatic          real materials altogether: multiphonon, anisotropic, degener-
+treatment and a continuum space hypotheses.                         ate band extrema. It is derived by considering the full Eq. (8)
+   The model proposed by Fröhlich37 in 1954 is the most sim-        and applying the same ansatz as the original Fröhlich model:
+plified version of such hypotheses: one non-dispersive LO           we treat as exactly as possible the region in the Brillouin
+phonon branch, one electronic parabolic band governed by            zone where the phonon frequency is large with respect to the
+a single, isotropic effective mass, and electron-phonon inter-      eigenenergy differences, and, coherently, suppress the contri-
+action originating from the isotropic macroscopic dielectric        butions from bands with a large energy difference with respect
+interaction between the IR-active LO mode and the charged           to phonon frequencies (interband contributions), keeping only
+electronic carrier. No Debye-Waller contribution is included.       intraband contributions. Like for the Fröhlich Hamiltonian,
+Spin might be ignored, as only one electron is considered,          we use only parameters that describe the functions in the Bril-
+without spin-phonon interaction. Explicitly, the Fröhlich           louin zone around q = 0, and extend them to the whole recip-
+Hamiltonian reads37,38,114,115 ,                                    rocal space, using the same simple behaviors for medium and
+                     Ĥ Fr = ĤelFr + Ĥph
+                                        Fr     Fr
+                                           + ĤEPI ,        (20)    large-q: parabolic electronic dispersion and no phonon disper-
+                                                                    sion. We also retain only the macroscopic Fröhlich electron-
+with                                                                phonon interaction, G = 0 component, following Vogl51 . This
+                                                                    is also coherent with the first-principles Fröhlich vertex of
+                                    k2 +
+                        ĤelFr = ∑     ĉ ĉ ,
+                                      ∗ k k
+                                                            (21)    Ref. 52, and the associated macroscopic electric field, derived
+                                 k 2m                               in the appendix A of Poncé et al., Ref. 24. The possible de-
+                                                                    generacy of the electronic states, causing the warping of the
+                                                                    electronic structure, is addressed following Refs. 117 and 59.
+                          Fr
+                        Ĥph = ∑ ωLO â+
+                                       q âq ,              (22)
+                                 q
+                                                                    It has been shown also by AHC that the contribution to the
+                                                                    Fan term from acoustic modes, for which the frequency van-
+                                                                    ishes when q → 0, is exactly cancelled by the Debye-Waller
+                 Fr
+               ĤEPI = ∑ gFr (q)ĉ+                +
+                                  k+q ĉk (âq + â−q ) ,   (23)    term, close to q = 0.
+                        q,k                                            Having highlighted the basic ideas of the derivation of the
+where â+                                                           generalized Fröhlich Hamiltonian, in what follows, we write
+          q and âq are phonon creation and annihilation oper-
+                                                                    down the mathematical expressions. We focus on the con-
+ators, ĉ+
+         q and ĉq are electron creation and annihilation opera-    duction band expression, ZPRc , associated to one of the pos-
+tors, and the electron-phonon coupling parameter is given by
+                                                                    sibly degenerate states, labelled c, with energy εc and with
+                          "                    #1/2                 wavevector k0 . Similar expressions for ZPRv can be derived.
+              Fr        i 2πωLO  1        1                       For the sake of simplicity, we will suppose that k0 is the
+             g (q) =                    −           ,       (24)
+                        q VBvK ε ∞ ε 0                              Brillouin zone center Γ, but the equations that follow can be
+                                                                                                                                               16
+
+straightforwardly adapted to another value of k0 . We also in-        of spherical harmonics to the specific symmetry representa-
+troduce k0 = k + q.                                                   tion to which the degenerate wavefunctions belong.
+                                                                (1)      With these definitions, we write the generalized Fröhlich
+   Under the above hypotheses, the matrix elements of Hq j
+for q → 0 writes                                                      electron-phonon interaction as
+                                                 1/2 q̂.p (q̂)                                 i 4π       1       1/2 q̂.p (q̂)
+                (1)          i 4π       1                 j                ggFr (q j, kn0 n) =
+                                                                                                                              j
+     hk0 , n0 |Hq j |k, ni =                                                                    q Ω0 2ω j0 (q̂)VBvK       ε (q̂)
+                                                                                                                            ∞
+                             q Ω0 2ω j0 (q̂)VBvK       ε ∞ (q̂)
+                         ×hk0 , n0 |k, niP ,                  (26)                             ×∑ sn0 m (k̂0 )(snm (k̂))∗ .                   (29)
+                                                                                                  m
+with Ω0 the primitive cell volume, VBvK the Born-von-Karman
+normalisation volume corresponding to the k and q samplings,          This expression depends on the directions k̂, k̂0 , and q̂, but not
+and the scalar product hk0 , n0 |k, niP is computed from the pe-      explicitly on their norm, except for the 1q factor.
+riodic part of the Bloch functions. Sums over k and                      We focus then on the denominators appearing in the self-
+                                                      R q of the      energy expression Eq. (8), evaluated at ω = εc , following
+type ∑q f (q)/VBvK are to be replaced by Ω0 /(2π)3 d 3 q f (q)
+in the macroscopic limit in what follows. We have used the            Eq. (9). Again we consider only the intraband terms, for bands
+notation ω j0 (q̂) for the q → 0 limit of the j-phonon branch         n0 degenerate with c in the q → 0 limit. These bands, similarly
+(ω j0 (q̂) = limq→0 ω j(qq̂) ), while the related mode-polarity       to the c state, are unoccupied, hence fk0 n0 = 0. Thus the nu-
+vectors p j (q̂), see Eq. (41) of Ref. 118, are defined from          merator of the second term in Eq. (8) vanishes. We find:
+the Born effective charges and the eigendisplacements of the                                                        q2
+phonon mode, summing over the atoms labelled by κ, and the                    lim (εc − εk0 n0 − ωq j ) = −                    − ω j0 (q̂).   (30)
+Cartesian direction of displacement α,
+                                                                              q→0                               2m∗n0 (k̂0 )
+                                   ∗
+               pγ, j (q̂) = lim ∑ Zκα,γ Uκα, j (qq̂).         (27)    See Refs. 117 and 59 for the detailed treatment of m∗n0 (k̂0 ), the
+                          q→0 κα                                      directional effective mass associated to one electronic band
+                                                                      among a set of degenerate bands at an extremum.
+Similarly, the optic dielectric constant along q̂ is obtained
+                                                                         Having clarified the electronic, phononic and electron-
+from the optic dielectric tensor by summing over wavevec-
+                                                                      phonon interaction ingredients, we can write the correspond-
+tor components, ε ∞ (q̂) = ∑αβ q̂α εαβ
+                                     ∞ q̂ , as in Eq. (56) of
+                                         β                            ing Hamiltonian, Eqs.(1)-(5) that indeed generalizes properly
+Ref. 58. The mode-polarity vector vanishes for all non-IR-            Eqs. (20-24).
+active modes. Thus naturally only the LO modes contribute to
+the ZPRgFr in this generalized Fröhlich approach (for acous-
+tic modes and TO modes, the mode-polarity vector vanishes).           C.   Lowest-order perturbation treatment
+Still, the directional dependency of the phonon frequencies,
+of the mode-polarity vectors, and of the dielectric constant, is
+                                                                        Given the Hamiltonian, the lowest-order perturbation ZPR
+correctly taken into account.
+                                                                      value can be inferred by integration over the radial q coordi-
+   We then restrict ourselves to the bands that are degener-
+                                                                      nate. One obtains for the conduction bands:
+ate with c, and choose a k̂-independent complete basis for
+these states at k0 = Γ, denoted |Γ, mi. We also define the k̂-                                   1                 |sn0 c (q̂)|2
+                                                                                                          Z
+                                                                                 ZPRgFr
+                                                                                    c =−                      d q̂ ∑
+dependent overlap between states m at Γ and states n along k̂                                   πΩ0     4π          2ω j0 (q̂)
+                                                                                                               jn0
+in the k → 0 limit:                                                                            q̂.p (q̂) 2  2m∗0 (q̂) 1/2 π
+                                                                                                      j                n
+                  snm (k̂) = lim hkk̂, n|Γ, miP .             (28)                        ×                                             .     (31)
+                             k→0
+                                                                                                 ε ∞ (q̂)         ω j0 (q̂)         2
+
+This definition supposes that the phase of the |kk̂, ni states           Let us denote by ndeg the degeneracy of the band edge.
+is chosen continuously as a function of k, for vanishing k            In the non-degenerate case (ndeg = 1), only n0 = c has to be
+along the k̂ direction. The phase can always be chosen to             considered, then obviously |sn0 c (q̂)| = 1 independently of q̂.
+be continuous, and this choice will have no bearing on the            Grouping terms adequately, we obtain
+results obtained later. Still, it does not imply any continuity                                    1
+                                                                                                       Z                  1/2
+hypothesis for the phase between states n for different k̂ di-                   ZPRgFr
+                                                                                    c = −∑ √                d q̂ m∗c (q̂)
+                                                                                            j     2Ω0 4π
+rections. The matrix snm (k̂) is unitary. Note that the |Γ, mi
+states are fixed before the k̂ direction is known. The coeffi-                                     −3/2  q̂.p j (q̂) 2
+                                                                                        × ω j0 (q̂)                       .                   (32)
+cients snm (k̂) can be computed from first principles following                                             ε ∞ (q̂)
+the perturbative treatment of Refs. 117 and 59, which is the
+                                                                      The link can then be established with Eq. (25) in case of
+first-principles equivalent of the k.p approach, restricted to the
+                                                                      isotropic effective mass, isotropic dielectric tensor, and single
+subspace spanned by the bands that connect to the degener-
+                                                      αβ              LO phonon branch.
+ate states. It delivers Luttinger-Kohn parameters D j j0 ,119 that       Let us further examine the degenerate case (ndeg > 1). We
+allows one to find snm (k̂) for all k̂. The Luttinger-Kohn pa-        suppose that the degeneracy is not accidental, but due to sym-
+rameters can also be determined from experimental measure-            metry reasons. In this case, we can exploit the symmetry to
+ments. The s matrices can be thought as being the adaptation          show that the computation |sn0 c (q̂)|2 can be avoided, as this
+                                                                                                                                            17
+
+factor can be replaced by 1/ndeg in the integral. We will                                                                           exp
+present the demonstration for the case of a three-fold degener-             TABLE S5. For thirty materials: fundamental gap (Eg ); loca-
+                                                                            tion and possible degeneracy of the band edges (valence/conduction)
+acy, that arises due to a cubic space group. This demonstration
+                                                                            from Ref.67 except for SrTiO3 ; first-principles renormalization of
+could be made general thanks to group theory.                               the band edges (valence band maximum ZPRv , conduction band min-
+   At the bottom of the conduction band, located at the k0                  imum ZPRc ) and of the band gap (ZPRg ); and ratio between ZPRg
+wavevector, but that for convenience we again choose to be Γ,               and Eg (Rg ). Methodology: “exp" for experimental results76 , “gFr"
+we set up a basis of three orthonormalized eigenfunctions, de-              for generalized Fröhlich model results, Eq. (37), and “AHC" for AHC
+noted {|Xi, |Y i, |Zi}, that form an irreducible representation             first-principles results (with correction Eq. (3).
+of the symmetry group. The eigenfunction |Γ, ci for which
+                       gFr                                                               EgEdge ZPRv ZPRv ZPRc ZPRc ZPRg    Rg
+we compute the ZPRg , can be decomposed in this basis, with                             exp v/c    gFr AHC gFr AHC AHC AHC
+coefficients (ucX , ucY , ucZ ):                                            Material     eV deg.  meV meV meV meV meV        %
+                                                                            Ge-dia     0.74 Γ/L      0   17   0 -16 -33 -4.5
+                |Γ, ci = ucX |Xi + ucY |Y i + ucZ |Zi.               (33)   Si-dia     1.17Γ(3)/     0   35   0 -21 -56 -4.8
+                                                                                          X*(X-Γ)
+The eigenfunctions |qq̂, n0 i over which the n0 sum and q̂ inte-            GaAs-zb 1.52 Γ(3)/Γ      3   19  -1    1 -18 -1.2
+gral are done in Eq. (31) can be decomposed as well in this                 CdTe-zb 1.61 Γ(3)/Γ     12   17  -4   -3 -20 -1.2
+basis:                                                                      AlSb-zb 1.69 Γ(3)/       4   24  -4 -27 -51 -3.0
+                                                                                          X*(X-Γ)
+        |qq̂, n0 i = sn0 X (q̂)|Xi + sn0Y (q̂)|Y i + sn0 Z (q̂)|Zi          CdSe-zb 1.85 Γ(3)/Γ     20   26  -6   -8 -34 -1.8
+                                                                     (34)   AlAs-zb 2.23 Γ(3)/X     12   39  -9 -35 -74 -3.3
+                                                                            GaP-zb   2.34 Γ(3)/      9   28  -7 -37 -65 2.8
+Thus Eq. (31) becomes                                                                     X*(X-Γ)
+                                                                            ZnTe-zb 2.39 Γ(3)/Γ     11   19  -4   -3 -22 -0.9
+            ZPRgFr
+               c =          ∑          ∑        u∗cm Tmm0 ucm0       (35)   SiC-zb   2.40 Γ(3)/X    59 112 -32 -67 -179 -7.5
+                        m∈{X,Y,Z} m0 ∈{X,Y,Z}                               CdS-zb   2.42 Γ(3)/Γ    39   44 -15 -26 -70 -2.9
+                                                                            AlP-zb   2.45 Γ(3)/X    21   54 -14 -39 -93 -3.8
+where                                                                       ZnSe-zb 2.82 Γ(3)/Γ     22   31  -8 -13 -44 -1.6
+                                                                            TiO2 -t  3.03   Γ/Γ    236 195 -135 -142 -337 -11.1
+                 1
+                    Z                                       1/2
+    Tmm0 = − ∑ √        d q̂sn0 m (q̂)s∗n0 m0 (q̂) m∗n0 (q̂)                SrTiO3   3.25 R(3) /   140 191 -115 -99 -290 -8.9
+             jn0 2Ω0 4π                                                                    Γ(3)82
+                                                                            GaN-w    3.20   Γ/Γ     80 101 -31 -88 -189 -5.9
+                              −3/2  q̂.p j (q̂) 2                        GaN-zb 3.29     Γ/Γ     77   85 -30 -91 -176 -5.3
+                     ω j0 (q̂)                          .        (36)
+                                           ε ∞ (q̂)                         ZnO-w    3.44   Γ/Γ    106 108 -38 -49 -157 -4.6
+                                                                            SnO2 -t  3.73   Γ/Γ    144 176 -47 -39 -215 -5.8
+The second-rank tensor Tmm0 does not depend on the state c.                 ZnS-zb   3.91   Γ/Γ     40   49 -19 -39 -88 -2.3
+                      gFr
+However the same ZPRc must be obtained from Eq. (35) for                    BaO-rs   4.80 X/X      225 189 -133 -82 -271 -5.6
+any symmetrically equivalent state c0 . Hence, the tensor Tmm0              SrO-rs   5.22 Γ(3)/X   229 214 -141 -112 -326 -6.2
+must be invariant under all the symmetry operations of the                  C-dia    5.48 Γ(3) /     0 134    0 -196 -330 -6.0
+group, which means                                                                        X*(X-Γ)
+                                                                            AlN-w    6.20   Γ/Γ    151 204 -80 -195 -399 -6.4
+                            Tmm0 = tδmm0 ,                           (37)   BN-zb    6.25 Γ(3)/X    94 201 -68 -205 -406 -6.5
+                                                                            CaO-rs   6.93 Γ(3)/X   223 211 -154 -130 -341 -4.9
+where δ is the Kronecker symbol. t can be evaluated thanks                  Li2 O    7.55 Γ(3)/X   364 347 -172 -226 -573 -7.6
+                                                                            MgO-rs 7.83 Γ(3)/Γ     327 317 -137 -207 -524 -6.7
+to the trace of Tmm0 ,
+                                                                            SiO2 -t  8.90   Γ/Γ    292 300 -167 -285 -585 -6.6
+                                                                 !          BeO-w 10.59 Γ(2)/Γ     289 369 -191 -330 -699 -6.6
+                         1
+                             Z
+                                                               ∗
+    ndeg · t =− ∑ √              d q̂      ∑ sn0 m (q̂)sn0 m (q̂)
+                jn0     2Ω0 4π          m∈{X,Y,Z}
+                        1/2           −3/2  q̂.p j (q̂) 2               D. Generalized Fröhlich model with parameters from
+               m∗n0 (q̂)      ω j0 (q̂)                       ,   (38)      first-principles calculations
+                                                ε ∞ (q̂)
+yielding
+                                                                               Table S5 presents the ZPR for the bottom of the conduction
+                              1
+                                          Z              1/2               band and the top of the valence band from the present first-
+           ZPRgFr
+              c = −∑ √                      d q̂ m∗n (q̂)                   principles calculations: either based on the AHC approach,
+                     jn     2Ω0 ndeg 4π
+                                                                            or from feeding the few relevant first-principles parameters in
+                             −3/2  q̂.p j (q̂) 2                         the generalized Fröhlich model. These data are used in Fig. 4.
+                  × ω j0 (q̂)                       ,                (39)
+                                      ε ∞ (q̂)                                 Table S6 presents the parameters computed from first prin-
+                                                                            ciples, fed in the (generalized) Fröhlich model, only for mate-
+since snm (k̂) is unitary. Similar equations can be derived for             rials with one phonon branch, with cubic symmetry and edges
+                                           gFr
+the top of the valence band, yielding ZPRv .                                with non-degenerate electronic state, though including both
+                                                                                                                                         18
+
+                                                                         resisted analytical treatments.
+TABLE S6. First-principles GGA-PBE parameters for the compu-
+tation of the ZPR of band edges using the (generalized) Fröhlich
+model. Only materials with one IR-active phonon branch, cubic
+space group, and non-degenerate band extremum (though possibly              One can consider the generalization of such Fröhlich
+anisotropic effective masses) are included in this table. For AlSb and   Hamiltonian to arbitrary electronic dispersion, phonon disper-
+GaP, the edge is located close to the X point, along the X-Γ line,       sion or electron-phonon interaction, as mentioned in the in-
+which is denoted X*.                                                     troduction of Ref. 41. However, one has a model for a real
+            edge    ε∞      ε0     ωLO   m∗xx    m∗zz    α ZPRgFr        material only if the parameters describing such dispersions
+ Material                        (meV)   m∗yy               (meV)        and such interaction are available. Ideally, there should be as
+ GaAs-zb c Γ 15.31 17.55 33.5 0.009 0.009 0.016                  -1
+                                                                         few parameters as possible if the goal is to extract the relevant
+ CdTe-zb c Γ   8.89 12.37 19.1 0.052 0.052 0.192                 -4      physics.
+ AlSb-zb c X* 12.02 13.35 39.8 0.222 1.142 0.090                 -4
+ CdSe-zb c Γ   7.83 11.78 23.6 0.051 0.051 0.233                 -6
+ AlAs-zb c X 9.49 11.51 47.3 0.243 0.897 0.184                   -9         In this respect, the Hamiltonian in Eqs. (1)-(5) is the proper
+ GaP-zb c X* 10.50 12.53 48.6 0.230 1.062 0.152                  -7      generalization of Eqs. (19)-(23) to all band extrema (degener-
+ ZnTe-zb c Γ   9.05 11.99 24.1 0.076 0.076 0.178                 -4      ate or not, isotropic or anisotropic) in all crystal types (cubic
+ SiC-zb c X 6.97 10.30 117.0 0.228 0.677 0.280                  -32      or not), because it can be parameterized with only a few num-
+ CdS-zb c Γ    6.21 10.24 34.4 0.118 0.118 0.432                -15      bers, and all such parameters can be found, in principle, from
+ AlP-zb c X 8.12 10.32 59.9 0.252 0.809 0.184                   -14      experiment, even if, in the present work, they were deduced
+ ZnSe-zb c Γ   7.35 10.73 29.3 0.089 0.089 0.276                 -8      from first principles.
+ GaN-zb c Γ    6.13 11.00 86.0 0.144 0.144 0.345                -30
+ ZnS-zb c Γ    5.97 9.40 40.6 0.167 0.167 0.458                 -19
+ BaO-rs v X 4.21 92.43 47.3 4.035 0.431 4.757                   225
+ BaO-rs c X 4.21 92.43 47.3 0.380 1.197 2.812                  -132
+                                                                            Indeed, the electronic part, Eq. (2), is fully determined if the
+ SrO-rs c X 3.77 20.91 55.4 0.407 1.225 2.545                  -141      so-called Luttinger-Kohn parameters119 are available. Taking
+ BN-zb c X 4.52 6.69 161.0 0.299 0.895 0.422                    -68      the example of the top of the valence band of a cubic ma-
+ CaO-rs c X 3.77 16.76 66.8 0.443 1.424 2.305                  -154      terial, with three-fold degeneracy, only three Luttinger-Kohn
+ Li2 O   c X 2.90 7.80 86.3 0.437 0.850 1.993                  -172      parameters, called A, B, and C in Ref. 119 are needed to obtain
+ MgO-rs c Γ    3.23 11.14 84.5 0.340 0.340 1.624               -137      the direction-dependent effective masses, m∗n (k̂), of the three
+                                                                         electronic bands, for all directions k. Similarly, the direction-
+                                                                         dependent phonon frequencies ω j0 (q̂) and their mode-polarity
+isotropic or anisotropic effective masses. The parameters for            vectors pγ, j (q̂) can be obtained from neutron and infra-red
+other materials will be reported elsewhere. Most of such edges           spectra measurements and parametrized with a few numbers.
+are found at the bottom of the conduction band, as most top of           For a cubic material with two atoms per unit cell, there is only
+valence bands are degenerate. The information in Table VI al-            one LO frequency, with mode-polarity vector directly deter-
+lows one to compute the Fröhlich α parameter for these edges,            mined from the LO-TO splitting. The optic dielectric constant
+ranging from 0.016 to 4.757. The lowest-order perturbation               along any direction q comes from the knowledge of a 3x3
+results are rather accurate in this range. A similar parameter           symmetric tensor, easily obtained by optical measurements.
+to measure the breakdown of the perturbation theory in the
+case of degenerate electronic states is still to be established to
+our knowledge.                                                              Conversely, in Ref. 52, by Verdi and Giustino, a model
+                                                                         for the electron-phonon interaction (or vertex) is proposed (at
+                                                                         variance with our model of the full Hamiltonian, with a sim-
+                                                                         plified vertex). It is used for a very different purpose. In this
+E. Generalized Fröhlich model with parameters from                       very nice study, Verdi and Giustino used the Fröhlich idea and
+experimental data                                                        the microscopic theory developed by Vogl51 to model the non-
+                                                                         analytic behaviour of the electron-phonon vertex in the q → 0
+   We discuss how a few-parameter Fröhlich Hamiltonian, of               limit. This approach was instrumental to make the electron-
+the type we have introduced, can be obtained from experimen-             phonon interaction amenable to Fourier interpolation in an at-
+tal data, thus constituting a few-parameter model of the ZPR             tempt to diminish the computational resources needed to cap-
+of real materials.                                                       ture the long-range behaviour of the scattering potentials and
+   In the Fröhlich model37,38,114,115 four parameters are                perform mobility calculations using Wannier functions. How-
+needed: the LO phonon frequency ωLO , the electronic di-                 ever, their work does not propose a ZPR model or Fröhlich
+electric constant ε ∞ , the low-frequency dielectric constant ε 0 ,      Hamiltonian per se. Indeed, the electronic dispersion in Verdi
+and the effective mass m∗ . These four parameters combine                and Giustino is the full first-principles dispersion in the entire
+to give the α parameter mentioned in Eq. (24). The Fröh-                 Brillouin Zone and similarly for the phonon dispersion, unlike
+lich Hamiltonian can be expressed in the natural units of elec-          the one of the original Fröhlich approach (one parameter for
+tronic effective mass and phonon frequency, to make appear               each of these dispersions), and the present one, which relies on
+α as the single parameter defining the Fröhlich Hamiltonian              few parameters, the number of which depends on the crystal
+114,116 . Despite its simplicity, this Fröhlich Hamiltonian has          type and symmetries, and on the Luttinger-Kohn parameters.
+                                                                                                                                        19
+
+V. ZERO-POINT RENORMALIZATION IN THE ASC                                 text, the lack of such correlation has important consequences
+APPROACH.                                                                for the predictive capability of the method.
+                                                                            As another consequence of the time-dependent atomic mo-
+A.   ASC Formalism and relation with the AHC                             tion, the nonquadratic behaviour, present in the adiabatic treat-
+                                                                         ment, looses its importance. The behaviour observed for de-
+   In the adiabatic supercell approach, the temperature-                 generate electronic state, in the adiabatic approximation, ex-
+dependent average band edges (here written for the bottom                emplified by Fig. 1 of Ref. 35 might nevertheless still be rele-
+of the conduction band) are obtained from                                vant in the context of the Jahn-Teller effect. Anyhow, the tran-
+                                                                         sition between states, due to the first-order electron-phonon
+             hεc (T )i = ZI−1 ∑ exp(−β Em )hεc im ,               (40)   interaction, always involves a modification of the energy by
+                              m                                          the emission or absorption of a phonon. Hence, the corre-
+                                                                         sponding initial and final energies are not identical.
+where β = kB T (with kB the Boltzmann constant), T the tem-
+perature, ZI the canonical partition function among the quan-
+tum nuclear states m with energies Em (ZI = ∑m exp(−β Em )),             B.   The non-quadratic effect for IR-inactive materials
+and hεc im the band edge average taken over the correspond-
+ing many-body nuclear wavefunction. See e.g. Eq. (4) of
+Ref. 120.                                                                   Coming back to the C-diamond case, the “anharmonic ef-
+   Such approach allows one to perform nonperturbative cal-              fect" in the adiabatic approximation is argued to be large in
+culations, and thus includes effects beyond the adiabatic AHC            the above-mentioned Sec.III of Ref. 23, that some of us co-
+approach, as emphasized in Sec.XI.A.2 of Ref. 36. It also                authored. At present, we call it more properly “non-quadratic
+allows one to use as starting point the GW eigenenergies, in-            effect” following Ref. 33. However, this study was performed
+stead of the DFT ones, as proposed and used by some of us30 ,            within the adiabatic approximation. In the case of infrared ac-
+and further exploited by Monserrat105 and Karsai et al.35 .              tive materials, without such “non-quadratic effects”, the ZPR
+   As detailed in Ref. 23, and illustrated in Fig. 4 of this refer-      is infinite in the adiabatic approximation. The non-quadratic
+ence, one can dissociate the harmonic approximation for the              effects succeed to bring the adiabatic ZPR to a finite value, i.e.
+nuclear positions from the (non)quadratic behaviour of the               it has “infinite” impact. For C, without such “non-quadratic
+eigenenergies as a function of the nuclear positions. While              effects”, the ZPR is finite in the adiabatic approximation, but
+phonon anharmonicities can be safely ignored for most of                 nevertheless comes from the integration of a diverging inte-
+the materials in the present context (except SrTiO3 , see the            grand. Then the non-quadratic effects modify the adiabatic
+METHODS section of the main text, the (non)quadratic be-                 harmonic value by 40% by suppressing this diverging inte-
+haviour might very important in the ASC formalism. Within                grand. Still, despite yielding a finite value, the adiabatic ap-
+the harmonic approximation, one finds Eq. (19) of Ref. 23:               proximation is incorrect to start with: if atomic motion effects
+                                                                         are taken into account (and they should be taken into account
+                                                                         from the very start, since the physics is the one of electrons
+                                        Z
+     hεc (T )i = ZI−1 ∑ exp(−β E[n])        dz|χn (z)|2 εc (z).          not being able to follow the atomic motions), there is no di-
+                       n
+                                                                         verging integrand that the non-quadratic effects would reduce
+                                                                  (41)
+                                                                         afterwards. Thus, the crucial role of atom dynamics cannot be
+In this equation, z denotes the ensemble of all phonon coordi-           ignored even in diamond. We actually think that the estima-
+nate amplitudes, while n denotes the ensemble of all phonon              tion of non-quadratic effects in our publication Ref. 23 or in
+occupation numbers. As such, this expression does not di-                Ref. 33 cannot be transposed to the non-adiabatic treatment,
+verge for IR-active materials, thanks to the sampling over co-           even for the case of C. The non-quadratic effects in Ref. 23 or
+ordinate amplitudes and the εc (z) asymptotic linear behaviour,          Ref. 33 remove a non-existing divergence, either global (IR-
+see Fig. 4 of Ref. 23 or Fig. 2 of Ref. 33. By contrast,                 active materials), or integrable (non-IR-active materials), spu-
+making the quadratic approximation for the εc (z) yields the             riously introduced by the adiabatic approximation.
+AHC result for the Fan term, and hence, a divergence: the cur-
+vature becomes indeed infinite for IR-active longwavelength
+phonons. An extreme nonquadratic behavior is also observed               C.   GW approximation within the ASC: discussion
+in the degenerate case, as illustrated in Fig. 1 of Ref. 35. The
+connection with the adiabatic AHC result has been analyzed                   In such calculation of the ZPR of diamond, Ref. 30, we
+in detail in Ref. 21.                                                    have obtained a 40% change of direct gap ZPR when the quan-
+   However, obviously, Eq. (40) as well as Eq. (41) are based            tities needed in the ASC approach were obtained from GW
+on the adiabatic approximation: the quantum nuclear state is             instead of DFT. This effect appears to be comparable to the
+not responding to the presence of an added or removed elec-              difference between AHC and experimental values reported in
+tron. Instead, Eq. (40) should have reflected such dependence            the present manuscript, while (as for the non-quadratic effect)
+to be correct. The correlation between electron and nuclei is            C is an IR-inactive material.
+not present in Eq. (40): the electron is affected by the phonons,            In Ref. 35, a similar change was reproduced for the direct
+but the phonons are incorrectly not affected by the addition of          gap, but the change for the indirect (true) gap of diamond was
+an electron. For IR-active materials, as explained in the main           much smaller, about 23%. For the other materials studied
+                                                                                                                                                             20
+
+in Ref. 35, using the ASC approach, the ratio between GW                         13 C. Kim, P. Lautenschlager,      and M. Cardona, “Temperature dependence
+and DFT, systematically obtained, was usually closer to unity,                      of the fundamental energy gap in GaAs,” Solid state communications 59,
+but not always. One can wonder whether such difference be-                          797–802 (1986).
+                                                                                 14 S. Zollner, S. Gopalan, and M. Cardona, “The temperature dependence
+tween GW and DFT would not also be obtained within the                              of the band gaps in InP, InAs, InSb, and GaSb,” Sol. State Comm. 77,
+non-adiabatic AHC approach.                                                         485–488 (1991).
+                                                                                 15 A. Marini, “Ab-initio finite temperature excitons,” Phys. Rev. Lett. 101,
+   The estimation of such an effect within the non-adiabatic
+treatment is at present out of reach. Actually, as already ar-                      106405 (2008).
+                                                                                 16 F. Giustino, S. Louie, and M. Cohen, “Electron-phonon renormalization
+gued in the previous sections, one can hardly justify transpos-                     of the direct band gap of diamond,” Phys. Rev. Lett. 105, 265501 (2010).
+ing the conclusions obtained in the ASC approach to the non-                     17 E. Cannuccia and A. Marini, “Effect of the quantum zero-point atomic
+adiabatic AHC approach, because the ASC approach relies on                          motion on the optical and electronic properties of diamond and trans-
+the non-quadratic coupling to eliminate the divergence of the                       polyacetylene,” Phys. Rev. Lett. 107, 255501 (2011).
+                                                                                 18 X. Gonze, P. Boulanger, and M. Côté, “Theoretical approaches to the tem-
+ZPR, while for most materials, we believe such elimination to
+                                                                                    perature and zero-point motion effects on the electronic band structure,”
+originate from the coupled dynamics of electron and phonons.                        Annalen der Physik (Leipzig) 523, 168–178 (2011).
+In view of the agreement obtained in Fig. 2 for non-adiabatic                    19 E. Cannuccia and A. Marini, “Zero point motion effect on the electronic
+
+AHC+DFT, we can simply infer that the DFT to GW effect is                           properties of diamond, trans-polyacetylene and polyethylene,” Eur. Phys.
+apparently smaller in the non-adiabatic AHC case than in the                        J. B 85, 320 (2012).
+                                                                                 20 H. Kawai, K. Yamashita, E. Cannuccia, and A. Marini, “Electron-electron
+ASC case.
+                                                                                    and electron-phonon correlation effects on the finite-temperature elec-
+   Also, let us emphasize that such a DFT to GW effect can                          tronic and optical properties of zinc-blende GaN,” Phys. Rev. B 89, 085202
+hardly equal the non-adiabatic effect reported in the present                       (2014).
+                                                                                 21 S. Poncé et al., “Verification of first-principles codes: Comparison of total
+manuscript. Indeed, for IR-active materials, such effect sup-
+presses an infinity and replaces it by a finite value, which                        energies, phonon frequencies, electron–phonon coupling and zero-point
+                                                                                    motion correction to the gap between ABINIT and QE/Yambo,” Comp.
+is far more important than a 40% modification. Even if the                          Mat. Sci. 83, 341–348 (2014).
+non-quadratic effect is taken into account, Fig. 2 shows that                    22 S. Poncé et al., “Temperature dependence of electronic eigenenergies in
+
+the difference between ASC and AHC is not merely 40% for                            the adiabatic harmonic approximation,” Phys. Rev. B 90, 214304 (2014).
+                                                                                 23 G. Antonius et al., “Dynamical and anharmonic effects on the electron-
+many materials, but can be as large as a factor of 2 or 3.
+                                                                                    phonon coupling and the zero-point renormalization of the electronic
+   So, we do not deny that other effects, like GW, could be im-
+                                                                                    structure,” Phys. Rev. B 92, 085137 (2015).
+portant at the level of the 25% agreement that we show in Fig.                   24 S. Poncé et al., “Temperature dependence of the electronic structure of
+2. However, the non-adiabatic effect is not simply a 25% mod-                       semiconductors and insulators,” J. Chem. Phys. 143, 102813 (2015).
+                                                                                 25 J. Nery et al., “Quasiparticles and phonon satellites in spectral functions
+ification, it reduces a divergent quantity (possibly integrable)
+to a finite value.                                                                  of semiconductors and insulators: Cumulants applied to the full first-
+                                                                                    principles theory and the Fröhlich polaron,” Phys. Rev. B 97, 115145
+                                                                                    (2018).
+                                                                                 26 For more references, see the Supporting Information, Sec. II.D. Note also
+
+REFERENCES                                                                          that not all mentioned references present computations of equal quality. In
+                                                                                    particular, the difficult sampling of the Brillouin Zone for AHC has rarely
+                                                                                    been tackled correctly before 2015. Similarly the supercell size conver-
+ 1 P. Y. Yu and M. Cardona, Fundamentals of semiconductors. 4th edition
+                                                                                    gence for ASC is also a concern.
+                                                                                 27 R. B. Capaz, C. D. Spataru, P. Tangney, M. L. Cohen, and S. G. Louie,
+  (Springer-Verlag, Berlin, 2010).                                                  “Temperature dependence of the band gap of semiconducting carbon nan-
+ 2 R. M. Martin, Electronic Structure: Basic Theory and Methods (Cambrige
+                                                                                    otubes,” Phys. Rev. Lett. 94, 036801 (2005).
+  University Press, Cambridge, 2004).                                            28 C. E. Patrick and F. Giustino, “Quantum nuclear dynamics in the photo-
+ 3 J. P. Perdew and M. Levy, “Physical content of the exact Kohn-Sham or-
+                                                                                    physics of diamondoids,” Nature Communications 4, 2006 (2013).
+   bital energies: Band gaps and derivative discontinuities,” Phys. Rev. Lett.   29 B. Monserrat, N. Drummond, and R. Needs, “Anharmonic vibrational
+   51, 1884–1887 (1983).                                                            properties in periodic systems: energy, electron-phonon coupling, and
+ 4 L. J. Sham and M. Schlüter, “Density-functional theory of the energy gap,”
+                                                                                    stress,” Phys. Rev. B 87, 144302 (2013).
+   Phys. Rev. Lett. 51, 1888–1891 (1983).                                        30 G. Antonius, S. Poncé, P. Boulanger, M. Côté, and X. Gonze, “Many-body
+ 5 R. Martin, L. Reining, and D. Ceperley, Interacting Electrons. Theory
+                                                                                    effects on the zero-point renormalization of the band structure,” Phys. Rev.
+   and Computational Approaches (Cambrige University Press, Cambridge,              Lett. 112, 215501 (2014).
+   2016).                                                                        31 B. Monserrat, N. Drummond, C. Pickard, and R. Needs, “Electron-phonon
+ 6 M. S. Hybertsen and S. G. Louie, “Electron correlation in semiconductors
+                                                                                    Coupling and the metallization of solid helium at terapascal pressures,”
+   and insulators: Band gaps and quasiparticle energies,” Phys. Rev. B 34,          Phys. Rev. Lett. 112, 055504 (2014).
+   5390–5413 (1986).                                                             32 B. Monserrat and R. Needs, “Comparing electron-phonon coupling
+ 7 M. van Schilfgaarde, T. Kotani, and S. Faleev, “Quasiparticle self-
+                                                                                    strength in diamond, silicon, and silicon carbide: First-principles study,”
+   consistent GW theory,” Phys. Rev. Lett. 96, 226402 (2006).                       Phys. Rev. B 89, 214304 (2014).
+ 8 M. Shishkin, M. Marsman, and G. Kresse, “Accurate quasiparticle spectra
+                                                                                 33 B. Monserrat, E. Engel, and R. Needs, “Giant electron-phonon interac-
+   from self-consistent GW calculations with vertex corrections,” Phys. Rev.        tions in molecular crystals and the importance of nonquadratic coupling,”
+   Lett. 99, 246403 (2007).                                                         Phys. Rev. B 92, 140302(R) (2015).
+ 9 P. B. Allen and V. Heine, “Theory of the temperature dependence of elec-
+                                                                                 34 E. A. Engel, B. Monserrat, and R. J. Needs, “Vibrational renormalisation
+   tronic band structures,” J. Phys. C 9, 2305–2312 (1976).                         of the electronic band gap in hexagonal and cubic ice,” J. Chem. Phys. 143,
+10 P. B. Allen and M. Cardona, “Theory of the temperature dependence of the
+                                                                                    244708 (2015).
+   direct gap of germanium,” Phys. Rev. B 23, 1495–1505 (1981).                  35 F. Karsai, M. Engel, G. Kresse, and E. Flage-Larsen, “Electron–phonon
+11 H. Y. Fan, “Temperature dependence of the energy gap in semiconductors,”
+                                                                                    coupling in semiconductors within the GW approximation,” New Journal
+   Phys. Rev. 82, 900–905 (1951).                                                   of Physics 20, 123008 (2018).
+12 E. Antoncik, “On the theory of temperature shift of the absorption curve in
+                                                                                 36 F. Giustino, “Electron-phonon interactions from first principles,” Rev.
+   non-polar crystals,” Cechoslovackij Fiziceskij Zurnal 5, 449–461 (1955).
+                                                                                                                                                             21
+
+  Mod. Phys. 89, 015003 (2017).                                                      of solids,” Phys. Rev. B 87, 104111 (2013).
+37 H. Fröhlich, “Electrons in lattice fields,” Adv. Phys. 3, 325–361 (1954).      65 T. Tadano, Y. Gohda,      and S. Tsuneyuki, “Anharmonic force constants
+38 R. P. Feynman, “Slow electrons in a polar crystal,” Phys. Rev. 97, 660–665        extracted from first-principles molecular dynamics: applications to heat
+  (1955).                                                                            transfer simulations,” J. Phys. Condens. Matter 26, 225402 (2014).
+39 A. Mishchenko, N. Prokof’ev, A. Sakamoto, and B. Svistunov, “Diagram-          66 W. H. Sio, C. Verdi, S. Poncé, and F. Giustino, “Polarons from first prin-
+
+   matic quantum Monte Carlo study of the Fröhlich polaron,” Phys. Rev. B            ciples, without supercells,” Phys. Rev. Lett. 122, 246403 (2019).
+   62, 6317–6336 (2000).                                                          67 K.    Persson et al., “Materials project,”                  (2018), URL
+40 A. S. Mishchenko, N. Nagaosa, N. Prokof’ev, A. Sakamoto, and B. Svis-             https://materialsproject.org.
+   tunov, “Optical conductivity of the Fröhlich polaron,” Phys. Rev. Lett. 91,    68 M. Shishkin and G. Kresse, “Self-consistent GW calculations for semicon-
+
+   236401 (2003).                                                                    ductors and insulators,” Phys. Rev. B 75, 235102 (2007).
+41 J. Devreese and A. Alexandrov, “Fröhlich polaron and bipolaron: recent         69 We refer to Fig. 8 in the Supplementary Material of Ref. 24 for AlN-w
+
+   developments,” Rep. Prog. Phys. 72, 066501 (2009).                                (note that in the figure caption, the unextrapolated values are mentioned),
+42 D. Emin, Polarons (Cambrige University Press, Cambridge, 2012).                   and to Fig. 15 in the Supplementary Material of Ref. 24 for BN-c (note that
+43 T. Hahn, S. Klimin, J. Tempere, J. T. Devreese, and C. Franchini, “Dia-           in the figure caption, the extrapolated values are mentioned). In these cap-
+   grammatic Monte Carlo study of Fröhlich polaron dispersion in two and             tions, there are errors concerning the name of the material corresponding
+   three dimensions,” Phys. Rev. B 97, 134305 (2018).                                to each figure.
+44 KS-DFT ASC Calculations in Ref. 35 are based on GGA-PBE, except                70 H. Monkhorst and J. Pack, “Special points for Brillouin-zone integrations,”
+
+   for Si, Ge, GaAs and CdSe, where the PBE0 hybrid functional has been              Phys. Rev. B 13, 5188–5192 (1976).
+   used. Thus the better score of Ge and GaAs for ASC calculations than           71 J. P. Nery and P. B. Allen, “Influence of Fröhlich polaron coupling on
+
+   for AHC calculations might be partly explained by this different KS-DFT           renormalized electron bands in polar semiconductors: Results for zinc-
+   functional.                                                                       blende GaN,” Phys. Rev. B 94, 115135 (2016).
+45 T. Rangel et al., “Reproducibility in G W calculations for solids,” Com-       72 F. W. Lytle, “X-Ray Diffractometry of Low-Temperature Phase Transfor-
+                                             0 0
+   put. Phys. Commun. 255, 107242 (2020).                                            mations in Strontium Titanate,” J. Appl. Phys. 35, 2212–2215 (1964).
+46 M. Cardona and M. Thewalt, “Isotope effects on the optical spectra of          73 M. Zacharias, M. Scheffler, and C. Carbogno, “Fully anharmonic, non-
+
+   semiconductors,” Rev. Mod. Phys. 77, 1173–1224 (2005).                            perturbative theory of vibronically renormalized electronic band struc-
+47 G. D. Mahan, “Temperature dependence of the band gap in CdTe,” J. Phys.           tures,” arXiv: cond-mat.mtrl-sci 2003, 10417 (2020).
+   Chem. Solids 26, 751–756 (1965).                                               74 R. Pässler, “Dispersion-related description of temperature dependencies of
+48 H.-R. Trebin and U. Rössler, “Polarons in the degenerate-band case,” Phys.        band gaps in semiconductors,” Phys. Rev. B 66, 085201 (2002).
+   Status Solidi B 70, 717–726 (1975).                                            75 R. Pässler, “Semi-empirical descriptions of temperature dependences of
+49 J. T. Devreese, S. N. Klimin, J. L. M. van Mechelen, and D. van der Marel,        band gaps in semiconductors,” Phys. Status Solidi B 3, 710–728 (2003).
+   “Many-body large polaron optical conductivity in SrTi(1−x) Nbx O3 ,” Phys.     76 Experimental gaps come from Refs. [68], [46], [85], [82], [20], [121], and
+
+   Rev. B 81, 125119 (2010).                                                         [122].
+50 M. Schlipf, S. Poncé, and F. Giustino, “Carrier lifetimes and polaronic        77 C. Parks, A. K. Ramdas, S. Rodriguez, K. M. Itoh, and E. E. Hailer, “Elec-
+
+   mass enhancement in the hybrid halide perovskite CH3 NH3 PbI3 from mul-           tronic band structure of isotopically pure germanium: Modulated transmis-
+   tiphonon Fröhlich coupling,” Phys. Rev. Lett. 121, 086402 (2018).                 sion and reflectivity study,” Phys. Rev. B 49, 14244–14250 (1994).
+51 P. Vogl, “Microscopic theory of electron-phonon interaction in insulators      78 D. Karaiskaj, M. Thewalt, T. Ruf, M. Cardona, and M. Konuma, “Photo-
+
+   or semiconductors,” Phys. Rev. B 13, 694–704 (1976).                              luminescence studies of isotopically enriched silicon: isotopic effects on
+52 C. Verdi and F. Giustino, “Fröhlich electron-phonon vertex from first prin-       the indirect electronic band gap and phonon energies,” Solid State Com-
+   ciples,” Phys. Rev. Lett. 115, 176401 (2015).                                     munications 123, 87–92 (2002).
+53 X. Gonze et al., “Recent developments in the ABINIT software package,”         79 J. M. Zhang, T. Ruf, R. Lauck, and M. Cardona, “Isotope effects on exci-
+
+   Comput. Phys. Commun. 205, 106–131 (2016).                                        ton energies in CdS,” Phys. Rev. B 57, 9716–9722 (1998).
+54 J. P. Perdew, K. Burke, and M. Ernzerhof, “Generalized gradient approxi-       80 F. Manjon, M. Mollar, B. Mari, N. Garro, A. Cantarero, R. Lauck, and
+
+   mation made simple,” Phys. Rev. Lett. 77, 3865–3868 (1996).                       M. Cardona, “Effect of isotopic mass on the photoluminescence spectra of
+55 M. van Setten et al., “The pseudodojo: Training and grading a 85 element          β zinc sulfide,” Solid State Communications 133, 253–258 (2005).
+   optimized norm-conserving pseudopotential table,” Comput. Phys. Com-           81 A. T. Collins, S. C. Lawson, G. Davies, and H. Kanda, “Indirect energy
+
+   mun. 226, 39–54 (2018).                                                           gap of 13C diamond,” Phys. Rev. Lett. 65, 891–894 (1990).
+56 B. Montanari and N. M. Harrison, “Lattice dynamics of TiO rutile: in-          82 A. Benrekia, N. Benkhettou, A. Nassour, M. Driz, M. Sahnoun, and
+                                                                    2
+   fluence of gradient corrections in density functional calculations,” Chem.        S. Lebegue, “Structural, electronic and optical properties of cubic SrTiO3
+   Phys. Lett. 364, 528–534 (2002).                                                  and KTaO3 : Ab initio and GW calculations,” Physica B 407, 2632–2636
+57 S. Baroni, S. de Gironcoli, A. D. Corso, and P. Giannozzi, “Phonons               (2012).
+   and related crystal properties from density-functional perturbation theory,”   83 D. J. Kok, K. Irmscher, M. Naumann, C. Guguschev, Z. Galazka, and
+
+   Rev. Mod. Phys. 73, 515–562 (2001).                                               R. Uecker, “Temperature-dependent optical absorption of SrTiO3 ,” Phys.
+58 X. Gonze and C. Lee, “Dynamical matrices, Born effective charges, di-             Stat. Sol. (a) 212, 1880–1887 (2015).
+   electric permittivity tensors, and interatomic force constants from density-   84 F. Manjon, M. Mollar, M. Hernandez-Fenollosa, B. Mari, R. Lauck, and
+
+   functional perturbation theory,” Phys. Rev. B 55, 10355–10368 (1997).             M. Cardona, “Effect of isotopic mass on the photoluminescence spectra of
+59 J. Laflamme Janssen et al., “Precise effective masses from density func-          zinc oxide,” Sol. State Comm. 128, 35–39 (2003).
+   tional perturbation theory,” Phys. Rev. B 93, 205147 (2016).                   85 M. J. van Setten, M. Giantomassi, X. Gonze, G.-M. Rignanese, and
+60 M. Guennou, P. Bouvier, J. Kreisel,           and D. Machon, “Pressure-           G. Hautier, “Automation methodologies and large-scale validation for
+   temperature phase diagram of SrTiO3 up to 53 GPa,” Phys. Rev. B 81,               GW: Towards high-throughput GW calculations,” Phys. Rev. B 96, 155207
+   054115 (2010).                                                                    (2017).
+61 T. Tadano and S. Tsuneyuki, “Self-consistent phonon calculations of lat-       86 R. Pässler, “Parameter sets due to fittings of the temperature dependencies
+
+   tice dynamical properties in cubic SrTiO3 with first-principles anharmonic        of fundamental bandgaps in semiconductors,” Phys. Status Solidi B 216,
+   force constants,” Phys. Rev. B 92, 054301 (2015).                                 975–1007 (1999).
+62 K. A. Müller and H. Burkard, “SrTiO : An intrinsic quantum paraelectric        87 N. Garro, A. Cantarero, M. Cardona, A. Göbel, T. Ruf, and K. Eberl,
+                                           3
+   below 4 K,” Phys. Rev. B 19, 3593–3602 (1979).                                    “Dependence of the lattice parameters and the energy gap of zinc-blende-
+63 W. Zhong and D. Vanderbilt, “Effect of quantum fluctuations on structural         type semiconductors on isotopic masses,” Phys. Rev. B 54, 4732–4740
+   phase transitions in SrTiO3 and BaTiO3 ,” Phys. Rev. B 53, 5047–5050              (1996).
+   (1996).                                                                        88 C. Villegas, A. Rocha, and A. Marini, “Anomalous thermal dependence
+64 O. Hellman, P. Steneteg, I. A. Abrikosov, and S. I. Simak, “Temperature           of the band gap in black phosphorus,” Nanoletters 16, 5095 (2016).
+   dependent effective potential method for accurate free energy calculations     89 G. M. Rignanese, J. P. Michenaud, and X. Gonze, “Ab initio study of
+                                                                                                                                                                  22
+
+    the volume dependence of dynamical and thermodynamical properties of            106 M.   Zacharias and F. Giustino, “One-shot calculation of temperature-
+    silicon,” Phys. Rev. B 53, 4488–4497 (1996).                                        dependent optical spectra and phonon-induced band-gap renormalization,”
+ 90 P. Carrier, R. Wentzcovitch, and J. Tsuchiya, “First-principles prediction          Phys. Rev. B 94, 075125 (2016).
+    of crystal structures at high temperatures using the quasiharmonic approx-      107 B. Monserrat, “Electron-phonon coupling from finite differences,” J. Phys.
+
+    imation,” Phys. Rev. B 76, 064116 (2007).                                           Condens. Matter 30, 083001 (2018).
+ 91 M. Friedrich, A. Riefer, S. Sanna, W. Schmidt, and A. Schindlmayr,              108 I. Bravic and B. Monserrat, “Finite temperature optoelectronic properties
+
+    “Phonon dispersion and zero-point renormalization of LiNbO3 from                    of bas from first principles,” Phys. Rev. Materials 3, 065402 (2019).
+    density-functional perturbation theory,” J. Phys. Condens. Matter 27,           109 M. Engel, M. Marsman, C. Franchini, , and G. Kresse, “Electron-phonon
+
+    385402 (2015).                                                                      interactions using the projector augmented-wave method and wannier
+ 92 W. Saidi, S. Poncé, and B. Monserrat, “Temperature dependence of the                functions,” Phys. Rev. B 101, 184302 (2020).
+    energy levels of methylammonium lead iodide perovskite from first prin-         110 S. Botti and M. A. L. Marques, “Strong renormalization of the electronic
+
+    ciples,” J. Phys. Chem Lett. 7, 5247 (2016).                                        band gap due to lattice polarization in the GW formalism,” Phys. Rev. Lett.
+ 93 A. Molina-Sanchez, M. Palummo, A. Marini, and L. Wirtz, “Temperature-               110, 226404 (2013).
+    dependent excitonic effects in the optical properties of single-layer MoS2 ,”   111 W. R. L. Lambrecht, C. Bhandari, and M. van Schilfgaarde, “Lattice po-
+
+    Phys. Rev. B 93, 155435 (2016).                                                     larization effects on the screened coulomb interaction W of the GW ap-
+ 94 G. Antonius and S. G. Louie, “Temperature-induced topological phase                 proximation,” Phys. Rev. Mat. 1, 043802 (2017).
+    transitions: Promoted versus suppressed nontrivial topology,” Phys. Rev.        112 C. Bhandari, M. van Schilgaarde, T. Kotani, and W. R. L. Lambrecht,
+
+    Lett. 117, 246401 (2016).                                                           “All-electron quasi-particle self-consistent GW band structures for SrTiO3
+ 95 C. E. P. Villegas, A. R. Rocha, and A. Marini, “Electron-phonon scattering          including lattice polarization corrections in different phases,” Phys. Rev.
+    effects on electronic and optical properties of orthorhombic GeS,” Phys.            Mat. 2, 013807 (2018).
+    Rev. B 94, 134306 (2016).                                                       113 Y. Zhang, Z. Wang, J. Xi,          and J. Yang, “Temperature-dependent
+ 96 V. Ziaei and T. Bredow, “Dynamical electron-phonon coupling, GW self-
+                                                                                        band gaps in several semiconductors: from the role of electron-
+    consistency, and vertex effect on the electronic band gap of ice and liquid         phonon renormalization,” J. Phys. Condens. Matt. YYYY, in press,
+    water,” Phys. Rev. B 95, 235105 (2017).                                             https://doi.org/10.1088/1361–648X/aba45d (2020).
+ 97 R. Tutchton, C. Marchbanks, and Z. Wu, “Structural impact on the                114 H. Fröhlich, H. Pelzer, and S. Zienau, “Properties of slow electrons in
+    eigenenergy renormalization for carbon and silicon allotropes and boron             polar materials,” Phil. Mag. 41, 221–242 (1950).
+    nitride polymorphs,” Phys. Rev. B 97, 205104 (2018).                            115 H. Fröhlich, “Interaction of electrons with lattice vibrations,” Proc. R. Soc.
+ 98 J. Cao, J. D. Querales-Flores, S. Fahy, and I. Savic, “Thermally induced
+                                                                                        Lond. A 215, 291–298 (1952).
+    band gap increase and high thermoelectric figure of merit of n-type pbte,”      116 G. D. Mahan, Many-Particle Physics (Kluwer, New York, 2000).
+    arXiv: cond-mat.mtrl-sci 1906, 05322 (2019).                                    117 N. Mecholsky, L. Resca, I. Pegg, and M. Fornari, “Theory of band warping
+ 99 J. Querales-Flores, J. Cao, S. Fahy, and I. Savic, “Temperature effects on
+                                                                                        and its effects on thermoelectronic transport properties,” Phys. Rev. B 89,
+    the electronic band structure of pbte from first principles,” Phys. Rev. Mat.       155131 (2014).
+    3, 055405 (2019).                                                               118 M. Veithen, X. Gonze, and P. Ghosez, “Nonlinear optical susceptibilities,
+100 J. D. Querales-Flores, P. Aguado-Puente, Ðord̄e Dangić, J. Cao,
+                                                                                        raman efficiencies, and electro-optic tensors from first-principles density
+    P. Chudzinski, T. N. Todorov, and M. Grüć1, “Towards temperature-                  functional perturbation theory,” Phys. Rev. B 71, 125107 (2005).
+    induced topological phase transition in snte: A first principles study,”        119 J. M. Luttinger and W. Kohn, “Motion of electrons and holes in perturbed
+    arXiv: cond-mat.mtrl-sci 2004, 11959 (2020).                                        periodic fields,” Phys. Rev. 97, 869–883 (1955).
+101 J.-M. Lihm and C.-H. Park, “Phonon-induced renormalization of electron          120 B. Monserrat, “Vibrational averages along thermal lines,” Phys. Rev. B 93,
+    wave functions,” Phys. Rev. B 101, 121102 (2020).                                   014302 (2016).
+102 P. Han and G. Bester, “Large nuclear zero-point motion effect in semicon-       121 X. Yang, Y. Wang, H. Yan, and Y. Chen, “Effects of epitaxial strains on
+    ductor nanoclusters,” Phys. Rev. B 88, 165311 (2013).                               spontaneous polarizations and band gaps of alkaline-earth-metal oxides
+103 C. E. Patrick, K. W. Jacobsen, and K. S. Thygesen, “Anharmonic stabi-
+                                                                                        MO (M = Mg, Ca, Sr, Ba),” Computational Materials Science 121, 61–66
+    lization and band gap renormalization in the perovskite CsSnI3 ,” arXiv:            (2016).
+    cond-mat.mtrl-sci , 6152 (2015).                                                122 H. Singh, M. Singh, S. Kumar, and M. K. Kashyap, “Full potential calcu-
+104 M. Zacharias, C. E. Patrick, and F. Giustino, “Stochastic approach to
+                                                                                        lation of electronic properties of rutile RO2 (R=Si, Ge, Sn and Pb) com-
+    phonon-assisted optical absorption,” Phys. Rev. Lett. 115, 177401 (2015).           pounds via modified Becke Johnson potential,” Physica B 406, 3825–3830
+105 B. Monserrat, “Correlation effects on electron-phonon coupling in semi-
+                                                                                        (2011).
+    conductors: Many-body theory along thermal lines,” Phys. Rev. B 93,
+    100301(R) (2016).
+

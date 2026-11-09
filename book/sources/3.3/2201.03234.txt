@@ -1,0 +1,1488 @@
+                                                     Invariant expansion of the 30-band k·p model and its parameters for III-V compounds
+
+                                                                               Krzysztof Gawarecki,1, ∗ Paweł Scharoch,2 Michał Wiśniewski,3 Jakub
+                                                                           Ziembicki,2 Herbert S. Mączko,2 Marta Gładysiewicz,3 and Robert Kudrawiec2
+                                                                           1
+                                                                           Department of Theoretical Physics, Wrocław University of Science and Technology,
+                                                                                        Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland
+                                                                2
+                                                                  Department of Semiconductor Materials Engineering, Wrocław University of Science and Technology,
+                                                                                        Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland
+                                                                        3
+                                                                          Department of Experimental Physics, Wrocław University of Science and Technology,
+                                                                                        Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland
+arXiv:2201.03234v1 [cond-mat.mes-hall] 10 Jan 2022
+
+
+
+
+                                                                     In this work we derive a ready-to-use symmetry invariant expansion of the full-zone 30-band k·p
+                                                                  Hamiltonian for the Td point group. In order to find respective parameters, the band structures of
+                                                                  III-V materials were calculated within a state-of-the-art Density Functional Theory (DFT) approach
+                                                                  and used next as targets to adjust the k·p bands. A satisfactory agreement of the k·p model with
+                                                                  the DFT band structures, for all the tested zinc blende III-V semiconductors, has been achieved.
+                                                                  Values of many of the parameters have not been known so far. We also compare the fitted k · p
+                                                                  parameters with the values calculated using momentum matrix elements obtained directly from the
+                                                                  DFT.
+
+
+                                                                      I.       INTRODUCTION                          band model, giving a full access to the first conduction
+                                                                                                                     band with a satisfactory accuracy [25, 26]. However, it
+                                                        Zinc blende III-V semiconductors are key materials in        fails in description of the second conduction band, espe-
+                                                     modern optoelectronic devices including light emitting          cially the 2nd L valley. The 24-band model is an extension
+                                                     diodes (LED) and laser diodes (LDs) [1–3]. The active           of the 20-band model aiming at correcting the descrip-
+                                                     part of the current LEDs and LDs are usually quantum            tion of the valence bands and the two lowest conduction
+                                                     wells (QW) or quantum dots (QD). Their size and con-            bands [27]. However, it still fails to finely reproduce the
+                                                     tent can be controlled precisely while growing with the         2nd L valley and introduces a great number of parame-
+                                                     use of the molecular beam epitaxy or the organometallic         ters. These two models do not contain d levels explicitly,
+                                                     chemical vapor deposition methods [4–7]. A proper de-           which are essential for fine description of the two first
+                                                     sign of the structures in terms of the size and the content     conduction bands across the entire BZ. The 30-band k·p
+                                                     allows for an effective optimization of desired devices.        model typically allows for such an accurate description
+                                                     For this purpose accurate band structure computations           [9, 28], and with a smaller number of parameters than in
+                                                     within efficient approaches are needed. A widely used           the 20- or 24-band models. The 30-band model is self-
+                                                     class of the theoretical methods involves multiband k ·p        contained, which means it does not include additional
+                                                     models with the envelope function approximation [8–16].         bands via perturbations. For this reason, this model is
+                                                     However, some of their parameters are not well estab-           much easier to use than other high-number-band mod-
+                                                     lished for all the III-V semiconductors, especially when        els. Therefore, this model is chosen in our work for a
+                                                     high-number-band k·p models are considered.                     description of all currently important III-V semiconduc-
+                                                        An accurate description of the first conduction bands        tor compounds. In contrast to simple k·p models, a lot of
+                                                     across the entire Brillouin Zone (BZ) is of fundamen-           the parameters entering the high-number-band models
+                                                     tal importance for quantitatively correct description of        are not directly accessible experimentally, so their de-
+                                                     carrier transport phenomena [17], direct and indirect ab-       termination is performed on the basis of fitting to band
+                                                     sorption calculations [18], optical gain calculations [19],     structures obtained within the state-of-the-art ab initio
+                                                     etc. Therefore k ·p models able to finely describe bands        approaches. Also, schemes of obtaining the k ·p param-
+                                                     relevant for devices operation, with a complete set of          eters directly from the DFT calculations have been pro-
+                                                     material parameters, are desired. Furthermore, some of          posed [29].
+                                                     III-V semiconductor compounds that are not completely              Currently, the best known methods of determining the
+                                                     parametrized (such as boron pnictides) gained much at-          band structure are based on Density Functional Theory
+                                                     tention recently in the field of optoelectronic devices [20–    (DFT), either directly from Kohn-Sham equations with
+                                                     23].                                                            specially designed exchange-correlation (XC) potentials
+                                                        There are three popular high-number-band k·p models          or within post-DFT methods (e.g. GW), in which Kohn-
+                                                     constructed with an aim to give an access to conduction         Sham solutions form a starting point [30]. However, the
+                                                     bands across the entire BZ: 20-, 24-, and 30-band model.        DFT methods are usually computationally heavy, and
+                                                     The 20-band model [24] is a direct extension of the 14-         the results, like the wave functions, are given in big data
+                                                                                                                     files which are inconvenient for using in standard pro-
+                                                                                                                     grams for electronic devices modeling, many of which
+                                                                                                                     had been created before ab initio methods were known.
+                                                     ∗ Krzysztof.Gawarecki@pwr.edu.pl
+                                                                                                                     Therefore, the modeling usually exploits the k·p method
+                                                                                                                       2
+
+in approximations sufficient to represent the electronic      of the Hamiltonian and matrices including a detailed de-
+structure in required range of the BZ, and the DFT meth-      scription of derivation. Appendix B describes the reduc-
+ods are applied to benchmark the approximations and           tion from the 30-band k ·p to models with fewer bands.
+provide the required parameters.                              In Appendix C, the calculations related to the interband
+   The multiband k · p models contain a number of pa-         momentum matrix elements are presented. Finally, the
+rameters, whose values depend on atoms forming a given        complete set of the plotted band structures is given in
+material. However, a general structure of a k · p model       the attached Supplementary Material [41].
+(including a non-zero pattern of its matrix elements) is
+determined by the symmetry. This universality is clearly
+visible in the theory of invariants, which allows to ex-                     II.   THE 30 k·p MODEL
+press the Hamiltonian by terms strictly connected to ir-
+reducible representations of a group describing the crys-        In the approach of 30-band k · p applied to materials
+tal symmetry [31–33]. Comparing to a straightforward          of the diamond structure (the Oh point group), the only
+formulation, where the Hamiltonian is written as a sin-       non-vanishing interband momentum matrix elements are
+gle matrix (which is less practical for the k · p models      between the basis states of the different parity with re-
+exceeding 8 bands), the invariant expansion offers more       spect to the inversion [9]. In the case of the zinc blende
+compact formulas with a clear structure connected to the      atomic structure, the inversion symmetry is broken [42]
+symmetry. Also, due to well defined multiplication rela-      and number of additional parameters have to be in-
+tions between sub-matrices forming blocks of the Hamil-       troduced to the model [9]. However, their impact on
+tonian, it is much more convenient (compared to the           the main spectral properties is usually weaker compared
+explicit-matrix formulation) to use perturbation tech-        to the parameters non-vanishing for the diamond struc-
+niques (the Löwdin partitioning) [33–35]. Invariant ex-      ture [38]. On the other hand, the bulk inversion asym-
+pansions for the eight- and fourteen-band k·p models for      metry is important for spin-related properties (which is
+the Td point group were derived decades ago and well          manifested via the Dresselhaus coupling) [43]. Since such
+established [32, 33, 36–38]. Recently, in Ref. [39] au-       effects in many applications are considered only in the
+thors used symmetry considerations to describe a way          vicinity of the Γ point, near the fundamental band gap,
+to construct any k·p model for any symmetry, and they         we keep the parameters related to the inversion asymme-
+give a very large database containing representation ma-      try in the part of the Hamiltonian corresponding to the
+trices (4 857 832 matrix blocks). However, its applica-       14-band k·p model [37, 38] and neglect them otherwise [9]
+tion is not straightforward. In consequence, although the     (except to one additional parameter in the valence band)
+properties of arbitrary-size models for the Td point group    .
+are known [39, 40], no convenient ready-to-use invariant-        The basis used in the considered model contains 30
+based formulation has been provided for the 30-band           states which can be grouped according to the irreducible
+model so far.                                                 representations (Γ6 , Γ8 or Γ7 ) of the Td point group [9].
+   In this paper, we derive an explicit form of the Hamil-    Then, the Hamiltonian H can be decomposed into the
+tonian given in terms of the symmetry invariants. We          blocks
+also offer the parameters for a wide class of the III-V
+semiconductor materials found using the DFT (ab initio)                      Hnαn0 α0 = hΓnα |H|Γn0 α0 i ,           (1)
+reference electronic structures. The 30-band k ·p model       where |Γnα i are pseudospinors with n = 6, 7, 8 denoting
+used here is usually sufficient to represent the electronic   the representation and α =“w”, “v”, “c”, “u”, “t”, “d”,
+bands in the full BZ which is often necessary to prop-        “q” labeling the band set. Size of matrices corresponding
+erly describe the properties connected with the indirect      to each block are determined by dim Γn × dim Γn0 [38].
+electronic transitions. Finally, in the case of GaAs, we      Such blocks within the theory of invariants can be further
+compare the fitted parameters to the values extracted         expressed as combinations of irreducible tensor compo-
+directly from momentum matrix elements calculated in          nents [38, 40, 42].
+the DFT approach. We show a very good agreement for             The block-diagonal parts of the Hamiltonian can be
+most of the parameters.                                       written as
+   The paper is organized as follows. In Sec. II, we de-
+                                                                                            2
+                                                                                                
+scribe the 30-band k·p model and its invariant expansion.                           e6α + ~ k 2 I2 ,
+                                                                       H6α6α = E
+In Sec. III, we present the DFT approach. Sec. IV is de-                                 2m0
+voted to the parameters related to interband momentum                             
+                                                                                         1e         ~2 2
+                                                                                                          
+matrix elements, which are further obtained directly from              H8α8α = E8α + ∆αα +
+                                                                                    e                  k I4 ,
+                                                                                         3         2m0
+the DFT calculations. In Sec. V we briefly describe the
+                                                                                                    ~2 2
+                                                                                                         
+k·p to DFT fitting procedure. In Sec. VI, we present ex-                                 2e
+                                                                       H7α7α = E7α − ∆αα +
+                                                                                    e                  k I2 ,
+amples of the k·p vs DFT band structures and the values                                  3         2m0
+of evaluated k·p parameters. In Sec. VII, we present an
+exemplary application of the model. Sec. VIII contains a      where In is the n-th size identity matrix, Eemα are bare
+summary. In Appendix A, one can find an explicit form         energies at k = 0 without the spin-orbit coupling, and m0
+                                                                                                                           3
+
+is the free electron mass. Finally, the diagonal corrections
+                                                                TABLE I. List of nonzero parameters, taken into account in
+due to the spin-orbit coupling are introduced via the pa-
+                                                                the fitting procedure. We assume E8v = E5v + (1/3)∆v = 0
+rameters ∆  e αα . As the energies E  emα do not contain the
+                                                                as the reference energy (the top of the valence band).
+spin-orbit part, it is convenient to label them using the
+single-group notation [9] (with the representations Γ1 , Γ5     parameters    blocks                  abbrev.   note
+and Γ3 ), where E  e6α = E1α and E     e8α = E
+                                             e7α = E5α (ex-     Pcv           H6c8v , H6c7v           P0
+cept α =“t”, where E    e8t = E3t ). The off-diagonal blocks    Pcd           H6c8d , H6c7d           P1
+of the Hamiltonian can be written in a general form             Pqv           H6q8v , H6q7v           P2
+                                                                Pqd           H6q8d , H6q7d           P3
+                  √
+       H6α8β = 3Pαβ (Tx kx + c.p.),                             Puc           H6u8c , H6u7c           P4
+                                                                Pwc           H6w8c , H6w7c           P5
+                     1                                          Pcc           H6c8c , H6c7c           P00       inv. asymm.
+       H6α7β = − √ Pαβ (σx kx + c.p.),
+                      3                                         Pwv           H6w8v , H6w7v           P10       inv. asymm.
+                    2                                           Qcv           H8c8v , H8c7v , H7c8v   Q0
+       H8α8β = − Qαβ ({Jy , Jz }kx + c.p.)                      Qdc           H8d8c , H8d7c , H7d8c   Q1
+                    3
+                    √                                           Rtv           H8t8v , H8t7v           R0
+                                               1e
+                  − 30Rαβ (Dx kx + c.p.) + ∆      αβ I4 ,       Rtd           H8t8d , H8t7d           R1
+                                               3                ∆
+                                                                e vv          H7v7v , H8v8v           ∆v
+                              †
+       H8α7β = −2Qαβ (Tyz       kx + c.p.)                      ∆
+                                                                e cc          H7c7c , H8c8c           ∆c
+                    √
+                  + 6Rαβ (Tx† kx + c.p.),                       ∆             H7d7d , H8d8d           ∆d
+                                                                e dd
+                                                                ∆
+                                                                e cv          H7c7v , H8c8v           ∆−        inv. asymm.
+                    2e
+       H7α7β = − ∆      αβ I2 ,
+                    3
+where Pαβ , Qαβ , and Rαβ are parameters related to
+                                                                the results may be further improved by fitting band gaps
+the interband momentum matrix elements, {A, B} =
+                                                                to the experimental ones with the µ screening parame-
+(AB + BA)/2, Ti are 2 × 4 matrices connecting different
+                                                                ter [47]. For all the materials considered in this work
+blocks, Ji are 4 × 4 matrices related to the total angular
+                                                                (except BSb, as in this case, the experimental band gap
+momentum, Tij = Ti Jj + Tj Ji , and Di are 4 × 4 matrices.
+                                                                is unknown) the value of the µ parameter was rescaled to
+While we took the Ti , Ji , and Tij from the literature [32],
+                                                                yield experimental band gaps [48–53]. The calculations
+we derived the Di matrices from the Wigner-Eckart the-
+                                                                of band structures were made with VASP code and PAW
+orem. The remaining blocks can be calculated from the
+                                     †                          method [54, 55]. The Brillouin zone was sampled with
+hermitian conjugates Hnαmβ = Hmβnα        . The calculation     the 11x11x11 grid and the energy cutoff was set to 600
+details, explicit definitions of the basis functions, matri-    eV.
+ces, and a ready-to-use form of the Hamiltonian are given          The lattice parameters were optimized with the use of
+in Appendix A. The invariant expansions of the Hamilto-         ABINIT [56] package together with the PAW method [57]
+nian blocks, except to the ones involving “8t”, have the        and the Wu and Cohen GGA functional [58]. In Ref. [59],
+well known structure of the 14-band k ·p model [32, 38]         the authors showed that this functional yields very accu-
+with the same matrices Ti , Ji , Tij ; yet more parameters      rate lattice constants for this group of materials. Our
+Pαβ , Qαβ are needed.                                           calculations confirm this. The mean absolute deviation
+   In this work, to model the properties of the III-V mate-     of their values with respect to experiment is about 0.3 %.
+rials, we keep the nonzero parameters enlisted in Table I.      In VASP, this particular functional is not implemented.
+As they impact on the bands of interest is expected to
+be rather subtle, we neglected off-diagonal spin-orbital
+parameters, except to ∆− .
+                                                                    IV. EXTRACTING THE k·p MODEL
+                                                                  PARAMETERS DIRECTLY FROM THE DFT
+                                                                           CALCULATIONS
+         III.   THE AB INITIO APPROACH
+
+                                                                   The parameters that enter the 30-band k·p Hamiltonian
+  The main purpose of the DFT calculations in this work
+was to obtain high quality band structures which are            can be divided into three classes: the energies E   emα , the
+                                                                spin-orbit coupling parameters ∆   e αβ , and the Pαβ , Qαβ ,
+needed as a reference to adjust the 30-band k ·p model.
+The method commonly regarded as the best one to repre-          Rαβ which are related to interband momentum matrix
+sent the band structure is the DFT-based GW approach            elements. The E   emα and the diagonal ∆    e αα are directly
+[44, 45]. However, in this work, we decided to use the          read from the DFT band energies at the Γ point (which
+HSE hybrid functional [46] which is known to provide,           is an approximation, because the band energies at this
+at a relatively low computational cost, an accurate de-         point are also affected by the off-diagonal ∆  e αβ [60]). As
+scription of electronic bands, as opposed to the standard       the k · p basis is finite, the parameters related to inter-
+LDA and GGA schemes, where the well known band gap              band momentum matrix elements need to be rescaled
+problem is exhibited. Moreover, in the hybrid functional,       to obtain a better agreement to the target data. The
+                                                                                                                           4
+
+30-band k ·p contains a relatively large number of basis        cases of the band order, among which the most common
+states, hence one can expect that bare Pαβ , Qαβ , Rαβ ,        is the one represented by GaAs.
+calculated from the momentum matrix elements within                Fitting procedures similar to the one described above
+the DFT approach, could give a reasonable approxima-            have already been used by other authors, e.g. [61, 62],
+tion (or at least an initial value for further fitting).        although there are some differences. In the cited works,
+   While the parameters, which are given in the further         a lower number of bands has been included in the k · p
+part of the paper comes from the fitting, in the case           (6 and 8) which allowed to apply a partly analytic form
+of GaAs we also extract them directly from the DFT,             (the secular equation) and which caused the necessity of
+and compare the values obtained in both methods. The            testing the values of the parameters as a function of the
+VASP code contains a procedure, allowing to get the             range of k taken into account. We expect a good match
+momentum matrix elements. With this, we calculate               in the whole BZ for the 30-band k · p, according to our
+(pi )nm = hΨn |p̂i |Ψm i for the states |Ψl i at the Γ point.   previous experience, and thus, the k-points range testing
+To obtain the values of Pαβ , Qαβ , and Rαβ , one needs         was not necessary and the points have been chosen arbi-
+to extract the matrix elements between the basis states         trarily. Also, a purely numerical diagonalization of the
+forming |Ψl i. This, however, requires a caution due to         k · p Hamiltonian has been applied for the fitting. We
+degeneracies and complex phases. A detailed description         note that the fitting procedure, as well as the calculations
+of the applied procedure is presented in the Appendix C.        described in the previous section, do not give reliable in-
+                                                                formation about the signs of the parameters that enter
+                                                                the off-diagonal Hamiltonian blocks. Therefore, there is
+    V.    FITTING THE 30 BAND k·p MODEL                         a some uncertainty about the signs of Pi , Pi0 Qi , Ri and
+                 PARAMETERS                                     ∆− , which is a drawback of our sets of parameters. We
+                                                                chose the most likely signs of the parameters not van-
+  The procedure of finding the 30 band k · p parameters,        ishing at the inversion symmetry by inspecting the wave
+by adjusting the k·p band structure to the DFT reference        functions obtained from the DFT. However, due to the
+one, has been described in details in Ref. [19]. A central      uncertainty, we advise a caution in interpolation of the
+point of this procedure is a minimization of the objective      parameters for alloys.
+function S, defined as:
+
+              v                                                          VI.   RESULTS AND DISCUSSION
+              u
+              u1 X N
+                                        2
+            S=t       (EDFT,i − Ek·p,i ) ,               (2)
+                N i=1                                              We begin the presentation and discussion of the results
+                                                                from GaAs, which is a well known III-V semiconductor.
+where EDFT,i are energies of the DFT bands in a number          The k · p parameters for this compound can be easily
+of points in the BZ. In this work 45 points in along high       found in the literature [48, 61, 63–67]. However, most of
+symmetry lines X − Γ − L in the BZ have been chosen.            the available parameters correspond to the 8 band k · p
+The number of points is higher than in Ref. [19] because        model, derived from experiment (e.g. Ref. [64]), from
+of the lower crystal symmetry (zinc blende vs diamond).         a fitting to known band structures (e.g. Ref. [61]), or
+The Ek·p,i are the corresponding energies of the fitted k·p     based on an extended literature review [48, 63]. In this
+band structure. The summation runs over the k points in         work we present the parameters for the 30 band k · p
+the BZ and over the bands, thus i is a compound index.          model, whose advantage is an adequate representation of
+The function, after minimization, is also a measure of          band structure in the whole BZ, as it has been shown in
+the accuracy of the fit, with zero representing a perfect       Ref. [19].
+match. The method of steepest descent has been used                Figure 2 shows the GaAs band structures, the 30-band
+to find a minimum, which was previously shown to work           k · p one together with the DFT one used as a refer-
+very well for diamond structure materials [19]. The diag-       ence to find the k ·p parameters. As it can be seen, the
+onal E emα and ∆e αα parameters are taken from the Γ-point      agreement is very satisfactory, particularly in 6 highest
+energies [19], while the off-diagonal ∆− is fitted together     valence bands and 8 lowest conduction bands. This is a
+with the other parameters. This procedure is a kind of          sufficient representation to model semiconductor devices,
+approximation, because the energies at the Γ point are          like LEDs, lasers, or solar cells. The respective parame-
+already affected by the off-diagonal ∆− term [60].              ters are given in the appropriate table later in the article.
+   It should be pointed out that, in the fitting procedure,        The GaAs can be treated as a kind of a central com-
+a proper assignment of the Ek·p bands to the DFT ones           pound among the III-V systems. In this work, we have
+is crucial. As it is a known fact, the order of bands,          calculated the k · p parameters for sixteen III-V semi-
+classified by group representations, is not the same in         conductor binary compounds, but we consider six com-
+all compounds. The identification of the bands in the Γ         pounds related to GaAs in order to have a look at the
+point has been done with use of DFT tools (like projec-         chemical trends, namely GaX and Y As, where Y and
+tion of states on atomic orbitals, etc.), and the results are   X stand for the group III and V elements, respectively.
+shown in Fig.1. It can be seen that there are 7 different       The respective graphs are shown in Fig. 3. The over-
+                                                                                                                                          5
+
+                                 A               B                C             D              E           F             G
+                                     |Γ6q⟩           |Γ6q⟩             |Γ6q⟩         |Γ6q⟩         |Γ6q⟩         |Γ6q⟩         |Γ6q⟩
+                                     |Γ8d⟩           |Γ8d⟩             |Γ7d⟩         |Γ6u⟩         |Γ8d⟩         |Γ8t⟩         |Γ8t⟩
+                                     |Γ7d⟩           |Γ7d⟩             |Γ8d⟩                       |Γ7d⟩                       |Γ7d⟩
+                                                                                     |Γ8d⟩                       |Γ6u⟩
+                                     |Γ8t⟩           |Γ8t⟩             |Γ8t⟩                       |Γ6u⟩         |Γ7d⟩         |Γ8d⟩
+                                                                                     |Γ7d⟩
+                                     |Γ6u⟩           |Γ6u⟩             |Γ6u⟩         |Γ8t⟩         |Γ8t⟩         |Γ8d⟩         |Γ6u⟩
+                                     |Γ8c⟩           |Γ6c⟩             |Γ8c⟩         |Γ8c⟩         |Γ8c⟩         |Γ8c⟩         |Γ8c⟩
+                         E
+
+
+                                     |Γ7c⟩           |Γ8c⟩             |Γ6c⟩         |Γ7c⟩         |Γ7c⟩         |Γ7c⟩         |Γ7c⟩
+                                     |Γ6c⟩           |Γ7c⟩             |Γ7c⟩         |Γ6c⟩         |Γ6c⟩         |Γ6c⟩         |Γ6c⟩
+                         0           |Γ8v⟩           |Γ8v⟩             |Γ8v⟩         |Γ8v⟩         |Γ8v⟩         |Γ8v⟩         |Γ8v⟩
+                                     |Γ7v⟩           |Γ7v⟩             |Γ7v⟩         |Γ7v⟩         |Γ7v⟩         |Γ7v⟩         |Γ7v⟩
+                                     |Γ6v⟩           |Γ6v⟩             |Γ6v⟩         |Γ6v⟩         |Γ6v⟩         |Γ6v⟩         |Γ6v⟩
+                             AlSb, GaAs,                                                                   InN           GaN
+                             GaSb, AlAs      BN, BP,             BSb           AlN           AlP
+                             GaP, InAs,      BAs
+                             InSb, InP
+
+
+
+
+FIG. 1. (Color online) Schematic band alignments at the Γ point, for various III-V semiconductor compounds. The color
+indicates the dominant contribution from the atomic orbitals: red is the s-type, green is the p-type, and black denotes the
+d-type. We assume the energy E = 0 at the top of the valence band. The gray box indicates the fundamental energy gap.
+
+
+                                                                                 reconstructed using the 30-band k · p model.
+                                                       DFT                          The values of the k·p parameters for the sixteen III-V
+                    15                                 k p                       semiconductor compounds are listed in Tabs. II-V. They
+                                                                                 can be directly used for physical phenomena analysis or
+                    10                                                           in device modeling. As demonstrated in Appendix B,
+                                                                                 they could be also used for derivation of the standard
+      Energy (eV)
+
+
+
+
+                     5                                                           parameters (the effective masses, the Luttinger parame-
+                                                                                 ters, etc.) for fewer-band models describing the vicinity
+                                                                                 of the Γ point. However, it should be recalled that our
+                     0
+                                                                                 parameters are optimized for the full BZ rather than for
+                                                                                 any specific k point. Therefore, more accurate parame-
+                    5                                                            ters for the models with smaller number of bands could
+                                        GaAs                                     be obtained by a fitting in a narrower part of the BZ.
+                    10                                                              The chemical trends in the k · p parameters can be
+                                                                                 observed in Figs. 4(a-f), where the GaX and Y As val-
+                    15                                                           ues of the energies (a,b), the spin-orbit coupling param-
+                     L                                       X                   eters (c,d), and the parameters related to momentum
+                             Wavevector                                          matrix elements (e,f) are visualised. The GaX (Y As)
+                                                                                 compounds are ordered with respect to the atomic num-
+FIG. 2. Comparison of the DFT and the k·p band structures                        ber of X (Y ). In many cases the behavior of parameters
+for GaAs.                                                                        is monotonic and the variation is rather weak, but the
+                                                                                 chemical trends are clearly seen. For the energy param-
+                                                                                 eters (a,b), it should be recalled that according to the
+all view confirms the conclusion related to GaAs: the                            applied convention the ab initio reference (zero) energy
+agreement between the DFT and the 30-band k · p band                             level is the top of the valence band.
+structures is good, particularly in the regions significant                         In Figs. 4(a,b), the X and Y element dependent values
+for the device modeling. The indirect gap is very well                           of the energy parameters can be seen. Since the E8v is set
+reproduced for GaP in GaX as well as for BAs and AlAs                            to zero as the reference energy, the parameter E5v is fixed
+in Y As. This proves the reliability of the applied proce-                       to −∆v /3, which, in the energy scale of this plot, varies
+dure. For the remaining nine compounds (the figures are                          weakly with the atomic number. The behavior of the
+in the attached Supplementary Material [41]), the elec-                          other parameters is rather systematic. Most of the con-
+tronic structure obtained by the DFT method is also well                         duction band energies decrease with the atomic number
+                                                                                                                                                                               6
+
+
+                30                DFT                         DFT                                                              (a)                             (b)       E5v
+                                  k p       20                k p                                     20                                20                               E1c
+                                            15                                                                                                                           E5c
+
+
+
+
+                                                                           Energy (eV)
+                20
+                                                                                                                                                                         E1u
+                                            10                                                        10                                10
+  Energy (eV)
+
+
+                                                                                                                                                                         E1w
+                10                           5                                                                                                                           E3t
+                                                                                                       0                                 0                               E5d
+                                             0
+                 0                                                                                                                                                       E1q
+                                            5
+                          GaN                         BAs                                             10                                10
+                10                          10
+
+                                            15
+                                                                                                                              (c)                              (d)       Im
+                 L                      X    L                      X
+                                                                                                      0.6                               0.6                               v
+
+                                                                                                                                                                          c
+
+
+
+
+                                                                         Energy (eV)
+                                  DFT                         DFT                                                                                                         d
+                                            15                                                        0.4                               0.4
+                15                k p                         k p
+
+
+                10                          10                                                        0.2                               0.2
+  Energy (eV)
+
+
+
+
+                 5                           5
+                                                                                                      0.0                               0.0
+                 0                           0
+                                                                                                      0.2                               0.2
+                                                                                                                                                                         P0
+                5                           5
+                          GaP                         AlAs                                                                     (e)                             (f)       Q0
+
+
+
+
+                                                                             Parameter value (eV Å)
+                10                                                                                                                                                       R0
+                                            10                                                        10                                10
+                                                                                                                                                                         P2
+                15                          15                                                                                                                           P1
+                 L                      X    L                      X
+                                                                                                       5                                 5                               Q1
+                                                                                                                                                                         R1
+                                  DFT       15                DFT                                                                                                        P3
+                                  k p                         k p                                      0                                 0                               P4
+                10
+                                            10                                                                                                                           P5
+                                                                                                                                                                         ImP'0
+                 5                                                                                     5                                 5
+  Energy (eV)
+
+
+
+
+                                             5                                                                                                                           ImP'1
+
+                                                                                                           N      P      As        Sb       s      s      As         s
+                 0                           0                                                          Ga     Ga     Ga        Ga        BA    AlA    Ga       InA
+
+                5                           5
+                          GaSb                        InAs              FIG. 4. Parameters for: GaX compounds (a,c,e) and Y As
+                10                          10                          compounds (b,d,f).
+
+                 L                      X    L                      X
+                     Wavevector                  Wavevector
+                                                                        two compounds), which in turn can be attributed to the
+FIG. 3. Comparison of the DFT and the k·p band structures               increasing spin-orbit interaction in the Y element, whose
+for GaX (left) and Y As (right) materials.                              orbitals contribute more to the conduction band. On
+                                                                        the other hand, the increase of ∆v is much weaker (as
+                                                                        compared to the GaX dependence). The increase of the
+(of both X and Y element). However, there are some ex-                  absolute value of ∆− from GaP to GaSb [Fig.4(c)] and
+ceptions, e.g. the E5c level in the Y As dependence, where              its decrease from AlAs to InAs [Fig.4(d)] is consistent
+it is almost constant or slightly increasing. The lowest                with the trends of the results in Ref. [70].
+valence band level E1w increases, except to a slight de-                   Finally, in Fig. 4(e,f), one can see the results for the
+crease when changing from GaP to GaAs [Fig. 4(a)] and                   parameters related to momentum matrix elements. An
+from AlAs to GaAs [Fig. 4(b)].                                          interesting observation is that their values, except for
+   In Figs.4(c,d), the spin-orbit interaction parameters                few cases, vary rather weakly. In this case, however, it
+are shown. According to the adopted phase convention                    is rather difficult to find a universal key explaining this
+the ∆− is purely imaginary. For the X element depen-                    behavior.
+                                                                                                                            0
+dence [Fig.4(c)], the values of ∆c , ∆d do not change                      In Table. VI, we compare the values of P0...5 , P0,1 , Q0,1 ,
+much (except the difference between GaN and GaP for                     R0,1 parameters for GaAs, calculated from the fitting
+∆c ). The strongest dependence is for the valence band                  and extracted directly from the DFT (as described in
+parameter ∆v . It increases with the atomic number of                   Sec. IV and in Appendix C). We neglect the spin-orbit
+X and achieves the highest value of 0.731 eV for GaSb.                  coupling in the determination of the DFT momentum
+These values (∆v ) are in a good agreement with early                   matrix elements. Most of the fitted parameters are in
+predictions of Ref. [68]. Although, in the hydrogenic ap-               a good agreement with the direct DFT approach. This
+proximation, the spin-orbit interaction scales with the                 shows that the effect of remote (not included in our k ·
+atomic number as ∝ Z 4 , it is known that this depen-                   p model) bands is relatively weak. The differences get
+dence is strongly suppressed by a screening [69]. In the                larger only for smaller parameters, like P1 and P00 .
+case of Y As [Fig.4(d)], one can observe a spectacularly                   There are also some, although limited, reference data
+increasing value of the ∆c parameter (except for the first              in the literature. A comparison of the parameters eval-
+                                                                                                                        7
+
+
+          TABLE II. Parameters for BX materials                        TABLE III. Parameters for AlX materials
+                BN         BP          BAs          BSb                       AlN        AlP          AlAs        AlSb
+Eg (eV)         6.595      1.913       1.571        1.113     Eg (eV)         5.257      2.534        2.251       1.634
+E1w (eV)      −22.252    −17.203     −16.942      −15.215     E1w (eV)      −16.463    −12.827      −13.218     −11.971
+E5v (eV)       −0.008     −0.015      −0.075       −0.121     E5v (eV)       −0.007     −0.022       −0.108      −0.218
+E1c (eV)       12.881      8.815       5.635        3.532     E1c (eV)        6.167      4.406        2.982       2.177
+E5c (eV)       11.220      4.321       3.868        3.603     E5c (eV)       14.906      5.748        5.297       3.717
+E1u (eV)       27.510     12.640      10.369        9.009     E1u (eV)       23.482     11.598       10.012       7.243
+E3t (eV)       30.500     13.451      13.772       11.793     E3t (eV)       20.288     10.299       10.258       8.514
+E5d (eV)       31.067     17.082      15.290       12.239     E5d (eV)       21.650     13.704       12.682      10.303
+E1q (eV)       38.314     22.766      19.791       16.132     E1q (eV)       28.545     17.451       15.954      13.266
+∆v (eV)         0.024      0.046       0.226        0.362     ∆v (eV)         0.022      0.066        0.323       0.653
+∆c (eV)         0.009      0.048       0.214        0.559     ∆c (eV)         0.051      0.029        0.038       0.060
+∆d (eV)         0.003      0.004       0.006       −0.004     ∆d (eV)         0.007      0.011        0.032       0.038
+∆− (eV)        −0.076i     0.058i     −0.204i       0.428i    ∆− (eV)         0.002i    −0.015i      −0.116i     −0.257i
+P0 (eV Å)      6.873      9.307       9.336        8.541     P0 (eV Å)      8.231      8.571        8.871       8.750
+P1 (eV Å)     −3.211     −1.730      −2.074       −1.942     P1 (eV Å)     −1.866     −0.285        0.224       0.237
+P2 (eV Å)      8.888      1.311       2.840        4.732     P2 (eV Å)      2.632      2.512        2.336       1.781
+P3 (eV Å)     −6.343     12.586      11.276        9.429     P3 (eV Å)     10.376      8.338        7.598       8.336
+P4 (eV Å)     11.513      9.663       9.006        8.818     P4 (eV Å)     11.197      9.346        8.805       7.602
+P5 (eV Å)      2.846      2.085       2.245        2.055     P5 (eV Å)      1.465      1.884        1.563       2.108
+Q0 (eV Å)     11.277      9.128       8.892        8.714     Q0 (eV Å)     10.036      8.078        8.068       7.518
+Q1 (eV Å)     −8.968     −6.551      −6.481       −5.649     Q1 (eV Å)     −7.351     −4.649       −4.372      −4.338
+R0 (eV Å)      7.209      5.044       5.229        4.886     R0 (eV Å)      5.355      3.998        4.037       3.898
+R1 (eV Å)     10.538      7.333       6.850        6.043     R1 (eV Å)      7.820      6.395        6.331       5.637
+P00 (eV Å)     3.226i    −0.081i      0.219i      −0.027i    P00 (eV Å)    −2.391i     0.632i      −0.579i      0.580i
+P10 (eV Å)     2.920i    −1.277i     −1.508i      −0.681i    P10 (eV Å)    −4.371i     2.812i      −3.255i     −2.282i
+
+
+
+uated in this work and those found in the literature
+(Refs. [9, 71–73]) for GaAs, InP, InAs, InSb, AlAs and
+GaP is made in Tab.VII. One should note that different
+references could adopt various phase conventions. There-      band gap (BX, AlX, and GaP) in order to describe the
+fore, to facilitate a comparison, we use the absolute val-    side valleys correctly. The BX compounds are experi-
+                                      2
+ues of ∆− and also EM = 2m     ~2 |M | , where M are the
+                                 0
+                                                              mentally the least studied ones, and the k·p parameters
+parameters related to interband momentum matrix ele-          for these compounds have not been reported so far.
+ments. The energy parameters in Tab.VII are given in
+the double-group notation, where
+                                                                 The electronic band structures for BX compounds
+                   E6α = E1α ,                                were calculated by DFT methods and reported in many
+                              1                               articles [74–78], but experimental studies of the band
+                   E8α = E5α + ∆α ,                           gap for cubic BX are limited to a few cases [79–85],
+                              3
+                              2                               mostly for BAs. The interest in BAs increased suddenly
+                   E7α = E5α − ∆α ,                           in 2013 when DFT calculations predicted BAs as a highly
+                              3
+                                                              thermal conductive material with a thermal conductivity
+with except to α =“t” where E8t = E3t . In most cases,        comparable with that of diamond [86, 87]. Subsequent
+the discrepancies of our results and the literature data      intense research led to a successful synthesis and verifica-
+are reasonable. Here however, we offer the parameters         tion of the predicted high thermal conductive material in
+for all the 16 compounds, obtained in a consistent way.       2018 by three groups [88–90], opening up new opportu-
+   For many III-V compounds with a direct band gap, the       nities for both basic research and potential applications.
+8-band k · p model is sufficient because the description of   A very important application of BX compounds can be
+the electronic band structure around the Γ point of the       their alloying with the GaAs, InAs, and other III-V com-
+BZ is good enough. Therefore, the 30-band k · p model is      pounds. This aspect is interesting as it allows a wider
+rarely used for GaAs, GaSb, InP, InAs and InSb, but it is     range of strain engineering for some III-V alloys, espe-
+already necessary for III-V compounds with an indirect        cially GaAs-based semiconductors [20].
+                                                                                                                          8
+
+
+         TABLE IV. Parameters for GaX materials                         TABLE V. Parameters for InX materials
+                GaN        GaP          GaAs       GaSb                       InN         InP          InAs         InSb
+Eg (eV)         3.297      2.265        1.514      0.814      Eg (eV)         0.609       1.423        0.415        0.235
+E1w (eV)      −17.468    −13.880      −14.149    −12.919      E1w (eV)      −16.104     −12.686      −13.086      −11.908
+E5v (eV)       −0.011     −0.033       −0.126     −0.244      E5v (eV)       −0.014      −0.041       −0.134       −0.254
+E1c (eV)        3.297      2.907        1.514      0.812      E1c (eV)        0.609       1.423        0.415        0.235
+E5c (eV)       12.289      4.840        4.754      3.496      E5c (eV)       10.954       4.889        4.710        3.500
+E1u (eV)       19.793      9.987        8.811      6.715      E1u (eV)       16.908       9.529        8.455        6.433
+E3t (eV)       21.157     10.945       11.267      9.478      E3t (eV)       17.700      10.253       10.392        8.832
+E5d (eV)       20.608     13.627       12.800     10.496      E5d (eV)       16.580      12.038       11.360        9.569
+E1q (eV)       24.682     16.900       15.662     13.193      E1q (eV)       19.848      14.717       13.783       11.964
+∆v (eV)         0.033      0.100        0.378      0.731      ∆v (eV)         0.042       0.124        0.402        0.762
+∆c (eV)         0.315      0.169        0.191      0.219      ∆c (eV)         0.721       0.435        0.447        0.411
+∆d (eV)        −0.005      0.026        0.030      0.027      ∆d (eV)        −0.064       0.031        0.032        0.035
+∆− (eV)         0.029i     0.041i      −0.038i    −0.217i     ∆− (eV)         0.055i      0.139i       0.001i      −0.061i
+P0 (eV Å)      7.511      8.904        9.343      9.298      P0 (eV Å)      6.636       7.913        8.394        8.553
+P1 (eV Å)     −1.735     −0.387        0.256      0.842      P1 (eV Å)     −1.559      −0.049        0.526        0.774
+P2 (eV Å)      5.344      2.511        2.152      1.421      P2 (eV Å)      4.267       3.215        2.768        1.846
+P3 (eV Å)     12.598      9.760        9.332      9.135      P3 (eV Å)     11.530       8.295        7.823        8.593
+P4 (eV Å)     11.963      8.863        8.372      7.534      P4 (eV Å)     10.839       8.610        8.166        7.164
+P5 (eV Å)      3.067      2.499        2.389      2.379      P5 (eV Å)      3.706       2.163        1.777        2.105
+Q0 (eV Å)     10.308      8.228        8.350      7.981      Q0 (eV Å)      9.519       7.905        7.987        7.573
+Q1 (eV Å)     −6.405     −5.464       −5.106     −4.424      Q1 (eV Å)     −6.803      −5.036       −4.632       −4.294
+R0 (eV Å)      5.878      4.451        4.538      4.283      R0 (eV Å)      5.555       4.305        4.338        4.138
+R1 (eV Å)      5.152      6.154        6.095      5.691      R1 (eV Å)      3.813       5.618        5.675        5.268
+P00 (eV Å)     2.597i     0.460i      −0.509i     0.795i     P00 (eV Å)     2.140i     −0.187i      −0.130i      −0.414i
+P10 (eV Å)    −3.407i    −1.955i       2.455i    −1.576i     P10 (eV Å)    −3.648i      2.609i       3.188i       2.256i
+
+
+
+       VII.    EXAMPLES OF APPLICATION
+
+   The optical gain for bulk materials was calculated as
+                                                              tions were made for a temperature of 300 K. The position
+an exemplary application to highlight the importance of
+                                                              of the conduction bands was shifted by 80 meV in order
+choice of the band model. The calculations were con-
+                                                              to take the influence of temperature into account. The
+ducted for GaAs and GaSb using the 30-band k · p and
+                                                              calculations made within the two models give very sim-
+the 8-band k·p models. Details regarding the calculation
+                                                              ilar results for GaAs. We can notice a difference in the
+of the gain for these models are in the work [19]. Here we
+                                                              intensity of the calculated gain coefficient. However, the
+calculate the k-dependent momentum matrix elements,
+                                                              shape of the spectrum and the maximum gain is almost
+using the Hellmann-Feynman theorem[91–93]
+                                                              the same. These differences become particularly notice-
+                              m0 ∂Hij (k)                     able for greater concentrations. This is due to the lack of
+                 Pen,ij (k) ≈             ,                   consideration of the influence of the side valleys in the 8-
+                              ~   ∂kn
+                                                              band k·p model. The situation is quite different for GaSb.
+where Hij are the matrix elements of the 8- or 30-band        The presented gain spectrum shows the legitimacy of us-
+k·p Hamiltonian. The parameters needed for calculations       ing the larger-band model for gain calculations. The L
+within the 8-band k·p model: the effective mass and the       valley is located very close to the Γ valley in GaSb mate-
+Luttinger parameters were taken from the transforma-          rial. Therefore, the influence of the side valley is already
+tions presented in Appendix B (the reduced parameters         visible for lower concentrations and practically should be
+denoted as m0 and γ1−30
+                         ). Our objective was to perform      taken into account in order to obtain correct results. It
+calculations that will refer to the same band structure.      is also clear that, for semiconductors with an indirect
+Therefore, the calculations were performed with the pa-       energy gap, it is necessary to take into account the con-
+rameters from Appendix B, despite the fact that for some      tribution of the side valleys for the calculation of the gain.
+materials they are inaccurate. The gain for both materi-      This can be done by using the 30-band k·p model because
+als was calculated in the same range of carrier concentra-    this model can satisfactory reflect the band structure of
+tion from 1.0 · 1018 cm−3 to 1.0 · 1019 cm−3 . The calcula-   such materials.
+                                                                                                                                                                                                9
+
+
+TABLE VI. Comparison of the parameters obtained using the                                           3 0 0 0
+fitting procedure and extracted directly from the DFT calcu-                                                                                    C a r r ie r c o n c e n tr a tio n :
+                                                                                                                      (a ) G a A s
+
+
+
+
+                                                                 M a te r ia l g a in ( 1 /c m )
+lations, on the example of GaAs. We compare the moduli of                                                                                                            x 1 0 1 8 c m -3
+the parameters related to the inversion asymmetry.                                                  2 0 0 0                                                                   1 0 .0
+                                                                                                                      3 0 0 K                                                  9 .0
+                            Fit                     DFT                                                                                                                         8 .0
+                                                                                                                                                                                 7 .0
+P0 (eV Å)                  9.343                   9.704                                           1 0 0 0
+                                                                                                                                                                                  6 .0
+P1 (eV Å)                  0.256                   0.050                                                                                                                          5 .0
+P2 (eV Å)                  2.152                   1.579                                                                                                                           4 .0
+                                                                                                           0                                                                         3 .0
+P3 (eV Å)                  9.332                   9.337
+                                                                                                                                                                                      2 .0
+P4 (eV Å)                  8.372                   8.414                                                                                                                              1 .0
+P5 (eV Å)                  2.389                   2.344                                          -1 0 0 0
+                                                                                                                         1 .4          1 .5           1 .6                 1 .7
+Q0 (eV Å)                  8.350                   8.804
+                                                                                                                                       E n e rg y (e V )
+Q1 (eV Å)                 −5.106                  −5.030
+R0 (eV Å)                  4.538                   4.634                                           3 0 0 0
+R1 (eV Å)                  6.095                   5.651                                                                                                                   3 0 k p
+                                                                                                                      (b ) G a S b
+
+
+
+
+                                                                M a te r ia l g a in ( 1 /c m )
+|P00 |(eV Å)               0.509                   1.668                                                                                                                    8 k p
+|P10 |(eV Å)               2.455                   3.079                                           2 0 0 0
+
+
+                                                                                                    1 0 0 0
+                VIII.   CONCLUSIONS
+                                                                                                           0
+  We have derived a ready-to-use symmetry invariant
+expansion of the 30-band k·p Hamiltonian. We have ob-
+                                                                                                   -1 0 0 0
+tained its parameters for a wide class of III-V semicon-                                                       0 .6             0 .7     0 .8       0 .9            1 .0                 1 .1
+ductor compounds using the DFT band structure cal-                                                                                     E n e rg y (e V )
+culations as a reference. We have demonstrated a very
+good agreement between the DFT and the k·p results. We
+have also discussed the chemical trends exhibited by the
+parameters. Finally, for GaAs, we have also compared           FIG. 5.      The material gain calculated for (a) GaAs and
+the parameters obtained from the fitting and calculated        (b) GaSb under the 30- and 8-band k · p model for carrier
+directly from the DFT momentum matrix elements. We             concentrations from: 1.0 · 1018 cm−3 to 1.0 · 1019 cm−3 . The
+have shown a very good agreement for most of these val-        same colors correspond to a given carrier concentration. A
+ues.                                                           solid line shows calculations of the 30-band k·p and a dashed
+                                                               line of the 8-band k·p model.
+
+
+                ACKNOWLEDGMENTS                                         A general form of the k·p model is given by [33]
+                                                                                                                        H = H0 + Hk + Hk·p + Hso ,                                        (A1)
+  This work has been partially funded by a grant of
+the National Science Center Poland (OPUS11, UMO-               where
+2016/21/B/ST7/01267). Calculations have been carried                                                                             ~2 2
+out using resources provided by the Wroclaw Centre for                                                                     H0 =      p + V (r),
+                                                                                                                                2m0
+Networking and Supercomputing and Interdisciplinary                                                                              ~2 2
+Centre for Mathematical and Computational Modeling                                                                       Hk =        k ,
+(ICM) at the University of Warsaw.                                                                                              2m0
+                                                                                                                                 ~
+                                                                                                                         Hk·p =     k · p,
+                                                                                                                                m0
+                                                                                                                                   ~
+    Appendix A: Supplemental description and a                                                                           Hso =          (∇V × p) · σ,
+  derivation of the 30-band k·p Hamiltonian in the                                                                              4m20 c2
+                 invariant expansion                           where m0 is the free electron mass, V (r) is a periodic
+                                                               crystal potential, c is the speed of light, and σ is the
+  In this Appendix, we describe the standard theory of         vector of the Pauli matrices. Here, the spin-orbital terms
+invariants for the k ·p model [33, 42]. Then, we use this      proportional simultaneously to k and ∇V are neglected.
+approach to obtain an invariant expansion of the 30-band         In a truncated (finite) basis, the Hamiltonian takes a
+Hamiltonian.                                                   matrix form. For the 30-band model considered in this
+                                                                                                                                                    10
+
+
+TABLE VII. Comparison of our parameters and those presented in literature [9, 71–73]. For this, moduli of ∆− and energies
+related to matrix elements M by EM = 2m
+                                      ~2
+                                        0
+                                          |M |2 were used. All parameters are in eV.
+           GaAsa        GaAsb     InPa           InPc     InAsa      InAsc     InSba        InSbc      AlAsa      AlAsd     AlAse     GaPa      GaPe
+E6w       −14.149      −12.55   −12.686        −11.078   −13.086   −12.69    −11.908      −11.71      −13.218     −        −11.95   −13.880   −12.30
+E7v        −0.378       −0.341   −0.124         −0.108    −0.402    −0.43     −0.762       −0.82       −0.323     −         −0.30    −0.100    −0.08
+E8v         0            0        0              0         0          0         0            0          0         −          0        0         0
+E6c         1.514        1.519    1.423          1.424     0.415      0.37      0.235        0.25       2.982     −          3.13     2.907     2.895
+E7c         4.626        4.488    4.599          4.72      4.412      4.39      3.227        3.16       5.271     −          4.54     4.728     4.87
+E8c         4.818        4.569    5.034          4.794     4.859      4.63      3.637        3.59       5.309     −          4.69     4.897     4.87
+E6u         8.811        8.56     9.529          8.50      8.455      8.55      6.433        8.56      10.012     −          9.89     9.987     8.80
+E8t        11.267       10.17    10.253          9.50     10.392      9.88      8.832        8.88      10.258     −         10.50    10.945     9.80
+E7d        12.780       11.89    12.017         11.50     11.338    11.89       9.545        9.89      12.660     −         12.50    13.610    11.80
+E8d        12.810       11.89    12.049         11.50     11.370    11.89       9.581        9.89      12.692     −         12.50    13.636    11.80
+E6q        15.662       13.64    14.717         12.99     13.783    12.64     11.964       12.64       15.954     −         13.64    16.900    13.30
+EP0        22.911       22.37    16.435         18.012    18.493    19.04     19.200       24.50       20.655     19.14     21.10    20.809    21.00
+EQ0        18.298       16.79    16.402         14.01     16.742    15.64     15.052       14.50       17.086     14.29     16.80    17.770    17.01
+ER0         5.404        4.916    4.864          4.01      4.939      3.89      4.494        3.77       4.277      3.99      2.99     5.200     3.41
+EP2         1.215        6.28     2.713          6.20      2.011      1.00      0.894        0.17       1.432      0.032     0        1.654     6.20
+EP1         0.017        0.01     0.001          0.10      0.073      0.10      0.157        0.03       0.013      0.01      0.1      0.039     0.1
+EQ 1        6.842        4.344    6.658          7.50      5.630      5.00      4.840        2.34       5.016      8.49      4.12     7.835     7.00
+ER1         9.751        8.888    8.283         11.15      8.452    11.66       7.283        8.60      10.520      9.29     13.06     9.940    12.50
+EP3        22.857       23.15    18.060          2.51     16.063      2.50    19.378         7.99      15.153     15.01      3.50    25.004     2.51
+EP4        18.396       19.63    19.458         20.05     17.503    19.00     13.471       16.00       20.347     16.00     18.00    20.617    20.05
+EP5         1.498        2.434    1.228          3.43      0.829      5.00      1.163        0.40       0.641      1.79      0.10     1.639     3.43
+EP0         0.068        0.0656   0.009          0.15      0.004      0.01      0.045        0.03       0.088      0.14      0.16     0.055     0.50
+    0
+EP 0        1.583        0             1.787     0         2.667     0         1.336        0            2.781        0      0        1.003     0
+    1
+|∆− |       0.038        0             0.139     0.11      0.001     0.18      0.061        0.26         0.116        0      0        0.041     0
+a
+  This work.
+b
+  Reference [9].
+c
+  Reference [71].
+d
+  Reference [72].
+e
+  Reference [73].
+
+
+                                                                                                    
+paper, we use the set of basis functions from Ref. 9, trans-                                        
+                                                                                                     − √12 |Xc + iYc i ⊗ |↑i ,
+formed to the form consistent with Ref. [38]
+                                                                                                    
+                                                                                                     √2 |Zc i ⊗ |↑i − √1 |Xc + iYc i ⊗ |↓i ,
+                                                                                                    
+                                                                                                    
+                                                                                                        6                6
+                                                                                        |Γ8c i =
+                                                                                                     √1 |Xc − iYc i ⊗ |↑i + √2 |Zc i ⊗ |↓i ,
+                                                                                                        6                      6
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                     √1 |X − iY i ⊗ |↓i ,
+                                                                                                    
+                                                                                                             c    c
+                   (
+                       |Sq i ⊗ |↑i ,                                                                 2
+       |Γ6q i =
+                                                                                                          1
+                                                                                                     − √ |Zc i ⊗ |↑i − √1 |Xc + iYc i ⊗ |↓i ,
+                                                                                                           3              3
+                     |Sq i ⊗ |↓i ,                                                      |Γ7c i =
+                                                                                                     − √1 |Xc − iYc i ⊗ |↑i + √1 |Zc i ⊗ |↓i ,
+                                                                                                          3                     3
+                     − √12 |Xd + iYd i ⊗ |↑i ,                                                      (
+                                                                                                      |Sc i ⊗ |↑i ,
+                   
+                   
+                   
+                    √2 |Zd i ⊗ |↑i − √1 |Xd + iYd i ⊗ |↓i ,
+                   
+                                                                                       |Γ6c i =
+       |Γ8d i =        6                6                                                             |Sc i ⊗ |↓i ,
+                    √1 |Xd − iYd i ⊗ |↑i + √2 |Zd i ⊗ |↓i ,
+                       6                      6
+                                                                                                        1
+                                                                                                     − √2 |Xv + iYv i ⊗ |↑i ,
+                   
+                   
+                    √1 |X − iY i ⊗ |↓i ,
+                                                                                                   
+                           d      d                                                                 
+                    2                                                                               √2 |Zv i ⊗ |↑i − √1 |Xv + iYv i ⊗ |↓i ,
+                                                                                                    
+                                                                                                    
+                                                                                                        6                6
+                    − √1 |Zd i ⊗ |↑i − √1 |Xd + iYd i ⊗ |↓i ,                          |Γ8v i =
+       |Γ7d i =
+                         3                3                                                          √1 |Xv − iYv i ⊗ |↑i + √2 |Zv i ⊗ |↓i ,
+                                                                                                        6                      6
+                    − √1 |Xd − iYd i ⊗ |↑i + √1 |Zd i ⊗ |↓i ,
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                         3                      3                                                    √1 |X − iY i ⊗ |↓i ,
+                                                                                                    
+                                                                                                            v      v
+                                                                                                     2
+                   
+                   
+                   
+                    − |Dt,2 i ⊗ |↓i ,                                                               − √1 |Zv i ⊗ |↑i − √1 |Xv + iYv i ⊗ |↓i ,
+                                                                                                         3                3
+                    |D i ⊗ |↑i ,                                                       |Γ7v i =
+                   
+                   
+                          t,1                                                                        − √1 |Xv − iYv i ⊗ |↑i + √1 |Zv i ⊗ |↓i ,
+        |Γ8t i =                                                                                          3                      3
+                   
+                    − |Dt,1 i ⊗ |↓i ,                                                              (
+                   
+                                                                                                     |Sw i ⊗ |↑i ,
+                    |Dt,2 i ⊗ |↑i ,                                                |Γ6w i =
+                   
+                   
+                   (                                                                                  |Sw i ⊗ |↓i ,
+                     |Su i ⊗ |↑i ,
+       |Γ6u i =
+                       |Su i ⊗ |↓i ,
+                                                                                                                         11
+
+where |Si, |Xi, |Y i, |Zi, |D1 i = 2Z 2 − X 2 − Y 2 ,         The vector X (1) can be calculated using tensor multipli-
+            √
+                                                              cation rules giving
+                         
+|D2 i =       3 X2 − Y 2     describe the orbital symme-
+try, while |↑ / ↓i denotes the spin projection. One
+should note, that the states {|Xi , |Y i , |Zi} transform
+like {x, y, z} and {yz, zx, xy} [33]. We assume that the                       √ X
+wave functions for the “w”,“v”,“u”,“d” bands are real,               Xq(1) = −i 2  (∇V )(1) (1)
+                                                                                        q1 pq2 h11; q1 q2 |1qi ,
+while for the “c”,“t”,“q” bands they are purely imag-                                  q1 ,q2
+inary. In the applied phase convention, the parame-
+ters that appear due to inversion asymmetry are imagi-
+nary [38].
+   To obtain the Hamiltonian in a block form, it is conve-    where hj1 j2 ; m1 m2 |JM i are the Clebsch-Gordan coeffi-
+nient to perform calculations in a spherical basis with                          (1)
+                                                              cients. Finally, σq are components of the spherical vec-
+Eq. A1 written in terms of spherical tensor compo-
+                                                              tor built from the Pauli matrices (see the calculations in
+nents [33, 94]. After a simple algebra, one can obtain
+                                                              Appendix of Ref. [94] as an illustration). The basis func-
+            ~2 h (1) 2                i                       tions can be further expressed by the angular momentum
+                              (1) (1)
+     H0 =        (p0 ) − 2 p−1 p1 + V (r),                    eigenvectors |eα; lmi (which refer to spherical harmonics
+           2m0
+                                                              Ylm ) [33, 94]
+            ~2 h (1) 2        (1) (1)
+                                      i
+    Hk =         (k0 ) − 2 k−1 k1 ,
+           2m0
+            ~ h (1) (1)     (1) (1)      (1) (1)
+                                                 i
+    Hk·p =      k0 p0 − k−1 p1 − k1 p−1 ,
+           m0                                                                                    (e
+                                                                                                  α,i)
+                                                                                        X
+                                                                          |Γαe,i i =            clms |e
+                                                                                                      α; lmi ⊗ |si ,
+             ~ h (1) (1)          (1) (1)        (1) (1)
+                                                         i
+                                                                                       l,m,s
+    Hso =     2    X 0  σ 0  −  X −1 σ 1   −  X 1   σ−1   ,
+           4m0 c2
+       (1)
+where vq are the spherical vector components (with the
+upper index as the tensor rank) defined with respect to       where |Γαe,i i is the i-th component of the pseudospinor
+the cartesian ones in the standard way:                                    (e
+                                                                            α,i)
+                                                              |Γαe i, the clms are coefficients, and the common index
+                   (1)   1                                    e ≡ {n, α} denotes the representation and the band set.
+                                                              α
+                  v−1 = √ (vx − ivy ),                        Finally, with the Wigner-Eckart
+                          2                                                                  D theoremE [32, 33, 94], the
+                   (1)                                        Hamiltonian blocks Hαe,βe = Γαe H Γβe are calculated,
+                  v0 = vz ,
+                                                              where H0 and Hk give rise only to the diagonal parts of
+                   (1)    1                                   Hαe,e
+                  v1 = − √ (vx + ivy ).                           α . The full 30-band Hamiltonian can be presented in
+                           2                                  a block matrix form
+
+
+                                                                                    
+                   H6q6q H6q8d H6q7d H6q8t H6q6u H6q8c H6q7c H6q6c H6q8v H6q7v H6q6w
+                 H
+                  8d6q H8d8d H8d7d H8d8t H8d6u H8d8c H8d7c H8d6c H8d8v H8d7v H8d6w 
+                                                                                     
+                  H7d6q H7d8d H7d7d H7d8t H7d6u H7d8c H7d7c H7d6c H7d8v H7d7v H7d6w 
+                                                                                    
+                                                                                    
+                  H8t6q H8t8d H8t7d H8t8t H8t6u H8t8c H8t7c H8t6c H8t8v H8t7v H8t6w 
+                                                                                    
+                 H
+                  6u6q H6u8d H6u7d H6u8t H6u6u H6u8c H6u7c H6u6c H6u8v H6u7v H6u6w 
+                                                                                     
+             H =  H8c6q H8c8d H8c7d H8c8t H8c6u H8c8c H8c7c H8c6c H8c8v H8c7v H8c6w  ,                               (A2)
+                                                                                    
+                                                                                    
+                  H7c6q H7c8d H7c7d H7c8t H7c6u H7c8c H7c7c H7c6c H7c8v H7c7v H7c6w 
+                                                                                    
+                  H6c6q H6c8d H6c7d H6c8t H6c6u H6c8c H6c7c H6c6c H6c8v H6c7v H6c6w 
+                                                                                    
+                  H8v6q H8v8d H8v7d H8v8t H8v6u H8v8c H8v7c H8v6c H8v8v H8v7v H8v6w 
+                                                                                    
+                                                                                    
+                  H7v6q H7v8d H7v7d H7v8t H7v6u H7v8c H7v7c H7v6c H7v8v H7v7v H7v6w 
+                   H6w6q H6w8d H6w7d H6w8t H6w6u H6w8c H6w7c H6w6c H6w8v H6w7v H6w6w
+
+
+
+where we show the order of bands relevant for most of         of Eq.A2 which is highlighted by the blue color (H6c6c )
+the considered III-V semiconductors (like in GaAs). The       describes the lowest conduction band and corresponds to
+block positions can be related to fewer-band models that      the 2-band k·p Hamiltonian [35]. The part marked by the
+are often used in the semiconductor physics. The part         red color contains the highest valence band block H8v8v
+                                                                                                                       12
+                                                                             √
+describing the heavy and light hole, and the spin-orbit            H6u8c =   3P4 (Tx kx + c.p.),
+split-off bands H7v7v . The part separated by the solid                       1
+line corresponds to the standard 8-band k·p model [95],            H6u7c = − √ P4 (σx kx + c.p.),
+                                                                               3
+while the gray area extends the model to 14 bands [32,                     √ 0∗ †              
+38]. One should recall, that reduction of the full 30-band         H8c6c = 3P0 Tx kx + c.p. ,
+k·p model to a model with fewer number of bands involves                     2                         1
+a perturbative approach, as described in Appendix B.               H8c8v = − Q0 ({Jy , Jz }kx + c.p.) + ∆− I4 ,
+                                                                             3                         3
+   The invariant expansion of the 30-band k ·p Hamilto-            H8c7v = −2Q0 Tyz †
+                                                                                                
+                                                                                      kx + c.p. ,
+nian can be written in an explicit form                                    √
+                                                                   H8c6w = 3P5 Tx† kx + c.p. ,
+                                                                                              
+                          ~2 2
+                               
+       H6q6q = E1q +          k I2 ,                                          1
+                        2m0                                        H7c6c = − √ P00∗ (σx kx + c.p.),
+                                                                               3
+                                  ~2 2
+                                       
+                        1                                          H7c8v = −2Q0 (Tyz kx + c.p.),
+       H8d8d = E5d + ∆d +              k I4 ,
+                        3        2m0                                         2
+                
+                        2         ~2 2
+                                                                  H7c7v = − ∆− I2 ,
+       H7d7d = E5d − ∆d +              k I2 ,                                3
+                        3        2m0                                          1
+                                                                   H7c6w = − √ P5 (σx kx + c.p.),
+                          ~2 2
+                               
+                                                                               3
+        H8t8t = E3t +         k I4 ,                                       √
+                        2m0                                        H6c8v = 3P0 (Tx kx + c.p.),
+                          ~2 2
+                               
+                                                                              1
+       H6u6u = E1u +          k I2 ,                               H6c7v = − √ P0 (σx kx + c.p.),
+                        2m0                                                    3
+                                                                           √
+                                  ~2 2                             H8v6w = 3P10∗ Tx† kx + c.p. ,
+                                                                                             
+                        1
+       H8c8c = E5c + ∆c +             k I4 ,
+                        3       2m0                                           1
+                                                                   H7v6w = − √ P10∗ (σx kx + c.p.),
+                                  ~2 2
+                                       
+                        2                                                      3
+       H7c7c = E5c − ∆c +             k I2 ,
+                        3       2m0
+                          ~2 2
+                               
+       H6c6c = E1c +          k I2 ,                         where the matrices Ti and Ji are [32, 38]
+                        2m0
+                                  ~2 2
+                                       
+                        1
+       H8v8v = E5v + ∆v +              k I4 ,                                    √   √             !
+                        3        2m0                                            2 − 3 0 1 0
+                                                                         Tx =                    √ ,
+                                  ~2 2
+                                       
+                        2                                                      6     0 −1 0 3
+       H7v7v = E5v − ∆v +              k I2 ,
+                        3        2m0                                             √    √           !
+                                                                                i 2     3 0 1 0
+                          ~2 2                                                                  √ ,
+                               
+                                                                         Ty = −
+      H6w6w = E1w +            k I2 ,                                            6     0 1 0 3
+                         2m0
+                √                                                             √            !
+       H6q8d = 3P3 (Tx kx + c.p.),                                              2 0 1 0 0
+                                                                         Tz =                 ,
+                   1                                                           3 0 0 1 0
+       H6q7d = − √ P3 (σx kx + c.p.),                                                √           
+                    3                                                              0    3 0 0
+                √                                                                 √
+       H6q8v = 3P2 (Tx kx + c.p.),                                            1 3 0 2 √0 
+                                                                                                  
+                                                                         Jx =                    ,
+                   1                                                          2 0 2 0           3
+       H6q7v = − √ P2 (σx kx + c.p.),                                                     √
+                    3                                                              0 0      3 0
+                  √                                                                     √
+       H8d8t = − 30 R1 (Dx† kx + c.p.),
+                                                                                                    
+                                                                                   0 − 3 0        0
+                                                                                  √
+                  2                                                           i 3 0 −2 √        0 
+       H8d8c = − Q1 ({Jy , Jz }kx + c.p.),                               Jy =                       ,
+                                                                                                     
+                  3                                                           2 0      2    0 − 3
+                        †                                                                   √
+       H8d7c = −2Q1 (Tyz   kx + c.p.),                                             0    0     3 0
+                √       †
+       H8d6c = 3P1 (Tx kx + c.p.),
+                                                                                             
+                √                                                                 3 0 0 0
+       H7d8t = 6R1 (Tx kx + c.p.),                                            10 1 0 0 
+                                                                                              
+                                                                         Jz =                ,
+       H7d8c = −2Q1 (Tyz kx + c.p.),                                          2 0 0 −1 0 
+                   1                                                              0 0 0 −3
+       H7d6c = − √ P1 (σx kx + c.p.),
+                    3
+                  √
+       H8t8v = − 30R0 (Dx kx + c.p.),
+                √                                            and the Tij matrices are defined as Tij = Ti Jj + Tj Ji . Fi-
+       H8t7v = 6R0 Tx† kx + c.p. ,
+                                   
+                                                             nally, we found the matrices Di from the Wigner-Eckart
+                                                                                                                                             13
+
+theorem, which give                                              which holds under cyclic permutation of indices.
+                       √                                         To obtain the electron effective mass, one need to ac-
+                     0    3 0 −3                                 count the remote band contributions to the H6c6c block
+                    √
+                1  3 0 −1 √0                                  coming from the coupling to the Γ8 and Γ7 bands (while
+                                 
+          Dx = √                ,
+               6 5  0 −1 √0    3                               the ones from Γ6 vanish) [35, 93]
+                     −3 0    3 0
+                        √          
+                                                                                (r)
+                                                                                          X H6c8α H8α6c           X H6c7α H7α6c
+                     0 − 3 0 −3                                           H6c6c =                             +                      .
+                    √                                                                          E6c − E8α              E6c − E7α
+                i  3 0      1  0                                                       α                       α
+          Dy =  √                √ ,
+               6 5  0 −1 √0 − 3
+                   
+
+                     3   0     3 0                               Since we do not consider the magnetic field (hence
+                                                               [ki , kj ] = 0), only the symmetric products of the involved
+                    0 0 0 0                                      vector components give rise to the sum [35]
+                1 0 2 0 0
+                   
+          Dz = √            .
+                             
+               3 5 0 0 −2 0                                                                             2                 †            †
+                                                                          (r)
+                                                                                          XX       |Pcα |              Ti Tj + Tj Ti
+                    0 0 0 0                                          H6c6c = 3                              {ki , kj }
+                                                                                          α   i,j
+                                                                                                  E6c − E8α                  2
+                                                                                                          2
+                                                                                      1 XX          |Pcα |
+   Appendix B: Reduction to fewer band models                                     +                          {ki , kj }{σi , σj },
+                                                                                      3   α   i,j
+                                                                                                  E 6c − E7α
+   The 30-band k · p model can be further reduced to
+fewer band models, using the Löwdin perturbation the-           giving
+ory [33, 34]. Here, we show the standard reduction for-
+mulas within the parameter convention consistent to our                                            2                            2
+paper. In further calculations, we utilize the following            (r)           2 X |Pcα |             1 X |Pcα |
+                                                                  H6c6c =                       k 2 I2 +               k 2 I2 .
+relations:                                                                        3 α E6c − E8α          3 α E6c − E7α
+
+              {σi , σj } = I2 δij ,
+                                                                 This allows to extract the electron effective mass in a
+                           2
+    (Ti Tj† + Tj Ti† )/2 = I2 δij ,                              form
+                           9
+                                                  J2
+                                                     
+      †         †          1           1    2                                                                   
+    (Ti Tj + Tj Ti )/2 = I4 δij −          J −          δij      m0    2m0 X        2 2      1       1     1
+                           9           9 i         3                =1+ 2    |Pcα |                +               .
+                                                                 m∗     ~              3 E6c − E8α   3 E6c − E7α
+                           1                                               α
+                         − {Ji , Jj }(1 − δij ),
+                           9
+                                                 J2              Hence, in our model, one can obtain
+                                                   
+                           5
+              {Ji , Jj } = I4 δij + Ji2 −            δij
+                           4                     3
+                                                                                                                 
+                         + {Ji , Jj }(1 − δij ),                    m0       2m0     2 2      1       1     1
+                                                                       = 1 + 2 |P0 |                +
+                            2            2
+                                           
+                                                     J2
+                                                                   m∗        ~         3 E6c − E8v   3 E6c − E7v
+                                                2
+             {Di , Dj } =      I4 δij −       J −          δij           2m0
+                                                                                                             
+                           45           45 i          3                         2 2       1       1     1
+                                                                       + 2 |P1 |                +
+                            1                                             ~        3 E6c − E8d    3 E6c − E7d
+                         + {Ji , Jj }(1 − δij ).                                                             
+                           45                                            2m0 0 2 2        1       1     1
+                                                                       + 2 |P0 |                +              . (B1)
+                                                                          ~        3 E6c − E8c    3 E6c − E7c
+
+The symmetric product is defined as {A, B} = (AB +
+BA)/2. We use also:                                                We perform a procedure similar as described above
+                                                                 to obtain the Luttinger parameters for the H8v8v band
+                                3                                block. The terms are grouped and compared to the
+         {Jx , Jy }{Jx , Jy } =   I4 ,
+                                4                                form [38, 93]
+     {{Jx , Jy }, {Jy , Jz }} = 0,
+                                              J2
+                                                                                        "
+                     †       1        1    2                                           ~2
+                                                                                                        
+                                                                                                               J2 2
+                                                                                                                 
+                    Txy Txy =   I4 +      J −     ,                         H8v8v = −       γ1 kx2 − 2γ2 Jx2 −     kx
+                            12       12 z     3                                       2m0                      3
+         †         †           1                                                                                   #
+        Tyz Tzx + Tzx Tyz = − {Jx , Jy },
+                               6                                                               −4γ3 {Jx , Jy }{kx , ky } + c.p. .
+                                                                                                                         14
+
+This leads to the formulas:                                   The transition from the 8- to 14-band model involves
+                          "                                 further modification of the parameters by removing the
+                                      2               2
+                2m0 X 1 |Pvα |                1 |Qvα |      couplings to “7c” and “8c” [38]
+  γ1 = − 1 + 2                            +
+                 ~            3 E6α − E8v     3 E7α − E8v
+                     α6=v
+                                                                                   "                           #
+                                                                                              2             2
+                                                                 m0    m0    2m0 2 |P00 |          1 |P00 |
+                                                                      = 0 − 2                    +               ,
+                                           #
+                      2                 2
+           1 |Qvα |            4 |Rvα |                          m00   m       ~     3 E6c − E8c   3 E6c − E7c
+        +                 +                 ,
+           3 E8α − E8v         3 E8α − E8v                                       "
+                                                                                            2             2
+                                                                                                              #
+                                                                   00   0   2m0 1 |Q0 |           1 |Q0 |
+                                                                 γ1 = γ1 − 2                    +              ,
+                  "
+                                2               2
+        2m0 X 1 |Pvα |                1 |Qvα |                               ~     3 E7c − E8v    3 E8c − E8v
+  γ2 = 2                            −
+         ~          6 E6α − E8v       6 E7α − E8v                                             2
+             α6=v                                                                2m0 1 |Q0 |
+                      2
+                          #                                       γ200 = γ20 +                   ,
+           2 |Rvα |                                                               ~2 6 E7c − E8v
+        +                   ,                                                                 2
+           3 E8α − E8v                                                           2m0 1 |Q0 |
+                                                                  γ300 = γ30 −                   .
+                  "
+                                2               2                                 ~2 6 E7c − E8v
+        2m0 X 1 |Pvα |                1 |Qvα |
+  γ3 = 2                            +
+         ~          6 E6α − E8v       6 E7α − E8v              Table VIII contains the optical energy parameter
+             α6=v
+                          #                                 (EP0 = 2m         2
+                                                                      ~2 |P0 | ), the Luttinger parameters (γ1 , γ2 , and
+                                                                        0
+                      2
+           1 |Rvα |                                         γ3 ), and the electron effective mass (m∗ ) for Γ6c , for all
+        −                   .
+           3 E8α − E8v                                      the considered binary compounds. They were calculated
+                                                            using Eqs. B1–B4 with the parameters listed in Tables II-
+For the set of nonzero parameters considered here, the      V.
+explicit form is
+                 "                                          TABLE VIII. The values of EP0 , the Luttinger parameters,
+                           2             2
+             2m0 1 |P0 |         1 |P2 |                    and the electron effective mass at the Γ point in the band Γ6c .
+ γ1 = − 1 + 2                  +
+               ~   3 E6c − E8v   3 E6q − E8v
+                                                                      EP0 (eV)          γ1       γ2        γ3     m∗ (m0 )
+                   2               2
+        1 |P10 |        1 |Q0 |                              BN        12.398         2.048    0.036     0.581     0.289a
+      +               +                                      BP        22.735         3.901   -0.090     1.113     0.287a
+        3 E6w − E8v     3 E7c − E8v
+                                                            BAs        22.877        4.685     0.107     1.443     0.204a
+                                    #
+                 2              2
+        1 |Q0 |         4 |R0 |
+     +                +               ,             (B2)    BSb        19.147        5.443     0.289     1.814     0.163b
+        3 E8c − E8v     3 E8t − E8v
+          "                                                 AlN        17.782         1.559    0.392     0.613     0.274
+                    2              2               2
+     2m0 1 |P0 |           1 |P2 |        1 |P10 |          AlP        19.281        2.968    0.491      1.081     0.190
+ γ2 = 2                  +              +                   AlAs       20.655         3.977    0.872     1.535     0.131
+      ~     6 E6c − E8v    6 E6q − E8v    6 E6w − E8v
+                                    #                       AlSb       20.095         5.352    1.170     2.046     0.106
+                 2              2
+        1 |Q0 |         2 |R0 |                             GaN        14.807         2.631   0.671     1.012      0.191
+     −                +               ,             (B3)
+        6 E7c − E8v     3 E8t − E8v                         GaP        20.809        4.491    0.888      1.666     0.124
+          "
+                    2              2               2        GaAs       22.911         7.257    2.177     3.016     0.066
+     2m0 1 |P0 |           1 |P2 |        1 |P10 |
+ γ3 = 2                  +              +                   GaSb       22.691        12.210    4.161     5.316     0.041
+      ~     6 E6c − E8v    6 E6q − E8v    6 E6w − E8v        InN       11.558         7.409    3.094     3.393     0.052
+                                    #
+                 2              2                            InP       16.435        5.773    1.654     2.369      0.082
+        1 |Q0 |         1 |R0 |
+     +                −               .             (B4)    InAs       18.493        16.882    7.102     7.891     0.026
+        6 E7c − E8v     3 E8t − E8v
+                                                            InSb       19.200        29.836   13.173    14.219     0.016
+  To obtain the parameters suitable for the 8-band k ·p     a third conduction band,
+model, one need to subtract the contributions from the      b second conduction band
+couplings already accounted for in the Hamiltonian [38]
+                     "                            #
+                               2              2
+    m0     m0    2m0 2 |P0 |          1 |P0 |                  Table IX contains: the lattice parameters (alc ); the di-
+        = ∗− 2                      +              ,        rect energy gaps at the Γ point (EgΓ ); the indirect energy
+    m0     m      ~    3 E6c − E8v    3 E6c − E7v
+                              2                             gaps to the ∆ and Λ valleys (Eg∆ and EgΛ ); the spin-
+                  2m0 1 |P0 |                               orbit splittings of the top valence bands (∆so ); the effec-
+     γ10 = γ1 −                   ,
+                   ~2 3 E6c − E8v                           tive masses in the first conduction band at the Γ point
+                              2                             (me ); the absolute values of the effective masses of heavy
+                  2m0 1 |P0 |
+     γ20 = γ2 −                   ,                         holes and light holes along three crystallographic direc-
+                   ~2 6 E6c − E8v
+                              2                             tions (|m100      110     111     100     110          111
+                                                                      hh |, |mhh |, |mhh |, |mlh |, |mlh |, and |mlh |);
+                  2m0 1 |P0 |                               the effective masses in the split-off band at the Γ point
+     γ30 = γ3 −                   .
+                   ~2 6 E6c − E8v                           (mso ); and the longitudinal effective masses in the ∆-
+                                                                                                                                                15
+
+and L-valleys (m∆ and mL ). All the lattice parame-           expressed as
+ters are obtained as described in Sec. III. The remaining                         E   X
+parameters are obtained numerically from the electronic-                     Ψ(c)
+                                                                              n     =   ασ(n) |Sc i ⊗ |σi ,
+band structures computed within the 30-band k ·p with                                    σ=↑,↓
+the parameters listed in Tables II-V. We note that ∆so                             E         X         X           (m)
+are slightly different compared to the ∆v parameters pre-                    Ψ(v)
+                                                                              m   =                               βiσ |rv,i i ⊗ |σi ,
+sented in the main text. The reason is the influence of                                  σ=↑,↓ i=x,y,z
+the off-diagonal spin-orbit coupling terms with parame-                 (n)        (m)
+ter ∆− which shifts the bands [60]. While for most of         where ασ , βiσ are complex coefficients, σ denotes spin,
+the compounds its influence is negligible, in some cases      and we use the notation |rv,x i ≡ |Xv i, |rv,y i ≡ |Yv i,
+(like BSb), the ∆so differs to the value of ∆v by a few       |rv,z i ≡ |Zv i. The substitution leads to
+percent.                                                                         X X                 (m)
+   Effective masses at the Γ point and at the minima of               (px )nm =              ασ(n)∗ βiσ hSc |p̂x |rv,i i .
+                                                                                       σ=↑,↓ i=x,y,z
+the ∆- and L-valleys are evaluated with use of the stan-
+dard formula                                                  Taking a sum over the moduli square, one can obtain
+                          "                #−1                      X             2
+                                                                                     X X                          2
+                              m 0 ∂ 2 En                                |(px )nm | =           | hSc |p̂x |rv,i i| .
+                 mijk
+                  n =                 2          ,                     n,m                        σ=↑,↓ i=x,y,z
+                              ~2 ∂kijk
+                                                              Since    hSc |p̂x |rv,i i = m~0 P0 δxi and it does not depend on
+where ijk denotes chosen crystallographic direction and       spin, one can get
+n is a label of a given band.                                                                          s
+                                                                                           ~               1X              2
+                                                                                   |P0 | =                       |(px )nm | .
+                                                                                           m0              2 n,m
+Appendix C: Interband momentum matrix elements
+                 from the DFT                                 In the same way, one can find the other elements of the
+                                                              Pab type.
+                                                                To calculate Q0 ≡ Qcv = m~0 hXc |p̂y |Zv i we take
+   In this part, we describe a method to extract the k ·p
+parameters directly from the DFT momentum matrix el-                            X X (n)∗ (m)
+                                                                      (py )nm =       βiσ βjσ hrc,i |p̂y |rv,j i ,
+ements. The calculations were performed without the
+                                                                                             σ   i,j
+spin-orbit coupling. Although we worked with a reduced
+basis neglecting spin (15 states) in the numerical calcu-     where the block (py )nm is 6 × 6 now. In the next step,
+lations, we present a derivation of the parameters with       one can obtain
+the full basis that includes spin (30 states) for the sake             X                  X
+                                                                                     2                            2
+of consistency with the main part of the paper.                            |(py )nm | = 2    | hrc,i |p̂y |rv,j i| ,
+   The bare interband parameters are given with respect                      n,m                            i,j
+to the basis states (with modified and combined notations
+                                                              where the factor of 2 results from the summation over
+of Refs. [9, 38]) as                                                                                   2                   2
+                                                              spin projections. Since | hXc |p̂y |Zv i| = | hZc |p̂y |Xv i| =
+                                                              m20     2
+                     ~                                        ~2 |Q0 | , one can get
+              Pab =     hSa |p̂x |Xb i ,
+                    m0                                                                            ~
+                                                                                                       sX
+                                                                                                                              2
+                     ~                                                              |Q0 | =                        |(py )nm | .
+              Qab =     hXa |p̂y |Zb i ,                                                         2m0        n,m
+                    m0
+                     ~
+              Rtb =     hDt,1 |p̂x |Xb i                      The parameter Q1 is calculated analogously.
+                    m0
+                                                                          E of R0 = Rtv , using (px )nm
+                                                              D In the case                                                                     =
+                       1 ~                                      (t)    (v)
+                                                               Ψn p̂x Ψm             , one needs to express
+                  = −√         hDt,2 |p̂x |Xb i ,
+                        3 m0
+                                                                                   E     2
+                                                                                            (n)
+                                                                                       X X
+where a, b label the band sets: “w”, “v”, “c”, “u”, “d”,                      Ψ(t)
+                                                                               n     =     γi,σ |Dt,i i ⊗ |σi ,
+“q” (except to “t”). To obtain the value of P0 ≡ Pcv =                                       σ=↑,↓ i=1
+m0 hSc |p̂x |Xv i directly from theDDFT, one need
+ ~
+                                                    to cal-
+                                                 E
+                                     (c)     (v)
+culate the elements (px )nm = Ψn p̂x Ψm between
+the states from the twofold degenerated conduction band       giving
+“6c” and the sixfold degenerated valence band “8v ⊕ 7v”                X                           2
+                                                                                                   X X
+                                                                                         2                                                2
+(as the spin-orbit coupling is neglected here). Hence the                    |(px )nm | = 2                           | hDt,i |p̂x |rv,j i| .
+relevant block (px )nm is 2 × 6. The states can be further             n,m                         i=1 j=x,y,z
+                                                                                                                                                            16
+
+
+TABLE IX. The energy gaps, the spin-orbit splittings, and the effective masses calculated numerically based on the band
+structures obtained within the 30-band k ·p model. All the effective masses of holes are negative, so only the absolute values
+are listed in this table. We advise to examine band structures included in the Supplementary Material [41].
+       alc (Å)   EgΓ (eV)   Eg∆ (eV)   EgΛ (eV)   ∆so (eV)   me        |m100
+                                                                           hh |   |m110
+                                                                                     hh |   |m111
+                                                                                               hh |   |m100
+                                                                                                         lh |   |m110
+                                                                                                                   lh |    |m111
+                                                                                                                              lh |   |mso |   m∆        mΛ
+BN     3.6061     11.214     6.595X     12.593L    0.024      1.0727c   0.517     0.964     1.130     0.472     0.332      0.316     0.480    1.170X    1.381L
+BP     4.5227     4.289      1.913      4.768      0.046      0.3587c   0.269     0.508     0.597     0.249     0.173      0.165     0.257    1.150     2.846
+BAs    4.7713     3.731      1.571      3.372      0.230      0.3527c   0.233     0.461     0.557     0.204     0.142      0.135     0.223    0.985     2.081
+BSb    5.2250     1.224      1.113      2.454      0.379      0.3597c   0.233     0.449     0.553     0.167     0.124      0.118     0.199    0.960     2.087
+AlN    4.3829     6.167      5.257X     9.600L     0.022      0.274     1.290     2.343     3.008     0.427     0.372      0.359     0.645    0.694X    1.268L
+AlP    5.4719     4.406      2.534X     3.907      0.066      0.190     0.504     0.969     1.240     0.253     0.204      0.195     0.343    1.041X    1.207
+AlAs   5.6764     2.983      2.251X     3.050      0.324      0.131     0.451     0.851     1.103     0.175     0.148      0.142     0.277    1.118X    1.188
+AlSb   6.1578     2.179      1.634      1.839L     0.658      0.106     0.341     0.623     0.795     0.130     0.111      0.107     0.237    1.574     1.354L
+GaN    4.5041     3.297      4.975      6.315L     0.033      0.191     0.778     1.327     1.647     0.252     0.222      0.215     0.386    0.802    −9.629L
+GaP    5.4410     2.907      2.265      2.585      0.100      0.124     0.369     0.680     0.862     0.160     0.133      0.128     0.231    0.933     1.454
+GaAs   5.6635     1.514      2.184      1.911L     0.378      0.066     0.345     0.626     0.816     0.086     0.077      0.075     0.167    1.110     1.437L
+GaSb   6.1131     0.814      1.324X     1.002L     0.735      0.041     0.262     0.478     0.635     0.049     0.045      0.44      0.140    7.632X    1.589L
+InN    4.9880     0.609      4.189X     4.391L     0.042      0.052     0.825     1.306     1.604     0.073     0.071      0.070     0.144    0.972X   −2.844L
+InP    5.8810     1.423      2.355      2.210      0.125      0.082     0.419     0.750     0.967     0.110     0.099      0.096     0.186    0.933     1.478
+InAs   6.0900     0.415      2.177      1.627      0.402      0.026     0.373     0.676     0.910     0.032     0.031      0.031     0.108    0.976     1.441
+InSb   6.5191     0.235      1.588      0.919L     0.762      0.016     0.287     0.525     0.716     0.018     0.017      0.017     0.120    1.204     1.701L
+
+X calculated exactly at the point X
+L calculated exactly at the point L
+7c related to the band labeled as Γ
+                                   7c
+
+
+
+                                                                                   √
+The non-zero contributions at the right-hand side come                            − 3 m~0 R0 . Therefore
+from hDt,1 |p̂x |Xv i = m~0 R0 and hDt,2 |p̂x |Xv i =                                                               s
+                                                                                                              ~           1X              2
+                                                                                                      |R0 | =                   |(px )nm | .
+                                                                                                              m0          8 n,m
+
+                                                                                  The parameter R1 can be obtained analogously.
+
+
+
+
+ [1] J. Wu, S. Chen, A. Seeds, and H. Liu, J. Phys. D: Appl.                           J. of Appl. Phys. 107, 013710 (2010).
+     Phys. 48, 363001 (2015).                                                     [12] S. Tomić, Phys. Rev. B 82, 195321 (2010).
+ [2] S. Stephan, D. Frederic, and A. Markus-Christian, Semi-                      [13] M. Gladysiewicz, R. Kudrawiec, J. M. Miloszewski, P.
+     cond. Sci. Technol. 31, 113005 (2016).                                            Weetman, J. Misiewicz, and M. S. Wartak, J. Appl. Phys.
+ [3] D. Jung, S. Bank, M. L. Lee, and D. Wasserman, J. Opt.                            113, 063514 (2013).
+     19, 123001 (2017).                                                           [14] M. Gladysiewicz, R. Kudrawiec, and M. S. Wartak, J.
+ [4] C. Skierbiszewski, H. Turski, G. Muziol, M. Siekacz, M.                           Appl. Phys. 118, 055702 (2015).
+     Sawicka, G. Cywiński, Z. R. Wasilewski, and S. Porowski,                     [15] A. B. Ahmed, H. Saidi, S. Ridene, and H. Bouchriha,
+     J. Phys. D: Appl. Phys. 47, 073001 (2014).                                        IEEE J. Quantum Electron. 51, 2500108 (2015).
+ [5] M. Bugajski, P. Gutowski, P. Karbownik, A. Kolek,                            [16] T. Campos, P. E. Faria Junior, M. Gmitra, G. M. Sipahi,
+     G. Haldaś, K. Pierściński, D. Pierścińska, J. Kubacka-                            and J. Fabian, Phys. Rev. B 97, 245402 (2018).
+     Traczyk, I. Sankowska, A. Trajnerowicz, K. Kosiel, A.                        [17] M. V. Fischetti and S. E. Laux, Phys. Rev. B 38, 9721
+     Szerling, J. Grzonka, K. Kurzydlowski, T. Slight, and                             (1988).
+     W. Meredith, Phys. Status Solidi B Basic Res. 251, 1144                      [18] Y. Ge, W. Wan, X. Guo, and Y. Liu, Opt. Express 28,
+     (2014).                                                                           238 (2020).
+ [6] C. D. Yerino, B. Liang, D. L. Huffaker, P. J. Simmonds,                      [19] P. Scharoch, N. Janik, M. Wisniewski, H. S. Maczko, M.
+     and M. L. Lee, J. Vac. Sci. Technol. B 35, 010801 (2017).                         Gładysiewicz, M. P. Polak, and R. Kudrawiec, Comput.
+ [7] T. F. Kuech and L. J. Mawst, J. Phys. D: Appl. Phys.                              Mater. Sci. 187, 110052 (2021).
+     43, 183001 (2010).                                                           [20] R. Kudrawiec, M. P. Polak, K. M. McNicholas, J.
+ [8] O. Stier, M. Grundmann, and D. Bimberg, Phys. Rev. B                              Kopaczek, M. A. Wistey, and S. R. Bank, Mater. Res.
+     59, 5688 (1999).                                                                  Express 6, 125913 (2020).
+ [9] S. Richard, F. Aniel, and G. Fishman, Phys. Rev. B 70,                       [21] T. Hidouri, M. Biswas, I. Mal, S. Nasr, S. Chakrabarti,
+     235204 (2004).                                                                    D. P. Samajdar, and F. Saidi, Sol Energy 199, 183
+[10] S. Tomić, A. G. Sunderland, and I. J. Bush, J. Mater.                             (2020).
+     Chem. 16, 1963 (2006).                                                       [22] R. Kudrawiec, J. Kopaczek, O. Delorme, M. P. Polak, M.
+[11] M. El Kurdi, G. Fishman, Ś. Sauvage, and P. Boucaud,                              Gladysiewicz, E. Luna, L. Cerutti, E. Tournié, and J. B.
+                                                                                                                             17
+
+     Rodriguez, J. Appl. Phys. 125, 205706 (2019).               [54] G. Kresse and J. Furthmüller, Phys. Rev. B 54, 11169
+[23] R. H. El-Jaroudi, K. M. McNicholas, A. F. Briggs, S. D.          (1996).
+     Sifferman, L. Nordin, and S. R. Bank, Appl. Phys. Lett.     [55] G. Kresse and D. Joubert, Phys. Rev. B 59, 1758 (1999).
+     117, (2020).                                                [56] X. Gonze, F. Jollet, F. A. Araujo, D. Adams, B. Amadon,
+[24] P. Pfeffer and W. Zawadzki, Phys. Rev. B 53, 12813               T. Applencourt, C. Audouze, J.-M. Beuken, J. Bieder, A.
+     (1996).                                                          Bokhanchuk, and et al., Comput. Phys. Commun 205,
+[25] N. Cavassilas, F. Aniel, K. Boujdaria, and G. Fishman,           106–131 (2016).
+     Phys. Rev. B 64, 115207 (2001).                             [57] M. Torrent, F. Jollet, F. Bottin, G. Zérah, and X. Gonze,
+[26] P. Vogl, H. P. Hjalmarson, and J. D. Dow, J Phys Chem            Comput. Mater. Sci. 42, 337–351 (2008).
+     Solids 44, 365 (1983).                                      [58] Z. Wu and R. E. Cohen, Phys. Rev. B 73, 235116 (2006).
+[27] S. Ben Radhia, K. Boujdaria, S. Ridene, H. Bouchriha,       [59] P. Haas, F. Tran, and P. Blaha, Phys. Rev. B 79, 085104
+     and G. Fishman, J. Appl. Phys. 94, 5726 (2003).                  (2009).
+[28] M. Cardona and F. H. Pollak, Phys. Rev. 142, 530            [60] M. Cardona, N. E. Christensen, and G. Fasol, Phys. Rev.
+     (1966).                                                          B 38, 1806 (1988).
+[29] M. Jocić and N. Vukmirović, Phys. Rev. B 102, 085121        [61] C. M. O. Bastos, F. P. Sabino, P. E. Faria Junior, T.
+     (2020).                                                          Campos, J. L. F. Da Silva, and G. M. Sipahi, Semicond.
+[30] W.G. Aulbur, L. Jönsson, J.W. Wilkins, in: H. Ehren-            Sci. Technol. 31, 105002 (2016).
+     reich, F. Spaepen (Eds.), Quasiparticle Calculations in     [62] P. E. Faria Junior, T. Campos, C. M. O. Bastos, M.
+     Solids, Solid State Physics, Vol. 54, Academic Press, New        Gmitra, J. Fabian, , and G. M. Sipahi, Phys. Rev. B 93,
+     York, 2000.                                                      235204 (2016).
+[31] J. M. Luttinger, Phys. Rev. 102, 1030 (1956).               [63] I. Vurgaftman and J. R. Meyer, J. of Appl. Phys. 94,
+[32] H. R. Trebin, U. Rössler, and R. Ranvaud, Phys. Rev. B          3675–3696 (2003).
+     20, 686 (1979).                                             [64] S. Shokhovets, O. Ambacher, and G. Gobsch, Phys. Rev.
+[33] L. C. Lew Yan Voon and M. Willatzen, in The k                    B 76, 125203 (2007).
+     p Method: Electronic Properties of Semiconductors           [65] K. Boujdaria, S. Ridene, and G. Fishman, Phys. Rev. B
+     (Springer Berlin HeidelbergBerlin, Heidelberg, 2009).            63, 235302 (2001).
+[34] P. Löwdin, J. Chem. Phys. 18, 365 (1950).                  [66] W. Mahmoud and B. Dong, Bull. Mater Sci. 93, 43:235
+[35] A. Mielnik-Pyszczorski, K. Gawarecki, and P. Mach-               (2020).
+     nikowski, Sci. Rep. 8, 2873 (2018).                         [67] L. E. Ramos, L. K. Teles, L. M. R. Scolfaro, J. L. P.
+[36] K. Suzuki and J. C. Hensel, Phys. Rev. B 9, 4184 (1974).         Castineira, A. L. Rosa, and J. R. Leite, Phys. Rev. B 63,
+[37] H. Mayer and U. Rössler, Phys. Rev. B 44, 9048 (1991).          165210 (2001).
+[38] R. Winkler, Spin-Orbit Coupling Effects in Two-             [68] F. Herman, C. D. Kuglin, K. F. Cuff, and R. L. Kortum,
+     Dimensional Electron and Hole Systems (Springer, 2003).          Phys. Rev. Lett. 11, 541 (1963).
+[39] F. Tang and X. Wan, Phys. Rev. B 104, 085137 (2021).        [69] K. V. Shanavas, Z. S. Popović, and S. Satpathy, Phys.
+[40] J. Wanner, U. Eckern, and K.-H. Höck, Ann. Phys. 529,           Rev. B 90, 165108 (2014).
+     1600218 (2017).                                             [70] J.-M. Jancu, R. Scholz, E. A. de Andrada e Silva, and
+[41] See Supplemental Material for band structures of all the         G. C. La Rocca, Phys. Rev. B 72, 193201 (2005).
+     considered materials.                                       [71] S. B. Radhia, N. Fraj, I. Saidi, and K. Boujdaria, Semi-
+[42] G. L. Bir and G. E. Pikus, Symmetry and strain-induced           cond. Sci. Technol. 22, 427 (2007).
+     effects in semiconductors (Wiley, 1974).                    [72] S. Boyer-Richard, F. Raouafi, A. Bondi, L. Pédesseau, C.
+[43] G. Dresselhaus, Phys. Rev. 100, 580 (1955).                      Katan, J.-M. Jancu, and J. Even, Appl. Phys. Lett. 98,
+[44] M. van Schilfgaarde, T. Kotani, and S. Faleev, Phys. Rev.        251913 (2011).
+     Lett. 96, 226402 (2006).                                    [73] N. Fraj, I. Saı̈di, S. Ben Radhia, and K. Boujdaria, J.
+[45] T. Kotani and M. van Schilfgaarde, Phys. Rev. B 96,              Appl. Phys. 102, 053703 (2007).
+     165106 (2007).                                              [74] B. Bouhafs, H. Aourag, and M. Certier, J. Phys. Con-
+[46] J. Heyd, G. E. Scuseria, and M. Ernzerhof, J. Chem.              dens. Matter 12, 5655 (2000).
+     Phys. 118, 8207–8215 (2003).                                [75] M. Ferhat, A. Zaoui, M. Certier, and H. Aourag, Physica
+[47] Y.-S. Kim, M. Marsman, G. Kresse, F. Tran, and P.                B Condens. Matter 252, 229 (1998).
+     Blaha, Phys. Rev. B 82, 205212 (2010).                      [76] A. Zaoui and F. E. H. Hassan, J. Phys. Condens. Matter
+[48] I. Vurgaftman, J. R. Meyer, and L. R. Ram-Mohan, J.              13, 253 (2000).
+     of Appl. Phys. 89, 5815–5875 (2001).                        [77] S. Cui, W. Feng, H. Hu, Z. Feng, and Y. Wang, Comput.
+[49] J. Schörmann, D. J. As, K. Lischka, P. Schley, R. Gold-         Mater. Sci. 44, 1386 (2009).
+     hahn, S. F. Li, W. Löffler, M. Hetterich, and H. Kalt,     [78] T.-H. Liu, B. Song, L. Meroueh, Z. Ding, Q. Song, J.
+     Appl. Phys. Lett. 89, 261903 (2006).                             Zhou, M. Li, and G. Chen, Phys. Rev. B 98, 081203
+[50] M. P. Thompson, G. W. Auner, T. S. Zheleva, K. A.                (2018).
+     Jones, S. J. Simko, and J. N. Hilfiker, J. of Appl. Phys.   [79] B. Stone and D. Hill, Phys. Rev. Lett. 4, 282 (1960).
+     89, 3331–3336 (2001).                                       [80] R. J. Archer, R. Y. Koyama, E. E. Loebner, and R. C.
+[51] J. S. Kang, M. Li, H. Wu, H. Nguyen, and Y. Hu, Appl.            Lucas, Phys. Rev. Lett. 12, 538 (1964).
+     Phys. Lett. 115, 122103 (2019).                             [81] R. Gui, Z. Xue, X. Zhou, C. Gu, X. Ren, H. Cheng, D.
+[52] M. E. Levinshtein, S. L. Rumyantsev, and M. S. Shur,             Ma, J. Qin, Y. Liang, X. Yan, J. Zhang, X. Zhang, X.
+     Properties of advanced semiconductor materials: GaN,             Yu, L. Wang, Y. Zhao, and S. Wang, Phys. Rev. B 101,
+     AlN, InN, BN, SiC, SiGe (Wiley, 2001).                           035302 (2020).
+[53] S. Dalui, S. Hussain, S. Varma, D. Paramanik, and A.        [82] S. Das, R. Bhunia, S. Hussain, R. Bhar, B. Chakraborty,
+     Pal, Thin Solid Films 516, 4958–4965 (2008).                     and A. Pal, Appl. Surf. Sci. 353, 439 (2015).
+                                                                                                                           18
+
+[83] S. Dalui, S. Das, S. Hussain, D. Paramanik, S. Verma,            Schmidt, S. Chen, C.-W. Chu, P. Y. Huang, D. Broido,
+     and A. Pal, J. Cryst. Growth 305, 149 (2007).                    L. Shi, G. Chen, and Z. Ren, Science 361, 582 (2018).
+[84] S. Yue, G. Gamage, M. Mohebinia, D. Mayerich, V. Ta-        [89] J. S. Kang, M. Li, H. Wu, H. Nguyen, and Y. Hu, Science
+     lari, Y. Deng, F. Tian, S.-Y. Dai, H. Sun, V. Hadjiev, W.        361, 575 (2018).
+     Zhang, G. Feng, J. Hu, D. Liu, Z. Wang, Z. Ren, and J.      [90] S. Li, Q. Zheng, Y. Lv, X. Liu, X. Wang, P. Y. Huang,
+     Bao, Mater. Today Phys. 13, 100194 (2020).                       D. G. Cahill, and B. Lv, Science 361, 579 (2018).
+[85] T. L. Chu and A. E. Hyslop, J. Electrochem. Soc. 121,       [91] R. P. Feynman, Phys. Rev. 56, 340 (1939).
+     412 (1974).                                                 [92] L. C. Lew Yan Voon and L. R. Ram-Mohan, Phys. Rev.
+[86] D. A. Broido, L. Lindsay, and T. L. Reinecke, Phys. Rev.         B 47, 15500 (1993).
+     B 88, 214303 (2013).                                        [93] T. Eissfeller, Ph.D. thesis, Technical University of Mu-
+[87] L. Lindsay, D. A. Broido, and T. L. Reinecke, Phys. Rev.         nich, 2012.
+     Lett. 111, 025901 (2013).                                   [94] P. Machnikowski, K. Gawarecki, and Ł. Cywiński, Phys.
+[88] F. Tian, B. Song, X. Chen, N. K. Ravichandran, Y. Lv,            Rev. B 100, 085305 (2019).
+     K. Chen, S. Sullivan, J. Kim, Y. Zhou, T.-H. Liu, M.        [95] T. B. Bahder, Phys. Rev. B 41, 11992 (1990).
+     Goni, Z. Ding, J. Sun, G. A. G. Udalamatta Gamage,
+     H. Sun, H. Ziyaee, S. Huyan, L. Deng, J. Zhou, A. J.
+

@@ -1,0 +1,1420 @@
+                                                                 Hubbard parameters from density-functional perturbation theory
+
+                                                                                     Iurii Timrov, Nicola Marzari, and Matteo Cococcioni
+                                                                                Theory and Simulation of Materials (THEOS), and National Centre for
+                                                                                 Computational Design and Discovery of Novel Materials (MARVEL),
+                                                                         École Polytechnique Fédérale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland
+                                                                                                         (Dated: August 17, 2018)
+                                                                   We present a transparent and computationally efficient approach for the first-principles calculation
+                                                                of Hubbard parameters from linear-response theory. This approach is based on density-functional
+                                                                perturbation theory and the use of monochromatic perturbations. In addition to delivering much
+                                                                improved efficiency, the present approach makes it straightforward to calculate automatically these
+                                                                Hubbard parameters for any given system, with tight numerical control on convergence and precision.
+arXiv:1805.01805v2 [cond-mat.str-el] 16 Aug 2018
+
+
+
+
+                                                                The effectiveness of the method is showcased in three case studies – Cu2 O, NiO, and LiCoO2 – and
+                                                                by the direct comparison with finite differences in supercell calculations.
+
+
+                                                                    I.    INTRODUCTION                               Hubbard corrections impose piecewise linearity in the en-
+                                                                                                                     ergy functional as a function of occupations [17, 18], and
+                                                                                                                     thus remove SIE in the Hubbard manifold both in ex-
+                                                      The development of density-functional theory
+                                                                                                                     tended systems and in molecular ones [19]. Within this
+                                                   (DFT) [1, 2] has allowed modeling of a broad spec-
+                                                                                                                     approach, often referred to as DFT+U , the Hubbard cor-
+                                                   trum of properties for a large variety of systems. In
+                                                                                                                     rection acts selectively on strongly localized manifolds
+                                                   practical applications DFT relies on approximations to
+                                                                                                                     (of d or f types, typically) through projectors on the
+                                                   the exchange-correlation (xc) electronic interactions,
+                                                                                                                     corresponding states, while electrons on more delocal-
+                                                   among which the local-density approximation (LDA)
+                                                                                                                     ized states are treated at the level of approximate DFT.
+                                                   and the generalized-gradient approximation (GGA) are
+                                                                                                                     What has made this approach popular is certainly the
+                                                   the most popular ones. Both approximations suffer from
+                                                                                                                     possibility of achieving significant improvement in the de-
+                                                   self-interaction errors (SIE), which limit the accuracy
+                                                                                                                     scription of systems with localized electrons, while main-
+                                                   only to systems with weak and moderate electronic
+                                                                                                                     taining a combination of simplicity and reduced compu-
+                                                   correlations. In systems with strongly localized electrons
+                                                                                                                     tational costs. As for other methods based on the Hub-
+                                                   of d and f types, SIE in LDA and GGA are much larger,
+                                                                                                                     bard model, for example, DFT + DMFT [20–22], the
+                                                   which leads to overdelocalization of these electrons and
+                                                                                                                     effectiveness of the functional depends critically on the
+                                                   quantitative and sometimes even qualitative failures
+                                                                                                                     value of the effective interaction parameters (i.e., the
+                                                   in the description of complex materials (e.g. metallic
+                                                                                                                     Hubbard U parameter) which represents the strength
+                                                   instead of insulating ground states).
+                                                                                                                     of the on-site electron-electron interactions on localized
+                                                      Various corrective methods have been devised to deal           states [19, 23, 24]. Unfortunately, the value of these pa-
+                                                   with SIE. In particular, in DFT with hybrid functionals           rameters is not known a priori and it is a common prac-
+                                                   – such as e.g. B3LYP [3–7] or HSE06 [8, 9] – a fraction of        tice in literature to evaluate them semi-empirically by
+                                                   the non-local Fock exchange is used for all (strongly local-      fitting various experimental properties (when available),
+                                                   ized and non-strongly localized) electrons with a fraction        which prevents this method from being fully ab initio and
+                                                   of (semi-)local exchange and a fully (semi-)local corre-          from being predictive for novel materials. Most impor-
+                                                   lation. This approach is computationally more expen-              tantly, it is often forgotten that U acts on a Hubbard
+                                                   sive than DFT with (semi-)local functionals, because the          manifold that is defined in terms of atomic orbitals, typi-
+                                                   Fock exchange is a non-local integral operator which acts         cally taken from the atomic calculations used to generate
+                                                   on Kohn-Sham (KS) wave functions. However, there                  the respective pseudopotentials, that can be constructed
+                                                   has been recent progress in the development of very               with different degrees of oxidation. Hence, these man-
+                                                   efficient techniques, such as the adaptively compressed           ifolds, and the relative U parameters, are not transfer-
+                                                   exchange [10], to speed up such calculations. Another             able and one should not consider U as a universal num-
+                                                   recent suggestion is the meta-GGA functional SCAN                 ber for a given element or material (see the appendix
+                                                   (strongly constrained and appropriately normed semilo-            in Ref. [25]). During the past 30 years there has been
+                                                   cal density functional) [11], which has shown promising           a large effort to develop methods for the first-principles
+                                                   results for many systems [12, 13]. Having a marginal in-          calculation of U . Among these, the constrained DFT
+                                                   crease in the computational cost, DFT with the SCAN               (cDFT) approach [17, 26–34], the Hartree-Fock-based ap-
+                                                   functional uses a xc potential which depends on KS wave           proaches [35–38], and the constrained random phase ap-
+                                                   functions via a kinetic energy density. However, SCAN             proximation (cRPA) approach [39–45] are the most pop-
+                                                   still contains significant SIE [12].                              ular.
+                                                      A popular approach to alleviate SIE in DFT calcula-               In this work we present a new method for the cal-
+                                                   tions is to use Hubbard extensions to approximate DFT             culation of U using the reciprocal space formulation of
+                                                   energy functionals [14–16]. The rationale for this is that        density-functional perturbation theory (DFPT) [46, 47].
+                                                                                                                                   2
+
+Our approach, by construction, is equivalent to the           where I is the atomic site index, σ is the spin index, m1
+linear-response cDFT (LR-cDFT) approach of Ref. [17].         and m2 are magnetic quantum numbers associated with a
+Broadly, we refer to linear response as to a first-order      specific angular momentum, and U I is an effective Hub-
+variation in the electronic spin charge density, occupa-      bard parameter, which can be considered as the difference
+tions, and potentials upon application of a perturbation.     between the spherically averaged on-site Coulomb repul-
+This can be done with finite differences, typically using a   sion and on-site Hund’s exchange J I . The symbol “Tr”
+supercell [17], or, as shown here, using DFPT. The DFPT       indicates the trace (i.e. the sum over the diagonal ele-
+approach allows us to recast an isolated perturbation in      ments) of the matrix it acts on. The corrective Hubbard
+a supercell as a sum of monochromatic perturbations in        energy of Eq. (2) in its practical incarnation within DFT
+its primitive unit cell; these can be computed indepen-       acts as a linearization condition for the total energy func-
+dently, with a significant reduction of the computational     tional (as a function of populations nIσ of the localized
+cost [47]. The favorable scaling of the DFPT approach         Hubbard manifold), i.e. it acts as a self-interaction cor-
+makes it suitable for incorporation in high-throughput        rection to standard DFT [17–19]. In Eq. (2), nIσ   m1 m2 are
+materials screening, and the automation of the elaborate      matrices which measure the occupation of localized or-
+post-processing of the results improves notably the level                        γ(I)
+                                                              bitals ϕIm (r) ≡ ϕm (r−RI ) centered on the I-th atomic
+of user-friendliness. Lastly, we note the formal similarity   site in the cell RI [γ(I) is the atomic type of the I-th
+of the present DFPT-based algorithm for the calculation       atom] [59]. If we consider a periodic insulating crystal,
+of Hubbard U with that used to evaluate the screening         these occupation matrices can be computed as
+coefficients for Koopmans’ corrections [18, 48, 49].
+                                                                                      Nk N
+   The paper is organized as follows. In Sec. II we re-                               X  X occ
+                                                                                                   ◦               ◦
+call the rotationally invariant formulation of DFT+U ;                   nIσ
+                                                                          m1 m2 =                hψvkσ    I
+                                                                                                       |P̂m 2 m1
+                                                                                                                 |ψvkσ i,         (3)
+Sec. III contains a brief reminder about the linear-                                   k   v
+
+response (LR) calculation of U using the LR-cDFT ap-                  I
+                                                              where P̂m 2 m1
+                                                                             is the projector on the manifold of localized
+proach of Ref. [17]; in Sec. IV we present the DFPT ap-
+                                                              (atomic) orbitals
+proach to compute U ; Sec. V contains technical details of
+our calculations; Sec. VI highlights several benchmarks                             I
+                                                                                  P̂m      = |ϕIm2 ihϕIm1 | .                     (4)
+                                                                                      2 m1
+of the new method, demonstration of the convergence
+of U in DFPT, and comparison of scaling of LR-cDFT            The projector P̂m     I
+                                                                                           is the key component of Hubbard-
+                                                                                      2 m1
+and DFPT; and finally, in Sec. VII we give our con-           corrected functionals, since it defines the Hubbard man-
+clusion. For the sake of simplicity and clarity, in this      ifold (typically localized on an atom) upon which the
+paper we present the formulation of the DFPT method           corrections are constructed. Note that the occupation
+in the framework of norm-conserving pseudopotentials          matrices nIσ m1 m2 are real and symmetric with respect to
+(PPs) and for gapped systems. The generalization of           m1 and m2 . In Eq. (3) and hereafter, with the super-
+DFPT to ultrasoft (US) PPs [50], projector augmented          script “ ◦ ” we indicate quantities which refer to the un-
+wave (PAW) method [51], metals, and inter-site interac-       perturbed ground state of the system. In Eq. (3) Nk is
+tions [52] will be provided in a following paper. Some        the number of k points in the first Brillouin zone, v is
+mathematical details of the DFPT method are discussed         the electronic band index which runs over Nocc occupied
+in the appendix. Hartree atomic units are used through-                       ◦
+                                                              states, and ψvkσ        are the ground-state Kohn-Sham (KS)
+out the paper.                                                wave functions, which satisfy the orthonormality condi-
+                                                                      ◦
+                                                              tion, hψvkσ  |ψv◦0 k0 σ0 i = δvv0 δkk0 δσσ0 . The normalization in
+                                                              Eq. (3) and in the following is chosen according to defini-
+                      II.   DFT+U                             tions in Eqs. (A.3), (A.4) and (A.5) in the Appendix 1.
+                                                              The KS wave functions are determined by solving the KS
+  In this section we briefly review the DFT+U ap-             equations,
+proach [14, 15]. The total energy is defined as:
+                                                                                Ĥσ◦ |ψvkσ
+                                                                                       ◦
+                                                                                           i = ε◦vkσ |ψvkσ
+                                                                                                       ◦
+                                                                                                           i,                     (5)
+                EDFT+U = EDFT + EU ,                   (1)
+                                                              i.e. they are the eigenvectors of the total Hamiltonian
+where EDFT is the DFT total energy of an approximate          Ĥσ◦ which reads:
+functional, and EU is a corrective Hubbard energy term.
+Many suggestions for EU have been put forward in the                            Ĥσ◦ = ĤDFT,σ
+                                                                                         ◦         ◦
+                                                                                               + V̂Hub,σ ,                        (6)
+literature (see e.g. Refs. [14–16, 53–58]). Here we take
+the simplified rotationally invariant formulation by Du-      where
+darev et al. [16] with                                                   ◦        1       ◦       ◦      ◦
+                                                                       ĤDFT,σ = − ∇2 + V̂NL + V̂loc + V̂Hxc,σ ,                  (7)
+              1 X                                                                 2
+                        U I δm1 m2 − nIσ
+                                            Iσ
+       EU =                           m1 m2 nm2 m1
+              2                                               and
+                Iσm1 m2
+                                                                                                                
+              1X I                                                ◦
+                                                                              X                δm1 m2
+                    U Tr 1 − nIσ nIσ ,                                                UI              − nIσ            I
+                                        
+           =                                         (2)         V̂Hub,σ =                               m1 m2       P̂m 1 m2
+                                                                                                                              ,   (8)
+              2                                                                                  2
+                Iσ                                                           Im1 m2
+                                                                                                                          3
+
+                                     ◦
+is the Hubbard potential [23]. V̂Hub,σ     can be obtained     this problem, i.e. to control ground state occupations as
+from Eq. (2) by taking a functional derivative of EU           independent variables, the LR-cDFT method performs a
+with respect to KS wave functions [and by making use           Legendre transformation of the total energy. In practice,
+of Eq. (3)]. In Eq. (7), the first term is the kinetic-        the total energy functional EDFT [ρσ ] is augmented with a
+energy operator, the second and the third terms are op-        linear combination of the products of atomic occupations
+erators corresponding to the non-local and local parts         nI and Lagrange multipliers {λI }. Subsequently, this
+of the pseudopotential (which represent interactions of        functional is minimized with respect to the spin charge
+electrons with ions), respectively, and the fourth term        densities ρσ , which gives the ground-state energy as a
+is the operator representing the Hartree and exchange-         function of the coefficients {λI }:
+correlation (Hxc) potential. The Hxc potential is the                                 (                       )
+sum of the Hartree and xc contributions:                                   I
+                                                                             
+                                                                     E {λ } = min EDFT [ρσ ] +
+                                                                                                    X
+                                                                                                          I I
+                                                                                                         λ n    ,    (12)
+                       Z ◦ 0                                                      ρσ
+            ◦             ρ (r )                                                                      I
+          VHxc,σ (r) =             dr0 + Vxc,σ
+                                           ◦
+                                               (r) ,   (9)
+                         |r − r0 |                             from which the total energy as a function of the ground
+                       V
+                                                               state atomic occupations nI is recovered by a Legendre
+where V is the volume of the crystal, and the xc potential     transformation:
+is defined as the functional derivative of the xc energy                                       X I I
+                                                                          Ē {nI } = E {λI } −
+                                                                                  
+Exc [ρσ ] with respect to the spin charge density ρσ :                                               λ n .         (13)
+                                                                                                      I
+               ◦             δExc
+             Vxc,σ (r) =                          .    (10)    This definition of the total energy [Eq. (13)] can be used
+                            δρσ (r) ρσ (r)=ρ◦ (r)
+                                              σ
+                                                               to evaluate derivatives with respect to nI . Based on these
+For the ground state, the spin charge density reads:           definitions, the first and second derivatives give:
+                           Nk Nocc                                                     dĒ
+                                                                                           = −λI ,                     (14)
+                           X  X
+               ρ◦σ (r) =               ◦
+                                     |ψvkσ (r)|2 ,     (11)                            dnI
+                            k   v
+
+and the total charge   density results from the sum over                      d2 Ē      dλI
+                                                                                      = − I = −(χ−1 )II ,              (15)
+spins: ρ◦ (r) = σ ρ◦σ (r).
+               P
+                                                                                 I
+                                                                             d(n )  2    dn
+                                                               where the last equality defines the response matrix χ.
+ III.   HUBBARD U FROM LINEAR-RESPONSE                         This matrix contains the response of atomic occupations
+             CONSTRAINED DFT                                   to the potential shift used to perturb the ground state of
+                                                               the system [see Eq. (12)]: χIJ = dnI /dλJ (I and J being
+   As already mentioned in the introduction, in spite of       atomic indices). From linear-response theory, as detailed
+the fact that the semiempirical fitting of the Hubbard pa-     in Ref. [17], the Hubbard U parameter is defined as:
+rameters is still a common practice, their evaluation from
+                                                                                 U I = χ−1       −1
+                                                                                                    
+                                                                                          0 −χ        II
+                                                                                                         ,          (16)
+first principles is necessary to remove any empiricism,
+and hence many approaches have been proposed [17, 26–          where χ0 is the non-interacting analog of χ. Equa-
+45]. However, a thorough comparative analysis of their         tion (16) expresses U as the difference between two total-
+formulation and performance has been rarely and par-           energy second derivatives [see Eq. (15)]: the one obtained
+tially attempted in the literature (see e.g. Ref. [42]). It    at self-consistency (−χ−1 ) and the one evaluated at the
+is our belief that the completion of this task should be       first iteration of the perturbed run (−χ−1       0 ), meaning
+based on a detailed comparison of screening mechanisms         the curvature of the total energy of the non-interacting
+in calculations of the effective Hubbard parameters.           KS system. The subtraction of the latter term is mo-
+   In this section we recall basic aspects of the LR-cDFT      tivated by the fact that it is not related to electron-
+approach of Ref. [17] for calculations of the effective Hub-   electron interactions. According to a complementary
+bard parameter U . In fact, the approach presented in this     view, Eq. (16) can be seen as the solution of the Dyson
+work is a DFPT-based reformulation of LR-cDFT whose            equation for χ and χ0 , where U acts as the interaction
+results will thus represent a useful reference. In LR-         kernel (χ = χ0 + χ0 U χ). In practice, in order to com-
+cDFT, U is computed as the second derivative of the total      pute the variations of atomic occupations, one needs to
+energy of the system with respect to atomic occupations        solve modified KS equations where atomic potentials are
+that are defined P as the “on-site”Ptrace of the occupation    perturbed one at a time [cf. with Eq. (5)]:
+matrices, nI = σ Tr[nIσ ] = σ,m nIσ       mm [see Eq. (3)].                                
+In implementations of DFT, like the present one [60, 61],                   Ĥσ + λJ V̂pert
+                                                                                       J
+                                                                                              |ψvkσ i = εvkσ |ψvkσ i .  (17)
+where a plane-wave basis set and pseudopotentials are
+used, atomic occupations are obtained as output quanti-        These equations can be obtained    by taking a functional
+                                                               derivative of EDFT [ρσ ] + I λI nI [see Eq. (12)] with re-
+                                                                                         P
+ties (i.e. constructed from the solution of the KS equa-
+                                                                         ∗
+tions) and cannot be controlled from input. To overcome        spect to ψvkσ (r). Based on Eq. (3) it is easy to show that
+                                                                                                                          4
+
+the perturbing potential is                                      In fact, this goal is achieved through a series of linear-
+                                X                                response evaluations of the Hubbard parameters based
+                       J              J
+                     V̂pert =       P̂mm ,               (18)    on the DFT+U ground state obtained with the U de-
+                                m                                termined in the previous step; the cycle is stopped when
+which is a sum of the projections on the localized atomic        the computed value of U is within a fixed threshold from
+orbitals of the J-th atom [see Eq. (4)]. In Eq. (17), Ĥσ ,      that of the previous step. When evaluating U from a
+ψvkσ , and εvkσ are the Hamiltonian, the KS wave func-           DFT+U ground state all the equations discussed above
+tions, and the KS energies of the perturbed system, re-          apply after substituting EDFT with EDFT+U in Eq. (12),
+spectively. For the inverse response matrices to corre-          and with the extra condition that the Hubbard potential
+spond to atomic on-site interactions, it is necessary to         in the Hamiltonian Ĥσ , appearing in Eq. (17), is kept
+make sure that these localized, neutral (i.e. not charged)       fixed to its unperturbed ground-state value:
+perturbations do not interact with their images through                                            ◦
+the periodic-boundary conditions, which requires the use                         Ĥσ = ĤDFT,σ + V̂Hub,σ .             (20)
+of progressively larger supercells. The final results (i.e.
+the effective Hubbard parameters) thus have to be con-           This is a consequence of the fact that U is defined as
+verged with respect to the supercell’s size.                     the curvature of the DFT part of the total energy [first
+   In practice, after solving Eq. (17) for at least two values   term in Eq. (1)] as a function of atomic occupations [17].
+of λJ (centered around 0 eV, which corresponds to the            Keeping V̂Hub,σ (the first derivative of the Hubbard en-
+                                                                                                          ◦
+unperturbed ground state), the response matrices can be          ergy) fixed to its unperturbed value V̂Hub,σ   avoids that
+easily computed using finite differences:                        the second derivative of the total energy [see Eq. (15)]
+                                                                 contains a finite contribution from the Hubbard correc-
+                                ∆nI                              tion. We note that in this work we will not compute U
+                       χIJ =        .                    (19)
+                                ∆λJ                              self-consistently, and we perform only one-shot calcula-
+The variation in the strength λJ of the perturbing poten-        tions starting from the DFT ground state with U = 0.
+tial should be small, for the response of the system to be          The LR-cDFT approach is straightforward, and easy
+in the linear regime, but large enough for the response to       to implement in electronic-structure codes. However, it
+be significant with respect to numerical noise. Then, the        is computationally expensive due to its cubic scaling with
+full response matrix χ is constructed by perturbing one          the size of the supercell. Furthermore, this approach re-
+at a time the crystallographically inequivalent Hubbard          quires us to perform a number of supercell calculations
+manifolds of the individual Hubbard atoms. When one              (depending on how many non-equivalent Hubbard atoms
+Hubbard atom/manifold is perturbed, the response of all          are in the system), and convergence tests with respect to
+the atoms is recorded, so that one column of the response        the supercell size, to avoid unphysical interactions be-
+matrix χ is determined. The other matrix elements (in            tween periodic images of the perturbed atoms. Even
+the columns corresponding to equivalent Hubbard atoms)           though some extrapolation techniques have been devised
+are then reconstructed by symmetry. The dimension of             to speed up the convergence of U with respect to the
+the response matrix χ is NHsc ×NHsc , where NHsc is the num-     supercell size [17], more computationally efficient algo-
+ber of Hubbard atoms in the supercell. We also point out         rithms are highly desirable to overcome these difficulties,
+that the change in the occupations of the non-Hubbard            especially in view of their possible deployment in highly
+atoms (not explicitly included in the response matrices)         automatized, high-throughput calculations.
+contributes to the screening of the effective interaction.
+   The procedure described above applies to the construc-
+tion of both χ and χ0 . However, χ is computed after                      IV. HUBBARD U FROM
+the self-consistent solution of Eq. (17), while χ0 , the            DENSITY-FUNCTIONAL PERTURBATION
+KS (bare) response, is computed at the first iteration,                         THEORY
+where the Hxc potential is equal to that of the unper-
+turbed system. It is worth noting      that the off-diagonal        In this section we show how the LR-cDFT calculation
+matrix elements in χ−1        −1
+                                 
+                       0 −χ        IJ
+                                      represent inter-site in-   of the effective Hubbard parameters outlined in Sec. III
+teractions, which are not included in the “standard”, on-        can be re-formulated within the framework of DFPT,
+site only DFT+U Hamiltonian. These can be important              i.e. solving self-consistently the system of linear equa-
+when the hybridization between strongly localized and            tions that can be obtained from perturbing to first order
+non-localized states occurs. These terms are included            Kohn-Sham equations around the ground state of the
+in the so-called DFT+U +V functional [52] to which the           system [46, 47]. Although formally an all-order pertur-
+DFPT-based calculation of Hubbard interaction param-             bation theory, the limitation to first order in the per-
+eters introduced in this work has been also extended, as         turbations makes standard DFPT a linear-response ap-
+will be presented elsewhere.                                     proach, and thus equivalent to LR-cDFT. It is impor-
+   It is important to note that U can be computed start-         tant to remark that DFPT allows for a reciprocal space
+ing from a DFT+U ground state (U 6= 0). This is partic-          formulation of the LR problem, with wavelength- (i.e.
+ularly useful when U is evaluated self-consistently [62].        momentum-) specific perturbations and responses [47].
+                                                                                                                                             5
+
+As will be shown later, this presents the same advantages           to see that in the coordinate representation the latter
+that a DFPT phonon calculation [47] has with respect                quantity can be expressed as:
+to a finite-difference approach with ionic displacements
+                                                                                                   dρ(r0 ) 0
+                                                                                       Z
+frozen in the crystal structure (frozen phonons): The pos-               dVHxc,σ (r)          1
+                                                                                J
+                                                                                     =           0
+                                                                                                            dr
+sibility of performing calculations in primitive unit cells                  dλ            |r − r | dλJ
+                                                                                       V
+(thus avoiding costly supercells), computational costs es-                             XZ                       dρσ0 (r0 ) 0
+sentially uniform across the Brillouin zone, exploitation                            +         κxc,σσ0 (r, r0 )           dr , (24)
+of symmetries, and a higher level of automation. The                                     0
+                                                                                                                  dλJ
+                                                                                              σ    V
+transition from LR-cDFT to DFPT will be made in two
+steps: first, substituting finite differences with continu-         where the first and the second terms are the LR Hartree
+ous derivatives; and second, recasting perturbative calcu-          and xc potentials, respectively, and κxc,σσ0 (r, r0 ) is the xc
+lations in supercells as series of monochromatic pertur-            kernel
+bations in primitive unit cells.
+                                                                                                  δ 2 Exc
+                                                                        κxc,σσ0 (r, r0 ) =                                             ,   (25)
+                                                                                             δρσ (r)δρσ0 (r0 )    ρσ (r)=ρ◦ σ (r)
+                                                                                                                 ρσ0 (r0 )=ρ◦
+                                                                                                                            σ0
+                                                                                                                               (r0 )
+      A.      Hubbard U from DFPT in real space
+                                                                    which is local in the local-spin-density approximation
+   In this section we will show how to compute the non-             (or semilocal in the generalized-gradient approxima-
+                                                                    tion) [63]. In Eq. (24), dρ(r)
+                                                                                                     P dρσ (r)
+interacting and interacting response matrices χ0 and χ                                        dλJ
+                                                                                                   =   σ dλJ   is the total
+which are needed for the calculation of U [see Eq. (16)].           LR charge density, where
+With the DFPT formalism in a “real-space” implemen-
+                                                                                         Nk N
+                                                                                        X    occ                    
+tation, localized perturbations are applied in the same                  dρσ (r)            X
+                                                                                                    ◦∗     dψvkσ (r)
+supercells used in the LR-cDFT approach; so, the only                            = 2 Re           ψvkσ (r)             .                   (26)
+                                                                          dλJ                v
+                                                                                                             dλJ
+                                                                                               k
+difference is that the LR matrices are continuous deriva-
+tives of atomic occupations:                                        In the last equation the absence of the imaginary com-
+                                                                    ponent is a consequence of time-reversal symmetry. It
+                               X dnIσ
+                       χIJ =          mm
+                                           ,                (21)    is important to note that in Eq. (23) there are no other
+                               σ,m
+                                     dλJ                            first-order terms, because the localized orbitals ϕIm (r) are
+                                                                    a fixed basis set. DFPT involves solving the system of
+which, based on Eq. (3), can be constructed from the LR             linearly coupled equations (23) – (26), iteratively and
+KS wave functions directly obtained from DFPT:                      self-consistently.
+                                                                       If the LR KS equations (23) are solved starting from
+      dnIσ
+                 Nk N
+                 X  X occ D
+                                              dψvkσ E               the DFT + U ground state with U 6= 0, then the response
+         m1 m2                 ◦      I
+               =             ψvkσ  P̂ m   m                         of the Hubbard potential, dλ
+                                                                                                  dV̂Hub,σ
+                                                                                                           must be set to zero, for
+        dλJ          v
+                                        2   1
+                                               dλJ                                                     J
+                 k                                                  the same reason discussed in Sec. III after Eq. (20). As
+                            D dψ                      E
+                          +
+                                  vkσ
+                                        P̂ I
+                                                 ψ ◦
+                                                         . (22)     a consequence this term is not present on the right-hand
+                                           m2 m1  vkσ
+                                 dλJ                                side of Eq. (23).
+                                                                       It is well known in DFPT [47] that only the component
+Here, J and I label the atomic sites where the perturba-            of the LR KS wave functions obtained by projection on
+tion is applied and whose change in occupation is being             the empty (conduction) states manifold gives a non-zero
+measured, respectively. Within DFPT the LR KS wave                  contribution to the LR spin charge density (26) and LR
+functions dψdλ
+             vkσ (r)
+               J     are the solutions of the linear-response       occupation matrices (22). Therefore, it is convenient to
+KS equations (from first-order perturbation theory):                work directly with the projection of Eq. (23) onto this
+                         dψ     E                                 manifold:
+                              vkσ
+            Ĥσ◦ − ε◦vkσ                                                                             dψ̃       E
+                             dλJ                                                 Ĥσ◦ + αÔσ − ε◦vkσ
+                                                                                                            vkσ
+                                                                                                        dλ  J
+                    dV̂Hxc,σ    dεvkσ     J      ◦
+             =−               −       + V̂pert |ψvkσ i.     (23)                            
+                                                                                              dV̂Hxc,σ
+                                                                                                                  
+                       dλJ       dλJ                                                 = −P̂σ                   J      ◦
+                                                                                                         + V̂ pert |ψvkσ i .  (27)
+                                                                                                dλJ
+Equation (23) is obtained from Eq. (17) by a Taylor ex-
+pansion in λJ to first order of all quantities. Here, Ĥσ◦ ,        In Eq. (27), Ôσ is the projector on the occupied states
+                                                                                       PNk PNocc ◦
+ε◦vkσ , ψvkσ
+           ◦
+                 are, respectively, the total Hamiltonian [see      manifold: Ôσ =       k0   v0  |ψv0 k0 σ ihψv◦0 k0 σ |, while the
+Eq. (6)], the KS energies, and the KS wave functions                operator P̂σ is the projector on the empty states man-
+of the system in its unperturbed ground state, while                ifold, and it is expressed using the identity relation
+   J
+V̂pert , dεdλvkσ
+              J , and
+                       dV̂Hxc,σ
+                                are the perturbing potential [see   P̂σ = 1 − Ôσ , in order to avoid sums over empty states
+                         dλJ
+Eq. (18)], and the first-order variations of the KS ener-           that would, typically, be very slow converging with re-
+gies and Hxc potential. From Eqs. (9) and (10) it is easy           spect to the number of states [47]. In Eq. (27), | ddλ   ψ̃vkσ
+                                                                                                                                J i ≡
+                                                                                                                           6
+
+P̂σ | dψvkσ
+       dλJ
+            i is the conduction component of the LR KS         explain the general idea behind this reformulation; the
+wave functions. The extra term αÔσ on the left-hand           second one will instead illustrate all the technical details
+side of Eq. (27) is not strictly required by the projec-       of the implementation in DFPT.
+tion on conduction states: Its presence serves the pur-           In the following we will consider for simplicity only
+pose of lifting the singularity of the operator Ĥσ◦ − ε◦vkσ   supercells whose lattice vectors are integer multiples of
+on the valence manifold which would create numerical           those of the primitive unit cell. For supercells with lat-
+issues when solving it. For this purpose the parameter         tice vectors not parallel to those of the primitive unit cell,
+α is fixed to twice the spread of the unperturbed Kohn-        a conventional unit cell can be usually identified (whose
+Sham spectrum: α = 2 (max[ε◦vkσ ] − min[ε◦vkσ ]), which        volume is typically a small integer multiple of that of the
+makes the operator on the left-hand side of Eq. (27) non-      primitive unit cell) that can be used for DFPT calcu-
+singular. In practice, if Eq. (27) is solved using iterative   lations with a relatively small increase in the computa-
+algorithms [64] and the trial solution is chosen orthog-       tional cost.
+onal to the occupied states manifold, then the orthogo-
+nality is preserved during the iteration cycle and there
+is no need of the extra term αÔσ on the left-hand side             1. From localized perturbations in supercells to
+of Eq. (27) [47]. It is worth noting that the term dεdλvkσ         monochromatic perturbations in primitive unit cells
+                                                          J
+appearing in Eq. (23) has disappeared from Eq. (27) be-
+              ◦
+cause P̂σ |ψvkσ   i = 0 for valence states; this means that       A supercell of size L1 × L2 × L3 is defined here, having
+variations of the valence KS energies (due to the pertur-      lattice vectors {Ai } that are integer multiples of those of
+bation) do not contribute to the conduction component          the primitive unit cell {ai }:
+of the LR KS wave functions. The expressions for the
+LR occupation matrices and spin charge densities [see                                   Ai = Li ai ,                     (28)
+Eqs. (22) and (26), respectively] remain identical, if we
+                                                               where i = 1, 2, 3. Let {Bi } be the reciprocal lattice basis
+replace dψ   vkσ
+            dλJ
+                  by ddλ
+                      ψ̃vkσ
+                         J  [65].
+                                                               vectors of this supercell. Based on their definition, it
+   The DFPT method presented to this point, i.e. solving       is easy to determine the relationship with the reciprocal
+Eq. (27) and computing the LR occupation matrices us-          lattice vectors {bi } of the primitive unit cell:
+ing Eq. (22), is, by construction, exactly equivalent to the
+LR-cDFT method, when used on the same supercell, but                              Aj × Ak      aj × ak   bi
+offers a more automatic and elegant way of computing                    Bi = 2π           = 2π         =    ,            (29)
+                                                                                     V           Li v    Li
+the Hubbard parameters from linear response, avoids the
+need for finite differences and instead computes response      where we have used the fact that V = L1 L2 L3 v, with
+quantities directly as analytical derivatives, with a higher   v being the volume of the primitive unit cell. Based on
+control of accuracy. However, the formulation of DFPT          Eq. (29), the reciprocal lattice vectors of the supercell
+discussed so far presents no computational advantages
+with respect to LR-cDFT, because most of the compu-                          Gklm = k B1 + l B2 + m B3 ,                 (30)
+tational effort is due to the use of supercells. This latter
+aspect is, in fact, unavoidable within LR-cDFT. Within         can be rewritten as
+DFPT, instead, perturbations in supercells can be re-
+                                                                                      k        l      m
+cast as sums over monochromatic perturbations in prim-                      Gklm =       b1 +    b2 +    b3 ,            (31)
+itive unit cells which can be computed independently,                                 L1      L2      L3
+thus leading to a significant reduction of the computa-        where k, l, and m are integer numbers, whose range is
+tional cost to calculate U , as will be discussed in detail    fixed by the kinetic-energy cutoff. We now define the
+in Sec. IV B.                                                  quotients k 0 , l0 , and m0 and the remainders k̄, ¯l, and m̄
+                                                               of the fractional coefficients k/L1 , l/L2 , m/L3 in Eq. (31)
+                                                               as:
+  B.    Hubbard U from DFPT in reciprocal space
+                                                                                      k = k 0 L1 + k̄ ,                  (32)
+   In this section we show how the response of a sys-
+tem to isolated perturbations can be recast in terms of                                l = l0 L2 + ¯l ,                  (33)
+monochromatic perturbations using the DFPT formalism
+outlined in Sec. IV A. These perturbations can be treated
+within primitive unit cells and thus present a compu-                                m = m0 L3 + m̄ .                    (34)
+tational cost which is substantially independent of the
+wavelength of the perturbation considered, λ = 2π/|q|          With these definitions we can rewrite any Gklm as fol-
+(differences in these costs are still possible depending on    lows:
+the symmetry of the perturbation, i.e. the small group
+of q). The first part of this section will be dedicated to                       Gklm = gk0 l0 m0 + qk̄l̄m̄ ,            (35)
+                                                                                                                                            7
+
+where gk0 l0 m0 are reciprocal lattice vectors for the primi-            necessary to re-express localized, but supercell-periodic,
+tive unit cell, i.e.                                                     responses as sums of monochromatic contributions, as
+                                                                         already done for the perturbing potential in Sec. IV B 1,
+                     gk0 l0 m0 = k 0 b1 + l0 b2 + m0 b3 ,       (36)     and show that they can be computed one by one, solving
+                                                                         q-specific first-order perturbative equations.
+and qk̄l̄m̄ are vectors residing inside the first Brillouin                 Let us consider a supercell of size L1 × L2 × L3 [see
+zone of the primitive unit cell, i.e.                                    Sec. IV B 1] whose first Brillouin zone is sampled by Nksc k
+                                          ¯l                             points. Based on the discussion in Sec. IV B 1 the size of
+                                 k̄               m̄
+                    qk̄l̄m̄ =       b1 +     b2 +    b3 ,       (37)     the supercell determines the grid of q points to be used,
+                                 L1      L2       L3                     which is L1 × L2 × L3 (hence the number of q points
+                                                                         is Nq = L1 L2 L3 ). It is also important to note that the
+where 0 ≤ k̄ < L1 , 0 ≤ ¯l < L2 , and 0 ≤ m̄ < L3 . Based
+                                                                         DFPT calculation requires Nk = Nksc Nq k points to sam-
+on Eq. (29) it can be seen from Eq. (37) that qk̄l̄m̄ are,
+                                                                         ple the first Brillouin zone of the primitive unit cell with
+in fact, reciprocal lattice vectors of the supercell.
+                                                                         the same accuracy. If RI describes the position of the
+   In LR-cDFT an isolated perturbation is achieved by
+                                                                         I-th atom in the supercell, then this can be represented
+choosing a sufficiently large supercell. The Fourier ex-
+                                                                         as RI = Rl + τs , where Rl is the Bravais lattice vector of
+pansion of the corresponding perturbing potential thus
+                                                                         the l-th primitive unit cell and τs is the position of the s-
+contains only reciprocal lattice vectors of the supercell:
+                                                                         th atom in the l-th primitive unit cell. Hence, each index
+                                                                         I corresponds to two indices (l, s). By taking I = (l, s)
+                       X
+               V (r) =     eiG·r V (G)
+                                 G
+                                                                         and J = (l0 , s0 ), the interacting response matrices (21)
+                                                                         can be written as [66]:
+                                 X
+                             ≡         eiGklm ·r V (Gklm ) .    (38)                                           X dnslσ
+                                                                                                                        mm
+                                 klm                                                             χsl,s0 l0 =                   ,         (41)
+                                                                                                               σ,m
+                                                                                                                     dλs0 l0
+Using Eq. (35), we can rewrite the potential of Eq. (38)
+as a sum of monochromatic perturbations whose wave                       and a similar expression is used for the non-interacting
+vectors q are defined in Eq. (37):                                       response matrices χ0 . By performing mathematical ma-
+           X X                                                           nipulations as explained in the appendix (a bar over the
+   V (r) =          ei(gk0 l0 m0 +qk̄l̄m̄ )·r V (gk0 l0 m0 + qk̄l̄m̄ )
+                                                                         symbol of a quantity indicates its lattice-periodic part) it
+               k̄l̄m̄ k0 l0 m0
+                                                                         can be shown that the LR occupation matrices, Eq. (22),
+               XX                                                        can be expressed as:
+         ≡                 ei(g+q)·r V (g + q)
+                q      g                                                                             Nq
+                                                                                dnslσ
+                                                                                  m1 m2      1 X iq·(Rl −Rl0 ) s0 s σ
+                                                                                    s0 l0 =      e            ∆q n̄m1 m2 ,               (42)
+                                                                                 dλ         Nq q
+               X
+         =           eiq·r V̄q (r) .                            (39)
+                q
+                                                                                    0
+                                                                         where ∆sq n̄smσ1 m2 is the lattice-periodic response of the
+Equation (39) defines the lattice-periodic potential V̄q (r)             atomic occupation to a monochromatic perturbation of
+as:                                                                      wave vector q [67]:
+                        X
+              V̄q (r) =    eig·r V (g + q) .           (40)                                   Nk Nocc D
+                                                                            0               1 X                                    s0
+                                                                                                                                             E
+                                                                                                        ū◦vkσ P̄ˆm
+                                                                                                  X
+                                     g                                   ∆sq n̄smσ1 m2 =                          s
+                                                                                                                    2 ,m1 ,k,k+q
+                                                                                                                                 ∆ q  ū vkσ
+                                                                                           Nk     v
+                                                                                               k
+The simple derivation above shows that the response to
+                                                                                                                                  E
+a perturbation with the periodicity of a supercell can be
+                                                                                                D
+                                                                                                  ◦    ˆ s                   s0
+                                                                                              + ūvkσ P̄m1 ,m2 ,k,k+q ∆q ūvkσ , (43)
+equivalently computed in the primitive unit cell as the
+sum of the responses to monochromatic perturbations
+on a grid of q points defined by Eq. (37). It is important               Nocc being the number of occupied states 0
+                                                                                                                         in the prim-
+to stress that the size of the q points grid is determined               itive unit cell. Here, ū◦vkσ (r) and ∆sq ūvkσ (r) are the
+by the size of the supercell. In Sec. IV B 2 we show how                 lattice-periodic parts of the ground-state and LR KS
+this can be implemented in DFPT.                                         wave functions, respectively, while P̄ˆm
+                                                                                                                s
+                                                                                                                  2 ,m1 ,k,k+q
+                                                                                                                                is the
+                                                                         lattice-periodic projector operator
+
+          2.     Monochromatic perturbations in DFPT                                    P̄ˆm
+                                                                                           s
+                                                                                             2 ,m1 ,k,k+q
+                                                                                                          = |ϕ̄sm2 ,k ihϕ̄sm1 ,k+q | ,   (44)
+
+  Let us now proceed with the reformulation of DFPT                      constructed on the lattice-periodic components of Bloch
+in terms of monochromatic perturbations in a primitive                   sums of localized functions ϕsm (r − Rl ) (see the ap-
+unit cell (this setting will define the meaning of “DFPT                 pendix 1 for more details). Equation (43) shows that
+                                                                                           0
+calculations” from this point on). For this purpose it is                the quantities ∆sq n̄smσ1 m2 can be computed by knowing
+                                                                                                                                        8
+   0
+∆sq ūvkσ (r). Since the perturbative problem is expanded                  and these perturbations can be parallelized; In addition,
+to first order, perturbations at different wavelengths do                  the identification of the inequivalent Hubbard atoms as
+not interact with each0 other, and it is possible to show                  based on the symmetry of the system becomes automatic.
+that the responses ∆sq ūvkσ (r) can be obtained directly                  In DFPT calculations the q-specific  0
+                                                                                                                    components of the
+from the self-consistent solution of Eq. (27) specialized                  response occupation matrices ∆sq n̄smσ1 m2 are computed
+to single lattice-periodic q-specific (i.e. monochromatic)                 for all the Hubbard atoms s in the primitive unit cell,
+perturbations [68]:                                                        responding to perturbations on all the inequivalent Hub-
+                                                                         bard atoms s0 [see Eq. (43)]. The full response occupa-
+         ˆ◦          ˆ         ◦         s0
+        H̄k+q,σ + αŌk+q,σ − εvkσ |∆q ūvkσ i                              tion matrix is then constructed at a negligible computa-
+                                                                         tional cost in a post-processing step using Eq. (42) and
+       = −P̄ˆk+q,σ
+                            0
+                                           s0
+                         ∆sq V̄ˆHxc,σ + V̄ˆpert,k+q,k   |ū◦vkσ i . (45)   using the symmetry of the system in order to recover any
+                                                                           missing elements. These post-processing steps are fully
+        ˆ◦                                                                 automated, thus avoiding the cumbersome and system-
+Here H̄   k+q,σ is the lattice-periodic part of the total                  specific post-processing operations of the LR-cDFT ap-
+ground-state Hamiltonian of the system [see Eq. (A.13)],                   proach.
+and V̄ˆpert,k+q,k
+       s0
+                    is the monochromatic q component of the                   In summary, all one needs to do in order to compute
+perturbing potential:                                                      Hubbard parameters through DFPT is to solve the sys-
+                                                                           tem of equations (45) for a grid of q points which repre-
+                   s0
+                                X 0
+                V̄ˆpert,k+q,k =    P̄ˆm,m,k+q,k
+                                      s
+                                                ,      (46)                sent the folding of a supercell of desired size [see Eq. (37)],
+                                    m                                      and to calculate the LR occupation matrices by perform-
+                                                                           ing the sum over q components defined in Eq. (42).
+with P̄ˆm,m,k+q,k
+        s0
+                    defined in Eq. (44). Ō   ˆ                 ˆ
+                                                k+q,σ and P̄k+q,σ
+are the lattice-periodic parts of the projectors on the
+occupied-
+   0
+             and empty-state manifolds, respectively, and                                V.   TECHNICAL DETAILS
+∆sq V̄Hxc,σ (r) is the lattice-periodic part of the LR Hxc
+potential [see Eq. (24)]:
+                       Z                                                      The DFPT approach introduced in Sec. IV has been
+        0                       1               0      0                   implemented in the Quantum ESPRESSO package [60,
+     ∆sq V̄Hxc,σ (r) =             0
+                                     e−iq·(r−r ) ∆sq ρ̄(r0 ) dr0
+                           |r − r |                                        61] and will be distributed as an open source module in a
+                       V                                                   future release. Here, we will verify the implementation of
+             Z
+                                          0      0
+                                                                           DFPT by applying it to the case of bulk NiO, Cu2 O, and
+        X
+      +         κxc,σσ0 (r, r0 ) e−iq·(r−r ) ∆sq ρ̄σ0 (r0 ) dr0 , (47)
+         σ0 V
+                                                                           LiCoO2 . We note that although we presented here the
+                                                                           DFPT formalism for the case of norm-conserving pseu-
+          0
+                        s0                                                 dopotentials, the implementation with ultrasoft pseu-
+where ∆sq ρ̄(r) =
+                   P
+                     σ ∆q ρ̄σ (r) is the total LR lattice-
+                                    0                                      dopotentials and PAW has also been completed and fully
+periodic charge density, and ∆sq ρ̄σ (r) is the lattice-
+                                                                           tested; in fact, the results presented in the following have
+periodic part of the LR spin charge density, which is:
+                                                                           been obtained from calculations using US PPs. In order
+                         Nk N occ                                        to get some insight about the extension of DFPT to US
+     0                 1 X    X
+                                     ◦∗       s0                           PPs and PAW, the reader is referred to Refs. [69] and
+  ∆sq ρ̄σ (r) = 2 Re               ūvkσ (r) ∆q ūvkσ (r) .
+                      Nk       v                                           [70]. The rather complex technical details for the Hub-
+                           k
+                                                          (48)             bard case will be presented in detail in a following paper.
+Equations (41) – (48) represent the core results of this                      All calculations are performed using the plane-wave
+work, and their implementation is discussed in the follow-                 (PW) pseudopotential method and the generalized-
+ing. It is important to note that Eqs. (45) refer to lattice-              gradient approximation (GGA) for the xc functional con-
+periodic functions and operators and that, for a given q                   structed with the PBEsol prescription [71]. US PPs are
+and a given s0 , they need to be solved self-consistently                  taken from Pslibrary 0.3.1 [72, 73]. KS wave functions
+and simultaneously for all k, v, and σ, due to the cou-                    and charge-density/potentials are expanded in PWs up
+pling between them introduced by Eqs. (47) and (48).                       to a kinetic-energy cutoff of 80 Ry and 640 Ry for NiO
+Equations at different q and s0 are, instead, decoupled                    and Cu2 O, and 120 Ry and 960 Ry for LiCoO2 , re-
+from one another and the linear-response problem is de-                    spectively. Convergence tests for U have shown that
+composed into a set of independent problems that can be                    by using these cutoffs one obtains U with an accuracy
+solved on separate computational resources, thus allow-                    of better than 0.01 eV. We have chosen such high ac-
+ing for straightforward parallelization.                                   curacy uniquely for the sake of comparing DFPT and
+   Besides better scaling (as will be discussed in                         LR-cDFT. The Brillouin zones of the different materials
+Sec. VI C), DFPT is also more user-friendly than LR-                       have been sampled with uniform unshifted k and q point
+cDFT, due to the fully automated post-processing oper-                     meshes, i.e. including the Γ point, of different sizes (see
+ations required for the calculation of U . As in LR-cDFT                   latter). We have used the experimental lattice param-
+(see Sec. III), in DFPT only the crystallographically in-                  eters: a = 4.17 Å for the rock-salt crystal structure of
+equivalent Hubbard atoms of each type are perturbed,                       antiferromagnetic NiO [74], a = 4.27 Å for the simple
+                                                                                                                          9
+
+                              Method  k-mesh    SC-size/q-mesh        Cu2 O      NiO     LiCoO2
+                             LR-cDFT 6 × 6 × 6                        11.263     7.895   7.472
+                                                   2×2×2
+                              DFPT 12 × 12 × 12                       11.268     7.900   7.473
+                             LR-cDFT 4 × 4 × 4                        11.287     8.146   7.538
+                                                   3×3×3
+                              DFPT 12 × 12 × 12                       11.291     8.149   7.541
+                             LR-cDFT 3 × 3 × 3                        11.295     8.168   7.548
+                                                   4×4×4
+                              DFPT 12 × 12 × 12                       11.293     8.172   7.550
+
+
+TABLE I. Comparison of U (in eV) for Cu in Cu2 O, Ni in NiO, and Co in LiCoO2 computed using LR-cDFT with supercells
+(SC) of different size and various k point meshes, and using DFPT for a primitive unit cell with k and q point meshes chosen
+to be a folded equivalent of the LR-cDFT calculations.
+
+
+cubic cell of Cu2 O with space group Oh4 (or P n3̄m) [75],      ones used in LR-cDFT are folded in the Brillouin zone of
+and a = 4.96 Å, α = 32.99◦ , z = 0.24 (where z is the          the primitive unit cell to maintain the same density of k
+atomic positional parameter along the trigonal axis) for        points in DFPT and achieve an equivalent representation
+the rhombohedral cell of LiCoO2 [76].                           of ground-state quantities (as, e.g., the spin charge den-
+   Consistently with the implementation of DFT+U in             sity). By construction LR-cDFT and DFPT are meant
+Quantum ESPRESSO, the approach presented here is                to give the same value of U . As evident from Table I, the
+based on atomic orbitals. Other choices for the localized       values of U obtained from LR-cDFT and DFPT agree
+basis set are possible (e.g. Wannier functions); the fi-        within 5 × 10−3 eV for all three systems considered here,
+nal values for the Hubbard parameters can be expected           a negligible numerical difference that produces irrelevant
+to depend on the choice of localized functions, as well         variations in DFT+U results. In order to obtain an even
+as the xc functional and pseudopotentials [34]; notably,        closer agreement between these results one would need
+pseudopotentials constructed from all-electron atoms in         to achieve even tighter convergence of the response ma-
+different oxidation states will give rise to different Hub-     trices (in the present calculations they agree to better
+bard manifolds and U parameters [25]. To construct              than 10−4 eV−1 ) which not only incurs in significantly
+the projectors of Eq. (44) we have used atomic orbitals         higher computational costs but is also difficult to achieve
+which were orthogonalized using Löwdin’s method [77].          for LR-cDFT, for the reasons explained below.
+In the LR-cDFT calculations with finite differences we             It is important to note that the numerical precision
+used λJ = ±0.05 eV [see Eq. (17)]. The LR KS equa-              of the DFPT approach is inherently higher than that of
+tions (45) were solved using the conjugate-gradient al-         LR-cDFT. In DFPT, the iterative self-consistent solution
+gorithm [64] and the mixing scheme of Ref. [78] for the         of the LR KS equations (45) for a primitive unit cell is
+response Hxc potential (47) to speed up convergence.            continued until the response matrices (41) are converged
+   In the following we present the values of U com-             with the required tolerance. Conversely, in LR-cDFT
+puted using DFPT and LR-cDFT starting from the GGA              the convergence of the response matrices depends on the
+ground state [i.e. U = 0 in Eq. (8)]. A self-consistent cal-    precision of the iterative self-consistent solution of the
+culation of the Hubbard parameters is straightforwardly         modified KS equations (17) for a supercell. Controlling
+possible by iteration [34, 79], but it is not pursued here.     and improving this convergence in LR-cDFT is intrinsi-
+                                                                cally more difficult, because of the larger simulation cells
+                                                                which make numerical noise more significant. Moreover,
+                                                                the numerical derivatives of the occupation matrices (19)
+         VI.   RESULTS AND DISCUSSION                           are less practical as one needs to check that they are be-
+                                                                ing performed within a linear response regime and, in
+                     A.   Validation                            addition, they are also more prone to the propagation
+                                                                and amplification of the numerical noise affecting the oc-
+  Table I shows a comparison between the values of U            cupations.
+computed for Cu2 O, NiO, and LiCoO2 , using LR-cDFT
+and DFPT as described in Secs. III and IV, respectively,
+starting from the GGA (PBEsol) ground state. The                            B.    Convergence of U in DFPT
+two series of calculations are set up equivalently: LR-
+cDFT calculations are performed with supercells of size           Figure 1 shows the convergence of U with respect to the
+L1 × L2 × L3 , and the corresponding reciprocal-space           number of q points used in the reciprocal-space DFPT
+DFPT calculations are performed using a primitive unit          calculations within the primitive unit cell, which is equiv-
+cell with q point meshes of equal size L1 × L2 × L3 .           alent to the size of supercell that would be needed in a
+We present here the case with L1 = L2 = L3 , but                LR-cDFT calculation. The figure shows results for var-
+we have also thoroughly tested less uniform cases with          ious k point meshes (corresponding to Nk k points), to
+L1 6= L2 6= L3 . As for what concerns k point meshes, the       study also the dependence of the convergence of U with
+                                                                                                                                                                                               10
+
+           11.32                                                           8.30                                                             7.75
+
+                   Cu2O                                                           NiO                                                                                               LiCoO2
+                                                                                                                                            7.70
+           11.31                                                           8.25
+                                                                                                                                            7.65
+           11.30
+
+
+
+
+                                                                                                                                 UCo (eV)
+                                                                           8.20
+UCu (eV)
+
+
+
+
+                                                                UNi (eV)
+                                                                                                                                            7.60
+           11.29
+                                                                           8.15                             k-mesh: 2x2x2
+                                             k-mesh: 2x2x2                                                  k-mesh: 4x4x4                   7.55
+           11.28                             k-mesh: 4x4x4                                                  k-mesh: 6x6x6
+                                             k-mesh: 6x6x6                                                  k-mesh: 8x8x8                                                      k-mesh: 2x2x2
+                                             k-mesh: 8x8x8                 8.10                             k-mesh: 10x10x10                7.50                               k-mesh: 4x4x4
+           11.27                                                                                                                                                               k-mesh: 6x6x6
+                                                                           8.05                                                             7.45
+                   2x2x2   4x4x4    6x6x6    8x8x8   10x10x10                     2x2x2   4x4x4    6x6x6      8x8x8   10x10x10                     2x2x2   4x4x4            6x6x6      8x8x8
+                                    q-mesh                                                         q-mesh                                                          q-mesh
+                                   (a)                                                            (b)                                                         (c)
+
+
+FIG. 1. Convergence of U in DFPT with respect to k and q point meshes for sampling of the first Brillouin zone for (a) Cu2 O,
+(b) NiO, and (c) LiCoO2 .
+
+
+
+respect to this parameter. As for other quantities, the                                                 pares with that necessary to converge other properties
+choice of the optimal k and q point meshes depends                                                      (e.g., total energy, forces, or stress) to typical precisions.
+on the accuracy desired for U . Here we have used a                                                     To this purpose, first of all, we recall once again that the
+very strict convergence threshold ∆U = 0.01 eV in or-                                                   convergence threshold chosen here for the value of U (0.01
+der to demonstrate the numerical consistency of all our                                                 eV) is very strict. A change of this parameter by 0.01 eV
+approaches. In practice, however, such a high accuracy                                                  (from the converged values) would result in a variation
+is typically not needed to study materials, even if some                                                of total energies and stresses of 3, 4, and 5 meV/cell and
+exceptions are known (see e.g. Refs. [80, 81]). As can be                                               0.06, 0.20, and 0.03 Kbar for Cu2 O, NiO and LiCoO2 ,
+seen from Fig. 1, the converged value of U is controlled                                                respectively. These variations are probably smaller than
+by the size of both k and q point meshes. Note that                                                     the precision required for these quantities in most cal-
+denser k point meshes show a faster convergence with                                                    culations, especially because only energy differences are
+respect to the size of the q point mesh.                                                                meaningful. On the other hand, the k point meshes de-
+   The converged U of Cu in Cu2 O [see Fig. 1(a)] is                                                    termined above from the convergence study on the value
+11.29 eV, which is obtained with optimal k and q point                                                  of U lead to a convergence of total energies and stresses
+meshes equal to 4 × 4 × 4 and 3 × 3 × 3, respectively. In                                               to within, respectively, 14, 1, and 7 meV/cell and 1.6,
+the case of NiO [see Fig. 1(b)], the U of Ni converges to a                                             0.5, and 0.2 Kbar for Cu2 O, NiO and LiCoO2 , which are
+value of 8.18 eV, and requires 8×8×8 and 5×5×5 k and                                                    probably comparable to or actually larger than the preci-
+q point meshes, respectively. For LiCoO2 [see Fig. 1(c)],                                               sion thresholds on these quantities needed in most cases.
+the converged U of Co is 7.55 eV; the calculation required                                              From Fig. 1 one can also easily see that if a larger conver-
+k and q point meshes equal to 4 × 4 × 4 and 3 × 3 × 3,                                                  gence threshold is chosen for U , e.g. 0.05 eV (still quite
+respectively. Obviously, since U is not variational with                                                strict), while nothing changes for LiCoO2 , 2×2×2 and
+respect to the size of the k and q point meshes, its de-                                                4×4×4 k point meshes are sufficiently dense to converge
+pendence on these parameters cannot be expected to be                                                   the value of this quantity for Cu2 O and NiO, respectively.
+monotonic. Also, we remind here that these values of U
+are dependent on the manifold chosen and other factors
+(see Sec. V).
+                                                                                                           In summary, generalizing the results obtained here,
+   For all three systems studied here, the converged val-                                               reasonable levels of accuracy on U can be achieved (upon
+ues of U are obtained using q point meshes coarser than                                                 converging it with respect to the q point mesh) with k
+k point meshes. In fact, when the q point mesh is as                                                    point meshes as dense or coarser than needed for other
+dense or denser than the k point mesh, the value of U is                                                properties. This can be understood since ultimately one
+observed to plateau quite rapidly.                                                                      is calculating second derivatives in energy upon charg-
+   While the convergence tests shown in Fig. 1 are                                                      ing/discharging; these are pretty robust quantities (as
+straightforward to perform, they might represent quite                                                  opposed to properties that depend only on e.g. the
+a significant computational overload to the calculations                                                states at the Fermi level). However, using coarser k
+on a specific material. It is thus appropriate to extract,                                              point meshes is not obviously convenient: Because of
+from the results discussed above, some indications on how                                               the “wavy” behavior of U with respect to the number
+dense a k point mesh one has to use to obtain a reliable                                                of q points, larger q point meshes might be needed (de-
+value of the Hubbard parameters (so that only the con-                                                  pending on the material and the desired level of accu-
+vergence with respect to the q point mesh remains to be                                                 racy), that might offset the computational advantage (see
+studied) and, specifically, how this k point mesh com-                                                  Sec. VI C).
+                                                                                                                         11
+
+                       C.    Scaling                            transforms (FFT) on diagonalization costs], the way the
+                                                                algorithms are implemented, the efficiency of the code
+   We now discuss a rough estimate of the computational         in writing and reading operations to/from the disk, the
+cost of the reciprocal-space DFPT approach and compare          efficiency of the parallelization of operations in the the
+its scaling with that of the LR-cDFT approach.                  total-energy and linear-response calculations, etc. An ad-
+   DFT calculations for a cell containing Nat atoms and         ditional advantage of DFPT is the possibility to exploit
+using Nk k points to sample the first Brillouin zone have       the symmetry of the system, which allows us to restrict q
+a computational cost that scales as the cubic power of          points to the irreducible wedge of the first Brillouin zone.
+Nat and linearly with Nk : TDFT = ANk (Nat )3 . Here, A         As a consequence, the factor Nq in the denominator of
+is a constant factor for self-consistent total energy calcu-    Eq. (49) might be reduced while the factor Nq in the
+lations which depends on the kinetic-energy cutoff and          numerator remains unchanged. It should also be noted
+various technical details of the implementation. The LR-        that using supercells (as in LR-cDFT) typically makes
+cDFT approach consists of a series of calculations us-          convergence more difficult (more iterations are needed)
+ing supercells; hence, its computational cost can be ex-        because the numerical noise tends to be larger. On the
+pressed as: TLR–cDFT = (A + 2B)Npert Nksc (Nat   sc 3
+                                                   ) , where    other hand, DFPT calculations in primitive unit cells can
+   sc
+Nat = Nq Nat is the number of atoms in the supercell,           be parallelized more effectively because they are based on
+Npert is the number of perturbations (i.e. the number of        denser k point meshes. In fact, the parallelization over
+inequivalent Hubbard atoms which must be perturbed),            k points is intrinsically more flexible: Since all equations
+and, as was discussed in Sec. IV B 2, Nksc = Nk /Nq . The       are diagonal in k, k-specific blocks can be solved sepa-
+factor 2B accounts for the cost of two total energy per-        rately by different groups of cores. This way the commu-
+turbative calculations [with two different values of λJ , see   nications between groups of cores working on different
+Eq. (17)]. In the previous formula B < A since fewer iter-      k points are limited to the instances when summations
+ations are typically needed in order to reach convergence       over the Brillouin zone are needed.
+when the calculation starts from a previously converged            In order to check the comparative scaling analysis com-
+unperturbed total potential. Conversely, the computa-           pleted above, we have compared the computational costs
+tional cost of the DFPT approach can be expressed as:           of calculations of U with LR-cDFT and DFPT as a func-
+TDFPT = (A + Nq Npert C)Nk (Nat )3 , where the factor A         tion of the size of supercells (or, equivalently, q point
+accounts for the DFT calculation using a primitive unit         meshes) with and without symmetry. The results are
+cell in the unperturbed state, and the factor C (C > A)         shown in Fig. 2. When symmetry is not used, LR-cDFT
+represents the unitary cost of the Nq Npert DFPT calcula-       scales roughly quadratically with respect to Nq (with de-
+tions which are necessary to compute the response matri-        viations due to reasons mentioned above), while DFPT
+ces. This estimate neglects the computational cost of the       shows a clear linear behavior, as expected. The differ-
+preliminary non-self-consistent calculations of the lattice-    ence in CPU time between LR-cDFT and DFPT thus
+periodic parts of the ground-state KS wave functions at         increases with the size of the supercell or the size of the
+k + q points, ū◦vk+qσ (r), which are needed to construct       q point mesh, respectively. When symmetry is used, we
+the projectors Ōˆ       and P̄ˆ      [see Eqs. (A.18) and      can see a pronounced decrease in the CPU time for both
+                  k+q,σ        k+q,σ
+(A.21), respectively]. In fact, this cost is very small         methods. In this case, LR-cDFT takes less CPU time
+compared to that of solving self-consistent LR KS equa-         because the number of k points is decreased due to sym-
+tions (45). Putting everything together, the direct com-        metry, while the size of the supercells is the same as when
+parison between the costs of LR-cDFT and DFPT gives,            symmetry is not used; conversely, in DFPT not only the
+after simple algebraic manipulations, the following ratio:      number of k points is decreased but also the number of
+                                                                q points is decreased, which leads to a decrease of CPU
+             TLR–cDFT   (A + 2B)Npert Nq2                       time by a larger factor with respect to LR-cDFT. In the
+                      =                   .             (49)    case of DFPT with symmetry, for all three systems we
+              TDFPT      A + Nq Npert C
+                                                                have Nq = 4, Nq = 6, and Nq = 13 when 2 × 2 × 2,
+Based on our experience, a rough estimate of the factors        3 × 3 × 3, and 4 × 4 × 4 q point meshes are used, re-
+appearing in this equations is B ≈ (2/3)A and C ≈ 7A.           spectively (in Fig. 2 this case is shown with the same
+After neglecting the first term in the denominator (since       Nq as when symmetry is not used, just for the sake of
+A  Nq Npert C), and by using these estimates of B and          clarity). The ratio of timings of LR-cDFT and DFPT
+C, we obtain TLR–cDFT /TDFPT ≈ Nq /3. Therefore, as             both without symmetry departs our rough theoretical
+the supercell size (and, consequently, the number of q          estimate TLR–cDFT /TDFPT ≈ Nq /3 (it is smaller by a
+points in the primitive unit cell) is larger, DFPT be-          factor of 2 – 5), and this is not surprising since many fac-
+comes more convenient because of its better scaling with        tors (parallelization, FFT, etc.) do influence strongly the
+respect to LR-cDFT. We want to stress that this estimate        prediction for scaling. Nevertheless, we can say that ap-
+of timings of the LR-cDFT and DFPT methods is neces-            proximatively TLR–cDFT /TDFPT ∝ Nq with a prefactor
+sarily approximate, and in practice deviations from these       which depends on many technical details of the imple-
+results might be observed because of, e.g., the size of the     mentation. Therefore, we can conclude that DFPT is
+system [and the possible predominance of fast Fourier           a significantly more efficient method than LR-cDFT for
+                                                                                                                                                                                                                                                             12
+
+                                                SC-size / q-mesh                                                                   SC - size / q-mesh                                                                        SC-size / q-mesh
+                      4       2x2x2            3x3x3                    4x4x4                                      2x2x2           3x3x3                     4x4x4                                  5       2x2x2            3x3x3                   4x4x4
+                   6×10                                                                                                                                                                      1×10
+                                                                                                               4
+                      4               LR-cDFT (no sym.)                                                 3×10              LR-cDFT (no sym.)                                                                         LR-cDFT (no sym.)
+                   5×10                                                                                                                                                                         4
+                                      LR-cDFT (with sym.)                                                                 LR-cDFT (with sym.)                                                8×10                   LR-cDFT (with sym.)
+                      4               DFPT (no sym.)                                                                      DFPT (no sym.)                                                                            DFPT (no sym.)
+
+
+
+
+                                                                                     CPU time (hours)
+CPU time (hours)
+
+
+
+
+                                                                                                                                                                          CPU time (hours)
+                   4×10               DFPT (with sym.)                                                                    DFPT (with sym.)                                                      4                   DFPT (with sym.)
+                                                                                                               4                                                                             6×10
+                                                                                                        2×10
+                      4
+                   3×10
+                                      Cu2O                                                                                 NiO                                                                  4                   LiCoO2
+                      4
+                                                                                                                                                                                             4×10
+                   2×10                                                                                        4
+                                                                                                        1×10
+                                                                                                                                                                                                4
+                      4
+                   1×10                                                                                                                                                                      2×10
+
+                      0                                                                                    0                                                                                    0
+                          0     10        20      30        40     50   60      70                             0     10       20       30        40     50   60      70                             0         10        20      30        40    50   60      70
+                                                       Nq                                                                                   Nq                                                                                       Nq
+
+                                                 (a)                                                                                  (b)                                                                                      (c)
+
+
+FIG. 2. Comparison of CPU time (in core hours) needed to compute U using LR-cDFT and DFPT for (a) Cu2 O, (b) NiO, and
+(c) LiCoO2 . The results are shown as a function of Nq (lower horizontal axis) and the supercell (SC) size (or, equivalently, the
+size of the q point mesh) (upper horizontal axis) for the cases with and without symmetry for k (and q) points. The result for
+DFPT with symmetry for q points is represented on the same scale as without symmetry for the sake of clarity. The k point
+meshes used for LR-cDFT and DFPT calculations are listed in Table I. Solid lines are guides for the eye.
+
+
+
+calculating U , and, in particular, it offers a large com-                                                                                                         ACKNOWLEDGMENTS
+putational advantage in the study of convergence (as in
+Sec. VI B). The most important point, though, is its ro-                                                                                      This research was supported by the Swiss National
+bustness and automation.                                                                                                                    Science Foundation (SNSF), through Grant No. 200021-
+                                                                                                                                            179139, and its National Centre of Competence in Re-
+                                                                                                                                            search (NCCR) MARVEL. Computer time was provided
+                                                                                                                                            by CSCS (Piz Daint) through Project No. s836.
+
+
+                                               VII.         CONCLUSIONS                                                                                           Appendix: Lattice periodicity
+
+
+  We have presented a new implementation of the linear-                                                                                        In this appendix, we discuss the details of the DFPT
+response method for first-principles calculations of Hub-                                                                                   formalism for periodic solids. In particular, we show how
+bard parameters. Based on DFPT, it avoids costly super-                                                                                     linear-response quantities in a supercell with an isolated
+cell calculations by summing the responses to monochro-                                                                                     perturbation (i.e. a perturbation that has the periodicity
+matic perturbations in primitive unit cells. We have                                                                                        of the supercell) can be rewritten as a sum of monochro-
+showcased its use to compute U for several prototypi-                                                                                       matic q components in a primitive unit cell.
+cal transition-metal oxides and demonstrated that the
+DFPT approach gives the same results as LR-cDFT,
+                                                                                                                                                  1.     Bloch sums of localized functions and Bloch
+greatly decreasing the computational cost, improving the                                                                                                                functions
+precision in determining these parameters, and making
+their calculation robust, automatic, and user-friendly.
+The new method opens the way for high-throughput                                                                                               We start from setting the formalism of Bloch sums and
+studies of materials with strongly localized d- and/or f -                                                                                  their lattice-periodic parts.
+type electrons.                                                                                                                                Using the fact that I = (l, s), with l being the cell
+                                                                                                                                            index (Rl pointing to the cell), and s being the atomic
+   The DFPT approach presented here is static, and                                                                                          index (τs inside cell Rl ), so that the position of atom I
+hence allows us to compute static Hubbard parame-                                                                                           is Rl + τs , we have that the localized functions are
+ters. However, a generalization to the time domain
+(using time-dependent density-functional (perturbation)                                                                                       ϕIm (r) = ϕl,s       s             γ(s)
+                                                                                                                                                         m (r) = ϕm (r − Rl ) = ϕm (r − Rl − τs ) ,
+theory [82, 83]) can be investigated which would allow us                                                                                                                                     (A.1)
+to obtain frequency-dependent Hubbard parameters, like                                                                                      where γ(s) is the atomic type of the s-th atom. In a
+in the cRPA approach. Finally, a generalization of DFPT                                                                                     periodic solid, we can construct Bloch sums of localized
+to tackle inter-site interactions has also been done and                                                                                    functions (A.1) [84]. By doing so we obtain:
+will be discussed elsewhere together with the extension                                                                                                                   Nk
+                                                                                                                                                                      1 X
+of the formalism to metals and ultrasoft pseudopotentials                                                                                               ϕ̃sm,k (r) = √       eik·Rl ϕsm (r − Rl ) ,                                                   (A.2)
+and the PAW method.                                                                                                                                                    Nk R
+                                                                                                                                                                                                        l
+                                                                                                                                              13
+
+where summations run over the Nk primitive unit cells                       Using Eqs. (11) and (A.4) it is easy to show that the
+of the Born-von Karman supercell. Given Eq. (A.2), we                     ground-state spin charge density can be written as:
+can define inverse Bloch sums as
+                                                                                                                   N occ
+                                                                                                                   k X  N
+                                                                                                                1 X
+                      1
+                                 Nk
+                                 X                                                       ρ◦σ (r) =                       |ū◦vkσ (r)|2 .    (A.9)
+     ϕsm (r − Rl ) = √                   e−ik·Rl ϕ̃sm,k (r) .     (A.3)                                        Nk
+                                                                                                                    kv
+                       Nk            k
+                                                                          Similarly, it can be shown that using Eqs. (3), (4), (A.3),
+It is useful to recall the analogy of Eqs. (A.2) and (A.3)                (A.4), and (A.5), the ground-state occupation matrices
+with those between KS wave functions and Wannier func-                    can be written as:
+tions (see e.g. Ref. [85]).
+                                                                                               N           N
+   According to Bloch theorem, in periodic solids the                                    1 Xk X
+                                                                                              occ
+
+ground-state KS wave functions can be written as:                           nsσ
+                                                                             m1 m2 =              hū◦vkσ |P̄ˆm
+                                                                                                              s
+                                                                                                                2 ,m1 ,k,k
+                                                                                                                           |ū◦vkσ i ,     (A.10)
+                                                                                        Nk    v    k
+                           1
+               ψvkσ (r) = √    eik·r ūvkσ (r) ,                  (A.4)
+                            Nk                                            where P̄ˆm
+                                                                                   s
+                                                                                     2 ,m1 ,k,k
+                                                                                                corresponds to the q = 0 case of
+                                                                          Eq. (44). It is important to stress that the ground-state
+where ūvkσ (r) are the lattice-periodic parts of the                     occupation matrices (A.10) do not depend on the index
+ground-state KS wave functions [ūvkσ (r+Rl ) = ūvkσ (r)].               of the primitive unit cell, which is a consequence of the
+The functions ϕ̃sm,k (r) are Bloch-like functions, as                     periodicity of the crystal.
+ψvkσ (r), and can also be expressed in the same way:                         The ground state Hamiltonian, Eq. (6), in the coordi-
+                             1                                            nate representation can be represented as:
+               ϕ̃sm,k (r) = √    eik·r ϕ̄sm,k (r) ,               (A.5)
+                              Nk                                                                   k       N
+                                                                                                1 X                             0
+                                                                              Hσ◦ (r, r0 ) =                 ◦
+                                                                                                     eik·r H̄k,σ (r, r0 ) e−ik·r ,         (A.11)
+where ϕ̄sm,k (r) is defined as                                                                 Nk
+                                                                                                           k
+                                           γ(s)
+             ϕ̄sm,k (r) ≡ e−ik·τs ϕ̄m,k (r − τs ) .       (A.6)           where the Bloch phases and the lattice-periodic part have
+                                √                                         been separated and the latter reads:
+The normalization factor 1/ Nk has been chosen such                           ◦
+that the lattice-periodic functions ūvkσ (r) are normalized                H̄k,σ (r, r0 ) = H̄DFT,k,σ
+                                                                                               ◦
+                                                                                                       (r, r0 ) + V̄Hub,k,σ
+                                                                                                                    ◦
+                                                                                                                            (r, r0 ) , (A.12)
+to unity in the primitive unit cell, with inner products
+involving them understood as integrals over one primitive                 which in the operator form can be written as:
+unit cell, namely:                                                                         ˆ ◦ = H̄
+                                                                                                  ˆ◦           ˆ◦
+                             Z                                                            H̄k,σ     DFT,k,σ + V̄Hub,k,σ .                  (A.13)
+                                 ∗
+         hψvkσ |ψv0 k0 σ0 i ≡ ψvkσ   (r) ψv0 k0 σ0 (r) dr                 The first term in Eq. (A.13) can be expressed as:
+                                 V
+                                                                            ˆ◦          1        2   ˆ◦         ◦      ◦
+                           = δk,k0 hūvkσ |ūv0 kσ0 i ,           (A.7)    H̄DFT,k,σ = − (∇ + ik) + V̄NL,k + V̂loc + V̂Hxc , (A.14)
+                                                                                        2
+where
+                                 Z                                        where the first term is the kinetic energy operator, V̄ˆNL,k◦
+
+          hūvkσ |ūv0 kσ0 i ≡       ū∗vkσ (r) ūv0 kσ0 (r) dr           is the lattice-periodic component of the non-local part of
+                                 v
+                                                                          PP as in standard DFT plane-wave implementations [47,
+                                                                          69], and the last two terms are the local part of PP and
+                           = δvv0 δσσ0 ,                          (A.8)                                           ◦
+                                                                          Hxc potentials. The non-locality of H̄DFT,k,σ   (r, r0 ) comes
+where v is the volume of the primitive unit cell and V =                                               ◦       0      ◦
+                                                                          from the non-locality of V̄NL,k (r, r ). VHxc (r) is defined
+v Nk . Here we use the notation ha|bi which stands for the                in Eqs. (9) and (10), using the expression for the ground-
+inner product between a and b over the whole crystal of                   state spin charge density (A.9). The lattice-periodic part
+volume V when a and b represent ψvkσ (r), and the inner                   of the ground-state Hubbard potential, i.e. second term
+product over the primitive unit cell of volume v when a                   in Eq. (A.13), reads [see Eq. (8)]:
+and b represent ūvkσ (r).                                                                                           
+                                                                                                     δm1 m2
+                                                                             V̄ˆHub,k,σ                     − nsmσ1 m2 P̄ˆm
+                                                                                           X
+                                                                                ◦
+                                                                                        =      Us                         s
+                                                                                                                            1 ,m2 ,k,k
+                                                                                                                                       ,
+                                                                                          sm m
+                                                                                                       2
+               2.   Ground state quantities                                                    1       2
+                                                                                                                                  (A.15)
+  In this section, we will show how to rewrite all ground-                where nsmσ1 m2 is given by Eq. (A.10), and P̄ˆm
+                                                                                                                        s
+                                                                                                                          1 ,m2 ,k,k
+                                                                                                                                     can
+state quantities that enter DFPT (see Sec. IV A) as the                   be obtained from Eq. (44) by taking q = 0. As was noted
+product of a lattice-periodic part and appropriate phase                  for the ground-state occupation matrices [see Eq. (A.10)],
+factors. The derivation is based on the equations of                      also V̄ˆHub,k,σ
+                                                                                  ◦
+                                                                                          does not depend on the index of the primi-
+Sec. 1.                                                                   tive unit cell due to the periodicity of the crystal.
+                                                                                                                                                         14
+
+   Finally, let us consider the projectors on occupied and                        If we approximate each of the localized functions in
+empty states, Ôσ and P̂σ , which appear in Eq. (27). Sim-                        Eq. (A.22) with the inverse Bloch sums, Eq. (A.3), then
+ilarly to Eq. (A.11), the operator Ôσ can be written in                          the largest (nontrivial) supercell vectors Rmax
+                                                                                                                              sc  on which
+the coordinate representation as:                                                 the external sum in Eq. (A.22) runs over are such that
+                                                                                  Rmax
+                                                                                     sc  · ∆k = 2π, where ∆k is the minimum spac-
+                          N
+                      1 Xk
+                              0                       0 0                         ing between k points in the first Brillouin zone of the
+     Oσ (r, r0 ) =         eik ·r Ōk0 σ (r, r0 ) e−ik ·r ,              (A.16)   primitive unit cell. Larger Rsc ’s are, in fact, implic-
+                     Nk 0
+                             k                                                    itly summed over, because of the periodicity of inverse
+where Ōk0 σ (r, r0 ) is the lattice-periodic part defined as:                    Bloch sums [see Eq. (A.3)]. Therefore, the external sum-
+                                                                                  mation in Eq. (A.22) runs over Nsc vectors Rsc , where
+                             N
+                             Xocc                                                 Nsc = Nksc = Nk /Nq . Thus, using Eq. (A.3) we can
+                     0
+         Ōk0 σ (r, r ) =             ū◦vk0 σ (r) ū◦vk∗0 σ (r0 ) .     (A.17)   rewrite Eq. (A.22) as follows:
+                                 v                                                                                   N
+                                                                                                                  sc X Xk     N
+                                                                                               0 0             1 X            0         0
+Using an operator notation it is possible to express the
+                                                                                            sl
+                                                                                           Vpert (r, r0 ) =               e−ik ·Rl0 ϕ̃sm,k0 (r)
+                                                                                                              Nk     m  0
+same projector as follows:                                                                                           Rsc      k
+
+                                 N occ
+                                                                                                             Nk
+                                                                                                             X                0           0
+                   ˆ 0 =                                                                                                        ∗
+                                                                                                                    eik·Rl0 ϕ̃sm,k (r) e−i(k −k)·Rsc .(A.23)
+                                 X
+                  Ō kσ                   |ū◦v0 k0 σ ihū◦v0 k0 σ | .   (A.18)                         ×
+                                     v0                                                                       k
+
+In the same manner it can be shown that the operator                              In Eq. (A.23) the sum over Rsc of the phase factor
+                                                                                       0
+P̂σ can be written in the coordinate representation as:                           e−i(k −k)·Rsc imposes the difference between k0 and k
+                                                                                  to be equal to reciprocal lattice vectors of the supercell,
+                         kN                                                       which we label as q (see Sec. IV B 1). Therefore, in the
+                      1 X     0                       0 0
+     Pσ (r, r0 ) =         eik ·r P̄k0 σ (r, r0 ) e−ik ·r ,              (A.19)   summation over k0 only Nq terms survive, which corre-
+                     Nk 0
+                             k                                                    spond to k0 = k + q. Thus, we obtain:
+where the lattice-periodic part P̄k0 σ (r, r0 ) can obviously                                           1 X
+                                                                                                              N
+                                                                                                           sc X X Xk       Nq N
+                                                                                    s0 l0                                             0
+be written as follows:                                                             Vpert  (r, r0 ) =                 e−i(k+q)·Rl0 ϕ̃sm,k+q (r)
+                                                                                                       Nk     m q
+                                                                                                              Rsc             k
+             P̄k0 σ (r, r0 ) = δ(r − r0 ) − Ōk0 σ (r, r0 ) ,            (A.20)
+                                                                                                                                  0
+                                                                                                                                ∗
+which translates in the operator notation as:                                                                     × eik·Rl0 ϕ̃sm,k (r) e−iq·Rsc .   (A.24)
+                                                                                  Since q vectors are the reciprocal lattice vectors of the
+                          P̄ˆk0 σ = 1 − Ō
+                                         ˆ 0 .
+                                           kσ                            (A.21)   supercell, e−iq·Rsc = 1, and the summation over Rsc gives
+                                                                                  a prefactor Nsc . Equation (A.24) can thus be written as:
+                                                                                                          Nq          Nk
+3.    Decomposition of linear-response quantities into                               0 0                1 X −iq·Rl0 X X      0            0
+            monochromatic components
+                                                                                   sl
+                                                                                  Vpert (r, r0 ) =           e           ϕ̃sm,k+q (r) ϕ̃sm,k∗
+                                                                                                                                              (r) .
+                                                                                                       Nq q         m                 k
+                                                                                                                                     (A.25)
+  In this section, we will demonstrate how a localized,
+                                                                                  Finally, by using Eq. (A.5), we can rewrite Eq. (A.25) as:
+neutral perturbation that has the periodicity of a su-
+percell (chosen large enough to mimic a truly isolated                                                              Nq
+                                                                                             0 0              1 X −iq·Rl0 s0
+perturbation) can be recast as a sum of monochromatic                                      sl
+                                                                                          Vpert (r, r0 ) =        e      Vpert,q (r, r0 ) ,         (A.26)
+(q-specific) perturbations in a primitive unit cell, as dis-                                                 Nq q
+cussed in Sec. IV B 1. Let us start from the perturb-
+                                                                                  where
+ing potential, Eq. (18). In periodic-boundary conditions
+                                                                                                             k N
+perturbations cannot be isolated. In order to model the                               0               1 X                     s0                       0
+
+response of occupations to an isolated perturbation su-
+                                                                                   s
+                                                                                  Vpert,q (r, r0 ) =           ei(k+q)·r V̄pert,k+q,k   (r, r0 ) e−ik·r .
+                                                                                                     Nk
+percells must be used, whose size is chosen large enough                                                    k
+
+to make interactions between periodic replicas negligible.                                                                                        (A.27)
+                                                                                                     s0
+In mathematical terms, this translates into the following                         In Eq. (A.27), V̄pert,k+q,k    (r, r0 ) is the lattice-periodic part
+approximation for the perturbing potential [Eq. (18)]:                            of the perturbing potential:
+                                                                                         s0
+                                                                                                                X 0
+         s0 l0
+       Vpert   (r, r0 ) =
+                          X 0
+                                           s0 ∗
+                           ϕsm (r − Rl0 ) ϕm    (r − Rl0 )                             V̄pert,k+q,k (r, r0 ) =         s
+                                                                                                                     P̄m,m,k+q,k   (r, r0 ) ,     (A.28)
+                                                                                                                         m
+                                 m
+                                                                                               0
+                             XX                 0
+                                                                                         s
+                                                                                  with P̄m,m,k+q,k (r, r0 ) representing the diagonal element
+                         ≃                  ϕsm (r − Rl0 − Rsc )                  of the lattice-periodic operator in the coordinate repre-
+                             Rsc m                                                sentation which reads:
+                                                0
+                                             s∗
+                                          × ϕm  (r − Rl0 − Rsc ) . (A.22)               s
+                                                                                      P̄m 2 ,m1 ,k+q,k
+                                                                                                       (r, r0 ) = ϕ̄sm2 ,k+q (r) ϕ̄s∗      0
+                                                                                                                                   m1 ,k (r ) .     (A.29)
+                                                                                                                             15
+
+Equation (A.29) can be written in operator form [see              be written as:
+Eq. (44)]. Equation (A.26) constitutes a decomposition
+                                                                          0             1                0
+of the isolated perturbing potential into monochromatic                ∆sq ψ̃vkσ (r) = √    ei(k+q)·r ∆sq ūvkσ (r) ,     (A.32)
+components modulated by a phase factor corresponding                                     Nk
+to the considered wave vector q [86].                                         0
+                                                                  where ∆sq ūvkσ (r) are the lattice-periodic functions, in
+  Similarly to the decomposition of the perturbing po-            agreement with the definition in Eq. (A.4).
+tential, Eq. (A.26), we can represent the LR KS wave                 Similarly to the decomposition of the perturbing po-
+functions of the supercell as the inverse Bloch sum of the        tential and of the LR KS wave functions into monochro-
+LR KS wave functions of the primitive unit cell:                  matic q components [see Eqs. (A.26) and (A.30), respec-
+                                                                  tively], also the LR spin charge density can be decom-
+                                                                  posed into q-specific terms:
+                          Nq                                                                  Nq
+     dψ̃vkσ (r)    1 X −iq·Rl0 s0                                         dρσ (r)    1 X −iq·Rl0 s0
+          s0 l0 =      e      ∆q ψ̃vkσ (r) ,             (A.30)                   =      e      ∆q ρ̃σ (r) ,              (A.33)
+       dλ         Nq q                                                        0
+                                                                          dλs l 0
+                                                                                    Nq q
+
+                                                                  where
+         0
+where ∆sq ψ̃vkσ (r) are the LR KS wave functions of the                                  0                    0
+                                                                                      ∆sq ρ̃σ (r) = eiq·r ∆sq ρ̄σ (r) ,   (A.34)
+primitive unit cell corresponding to the monochromatic
+                                    s0
+perturbation with wave vector q, Vpert,q . From (A.30)                    0
+                                                                  and ∆sq ρ̄σ (r) is given by Eq. (48). Since the LR
+we can define the Bloch sum                                       Hxc potential depends linearly on the variation in the
+                                                                  spin charge density [see Eq. (24)], the decomposition in
+                                                                  Eq. (A.33) means that also the LR Hxc potential can be
+                          Nq                                      decomposed in a similar way:
+           0              X               dψ̃vkσ (r)
+        ∆sq ψ̃vkσ (r) =         eiq·Rl0              .   (A.31)
+                                            dλs0 l0                                           Nq
+                          Rl0                                        dVHxc,σ (r)    1 X −iq·Rl0 s0
+                                                                          s0 l0  =      e      ∆q ṼHxc,σ (r) ,           (A.35)
+                                                                       dλ          Nq q
+
+It is important to note that the normalization factors            where
+1/Nq in Eq. (A.30) and 1 in Eq. (A.31) are chosen in                              0                       0
+such a way that these definitions are consistent with the                 ∆sq ṼHxc,σ (r) = eiq·r ∆sq V̄Hxc,σ (r) ,       (A.36)
+normalization in Eq. (A.26). The LR KS wave functions
+   0                                                                      0
+∆sq ψ̃vkσ (r) are Bloch-like functions, and hence they can        with ∆sq V̄Hxc,σ (r) given by Eq. (47).
+
+
+
+
+ [1] P. Hohenberg and W. Kohn, Phys. Rev. 136, B864                    G. Ceder, Phys. Rev. B 93, 045132 (2016).
+     (1964).                                                      [13] Y. Hinuma, H. Hayashi, Y. Kumagai, I. Tanaka, and
+ [2] W. Kohn and L. Sham, Phys. Rev. 140, A1133 (1965).                F. Oba, Phys. Rev. B 96, 094102 (2017).
+ [3] I. de P.R. Moreira, F. Illas, and R. Martin, Phys. Rev.      [14] V. Anisimov, J. Zaanen, and O. Andersen, Phys. Rev.
+     B 65, 155102 (2002).                                              B 44, 943 (1991).
+ [4] F. Corà, M. Alfredsson, G. Mallia, D. Middlemiss,           [15] V. Anisimov, F. Aryasetiawan, and A. Liechtenstein, J.
+     W. Mackrodt, R. Dovesi, and R. Orlando, Struct. Bond-             Phys.: Condens. Matter 9, 767 (1997).
+     ing (Berlin) 113, 171 (2004).                                [16] S. Dudarev, G. Botton, S. Savrasov, C. Humphreys, and
+ [5] X.-B. Feng and N. Harrison, Phys. Rev. B 69, 035114               A. Sutton, Phys. Rev. B 57, 1505 (1998).
+     (2004).                                                      [17] M. Cococcioni and S. de Gironcoli, Phys. Rev. B 71,
+ [6] M. Alfredsson, G. Price, C. Catlow, S. Parker, R. Or-             035105 (2005).
+     lando, and J. Brodholt, Phys. Rev. B 70, 165111 (2004).      [18] I. Dabo, A. Ferretti, N. Poilvert, Y. Li, N. Marzari, and
+ [7] F. Tran, P. Blaha, K. Schwarz, and P. Novák, Phys. Rev.          M. Cococcioni, Phys. Rev. B 82, 115121 (2010).
+     B 74, 155108 (2006).                                         [19] H. Kulik, M. Cococcioni, D. Scherlis, and N. Marzari,
+ [8] V. Chevrier, S. Ong, R. Armiento, M. Chan, and                    Phys. Rev. Lett. 97, 103001 (2006).
+     G. Ceder, Phys. Rev. B 82, 075122 (2010).                    [20] V. Anisimov, A. Poteryaev, M. Korotin, A. Anokhin,
+ [9] D.-H. Seo, A. Urban, and G. Ceder, Phys. Rev. B 92,               and G. Kotliar, J. Phys.: Condens. Matter 9, 7359
+     115118 (2015).                                                    (1997).
+[10] L. Lin, J. Chem. Theory Comput. 12, 2242 (2016).             [21] A. Liechtenstein and M. Katsnelson, Phys. Rev. B 57,
+[11] J. Sun, A. Ruzsinszky, and J. Perdew, Phys. Rev. Lett.            6884 (1998).
+     115, 036402 (2015).                                          [22] G. Kotliar, S. Savrasov, K. Haule, V. Oudovenko, O. Por-
+[12] D. Kitchaev, H. Peng, Y. Liu, J. Sun, J. Perdew, and              collet, and C. Marianetti, Rev. Mod. Phys. 78, 865
+                                                                                                                                      16
+
+     (2006).                                                         G. Sawatzky, Phys. Rev. B 48, 16929 (1993).
+[23] B. Himmetoglu, A. Floris, S. de Gironcoli, and M. Co-      [57] A. Liechtenstein, V. Anisimov, and J. Zaanen, Phys.
+     coccioni, Int. J. Quant. Chem. 114, 14 (2014).                  Rev. B 52, R5467 (1995).
+[24] G. Moynihan, G. Teobaldi,            and D. O’Regan,       [58] H. Eschrig, K. Koepernik, and I. Chaplygin, J. Solid
+     arXiv:1704.08076.                                               State Chem. 176, 482 (2003).
+[25] H. Kulik and N. Marzari, J. Chem. Phys. 129, 134314        [59] The localized orbitals can be chosen to be e.g. atomic-
+     (2008).                                                         like, or orthonormalized atomic-like, or localized Wannier
+[26] P. Dederichs, S. Blügel, R. Zeller, and H. Akai, Phys.         functions.
+     Rev. Lett. 53, 2512 (1984).                                [60] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car,
+[27] A. McMahan, R. Martin, and S. Satpathy, Phys. Rev. B            C. Cavazzoni, D. Ceresoli, G. Chiarotti, M. Cococcioni,
+     38, 6650 (1988).                                                I. Dabo, A. Dal Corso, S. De Gironcoli, S. Fabris,
+[28] O. Gunnarsson, O. Andersen, O. Jepsen, and J. Zaanen,           G. Fratesi, R. Gebauer, U. Gerstmann, C. Gougoussis,
+     Phys. Rev. B 39, 1708 (1989).                                   A. Kokalj, M. Lazzeri, L. Martin-Samos, N. Marzari,
+[29] M. Hybertsen, M. Schlüter, and N. Christensen, Phys.           F. Mauri, R. Mazzarello, S. Paolini, A. Pasquarello,
+     Rev. B 39, 9028 (1989).                                         L. Paulatto, C. Sbraccia, S. Scandolo, G. Sclauzero,
+[30] O. Gunnarsson, Phys. Rev. B 41, 514 (1990).                     A. Seitsonen, A. Smogunov, P. Umari, and R. Wentz-
+[31] W. Pickett, S. Erwin, and E. Ethridge, Phys. Rev. B 58,         covitch, J. Phys.: Condens. Matter 21, 395502 (2009).
+     1201 (1998).                                               [61] P. Giannozzi, O. Andreussi, T. Brumme, O. Bunau,
+[32] I. Solovyev and M. Imada, Phys. Rev. B 71, 045103               M. Buongiorno Nardelli, M. Calandra, R. Car, C. Cavaz-
+     (2005).                                                         zoni, D. Ceresoli, M. Cococcioni, N. Colonna, I. Carn-
+[33] K. Nakamura, R. Arita, Y. Yoshimoto,                 and        imeo, A. Dal Corso, S. de Gironcoli, P. Delugas, R. A.
+     S. Tsuneyuki, Phys. Rev. B 74, 235113 (2006).                   DiStasio Jr., A. Ferretti, A. Floris, G. Fratesi, G. Fugallo,
+[34] M. Shishkin and H. Sato, Phys. Rev. B 93, 085135 (2016).        R. Gebauer, U. Gerstmann, F. Giustino, T. Gorni, J. Jia,
+[35] N. Mosey and E. Carter, Phys. Rev. B 76, 155123 (2007).         M. Kawamura, H.-Y. Ko, A. Kokalj, E. Küçükbenli,
+[36] N. Mosey, P. Liao, and E. Carter, J. Chem. Phys. 129,           M. Lazzeri, M. Marsili, N. Marzari, F. Mauri, N. L.
+     014103 (2008).                                                  Nguyen, H.-V. Nguyen, A. Otero-de-la Rosa, L. Paulatto,
+[37] A. Andriotis, R. Sheetz, and M. Menon, Phys. Rev. B             S. Poncé, D. Rocca, R. Sabatini, B. Santra, M. Schlipf,
+     81, 245103 (2010).                                              A. Seitsonen, A. Smogunov, I. Timrov, T. Thonhauser,
+[38] L. Agapito, S. Curtarolo, and M. B. Nardelli, Phys. Rev.        P. Umari, N. Vast, and S. Baroni, J. Phys.: Condens.
+     X 5, 011006 (2015).                                             Matter 29, 465901 (2017).
+[39] M. Springer and F. Aryasetiawan, Phys. Rev. B 57, 4364     [62] The idea of computing U self-consistently is not new, and
+     (1998).                                                         there are several ways how to do it (see e.g. Refs. [19, 34,
+[40] T. Kotani, J. Phys.: Condens. Matter 12, 2413 (2000).           79] for the self-consistent calculation of U within LR-
+[41] F. Aryasetiawan, M. Imada, A. Georges, G. Kotliar,              cDFT).
+     S. Biermann, and A. Lichtenstein, Phys. Rev. B 70,         [63] A. Dal Corso and S. de Gironcoli, Phys. Rev. B 62, 273
+     195104 (2004).                                                  (2000).
+[42] F. Aryasetiawan, K. Karlsson, O. Jepsen,             and   [64] M. Payne, M. Teter, D. Allen, T. Arias,                           and
+     U. Schönberger, Phys. Rev. B 74, 125106 (2006).                J. Joannopoulos, Rev. Mod. Phys. 64, 1045 (1992).
+[43] E. Sasioglu, C. Friedrich, and S. Blügel, Phys. Rev. B    [65] This can be demonstrated simply by inserting an identity
+     83, 121101(R) (2011).                                           operator 1̂ = P̂σ + Ôσ in Eqs. (22) and (26). By doing
+[44] L. Vaugier, H. Jiang, and S. Biermann, Phys. Rev. B             so, the terms containing Ôσ will cancel out due to the
+     86, 165105 (2012).                                              property h dψ vkσ
+                                                                                       |ψvkσ i + hψvkσ | dψ    vkσ
+                                                                                                                   i = 0 (which can be
+                                                                                  dλJ                        dλJ
+[45] B. Amadon, T. Applencourt, and F. Bruneval, Phys.                                           d
+                                                                     obtained by applying dλJ to the orthonormality condi-
+     Rev. B 89, 125110 (2014).                                       tion of the KS wave functions). Therefore, in Eqs. (22)
+[46] S. Baroni, P. Giannozzi, and A. Testa, Phys. Rev. Lett.
+                                                                     and (26) will remain only the terms containing P̂σ , i.e.
+     58, 1861 (1987).
+                                                                     the LR occupation matrices and spin charge densities de-
+[47] S. Baroni, S. de Gironcoli, A. Dal Corso, and P. Gian-
+                                                                     pend only on the conduction component of the LR KS
+     nozzi, Rev. Mod. Phys. 73, 515 (2001).
+[48] G. Borghi, A. Ferretti, N. Nguyen, I. Dabo, and                 wave functions, i.e. | dψ̃
+                                                                                             dλJ
+                                                                                                vkσ
+                                                                                                    i.
+     N. Marzari, Phys. Rev. B 90, 075135 (2014).                [66] In practice, for the sake of convenience, instead of the
+[49] N. Colonna, N. Nguyen, A. Ferretti, and N. Marzari, J.          matrix in Eq. (41), the following matrix can be used:
+                                                                                    P      dns+l  σ
+     Chem. Theory Comput. 14, 2549 (2018).                           χs+l,s0 +l0 =           mm
+                                                                                       σ,m dλs0 +l0 . This response matrix is ob-
+[50] D. Vanderbilt, Phys. Rev. B 41, 7892 (1990).                    tained simply by reorganizing the elements of the re-
+[51] P. Blöchl, Phys. Rev. B 50, 17953 (1994).                      sponse matrix of Eq. (41).
+[52] V.L. Campo Jr. and M. Cococcioni, J. Phys.: Condens        [67] The first and the second terms in Eq. (43) look identical
+     Matter 22, 055602 (2010).                                       with the only difference in the order of the indices m1
+[53] M. Czyzyk and G. Sawatzky, Phys. Rev. B 49, 14211               and m2 . In order to write these two terms in a similar
+     (1994).                                                         form, we have used the time-reversal symmetry.
+[54] A. Petukhov, I. Mazin, L. Chioncel, and A. Lichtenstein,   [68] Note that in Eq. (45) there is no index s because the
+                                                                                                         0
+     Phys. Rev. B 67, 153106 (2003).                                 solution of this equation |∆sq ūvkσ i does not depend on
+[55] V. Anisimov, A. Kozhevnikov, M. Korotin, A. Lukoy-              s. This can be understood by looking at Eq. (43): index s
+     anov, and D. Khafizullin, J. Phys.: Condens. Matter
+     19, 106206 (2007).                                              belongs to the operators P̄ˆm   s
+                                                                                                       2 ,m1 ,k,k+q
+                                                                                                                     and P̄ˆm
+                                                                                                                            s
+                                                                                                                              1 ,m2 ,k,k+q
+                                                                                    s0
+[56] V. Anisimov, I. Solovyev, M. Korotin, M. Czyzyk, and            and not to |∆q ūvkσ i. Physically this means that once the
+                                                                                                                               17
+
+     lattice-periodic parts of the linear-response Kohn-Sham           Chem. 141, 298 (1998).
+                           0
+     wave functions |∆sq ūvkσ i are computed by perturbing a     [77] I. Mayer, Int. J. Quant. Chem. 90, 63 (2002).
+     specific atom s0 , the response of the occupation matrix     [78] D. Johnson, Phys. Rev. B 38, 12807 (1988).
+     of all the atoms s can be obtained by simply projecting      [79] H. Hsu, K. Umemoto, M. Cococcioni, and R. Wentzcov-
+         0
+     |∆sq ūvkσ i on their states.                                     itch, Phys. Rev. B 79, 125124 (2009).
+[69] A. Dal Corso, Phys. Rev. B 64, 235118 (2001).                [80] R. Bianco, M. Calandra, and F. Mauri, Phys. Rev. B
+[70] A. Dal Corso, Phys. Rev. B 81, 075123 (2010).                     92, 094107 (2015).
+[71] J. Perdew, A. Ruzsinszky, G. Csonka, O. Vydrov,              [81] M. Hellgren, J. Baima, R. Bianco, M. Calandra,
+     G. Scuseria, L. Constantin, X. Zhou, and K. Burke,                F. Mauri, and L. Wirtz, Phys. Rev. Lett. 119, 176401
+     Phys. Rev. Lett. 100, 136406 (2008).                              (2017).
+[72] A. Dal Corso, Comput. Mater. Sci. 95, 337 (2014).            [82] E. Runge and E. Gross, Phys. Rev. Lett. 52, 997 (1984).
+[73] Ultrasoft pseudopotentials of the Pslibrary 0.3.1 [72] are   [83] M. A. L. Marques, N. T. Maitra, F. M. S. Nogueira,
+     taken from the SSSP library 0.7 (www.materialscloud.              E. K. U. Gross, and A. Rubio, eds., Fundamentals
+     org/):                  Ni.pbesol-n-rrkjus psl.0.1.UPF,           of Time-Dependent Density Functional Theory, Vol. 837
+     O.pbesol-n-rrkjus psl.0.1.UPF,                                    (Lecture Notes in Physics, Springer-Verlag, Berlin Hei-
+     Li.pbesol-s-rrkjus psl.0.2.1.UPF,                                 delberg, 2012).
+     Co.pbesol-spn-rrkjus psl.0.3.1.UPF,                          [84] N. Ashcroft and N. Mermin, Solid State Physics (Holt-
+     Cu.pbesol-dn-rrkjus psl.0.2.UPF.                                  Saunders, Philadelphia, 1976).
+[74] L. Bartel and B. Morosin, Phys. Rev. B 3, 1039 (1971).       [85] N. Marzari, A. Mostofi, J. Yates, I. Souza, and D. Van-
+[75] R. Wyckoff, Crystal Structures, vol. 1 (Wiley, New York,          derbilt, Rev. Mod. Phys. 84, 1419 (2012).
+     1965).                                                       [86] In the inverse Bloch sum (A.26), the p normalization fac-
+[76] J. Akimoto, Y. Gotoh, and Y. Oosawa, J. Solid State               tor is taken as 1/Nq and not as 1/ Nq , in contrast to
+                                                                       Eq. (A.3). This is a valid choice, and it is done for later
+                                                                       convenience.
+

@@ -1,0 +1,93 @@
+\section{Phonon self-energy and the Eliashberg function}\label{app:D.17}
+
+A phonon that can create an electron--hole pair of its own energy decays into it, and a phonon that can only do so virtually is shifted. Both effects come from one diagram, the electron bubble with two vertices $g$ inserted in a phonon line. This section derives the bubble from the expansion of the phonon Green's function and sums it into a Dyson equation. From it follow the linewidth $\gamma^{\mathrm{ep}}_{\vect{Q}\nu}$, its form for metals due to Allen~\cite{allen1972neutron}, the Eliashberg function $\alpha^2F(\omega)$ and the coupling $\lambda_{\mathrm{ep}}$, and the identities that connect them. The conventions are those of \cref{app:A.6,app:D.11,app:D.16}; the results are used in \cref{sec:6.4,sec:7.2}.
+
+\subsection*{The bubble}
+
+The phonon Green's function in imaginary time is $\mathsf{D}_\nu(\vect{Q},\tau) = -\langle\mathrm{T}_\tau\,B_{\vect{Q}\nu}(\tau)\,B_{-\vect{Q}\nu}(0)\rangle$, with the free form $\mathsf{D}_0(\vect{Q}\nu,\ii\omega^{\mathrm{B}}_j) = 2\omega_{\vect{Q}\nu}/[(\ii\omega^{\mathrm{B}}_j)^2 - \omega_{\vect{Q}\nu}^2]$ of \cref{eq:D.11-D0}. Its expansion in $H_{\mathrm{ep}}$ of \cref{eq:A.6-Hep} is \cref{eq:D.11-Gexp} with $B_{\vect{Q}\nu}$ and $B_{-\vect{Q}\nu}$ as the external operators. The first nonzero correction is of second order. The expansion supplies $(-1)^2/2!$. The external $B_{\vect{Q}\nu}(\tau)$ is contracted with the boson of one of the two factors $H_{\mathrm{ep}}$, and $B_{-\vect{Q}\nu}(0)$ with the other; the two choices are equal after relabeling and cancel the $1/2!$. Each boson contraction is $-\mathsf{D}_0$. The vertex at $\tau_1$ must carry $B_{-\vect{Q}\nu}$, and the one at $\tau_2$ carries $B_{\vect{Q}\nu}$, so the vertices are $g_{mn\nu}(\vect{k},\vect{Q})^*$ and $g_{mn\nu}(\vect{k},\vect{Q})$ by \cref{eq:A.6-herm}, with the factor $1/N$ from the two $1/\sqrt N$. The two electron bilinears close into one loop, which gives $-1$ (rule 3 of \cref{app:D.11}) and a sum over two spin orientations. With the $-1$ of the definition, the total sign is $(-1)(-1)^2(-1) = +1$. In frequency space the correction is $\mathsf{D}_0\,\Pi^{\mathrm{b}}\,\mathsf{D}_0$ with
+\begin{equation*}
+  \Pi^{\mathrm{b}}_\nu(\vect{Q},\ii\omega^{\mathrm{B}}_j) = \frac2N\sum_{\vect{k}mn}|g_{mn\nu}(\vect{k},\vect{Q})|^2\;T\sum_{j'}\GF_0(n,\vect{k},\ii\omega^{\mathrm{F}}_{j'})\,\GF_0(m,\vect{k}+\vect{Q},\ii\omega^{\mathrm{F}}_{j'} + \ii\omega^{\mathrm{B}}_j) .
+\end{equation*}
+The frequency sum is \cref{eq:D.10-sum} with band labels, and
+\begin{equation*}
+  \Pi^{\mathrm{b}}_\nu(\vect{Q},\ii\omega^{\mathrm{B}}_j) = \frac2N\sum_{\vect{k}mn}|g_{mn\nu}(\vect{k},\vect{Q})|^2\,\frac{f_{n\vect{k}} - f_{m,\vect{k}+\vect{Q}}}{\ii\omega^{\mathrm{B}}_j + \varepsilon_{n\vect{k}} - \varepsilon_{m,\vect{k}+\vect{Q}}} .
+\end{equation*}
+This is the density bubble of \cref{eq:4.7-bubble} with the density vertex replaced by the electron--phonon vertex. Bubbles that connect $\nu$ to another branch at the same $\vect{Q}$ are dropped (\cref{sec:6.4}).
+
+\subsection*{The Dyson equation and the self-energy}
+
+Repeating the bubble along the phonon line gives a geometric series, $\mathsf{D} = \mathsf{D}_0 + \mathsf{D}_0\Pi^{\mathrm{b}}\mathsf{D}_0 + \dots = \mathsf{D}_0 + \mathsf{D}_0\Pi^{\mathrm{b}}\mathsf{D}$, so that $\mathsf{D}^{-1} = \mathsf{D}_0^{-1} - \Pi^{\mathrm{b}}$. With $\mathsf{D}_0^{-1} = [(\ii\omega^{\mathrm{B}}_j)^2 - \omega_{\vect{Q}\nu}^2]/2\omega_{\vect{Q}\nu}$ it is natural to define the self-energy in units of a squared frequency, $\Pi_\nu = 2\omega_{\vect{Q}\nu}\Pi^{\mathrm{b}}_\nu$. Continuing to $\omega + \ii0^+$,
+\begin{keyresult}[Phonon self-energy and Dyson equation]
+\begin{gather}
+  \mathsf{D}_\nu(\vect{Q},\omega) = \frac{2\omega_{\vect{Q}\nu}}{\omega^2 - \omega_{\vect{Q}\nu}^2 - \Pi_\nu(\vect{Q},\omega)} , \notag\\
+  \Pi_\nu(\vect{Q},\omega) = \frac{4\omega_{\vect{Q}\nu}}{N}\sum_{\vect{k}mn}|g_{mn\nu}(\vect{k},\vect{Q})|^2\,\frac{f_{n\vect{k}} - f_{m,\vect{k}+\vect{Q}}}{\omega + \varepsilon_{n\vect{k}} - \varepsilon_{m,\vect{k}+\vect{Q}} + \ii0^+} .
+  \label{eq:D.17-Pi}
+\end{gather}
+\end{keyresult}
+The poles of $\mathsf{D}$ are the renormalized phonons, $\omega^2 = \omega_{\vect{Q}\nu}^2 + \Pi_\nu(\vect{Q},\omega)$, and in an insulator every term of $\Pi_\nu(\vect{Q},0)$ is negative (\cref{sec:6.4}). This form, with the screened vertex $g$ in both places and noninteracting electrons, is Ref.~\cite[Eq.~(146) and the text before it]{giustino2017electron} up to the normalization of $\Pi$; the more complete expression uses the bare vertex at one end~\cite[Eq.~(145)]{giustino2017electron}.
+
+The static part of $\Pi_\nu$ needs care. The phonons of a density-functional calculation are second derivatives of the Born--Oppenheimer energy with the electrons relaxed to their ground state at each nuclear configuration (\cref{sec:5.4}). They already contain the response of the electrons at zero frequency, which is $\Pi_\nu(\vect{Q},0)$ to this order. Starting from those frequencies and adding $\Pi_\nu(\vect{Q},\omega)$ would count the static response twice. Only the nonadiabatic remainder may be added~\cite{calandra2010adiabatic},
+\begin{equation}
+  \bigl(\omega^{\mathrm{ren}}_{\vect{Q}\nu}\bigr)^2 = \omega_{\vect{Q}\nu}^2 + \Real\bigl[\Pi_\nu(\vect{Q},\omega^{\mathrm{ren}}_{\vect{Q}\nu}) - \Pi_\nu(\vect{Q},0)\bigr] ,
+  \label{eq:D.17-nonad}
+\end{equation}
+with $\omega_{\vect{Q}\nu}$ the adiabatic frequency and $\omega^{\mathrm{ren}}_{\vect{Q}\nu}$ the renormalized one; this is the subtraction $W_e(\omega) - W_e(0)$ of Ref.~\cite[Eq.~(140)]{giustino2017electron}. In an insulator with $\omega_{\vect{Q}\nu} \ll \Eg$ the difference is of relative order $(\omega_{\vect{Q}\nu}/\Eg)^2$, since $\Pi_\nu$ is even in $\omega$ off resonance, and the adiabatic phonons are accurate. In a metal the intraband terms with $|\varepsilon_{n\vect{k}} - \varepsilon_{m,\vect{k}+\vect{Q}}| \lesssim \omega$ make the difference of order one for those pairs; for small $Q$ it can be large. The static bubble also inherits from the electron gas the singularity of the Lindhard function at $Q = 2k_{\mathrm{F}}$ (\cref{app:D.8}), and the adiabatic frequencies of a metal show a kink there, the Kohn anomaly.
+
+\subsection*{The linewidth}
+
+Near the pole, $\Pi_\nu$ is small compared with $\omega_{\vect{Q}\nu}^2$, and $\omega^2 - \omega_{\vect{Q}\nu}^2 - \Pi_\nu \simeq 2\omega_{\vect{Q}\nu}[\omega - \omega_{\vect{Q}\nu} - \Pi_\nu(\vect{Q},\omega_{\vect{Q}\nu})/2\omega_{\vect{Q}\nu}]$. Then $\mathsf{D}_\nu \simeq 1/(\omega - \tilde\omega + \ii\gamma/2)$, a Lorentzian of full width $\gamma$ at half maximum, centered at $\tilde\omega = \omega_{\vect{Q}\nu} + \Real\Pi_\nu/2\omega_{\vect{Q}\nu}$. With \cref{eq:2.4-SP} in \cref{eq:D.17-Pi},
+\begin{keyresult}[Electron--phonon linewidth]
+\begin{equation}
+  \gamma^{\mathrm{ep}}_{\vect{Q}\nu} = -\frac{\Imag\Pi_\nu(\vect{Q},\omega_{\vect{Q}\nu})}{\omega_{\vect{Q}\nu}}
+  = \frac{4\pi}{N}\sum_{\vect{k}mn}|g_{mn\nu}(\vect{k},\vect{Q})|^2\,\bigl(f_{n\vect{k}} - f_{m,\vect{k}+\vect{Q}}\bigr)\,\delta\bigl(\varepsilon_{m,\vect{k}+\vect{Q}} - \varepsilon_{n\vect{k}} - \omega_{\vect{Q}\nu}\bigr) ,
+  \label{eq:D.17-gamma}
+\end{equation}
+\end{keyresult}
+a full width, as for $\gamma_{\vect{Q}\nu}$ in \cref{sec:5.7}, with the spin sum written as the factor in $4\pi = 2\times2\pi$. It is the golden-rule rate \cref{eq:2.5-golden} at which a phonon is absorbed by creating an electron--hole pair, minus the rate of the inverse process; $f_n(1 - f_m) - f_m(1 - f_n) = f_n - f_m$. Ref.~\cite[Eq.~(146)]{giustino2017electron} writes the same rate as an inverse lifetime, with the spin factor 2 written explicitly, and its $1/\tau$ equals $\gamma^{\mathrm{ep}}_{\vect{Q}\nu}$. In an undoped insulator at $T = 0$ the delta function needs $\varepsilon_m - \varepsilon_n = \omega_{\vect{Q}\nu}$ between an occupied and an empty state, which is impossible for $\omega_{\vect{Q}\nu} < \Eg$: then $\gamma^{\mathrm{ep}}_{\vect{Q}\nu} = 0$, and phonons of an insulator are broadened only by anharmonicity and by defects. At $T > 0$ the thermally excited carriers add a width proportional to their density, of order $\ee^{-\Eg/2T}$ in an intrinsic crystal.
+
+In a metal the electronic states near the Fermi level change on a scale far larger than $\omega_{\vect{Q}\nu}$. For $T \ll E_{\mathrm{F}}$, the occupation difference at $\varepsilon_m = \varepsilon_n + \omega_{\vect{Q}\nu}$ is $f(\varepsilon_n) - f(\varepsilon_n + \omega) \simeq -\omega\,\partial f/\partial\varepsilon$, which tends to $\omega\,\delta(\xi_{n\vect{k}})$ for $T \to 0$. Dropping $\omega_{\vect{Q}\nu}$ also in the remaining delta function gives Allen's form~\cite{allen1972neutron},
+\begin{equation}
+  \gamma^{\mathrm{ep}}_{\vect{Q}\nu} \simeq \frac{4\pi\omega_{\vect{Q}\nu}}{N}\sum_{\vect{k}mn}|g_{mn\nu}(\vect{k},\vect{Q})|^2\,\delta(\xi_{n\vect{k}})\,\delta(\xi_{m,\vect{k}+\vect{Q}}) ,
+  \label{eq:D.17-allen}
+\end{equation}
+which is positive term by term and has lost its temperature dependence. It is Ref.~\cite[Eq.~(185)]{giustino2017electron}, where $\gamma$ denotes the half width and the spin sum is included. Its range of validity is discussed in \cref{sec:6.4}.
+
+\subsection*{The Eliashberg function}
+
+The double sum in \cref{eq:D.17-allen} is the Fermi-surface average of $|g|^2$ for the phonon $(\vect{Q},\nu)$. Weighting these averages over all phonons at energy $\omega$ defines the Eliashberg function,
+\begin{equation}
+  \alpha^2F(\omega) = \frac{1}{\mathcal{N}_{\mathrm{F}}\Omega\,N^2}\sum_{\vect{k}\vect{Q}}\sum_{mn\nu}|g_{mn\nu}(\vect{k},\vect{Q})|^2\,\delta(\xi_{n\vect{k}})\,\delta(\xi_{m,\vect{k}+\vect{Q}})\,\delta(\omega - \omega_{\vect{Q}\nu}) ,
+  \label{eq:D.17-a2F}
+\end{equation}
+with $\Omega$ the cell volume, so that $\mathcal{N}_{\mathrm{F}}\Omega$ is the density of states per spin and per cell at the Fermi level, $N\mathcal{N}_{\mathrm{F}}\Omega = \sum_{n\vect{k}}\delta(\xi_{n\vect{k}})$. The prefactor makes $\alpha^2F$ an average over initial states on the Fermi surface and a sum over final states, and it is dimensionless. This is Ref.~\cite[Eq.~(205)]{giustino2017electron}, with $\int\dd\vect{k}/V_{\mathrm{BZ}} \to N^{-1}\sum_{\vect{k}}$. Comparing \cref{eq:D.17-allen,eq:D.17-a2F} term by term,
+\begin{keyresult}[Eliashberg function, coupling constant and linewidths]
+\begin{equation}
+  \begin{gathered}
+  \alpha^2F(\omega) = \frac{1}{4\pi\mathcal{N}_{\mathrm{F}}\Omega\,N}\sum_{\vect{Q}\nu}\frac{\gamma^{\mathrm{ep}}_{\vect{Q}\nu}}{\omega_{\vect{Q}\nu}}\,\delta(\omega - \omega_{\vect{Q}\nu}), \\
+  \lambda_{\mathrm{ep}} = 2\int_0^\infty\dd\omega\,\frac{\alpha^2F(\omega)}{\omega} = \frac{1}{2\pi\mathcal{N}_{\mathrm{F}}\Omega\,N}\sum_{\vect{Q}\nu}\frac{\gamma^{\mathrm{ep}}_{\vect{Q}\nu}}{\omega_{\vect{Q}\nu}^2} .
+  \end{gathered}
+  \label{eq:D.17-lambda}
+\end{equation}
+\end{keyresult}
+The coupling constant is a sum of mode contributions $\lambda_{\vect{Q}\nu} = \gamma^{\mathrm{ep}}_{\vect{Q}\nu}/(2\pi\mathcal{N}_{\mathrm{F}}\Omega\,\omega_{\vect{Q}\nu}^2)$ averaged over the zone. Soft modes with large widths dominate it, and a measured linewidth gives the coupling of each mode directly, which was the point of Allen's relation~\cite{allen1972neutron}. The numerical factors in \cref{eq:D.17-lambda} depend on whether the width is full or half and on whether $\mathcal{N}_{\mathrm{F}}$ counts one spin or two; with the full width and one spin they are as written.
+
+\subsection*{Mass enhancement}
+
+The same function controls the electron self-energy near the Fermi surface, which is where the name coupling constant comes from. Average the Fan--Migdal self-energy \cref{eq:D.16-FM} of a state $(n,\vect{k})$ over the Fermi surface, and insert $1 = \int\dd\omega'\,\delta(\omega' - \omega_{\vect{Q}\nu})\int\dd\varepsilon\,\delta(\varepsilon - \xi_{m,\vect{k}+\vect{Q}})$. Suppose that the density of final states and the vertices change little over the energy range $\omega_{\mathrm{D}}$ of the phonons. Then $\delta(\varepsilon - \xi_{m,\vect{k}+\vect{Q}})$ may be replaced by $\delta(\xi_{m,\vect{k}+\vect{Q}})$ under the average, and the weight of each $(\omega',\varepsilon)$ is $\alpha^2F(\omega')$ by \cref{eq:D.17-a2F}:
+\begin{equation*}
+  \langle\Sigma^{\mathrm{FM}}\rangle_{\mathrm{FS}}(\omega) = \int_0^\infty\dd\omega'\,\alpha^2F(\omega')\int_{-E_{\mathrm{band}}}^{E_{\mathrm{band}}}\dd\varepsilon\left[\frac{n_{\mathrm{B}}(\omega') + 1 - n_{\mathrm{F}}(\varepsilon)}{\omega - \varepsilon - \omega' + \ii0^+} + \frac{n_{\mathrm{B}}(\omega') + n_{\mathrm{F}}(\varepsilon)}{\omega - \varepsilon + \omega' + \ii0^+}\right] ,
+\end{equation*}
+where the cutoff $E_{\mathrm{band}} \gg \omega_{\mathrm{D}}$ is of the order of the band width. At $T = 0$ only $1 - \Theta(-\varepsilon) = \Theta(\varepsilon)$ survives in the first numerator and $\Theta(-\varepsilon)$ in the second. The $\varepsilon$ integrals are logarithms, $-\ln[(E_{\mathrm{band}} + \omega' - \omega)/(\omega' - \omega)]$ and $\ln[(E_{\mathrm{band}} + \omega' + \omega)/(\omega' + \omega)]$, whose derivatives at $\omega = 0$ are $-1/\omega' + 1/(E_{\mathrm{band}} + \omega')$ each and tend to $-1/\omega'$ for $E_{\mathrm{band}} \to \infty$; a finite band reduces each by the fraction $\omega'/(E_{\mathrm{band}} + \omega')$, \SI{1}{\percent} for $E_{\mathrm{band}} = 100\,\omega'$. Hence
+\begin{equation}
+  -\frac{\partial\Real\langle\Sigma^{\mathrm{FM}}\rangle_{\mathrm{FS}}}{\partial\omega}\bigg|_{\omega=0} = 2\int_0^\infty\dd\omega'\,\frac{\alpha^2F(\omega')}{\omega'} = \lambda_{\mathrm{ep}} .
+  \label{eq:D.17-mass}
+\end{equation}
+By \cref{eq:4.7-qp}, quasiparticles within $\omega_{\mathrm{D}}$ of the Fermi level have the residue $z_{\mathrm{qp}} = 1/(1 + \lambda_{\mathrm{ep}})$, their velocity is reduced by the same factor, and the effective mass and the electronic specific heat are enhanced by $1 + \lambda_{\mathrm{ep}}$. The Allen--Heine term of \cref{eq:D.16-AH} does not depend on $\omega$ and does not contribute.
+
+\subsection*{Vertex corrections}
+
+The bubble keeps the vertex undressed at both ends. A vertex correction inserts a second phonon line across one vertex, and the counting of Migdal's theorem in \cref{sec:6.3} applies to it unchanged: the correction is of relative order $\lambda_{\mathrm{ep}}\,\omega_{\mathrm{D}}/E_{\mathrm{F}}$~\cite{migdal1958interaction}.
+
+\subsection*{The electron gas}
+
+The electron gas makes the passage from \cref{eq:D.17-gamma} to \cref{eq:D.17-allen} explicit. For one parabolic band and a constant vertex, the angular integral in $(1/\Vol)\sum_{\vect{k}}(f_{\vect{k}} - f_{\vect{k}+\vect{Q}})\,\delta(\varepsilon_{\vect{k}+\vect{Q}} - \varepsilon_{\vect{k}} - \omega)$ gives $m_e/(kQ)$ wherever the delta function can be satisfied, and with $k\,\dd k = m_e\,\dd\varepsilon$ the radial integral becomes $\int\dd\varepsilon\,[f(\varepsilon) - f(\varepsilon + \omega)] = \omega$. The result, $m_e^2\omega/(4\pi^2Q)$ per spin and volume, holds at any $T \ll E_{\mathrm{F}}$ for $2k_{\mathrm{F}} > Q \gg \omega/v_{\mathrm{F}}$, and it is exactly what the double delta function of \cref{eq:D.17-allen} gives, $\omega\int\dd^3k\,(2\pi)^{-3}\delta(\xi_{\vect{k}})\,\delta(\xi_{\vect{k}+\vect{Q}}) = m_e^2\omega/(4\pi^2Q)$.

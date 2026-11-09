@@ -1,0 +1,806 @@
+                                                        Towards predictive many-body calculations of phonon-limited carrier mobilities in
+                                                                                       semiconductors
+
+                                                                                   Samuel Poncé,1 Elena R. Margine,2 and Feliciano Giustino1, ∗
+                                                                           1
+                                                                            Department of Materials, University of Oxford, Parks Road, Oxford, OX1 3PH, UK
+                                                                     2
+                                                                         Department of Physics, Binghamton University-SUNY, Binghamton, New York 13902, USA
+                                                                                                        (Dated: March 16, 2018)
+                                                                     We probe the accuracy limit of ab initio calculations of carrier mobilities in semiconductors,
+                                                                   within the framework of the Boltzmann transport equation. By focusing on the paradigmatic
+                                                                   case of silicon, we show that fully predictive calculations of electron and hole mobilities require
+arXiv:1803.05462v1 [cond-mat.mtrl-sci] 14 Mar 2018
+
+
+
+
+                                                                   many-body quasiparticle corrections to band structures and electron-phonon matrix elements, the
+                                                                   inclusion of spin-orbit coupling, and an extremely fine sampling of inelastic scattering processes in
+                                                                   momentum space. By considering all these factors we obtain excellent agreement with experiment,
+                                                                   and we identify the band effective masses as the most critical parameters to achieve predictive
+                                                                   accuracy. Our findings set a blueprint for future calculations of carrier mobilities, and pave the way
+                                                                   to engineering transport properties in semiconductors by design.
+
+
+                                                        During the last decade, materials design guided by              ify the accuracy limit and the predictive power of ab ini-
+                                                     first-principles calculations has emerged as a powerful            tio mobility calculations based on the BTE. We show
+                                                     research strategy. Nowadays it is often possible to ac-            that in order to correctly reproduce experimental data we
+                                                     curately predict ground-state properties of new materi-            need to take into account GW quasiparticle corrections
+                                                     als in silico. This information can be used to screen for          to the band structures and the electron-phonon matrix
+                                                     promising new materials [1, 2]. At variance with ground-           elements, to include the spin-orbit splitting of the va-
+                                                     state properties, the prediction and screening of materials        lence bands, and to properly converge the integrals over
+                                                     properties involving electronic excitations is still in its in-    the Brillouin-zone. We also find that accurate band effec-
+                                                     fancy. For example charge and heat transport coefficients          tive masses are absolutely critical to reproduce measured
+                                                     are typically evaluated using a combination of ab ini-             mobilities. By considering all these aspects, we succeed
+                                                     tio and semi-empirical approaches [3–7]. The reasons for           in reproducing measured data with high accuracy, thus
+                                                     this lag are that the evaluation of transport coefficients         establishing unambiguously the predictive power of the
+                                                     is considerably more challenging than total energies, the          ab initio BTE.
+                                                     computational infrastructure is not yet fully developed,
+                                                     and the lack of a clear set of reference data for validation          In a semiconductor the steady-state electric current J
+                                                     and verification [8].                                              is related to the driving electric field E via the mobility
+                                                        In this work, we focus on phonon-limited carrier mo-            tensors as: Jα = e (ne µe,αβ + nh µh,αβ )Eβ , where Greek
+                                                     bilities in semiconductors. The theoretical framework for          indices denote Cartesian coordinates. In this expression
+                                                     calculating mobilities is well established, and is rooted in       µe,αβ , ne and µh,αβ , nh are the mobility and particle den-
+                                                     the Boltzmann transport equation (BTE), as described               sity of electrons and holes, respectively. Within Boltz-
+                                                     in Refs. [9–11]. The BTE is a semiclassical, quasipar-             mann’s transport formalism P [9] the R current density is ex-
+                                                     ticle theory of electron transport, which can be rigor-            pressed as Jα = −e Ω−1 n Ω−1     BZ dk fnk vnk,α , where Ω
+                                                     ously derived from a many-body quantum-field theoretic             and ΩBZ are the volume of the crystalline unit cell and
+                                                     framework by neglecting two-particle correlations [12].            the first Brillouin zone, respectively. The occupation fac-
+                                                     The key ingredients are the electronic band structures,            tor fnk plays the role of a statistical distribution function,
+                                                                                                                                                                            0
+                                                     the phonon dispersion relations, and the electron-phonon           and reduces to the Fermi-Dirac distribution fnk         in the
+                                                     matrix elements. The calculations of these quantities              absence of the electric field. The band velocity is given
+                                                     have reached maturity [13], therefore there should be              by vnk,α = ~−1 ∂εnk /∂kα , where εnk is the single-particle
+                                                     no fundamental obstacles towards predicting mobilities.            electron eigenvalue for the state |nki.
+                                                     However, already for the most studied semiconductor,
+                                                     silicon, one finds that (i) calculations of carrier mobil-            Using these definitions, the electron mobility is ob-
+                                                     ities are scarce, (ii) there is considerable scatter in the        tained via the derivative of the P current
+                                                                                                                                                                 R with respect to    
+                                                     calculated data, and (iii) reproducing measured mobili-            the  electric field: µe,αβ =  −    n∈CB   dk  v nk,α ∂E β
+                                                                                                                                                                                  fnk
+                                                                                                                                        0
+                                                                                                                        P        R
+                                                     ties remains a challenge. For example, Refs. 14–17 cal-               n∈CB dk fnk . Here the summations are restricted to
+                                                     culate intrinsic electron mobilities at room temperature           the conduction bands, and ∂Eβ is short for ∂/∂Eβ . An
+                                                     µe = 1550, 1750, 1860, and 1970 cm2 /Vs, respectively,             analogous expression holds for holes. From this expres-
+                                                     while experiments are in the range 1300-1450 cm2 /Vs               sion we see that in order to calculate mobilities we need to
+                                                     [18–20].                                                           evaluate ∂Eβ fnk , that is the linear response of the distri-
+                                                        Motivated by these considerations, here we set to clar-         bution function fnk to the electric field E. This quantity
+                                                                                                                            2
+
+can be computed starting from the BTE [9]:                       We perform calculations within density-functional theory
+          1 ∂fnk
+                         Z
+                   2π X dq                                       (DFT), planewaves, and pseudopotentials using the EPW
+  (−e)E ·        =              |gmnν (k, q)|2                   code [22] of the Quantum ESPRESSO distribution [23], in
+          ~ ∂k      ~ mν ΩBZ
+                                                                conjunction with the wannier90 library [24]. This ap-
+   × (1 − fnk )fmk+q δ(εnk − εmk+q + ~ωqν )(1 + nqν )            proach employs a generalized Wannier-Fourier interpola-
+     +(1 − fnk )fmk+q δ(εnk − εmk+q − ~ωqν )nqν                  tion technique [25] in order to obtain electron eigenvalues,
+     −fnk (1 − fmk+q )δ(εnk − εmk+q − ~ωqν )(1 + nqν )           phonon eigenfrequencies, and electron-phonon matrix el-
+                                                                 ements on dense Brillouin zone grids by means of maxi-
+     −fnk (1 − fmk+q )δ(εnk − εmk+q + ~ωqν )nqν .         (1)    mally localized Wannier functions [26]. A fine sampling
+The left-hand side of Eq. (1) represents the collisionless       of the Brillouin zone is required because, at finite temper-
+term of Boltzmann’s equation for a uniform and con-              ature, the Fermi level lies within the band gap, therefore
+stant electric field, in the absence of temperature gradi-       we need to sample scattering processes taking place in the
+ents and magnetic fields; the right-hand side represents         tails of the Fermi-Dirac distribution. In our calculations
+the modification of the distribution function arising from       the Fermi level is determined in such a way that the net
+electron-phonon scattering in and out of the state |nki,         charge density at a given temperature, ne − nh , equals
+via emission or absorption of phonons with frequency             the doping level (ne = nh for an intrinsic material). We
+ωqν , wavevector q, and branch index ν [10]. nqν is              now analyze in turn the key ingredients when calculating
+the Bose-Einstein distribution function. The matrix ele-         mobilities. We consider the paradigmatic case of silicon,
+ments gmnν (k, q) in Eq. (1) are the probability amplitude       for which extensive experimental data are available.
+for scattering from an initial electronic state |nki into a
+final state |mk + qi via a phonon |qνi, as obtained from
+density-functional perturbation theory [13, 21]. By tak-                         Brillouin-zone sampling
+ing derivatives of Eq. (1) with respect to E we obtain an
+explicit expression for the variation ∂Eβ fnk :                     We find that in order to obtain reliable intrinsic mobili-
+                0
+             ∂fnk                 0 XZ
+                               2πτnk      dq                     ties it is necessary to employ extremely fine quasi-random
+                          0
+ ∂Eβfnk = e        vnk,β τnk +               |gmnν (k, q)|2      grids, with a densified sampling around the band ex-
+             ∂εnk                ~ mν ΩBZ
+                                                                 trema. Convergence of mobility values to within 0.5% is
+                     0
+      
+   × (1 + nqν − fnk     )δ(εnk − εmk+q + ~ωqν )                  reached when using grids with 85K inequivalent k-points
+               0
+                                           
+    +(nqν + fnk )δ(εnk − εmk+q − ~ωqν ) ∂Eβfmk+q , (2)           and 200K inequivalent q-points [white dot in Fig. 4(a)].
+                                                                 Subsequent calculations in this article are performed us-
+having defined the relaxation time:                              ing these grids. In Appendix Fig. 4(b) we compare cal-
+                Z
+    1     2π X dq                                                culations of the intrinsic mobility of silicon within the
+    0  =                |gmnν (k, q)|2
+   τnk     ~ mν ΩBZ                                              SERTA and the IBTE approaches. We find that the it-
+                0                                               erative solution of Eq. (2) leads to converged values which
+       × (1 − fmk+q    + nqν )δ(εnk − εmk+q − ~ωqν )             are 6% higher than the SERTA result for electrons, and
+            0
+                                               
+       + (fmk+q + nqν )δ(εnk − εmk+q + ~ωqν ) . (3)              1% lower for holes. Since the IBTE is drastically more
+Equation (2) is the linearized BTE and is valid under the        expensive because it requires homogeneous and commen-
+assumption that the energy gained by a carrier acceler-          surate grids [15, 16], in the following discussion we focus
+ated by the electric field over the mean free path is much       on SERTA calculations. We use a finite broadening of
+smaller than the thermal energy, eEβ vnk,β τnk    0
+                                                      kB T ;    5 meV to evaluate the Dirac delta function in Eq. (3).
+this assumption is verified in most semiconductors under         The sensitivity of the results to the broadening parame-
+standard operating conditions. This equation needs to be         ter is analyzed in Fig. 5 of the Appendix.
+solved self-consistently for ∂Eβ fnk , and is also referred to
+as the iterative BTE (IBTE). A simpler approach con-
+                                                                                Exchange and correlation
+sists in neglecting the integral on the r.h.s. of Eq. (2).
+In this case we obtain the variation ∂Eβ fnk without solv-
+ing iteratively. It can be shown that the relaxation time           In order to investigate the effect of the DFT exchange
+  0
+τnk  is related to the imaginary part of the Fan-Migdal          and correlation we perform calculations within both the
+electron self-energy [13] via 1/τnk0
+                                        = 2 Im ΣFM               local density approximation (LDA) [27, 28] and the gen-
+                                                  nk . Based
+on this analogy, in the following we refer to the approx-        eralized gradient approximation of Perdew, Burke, and
+imation of neglecting the integral in Eq. (2) as the ‘self-      Ernzerhof (PBE) [29], using scalar-relativistic pseudopo-
+energy relaxation time approximation’ (SERTA). In this           tentials [30]. Figure 1 shows that the intrinsic mobil-
+approximation the mobility takes the simple form:                ities at 300 K differ by 16% between LDA and PBE
+                                   0
+                                                                 for electrons, and by 3% for holes. Closer inspection
+              −e X
+                        Z
+                            dk ∂fnk                 0            shows that these differences arise primarily from the opti-
+    µe,αβ =                            vnk,α vnk,β τnk . (4)
+             ne Ω          ΩBZ ∂εnk                              mized lattice parameters obtained with these functionals
+                  n∈CB
+                                                                                                                                           3
+
+                                743 LDA No SOC                       (a)
+                                                                                          0.2
+                               722 PBE No SOC                                                                      No SOC
+                                739 LDA EXP No SOC                                                                 SOC
+                                 755 PBE EXP No SOC
+
+
+
+
+                                                                            Energy (eV)
+                                                                                                                   SOC+GW
+                                   820 PBE EXP SOC
+                                                                                          0.1                      fit
+hole
+
+
+
+
+                                  799 PBE EXP SOC+GW
+                              700 PBE EXP SOC+GW+SCR
+                              693 PBE EXP SOC+GW+SCR+IBTE
+                             658 PBE EXP SOC+GW+SCR+IBTE+RE
+                         502 PBE EXP SOC+FIT+SCR+IBTE                                     0.0
+
+               LDA No SOC                                     1555                         0.64ΓX                    0.85ΓX            X
+               PBE No SOC                             1343           (b)                  0.0
+               LDA EXP No SOC                              1463
+               PBE EXP No SOC                              1457
+                                                                                   −0.1
+electron
+
+
+
+
+               PBE EXP SOC                               1419
+
+
+
+
+                                                                     Energy (eV)
+               PBE EXP SOC+GW                               1488                   −0.2
+               PBE EXP SOC+GW+SCR                      1357
+               PBE EXP SOC+GW+SCR+IBTE                    1438                     −0.3
+               PBE EXP SOC+GW+SCR+IBTE+RE              1366
+               PBE EXP SOC+FIT+SCR+IBTE              1305                          −0.4
+           0       250    500       750      1000    1250     1500                              Γ        0.2ΓX Γ      0.2ΓL Γ         0.2ΓK
+                                Mobility (cm2 /Vs)
+                                                                     FIG. 2. (a) Conduction bands of silicon calculated within
+ FIG. 1. Intrinsic electron and hole mobilities of silicon at        scalar-relativistic PBE (grey), fully-relativistic PBE (blue),
+ 300 K, calculated using various levels of theory. The complex-      the GW method (orange) and parabolic fit with measured
+ ity of the theory increases as we move down the sequence of         effective masses (dashed). The zero of the energy axis is set
+ bars. The range of measured mobilities is indicated in light        to the conduction band minimum for clarity. (b) Valence
+ grey vertical bars. Our most accurate theoretical predictions       bands of silicon, calculated within the same approximations
+ are µe = 1366 cm2 /Vs and µh = 658 cm2 /Vs; by replac-              as for (a), and shown using the same color code. The zero of
+ ing the GW hole effective mass with the experimental value          the energy axis is set to the valence band top. In all panels
+ we obtain µe = 502 cm2 /Vs, in much better agreement with           the dots indicate explicit GW calculations carried out using
+ experiment. Key: SOC, spin-orbit coupling; EXP, experi-             uniform grids containing 12×12×12 to 20×20×20 points. The
+ mental lattice parameter; GW, calculations including quasi-         GW bands in orange are obtained via Wannier interpolation.
+ particle corrections; SCR, electron-phonon coupling with cor-
+ rected screening; IBTE, iterative Boltzmann transport equa-
+ tion; RE, change of effective mass due to electron-phonon           six-fold degenerate states at the top of the valence bands,
+ renormalization; FIT, band structures calculated from the           leading to the formation of two doubly-degenerate light-
+ measured effective masses.                                          hole and heavy-hole bands, and one doubly-degenerate
+                                                                     split-off hole band. As a result the effective mass of the
+                                                                     light hole decreases (see Appendix Table I), leading to
+ (a = 5.40 Å in LDA and 5.47 Å in PBE). In fact, when
+                                                                     a higher mobility. On the other hand, Fig. 2(a) shows
+ using the experimental lattice parameter (a = 5.43 Å)
+                                                                     that the conduction band bottom is relatively unaffected
+ the deviation between LDA and PBE mobilities reduces
+                                                                     by spin-orbit coupling, and correspondingly the effect on
+ to 0.4% for electrons and 2% for holes (Fig. 1). These
+                                                                     the electron mobility is less pronounced (2.7%).
+ results indicate that the choice of exchange and correla-
+ tion is not critical so long as accurate lattice parameters
+ are employed.                                                                                  Many-body quasiparticle corrections
+
+                                                                        Given the sensitivity of the calculated mobilities to
+                          Spin-orbit coupling                        the band extrema, we investigate the effect of many-
+                                                                     body correlations within the GW quasiparticle approx-
+    Spin-orbit interactions in silicon are very weak [31],           imation. To obtain quasiparticle energies we use the
+ therefore relativistic effects are usually neglected. How-          Yambo code [32]; the values calculated on a 12×12×12
+ ever, here we find that spin-orbit coupling is important            uniform grid are then interpolated using the EPW code.
+ for predictive calculations, yielding hole mobilities 9%            Figure 2 shows the modification to the band extrema re-
+ higher than non-relativistic calculations (Fig. 1). This            sulting from quasiparticle corrections. In the case of the
+ effect can be understood by considering the band struc-             valence bands, quasiparticle corrections increase the mass
+ tures in Fig. 2(b). The spin-orbit interaction splits the           of the light holes (see Table I in Appendix); as a result
+                                                                                                                                                    4
+
+                                                                                   (a)     hibitive, here we take a simpler approach and renor-
+        Mobility (cm2 /Vs)   104                                                           malize the matrix elements as follows: gmnν   0
+                                                                                                                                             (k, q) =
+                                                                                           gmnν (k, q) [DFT (|q|)/exp (|q|)]. Here exp is meant to
+                                                                                           be the most accurate description of the screening that we
+                             103
+                                                                                           can afford, and we are neglecting local-field effects which
+                                                                                           should yield an error on the order of a few percent [39].
+                                                                                           For practical purposes we replace the dielectric functions
+                                                                                           by an analytic expression [40], where the only input pa-
+                             102                                                           rameter is the head of the dielectric matrix. The validity
+                                   100                 200          300      400    500    of this procedure is demonstrated in Appendix Fig. 6
+                                                    Temperature (K)                        using explicit calculations in the random-phase approxi-
+                                                                                           mation. This correction to the matrix elements leads to a
+                       1600                                                        (b)     decrease of the electron and hole mobilities by 8.8% and
+                                                                                           12.4%, respectively, as shown in Fig. 1.
+Mobility (cm2 /Vs)
+
+
+
+
+                       1200
+
+                             800                                                                 Thermal expansion and electron-phonon
+                                                                                                            renormalization
+                             400
+                                                                                               We computed the effect of thermal lattice expansion
+                              0                                                            on the DFT eigenenergies using the thermo pw code [41]
+                                   1015      1016          1017       1018          1019   within the quasi-harmonic approximation and concluded
+                                           Impurity concentration (cm−3 )                  that this effect is negligible, see Appendix Figs. 7-8. We
+                                                                                           also determined the electron-phonon renormalization of
+ FIG. 3. (a) Comparison between calculated and measured                                    the effective masses using data from Ref. 42. This effect
+ intrinsic (low carrier concentration ≤ 1015 cm−3 ) electron                               increases the masses by ∼3%, and results into a decrease
+ and hole mobilities of silicon, as a function of temperature.                             of the mobilities by ∼5%.
+ The calculations are performed using our best computational
+                                                                                               After considering all the effects discussed so far, and
+ setup. The blue lines are for holes and the orange line is
+ for electrons. In the case of holes we show both our best                                 after accounting for the corrections to the SERTA re-
+ ab initio calculations (solid blue), and the results obtained                             sults arising from the solution of the complete IBTE,
+ by setting the hole effective mass to the experimental value                              our most accurate theoretical mobilities at 300 K are
+ (dashed blue). The shading is a guide to the eye. Experi-                                 µe = 1366 cm2 /Vs and µh = 658 cm2 /Vs. These val-
+ ments are from [33] (4), [34] (♦), [35] (I), [36] (◦), and [19]                           ues are to be compared to the measured drift mobilities
+ (). (b) Comparison between calculated and measured elec-                                 µexp
+                                                                                             e   = 1350-1450 cm2 /Vs [35, 36, 38, 43] and µexp
+                                                                                                                                            h   = 445-
+ tron and hole mobilities of silicon at 300 K, as a function
+                                                                                           510 cm2 /Vs [35, 36, 43, 44] (Fig. 1). From the compar-
+ of carrier concentration, using the same color code as in (a).
+ Experimental data are from [36] (◦). The impurity scatter-                                ison with experiment we see that by pushing the the-
+ ing is included via the model of Brooks and Herring with the                              ory to its limits we can obtain electron mobilities in
+ Long-Norton correction [37, 38] as described in the Appendix.                             very good agreement with experiment. On the contrary,
+                                                                                           the hole mobility are still approximately 30% above the
+                                                                                           measured range. This discrepancy can be traced back
+ the hole mobility decreases by 3%, as shown in Fig. 1.                                    to the underestimation of the [100] heavy hole effective
+ The opposite effect is observed for the conduction bands                                  masses within the GW approximation. In fact, by repeat-
+ where the electron mobility is increased by 5%.                                           ing the calculation using the experimental hole effective
+                                                                                           mass instead of the GW mass, we obtain a hole mobil-
+                                                                                           ity µ0h = 502 cm2 /Vs, this time in very good agreement
+                                   Corrections to the DFT screening                        with experiment as shown in Fig. 1. This result leads us
+                                                                                           to conclude that the effective mass plays an absolutely
+    Another source of error in the DFT calculations of                                     critical role in mobility calculations. Our finding can be
+ carrier mobilities is the overscreening of the electron-                                  understood by considering that the mobility varies with
+ phonon matrix elements gmnν (k, q) associated with the                                    the effective mass as µ = (m∗ )−p with p being a coeffi-
+ DFT band gap problem [13]. In fact, in the case of                                        cient between 1 and 2.5 [45–47]; as a result a 20% error
+ silicon DFT yields a static dielectric constant 0DFT =                                   in the effective mass leads to an error in the mobility of
+ 12.89, which is higher than the measured value 0exp =                                    up to 60%. This finding highlights the critical role of ac-
+ 11.94 [20]. In order to overcome this issue it is neces-                                  curate calculations of quasiparticle band structures, and
+ sary to modify the screening in the calculation of phonon                                 raises the question on whether the standard GW method
+ dispersion relations. Since this is computationally pro-                                  and pseudopotential calculations (see Table II) are suffi-
+                                                                                                                          5
+
+cient for delivering predictive mobilities.                    support (Award No. OAC-1740263).
+   Using the best possible computational setup we can
+now compare our calculations with experiment over a
+range of temperatures and doping levels. Figure 3(a)                                  APPENDIX
+shows the intrinsic electron and hole mobilities of sili-
+con between 100 K and 500 K. In the case of the hole                           Computational Methods
+mobilities we show both our best ab initio results (solid
+line), as well as those re-calculated using the experimen-        In this work we use norm-conserving pseudopoten-
+tal effective masses (dashed line). Overall, the agreement     tials with planewave kinetic energy cutoffs of 45 Ry
+between our calculations and experiment is very good           and 35 Ry for LDA and PBE calculations, respectively.
+throughout the entire temperature range. Figure 3(b)           The phonon dispersion relations are evaluated using
+shows a comparison between calculated and measured             density-functional perturbation theory [21], starting from
+mobilities at 300 K, as a function of carrier concentra-       a 6×6×6 uniform grid of q-points. An 18×18×18 uni-
+tion between 1015 and 1019 cm−3 . In this case, in addi-       form grid of k-points was required to correctly obtain
+tion to the ab initio electron-phonon scattering, we used      vanishing Born effective charges. Representative phonon
+the semi-empirical model of Brooks and Herring with the        dispersion relations obtained within this setup can be
+Long-Norton correction [37, 38] to account for impurity        found in Ref. [22]. The coarse grids for the electron-
+scattering (see Appendix for details). Also in this case       phonon interpolation required 12×12×12 k-points and
+we find very good agreement with experiment, although          6×6×6 q-points. Such a dense k-grid was needed to
+the contribution of impurity scattering is evaluated semi-     obtain a good Wannier interpolation of the conduction
+empirically.                                                   bands, since the minimum is along the ∆ line (ap-
+   In conclusion, we pushed the accuracy of transport cal-     prox. 0.85ΓX) and does not fall on a high-symmetry
+culations within the BTE formalism to its limits, and we       point.
+demonstrated that this approach can deliver predictive            For the self-consistent, iterative solution of the Boltz-
+accuracy for a prototypical semiconductor. Our findings        mann transport equation (IBTE) we employ uniform
+raise two important questions for future work on trans-        Brillouin-zone grids, and the q-point sums are restricted
+port in semiconductors: (i) the present formalism yields       to the irreducible wedge of the Brillouin zone using crys-
+results which fall within the experimental uncertainty. In     tal symmetry operations. The IBTE is solved using ho-
+order to enable further progress in this area it will be im-   mogeneous and commensurate k- and q-point grids since
+                                                                                    i+1
+portant to produce a high-quality experimental data from       the variations ∂Eβ fnk   at the (i + 1)-th iteration require
+single-crystal samples. (ii) An unexpected challenge that                                               i
+                                                               the knowledge of the variations ∂Eβ fnk+q     at the i-th it-
+we faced is to perform accurate ab initio calculations of      eration, see Eq. (2).
+effective masses. Going forward it will be important to           For the direct solution of the BTE within the self-
+establish whether the GW method and pseudopotential            energy relaxation time approximation (SERTA) the Bril-
+calculations can provide effective masses with the accu-       louin zone grids do not need to be commensurate. In this
+racy required for predictive mobility calculations. Mean-      case, in order to improve the sampling accuracy, we em-
+while, the present work opens the way to predictive cal-       ploy quasi-random Sobol sequences of k- and q-points.
+culations of mobilities and lays the groundwork for the        Following recommended practice, we skip the first 1000
+ab initio design of semiconductor devices.                     elements of a sequence and we retain one element ev-
+   Note added. After submission of this work, a related        ery 100 of the remainder [49]; furthermore we employ a
+calculation for Si was reported, where the authors found       linear scramble and shift of the resulting sequence, using
+a significant increase in Si hole mobility with SOC and        standard routines from Matlab R2015a [50]. As a further
+no effect from SOC on the electron mobility in line with       refinement we replace the homogeneous Sobol weights us-
+our results [48].                                              ing a Voronoi triangulation with the code Voro++ [51]. In
+   We acknowledge fruitful discussions with C. Verdi,          the Voronoi triangulation we take into account the peri-
+M. Schlipf and W. Li. This work was supported by               odicity of the Brillouin zone by building periodic repli-
+the Leverhulme Trust (Grant RL-2012-001), the UK               cas of the random grid in neighboring reciprocal unit
+EPSRC Research Council (grants No. EP/J009857/1                cells. For the k-point grid we also densify the distri-
+and EP/M020517/1), the EU H2020 programme un-                  bution around the band extrema, in order to capture
+der grant No. 696656 GrapheneCore1, the Univer-                the fine features of the scattering near the band edges.
+sity of Oxford Advanced Research Computing (ARC)               This is achieved by generating additional random points
+facility (http://dx.doi.org/810.5281/zenodo.22558), the        with the Lorentz distribution 1/(1 + |k − k0 |2 /γ 2 ) and
+ARCHER UK National Supercomputing Service under                by recomputing the Voronoi weights of the resulting grid.
+the AMSEC and CTOA projects, PRACE DECI-13 re-                 Here k0 indicates the location of the band extrema and
+source Cartesius at SURFsara, and the PRACE DECI-              γ = 0.008 Å−1 .
+14 resource Abel at UiO. E.R.M. acknowledges the NSF              Figure 4(a) shows the convergence of the intrinsic mo-
+                                                                                                                                                            6
+
+                            300
+Number of q-points (103 )                                                                     Band         Direction     Present calculations Expt.
+                            250                                                                                        No SOC SOC SOC+GW
+                                                   1500 1600 1700 1800 1900 2000
+                                                           Mobility (cm2 /Vs)                                [100]      0.167   0.224     0.226      0.23
+                            200
+                                                                                          Split-off hole     [111]      0.094   0.227     0.227      0.23
+                            150                                                                              [110]      0.106   0.227     0.225      0.23
+                                                                                                             [100]      0.253   0.189     0.202      0.17
+                            100                                                            Light hole        [111]      0.682   0.131     0.132      0.16
+                                                                                  (a)                        [110]      0.266   0.140     0.140      0.16
+                             50
+                                   50    70    90  110 130 150 170          190   210                        [100]      0.271   0.256     0.243      0.46
+                                               Number of k-points (103 )                  Heavy hole         [111]      0.694   0.654     0.643      0.56
+                       2200
+                                                                                                             [110]      2.868   0.521     0.512      0.53
+                                                                            SERTA
+                                                                                                             long.      0.798   0.824     1.090      0.98
+                       2000                                                 IBTE            Electron
+Mobility (cm2 /Vs)
+
+
+
+
+                                                                                                            trans.      0.188   0.190     0.186      0.19
+                                                            electron
+                       1800                                                             TABLE I. Comparison between calculated and measured ef-
+                                                                                        fective masses of silicon, in units of the electron mass. The
+                       1600                                                             experimental data are from Refs. 20, 31, and 54.
+                        700
+                                                            hole                  (b)
+                            500
+                                  100   200   300 400 500 600 700           800   900
+                                                                                        ble I. We also show in Table II the effective masses
+                                                Number of k-points (103 )               calculated without SOC at the experimental lattice pa-
+                                                                                        rameter with two different types of pseudization (norm-
+  FIG. 4.      (a) Sensitivity of the intrinsic electron mobility                       conserving and ultrasoft), and two exchange and corre-
+  of silicon at 300 K with respect to the sampling of electron                          lation functionals (LDA and PBE).
+  (k) and phonon (q) wavevectors in the Brillouin zone. The                                In order to calculate mobilities using band structures
+  calculations are performed within the SERTA approximation,                            as close as possible to experiments (i.e. the lowermost
+  using a densified Lorentzian distribution of k-points around
+                                                                                        bars in Fig. 1), we repeated the calculations using the
+  the conduction band minima, and a Sobol quasi-random sam-
+  pling of the q-points. The white dot indicates the setup used                         low-energy dispersion relations parametrized in Refs. 31
+  in the calculations reported in this article. (b) Comparison                          and 53 starting from the measured effective masses:
+  between the rate of convergence of the intrinsic electron and
+  hole mobilities of silicon using the SERTA and the IBTE ap-                                     ~2 (kx − k0,x )2   ~2 (ky − k0,y )2
+                                                                                          εcb =                    +
+  proaches, at 300 K. In this case we use uniform grids, with                                          2m||               2m⊥
+  the k-point mesh being twice as dense as the q-point mesh in
+  each direction.                                                                                 ~2 (kz − k0,z )2
+                                                                                                  +                 + εc ,                                (5)
+                                                                                                       2m⊥
+                                                                                          εhh =Ak 2 + [B 2 k 4 + C 2 (kx2 ky2 + ky2 kz2 + kz2 kx2 )]1/2 , (6)
+  bility of silicon at 300 K with respect to the number of                                εlh =Ak 2 − [B 2 k 4 + C 2 (kx2 ky2 + ky2 kz2 + kz2 kx2 )]1/2 , (7)
+  electron and phonon wavevectors in the Brillouin zone
+  within the SERTA approximation. Figure 4(b) shows the                                               k 2 ~2
+                                                                                          εso = −            − εso ,                                     (8)
+  comparison between calculations of the intrinsic mobility                                           2mso
+  of silicon within the SERTA and the IBTE approaches.
+                                                                                        where m|| = 0.98m0 (m0 is the free electron mass), m⊥ =
+     The GW calculations are performed starting from the                                0.19m0 , mso = 0.23m0 , k0 denotes the wavevectors of
+  PBE band structure and using the experimental lattice                                 the conduction band minima, and εc is the conduction
+  parameters on a 12×12×12 k-point grid. To obtain di-                                  band bottom. The coefficients are A = −4.1 ~2 /2m0 ,
+  rect and indirect band gaps converged to within 5 meV                                 B = −1.6 ~2 /2m0 and C = 3.3 ~2 /2m0 [31, 53] and εso
+  we use 120 bands and a planwaves cutoff of 15 Ry for                                  = 48 meV.
+  the dielectric matrix. The renormalization of the band
+  velocity is evaluated as in Ref. [52]: hψnk |p̂|ψmk iGW =
+  [(εGW       GW
+     nk − εmk )/(εnk
+                      DFT
+                          − εDFT
+                             mk )]hψnk |p̂|ψmk iDFT , where                                        Broadening of Dirac delta functions
+  p̂ indicates the momentum operator. When n = m
+  the previous expression is replaced by hψnk |p̂|ψnk iGW =                                The numerical evaluation of phonon-limited mobili-
+  hψnk |p̂|ψnk iDFT .                                                                   ties using Eqs. (2)-(4) requires one to replace the Dirac
+     For completeness the effective masses computed within                              delta functions in Eqs. (2)-(3) by Lorentzian functions
+  scalar-relativistic DFT, fully-relativistic DFT, and in-                              with finite broadening η: π δ(εnk ± ~ωqν − εmk+q ) →
+  cluding GW quasiparticle corrections are reported in Ta-                              Im (εnk ± ~ωqν − εmk+q − iη)−1 . This procedure makes
+                                                                                                                                                    7
+
+                                                                                     1800
+        Band         Direction LDA-US LDA PBE Expt.                                                                                           (a)
+
+
+
+
+                                                                Mobility (cm2 /Vs)
+                       [100]   0.170   0.168 0.167   0.23
+                                                                                     1700
+    Split-off hole     [111]   0.098   0.098 0.094   0.23
+                       [110]   0.111   0.109 0.106   0.23
+                       [100]   0.248   0.265 0.253   0.17                            1600
+     Light hole        [111]   0.551   0.655 0.682   0.16
+                       [110]   0.271   0.278 0.266   0.16                            1500
+                       [100]   0.271   0.276 0.271   0.46                                       0   1           3          5                    10
+     Heavy hole        [111]   0.635   0.678 0.694   0.56                                                           Smearing (meV)
+                       [110]   2.158   2.170 2.868   0.53                                  10
+                       long.   0.755   0.735 0.771   0.98                                  8
+      Electron
+
+
+
+
+                                                                              Im Σ (meV)
+                      trans.   0.182   0.185 0.188   0.19
+                                                                                           6
+TABLE II. Comparison between effective masses calcu-                                       4
+lated using different types of pseudopotentials and exchange-
+correlation functionals without SOC, in units of the electron                              2
+mass. The experimental data are from Refs. 20, 31, and 54.                                                                                    (b)
+                                                                                           0
+                                                                                                0        0.025          0.05          0.075     0.1
+                                                                                                                     Energy (eV)
+
+the calculated mobility dependent on the broadening pa-
+                                                                 FIG. 5. (a) Intrinsic electron mobility of silicon at 0 K, cal-
+rameter, hence it is important to check how sensitive are        culated as a function of the broadening parameter η (dots).
+the results to the choice of η.                                  The grey thin line is a guide to the eye and was obtained by
+                                                                 fitting the data points using µ = const/η. (b) Electron quasi-
+   Figure 5(a) shows the intrinsic electron mobility of sil-     particle linewidths in silicon arising from the electron-phonon
+icon at 0 K, evaluated as a function of η. From this             interaction, calculated at 0 K (blue dots) and 300 K (orange
+figure we see that the mobility tends to diverge towards         dots). The zero of the horizontal energy axis is set to the
++∞ as η → 0. This trend can be rationalized by not-              conduction band minimum. The vertical grey line indicates
+ing that the mobility is directly proportional to the re-        the energy of the highest optical phonon in silicon.
+laxation time [cf. Eq. (4)], and the relaxation time due
+to acoustic phonon scattering in a non-polar semicon-
+                                                                           Screening of the electron-phonon matrix elements
+ductor is inversely proportional to the temperature [45].
+As a result, we expect that the phonon-limited mobility
+will increase indefinitely as η becomes smaller and the             The strategy that we used to correct for the DFT over-
+Lorentzian approaches the Dirac delta function. This             screening of the electron-phonon matrix elements consists
+observation is in agreement with the explicit calculations       of un-screening the matrix elements via the DFT dielec-
+in Fig. 5(a).                                                    tric function, so as to obtain the bare matrix elements,
+                                                                 and then screening the bare matrix elements using the
+   This behavior poses a problem when one has to decide          best possible dielectric function. The dielectric function
+which broadening parameter to use in the calculations.           can be factored out of the integral in the matrix element
+As a general rule here we set η to the smallest possi-           if we neglect local field effects. Since local field effects
+ble value where the curve µ vs. η is relatively flat, so         are known to decrease the head of the dielectric function
+that our results are insensitive to this choice. Based on        of silicon by 10% and the body of the dielectric function
+Fig. 5(a), we use η = 5 meV in all calculations presented        is typically one or two orders of magnitude smaller than
+in the article. This choice is consistent with the notion        the head [39], we expect to make an error on the order
+that real quasiparticles do not have an infinite lifetime        of a few percent.
+as it is assumed in the BTE formalism, but have a finite            In order to perform this operation for a large number
+lifetime due to electron-electron and electron-phonon in-        of phonon wavevectors we use the Thomas-Fermi model
+teractions. In Fig. 5(b) we show our calculated quasipar-        dielectric function of Ref. 40:
+ticle broadening from electron-phonon interactions at 0 K                                                             k02 + q 2
+and 300 K. It can be seen that at 300 K the broadening                                              (q) =                              ,       (9)
+                                                                                                             k02 sin(qR)/(qR 0 ) + q 2
+reaches values up to 4-5 meV for quasiparticle energies
+located one phonon energy away from the band bottom              where q = |q|, 0 is the macroscopic (electronic) dielectric
+(the highest phonon energy in silicon is ∼63 meV). These         constant. k0 are R are obtained from the valence electron
+values are consistent with our choice of broadening pa-          density ρ as k02 = 4(3π 2 ρ)1/3 /π and sinh(k0 R)/k0 R = 0 .
+rameter.                                                         The only free parameter of the model is 0 .
+                                                                                                                                                 8
+
+      14                                                                             Fig. 3(b)], respectively, s = 11.90 is the dielectric con-
+                                                                      εRPA (q)
+                                                                                     stant, 0 is the permittivity of vacuum, and h is Planck’s
+      12                                                              εDFT (q)       constant. In the above expressions, the concentrations
+                                                                      εEXP (q)       are expressed in cm−3 , and the temperature T is in K.
+      10                                                                               In the case of silicon, Eq. (10) cannot be used for
+                                                                                     the electron mobility because the electron mass is highly
+(q)
+
+
+
+       8
+                                                                                     anisotropic and leads to incorrect results. To account for
+                                                                                     the electron mass anisotropy, we instead used the Long-
+       6
+                                                                                     Norton mobility expression [19, 38]:
+       4                                                                                                   7.3 · 1017 T 3/2
+                                                                                                                              
+                                                                                                                                  cm2
+                                                                                                                                      
+                                                                                                   µLN
+                                                                                                    i  =                                ,      (11)
+       2                                                                                                       ni G(b)             Vs
+           0          0.2       0.4              0.6            0.8              1
+                                                                                     where the electron density-of-state effective mass is m∗d =
+                                      |q|(2a )                                       1.08m0 [20].
+                                                                                        Finally, the mobility including phonon (µl ) and impu-
+ FIG. 6. Comparison between the diagonal part of the RPA                             rity (µi ) scattering can be computed using the mixed-
+ dielectric matrix of silicon (blue dots) and the Thomas-Fermi                       scattering formula [38]:
+ model of Ref. 40 (grey line). We also show the model dielec-
+ tric function using the DFT dielectric constant ε(0) = 12.89                                 h                                      π i
+ (blue line) and experimental dielectric constant ε(0) = 11.94                        µ = µl 1+X 2 {ci(X) cos(X)+sin(X)(si(X)− )} , (12)
+                                                                                                                                     2
+ (orange line).
+                                                                                     where X 2 = 6µl /µi and ci(X) and si(X) are the cosine
+                                                                                     and sine integrals.
+    We test the validity of this model by computing the di-
+ electric matrix within the random phase approximation
+ (RPA), using a 12×12×12 unshifted grid (corresponding                                         Effect of thermal lattice expansion
+ to 72 inequivalent wavevectors). Figure 6 shows a com-
+ parison between the model dielectric function of Eq. (9)                              Within the quasi-harmonic approximation [56], the
+ and the RPA calculation, after matching 0 to the head                              Helmholtz free energy of a cubic crystal is given by [57]:
+ of the RPA dielectric matrix. We see that Eq. (9) re-
+ produces well the RPA screening, therefore it is sensible                                F (T, V ) = U (V ) + F vib (T, V ) + F el (T, V ),   (13)
+ to use it in the renormalization of the electron-phonon
+ matrix elements. In this work we renormalized the ma-                               where U is the static energy at 0 K, F vib is the contri-
+ trix elements by setting 0 to the experimental dielectric                          bution due to lattice vibration and F el the energy due to
+ constant of silicon (11.94).                                                        electronic thermal excitations. We rely on the adiabatic
+                                                                                     approximation to treat each term independently. The vi-
+                                                                                     brational Helmholtz free energy per cell is given in the
+      Brooks-Herring model for impurity scattering                                   harmonic approximation by [57]:
+                                                                                                      1 X
+   In order to account for impurity scattering in Fig. 3(b),                          F vib (T, V ) =       ~ωq,ν (V )
+                                                                                                     2N q,ν
+ we use the semi-empirical model developed by Brooks                                                           
+                                                                                                     kB T X              −~ω (V ) 
+ and Herring [37, 38]. In this model the mobility µi is                                            +         ln 1 − exp
+                                                                                                                             q,ν
+                                                                                                                                     , (14)
+ evaluated analytically by taking into account quantum-                                               N q,ν                 kB T
+ mechanical scattering rates, spherical energy surfaces,
+ negligible electron-electron interactions, and complete                             where N is the number of q-points, the first term is
+ ionization of the impurities. The explicit expression of                            the contribution to the zero-point energy and the second
+ the hole mobility is:                                                               term is the phonon contribution at finite temperature.
+                                                                                     F el can be neglected as the band gap is much larger than
+                        27/2 2s (kB T )3/2                cm2
+                                                              
+                                                                                     thermal energies.
+               µi =                                             ,          (10)
+                      π e3 m∗d ni G(b)                                                  The energy minimum of U (V ) + F vib (T, V ) at a given
+                             p
+                       3/2                                  Vs
+                                                                                     temperature corresponds to zero pressure and gives the
+ where G(b) = ln(b + 1) − b/(b + 1), b =                                             variation of volume with temperature due to thermal
+ 24πm∗d s (kB T )2 /e2 h2 n0 , and n0 = nh (2 − nh /ni ). Here                      expansion. To perform those calculations we used the
+ m∗d = 0.55m0 is the density-of-state effective mass for                             thermo pw code [41, 58]. The phonon frequencies were
+ the holes [55], nh and ni are the hole densities and the                            computed using the same LDA and PBE pseudopoten-
+ density of ionized impurities [impurity concentration in                            tials as in the manuscript, without spin-orbit coupling,
+                                                                                                                                                                             9
+
+             280                                                                                                   1.00
+             278                                                                                                                                                     LDA
+             276                                                                                                                                                     PBE
+
+
+
+
+                                                                                           Bulk modulus (Mbar)
+                                                                                                                   0.95
+V [a.u.3 ]
+
+
+
+             274                                                        PBE
+             272                                                        LDA
+                                                                                                                   0.90
+             270
+             268
+                                                                                                                   0.85
+             266
+                   0    100   200   300       400     500   600        700    800
+                                              T [K]                                                                0.80
+                                                                                                                     16
+FIG. 7. Variation of volume with temperature due to ther-                                                           14
+
+
+
+
+                                                                                    Thermal expansion (10−6 /K )
+mal expansion using the LDA or PBE exchange correlation
+                                                                                                                    12
+functionals.
+                                                                                                                    10
+                                                                                                                     8
+                       ∂εnk /∂P      LDA           PBE
+                       eV/Mbar     4 K 300 K     4 K 300 K                                                           6
+                       VBM      11.257 11.262 11.841 11.874                                                          4
+                       CBM       9.535 9.541 9.854 9.884                                                             2
+                       Ind. Gap -1.722 -1.721 -1.987 -1.990                                                          0
+                                                                                                                    −2
+TABLE III. Variation of the eigenenergies with pressure at                                                          10
+two temperatures using the PBE and LDA pseudopotentials.
+                                                                                                                     8
+
+                                                                                                                     6
+                                                                                                ∆εnk (meV)
+
+
+at nine different volumes. The resulting energies were fit-
+ted using the Murnaghan equation of state [59]. We used                                                              4
+a 18×18×18 k-point grid for the electron and a 6×6×6
+q-point grid for the phonons. The obtained volume vari-                                                              2
+ation is given in Fig. 7.                                                                                            0
+   The change of eigenenergies due to thermal expansion
+is given by [60]:                                                                                                   −2
+                                                                                                                          0   100   200   300   400     500   600   700    800
+                                       Z T
+                            ∂εnk                                                                                                                T [K]
+              ∆εnk (T ) = −                    dT 0 3α(T 0 )B(T 0 ),         (15)
+                             ∂P T         0
+                                                                                    FIG. 8.    Variation of the bulk modulus, the thermal ex-
+where B(T ) = −V (∂P/∂V )T is the bulk modulus and                                  pansion and eigenstates renormalization with temperature of
+3α = V −1 (∂V /∂T )P is the thermal expansion coefficient.                          silicon. Experimental values are from Refs. 61 (yellow dia-
+                                                                                    mond) and 62 (yellow dots).
+B and α are obtained via numerical differentiation start-
+ing from the volumes calculated in the above figure.
+   We note that in Eq. 15 we carried the ∂εnk /∂P
+                                                                                    −9.5 meV and −7.8 meV from 0 K to 300 K, therefore the
+term out of the temperature integral. This common
+                                                                                    net increase of the band gap is 1.7 meV. This variation is
+temperature-independent approximation is valid in the
+                                                                                    much smaller than the gap renormalization arising from
+elastic regime. To make sure that this approximation is
+                                                                                    electron-phonon interactions (as discussed next), there-
+valid, we compute ∂εnk /∂P at 4 K and 300 K by numer-
+                                                                                    fore in the present case this effect can safely be neglected
+ical derivation around the equilibrium volume for that
+                                                                                    when calculating carrier mobilities.
+temperature. From Table III we see that indeed the tem-
+perature dependence is negligible and we therefore use
+the value at 4 K in Eq. 15.
+   The bulk modulus, the thermal expansion and eigen-                                                                 Electron-phonon renormalization of the
+states renormalization with temperature of silicon com-                                                              bandstructures and free carrier screening
+puted with the LDA and PBE exchange-correlation func-
+tionals are presented in Fig. 8. From the bottom panel                                 The electron-phonon renormalization of the bandstruc-
+we see that thermal lattice expansion leads to a slight                             ture has been discussed for the case of silicon in con-
+increase of the band gap of silicon. For PBE, the va-                               siderable detail in Ref. 42. The calculated zero-point
+lence band top and conduction band bottom change by                                 renormalization of the fundamental gap is −56.2 meV
+                                                                                                                             10
+
+      Band    Direction without e-ph with e-ph Variation         [7] K. Krishnaswamy, B. Himmetoglu, Y. Kang, A. Janotti,
+                         interaction interaction                     and C. G. Van de Walle, Phys. Rev. B 95, 205202 (2017).
+                                                                 [8] K. Lejaeghere, G. Bihlmayer, T. Björkman, P. Blaha,
+                [100]       0.334       0.342    +2%                 S. Blügel, V. Blum, D. Caliste, I. E. Castelli, S. J.
+ Light hole     [111]       0.656       0.697    +6%                 Clark, A. Dal Corso, S. de Gironcoli, T. Deutsch,
+                [100]       0.334       0.343    +3%                 J. K. Dewhurst, I. Di Marco, C. Draxl, M. Dulak,
+ Heavy hole     [111]       0.656       0.704    +3%                 O. Eriksson, J. A. Flores-Livas, K. F. Garrity, L. Gen-
+                                                                     ovese, P. Giannozzi, M. Giantomassi, S. Goedecker,
+                [100]       0.218       0.220    +1%                 X. Gonze, O. Grånäs, E. K. U. Gross, A. Gulans, F. Gygi,
+Split-off hole [111]        0.099       0.100    +1%                 D. R. Hamann, P. J. Hasnip, N. A. W. Holzwarth,
+  Electron      long.       0.927       0.966    +4%                 D. Iuşan, D. B. Jochym, F. Jollet, D. Jones, G. Kresse,
+                                                                     K. Koepernik, E. Küçükbenli, Y. O. Kvashnin, I. L. M.
+TABLE IV. Effective masses of silicon computed at the                Locht, S. Lubeck, M. Marsman, N. Marzari, U. Nitzsche,
+LDA level without SOC, with or without the electron-phonon           L. Nordström, T. Ozaki, L. Paulatto, C. J. Pickard,
+renormalization of the band structure at 0 K. The effective          W. Poelmans, M. I. J. Probert, K. Refson, M. Richter,
+masses were obtained by using data from Ref. 42.                     G.-M. Rignanese, S. Saha, M. Scheffler, M. Schlipf,
+                                                                     K. Schwarz, S. Sharma, F. Tavazza, P. Thunström,
+                                                                     A. Tkatchenko, M. Torrent, D. Vanderbilt, M. J. van Set-
+                                                                     ten, V. Van Speybroeck, J. M. Wills, J. R. Yates, G.-X.
+within the non-adiabatic Rayleigh-Schrödinger perturba-
+                                                                     Zhang, and S. Cottenier, Science 351 (2016).
+tion theory. This change corresponds to 5% of the band           [9] J. Ziman, Electrons and Phonons, edited by N. Mott,
+gap. We extracted the effective masses using data from               B. E.C., and W. D.H. (Oxford University Press, 1960).
+that paper, and the results are shown in Table IV for           [10] G. Grimvall, The electron-phonon interaction in metals
+specific directions.                                                 (North-Holland Publishing Company, 1981).
+   The electron-phonon renormalization of the bands             [11] G. D. Mahan, Many-Particle Physics (Springer, 2000).
+leads to an increase of both electron and hole effective        [12] L. P. Kadanoff and G. Baym, Quantum Statistical Me-
+                                                                     chanics (Benjamin, 1962).
+masses between 1% and 6%. Therefore, we can reason-
+                                                                [13] F. Giustino, Rev. Mod. Phys. 89, 015003 (2017).
+ably estimate that similar changes in effective masses will     [14] J. Zhou, B. Liao, B. Qiu, S. Huberman, K. Esfarjani,
+occurs in our calculations. Given the dependence of the              M. S. Dresselhaus, and G. Chen, PNAS 112, 14777
+mobility on effective mass, we estimate a 5% reduction               (2015).
+in mobility due to this effect.                                 [15] M. Fiorentini and N. Bonini, Phys. Rev. B 94, 085204
+   The effect of free carrier screening can be included via          (2016).
+a Lindhard dielectric function using ab initio parame-          [16] W. Li, Phys. Rev. B 92, 075405 (2015).
+                                                                [17] O. D. Restrepo, K. Varga, and S. T. Pantelides, Appl.
+ters as described in Ref. 63. In this case the screening
+                                                                     Phys. Lett. 94, 212103 (2009).
+only affects phonons with energy below the plasma en-           [18] C. Canali, C. Jacoboni, F. Nava, G. Ottaviani, and
+ergy of the doped carriers. For intrinsic silicon, which is          A. Alberigi-Quaranta, Phys. Rev. B 12, 2265 (1975).
+the main focus of our work, the carrier concentration is        [19] P. Norton, T. Braggins, and H. Levinstein, Phys. Rev.
+below 1015 cm−3 . Using data from Ref. 64, we estimate               B 8, 5632 (1973).
+that the plasma energy in this case would be well below         [20] S. Sze and K. K. Ng, Physics of semiconductor Devices -
+0.1 meV, therefore the free carrier screening would be               Third Edition (Wiley, 2007).
+                                                                [21] S. Baroni, S. de Gironcoli, A. Dal Corso, and P. Gian-
+ineffective for nearly all phonons. We also mention that
+                                                                     nozzi, Rev. Mod. Phys. 73, 515 (2001).
+the renormalization of the band structure arising from          [22] S. Poncé, E. R. Margine, C. Verdi, and F. Giustino,
+the free carriers is negligible in this case [64].                   Computer Physics Communications 209, 116 (2016).
+                                                                [23] P. Giannozzi, O. Andreussi, T. Brumme, O. Bunau,
+                                                                     M. B. Nardelli, M. Calandra, R. Car, C. Cavazzoni,
+                                                                     D. Ceresoli, M. Cococcioni, N. Colonna, I. Carnimeo,
+                                                                     A. D. Corso, S. de Gironcoli, P. Delugas, R. DiStasio,
+  ∗
+     feliciano.giustino@materials.ox.ac.uk                           A. Ferretti, A. Floris, G. Fratesi, G. Fugallo, R. Gebauer,
+ [1] S. Curtarolo, G. L. W. Hart, M. B. Nardelli, N. Mingo,          U. Gerstmann, F. Giustino, T. Gorni, J. Jia, M. Kawa-
+     S. Sanvito, and O. Levy, Nature Materials 12, 191               mura, H.-Y. Ko, A. Kokalj, E. Küzükbenli, M. Lazzeri,
+     (2013).                                                         M. Marsili, N. Marzari, F. Mauri, N. L. Nguyen, H.-
+ [2] A. Jain, Y. Shin, and K. A. Persson, Nature Reviews             V. Nguyen, A. O. de-la Roza, L. Paulatto, S. Poncé,
+     Materials 1, 1 (2016).                                          D. Rocca, R. Sabatini, B. Santra, M. Schlipf, A. P. Seitso-
+ [3] S. Wang, Z. Wang, W. Setyawan, N. Mingo, and S. Cur-            nen, A. Smogunov, I. Timrov, T. Thonhauser, P. Umari,
+     tarolo, Phys. Rev. X 1, 021012 (2011).                          N. Vast, X. Wu, and S. Baroni, Journal of Physics: Con-
+ [4] X. Chen, D. Parker, and D. J. Singh, Scientific Reports         densed Matter 29, 465901 (2017).
+     3, 3168 (2013).                                            [24] A. A. Mostofi, J. R. Yates, G. Pizzi, Y.-S. Lee, I. Souza,
+ [5] G. Hautier, A. Miglio, G. Ceder, G.-M. Rignanese, and           D. Vanderbilt, and N. Marzari, Computer Physics Com-
+     X. Gonze, Nature Communications 4, 2292 (2013).                 munications 185, 2309 (2014).
+ [6] B. Xu and M. J. Verstraete, Phys. Rev. Lett. 112, 196603   [25] F. Giustino, M. L. Cohen, and S. G. Louie, Phys. Rev.
+     (2014).                                                         B 76, 165108 (2007).
+                                                                                                                           11
+
+[26] N. Marzari, A. A. Mostofi, J. R. Yates, I. Souza, and       [46] F. J. Blatt, Solid State Physics 4, 199 (1957).
+     D. Vanderbilt, Rev. Mod. Phys. 84, 1419 (2012).             [47] R. W. Keyes, Journal of Applied Physics 30, 454 (1959).
+[27] D. M. Ceperley and B. J. Alder, Phys. Rev. Lett. 45, 566    [48] J. Ma, A. S. Nissimagoudar, and W. Li, Phys. Rev. B
+     (1980).                                                          97, 045201 (2018).
+[28] J. P. Perdew and A. Zunger, Phys. Rev. B 23 (1981).         [49] P. Bratley and B. L. Fox, ACM Trans. Math. Softw. 14,
+[29] J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev.             88 (1988).
+     Lett. 77, 3865 (1996).                                      [50] H. S. Hong and F. J. Hickernell, ACM Trans. Math.
+[30] D. R. Hamann, Phys. Rev. B 88, 085117 (2013).                    Softw. 29, 95 (2003).
+[31] P. Y. Yu and M. Cardona, Fundamental of Semiconduc-         [51] C. H. Rycroft, Chaos 19 (2009).
+     tors, edited by H. E. Stanley and W. T. Rhodes (Springer,   [52] M. Rohlfing and S. G. Louie, Phys. Rev. B 62, 4927
+     2010).                                                           (2000).
+[32] A. Marini, C. Hogan, M. Grning, and D. Varsano, Com-        [53] G. Dresselhaus, A. F. Kip, and C. Kittel, Phys. Rev. 98,
+     puter Physics Communications 180, 1392 (2009).                   368 (1955).
+[33] F. J. Morin and J. P. Maita, Phys. Rev. 96, 28 (1954).      [54] R. N. Dexter and B. Lax, Phys. Rev. 96, 223 (1954).
+[34] R. A. Logan and A. J. Peters, Journal of Applied Physics    [55] M. Balkanski and R. F. Wallis, Semiconductor Physics
+     31, 122 (1960).                                                  and Applications (Oxford University Press, 2000).
+[35] G. W. Ludwig and R. L. Watters, Phys. Rev. 101, 1699        [56] S. Baroni, P. Giannozzi, and E. Isaev, Rev. Miner.
+     (1956).                                                          Geochem. 71, 39 (2010).
+[36] C. Jacoboni, C. Canali, G. Ottaviani, and A. A. Quar-       [57] M. Palumbo and A. D. Corso, Journal of Physics: Con-
+     anta, Solid-State Electronics 20, 77 (1977).                     densed Matter 29, 395401 (2017).
+[37] H. Brooks, Phys. Rev. 83, 879 (1951).                       [58] A. D. Corso, Journal of Physics: Condensed Matter 28,
+[38] S. S. Li and W. R. Thurber, Solid-State Electronics 20,          075401 (2016).
+     609 (1977).                                                 [59] F. D. Murnaghan, Proc. Natl. Acad. Sci. USA 30, 244
+[39] M. S. Hybertsen and S. G. Louie, Phys. Rev. B 35, 5585           (1944).
+     (1987).                                                     [60] P. Lautenschlager, P. B. Allen, and M. Cardona, Phys.
+[40] R. Resta, Phys. Rev. B 16, 2717 (1977).                          Rev. B 31, 2163 (1985).
+[41] http://people.sissa.it/∼dalcorso/thermo pw dist.html, .     [61] H. J. McSkimin and P. A. Jr., Journal of Applied Physics
+[42] S. Poncé, Y. Gillet, J. Laflamme Janssen, A. Marini,            35, 2161 (1964).
+     M. Verstraete, and X. Gonze, J. Chem. Phys. 143,            [62] Y. Okada and Y. Tokumaru, Journal of Applied Physics
+     102813 (2015).                                                   56, 314 (1984).
+[43] D. C. Cronemeyer, Phys. Rev. 105, 522 (1957).               [63] C. Verdi, F. Caruso, and F. Giustino, Nature Commu-
+[44] J. Dorkel and P. Leturcq, Solid-State Electronics 24, 821        nications 8, 15769 (2017).
+     (1981).                                                     [64] F. Caruso and F. Giustino, Phys. Rev. B 94, 115208
+[45] J. Bardeen and W. Shockley, Phys. Rev. 80, 72 (1950).            (2016).
+

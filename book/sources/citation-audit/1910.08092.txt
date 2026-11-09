@@ -1,0 +1,2280 @@
+                                          Multi-Channel Direct Detection of Light Dark Matter: Theoretical Framework
+
+                                                                  Tanner Trickle,1, 2 Zhengkang Zhang,1, 2 Kathryn M. Zurek,3
+                                                                          Katherine Inzani,4, 5 and Sinéad M. Griffin4, 5
+                                                           1
+                                                               Department of Physics, University of California, Berkeley, CA 94720, USA
+                                             2
+                                                 Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA
+                                                                           3
+                                                                               Walter Burke Institute for Theoretical Physics,
+                                                                    California Institute of Technology, Pasadena, CA 91125, USA
+arXiv:1910.08092v3 [hep-ph] 27 Oct 2021
+
+
+
+
+                                             4
+                                                 Materials Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA
+                                                   5
+                                                       Molecular Foundry, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA
+
+                                                       We present a unified theoretical framework for computing spin-independent direct detec-
+                                                  tion rates via various channels relevant for sub-GeV dark matter – nuclear recoils, electron
+                                                  transitions and single phonon excitations. Despite the very different physics involved, in
+                                                  each case the rate factorizes into the particle-level matrix element squared, and an integral
+                                                  over a target material- and channel-specific dynamic structure factor. We show how the
+                                                  dynamic structure factor can be derived in all three cases following the same procedure,
+                                                  and extend previous results in the literature in several aspects. For electron transitions, we
+                                                  incorporate directional dependence and point out anisotropic target materials with strong
+                                                  daily modulation in the scattering rate. For single phonon excitations, we present a new
+                                                  derivation of the rate formula from first principles for generic spin-independent couplings,
+                                                  and include the first calculation of phonon excitation through electron couplings. We also
+                                                  discuss the interplay between single phonon excitations and nuclear recoils, and clarify the
+                                                  role of Umklapp processes, which can dominate the single phonon production rate for dark
+                                                  matter heavier than an MeV. Our results highlight the complementarity between various
+                                                  search channels in probing different kinematic regimes of dark matter scattering, and pro-
+                                                  vide a common reference to connect dark matter theories with ongoing and future direct
+                                                  detection experiments.
+                                         CONTENTS
+
+
+ I. Introduction                                                        3
+
+II. General Framework for Spin-Independent Dark Matter Scattering       6
+    A. Phase Space Integration                                         10
+    B. In-Medium Effects                                               12
+
+III. Nuclear Recoils                                                   15
+    A. Validity of the Nuclear Recoil Calculation in Crystal Targets   17
+
+IV. Electron Transitions                                               18
+    A. Target Anisotropies and Daily Modulation                        21
+
+V. Single Phonon Excitations                                           22
+    A. Dark Matter Coupling Only to Nucleons                           27
+    B. Dark Matter With Couplings to Electrons                         30
+
+VI. Conclusions                                                        33
+
+A. DFT Calculation Details for BN                                      35
+
+    References                                                         35
+                                                                                                     3
+
+
+                                      I.   INTRODUCTION
+
+
+   Direct detection has been playing a central role in the quest for the particle nature of dark matter
+(DM). Over the past few decades, tremendous progress has been made at a range of experiments
+focused on nuclear recoil signals, including ANAIS [1], CRESST [2–4], DAMA/LIBRA [5], DAMIC
+[6, 7], DarkSide-50 [8], DM-Ice [9], KIMS [10], LUX [11–13], SABRE [14], SuperCDMS [15–20],
+and XENON1T [21, 22]. While these experiments have excluded much of the parameter space
+for DM heavier than roughly a GeV, much less is known about lighter DM. For sub-GeV DM,
+conventional nuclear recoil searches lose sensitivity due to kinematic mismatch, as only a small
+fraction of DM’s kinetic energy can be deposited on the heavier nuclei. Even with next generation
+detectors sensitive to sub-eV energy depositions, nuclear recoils can at best probe DM masses down
+to O(100 MeV).
+   To cover a broader mass range, electrons have been considered as an alternate pathway to
+detecting light DM. A variety of targets have been studied, including noble gas atoms which can
+be ionized with O(10 eV) energy deposition, semiconductors where electron transitions can happen
+across O(eV) band gaps [23–32], as well as systems with O(meV) gaps like superconductors [33–
+35] and Dirac materials [36–38]. Electron transitions can potentially extract all of DM’s kinetic
+energy, and thus constitute a more efficient search channel than nuclear recoils. For example,
+semiconductor targets can probe DM masses down to O(MeV).
+   When the energy deposition is below the band gap, electron transitions are kinematically forbid-
+den. However, there are condensed matter systems with collective excitations that can couple to the
+DM. For example, collective excitations in superfluid helium (phonons and rotons) are sensitive to
+O(meV) energy depositions, especially via phonon pair production [39–42]. In a crystal target, the
+active degrees of freedom below the electronic band gap are acoustic and optical phonons – quanta
+of collective oscillations of atoms/ions. Direct excitation of single phonons in crystals has been
+recently proposed as a new search channel for light DM [43, 44]. Optical phonons typically have
+energies of O(10-100 meV), and can be excited by DM as light as O(10 keV). Acoustic phonons
+are gapless and, assuming an O(meV) detector threshold, can also probe DM down to O(10 keV).
+   All these detection channels do not exist in isolation. Depending on the DM mass and couplings
+to Standard Model (SM) particles, it may either cause nuclear recoils, or induce electron transitions,
+or excite phonons in the same target material. Thus, when designing direct detection experiments,
+an important consideration should be to search for DM across multiple channels in parallel. The
+kinematic interplay between several channels that we will discuss in detail is illustrated in Fig. 1.
+4
+
+
+
+
+                         keV
+
+
+
+
+                                                                                 e)
+                                                                              (H
+                                                                              s
+                                                                          oil
+                                                                        rec
+
+
+                                                                                     ils
+                                                                      ar
+
+
+                                                                                  eco
+                                                                    cle
+                                        Electron transitions
+
+
+
+
+                                                                   Nu
+
+
+
+                                                                                   r
+                                                                                ar
+                                     (typical semiconductors)
+
+
+
+
+                                                                             cle
+                           eV
+
+
+
+
+                                                                           Nu
+                                   Single phonon excitations
+                                       (typical crystals)
+
+
+
+                        meV
+
+
+
+                                eV                    keV                  MeV
+
+
+
+FIG. 1. Illustration of kinematic regimes probed via the three detection channels considered in this paper.
+For an incoming DM particle with velocity v = 10−3 , the momentum transfer q and energy deposition ω
+are bounded by ω ≤ qv − q 2 /2mχ , shown by the shaded regions for three DM masses. Nuclear recoils
+require ω = q 2 /2mN for a given type of nucleus, shown by the solid lines for helium and several elements in
+existing or proposed crystal targets. Standard calculations assuming scattering off individual nuclei break
+down below a few meV (a few hundred meV) for superfluid He (crystal targets), where we truncate the lines.
+Electron transitions can be triggered for ω above the band gap, which is O(eV) for typical semiconductors, as
+shown by the dashed line. The end point at q ∼ 10 keV corresponds to a few times αme , above which valence
+electron wavefunctions are suppressed, and only (semi-)core electrons can contribute (which requires ω to
+be much higher than the band gap). Single phonon excitations are relevant for ω . O(100 meV) in typical
+                                                                                √
+crystals, as shown by the dotted line. The momentum transfer can be up to q ∼ mN ωph ∼ O(100 keV)
+with ωph the phonon energies, above which the rate is suppressed by the Debye-Waller factor. We see
+that a GeV-mass DM can be probed by all three channels; a 10 MeV DM is out of reach in conventional
+nuclear recoil searches, but can be searched for via electron transitions in semiconductors and single phonon
+excitations in crystals; a sub-MeV DM cannot even trigger electron transitions in eV-gap materials, but can
+still be detected via single phonon excitations.
+                                                                                                                      5
+
+
+       On the theory side, most of the basic ingredients for the rate calculation are known. However,
+    they have been developed in separate contexts, and at first sight look very different for different
+    detection channels. In our opinion, it would be much more convenient to have a common theoretical
+    framework for all these calculations. This will not only facilitate the comparison of target materials
+    across various existing and proposed search channels, but also provide the necessary calculation
+    tools when new search channels are considered in the future.
+       It is the purpose of this paper to lay out such a formalism, focusing on spin-independent (SI) DM
+    interactions.1 As we will see, for each detection channel, the calculation is factorized into a particle
+    physics model-specific part and a target response-specific part. The latter is encoded in a dynamic
+    structure factor, to be computed by quantizing the particle number density operators in the Hilbert
+    space of the excitations under study. We show how this is done in three cases – nuclear recoils,
+    electron transitions and single phonon excitations. While the first two are relatively simple, and
+    our calculation is mostly a formal rederivation of known results, the phonon calculation presented
+    here contains new aspects. Our general framework allows us to derive single phonon excitation
+    rates for arbitrary SI couplings from first principles, such as phonon excitation by coupling to
+    electrons.
+       In addition to deriving general rate formulae in this unified framework, we also aim to clarify
+    various conceptual and technical issues in direct detection calculations, and present new results that
+    highlight some previously overlooked experimental prospects. For nuclear recoils, we clarify the
+    range of validity of the standard calculation. For electron transitions, we go beyond the commonly
+    made isotropic approximation. In fact, there exist simple materials with large anisotropies. As an
+    example, we consider boron nitride (BN) with a hexagonal crystal structure, and O(eV) band gap,
+    and show that the expected rate can vary by ±(10 - 40) % during a day as the DM wind enters from
+    different directions. Such daily modulation signals have been pointed out previously for electron
+    transitions in graphene [46], carbon nanotubes [47] and Dirac materials such as ZrTe5 and BNQ-
+    TTF [37, 38], and for single phonon excitations in sapphire [44] where they help distinguish signal
+    from background. Here we show that also O(eV) band gap three dimensional semiconductors,
+    like BN, can exhibit daily modulation.2 Finally, for single phonon excitations, we extend the rate
+    calculation to DM heavier than an MeV, where the DM’s de Broglie wavelength is shorter than
+    the typical lattice spacing, and Umklapp processes can contribute significantly. We point out an
+    interesting interplay with nuclear recoils, and demonstrate the complementarity between the two
+1
+    The idea of treating various detection channels in a common framework was previously advocated in Ref. [45], where
+    the focus was on DM nuggets. Here we follow the same spirit and develop a formalism for calculating direct detection
+    rates for general DM models, assuming a point-like DM particle.
+2
+    See also Refs. [48–50] for proposals that take advantage of direction-dependent threshold effects.
+6
+
+
+channels. We also compute the phonon production rate for generic couplings to the proton, neutron
+and electron, extending previous results for dark photon mediated interactions.
+    We focus on the theoretical framework in the present work; in a companion paper [51], we apply
+the results presented here to carry out a comparative study of many candidate target materials,
+and discuss strategies to optimize the search across multiple channels. We also note that there are
+additional detection channels beyond those we discuss in detail here (e.g. excitation of molecular
+states [52–54], multi-excitation production in superfluid helium [39–42]), which have been pursued
+and can be studied in the same framework.
+
+
+        II.   GENERAL FRAMEWORK FOR SPIN-INDEPENDENT DARK MATTER
+                                             SCATTERING
+
+
+    In a direct detection event, a non-relativistic DM particle, χ, deposits a certain amount of
+energy, and triggers a transition |ii → |f i in the target system. We assume the target system is
+initially prepared in an energy eigenstate |ii (usually the ground state) and, as usual, treat the
+incoming and outgoing DM particles as momentum eigenstates |pi, |p0 i, with p = mχ v, p0 = p − q.
+For a given incoming velocity v and momentum transfer (from the DM to the target) q, the energy
+deposition is
+
+                                1         (mχ v − q)2        q2
+                            ωq = mχ v 2 −             =q·v−     .                                   (1)
+                                2            2mχ            2mχ
+
+Here and in what follows, we denote q ≡ |q|, where q is the momentum 3-vector. Note that for
+given DM mass mχ , the energy deposition is bounded by the parabola, ωq ≤ qvmax − q 2 /2mχ , as
+shown in Fig. 1. Applying Fermi’s Golden Rule and summing over the final states, we obtain the
+rate:
+
+                                    d3 q X 0
+                               Z
+                                                              2                
+                    Γ(v) = V            3
+                                          hp , f | δ Ĥ |p, ii 2πδ Ef − Ei − ωq ,                   (2)
+                                   (2π)
+                                         f
+
+
+where δ Ĥ is the interaction Hamiltonian, |p, ii = |pi⊗|ii, |p0 , f i = |p0 i⊗|f i. We take the quantum
+states to be unit normalized unless specified otherwise, e.g. hp|pi = hi|ii = 1.
+    The DM part of the matrix element can be evaluated universally at the Born level:
+                                           Z
+                                         1                    1 e
+                        hp0 | δ Ĥ |pi =     d3 x eiq·x V(x) = V(−q) ,                              (3)
+                                         V                    V
+
+where V is the total spatial volume, V(x) is the effective scattering potential felt by the DM, and V
+                                                                                                    e
+
+is its Fourier transform. We focus on SI couplings in the present work, in which case the scattering
+                                                                                                                      7
+
+
+    potential takes the form3
+                         Z
+                V(x) = d3 x0 np (x0 )Vp (x − x0 ) + nn (x0 )Vn (x − x0 ) + ne (x0 )Ve (x − x0 ) .
+                                                                                              
+                                                                                                                    (4)
+
+    Here np , nn , ne are the proton, neutron and electron number densities in the target, and Vp , Vn , Ve
+    are the respective scattering potentials from a single particle located at the origin. We thus have
+
+                             V(−q)
+                             e      ep (−q) V
+                                   =n                en (−q) V
+                                            ep (q) + n                ee (−q) V
+                                                             en (q) + n       ee (q) .                              (5)
+
+    Note that for SI interactions, V
+                                   eψ (−q) = V
+                                             eψ (q) (ψ = p, n, e) are functions of only the magnitude
+
+    of q. In vacuum, they simply coincide with 2 → 2 scattering matrix elements Mχψ (q) familiar
+    from standard quantum field theory calculations. In the target medium, however, they may receive
+    corrections due to screening effects (see Sec. II B). We can define (momentum-dependent) effective
+    in-medium couplings fp , fn , fe to account for screening effects, while the corresponding couplings
+    in the vacuum Lagrangian are denoted by fp0 , fn0 , fe0 . We can write
+
+                                     eψ (−q) = fψ (q) Mχψ (q) ≡ fψ (q) M0 (q) ,
+                                     V                                                                              (6)
+                                                fψ0
+
+    where M0 = Mχp /fp0 = Mχn /fn0 = Mχe /fe0 is the vacuum matrix element for DM scattering
+    off any of the constituent particles (proton, neutron or electron) with unit coupling. The total
+    scattering potential is then
+
+                        V(−q)
+                        e     = [fp (q) n
+                                        ep (−q) + fn (q) n                ee (−q)] M0 (q) .
+                                                         en (−q) + fe (q) n                                         (7)
+
+    Let us rewrite this equation as follows:
+                                                                                        
+                                        fp (q) n
+                                               ep (−q) + fn (q) n
+                                                                en (−q) + fe (q) n
+                                                                                 ee (−q)
+                    V(−q) = Mχn (q)
+                     e                                                                                              (8)
+                                                                fn0
+                                                                                        
+                                        fp (q) n
+                                               ep (−q) + fn (q) n
+                                                                en (−q) + fe (q) n
+                                                                                 ee (−q)
+                           = Mχe (q)                                                       .                        (9)
+                                                               fe0
+    Depending on the DM model and the process under consideration, we will factor out either Mχn
+    or Mχe , and define a target form factor, FT (q), composed of contributions from protons, neutrons
+    and electrons, as the quantity in brackets. In other words, we have
+
+                                                V(−q)
+                                                e     = M(q) FT (q) ,                                              (10)
+
+3
+    More generally, DM interactions can be classified by nonrelativistic effective operators [55–58]. The SI interaction
+    we focus on here is the leading operator if generated without velocity suppression. Other operators result in spin
+    and/or velocity dependence of the scattering potential V(x), and may be probed via additional detection channels
+    beyond those considered in this work. For example, DM coupling to the electron spin can excite magnons in solid
+    state systems with magnetic order [59]. We leave a general effective field theory study of light DM direct detection
+    to future work.
+    8
+
+
+    where M stands for Mχn or Mχe . We can further factor out the q dependence of M, which can
+    only come from the mediator propagator for tree-level scattering:
+
+                                        M(q) = M(q0 ) Fmed (q) ,                                                 (11)
+                                                  
+                                                  1
+                                                  
+                                                           (heavy mediator),
+                                       Fmed (q) =                                                                (12)
+                                                  (q /q)2 (light mediator).
+                                                  
+                                                     0
+
+    The reference momentum transfer is conventionally chosen to be q0 = mχ v0 (with v0 the DM’s
+    velocity dispersion) for DM-neutron scattering, and q0 = αme for DM-electron scattering.
+        The factorization in Eq. (10) is a key component of the formalism. From the target-independent
+    particle-level matrix element M, we define the reference cross sections:
+                                 µ2χn                                      µ2χe
+                          σn ≡        |Mχn (q0 )|2 q0 =mχ v0 ,      σe ≡        |Mχe (q0 )|2 q0 =αme ,           (13)
+                                  π                                         π
+    where µ denotes the reduced mass. These coincide with the total cross sections of DM-neutron
+    and DM-electron scattering in the heavy mediator case. On the other hand, FT is target specific,
+    from which we define the dynamic structure factor:4
+                                               1 X              2               
+                                  S(q, ω) ≡        hf |FT (q)|ii 2πδ Ef − Ei − ω ,                               (14)
+                                               V
+                                                   f
+
+    which encapsulates response of the target to DM couplings to the proton, neutron and electron.
+    Combining the two parts, we have
+                                                            d3 q
+                                                       Z
+                                              πσ                    2
+                                                                                   
+                                        Γ(v) = 2                 3
+                                                                   Fmed (q) S q, ωq ,                            (15)
+                                              µ            (2π)
+    where σ̄, µ, again, denote either σ̄n , µχn or σ̄e , µχe .
+        Let us highlight the following regarding the dynamic structure factor S(q, ω).
+
+        • S(q, ω) captures the target’s response to an energy-momentum deposition (q, ω).
+
+        • S(q, ω) depends on the distribution of constituent particles p, n, e in the target system via
+           n
+           ep , n
+                en , n
+                     ee , which in turn depends on the nucleus types and electron wavefunctions. It is
+           therefore target material specific.
+
+        • S(q, ω) also depends on the active degrees of freedom in the target system via the choice
+           of |f i, which in turn determines how FT (q) should be quantized. It is therefore excitation
+           (detection channel) specific.
+
+4
+    Here we adopt a slightly different normalization convention compared to Ref. [45]. The right hand side of Eq. (14)
+    here is identified with 2π
+                            Ω
+                               S(q, ω) in Ref. [45], where Ω is the primitive cell volume.
+                                                                                                      9
+
+
+    • If only one of the constituent particles p, n, e is responsible for the transitions |ii → |f i,
+      S(q, ω) is DM model independent. Otherwise it depends on ratios (but not the overall
+      strength) of the couplings fp0 , fn0 , fe0 .
+
+    • For any given DM mass mχ and incoming velocity v, only a slice in the (q, ω) space, ω = ωq ,
+      is probed in the scattering process. The parabolic boundary of kinematic region for each mχ
+      in Fig. 1 is the envelope of these slices for all v directions for fixed magnitude of v.
+
+   Finally, to obtain the total rate per target mass, we average over the DM’s initial velocity,
+multiply by the number of DM particles in the detector, and divide by the detector mass, giving
+                                                     Z
+                                              1 ρχ
+                                       R=                d3 v fχ (v) Γ(v) ,                         (16)
+                                             ρT mχ
+
+where ρT is the target mass density, ρχ is the local DM energy density, and fχ is the DM’s velocity
+distribution in the target rest frame. A common choice for fχ is a truncated Maxwell-Boltzmann
+(MB) distribution boosted by the Earth’s velocity with respect to the galactic rest frame,
+
+                                  1 −(v+ve )2 /v02
+                       fχMB (v) =
+                                                                       
+                                     e              Θ vesc − |v + v e | ,                           (17)
+                                 N0
+                                          "                                       #
+                                                             2 v esc
+                            N0 = π 3/2 v02 v0 erf vesc /v0 − √ exp −vesc  2
+                                                                            /v02 .
+                                                                               
+                                                                                                    (18)
+                                                                 π
+
+In the calculations presented in this paper, we take ρχ = 0.4 GeV/cm3 , v0 = 230 km/s, vesc =
+600 km/s, ve = 240 km/s.
+   In addition to the total rate, it is often useful to know the differential rate with respect to
+the energy deposition onto the target ω. This simply requires inserting delta functions into the
+integrals to pick out the contributions with ω = ωq :
+
+                                        d3 q
+                                    Z
+                           dΓ    πσ              2
+                                                                        
+                              = 2            3
+                                               Fmed  (q) S q, ωq δ ω − ωq ,                         (19)
+                           dω    µ     (2π)
+                                        Z
+                          dR      1 ρχ                 dΓ
+                              =            d3 v fχ (v)     .                                        (20)
+                           dω    ρT mχ                 dω
+
+   To summarize, we have the following algorithm for computing the rate for a given detection
+channel.
+
+    • First, identify the initial and final states |ii, |f i according to the type of excitation.
+
+    • Next, quantize FT (q) in terms of the relevant degrees of freedom such that it acts on the
+      target Hilbert space to induce the transitions |ii → |f i.
+10
+
+
+     • Then, compute the transition matrix element hf |FT (q)|ii, and thus the dynamic structure
+        factor S(q, ω) via Eq. (14).
+
+     • Finally, obtain the (differential) rate via Eqs. (15)-(20).
+
+We will carry out this procedure for each detection channel in the next three sections. Before
+doing so, let us discuss some technical details regarding the phase space integration and in-medium
+effects.
+
+
+                                       A.    Phase Space Integration
+
+
+     We see from Eqs. (15)-(20) that once the dynamic structure factor S(q, ω) is known, we need
+to perform a six-dimensional integral over v and q to obtain the event rate R. The integration
+gives familiar results in the special case of isotropic target response, but is more complicated in
+the general anisotropic case. We now discuss the two cases in turn.
+                                                                            2                  2
+     a) Special case: isotropic target response. If hf |FT (q)|ii               = hf |FT (q)|ii , as is the case for
+nuclear recoils, the only dependence on the direction of q is from the δ-function,
+
+                                                                  Ef − Ei
+                                                                          
+                                         1                 q
+                       δ Ef − Ei − ωq = δ cos θqv −             −            ,                                 (21)
+                                         qv              2mχ v       qv
+
+where θqv is the angle between q and v. Integrating over the angular variables, we have
+                            Z
+                     σ               2            1 X              2                        
+              Γ(v) = 2          qdq Fmed (q)          hf |FT (q)|ii Θ v − vmin (q, Ef − Ei ) ,                 (22)
+                    2µ v                          V
+                                                      f
+
+where
+
+                                                                  q   ω
+                                            vmin (q, ω) =            + .                                       (23)
+                                                                 2mχ  q
+
+The velocity integral then gives
+                                 Z
+                     1 ρχ σ               2           1 X              2                    
+               R=                    qdq Fmed (q)         hf |FT (q)|ii η vmin (q, Ef − Ei ) ,                 (24)
+                    ρT mχ 2µ2                         V
+                                                             f
+
+where
+                                                  Z
+                                                             fχ (v)
+                                     η(vmin ) =       d3 v          Θ(v − vmin ) .                             (25)
+                                                               v
+
+     These results are familiar from the standard nuclear recoil calculation [60], and have also been
+used in previous electron transition calculations, where the target response has been assumed to
+                                                                                                       11
+
+
+be isotropic. Note that they hold for any DM velocity distribution fχ (v). In the case of the MB
+distribution in Eq. (17), the η function can be evaluated analytically, giving
+
+                    πv02 √ v0
+                        n      h
+                                      vmin +ve
+                                                       vmin −ve
+                                                                 i               2 
+                                                                                 vesc
+                                                                                        o
+                           π      erf            − erf              − 4 exp   −
+                 
+                 
+                 
+                   2N0      ve           v0               v0                      2
+                                                                                  v0
+                 
+                 
+                 
+                 
+                                                               if vmin < vesc − ve ,
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                       2
+                         n√     h                           i                                2 
+                                                                                                  o
+    ηMB (vmin ) = πv0        v0       vesc         vmin −ve          vesc −vmin +ve          vesc     (26)
+                                                                                    
+                   2N0    π ve   erf  v0    − erf     v0      −  2        ve          exp −  v02
+                 
+                 
+                 
+                 
+                                                               if vesc − ve < vmin < vesc − ve ,
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 0                                            if v       >v +v .
+                                                                       min       esc   e
+
+
+We see that five of the six integrals have been done analytically, and we are left only with a
+one-dimensional integral over q (which can also be done analytically in the case of nuclear recoils).
+   b) General case: anisotropic target response. Generally, crystal targets are not fully isotropic,
+as the crystal structures break rotation symmetries. This implies that, for a terrestrial detector,
+since the DM wind comes in from different directions at different times of the day, there can be
+daily modulation in the detection rate. While the existence of this effect is well-known [23, 27, 43],
+it has been calculated only recently in the contexts of single phonon excitations [44] and electron
+transitions in Dirac materials [37, 38], where the energy deposition is O(meV). In Sec. IV A, we
+calculate this effect for the first time in electron transitions in an O(eV) gap target.
+                         2
+   When hf |FT (q)|ii        depends on the direction of q, the six-dimensional integral generally does
+not admit a simple analytical solution. To proceed, we first evaluate the velocity integral and
+define [44, 61]
+                                                Z
+                                   g(q, ω) ≡        d3 v fχ (v) 2πδ(ω − ωq ) .                        (27)
+
+The rate can then be written in terms of this g(q, ω) function as
+
+                                          d3 q
+                                   Z
+                        1 ρχ πσ                  2       1 X              2
+                  R=                           F med (q)     hf |FT (q)|ii g(q, Ef − Ei ) .           (28)
+                       ρT mχ µ2          (2π)3           V
+                                                             f
+
+   For general velocity distributions fχ , we still have to evaluate a six-dimensional integral, which
+is a numerically intensive task. However, for the commonly assumed MB distribution, Eq. (17),
+the g(q, ω) function can be evaluated analytically, giving
+
+                                         2π 2 v02 h      2
+                                                                                i
+                                                           /v02 − exp −vesc
+                                                                        2
+                                                                            /v02 ,
+                                                               
+                             g(q, ω) =             exp −v−                                            (29)
+                                          N0 q
+    12
+
+
+    where
+
+                                                           q2
+                                                                       
+                                               1
+                                     v− = min    q · ve +     + ω , vesc .                                   (30)
+                                               q          2mχ
+
+    Thus, only the three-dimensional integral over q needs to be done numerically (in addition to other
+    integrals that may be encountered in the evaluation of the dynamic structure factor).
+
+
+                                               B.   In-Medium Effects
+
+
+         In the case of a vector or scalar mediator, in-medium effects can cause screening and affect direct
+    detection rates. They must be taken into account when deriving the target response FT (q) (and
+    hence the dynamical structure factor S(q, ω)) when present. While the treatment of in-medium
+    effects has been discussed in various contexts [34, 36, 37, 62], we review it here for completeness.
+    In particular, we derive the screening factors fψ (q)/fψ0 (ψ = p, n, e) in this subsection.
+         For nonrelativistic systems relevant for direct detection that we focus on here, only electrons
+    can contribute significantly to screening when the energy deposition is above phonon frequencies
+    (ω & O(100 meV), corresponding to mχ & O(100 keV)), as nuclei are too heavy to respond. At
+    lower frequencies that match energy depositions in phonon excitation processes, there is additional
+    screening in an ionic (polar) crystal due to relative motion of ions. However, as we will see in
+    Sec. V B, the ions’ response should be included in the source term in Maxwell’s equations in order
+    to be quantized in terms of phonon modes. Thus, also in this case, we consider only electron
+    contributions to in-medium effects.5
+         Consider a vector mediator A0 , and suppose the vacuum Lagrangian takes the form
+
+                                          1
+                                     L = − Fµν F µν + eJpµ Aµ − eJeµ Aµ
+                                          4
+                                          1 0 0        1
+                                         − Fµν F µν + m2A0 A0µ A0µ + gχ Jχµ A0µ
+                                          4            2
+                                         + fp Jp + fn Jn + fe0 Jeµ A0µ ,
+                                            0 µ     0 µ
+                                                                  
+                                                                                                             (31)
+
+    where Jψµ = ψ̄γ µ ψ (ψ = p, n, e). Here the first line is standard electromagnetism, the second line is
+    the dark sector Lagrangian, and the third line contains A0 couplings to SM particles. We assume
+    |fψ0 |  1, and consistently keep terms only at linear order in these couplings. Because the electron
+    current Jeµ couples to the linear combination Aµ +κA0µ , with κ = −fe0 /e, as opposed to just Aµ , the
+
+5
+    In-medium effects are also important when deriving astrophysical and cosmological constraints on vector media-
+    tors [62–64], where other SM particles may be relevant.
+                                                                                                  13
+
+
+in-medium photon self-energy Πµν (q) implies the following terms in the momentum space quantum
+effective action,
+
+                1 µν                          1
+                  Π (Aµ + κA0µ )(Aν + κA0ν ) = Πµν Aµ Aν + κ Πµν Aµ A0ν + O(κ2 ) .               (32)
+                2                             2
+
+As in Ref. [37], we can project Πµν onto the three polarizations,
+
+                                1                           1
+                        µL = √ α                     µ± = √ 0, ê⊥ ± i(q̂ × ê⊥ ) ,
+                                                                                  
+                                    q, ω q̂ ,                                                    (33)
+                               q qα                          2
+
+(where q̂ = q/|q|, and ê⊥ is a unit vector perpendicular to q), and diagonalize the 3 × 3 matrix
+
+                                           Kλλ0 ≡ −µ∗     ν
+                                                    λ Πµν λ0 ,                                  (34)
+
+to find the canonical modes. It is worth noting that the polarization vectors satisfy
+
+                                                                    qµqν
+                                                                        
+                            ∗µ ν
+                                              X µ
+                                                      ν∗       µν
+                       gµν λ λ0 = −δλλ0 ,       λ λ = − g − α          .                     (35)
+                                                                    q qα
+                                                      λ
+
+As a result, in the vacuum limit where Πµν = gµν − qµ qν /(q α qα ) Π and the photon propagator is
+                                                                   
+
+proportional to qα qα1 −Π , we have Kλλ0 = Π δλλ0 . In an isotropic medium,
+                                  X µ          µ ν∗
+                    Πµν = −ΠT      λ ν∗
+                                       λ − ΠL L L ,          K = diag(ΠT , ΠT , ΠL ) ,         (36)
+                                 λ=±
+
+                                                     1
+and the photon propagators are proportional to qα qα −Π T,L
+                                                            . Generically, for an anisotropic medium,
+we need to simultaneously rotate A and A0 into a polarization basis where K is diagonal. In this
+basis, the quadratic part of the effective action can be diagonalized for each polarization by
+
+                                           Π   e0 ,                         Π
+                       Aµ = A
+                            eµ + κ             A          A0µ = A
+                                                                e0 − κ            Aµ ,
+                                                                                  e              (37)
+                                       m A0 − Π µ
+                                         2                        µ
+                                                                         m2A0 − Π
+
+where Π is an eigenvalue of K. In the A,
+                                      e Ae0 basis, the propagators are proportional to α 1
+                                                                                       q qα −Π and
+       1
+q α qα −m2A0
+             , respectively, and the interactions in Eq. (31) read
+                                                
+                                    Π
+                     e(Jpµ − Jeµ ) −            µ e
+                                          κgχ Jχ Aµ
+                                 m2A0 − Π
+                                                           m2A0
+                                                                   
+                          µ    0       Π      0    µ 0 µ          0 µ e0
+                    + gχ Jχ + fp − 2        f J + fn Jn + 2      f J Aµ .                        (38)
+                                   mA0 − Π e p           m A0 − Π e e
+
+Dark matter scattering is mediated by both A     e0 . Taking both into account, we obtain the
+                                           e and A
+14
+
+
+following effective interaction:
+                    
+                             1          Π
+              gχ Jχµ − α              2        κe(Jpµ − Jeµ )
+                        q qα − Π mA0 − Π
+                                                                                  m2A0
+                                                                                               
+                             1             0       Π        0
+                                                              
+                                                                 µ      0 µ                  0 µ
+                      + α                fp − 2           f J + fn Jn + 2                  f J
+                       q qα − m2A0             m A0 − Π e p                     mA0 − Π e e
+                                                     q α qα  0 µ                       q α qα
+                                                                                                   
+                    1                  0
+                                             
+                                                                              0 µ                 0 µ
+           = α            gχ Jχµ fp + 1 − α                     f J + fn Jn + α                  f J          (39)
+              q qα − m2A0                         q qα − Π e p                       q qα − Π e e
+                                      q α qα
+                                                                                          
+                    1                            0 µ        µ         0     0 µ       0 µ
+           = α            g   J
+                            χ χµ               f  (J   −  J   ) +  (f   + f  )J   + f  J                      (40)
+              q qα − m2A0          q α qα − Π e e          p         p     e   p     n n
+
+
+From the last equation, it is clear that the current A0 couples to contains a screened component and
+an unscreened component: fp0 Jpµ + fn0 Jnµ + fe0 Jeµ = fe0 (Jeµ − Jpµ ) + (fp0 + fe0 )Jpµ + fn0 Jnµ . The first
+                                                                                                  
+                                                                                                          α
+term, which is proportional to the electromagnetic current, gets screened by a factor of qαqqαq−Π
+                                                                                               α
+                                                                                                  ,
+whereas the second term is unaffected.
+     In the special case of a dark photon that kinetically mixes with the SM photon, Eq. (31) follows
+from diagonalizing the kinetic terms, and κ is equal to the kinetic mixing parameter. In this case,
+fp0 = −fe0 = κe, fn0 = 0, and the DM interaction is maximally screened. In contrast, a U (1)B−L
+gauge boson has fp0 = fn0 = −fe0 , and the coupling to neutrons is not screened. As a final example,
+a hadrophobic A0 has fp0 = fn0 = 0, resulting in an unscreened DM coupling to protons (which
+originates from the A-A0 mixing).
+                              α
+     The screening factor qαqqαq−Π
+                                α
+                                   can be expressed in terms of the dielectric matrix ε(q, ω) by solving
+the following set of equations for Πµν [34, 37]:
+
+                                     J µ = −Πµν Aν ,                                                          (41)
+
+                                      J i = σ i j E j = σ i j (iωAj − iq j A0 ) ,                             (42)
+
+                                      σ = σ T = iω(1 − ε) .                                                   (43)
+
+Note that the three-dimensional quantities are defined by σ = σ i j , 1 = δ i j , ε = εi j . We obtain
+the following solution:
+                                                                    
+                                                           Π00 Π0
+                                              Πµν =               ,                                         (44)
+                                                           Π0    −Π
+                           i
+                   Π00 =     q·σ·q,           Π0 ≡ Π0 i = iσ · q ,           Π ≡ Πi j = −iωσ .                (45)
+                           ω
+Projecting Πµν onto polarization components, we obtain:
+                                                                              √
+              KLL = q α qα (1 − q̂ · ε · q̂) ,                  KL± = KL∓ = −ω q α qα q̂ · ε · ± ,           (46)
+
+              K±± = ω 2 1 − ∓ · ε · ± ,                       K∓± = −ω 2 ± · ε · ± .
+                                            
+                                                                                                              (47)
+                                                                                                     15
+
+
+We can see explicitly that in the isotropic limit, ε ∝ 1, so KL± = K∓± = 0, and KLL , K±± are
+identified as ΠL , ΠT , respectively. In this case, K = diag(ΠL , ΠT , ΠT ), and the familiar relations
+
+                                ΠL = q α qα (1 − ε),   ΠT = ω 2 (1 − ε)                            (48)
+
+are reproduced. Beyond the isotropic limit, in general one has to diagonalize the K matrix as
+discussed above. However, assuming anisotropies are not large, the calculation is simplified in
+the case of nonrelativistic scattering. Here, the currents involved (Jχµ , Jeµ , etc.) have velocity
+suppressed spatial components, so the dominant contribution comes from the polarization that is
+almost longitudinal, for which Π ≃ KLL up to small corrections. As a result, the screening factor
+in Eq. (40) becomes
+                                              q α qα      q2
+                                                      ≃       .                                    (49)
+                                           q α qα − Π   q·ε·q
+Now it is straightforward to read off the screening of DM couplings from Eq. (39):
+                                  q2                                         q2
+                                       
+                       0
+             fp (q) = fp + 1 −            fe0 ,   fn (q) = fn0 ,  fe (q) =        f0 .             (50)
+                                q·ε·q                                      q·ε·q e
+In what follows, we will often drop the argument q and just write fp , fn , fe for simplicity. Finally,
+we note that in the scattering limit, q  ω, a scalar mediator has the same coupling as the
+longitudinal component of a vector mediator, so the same screening factors in Eq. (50) apply.
+   To close this subsection, we comment that in-medium screening affects different channels dif-
+ferently. Nuclear recoils happen at high enough momentum transfer where ε can be approximated
+as unity, so fψ ≃ fψ0 . For electron transitions, the situation depends on the band gap. For
+atoms, insulators and semiconductors with O(eV) or larger band gaps, ε approaches unity when
+q & 2π/a ∼ O(keV) [65]; for smaller q, the full ε(q) can be fitted to experimental measurements
+or calculated using advanced electronic structure techniques. For small-gap systems such as super-
+conductors and Dirac semi-metals, it is important to keep the full energy-momentum dependence
+in ε(q, ω). For example, in a (super)conductor, ε ∼ λ2TF /q 2 at low q, where λTF ∼ O(keV) is the
+Thomas-Fermi screening parameter, resulting in significant screening [34]. In contrast, in a Dirac
+semi-metal, ε approaches a constant at low q, so sensitivity to dark photon mediated scattering
+(and also dark photon absorption) is much stronger [36, 37]. For phonon excitations, screening
+from electrons should also be accounted for, as we discuss in Sec. V B.
+
+
+                                    III.    NUCLEAR RECOILS
+
+
+   We now apply the general framework of the previous section to the case of nuclear recoils and
+reproduce familiar results. For simplicity we shall first assume only one type of nucleus is present,
+16
+
+
+with proton number Z and atomic mass number A, and later generalize to the case of multiple
+nucleus types with non-degenerate {ZN }, {AN }.
+     To begin, we assume the nuclei do not interact with each other, so the Hilbert space of the
+target system, which contains ρT V /mN nuclei, is a direct product of ρT V /mN single nucleus
+Hilbert spaces. We will discuss the validity of this standard assumption in Sec. III A. The target
+system is prepared in the initial state
+                                            ρT V /mN
+                                                Y
+                                    |ii =              |ki iJ = |ki i1 ⊗ |ki i2 ⊗ . . .                  (51)
+                                                J=1
+
+with ki = 0. In the final state |f i, one of the |ki iJ ’s is replaced by |kf iJ with kf 6= 0. We can
+write these states in terms of nucleus creation operators:
+
+                            |ki iJ = V −1/2 b̂†ki |0iJ ,          |kf iJ = V −1/2 b̂†kf |0iJ .           (52)
+
+As usual, we have the canonical commutation relations [b̂k , b̂†k0 ] = (2π)3 δ 3 (k − k0 ) or {b̂k , b̂†k0 } =
+(2π)3 δ 3 (k − k0 ), etc.
+     Now we need to quantize
+
+                                             1                                    
+                             FT (q) =          fp n
+                                                  ep (−q) + fn n
+                                                               en (−q) + fe n
+                                                                            ee (−q)                      (53)
+                                            fn
+
+in terms of nucleus creation and annihilation operators b̂† , b̂. Obviously, the electron coupling
+does not contribute, so we drop the last term. The proton and neutron number densities, on the
+other hand, can be related to the nucleus number density nN , if we assume elastic scattering (no
+transition between nuclear states):
+                                                  Z
+                                            0
+                                   np,n (x ) =         d3 x00 nN (x00 ) n0p,n (x0 − x00 ) ,              (54)
+
+where n0p,n are the proton and neutron number densities around a single nucleus at the origin.
+Therefore,
+
+                                    e0p (−q) + fn n
+                                 fp n             e0n (−q)           fN
+                      FT (q) =                             eN (−q) ≡
+                                                           n            FN (q) n
+                                                                               eN (−q) ,                 (55)
+                                             fn                      fn
+
+where fN ≡ fp Z + fn (A − Z), the DM-nucleus coupling in the q → 0 limit (where DM interacts
+with all nucleons coherently). FN (q) is a nuclear form factor that deviates from unity only for q
+above the inverse nucleus radius. A commonly used form factor is the Helm form factor [66],
+
+                                   3 j1 (qrn ) −(qs)2 /2     (qrn )2 (qs)2
+                        FN (q) =              e          =1−        −      + O(q 4 ) ,                   (56)
+                                      qrn                      10      2
+                                                                                                              17
+
+
+where rn ≃ 1.14 A1/3 fm, s ≃ 0.9 fm. We can thus write FT (q) in terms of b̂† , b̂ via
+
+                                                            d3 k 0 d3 k
+                            Z                          Z
+               n
+               eN (−q) =        d x eiq·x b̂†x b̂x =
+                                 3
+                                                                        (2π)3 δ 3 (k0 − k − q) b̂†k0 b̂k .   (57)
+                                                           (2π)3 (2π)3
+
+   To obtain the dynamic structure factor, we evaluate the matrix element,
+
+                                       d3 k 0 d3 k
+                                    Z
+                                 1
+           J hk  |e
+                  n
+                f N (−q)|k  i
+                           i J =                   (2π)3 δ 3 (k0 − k − q) h0| b̂kf b̂†k0 b̂k b̂†ki |0i
+                                 V    (2π)3 (2π)3
+                                 (2π)3 3
+                               =      δ (kf − ki − q) ,                                                      (58)
+                                   V
+
+and sum over final states, which amounts to summing over the scattered nucleus J (simply multi-
+plying by ρT V /mN ) and integrating over the final momentum V d3 kf /(2π)3 . Therefore,
+                                                               R
+
+                           2           Z 3                         2 
+                                         d kf (2π)3 3                       q2
+                                                                               
+                       ρT fN  2
+          S(q, ω) = 2π       F (q) · V               δ (kf − ki − q) δ ω −
+                       mN fn2 N          (2π)3     V                       2mN
+                           2                2
+                                               
+                       ρT fN 2             q
+                  = 2π       F (q) δ ω −         ,                                                           (59)
+                       mN fn2 N           2mN
+                                                                3
+where we have regulated the delta function by (2π) 3      1
+                                                                                  d3 x ei0·x = 1.
+                                                                              R
+                                                V δ (0) = V
+
+   We can now reproduce the familiar results for the differential rate. Assuming the nuclear form
+factor is isotropic, FN (q) = FN (q), as is the case for the Helm form factor in Eq. (56), we can
+apply Eq. (24) and obtain
+                                     2
+                                                                                     q2
+                                             Z                                         
+                      dR   ρχ σ n fN                                         q
+                         =                       dq FN2 Fmed
+                                                         2
+                                                             η(vmin )          δ ω−                          (60)
+                      dω   mχ 2µ2χn fn2                                     mN      2mN
+                                        2
+                              ρχ σ n fN
+                          =               F 2 F 2 η(vmin ) 2       ,                                         (61)
+                              mχ 2µ2χn fn2 N med          q =2mN ω
+
+where η(vmin ) is given by Eq. (25) and vmin = 2µqχN in the present case. It is now easy to generalize
+these results to the case of more than one nucleus type:
+                                          X        2
+                                                   fN
+                                                                   
+                   dR     ρχ σ n     1                  2 2
+                       =                      AN 2 FN Fmed η(vmin )             ,                            (62)
+                         mχ 2µ2χn N AN
+                                  P
+                   dω                              fn                q 2 =2mN ω
+                                                       N
+
+where N runs over the inequivalent nuclei in the target (e.g. N = Ga, As for GaAs).
+
+
+                A.    Validity of the Nuclear Recoil Calculation in Crystal Targets
+
+
+   A key assumption we have made in the derivation above is that the nuclei in the target do
+not interact with each other (hence the factorization of the Hilbert space). In a crystal target,
+however, the nuclei are not free, but interact with the neighboring nuclei in the crystal structure.
+The justification of treating the nuclei as free particles initially at rest lies in the fact that in
+18
+
+
+the classical limit, the hard scattering process is instantaneous and local. In this case, the nuclei
+interactions affect only the subsequent secondary processes. For example, secondary phonons can
+be produced, which allows the energy deposition to be shared by many nuclei.
+     On the other hand, as detector thresholds are pushed to lower energies, at some point we
+would get into the quantum regime, where the finite duration and spatial extent of the scattering
+invalidate the free nuclei assumption. We can make a quick estimate on when this happens from the
+uncertainty principle. The time scale for the hard scattering to happen is ∼ 1/ω. This should be
+compared to the intrinsic time scale for atomic vibrations in a crystal, 1/ωph , with ωph the phonon
+energy. The instantaneous interaction approximation in the standard nuclear recoil calculation is
+valid when the energy deposition is much higher than the energies of all phonon modes, i.e.
+                      max
+                 ω  ωph           (validity condition for nuclear recoils in crystals) .              (63)
+
+     An alternative way to reach the same conclusion is the following. Within the length scale 1/q,
+the DM should see the nucleus as a plane wave for the nuclear recoil calculation to hold. Since
+the spatial extent of the nucleus wavefunction in a harmonic potential is ∼ (mN ωph )−1/2 , we need
+                                                                2
+         max )1/2 . Using the kinematic relation ω = q , we arrive at the same condition as
+q  (mN ωph                                          2mN
+
+Eq. (63).
+     To summarize, in crystal targets, the nuclear recoil calculation is valid for energy depositions
+much higher than the phonon energies, which are typically O(10 − 100) meV. This explains the
+truncation of the C, Si, Ge, Cs nuclear recoil lines at low ω in Fig. 1. At lower energy depositions,
+the target Hilbert space does not factorize into individual nuclei, but instead contains single phonon
+and multi-phonon states as energy eigenstates, and the direct detection rate calculation proceeds
+differently. We discuss single phonon excitations in Sec. V, which will be the relevant processes
+when detector thresholds reach the 10-100 meV regime in the future. In the intermediate energy
+regime – above the single phonon energies yet below the validity range of nuclear recoils – direct
+multi-phonon production should be considered, which we plan to investigate in future work.
+
+
+                                 IV.   ELECTRON TRANSITIONS
+
+
+     We next consider electron transitions. The initial state can be written as
+
+                                                        ĉ†I |0i ,
+                                                Y
+                                        |ii =                                                          (64)
+                                                I∈ occupied
+
+where ĉ†I are electron creation operators, with I running over all occupied electron states (energy
+eigenstates). Our normalization convention is such that {ĉI , ĉ†I 0 } = δII 0 , so the electron states are
+                                                                                                             19
+
+
+unit-normalized. The final states are labeled by I1 , I2 , where one of the electrons has transitioned
+from I1 to an unoccupied state I2 :
+
+                                                  |f i = ĉ†I2 ĉI1 |ii .                                   (65)
+
+   The relevant piece in FT (q) is simply
+
+                                                           d3 k 0 d3 k
+                                                  Z
+                          fe          fe
+                  FT (q) = 0 n
+                             ee (−q) = 0                               (2π)3 δ 3 (k0 − k − q) ĉ†k0 ĉk ,   (66)
+                          fe          fe                  (2π)3 (2π)3
+
+where the creation and annihilation operators are for momentum eigenstates, and satisfy {ĉk , ĉ†k0 } =
+(2π)3 δ 3 (k − k0 ), etc. As discussed in Sec. II B, the screening factor is
+
+                                                      fe      q2
+                                                          =                                                 (67)
+                                                      fe0   q·ε·q
+
+for a vector or scalar mediator.
+   The dynamic structure factor is therefore
+              2π fe 2 X
+                    
+                                                      
+       S q, ω =        0
+                                   δ EI2 − EI1 − ω ×
+                 V fe
+                           I1 ,I2
+                                                                                                 2
+                                      d3 k 0 d3 k
+                                  Z
+                                                        3 3 0              †        †
+                                                   (2π) δ (k − k − q)hi|ĉI1 ĉI2 ĉk0 ĉk |ii
+                                     (2π)3 (2π)3
+                 2π fe 2 X
+                    
+                                                      
+              =                    δ E I 2 − EI 1 − ω   ×
+                 V fe0
+                           I1 ,I2
+                                                                                                      2
+                                      d3 k 0 d3 k
+                                  Z
+                                                        3 3 0                   †               †
+                                                   (2π)  δ (k − k − q) {ĉk , ĉI1 }{ĉ I 2 , ĉ  0 }   ,   (68)
+                                     (2π)3 (2π)3                                                k
+
+
+where we have used ĉ†I1 |ii = ĉI2 |ii = 0, and that the anticommutators are just numbers. To evaluate
+the anticommutators, we expand the energy eigenstates in terms of momentum eigenstates:
+
+                                                           d3 k e
+                                                      Z
+                                         ĉ†I |0i =             ψI (k) ĉ†k |0i ,                           (69)
+                                                          (2π)3
+
+where ψeI (k) is the momentum space wavefunction, which satisfies the orthonormality condition
+R d3 k ∗
+       ψe (k)ψeI (k) = δII 0 . We then obtain
+  (2π)3 I 0
+
+                     2π fe 2 X
+                        
+                                                     
+            S q, ω =     0
+                                     δ EI2 − EI1 − ω ·
+                     V fe
+                             I1 ,I2
+                                                                                      2
+                                        d3 k 0 d3 k
+                                    Z
+                                                        3 3 0          e∗ (k0 )ψeI (k) .
+                                                    (2π) δ (k − k − q) ψI2        1                         (70)
+                                       (2π)3 (2π)3
+
+   The dynamic structure factor in Eq. (70) applies for any target system where DM scattering
+can trigger electron transitions – atoms, crystals, superconductors, Dirac materials, etc. – once
+20
+
+
+the energy levels and wavefunctions are known. In what follows, we examine the case of periodic
+crystals in more detail. Here, the energy eigenstates of an electron are Bloch waves labeled by a
+band index and a wavevector within the first Brillouin zone (1BZ), e.g.
+
+                                    1 X
+           ψI1 (x) = ψi1 k1 (x) = √         ui1 (k1 + G1 ) ei(k1 +G1 )·x ,                                     (71)
+                                     V G
+                                          1
+                      Z
+                                                   1 X
+         ψei1 k1 (k) = d3 x ψi1 k1 (x) e−ik·x = √         ui1 (k1 + G1 ) (2π)3 δ 3 (k1 + G1 − k) ,             (72)
+                                                    V G
+                                                                  1
+
+
+where G1 runs over all reciprocal lattice vectors. Note that the state labeled by i1 , k1 has Fourier
+components of k1 plus any reciprocal lattice vector. The coefficients ui1 (k1 + G1 ) are normalized
+as G1 |ui1 (k1 + G1 )|2 = 1. The dynamic structure factor now becomes
+  P
+
+                              2 X Z
+                                              d3 k1 d3 k2
+                    
+              2        fe                                                           
+      S q, ω =                                             2π δ Ei2 ,k2 − Ei1 ,k1 − ω ×
+               V        fe0                        3
+                                         1BZ (2π) (2π)
+                                                         3
+                                i1 ,i2
+                          X                                                                            2
+                                  (2π) δ (k2 + G2 − k1 − G1 − q) u∗i2 (k2 + G2 ) ui1 (k1 + G1 )
+                                         3 3
+                                                                                                           ,   (73)
+                         G1 ,G2
+
+where the prefactor 2 comes from summing over contributions from degenerate spin states, and the
+sums over the final state quantum numbers k1,2 have been replaced by integrals in the continuum
+limit. As in Ref. [27], we define a crystal form factor
+                                                X
+                                                        u∗i2 k2 + G2 ui1 k1 + G1 δG2 −G1 ,G
+                                                                               
+                        f[i1 k1 ,i2 k2 ,G] ≡                                                                   (74)
+                                               G1 ,G2
+
+for the transition i1 k1 → i2 k2 with an Umklapp G. This simply encodes the wavefunction over-
+lap, summed over all Fourier components consistent with momentum conservation. The dynamic
+structure factor can now be written more concisely as
+                           2 X Z
+                           fe               d3 k1 d3 k2                              
+               S q, ω = 2 0                       3     3
+                                                          2π δ Ei2 ,k2 − Ei1 ,k1 − ω ×
+                            fe              (2π) (2π)
+                                 i1 ,i2 1BZ
+                                                                                        2
+                                      X
+                                         (2π)3 δ 3 (k2 − k1 + G − q) f[i1 k1 ,i2 k2 ,G] .                      (75)
+                                                 G
+
+Note that we have again used the identity (2π)3 δ 3 (0) =                    d3 x ei0·x = V . The material-specific
+                                                                         R
+
+quantities appearing in S(q, ω) are the electron band structures (energy eigenvalues Ei,k ) and
+Bloch wavefunction coefficients ui (k + G). They can be computed by density functional theory
+(DFT) methods which we discuss more in our companion paper [51].
+     Finally, performing the phase space integration, we obtain the total rate per target mass:
+                                                                     2
+                                      d3 k1 d3 k2 X
+                               Z
+                  2 ρχ πσ e X                                2       fe                       2
+            R=           2                 3     3
+                                                    g(q, ω) Fmed (q) 0      f[i1 k1 ,i2 k2 ,G] , (76)
+                 ρT mχ µχe      1BZ  (2π)    (2π)                    fe
+                                i1 ,i2                        G
+                                                                                                       21
+
+
+where
+
+                               q = k2 − k1 + G ,      ω = Ei2 ,k2 − Ei1 ,k1 .                        (77)
+
+The g(q, ω) function, the mediator form factor Fmed , the screening factor fe /fe0 and the crystal
+form factor f[i1 k1 ,i2 k2 ,G] are given by Eqs. (27), (12), (67) and (74), respectively. This generalizes
+the formula derived in Ref. [27] to account for possible anisotropies in the target response.
+
+
+                          A.    Target Anisotropies and Daily Modulation
+
+
+   The simplest crystal targets that have been considered for direct detection via electron transi-
+tions, like silicon and germanium, are quite isotropic. As a result, the rate is essentially independent
+of the direction of the incoming DM’s velocity. However, this is not the case for materials with
+large anisotropies in the electron band structures or wavefunctions. For terrestrial experiments, as
+the target rotates with the Earth, the DM wind comes in from different directions at different times
+of the day, resulting in a daily modulation of the rate. This is on top of the annual modulation
+signal expected due to the variation of the average DM velocity as the Earth orbits around the
+Sun [26, 27]. If observed, it would be a smoking-gun signature of DM that is distinct from possible
+backgrounds. Our rate formula Eq. (76) incorporates directional information, and is well-suited
+for calculating the daily modulation signal.
+   As an example target, we consider hexagonal boron nitride (BN), shown in Fig. 2. The numerical
+calculation of electron band structures and wavefunction coefficients, as well as direct detection
+rates, proceeds in the same way as in our companion paper [51]. We include the calculation details
+specific for BN in Appendix A. As a result of the layered crystal structure, the rate is strongly
+dependent on the angle between the DM wind and the layers. We note, however, that BN has a
+three-dimensional crystal structure with the layers of BN repeating in the out-of-plane direction,
+in contrast to single-layer graphene previously considered in Ref. [46].
+   To show this directional dependence, we consider the same experimental setup as in Refs. [37,
+44], where the crystal c-axis is aligned with the Earth’s velocity v e at time t = 0. With this
+choice, daily modulation signal is independent of the location of the laboratory. In Fig. 3, we
+pick three DM masses mχ = 5, 10, 100 MeV to show how the expected detection rates – both
+total (left panel) and differential (right panel) – change during a sidereal day, assuming a light
+mediator and negligible in-medium effects. For all three masses, we see that the rate is maximized
+at t = 12 hours when the DM wind is roughly aligned with the crystal a-b plane, and minimized
+22
+
+
+
+
+FIG. 2. Crystal structure of hexagonal boron nitride (left), its corresponding first Brillouin zone (middle)
+and DFT-calculated electronic band structure (right) with the Fermi level set to zero. The letters shown in
+the Brillouin zone plot mark several of the high-symmetry points, and the orange lines mark Brillouin zone
+paths along which electronic band structure is plotted. The discontinuities in the band structure occur from
+taking a discontinuous path through the Brillouin zone, indicated by “ | ” on the horizontal axis.
+
+
+at t = 0 when the DM wind is aligned with the crystal c-axis. This can be understood from
+the fact that electron wavefunctions are more localized in the c direction and thus have smaller
+low-momentum components, whereas the DM scattering matrix element peaks at low q for a light
+mediator. We also observe that modulation is stronger for lighter DM. Generically, with a smaller
+energy deposition, the rate is more strongly affected by band structure anisotropies near the band
+gap; far from the band gap, the electron band structures and wavefunctions approach those for
+individual, isotropic ions. For DM heavier than 100 MeV, we find roughly the same amount of daily
+modulation as the mχ = 100 MeV case. This is again because the momentum integral is dominated
+by small q, which corresponds to the same kinematic region ωq ≃ q · v in the large mχ limit. On
+the other hand, once we go below mχ = 5 MeV, the total rate quickly approaches zero, as the DM
+does not carry sufficient kinetic energy to trigger a transition across the band gap, which is ∼ 6 eV
+in BN.
+
+
+                              V.    SINGLE PHONON EXCITATIONS
+
+
+     Finally, we derive single phonon production rates following the same procedure. Assuming zero
+temperature, the initial state is the ground state with no phonons, and the final state contains one
+phonon:
+
+                                   |ii = |0i ,    |f i = |ν, ki = â†ν,k |0i ,                         (78)
+
+where the canonical commutation relations read âν,k , â†ν 0 ,k0 = δνν 0 δkk0 , etc. Note that phonons
+                                                                
+
+are labeled by a branch index ν = 1, . . . , 3n, where n is the number of atoms/ions in each primitive
+                                                                                                                       23
+
+  1.5                                                                   104
+
+  1.4
+                                                                        103
+  1.3
+
+  1.2                                                                   102
+
+  1.1
+                                                                         10
+  1.0
+                                                                          1
+  0.9
+
+  0.8                                                                   10-1
+  0.7
+                                                                        10-2
+  0.6
+
+     0    2     4    6     8   10   12   14    16   18   20   22   24         6   8 10 12 14 16 18 20 22 24 26 28 30 32 34
+
+
+
+
+FIG. 3.       Total rate of electron transitions R in hexagonal BN, normalized to its daily average hRi as a
+function of time (left), and differential rates at several times of the day assuming σ e = 10−37 cm2 (right),
+for a 5, 10, 100 MeV DM scattering via a light mediator, neglecting screening.
+
+
+cell, and a momentum vector k within the first Brillouin zone. For a crystal with N primitive unit
+cells, k takes N discrete values. In the end we take the limit N → ∞, where k becomes continuous.
+   To see how FT (q) should be quantized in the phonon Hilbert space, we note that phonons arise
+from atom/ion displacements:
+
+                                                        1                          0                         0
+                                                                                                                
+                                                                  âν,k ν,k,j eik·xlj + â†ν,k ∗ν,k,j e−ik·xlj ,
+                                         X X
+              ulj = xlj − x0lj =                    p                                                                (79)
+                                         ν    k∈1BZ
+                                                     2N mj ων,k
+
+where xlj is the position of the jth atom/ion in the lth primitive cell, x0lj is the equilibrium position,
+mj are the atom/ion masses, ων,k are the phonon energies, and ν,k,j are the phonon polarization
+vectors, normalized such that j |ν,k,j |2 = 1. The task is thus to find how FT (q) depends on the
+                             P
+
+atom/ion positions xlj and displacements ulj .
+   To do so, let us revisit the scattering potential in Eq. (4). For a periodic crystal, it can be
+written as a sum over contributions from individual atoms/ions:
+          XZ
+                  d3 x0 nlj  0          0     lj  0           0     lj  0           0
+                                                                                      
+  V(x) =                 p (x )Vp (x − x ) + nn (x ) Vn (x − x ) + ne (x ) Ve (x − x )
+               l,j   Ωlj
+               XZ
+                           d3 r nlj                       lj                        lj
+                                                                                                         
+          =                      p (r)Vp (x − xlj − r) + nn (r) Vn (x − xlj − r) + ne (r) Ve (x − xlj − r) ,
+               l,j   Ωlj
+
+                                                                                                                     (80)
+
+where Ωlj is a volume surrounding the lattice site l, j. Within each site volume, we have changed
+the integration variable to r = x0 − xlj , the position relative to the center of the site, and defined
+24
+
+
+nlj                                                    lj                       0
+ p (r) ≡ np (xlj + r), etc. For protons and neutrons, np,n here coincides with np,n introduced in
+
+Sec. III for the nucleus at site l, j. Also, displacing an atom/ion does not change the nucleon
+distributions inside of a nucleus. Thus, we can write
+
+                                                        nlj         j
+                                                         p,n (r) = np,n (r) ,                                     (81)
+
+which makes it clear that nucleon number densities are the same in all primitive cells, and are not
+affected by atom/ion displacements in any particular primitive cell. For electrons, on the other
+hand, this is generally not true, since electron wavefunctions are distorted when displacing an
+atom/ion relative to the other atoms/ions in the crystal lattice. To account for this effect, we write
+
+
+                                          X δnlj
+                                              e                                                 δnlj
+                                                                                                  e (r)
+                 nlj       j
+                  e (r) = ne (r) +                             · ul0 j 0 + O(u2 ) ≃ nje (r) +           · ulj ,   (82)
+                                                    δul0 j 0                                     δulj
+                                          l0 ,j 0
+
+where the last expression assumes the effect of electron redistribution following an atom/ion dis-
+placement is weak and local. This is usually a good approximation for ionic crystals such as gallium
+arsenide (GaAs), where electrons are semi-localized, and displacing an ion tends not to significantly
+affect the electron clouds of neighboring ions. For covalent crystals such as silicon, valence electron
+wavefunctions are more disperse, so more terms in the l0 j 0 sum should be included for an accurate
+calculation.
+     Assuming the approximation in Eq. (82) is valid, we can Fourier transform Eq. (80) and obtain
+
+                                                                                             nlj
+                                                                                                           
+                           X
+                                     iq·xlj            j            j            j          δe e (−q)
+         V(−q)
+         e     = M0 (q)          e                fp n
+                                                     ep (−q) + fn n
+                                                                  en (−q) + fe n
+                                                                               ee (−q) + fe           · ulj
+                                                                                              δulj
+                           l,j
+
+                                                                                nlj
+                                                                                             
+                           X
+                                     iq·xlj                         j          δe e (−q)
+                = M0 (q)         e                fj FNj (q) + fe n
+                                                                  ee (−q) + fe           · ulj ,                  (83)
+                                                                                 δulj
+                           l,j
+
+where fj = fp Zj + fn (Aj − Zj ), and FNj (q) is the nuclear form factor (introduced in Sec. III) for
+the nucleus occupying site j in each primitive cell. We therefore obtain
+                                                    X
+                                                           Fj0 (q) + ∆j (q) · ulj eiq·xlj ,
+                                                                                 
+                                 FT (q) =                                                                         (84)
+                                                     l,j
+
+with
+
+                               1                                                           nlj
+                                                                                        fe δe e (−q)
+                  Fj0 (q) ≡                         j
+                                                          
+                                  fj FN  (q) + fe n e (−q)  ,                   ∆j (q) ≡ 0           ,            (85)
+                              fψ0      j          e
+                                                                                        fψ   δu  lj
+
+
+where fψ0 = fn0 (fe0 ) if the rate is written in terms of σ n (σ e ). Note that ∆j is independent of l due
+to lattice translation symmetries. From Eq. (84) we see that FT (q) depends on ulj – which are
+                                                                                                                            25
+
+                                                                                                                       0
+quantized in terms of phonon modes as in Eq. (79) – via both the phase factor eiq·xlj = eiq·(xlj +ulj )
+and the ∆j (q) · ulj term.
+    With FT (q) quantized in the phonon Hilbert space, we now move on to calculate the matrix
+element hν, k|FT (q)|0i. We first apply the Baker-Campbell-Hausdorff (BCH) formula to the phase
+factor eiq·xlj to move annihilation operators to the right:
+                                                        0
+                                  i(q · ∗ν,k,j ) e−ik·xlj †
+                                                                                      0
+                                                                  i(q · ν,k,j ) eik·xlj
+                                                                                              
+                iq·x0lj
+                        Y
+     iq·xlj
+    e       =e              exp      p                    âν,k +   p                    âν,k
+                        ν,k
+                                        2N mj ων,k                      2N mj ων,k
+                                                        0
+                                 i(q · ∗ν,k,j ) e−ik·xlj †
+                                                                                              0
+                                                                          i(q · ν,k,j ) eik·xlj
+                                                                                                   
+                 iq·x0lj
+                           Y
+             =e             exp     p                      âν,k · exp       p                   âν,k ×
+                        ν,k
+                                        2N mj ων,k                              2N mj ων,k
+                                  |q · ν,k,j |2  †
+                                                               
+                                                               
+                            exp                   â , âν,k
+                                  4N mj ων,k ν,k
+                                                                   0
+                                            i(q · ∗ν,k,j ) e−ik·xlj †
+                                                                                                            0
+                                                                                        i(q · ν,k,j ) eik·xlj
+                                     X                                         X                                 
+                iq·x0lj −Wj (q)
+             =e        e        exp              p                   âν,k exp             p                   âν,k , (86)
+                                       ν,k
+                                                    2N mj ων,k                     ν,k
+                                                                                              2N mj ων,k
+
+where we have used the fact that the commutator between creation and annihilation operators is
+a classical number so the BCH series terminates. In the last equation,
+                          1 X X |q · ν,k,j |2                      d3 k |q · ν,k,j |2
+                                                              Z
+                                                      Ω X
+              Wj (q) =                            →                                                                        (87)
+                       4N mj ν            ων,k       4mj ν 1BZ (2π)3         ων,k
+                                             k∈1BZ
+
+                                                                                         d3 k               d3 k
+                                                                     P              R                  R
+is the Debye-Waller factor (in the continuum limit                       k   → V        (2π)3
+                                                                                                = NΩ       (2π)3
+                                                                                                                   with Ω the
+volume of the primitive cell). The physical meaning of this factor is that a transition |ii → |f i can
+be accompanied by additional phonons’ creation out of the vacuum followed by their annihilation,
+and all these processes are resummed into the exponential. The matrix element thus becomes
+                               X iq·x0
+       hν, k|FT (q)|0i =        e lj e−Wj (q) ×
+                               l,j                                                                0 0
+                                            0                   
+                                                                       X i(q · ∗
+                                                                                 ν 0 ,k0 ,j
+                                                                                            ) e−ik ·xlj † 
+                                     hν, k| Fj (q) + ∆j (q) · ulj exp        p                         âν 0 ,k0 |0i
+                                                                        0 0
+                                                                                 2N mj ων 0 ,k0
+                                                                             ν ,k
+                             X i(q−k)·x0
+                                          lj e−Wj (q) p
+                                                          i
+                           =     e                                 ×
+                             l,j
+                                                       2N m j ων,k
+                                                                                    ∗
+                                                      q X (i∆j · ν 0 ,k0 ,j )(q · ν 0 ,k0 ,j )
+                                                                                                
+                                     0
+                                    Fj q − i ∆j +                                                  · ∗ν,k,j .             (88)
+                                                    N mj 0 0          2ων 0 ,k0
+                                                              ν ,k
+
+The l sum can be eliminated via the identity
+                                             X                       X
+                                                   ei(q−k)·xl = N        δq−k,G ,                                          (89)
+                                               l                     G
+
+where x0lj = xl +x0j with xl being the position of the lth primitive cell and x0j being the equilibrium
+position of the jth atom/ion within the primitive cell, and G runs over the reciprocal lattice vectors.
+26
+
+
+In fact, at most one term in the G sum is picked out for given q and k, since k ∈ 1BZ. We will thus
+drop the G sum in what follows. On each phonon branch, as we sum over k, only the mode that
+satisfies q = k + G can give a nonzero contribution to the dynamic structure factor, as a result of
+lattice momentum conservation.
+     It is worth emphasizing that the notion of momentum conservation here differs from the one
+familiar in particle physics, due to the spontaneous breaking of continuous translation symmetries.
+While each phonon can be thought of as carrying a momentum k within the 1BZ, it can be excited
+even when the momentum transfer q is outside the 1BZ via Umklapp scattering, in which case
+G 6= 0. For DM heavier than ∼ MeV, the momentum transfer can exceed ∼ keV, the typical size
+of the 1BZ. In this case, Umklapp processes can contribute significantly if the matrix element has
+support at high q (which is the case for a heavy mediator). We will see an example of this in
+Sec. V A. Note that momentum is still conserved at the fundamental level: the extra momentum
+G leads to a recoil of the entire crystal, which becomes unobservable in the limit N → ∞. On the
+other hand, the notion of energy conservation is the same, as continuous time translation symmetry
+remains unbroken. As a result, the energy deposition has to match the phonon energy for a phonon
+mode to be excited.
+     With the equations above, we obtain the dynamic structure factor:
+                             2π X X                2           
+                 S(q, ω) =          hν, k|FT (q)|0i δ ω − ων,k
+                             V ν
+                                   k∈1BZ
+
+                           π X 1 X e−Wj (q) iG·x0j              2
+                                                   Y j · ∗ν,k,j δ ω − ων,k ,
+                                                                           
+                         =          √      e                                                              (90)
+                           Ω ν ων,k   mj
+                                           j
+
+where
+                                                                                         ∗
+                                                        d3 k 0 (i∆j · ν 0 ,k0 ,j )(q · ν 0 ,k0 ,j )
+                                                   Z
+                                        Ω X
+                 Y j ≡ Fj0 q − i ∆j +      q                 3
+                                                                                                      .   (91)
+                                        mj   0     1BZ (2π)                2ων 0 ,k0
+                                               ν
+
+We have made it implicit in the last line of Eq. (90) that the k vector is the one inside the first
+Brillouin zone that satisfies q = k + G.
+     Finally, integrating over the DM velocity distribution, we obtain the rate per target mass:
+
+                            d3 q        X 1 X e−Wj (q) iG·x0                     2
+                        Z
+             1 ρχ πσ               2                                        ∗
+     R=                          F (q)                  √     e    j Y j · ν,k,j g(q, ων,k ) ,  (92)
+          mcell mχ 2µ2     (2π)3 med      ν
+                                             ων,k         mj
+                                                       j
+
+where mcell = ρT Ω is the mass contained in a primitive cell. The mediator form factor Fmed ,
+the Debye-Waller factor Wj (q) and the g(q, ω) function are given by Eqs. (12), (87) and (27),
+respectively. The DM couplings are encoded in the Y j vectors given in Eq. (91), with Fj0 , ∆j
+defined in Eq. (85). Meanwhile, the material specific quantities – phonon dispersions ων,k and
+                                                                                                             27
+
+
+polarization vectors ν,k,j – can be numerically computed using DFT methods detailed in our
+companion paper [51].
+   In the following subsections, we discuss the phonon excitation calculation in more detail. It is
+clear from the discussion above that Y j are the key quantities to compute for any specific DM
+model. In Sec. V A, we consider the simpler case where DM couples only to nucleons but not
+electrons, and point out an interesting complementarity with nuclear recoils. We also discuss the
+relevance of Umklapp processes for DM heavier than an MeV, for both heavy and light mediators.
+Including DM-electron couplings introduces complications, but we show in Sec. V B that Y j take
+a simple form in the low q limit for general couplings fp,n,e . Note that the dark photon mediator
+benchmark (fp0 = fe0 , fn0 = 0) has been studied in Refs. [43, 44] based on the Fröhlich Hamiltonian.
+Our calculation here reproduces previous results, and helps clarify their range of validity.
+
+
+                          A.    Dark Matter Coupling Only to Nucleons
+
+
+   Setting fe = 0 and fψ0 = fn0 = fn in Eq. (85), we have
+                                                   
+                                               fj
+                               Fj0 (q) =                FNj (q) ,   ∆j (q) = 0 .                            (93)
+                                               fn
+
+In this case, Y j is simply Fj0 q, and the rate Eq. (92) becomes
+
+                                  d3 q
+                              Z
+                1 ρχ πσ n
+            R=                         F 2 (q) ×
+               mcell mχ 2µ2χn    (2π)3 med
+                        X 1 X e−Wj (q) fj                iG·x0j      ∗
+                                                                           2
+                                       √        FNj (q) e       q · ν,k,j    g(q, ων,k ) .                 (94)
+                         ν
+                            ων,k         mj fn
+                                       j
+
+   It is interesting to compare to the nuclear recoils case. If there is only one atom in the primitive
+cell, we have mcell = mj = mN , and
+                                                                             ∗     2
+                    ρχ πσ n
+                                Z              2
+                                     d3 q −2W fN          X q · ν,k
+                                                    2 2
+                 R=                       e       FN Fmed            g(q, ων,k ) .                          (95)
+                    mχ 2µ2χn        (2π)3     fn2         ν
+                                                            m2N ων,k
+
+The differential rate reads
+
+          dR   ρχ πσ n
+                           Z              2
+                                d3 q −2W fN                X q · ∗ν,k 2
+                                             2 2
+             =                       e      F F    g(q, ω)               δ(ω − ων,k ) .                     (96)
+          dω   mχ 2µ2χn        (2π)3     fn2 N med         ν
+                                                              m2N ω
+
+On the other hand, we can rewrite Eq. (60) for nuclear recoils in terms of the g(q, ω) function via
+R                  R d3 q                                               q2
+  q dq η(vmin ) → 2 (2π) 3 g(q, ω), and multiply the integrand by 1 = 2m ω :
+                                                                         N
+
+                                2
+                          d3 q fN                q2       q2
+                     Z                                      
+     dR   ρχ πσ n                  2 2
+        =                         F F    g(q, ω) 2 δ ω −                               (nuclear recoil) .   (97)
+     dω   mχ 2µ2χn       (2π)3 fn2 N med        mN ω     2mN
+    28
+
+
+    One can clearly see the similarity between Eqs. (96) and (97). However, a key difference between
+    nuclear recoils and phonon excitations is the way in which contributions from different atoms add
+    up in the case of more than one atoms in the primitive cell. Comparing Eq. (94) against Eq. (62),
+    we see that, in contrast to the nuclear recoils case where we add up the rates from inequivalent
+    nuclei, for phonon excitations the sum over j is taken at the amplitude level. It is worth noting,
+    however, that this apparent coherence does not result in a more favorable scaling of the detection
+    rate. In fact, the total rate per target mass scales with neither the number of nuclei in the primitive
+    cell, nor the total number of atoms/ions in the crystal. The former can be seen from the fact that
+                                                   p
+    phonon polarization vectors scale as ν,k,j ∼ mj /mcell , which, together with the prefactor, means
+                                                                                  √
+    the denominator of Eq. (94) scales as m2cell . The latter is because of the 1/ N normalization factor
+    when expanding ulj in terms of phonon creation and annihilation operators (see Eq. (79)). The
+    intuition here is that, despite the collective nature of phonon excitations, we have to project the
+    motion of each atom onto the phonon modes that match the energy-momentum transfer. As a
+    result, coherence between more atoms comes with a price of a smaller overlap with phonon modes.
+         Another key difference between nuclear recoils and phonon excitations, alluded to in Fig. 1 and
+    Sec. III A, is the kinematic regimes probed. In the phonon case, the Debye-Waller factor e−Wj cuts
+                                        √
+    off the momentum integral for q & mN ωph , the inverse spatial extent of the nucleus wavefunction.
+    The ωph here should be thought of as an average phonon energy over the entire 1BZ, which is of the
+                   max . As discussed in Sec. III A, this high q regime is exactly where the nuclear recoil
+    same order as ωph
+    calculation becomes valid. In addition, nuclear recoils happen at much higher energy depositions
+    ω = q 2 /2mN  ωph
+                    max than phonon excitations.
+
+
+         A multi-channel search can exploit this complementarity between nuclear recoils and phonon
+    excitations. Let us consider, as a benchmark model, a hadrophilic scalar mediator coupling iden-
+    tically to protons and neutrons (fp = fn , fe = 0). In Fig. 4, we compare the reach of the two
+    channels, using GaAs as an example target material.6 For a heavy mediator (left panel), we see
+    that with sub-eV energy thresholds, nuclear recoils can probe DM masses above ∼ 100 MeV — this
+    is the mass regime where the single phonon excitation rate suffers from Debye-Waller suppression.
+    Below ∼ 100 MeV where nuclear recoils lose sensitivity, single phonon excitations can probe a few
+    more orders of magnitude of mχ , depending on the energy threshold. For a light mediator (right
+    panel), on the other hand, single phonon excitations outperform nuclear recoils for all mχ . This is
+    because the momentum integral is dominated by the lowest q, which only depends on the energy
+6
+    As discussed in arXiv v3 of the companion paper [51], changes in the constraint projections via single phonon
+    excitations in Fig. 4, relative to previous versions, are due to a bug fix in computing FNj which altered the constraints
+    by a factor of, approximately, 2.25. The calculations have been updated using PhonoDark v1.1.0 [67].
+                                                                                                                                                                                                                         29
+
+
+            10−38
+                                      Heavy mediator                                                                  10−38
+                                                                                                                                                          Light mediator
+
+
+
+
+                                                                                                                                                                                                    Fi
+            10−39                                                                                                     10−39
+
+
+
+
+                                                            ωmin = 0.5 eV
+
+
+
+
+                                                                                                                                                                                                      fth
+                                                                                ωmin = 1 eV
+                           ωmin =
+
+
+
+
+                                                                                                                                                                                                       Fo
+                                                                                                                                                                                                         rce
+            10−40                                                                                                     10−40                                   ω
+
+
+
+
+                                                                                                                                                                                                             +
+                             10 meV
+                                                                                                                                                              m
+
+
+
+
+                                                                                                                                                                                                                 Pe
+                                                                                                                                                                  in
+                                                                                                                                                                       =
+            10−41                                                                                                     10−41
+
+
+
+
+                                                                                                                                                                                                                    rt
+                                                                                                                                                                           30
+
+
+
+
+                                                                                                                                                                                                                   .
+σ n [cm2]
+
+
+
+
+                                                                                                          σ n [cm2]
+                                                                                                                                                     ωm                         me
+                 −42                    ωmin                                                                               −42                         in
+                                                                                                                                                          =                        V
+
+
+
+
+                                                                                                                                                                                              ωm
+            10                                 = 30                                                                   10
+
+
+
+
+                                                                                                                                                                                                        ωm
+                                                      meV                                                                                                     10
+
+
+
+
+                                                                                                                                                                                               in
+                                                                                                                                 Fifth                             me
+
+
+
+
+                                                                                                                                                                                                            in
+                                                                                                                                                                                                   =
+                                                                                                                                         Force                       V
+
+
+
+
+                                                                                                                                                                                                             =
+            10−43                                                                                                     10−43
+
+
+
+
+                                                                                                                                                                                                    0 .5
+                       ωmin = 1 meV                                                                                                            +   SIDM
+
+
+
+
+                                                                                                                                                                                                                 1e
+                                                                                                                                                                                                       eV
+
+
+                                                                                                                                                                                                                   V
+                                                                                                                                                                           ωm
+            10−44            CRESST − II                                                                              10−44                                                     in =
+                                                                                                                                                                                       1m
+                             DarkSide − 50                                       o   or                                                                                                  eV
+            10−45            XENON1T                                        ν fl                                      10−45
+
+                  10−2     10−1        1          10    102                                   103   104                     10−2          10−1            1               10    102                          103         104
+                                               mχ [MeV]                                                                                                                mχ [MeV]
+
+
+FIG. 4.                  Projected reach for DM scattering via a heavy (left, mφ & 400 MeV) or light (right, mφ = 1
+eV) scalar mediator coupling to nucleons (fp = fn , fe = 0), assuming 1 kg-yr exposure with a GaAs target,
+3 signal events and no background. Both single phonon production (purple, assuming energy thresholds
+ωmin = 1, 10, 30 meV) and nuclear recoils (red, assuming ωmin = 0.5, 1 eV) are complementary in probing
+currently unconstrained parameter space. The heavy mediator case is free from stellar constraints for
+mφ & 400 MeV [62], and the neutrino floor is taken from Ref. [68]. Currently, the best experimental nuclear
+recoil constraints in this region of parameter space are from DarkSide-50 [8] (assuming binomial fluctuations),
+and XENON1T (combined limits from [21, 22]). We also show the constraint from CRESST-II [4], which
+is stronger than the DarkSide-50 constraint at low masses assuming no fluctuation in energy quenching. A
+more complete collection of nuclear recoil constraints can be found in Refs. [8, 13, 22]. For a light mediator
+with mφ = 1 eV, fifth force experiments provide the dominant constraint on mediator-nucleon couplings [62].
+Meanwhile, the mediator-χ coupling is constrained by DM self interactions (SIDM) if χ makes up all the
+DM [62], or just by perturbativity (Pert.) if χ is a DM subcomponent (in which case the projected reach
+can be easily rescaled).6
+
+
+threshold, qmin ≃ ωmin /vmax . The mass scaling of the curves in Fig. 4 can be understood with
+a close examination of phase space integrals; we reserve a detailed discussion, including how the
+various features of the curves depend on material properties, for the companion paper [51].
+            It is also worth noting that while direct production of single phonons has been proposed mainly
+as a channel to search for sub-MeV DM, we see from Fig. 4 that its sensitivity extends well above
+MeV DM masses, which is important for covering the parameter space out of reach in nuclear
+recoils. A DM particle heavier than ∼ MeV carries a momentum larger than the typical size of the
+1BZ (or equivalently, the inverse lattice spacing). However, as explained below Eq. (89), a crystal
+target is able to absorb a momentum transfer beyond the 1BZ while still producing a phonon,
+provided the energy deposition matches that of the phonon energy. Such Umklapp processes can
+contribute significantly to the rate. In Fig. 5, we examine the role of Umklapp scattering by
+30
+
+
+      106                                                  106
+           5
+      10                                                   105
+      104                                                  104
+      103                                                  103
+      102                                                  102
+      10                                                    10
+          1                                                    1
+          -1                                                   -1
+     10                                                   10
+          -2
+     10                                                   10-2
+     10-3      5   10   15        20   25   30    35      10-3      5     10    15     20    25    30     35
+
+
+
+
+FIG. 5. Differential rate of single phonon excitations in a GaAs target for mχ = 0.1, 1, 10 MeV, assuming
+a heavy (left) or light (right) scalar mediator coupling to nucleons (fp = fn , fe = 0), with σ̄n = 10−40 cm2
+and ωmin = 1 meV. Contributions from momentum transfer within the first Brillouin zone are shown in dash.
+Umklapp processes account for the differences between solid and dashed histograms.
+
+
+comparing the full rate (solid) vs. contributions from q ∈ 1BZ (dashed), for three DM masses.
+We show the differential distribution up to 34 meV, the highest phonon energy in GaAs. For
+mχ = 0.1 MeV, the maximum momentum transfer qmax ≃ 2mχ vmax ≃ 0.56 keV is within the 1BZ,
+so the solid and dashed histograms coincide. Also, only acoustic phonons with energies below
+cs qmax ≃ 9 meV (where cs is the speed of sound) and optical phonons are kinematically accessible;
+contributions from optical phonons are suppressed at low q [69], so the total rate is dominated by
+the low energy acoustic phonons. For mχ = 1 MeV and 10 MeV, Umklapp processes dominate the
+rate in the heavy mediator case, since the momentum integral is dominated by large q. In the light
+mediator case, the matrix element peaks at small q, so the total rate is well approximated by the
+1BZ contribution for sufficiently low energy thresholds (e.g. 1 meV). However, Umklapp scattering
+can still contribute significantly in the highest energy bins, and dominate the rate if the energy
+threshold is higher (e.g. 30 meV).
+
+
+                             B.    Dark Matter With Couplings to Electrons
+
+
+     In the presence of electron couplings fe 6= 0, information about electron distributions is needed
+for the rate calculation. We focus on ionic crystals in this subsection, for which Eq. (82) is a
+                                                                                          eje and
+good approximation, and the rate formula Eq. (92) directly applies. In this case, we need n
+ nlj
+δe                         eje can be derived from the same electron wavefunctions as those used
+   e /δulj as input. While n
+
+                                                 nlj
+in electron transition calculations in Sec. IV, δe e /δulj is challenging to compute numerically for
+                                                                                                                        31
+
+
+    general q and ulj .
+                                                             −1
+       However, the calculation simplifies in the limit q  rion , the inverse ionic radii. As in classical
+    electromagnetism, we can make a multipole expansion,
+                                  Z
+                         j
+                       nee (−q) =    d3 r eiq·r nlj                             2
+                                                 e (r) = Ne,j − iq · P e,j + O(q ) ,                                  (98)
+                                           Ωlj
+
+    where Ne,j is the number of electrons associated with site l, j, and P e,j is the electron contribution
+    to the polarization in the volume Ωlj . Consider the response of the total polarization of the volume
+    to a lattice displacement ulj :
+
+                                                   δP lj = Qj δulj + δP e,j ,                                         (99)
+
+    where Qj = Zj − Ne,j is the total charge. This defines the Born effective charge tensor:7
+
+                                                          δP lj          δP e,j
+                                                 Z ∗j ≡         = Qj 1 +        .                                   (100)
+                                                          δulj            δulj
+
+    Thus,
+
+                           nlj
+                          δe e (−q)         δP e,j
+                                    = −iq ·        + O(q 2 ) = −iq · (Z ∗j − Qj 1) + O(q 2 ) .                      (101)
+                            δulj             δulj
+
+    From Eqs. (98) and (101), we obtain (choosing f 0 = fe0 in the normalization):
+                                           fp      fn               fe
+                                  Fj0 (q) = 0
+                                              Zj + 0 (Aj − Zj ) + 0 Ne,j + O(q) ,                                   (102)
+                                           fe      fe               fe
+                                             fe
+                                  ∆j (q) = − 0 iq · (Z ∗j − Qj 1) + O(q 2 ) ,                                       (103)
+                                             fe
+                                              −1
+    where we have set FN,j (q) = 1 since q  rion is much smaller than the inverse nucleus radius. We
+    therefore obtain the following simple expression for Y j :
+                                                                        
+                                 fp        fn                 fe
+                      Y j = q · 0 Zj 1 + 0 (Aj − Zj ) 1 + 0 (Zj 1 − Z j ) + O(q 2 ) .
+                                                                      ∗
+                                                                                                                    (104)
+                                 fe        fe                fe
+
+       In the case of a vector or scalar mediator, the coupling ratios appearing in Eq. (104) should
+    incorporate in-medium screening effects according to Eq. (50). As mentioned at the beginning
+    of Sec. II B, while dielectric response of an ionic crystal comes from both electrons and ions at
+    phonon frequencies, only the electron contribution is included in the derivation of Eq. (50). That
+    this is the correct treatment should be clear from the calculation above. Polarization induced by
+    lattice displacements has been treated as an effective charge density ∇ · P , since it can induce the
+
+7
+    More precisely, the Born effective charge Z ∗j is defined as the change in macroscopic polarization caused by a uniform
+    displacement of the entire sublattice j [70]. However, under the assumption we have made in Eq. (82) – that the
+    electrons respond locally to the ionic displacements – the precise definition is equivalent to Eq. (100).
+    32
+
+
+    transition |0i → |ν, ki. As such, it enters the source term rather than the dielectric matrix ε in
+    Maxwell’s equations. In the low q limit, electron contributions to ε below the electronic band gap
+    approach a constant ε∞ , referred to as the high-frequency dielectric constant.
+         In the special case of a dark photon mediator that kinetically mixes with the SM photon,
+    fp0 = −fe0 , fn0 = 0. Combining Eqs. (104) and (50), and setting ε → ε∞ , we obtain
+
+                                                            q2
+                                              Yj =−                (q · Z ∗j ) .                                 (105)
+                                                        q · ε∞ · q
+
+    By Eq. (92), the rate is therefore
+                                           d3 q                q4
+                                       Z
+                         1 ρχ πσ e                2
+                     R=                         F    (q)                 ×
+                        mcell mχ 2µ2χe    (2π)3 med      (q · ε∞ · q)2
+                                 X 1 X e−Wj (q) iG·x0                            2
+                                                       e      j q · Z ∗ · ∗        g(q, ων,k ) .                (106)
+                                                √                     j    ν,k,j
+                                  ν
+                                     ων,k          mj
+                                                  j
+
+                                                                   −1
+    Note that since Eq. (104) for Y j is derived in the limit q  rion ∼ O(keV), Eq. (106) holds
+    only when the integral is dominated by this region. This is the case for a light dark photon
+    mediator for any DM mass, since the integrand peaks at small q. In this case, Eq. (106) is in
+    agreement with the result obtain in Ref. [44] based on the Fröhlich Hamiltonian. For a heavy
+    mediator, on the other hand, the integrand peaks at qmax = 2mχ vmax , so Eq. (106) holds only for
+    mχ  (2vmax rion )−1 ∼ O(MeV).
+         Beyond the previously studied dark photon mediator case, our first-principle rate derivation here
+    allows us to compute the reach for other DM models with couplings to electrons. As examples,
+    we consider two benchmark models from Ref. [62] – a hadrophobic light scalar mediator and a
+    light U (1)B−L vector mediator. In both cases, astrophysical constraints already rule out all of the
+    parameter space within reach of proposed experiments if χ composes all the DM. We find similar
+    results here: for a hadrophobic light scalar mediator, the astrophysical constraints extend past
+    the reach of single phonon excitations in a GaAs target; for a light U (1)B−L vector mediator, for
+    mχ & 100 MeV and ωmin = 1 meV, the reach extends slightly past the astrophysical constraints, but
+    the rest of the parameter space is constrained. Therefore, as in Ref. [62], we consider the case where
+    χ is a 5% subcomponent of DM, in which case SIDM constraints are absent and single phonon
+    excitations can probe currently unconstrained parameter space. The projected reach for both
+    benchmark models is shown in Fig. 6, where a mediator mass of 1 eV is assumed for definiteness.8
+
+8
+    Changes in the single phonon excitation reach in the left panel of Fig. 6, relative to previous versions, are due to
+    the inclusion of screening effects in DM models coupling to the electron number density via a scalar mediator. The
+    calculations have been updated using PhonoDark v1.1.0 [67].
+                                                                                                                                                              33
+
+
+            10−37
+                          Light Scalar Mediator                                                              Light U (1)B−L Mediator
+                                                                                           10−37
+            10−38                                                                          10−38                                        Fifth Force + Pert.
+            10−39                                                                          10−39
+            10−40                             ωmin = 30 meV
+                                                                                           10−40                                   ωmin = 30 meV
+            10−41                                                                          10−41
+            10−42
+σ e [cm2]
+
+
+
+
+                                                                               σ e [cm2]
+                                                                                           10−42
+            10−43                                     RG Stars + Pert.                     10−43
+            10−44       ωmin = 10 meV
+                                                                                           10−44             ωmin = 10 meV
+            10−45                                                                          10−45
+            10−46                                                                          10−46   Ste
+                                                                                                      lla
+                                                                                                         r
+
+            10−47                                                                          10−47
+            10−48       ωmin = 1 meV
+                                                                                           10−48             ωmin = 1 meV
+
+               10−3 10−2 10−1            1    10    102       103        104                  10−3 10−2 10−1                  1    10     102        103      104
+                                        mχ [MeV]                                                                             mχ [MeV]
+
+
+FIG. 6.             Projected reach for a 5% subcomponent of DM scattering via a light (1 eV) hadrophobic scalar
+(left) or U (1)B−L vector (right) mediator, assuming 1 kg-yr exposure with a GaAs target, 3 signal events
+and no background. Single phonon excitation reach is shown in purple, assuming energy thresholds ωmin =
+1, 10, 30 meV. Pink regions are excluded when taking into account the strongest constraint on the mediator-
+SM coupling – red giant (RG) stars and fifth force experiments for the two models respectively [62] – together
+with perturbativity (Pert.) of the mediator-χ coupling. In the U (1)B−L case, the gray region is excluded by
+stellar production of χ [71].8
+
+
+                                                          VI.       CONCLUSIONS
+
+
+            Dark matter direct detection has entered an era in which not only the mass coverage is extending
+beyond the classic WIMP window – especially into the sub-GeV regime – but also multi-channel
+target response is becoming an important consideration when designing new experiments. In this
+paper, we detailed a theoretical framework for calculating spin-independent direct detection rates
+that can be applied across multiple search channels. Starting from generic DM couplings to the
+proton, neutron and electron, we factored out material and channel dependent target response
+into the dynamic structure factor, and derived a procedure to compute this factor which involves
+quantizing number density operators in the appropriate Hilbert space. We focused on O(eV)-
+gap crystal targets where existing and proposed search channels include nuclear recoils, electron
+transitions and single phonon excitations, each probing a different kinematic regime (see Fig. 1).
+Despite the apparently very different physics involved, the calculation proceeds analogously for all
+three channels.
+            While part of this paper has been devoted to rederiving known results in this unified framework,
+we also obtained several new results, which we summarize in the following:
+
+             • We have clarified the range of validity of the standard nuclear recoils calculation (Sec. III A).
+34
+
+
+        For energy depositions lower than O(100 meV) in a crystal target, the picture of scattering
+        off single nuclei breaks down. Collective motions of all nuclei have to be considered, with
+        phonons being the appropriate degrees of freedom. The situation is analogous in fluids,
+        though the energy cutoff can be lower (e.g. O(meV) for superfluid helium).
+
+     • We have extended the electron transition calculation to account for anisotropic target re-
+        sponse, and pointed out the resulting daily modulation can be significant (Sec. IV A). As
+        an example, we considered hexagonal boron nitride, a semiconductor with a 6 eV gap and
+        layered crystal structure, and showed that ±(10 - 40)% daily modulation can be expected,
+        depending on the DM mass (Fig. 3).
+
+     • As a major new result, we have presented a first-principle derivation of single phonon exci-
+        tation rates for generic SI couplings. The final result is Eq. (92), where dependence on the
+        relative couplings to the proton, neutron, and electron is fully captured by the quantities Y j .
+        Computing Y j is straightforward for DM coupling only to nucleons (Sec. V A), but nontrivial
+        in the presence of coupling to electrons (Sec. V B). In the latter case, we have shown that Y j
+        are related to the Born effective charges in an ionic crystal for a general light mediator (not
+        necessarily a dark photon) – see Eq. (104). As examples, we computed the reach for DM
+        scattering via a light hadrophobic scalar or U (1)B−L vector mediator (Fig. 6), where single
+        phonon excitations offer a complementary search channel with competitive sensitivities to
+        previous proposals [62].
+
+     • We have pointed out that sensitivity of the single phonon excitation channel is not restricted
+        to sub-MeV DM. For heavier DM, Umklapp contribution can be significant (Fig. 5), and
+        single phonon excitations and nuclear recoils play complementary roles in probing the DM
+        parameter space (Fig. 4).
+
+     In addition to shedding light on the connection and complementarity between various existing
+and proposed direct detection channels, the theoretical framework presented here also makes clear
+that there is a common algorithm one can follow to study yet unexplored novel detection channels
+in the future. Some of them will require extending our present formalism beyond SI interactions,
+a task we plan to take on in future work.
+
+     Acknowledgments. We thank Thomas Harrelson, Simon Knapen, and Matt Pyle for useful
+discussion. T.T. and K.Z. are supported by the Quantum Information Science Enabled Discovery
+(QuantISED) for High Energy Physics (KA2401032) at LBNL. Z.Z. is supported by the NSF Grant
+                                                                                                        35
+
+
+PHY-1638509 and DoE Contract DE-AC02-05CH11231. Computational resources were provided
+by the National Energy Research Scientific Computing Center and the Molecular Foundry, DoE
+Office of Science User Facilities supported by the Office of Science of the U.S. Department of
+Energy under Contract No. DE-AC02-05CH11231. The work performed at the Molecular Foundry
+was supported by the Office of Science, Office of Basic Energy Sciences, of the U.S. Department
+of Energy under the same contract number. T.T. and Z.Z. would like to thank the Walter Burke
+Institute for Theoretical Physics for hospitality during the completion of this work.
+
+
+                          Appendix A: DFT Calculation Details for BN
+
+
+   We used the Vienna Ab initio Simulation Package (VASP) [72–75] for our density functional the-
+ory calculations to obtain the electronic properties of BN. Projector augmented wave (PAW) pseu-
+dopotentials [76, 77] with the Perdew-Becke-Ernzerhof (PBE) exchange-correlation functional [78]
+were used. We included van der Waals interactions between BN layers using the D3 correction
+method of Grimme et al. with Becke-Johnson damping [79, 80]. In the PAW scheme, we treated s
+and p electrons as valence for both B and N.
+   For structural optimization, we use an energy cutoff of 950 eV for our plane wave basis set,
+with a Gamma-centered k-point grid of 12 × 12 × 12. The total energy and forces were converged
+to 1 × 108 eV and 1 meV/Å respectively. Wavefunctions were evaluated on two Gamma-centered
+k-point meshes, 10 × 10 × 3, and 14 × 14 × 4, converging the scattering rate to ∼ 9% at 5 MeV,
+∼ 8% at 10 MeV and ∼ 6% at 100 MeV. We extracted the all-electron wavefunction coefficients
+from our PAW calculations using pawpyseed [81] with an energy cutoff of 450 eV. 68 energy bands
+were included, incorporating energies up to 60 eV above and below the valence band maximum.
+   Boron nitride (BN) adopts a hexagonal crystal structure with space group P 63 /mmc (No. 194)
+as shown in Fig. 2. Our calculated lattice parameters are a = 2.507 Å and c = 7.093 Å which
+compare well to those from experiment [82] (a = 2.504 Å and c = 6.661 Å). The PBE-level
+calculated band gap is 3.61 eV which was corrected to the experimental value of 5.97 eV [83] using
+a scissors operator.
+
+
+
+
+ [1] J. Amaré et al., Phys. Rev. Lett. 123, 031301 (2019), arXiv:1903.03973 [astro-ph.IM].
+ [2] C. Cozzini et al., Low temperature detectors. Proceedings, 9th International Workshop, LTD-9, Madison,
+    USA, July 22-27, 2001, AIP Conf. Proc. 605, 481 (2002).
+36
+
+
+ [3] F. Petricca et al. (CRESST), in 15th International Conference on Topics in Astroparticle and Under-
+     ground Physics (TAUP 2017) Sudbury, Ontario, Canada, July 24-28, 2017 (2017) arXiv:1711.07692
+     [astro-ph.CO].
+ [4] G. Angloher et al. (CRESST), Eur. Phys. J. C76, 25 (2016), arXiv:1509.01515 [astro-ph.CO].
+ [5] S. Baum, K. Freese, and C. Kelso, Phys. Lett. B789, 262 (2019), arXiv:1804.01231 [astro-ph.CO].
+ [6] J. R. T. de Mello Neto et al. (DAMIC), Proceedings, 34th International Cosmic Ray Conference
+     (ICRC 2015): The Hague, The Netherlands, July 30-August 6, 2015, PoS ICRC2015, 1221 (2016),
+     arXiv:1510.02126 [physics.ins-det].
+ [7] A. Aguilar-Arevalo et al. (DAMIC), Phys. Rev. Lett. 123, 181802 (2019), arXiv:1907.12628 [astro-
+     ph.CO].
+ [8] P. Agnes et al. (DarkSide), Phys. Rev. Lett. 121, 081307 (2018), arXiv:1802.06994 [astro-ph.HE].
+ [9] J. H. Jo (DM-Ice), Proceedings, 38th International Conference on High Energy Physics (ICHEP 2016):
+     Chicago, IL, USA, August 3-10, 2016, PoS ICHEP2016, 1223 (2017), arXiv:1612.07426 [physics.ins-
+     det].
+[10] K. Kim (KIMS), in Proceedings, Meeting of the APS Division of Particles and Fields (DPF 2015): Ann
+     Arbor, Michigan, USA, 4-8 Aug 2015 (2015) arXiv:1511.00023 [physics.ins-det].
+[11] D. S. Akerib et al. (LUX), Phys. Rev. D97, 112002 (2018), arXiv:1802.06162 [physics.ins-det].
+[12] D. S. Akerib et al. (LUX), (2019), arXiv:1907.06272 [astro-ph.CO].
+[13] D. S. Akerib et al. (LUX), Phys. Rev. Lett. 122, 131301 (2019), arXiv:1811.11241 [astro-ph.CO].
+[14] E. Shields, J. Xu, and F. Calaprice, Proceedings, 13th International Conference on Topics in As-
+     troparticle and Underground Physics (TAUP 2013): Asilomar, California, September 8-13, 2013, Phys.
+     Procedia 61, 169 (2015).
+[15] R. Agnese et al. (SuperCDMS), Phys. Rev. Lett. 112, 241302 (2014), arXiv:1402.7137 [hep-ex].
+[16] R. Agnese et al. (SuperCDMS), Phys. Rev. D95, 082002 (2017), arXiv:1610.00006 [physics.ins-det].
+[17] R. Agnese et al. (SuperCDMS), Phys. Rev. Lett. 116, 071301 (2016), arXiv:1509.02448 [astro-ph.CO].
+[18] R. Agnese et al. (SuperCDMS), Phys. Rev. D97, 022002 (2018), arXiv:1707.01632 [astro-ph.CO].
+[19] R. Agnese et al. (SuperCDMS), Phys. Rev. D99, 062001 (2019), arXiv:1808.09098 [astro-ph.CO].
+[20] R. Agnese et al. (SuperCDMS), Phys. Rev. Lett. 121, 051301 (2018), [erratum:             Phys. Rev.
+     Lett.122,no.6,069901(2019)], arXiv:1804.10697 [hep-ex].
+[21] E. Aprile et al. (XENON), Phys. Rev. Lett. 121, 111302 (2018), arXiv:1805.12562 [astro-ph.CO].
+[22] E. Aprile et al. (XENON), (2019), arXiv:1907.11485 [hep-ex].
+[23] R. Essig, J. Mardon, and T. Volansky, Phys. Rev. D85, 076007 (2012), arXiv:1108.5383 [hep-ph].
+[24] P. W. Graham, D. E. Kaplan, S. Rajendran, and M. T. Walters, Phys. Dark Univ. 1, 32 (2012),
+     arXiv:1203.2531 [hep-ph].
+[25] R. Essig, A. Manalaysay, J. Mardon, P. Sorensen, and T. Volansky, Phys. Rev. Lett. 109, 021301
+     (2012), arXiv:1206.2644 [astro-ph.CO].
+[26] S. K. Lee, M. Lisanti, S. Mishra-Sharma,       and B. R. Safdi, Phys. Rev. D92, 083517 (2015),
+                                                                                                        37
+
+
+    arXiv:1508.07361 [hep-ph].
+[27] R. Essig, M. Fernandez-Serra, J. Mardon, A. Soto, T. Volansky, et al., JHEP 05, 046 (2016),
+    arXiv:1509.01598 [hep-ph].
+[28] S. Derenzo, R. Essig, A. Massari, A. Soto,        and T.-T. Yu, Phys. Rev. D96, 016026 (2017),
+    arXiv:1607.01009 [hep-ph].
+[29] Y. Hochberg, T. Lin, and K. M. Zurek, Phys. Rev. D95, 023013 (2017), arXiv:1608.01994 [hep-ph].
+[30] I. M. Bloch, R. Essig, K. Tobioka, T. Volansky, and T.-T. Yu, JHEP 06, 087 (2017), arXiv:1608.02123
+    [hep-ph].
+[31] R. Essig, T. Volansky, and T.-T. Yu, Phys. Rev. D96, 043017 (2017), arXiv:1703.00910 [hep-ph].
+[32] N. A. Kurinsky, T. C. Yu, Y. Hochberg, and B. Cabrera, (2019), arXiv:1901.07569 [hep-ex].
+[33] Y. Hochberg, Y. Zhao, and K. M. Zurek, Phys. Rev. Lett. 116, 011301 (2016), arXiv:1504.07237
+    [hep-ph].
+[34] Y. Hochberg, M. Pyle, Y. Zhao, and K. M. Zurek, JHEP 08, 057 (2016), arXiv:1512.04533 [hep-ph].
+[35] Y. Hochberg, T. Lin, and K. M. Zurek, Phys. Rev. D94, 015019 (2016), arXiv:1604.06800 [hep-ph].
+[36] Y. Hochberg, Y. Kahn, M. Lisanti, K. M. Zurek, A. G. Grushin, R. Ilan, S. M. Griffin, Z.-F. Liu, S. F.
+    Weber, and J. B. Neaton, Phys. Rev. D97, 015004 (2018), arXiv:1708.08929 [hep-ph].
+[37] A. Coskuner, A. Mitridate, A. Olivares, and K. M. Zurek, (2019), arXiv:1909.09170 [hep-ph].
+[38] R. M. Geilhufe, F. Kahlhoefer, and M. W. Winkler, (2019), arXiv:1910.02091 [hep-ph].
+[39] K. Schutz and K. M. Zurek, Phys. Rev. Lett. 117, 121302 (2016), arXiv:1604.08206 [hep-ph].
+[40] S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D95, 056019 (2017), arXiv:1611.06228 [hep-ph].
+[41] F. Acanfora, A. Esposito, and A. D. Polosa, Eur. Phys. J. C79, 549 (2019), arXiv:1902.02361 [hep-ph].
+[42] A. Caputo, A. Esposito, and A. D. Polosa, (2019), arXiv:1907.10635 [hep-ph].
+[43] S. Knapen, T. Lin, M. Pyle, and K. M. Zurek, (2017), arXiv:1712.06598 [hep-ph].
+[44] S. Griffin, S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D98, 115034 (2018), arXiv:1807.10291
+    [hep-ph].
+[45] A. Coskuner, D. M. Grabowska, S. Knapen, and K. M. Zurek, Phys. Rev. D100, 035025 (2019),
+    arXiv:1812.07573 [hep-ph].
+[46] Y. Hochberg, Y. Kahn, M. Lisanti, C. G. Tully, and K. M. Zurek, Phys. Lett. B772, 239 (2017),
+    arXiv:1606.08849 [hep-ph].
+[47] G. Cavoto, F. Luchetta, and A. D. Polosa, Phys. Lett. B776, 338 (2018), arXiv:1706.02487 [hep-ph].
+[48] F. Kadribasic, N. Mirabolfathi, K. Nordlund, A. E. Sand, E. Holmström, and F. Djurabekova, Phys.
+    Rev. Lett. 120, 111301 (2018), arXiv:1703.05371 [physics.ins-det].
+[49] R. Budnik, O. Chesnovsky, O. Slone, and T. Volansky, Phys. Lett. B782, 242 (2018), arXiv:1705.03016
+    [hep-ph].
+[50] S. Rajendran, N. Zobrist, A. O. Sushkov, R. Walsworth, and M. Lukin, Phys. Rev. D96, 035009
+    (2017), arXiv:1705.09760 [hep-ph].
+[51] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang, and K. M. Zurek, Phys. Rev. D 101, 055004 (2020),
+38
+
+
+     arXiv:1910.10716 [hep-ph].
+[52] R. Essig, J. Mardon, O. Slone, and T. Volansky, Phys. Rev. D95, 056011 (2017), arXiv:1608.02940
+     [hep-ph].
+[53] A. Arvanitaki, S. Dimopoulos, and K. Van Tilburg, Phys. Rev. X8, 041001 (2018), arXiv:1709.05354
+     [hep-ph].
+[54] R. Essig, J. Pérez-Rı́os, H. Ramani, and O. Slone, (2019), arXiv:1907.07682 [hep-ph].
+[55] S. Chang, A. Pierce, and N. Weiner, JCAP 1001, 006 (2010), arXiv:0908.3192 [hep-ph].
+[56] A. L. Fitzpatrick and K. M. Zurek, Phys. Rev. D82, 075004 (2010), arXiv:1007.5325 [hep-ph].
+[57] A. L. Fitzpatrick, W. Haxton, E. Katz, N. Lubbers,              and Y. Xu,     (2012), 10.1088/1475-
+     7516/2013/02/004, arXiv:1203.3542.
+[58] M. I. Gresham and K. M. Zurek, (2014), 10.1103/PhysRevD.89.123521, arXiv:1401.3739.
+[59] T. Trickle, Z. Zhang, and K. M. Zurek, (2019), arXiv:1905.13744 [hep-ph].
+[60] T. Lin, Proceedings, Theoretical Advanced Study Institute in Elementary Particle Physics: Theory
+     in an Era of Data (TASI 2018): Boulder, Colorado, USA, June 4-29, 2018, PoS 333, 009 (2019),
+     arXiv:1904.07915 [hep-ph].
+[61] S. Knapen and T. Lin, private communications.
+[62] S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D96, 115021 (2017), arXiv:1709.07882 [hep-ph].
+[63] H. An, M. Pospelov, and J. Pradler, Phys. Lett. B725, 190 (2013), arXiv:1302.3884 [hep-ph].
+[64] E. Hardy and R. Lasenby, JHEP 02, 033 (2017), arXiv:1611.05852 [hep-ph].
+[65] G. Cappellini, R. Del Sole, L. Reining, and F. Bechstedt, Phys. Rev. B 47, 9892 (1993).
+[66] R. H. Helm, Phys. Rev. 104, 1466 (1956).
+[67] T. Trickle, Z. Zhang, and K. M. Zurek, “https://phonodark.caltech.edu,” (2021).
+[68] M. Battaglieri et al. (2017) arXiv:1707.04591 [hep-ph].
+[69] P. Cox, T. Melia, and S. Rajendran, Phys. Rev. D100, 055011 (2019), arXiv:1905.05575 [hep-ph].
+[70] X. Wang and D. Vanderbilt, Phys. Rev. B 75, 115116 (2007).
+[71] H. Vogel and J. Redondo, JCAP 1402, 029 (2014), arXiv:1311.2600 [hep-ph].
+[72] G. Kresse and J. Hafner, Phys. Rev. B 47, 558 (1993).
+[73] G. Kresse and J. Hafner, Phys. Rev. B 49, 14251 (1994).
+[74] G. Kresse and J. Furthmüller, Computational Materials Science 6, 15 (1996).
+[75] G. Kresse and J. Furthmüller, Phys. Rev. B 54, 11169 (1996).
+[76] P. E. Blöchl, Phys. Rev. B 50, 17953 (1994).
+[77] G. Kresse and D. Joubert, Phys. Rev. B 59, 1758 (1999).
+[78] J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996).
+[79] S. Grimme, J. Antony, S. Ehrlich,        and H. Krieg, Journal of Chemical Physics 132 (2010),
+     10.1063/1.3382344.
+[80] S. Grimme, S. Ehrlich, and L. Goerigk, Journal of Computational Chemistry 32, 1456 (2011).
+[81] K. Bystrom, D. Broberg, S. Dwaraknath, K. A. Persson, and M. Asta, (2019), arXiv:1904.11572
+                                                                                        39
+
+
+    [cond-mat.mtrl-sci].
+[82] R. W. Lynch and H. G. Drickamer, The Journal of Chemical Physics 44, 181 (1966).
+[83] K. Watanabe, T. Taniguchi, and H. Kanda, Nature Materials 3, 404 (2004).
+

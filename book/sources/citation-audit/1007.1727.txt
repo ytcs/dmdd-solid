@@ -1,0 +1,1953 @@
+                                                        Asymptotic formulae for likelihood-based tests of new physics
+arXiv:1007.1727v3 [physics.data-an] 24 Jun 2013
+
+
+
+
+                                                                   Glen Cowan1 , Kyle Cranmer2 , Eilam Gross3 , Ofer Vitells3
+
+
+                                                  1 Physics Department, Royal Holloway, University of London, Egham, TW20 0EX, U.K.
+                                                  2 Physics Department, New York University, New York, NY 10003, U.S.A.
+                                                  3 Weizmann Institute of Science, Rehovot 76100, Israel
+
+
+
+
+                                                                                              Abstract
+
+                                                           We describe likelihood-based statistical tests for use in high energy physics for the
+                                                       discovery of new phenomena and for construction of confidence intervals on model pa-
+                                                       rameters. We focus on the properties of the test procedures that allow one to account
+                                                       for systematic uncertainties. Explicit formulae for the asymptotic distributions of test
+                                                       statistics are derived using results of Wilks and Wald. We motivate and justify the use of
+                                                       a representative data set, called the “Asimov data set”, which provides a simple method
+                                                       to obtain the median experimental sensitivity of a search or measurement as well as
+                                                       fluctuations about this expectation.
+
+
+
+
+                                                  Keywords: systematic uncertainties, profile likelihood, hypothesis test, confidence interval,
+                                                  frequentist methods, asymptotic methods
+
+
+
+
+                                                                                                   1
+1       Introduction
+
+In particle physics experiments one often searches for processes that have been predicted
+but not yet seen, such as production of a Higgs boson. The statistical significance of an
+observed signal can be quantified by means of a p-value or its equivalent Gaussian significance
+(discussed below). It is useful to characterize the sensitivity of an experiment by reporting
+the expected (e.g., mean or median) significance that one would obtain for a variety of signal
+hypotheses.
+    Finding both the significance for a specific data set and the expected significance can
+involve Monte Carlo calculations that are computationally expensive. In this paper we in-
+vestigate approximate methods based on results due to Wilks [1] and Wald [2] by which one
+can obtain both the significance for given data as well as the full sampling distribution of the
+significance under the hypothesis of different signal models, all without recourse to Monte
+Carlo. In this way one can find, for example, the median significance and also a measure of
+how much one would expect this to vary as a result of statistical fluctuations in the data.
+    A useful element of the method involves estimation of the median significance by replacing
+the ensemble of simulated data sets by a single representative one, referred to here as the
+“Asimov” data set.1 In the past, this method has been used and justified intuitively (e.g.,
+[4, 5]). Here we provide a formal mathematical justification for the method, explore its
+limitations, and point out several additional aspects of its use.
+    The present paper extends what was shown in Ref. [5] by giving more accurate formulas
+for exclusion significance and also by providing a quantitative measure of the statistical
+fluctuations in discovery significance and exclusion limits. For completeness some of the
+background material from [5] is summarized here.
+    In Sec. 2 the formalism of a search as a statistical test is outlined and the concepts of
+statistical significance and sensitivity are given precise definitions. Several test statistics
+based on the profile likelihood ratio are defined.
+   In Sec. 3, we use the approximations due to Wilks and Wald to find the sampling distri-
+butions of the test statistics and from these find p-values and related quantities for a given
+data sample. In Sec. 4 we discuss how to determine the median significance that one would
+obtain for an assumed signal strength. Several example applications are shown in Sec. 5,
+and numerical implementation of the methods in the RooStats package is described in Sec. 6.
+Conclusions are given in Sec. 7.
+
+
+2       Formalism of a search as a statistical test
+
+In this section we outline the general procedure used to search for a new phenomenon in the
+context of a frequentist statistical test. For purposes of discovering a new signal process,
+one defines the null hypothesis, H0 , as describing only known processes, here designated as
+background. This is to be tested against the alternative H1 , which includes both background
+as well as the sought after signal. When setting limits, the model with signal plus background
+plays the role of H0 , which is tested against the background-only hypothesis, H1 .
+   To summarize the outcome of such a search one quantifies the level of agreement of the
+observed data with a given hypothesis H by computing a p-value, i.e., a probability, under
+    1
+     The name of the Asimov data set is inspired by the short story Franchise, by Isaac Asimov [3]. In it,
+elections are held by selecting the single most representative voter to replace the entire electorate.
+
+
+                                                    2
+assumption of H, of finding data of equal or greater incompatibility with the predictions of H.
+The measure of incompatibility can be based, for example, on the number of events found in
+designated regions of certain distributions or on the corresponding likelihood ratio for signal
+and background. One can regard the hypothesis as excluded if its p-value is observed below
+a specified threshold.
+    In particle physics one usually converts the p-value into an equivalent significance, Z,
+defined such that a Gaussian distributed variable found Z standard deviations above2 its
+mean has an upper-tail probability equal to p. That is,
+
+                                              Z = Φ−1 (1 − p) ,                                                (1)
+
+where Φ−1 is the quantile (inverse of the cumulative distribution) of the standard Gaussian.
+For a signal process such as the Higgs boson, the particle physics community has tended
+to regard rejection of the background hypothesis with a significance of at least Z = 5 as
+an appropriate level to constitute a discovery. This corresponds to p = 2.87 × 10−7 . For
+purposes of excluding a signal hypothesis, a threshold p-value of 0.05 (i.e., 95% confidence
+level) is often used, which corresponds to Z = 1.64.
+    It should be emphasized that in an actual scientific context, rejecting the background-only
+hypothesis in a statistical sense is only part of discovering a new phenomenon. One’s degree
+of belief that a new process is present will depend in general on other factors as well, such as
+the plausibility of the new signal hypothesis and the degree to which it can describe the data.
+Here, however, we only consider the task of determining the p-value of the background-only
+hypothesis; if it is found below a specified threshold, we regard this as “discovery”.
+    It is often useful to quantify the sensitivity of an experiment by reporting the expected
+significance one would obtain with a given measurement under the assumption of various
+hypotheses. For example, the sensitivity to discovery of a given signal process H1 could
+be characterized by the expectation value, under the assumption of H1 , of the value of Z
+obtained from a test of H0 . This would not be the same as the Z obtained using Eq. (1) with
+the expectation of the p-value, however, because the relation between Z and p is nonlinear.
+The median Z and p will, however, satisfy Eq. (1) because this is a monotonic relation.
+Therefore in the following we will take the term ‘expected significance’ always to refer to the
+median.
+    A widely used procedure to establish discovery (or exclusion) in particle physics is based
+on a frequentist significance test using a likelihood ratio as a test statistic. In addition to
+parameters of interest such as the rate (cross section) of the signal process, the signal and
+background models will contain in general nuisance parameters whose values are not taken
+as known a priori but rather must be fitted from the data.
+    It is assumed that the parametric model is sufficiently flexible so that for some value of the
+parameters it can be regarded as true. The additional flexibility introduced to parametrize
+systematic effects results, as it should, in a loss in sensitivity. To the degree that the model is
+not able to reflect the truth accurately, an additional systematic uncertainty will be present
+that is not quantified by the statistical method presented here.
+    To illustrate the use of the profile likelihood ratio, consider an experiment where for each
+selected event one measures the values of certain kinematic variables, and thus the resulting
+   2
+     Some authors, e.g., Ref. [6], have defined this relation using a two-sided fluctuation of a Gaussian variable,
+with a 5σ significance corresponding to p = 5.7 × 10−7 . We take the one-sided definition above as this gives
+Z = 0 for p = 0.5.
+
+
+                                                        3
+data can be represented as one or more histograms. Using the method in an unbinned analysis
+is a straightforward extension.
+    Suppose for each event in the signal sample one measures a variable x and uses these
+values to construct a histogram n = (n1 , . . . , nN ). The expectation value of ni can be written
+
+                                         E[ni ] = µsi + bi ,                                      (2)
+
+where the mean number of entries in the ith bin from signal and background are
+
+                                              Z
+                                  si = stot           fs (x; θ s ) dx ,                           (3)
+                                              bin i
+                                              Z
+                                  bi = btot               fb (x; θ b ) dx .                       (4)
+                                                  bin i
+
+Here the parameter µ determines the strength of the signal process, with µ = 0 corresponding
+to the background-only hypothesis and µ = 1 being the nominal signal hypothesis. The
+functions fs (x; θ s ) and fb (x; θ b ) are the probability density functions (pdfs) of the variable
+x for signal and background events, and θ s and θ b represent parameters that characterize
+the shapes of pdfs. The quantities stot and btot are the total mean numbers of signal and
+background events, and the integrals in (3) and (4) represent the probabilities for an event to
+be found in bin i. Below we will use θ = (θ s , θ b , btot ) to denote all of the nuisance parameters.
+The signal normalization stot is not, however, an adjustable parameter but rather is fixed to
+the value predicted by the nominal signal model.
+    In addition to the measured histogram n one often makes further subsidiary measurements
+that help constrain the nuisance parameters. For example, one may select a control sample
+where one expects mainly background events and from them construct a histogram of some
+chosen kinematic variable. This then gives a set of values m = (m1 , . . . , mM ) for the number
+of entries in each of the M bins. The expectation value of mi can be written
+
+                                          E[mi ] = ui (θ) ,                                       (5)
+
+where the ui are calculable quantities depending on the parameters θ. One often constructs
+this measurement so as to provide information on the background normalization parameter
+btot and also possibly on the signal and background shape parameters.
+   The likelihood function is the product of Poisson probabilities for all bins:
+
+                                  N                                           M
+                                    (µsj + bj )nj                               umk
+                                                           e−(µsj +bj )
+                                  Y                                           Y
+                                                                                   k
+                      L(µ, θ) =                                                          e−uk .   (6)
+                                  j=1
+                                          nj !                                k=1
+                                                                                  mk !
+
+   To test a hypothesized value of µ we consider the profile likelihood ratio
+
+                                                               ˆ
+                                                          L(µ, θ̂)
+                                         λ(µ) =                       .                           (7)
+                                                          L(µ̂, θ̂)
+       ˆ
+Here θ̂ in the numerator denotes the value of θ that maximizes L for the specified µ, i.e.,
+it is the conditional maximum-likelihood (ML) estimator of θ (and thus is a function of µ).
+
+                                                          4
+The denominator is the maximized (unconditional) likelihood function, i.e., µ̂ and θ̂ are their
+ML estimators. The presence of the nuisance parameters broadens the profile likelihood as a
+function of µ relative to what one would have if their values were fixed. This reflects the loss
+of information about µ due to the systematic uncertainties.
+    In many analyses, the contribution of the signal process to the mean number of events is
+assumed to be non-negative. This condition effectively implies that any physical estimator
+for µ must be non-negative. Even if we regard this to be the case, however, it is convenient
+to define an effective estimator µ̂ as the value of µ that maximizes the likelihood, even this
+gives µ̂ < 0 (but providing that the Poisson mean values, µsi + bi , remain nonnegative). This
+will allow us in Sec. 3.1 to model µ̂ as a Gaussian distributed variable, and in this way we can
+determine the distributions of the test statistics that we consider. Therefore in the following
+we will always regard µ̂ as an effective estimator which is allowed to take on negative values.
+
+
+2.1   Test statistic tµ = −2 ln λ(µ)
+
+From the definition of λ(µ) in Eq. (7), one can see that 0 ≤ λ ≤ 1, with λ near 1 implying good
+agreement between the data and the hypothesized value of µ. Equivalently it is convenient
+to use the statistic
+
+                                        tµ = −2 ln λ(µ)                                     (8)
+
+as the basis of a statistical test. Higher values of tµ thus correspond to increasing incompat-
+ibility between the data and µ.
+    We may define a test of a hypothesized value of µ by using the statistic tµ directly
+as measure of discrepancy between the data and the hypothesis, with higher values of tµ
+correspond to increasing disagreement. To quantify the level of disagreement we compute
+the p-value,
+                                          Z ∞
+                                   pµ =            f (tµ |µ) dtµ ,                          (9)
+                                          tµ,obs
+
+where tµ,obs is the value of the statistic tµ observed from the data and f (tµ |µ) denotes the
+pdf of tµ under the assumption of the signal strength µ. Useful approximations for this and
+other related pdfs are given in Sec. 3.3. The relation between the p-value and the observed
+tµ and also with the significance Z are illustrated in Fig. 1.
+    When using the statistic tµ , a data set may result in a low p-value in two distinct ways:
+the estimated signal strength µ̂ may be found greater or less than the hypothesized value µ.
+As a result, the set of µ values that are rejected because their p-values are found below a
+specified threshold α may lie to either side of those values not rejected, i.e., one may obtain
+a two-sided confidence interval for µ.
+
+
+2.2   Test statistic t̃µ for µ ≥ 0
+
+Often one assumes that the presence of a new signal can only increase the mean event rate
+beyond what is expected from background alone. That is, the signal process necessarily has
+µ ≥ 0, and to take this into account we define an alternative test statistic below called t̃µ .
+
+
+
+                                                   5
+                                                        ϕ(x)
+ (a)                                                                                               (b)
+           f(tµ|µ)
+                     tµ,obs
+
+
+                                p−value
+                                                                                         p−value
+
+
+                                          tµ                                         Z         x
+
+Figure 1: (a) Illustration of the relation between the p-value obtained√ from an observed value of
+the test statistic tµ . (b) The standard normal distribution ϕ(x) = (1/ 2π) exp(−x2 /2) showing the
+relation between the significance Z and the p-value.
+
+
+    For a model where µ ≥ 0, if one finds data such that µ̂ < 0, then the best level of
+agreement between the data and any physical value of µ occurs for µ = 0. We therefore
+define
+                                                 ˆ
+                                              L(µ,θ̂(µ))
+                                            
+                                                              µ̂ ≥ 0,
+                                                L(µ̂,θ̂)
+                                  λ̃(µ) =         ˆ
+                                                                                                    (10)
+                                             L(µ,θ̂(µ))       µ̂ < 0 .
+                                            
+                                            
+                                                    ˆ
+                                                L(0,θ̂(0))
+
+      ˆ         ˆ
+Here θ̂(0) and θ̂(µ) refer to the conditional ML estimators of θ given a strength parameter
+of 0 or µ, respectively.
+    The variable λ̃(µ) can be used instead of λ(µ) in Eq. (8) to obtain the corresponding test
+statistic, which we denote t̃µ . That is,
+                                               
+                                                           ˆ
+                                                       L(µ,θ̂(µ))
+                                                −2 ln                    µ̂ < 0 ,
+                                               
+                                               
+                                                           ˆ
+                        t̃µ = −2 ln λ̃(µ) =            L(0,θ̂(0))                                   (11)
+                                                           ˆ
+                                                −2 ln L(µ,θ̂(µ))         µ̂ ≥ 0 .
+                                               
+                                               
+                                                        L(µ̂,θ̂)
+
+   As was done with the statistic tµ , one can quantify the level of disagreement between the
+data and the hypothesized value of µ with the p-value, just as in Eq. (9). For this one needs
+the distribution of t̃µ , an approximation of which is given in Sec. 3.4.
+    Also similar to the case of tµ , values of µ both above and below µ̂ may be excluded by a
+given data set, i.e., one may obtain either a one-sided or two-sided confidence interval for µ.
+For the case of no nuisance parameters, the test variable t̃µ is equivalent to what is used in
+constructing confidence intervals according to the procedure of Feldman and Cousins [8].
+
+
+2.3    Test statistic q0 for discovery of a positive signal
+
+An important special case of the statistic t̃µ described above is used to test µ = 0 in a class
+of model where we assume µ ≥ 0. Rejecting the µ = 0 hypothesis effectively leads to the
+discovery of a new signal. For this important case we use the special notation q0 = t̃0 . Using
+the definition (11) with µ = 0 one finds
+
+
+
+                                                    6
+                                        
+                                         −2 ln λ(0)              µ̂ ≥ 0 ,
+                                 q0 =                                                          (12)
+                                        0                        µ̂ < 0 ,
+
+where λ(0) is the profile likelihood ratio for µ = 0 as defined in Eq. (7).
+    We may contrast this to the statistic t0 , i.e., Eq. (8), used to test µ = 0. In that case
+one may reject the µ = 0 hypothesis for either an upward or downward fluctuation of the
+data. This is appropriate if the presence of a new phenomenon could lead to an increase or
+decrease in the number of events found. In an experiment looking for neutrino oscillations,
+for example, the signal hypothesis may predict a greater or lower event rate than the no-
+oscillation hypothesis.
+    When using q0 , however, we consider the data to show lack of agreement with the
+background-only hypothesis only if µ̂ > 0. That is, a value of µ̂ much below zero may
+indeed constitute evidence against the background-only model, but this type of discrepancy
+does not show that the data contain signal events, but rather points to some other systematic
+error. For the present discussion, however, we assume that the systematic uncertainties are
+dealt with by the nuisance parameters θ.
+   If the data fluctuate such that one finds fewer events than even predicted by background
+processes alone, then µ̂ < 0 and one has q0 = 0. As the event yield increases above the
+expected background, i.e., for increasing µ̂, one finds increasingly large values of q0 , corre-
+sponding to an increasing level of incompatibility between the data and the µ = 0 hypothesis.
+    To quantify the level of disagreement between the data and the hypothesis of µ = 0 using
+the observed value of q0 we compute the p-value in the same manner as done with tµ , namely,
+                                             Z ∞
+                                     p0 =                 f (q0 |0) dq0 .                      (13)
+                                                 q0,obs
+
+Here f (q0 |0) denotes the pdf of the statistic q0 under assumption of the background-only
+(µ = 0) hypothesis. An approximation for this and other related pdfs are given in Sec. 3.5.
+
+
+2.4   Test statistic qµ for upper limits
+
+For purposes of establishing an upper limit on the strength parameter µ, we consider two
+closely related test statistics. First, we may define
+
+                                             −2 ln λ(µ) µ̂ ≤ µ ,
+                                         (
+                                  qµ =                                                         (14)
+                                             0                   µ̂ > µ ,
+
+where λ(µ) is the profile likelihood ratio as defined in Eq. (7). The reason for setting qµ = 0
+for µ̂ > µ is that when setting an upper limit, one would not regard data with µ̂ > µ as
+representing less compatibility with µ than the data obtained, and therefore this is not taken
+as part of the rejection region of the test. From the definition of the test statistic one sees that
+higher values of qµ represent greater incompatibility between the data and the hypothesized
+value of µ.
+    One should note that q0 is not simply a special case of qµ with µ = 0, but rather has a
+different definition (see Eqs. (12) and (14)). That is, q0 is zero if the data fluctuate downward
+(µ̂ < 0), but qµ is zero if the data fluctuate upward (µ̂ > µ). With that caveat in mind, we will
+
+                                                          7
+often refer in the following to qµ with the idea that this means either q0 or qµ as appropriate
+to the context.
+   As with the case of discovery, one quantifies the level of agreement between the data and
+hypothesized µ with p-value. For, e.g., an observed value qµ,obs , one has
+                                             Z ∞
+                                     pµ =             f (qµ|µ) dqµ ,                            (15)
+                                             qµ,obs
+
+which can be expressed as a significance using Eq. (1). Here f (qµ |µ) is the pdf of qµ assuming
+the hypothesis µ. In Sec. 3.6 we provide useful approximations for this and other related
+pdfs.
+
+
+2.5   Alternative test statistic q̃µ for upper limits
+
+For the case where one considers models for which µ ≥ 0, the variable λ̃(µ) can be used
+instead of λ(µ) in Eq. (14) to obtain the corresponding test statistic, which we denote q̃µ .
+That is,
+                                                                     ˆ
+                                                         
+                                                          
+                                                           −2 ln L(µ,θ̂(µ))
+                                                                      ˆ          µ̂ < 0 ,
+                       −2 ln λ̃(µ) µ̂ ≤ µ                
+                                                                 L(0,θ̂(0))
+              q̃µ =                             =                       ˆ                       (16)
+                                                                    L(µ,θ̂(µ))
+                      0            µ̂ > µ                  −2 ln                0 ≤ µ̂ ≤ µ ,
+                                                                     L(µ̂,θ̂)
+                                                          
+                                                          
+                                                          
+                                                          
+                                                            0                    µ̂ > µ .
+                                                          
+
+
+We give an approximation for the pdf f (q̃µ |µ′ ) in Sec. 3.7.
+    In numerical examples we have found that the difference between the tests based on qµ
+(Eq. (14)) and q̃µ usually to be negligible, but use of qµ leads to important simplifications.
+Furthermore, in the context of the approximation used in Sec. 3, the two statistics are equiv-
+alent. That is, assuming the approximations below, qµ can be expressed as a monotonic
+function of q̃µ and thus they lead to the same results.
+
+
+3     Approximate sampling distributions
+
+In order to find the p-value of a hypothesis using Eqs. (13) or (15) we require the sampling
+distribution for the test statistic being used. In the case of discovery we are testing the
+background-only hypothesis (µ = 0) and therefore we need f (q0 |0), where q0 is defined by
+Eq. (12). When testing a nonzero value of µ for purposes of finding an upper limit we need
+the distribution f (qµ|µ) where qµ is defined by Eq. (14), or alternatively we require the pdf
+of the corresponding statistic q̃µ as defined by Eq. (16). In this notation the subscript of q
+refers to the hypothesis being tested, and the second argument in f (qµ |µ) gives the value of
+µ assumed in the distribution of the data.
+   We also need the distribution f (qµ |µ′ ) with µ 6= µ′ to find what significance to expect and
+how this is distributed if the data correspond to a strength parameter different from the one
+being tested. For example, it is useful to characterize the sensitivity of a planned experiment
+by quoting the median significance, assuming data distributed according to a specified signal
+model, with which one would expect to exclude the background-only hypothesis. For this one
+would need f (q0 |µ′ ), usually with µ′ = 1. From this one can find the median q0 , and thus the
+
+
+                                                      8
+median discovery significance. When considering upper limits, one would usually quote the
+value of µ for which the median p-value is equal to 0.05, as this gives the median upper limit
+on µ at 95% confidence level. In this case one would need f (qµ|0) (or alternatively f (q̃µ |0)).
+   In Sec. 3.1 we present an approximation for the profile likelihood ratio, valid in the large
+sample limit. This allows one to obtain approximations for all of the required distributions,
+which are given in Sections 3.3 through 3.6 The approximations become exact in the large
+sample limit and are in fact found to provide accurate results even for fairly small sample sizes.
+For very small data samples one always has the possibility of using Monte Carlo methods to
+determine the required distributions.
+
+
+3.1    Approximate distribution of the profile likelihood ratio
+
+Consider a test of the strength parameter µ, which here can either be zero (for discovery) or
+nonzero (for an upper limit), and suppose the data are distributed according to a strength
+parameter µ′ . The desired distribution f (qµ|µ′ ) can be found using a result due to Wald [2],
+who showed that for the case of a single parameter of interest,
+
+                                                (µ − µ̂)2       √
+                                − 2 ln λ(µ) =             + O(1/  N) .                        (17)
+                                                   σ2
+Here µ̂ follows a Gaussian distribution with a mean µ′ and standard deviation σ, and N
+represents the data sample size. The standard deviation σ of µ̂ is obtained from the covariance
+matrix of the estimators for all the parameters, Vij = cov[θ̂i , θ̂j ], where here the θi represent
+both µ as well as the nuisance parameters (e.g., take θ0 = µ, so σ 2 = V00 ). In the large-
+sample limit, the bias of ML estimators in general tend to zero, in which case we can write
+the inverse of the covariance matrix as
+                                                    "           #
+                                                  ∂ 2 ln L
+                                       Vij−1 = −E                   ,                         (18)
+                                                  ∂θi ∂θj
+
+where the expectation value assumes a strength
+                                          √      parameter µ′ . The approximations presented
+here are valid to the extent that the O(1/ N ) term can be neglected, and the value of σ can
+be estimated, e.g., using Eq. (18). In Sec. 3.2 we present an alternative way to estimate σ
+which lends itself more directly to determination of the median significance.
+                                                         √
+   If µ̂ is Gaussian distributed and we neglect the O(1/ N ) term in Eq. (17), then one can
+show that the statistic tµ = −2 ln λ(µ) follows a noncentral chi-square distribution for one
+degree of freedom (see, e.g., [9]),
+
+
+                   1   1
+                            
+                                1 p
+                                       √ 2         1 p
+                                                            √ 2                  
+      f (tµ ; Λ) = √ √    exp −     tµ + Λ   + exp −     tµ − Λ                          ,    (19)
+                  2 tµ 2π       2                    2
+
+where the noncentrality parameter Λ is
+
+                                                 (µ − µ′ )2
+                                          Λ=                .                                 (20)
+                                                    σ2
+For the special case µ′ = µ one has Λ = 0 and −2 ln λ(µ) approaches a chi-square distribution
+for one degree of freedom, a result shown earlier by Wilks [1].
+
+                                                   9
+     The results of Wilks and Wald generalize to more than one parameter of interest. If
+the parameters of interest can be explicitly identified with a subset of the parameters θ r =
+(θ1 , . . . , θr ), then the distribution of −2 ln λ(θ r ) follows a noncentral chi-square distribution
+for r-degrees of freedom with noncentrality parameter
+
+                                        r
+                                        X
+                                Λr =        (θi − θi′ ) Ṽij−1 (θj − θj′ ) ,                      (21)
+                                        i,j=1
+
+
+where Ṽij−1 is the inverse of the submatrix one obtains from restricting the full covariance
+matrix to the parameters of interest. The full covariance matrix is given from inverting
+Eq. (18), and we show an efficient way to calculate it in Sec. 3.2.
+
+
+3.2    The Asimov data set and the variance of µ̂
+
+Some of the formulae given require the standard deviation σ of µ̂, which is assumed to follow
+a Gaussian distribution with a mean of µ′ . Below we show two ways of estimating σ, both of
+which are closely related to a special, artificial data set that we call the “Asimov data set”.
+    We define the Asimov data set such that when one uses it to evaluate the estimators for
+all parameters, one obtains the true parameter values. Consider the likelihood function for
+the generic analysis given by Eq. (6). To simplify the notation in this section we define
+
+                                            ν i = µ ′ s i + bi .                                  (22)
+
+Further let θ0 = µ represent the strength parameter, so that here θi can stand for any of the
+parameters. The ML estimators for the parameters can be found by setting the derivatives
+of ln L with respect to all of the parameters equal to zero:
+
+                               N             M
+                      ∂ ln L X    ni    ∂νi X   mi    ∂ui
+                                                                       
+                            =        −1    +       −1     =0.                                     (23)
+                       ∂θj    i=1
+                                  νi    ∂θj i=1 ui    ∂θj
+
+This condition holds if the Asimov data, ni,A and mi,A , are equal to their expectation values:
+
+
+                             ni,A = E[ni ] = νi = µ′ si (θ) + bi (θ) ,                            (24)
+
+                             mi,A = E[mi ] = ui (θ) .                                             (25)
+
+Here the parameter values represent those implied by the assumed distribution of the data.
+In practice, these are the values that would be estimated from the Monte Carlo model using
+a very large data sample.
+    We can use the Asimov data set to evaluate the “Asimov likelihood” LA and the cor-
+responding profile likelihood ratio λA . The use of non-integer values for the data is not a
+problem as the factorial terms in the Poisson likelihood represent constants that cancel when
+forming the likelihood ratio, and thus can be dropped. One finds
+
+                                                   ˆ             ˆ
+                                            LA (µ, θ̂)  LA (µ, θ̂)
+                                 λA (µ) =             =             ,                             (26)
+                                          LA (µ̂, θ̂)   LA (µ′ , θ)
+
+                                                    10
+where the final equality above exploits the fact that the estimators for the parameters are
+equal to their hypothesized values when the likelihood is evaluated with the Asimov data set.
+    A standard way to find σ is by estimating the matrix of second derivatives of the log-
+likelihood function (cf. Eq. (18)) to obtain the inverse covariance matrix V −1 , inverting to
+find V , and then extracting the element V00 corresponding to the variance of µ̂. The second
+derivative of ln L is
+
+
+                                        N 
+                                          "                                  #
+                    ∂ 2 ln L                ni        ∂ 2 νi   ∂νi ∂νi ni
+                                        X              
+                                =                 −1         −
+                    ∂θj ∂θk             i=1
+                                               νi    ∂θj ∂θk   ∂θj ∂θk νi2
+
+                                        M 
+                                          "                                  #
+                                            mi        ∂ 2 ui   ∂ui ∂ui mi
+                                        X               
+                                +                 −1         −                   .         (27)
+                                        i=1
+                                               ui    ∂θj ∂θk   ∂θj ∂θk u2i
+
+From (27) one sees that the second derivative of ln L is linear in the data values ni and mi .
+Thus its expectation value is found simply by evaluating with the expectation values of the
+data, which is the same as the Asimov data. One can therefore obtain the inverse covariance
+matrix from
+
+                                                    N              M
+                        "           #
+              −1            ∂ 2 ln L    ∂ 2 ln LA X    ∂νi ∂νi 1 X    ∂ui ∂ui 1
+            Vjk  = −E                =−          =               +               .         (28)
+                            ∂θj ∂θk     ∂θj ∂θk    i=1
+                                                       ∂θj ∂θk νi i=1 ∂θj ∂θk ui
+
+In practice one could, for example, evaluate the the derivatives of ln LA numerically, use this
+to find the inverse covariance matrix, and then invert and extract the variance of µ̂. One can
+see directly from Eq. (28) that this variance depends on the parameter values assumed for
+the Asimov data set, in particular on the assumed strength parameter µ′ , which enters via
+Eq. (22).
+    Another method for estimating σ (denoted σA in this section to distinguish it from the
+approach above based on the second derivatives of ln L) is to find find the value that is neces-
+sary to recover the known properties of −λA (µ). Because the Asimov data set corresponding
+to a strength µ′ gives µ̂ = µ′ , from Eq. (17) one finds
+
+                                                        (µ − µ′ )2
+                                    − 2 ln λA (µ) ≈                =Λ.                     (29)
+                                                           σ2
+That is, from the Asimov data set one obtains an estimate of the noncentrality parameter Λ
+that characterizes the distribution f (qµ|µ′ ). Equivalently, one can use Eq. (29) to obtain the
+variance σ 2 which characterizes the distribution of µ̂, namely,
+
+                                               2     (µ − µ′ )2
+                                              σA =              ,                          (30)
+                                                       qµ,A
+
+where qµ,A = −2 ln λA (µ). For the important case where one wants to find the median
+exclusion significance for the hypothesis µ assuming that there is no signal, then one has
+µ′ = 0 and therefore
+
+                                                2       µ2
+                                               σA =         ,                              (31)
+                                                       qµ,A
+
+                                                      11
+and for the modified statistic q̃µ the analogous relation holds. For the case of discovery where
+one tests µ = 0 one has
+
+                                              2       µ′ 2
+                                             σA =          .                                          (32)
+                                                      q0,A
+
+    The two methods for obtaining σ and Λ — from the Fisher information matrix or from
+qµ,A — are not identical, but were found to provide similar results in examples of of practical
+interest. In several cases that we considered, the distribution based on σA provided a better
+approximation to the true sampling distribution than the standard approach based on the
+Fisher information matrix, leading to the conjecture that it may effectively incorporate some
+higher-order terms in Eq. (17).
+    This can be understood qualitatively by noting that under assumption of the Wald ap-
+proximation, the test statistics q0 , qµ and q̃µ are monotonically related to µ̂, and therefore
+their median values can be found directly by using the median of µ̂, which is µ′ . But mono-
+tonicity is a weaker condition than the full Wald approximation. That is, even if higher-order
+terms are present in Eq. (17), they will not alter the distribution’s median as long as they
+do not break the monotonicity of the relation between the test statistic and µ̂. If one uses
+σA one obtains distributions with medians given by the corresponding Asimov values, q0,A
+or qµ,A , and these values will be correct to the extent that monotonicity holds.
+
+
+3.3   Distribution of tµ
+
+Consider first using the statistic tµ = −2 ln λ(µ) of Sec. 2.1 as the basis of the statistical
+test of a hypothesized value of µ. This could be a test of µ = 0 for purposes of establishing
+existence of a signal process, or non-zero values of µ for purposes of obtaining a confidence
+interval. To find the p-value pµ , we require the pdf f (tµ |µ), and to find the median p-value
+assuming a different strength parameter we will need f (tµ |µ′ ).
+   The pdf f (tµ |µ′ ) is given by Eq. (19), namely,
+
+                        "                                 2 !                               2 !#
+              1   1        1 p     µ − µ′                                1 p     µ − µ′
+                                                                            
+       ′
+ f (tµ |µ ) = √ √    exp −    tµ +                               + exp −    tµ −                     . (33)
+             2 tµ 2π       2         σ                                   2         σ
+
+The special case µ = µ′ is simply a chi-square distribution for one degree of freedom:
+
+                                                 1  1
+                                    f (tµ |µ) = √ √ e−tµ /2 .                                         (34)
+                                                 2π tµ
+
+The cumulative distribution of tµ assuming µ′ is
+
+                                             µ − µ′                       µ − µ′
+                                                                                
+                  F (tµ |µ′ ) = Φ
+                                     p                          p
+                                      tµ +                +Φ       tµ −                −1,            (35)
+                                               σ                            σ
+
+where Φ is the cumulative distribution of the standard (zero mean, unit variance) Gaussian.
+The special case µ = µ′ is therefore
+
+                                                          p 
+                                     F (tµ |µ) = 2Φ        tµ − 1 ,                                   (36)
+
+                                                  12
+The p-value of a hypothesized value of µ for an observed value tµ is therefore
+
+                                                                           p 
+                                     pµ = 1 − F (tµ |µ) = 2 1 − Φ             tµ     ,                                   (37)
+
+and the corresponding significance is
+
+                                Zµ = Φ−1 (1 − pµ ) = Φ−1 2Φ
+                                                                         p              
+                                                                            tµ − 1 .                                     (38)
+
+If the p-value is found below a specified threshold α (often one takes α = 0.05), then the
+value of µ is said to be excluded at a confidence level (CL) of 1 − α. The set of points not
+excluded form a confidence interval with CL = 1 − α. Here the endpoints of the interval can
+be obtained simply by setting pµ = α and solving for µ. Assuming the Wald approximation
+(17) and using Eq. (37) one finds
+
+                                         µup/lo = µ̂ ± σΦ−1 (1 − α/2) .                                                  (39)
+
+One subtlety with this formula is that σ itself depends at some level on µ. In practice to find
+the upper and lower limits one can simply solve numerically to find those values of µ that
+satisfy pµ = α.
+
+
+3.4    Distribution of t̃µ
+
+Assuming the Wald approximation, the statistic t̃µ as defined by Eq. (11) can be written
+                                                 2
+                                                 µ2 − 2µµ̂
+                                                         2          µ̂ < 0 ,
+                                                  σ         σ
+                                        t̃µ =                                                                            (40)
+                                                 (µ−µ̂)2
+                                                      σ2            µ̂ ≥ 0 .
+
+From this the pdf f (t̃µ |µ′ ) is found to be
+
+
+                                                    µ − µ′ 2
+                                       "                   #
+                               1 1  1
+                                            q
+                      ′
+            f (t̃µ |µ ) =       √ q exp − 2
+                                          1
+                                              t̃µ +                                                                      (41)
+                               2 2π t̃                σ
+                                           µ
+
+                                               "     q                  2 #
+                                 1 √1 √1                             µ−µ′
+                                                                                             t̃µ ≤ µ2 /σ 2 ,
+                                                  1
+                                 2 2π t̃µ exp − 2           t̃µ − σ
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                          +                                  2
+                                                                        
+                                                                      ′ 2                                       .        (42)
+                                                      t̃µ − µ −2µµ2
+                                 √ 1
+                                                                 σ
+                                                                                                   > µ2 /σ 2
+                               
+                                            exp − 12                                        t̃µ
+                               
+                                                                        
+                               
+                               
+                                  2π(2µ/σ)                (2µ/σ)2        
+                               
+
+
+The special case µ = µ′ is therefore
+
+
+                      √1 √1 e−t̃µ /2                                                               t̃µ ≤ µ2 /σ 2 ,
+                    
+                    
+                     2π t̃µ
+                    
+   f (t̃µ |µ′ ) =                                                                                                    .   (43)
+                                                                       (t̃µ +µ2 /σ2 )2
+                                                                h                        i
+                     21 √1 √1 e−t̃µ /2 + √        1
+                                                         exp    − 21                               t̃µ > µ2 /σ 2 .
+                    
+                    
+                          2π   t̃µ              2π(2µ/σ)                   (2µ/σ)2
+
+
+
+                                                           13
+The corresponding cumulative distribution is
+
+                                                  q          
+                                                          µ−µ′
+                                                 Φ
+                                                    t̃µ − σ     −1                           t̃µ ≤ µ2 /σ 2 ,
+                                µ − µ′
+                         q                     
+             ′
+      F (t̃µ |µ ) = Φ     t̃µ +              +                                                                      (44)
+                                  σ               Φ t̃µ −(µ2 −2µµ′ )/σ2 − 1
+                                                                      
+                                                                                              t̃µ   > µ2 /σ 2 .
+                                                 
+                                                                 2µ/σ
+
+
+For µ = µ′ this is
+                                  q 
+                                  2Φ
+                                 
+                                     t̃µ − 1                                       t̃µ ≤ µ2 /σ 2 ,
+                  F (t̃µ |µ) =      q                                                                             (45)
+                                                   2  2
+                                                       
+                                      t̃ + Φ t̃µ +µ /σ − 1
+                                 
+                                 Φ                                                 t̃µ   > µ2 /σ 2 .
+                                 
+                                         µ                    2µ/σ
+
+The p-value of the hypothesized µ is given by one minus the cumulative distribution, under
+assumption of the parameter µ,
+
+                                             pµ = 1 − F (t̃µ |µ) .                                                  (46)
+
+The corresponding significance is Zµ = Φ−1 (1 − pµ ).
+    A confidence interval for µ at confidence level CL = 1 − α can be constructed from the set
+µ values for which the p-value is not less than α. To find the endpoints of this interval, one
+can set pµ from Eq. (46) equal to α and solve for µ. In general this must be done numerically.
+In the large sample limit, i.e., assuming the validity of the asymptotic approximations, these
+intervals correspond to the limits of Feldman and Cousins [8] for the case where physical
+range of the parameter µ is µ ≥ 0.
+
+
+3.5   Distribution of q0 (discovery)
+
+Assuming the validity of the approximation (17), one has −2 ln λ(0) = µ̂2 /σ 2 . From the
+definition (12) of q0 , we therefore have
+                                                 
+                                                  µ̂2 /σ 2          µ̂ ≥ 0 ,
+                                      q0 =                                                                          (47)
+                                                 0                  µ̂ < 0 ,
+
+where µ̂ follows a Gaussian distribution with mean µ′ and standard deviation σ. From this
+one can show that the pdf of q0 has the form
+                                                                                "                        2 #
+                               µ′                    1 1  1     1 √     µ′
+                                                                                      
+                     ′
+            f (q0 |µ ) = 1 − Φ               δ(q0 ) + √ √ exp −    q0 −                                         .   (48)
+                               σ                     2 2π q0    2       σ
+
+For the special case of µ′ = 0, this reduces to
+
+                                            1        1 1  1
+                                 f (q0 |0) = δ(q0 ) + √ √ e−q0 /2 .                                                 (49)
+                                            2        2 2π q0
+
+
+
+
+                                                         14
+That is, one finds a mixture of a delta function at zero and a chi-square distribution for one
+degree of freedom, with each term having a weight of 1/2. In the following we will refer to
+this mixture as a half chi-square distribution or 12 χ21 .
+   From Eq. (48) the corresponding cumulative distribution is found to be
+
+                                                             √        µ′
+                                                                          
+                                               ′
+                                  F (q0 |µ ) = Φ                 q0 −          .                  (50)
+                                                                      σ
+
+The important special case µ′ = 0 is therefore simply
+                                                              √ 
+                                        F (q0 |0) = Φ              q0 .                           (51)
+
+The p-value of the µ = 0 hypothesis (see Eq. (13)) is
+
+                                          p0 = 1 − F (q0 |0) ,                                    (52)
+
+and therefore using Eq. (1) for the significance one obtains the simple formula
+
+                                                                     √
+                                     Z0 = Φ−1 (1 − p0 ) =             q0 .                        (53)
+
+
+3.6   Distribution of qµ (upper limits)
+
+Assuming the validity of the Wald approximation, we can write the test statistic used for
+upper limits, Eq. (14) as
+                                                   
+                                                    (µ−µ̂)2      µ̂ < µ ,
+                                                        σ2
+                                  qµ =                                                            (54)
+                                                   0             µ̂ > µ ,
+
+where µ̂ as before follows a Gaussian centred about µ′ with a standard deviation σ.
+   The pdf f (qµ|µ′ ) is found to be
+                                                                           "           2 #
+                         µ′ − µ         1 1  1     1 √      µ − µ′
+                                                                                 
+                 ′
+          f (qµ |µ ) = Φ        δ(qµ ) + √ √ exp −     qµ −                                   ,   (55)
+                            σ           2 2π qµ    2          σ
+
+so that the special case µ = µ′ is a half-chi-square distribution:
+
+                                              1         1 1  1
+                            f (qµ |µ) =         δ(qµ ) + √ √ e−qµ /2 .                            (56)
+                                              2         2 2π qµ
+
+The cumulative distribution is
+
+                                                        √         µ − µ′
+                                                                              
+                                          ′
+                               F (qµ |µ ) = Φ                qµ −                  ,              (57)
+                                                                    σ
+
+and the corresponding special case µ′ = µ is thus the same as what was found for q0 , namely,
+                                                              √     
+                                       F (qµ |µ) = Φ               qµ .                           (58)
+
+                                                        15
+The p-value of the hypothesized µ is
+                                                                          √        
+                                 pµ = 1 − F (qµ |µ) = 1 − Φ                   qµ                              (59)
+
+and therefore the corresponding significance is
+
+                                                                       √
+                                      Zµ = Φ−1 (1 − pµ ) =                 qµ .                               (60)
+
+As with the statistic tµ above, if the p-value is found below a specified threshold α (often
+one takes α = 0.05), then the value of µ is said to be excluded at a confidence level (CL) of
+1 − α. The upper limit on µ is the largest µ with pµ ≤ α. Here this can be obtained simply
+by setting pµ = α and solving for µ. Using Eqs. (54) and (59) one finds
+
+                                        µup = µ̂ + σΦ−1 (1 − α) .                                             (61)
+
+For example, α = 0.05 gives Φ−1 (1 − α) = 1.64. Also as noted above, σ depends in general on
+the hypothesized µ. Thus in practice one may find the upper limit numerically as the value
+of µ for which pµ = α.
+
+
+3.7    Distribution of q̃µ (upper limits)
+
+Using the alternative statistic q̃µ defined by Eq. (16) and assuming the Wald approximation
+we find
+                                          2
+                                           µ    2µµ̂
+                                          σ2 − σ2                µ̂ < 0 ,
+                                         
+                                         
+                                         
+                                q̃µ =         (µ−µ̂)2                                                         (62)
+                                                 σ2
+                                                                  0 ≤ µ̂ ≤ µ ,
+                                         
+                                         
+                                              0                   µ̂ > µ .
+                                         
+
+
+The pdf f (q̃µ |µ′ ) is found to be
+
+
+                          µ′ − µ
+                                       
+                  ′
+           f (q̃µ|µ ) = Φ        δ(q̃µ )
+                             σ
+                                                        
+                                                    µ−µ′ 2
+                                            p
+                             1  1  1       1
+                           
+                           2  √  √
+                                 2π
+                                     exp − 2   q̃µ − σ                                  0 < q̃µ ≤ µ2 /σ 2 ,
+                                       q̃µ
+                      +                                                                                       (63)
+                                                           (q̃ −(µ2 −2µµ′ )/σ2 )2
+                                                 h                                 i
+                                   1
+                                         exp           − 21 µ (2µ/σ)2                     q̃µ   > µ2 /σ 2 .
+                           
+                           √
+                                2π(2µ/σ)
+
+
+The special case µ = µ′ is therefore
+                                 
+                                   1 √1 √1   −q̃µ /2
+                                  2 2π q̃µ e
+                                                                     0 < q̃µ ≤ µ2 /σ 2 ,
+                      1
+                                 
+           f (q̃µ|µ) = δ(q̃µ ) +                                                                              (64)
+                      2          √ 1
+                                                 h
+                                                     (q̃ +µ2 /σ2 )2
+                                                                    i
+                                            exp − 12 µ(2µ/σ)2           q̃µ > µ2 /σ 2 .
+                                 
+                                 
+                                        2π(2µ/σ)
+
+The corresponding cumulative distribution is
+
+
+                                                            16
+                                   p         ′
+                                                 
+                                  Φ
+                                  
+                                     q̃µ − µ−µ
+                                             σ                        0 < q̃µ ≤ µ2 /σ 2 ,
+                          ′
+                  F (q̃µ |µ ) =                                                             (65)
+                                             2         2
+                                                 ′
+                                                         
+                                   Φ q̃µ −(µ −2µµ )/σ                      > µ2 /σ 2 .
+                                  
+                                                                      q̃µ
+                                  
+                                               2µ/σ
+
+The special case µ = µ′ is
+                                      p 
+                                     Φ
+                                     
+                                        q̃µ                    0 < q̃µ ≤ µ2 /σ 2 ,
+                      F (q̃µ |µ) =                                                          (66)
+                                               2   2
+                                                    
+                                      Φ q̃µ +µ /σ                    > µ2 /σ 2 .
+                                     
+                                                                q̃µ
+                                     
+                                               2µ/σ
+
+The p-value of the hypothesized µ is as before given by one minus the cumulative distribution,
+
+                                          pµ = 1 − F (q̃µ |µ) ,                             (67)
+
+and therefore the corresponding significance is
+
+                                                           0 < q̃µ ≤ µ2 /σ 2 ,
+                                     p
+                                      q̃µ
+                                     
+                              Zµ =                                                          (68)
+                                      q̃µ +µ2 /σ2
+                                                           q̃µ > µ2 /σ 2 .
+                                     
+                                          2µ/σ
+
+   As when using qµ , the upper limit on µ at confidence level 1−α is found by setting pµ = α
+and solving for µ, which reduces to the same result as found when using qµ , namely,
+
+                                      µup = µ̂ + σΦ−1 (1 − α) .                             (69)
+
+That is, to the extent that the Wald approximation holds, the two statistics qµ and q̃µ lead
+to identical upper limits.
+
+
+3.8   Distribution of −2 ln(Ls+b /Lb )
+
+Many analyses carried out at the Tevatron Collider (e.g., [10]) involving searches for a new
+signal process have been based on the statistic
+
+                                                           Ls+b
+                                           q = −2 ln            ,                           (70)
+                                                            Lb
+where Ls+b is the likelihood of the nominal signal model and Lb is that of the background-
+only hypothesis. That is, the s + b corresponds to having the strength parameter µ = 1 and
+Lb refers to µ = 0. The statistic q can therefore be written
+
+                                            ˆ
+                                   L(µ = 1, θ̂(1))
+                     q = −2 ln                     = −2 ln λ(1) + 2 ln λ(0) .               (71)
+                                            ˆ
+                                   L(µ = 0, θ̂(0))
+
+   Assuming the validity of the Wald approximation (17), q is given by
+
+                                        (µ̂ − 1)2   µ̂2   1 − 2µ̂
+                                   q=         2
+                                                  −   2
+                                                        =         ,                         (72)
+                                            σ       σ       σ2
+
+                                                      17
+where as previously σ 2 is the variance of µ̂. As µ̂ follows a Gaussian distribution, the distri-
+bution of q is also seen to be Gaussian, with a mean value of
+
+                                                        1 − 2µ
+                                            E[q] =                                          (73)
+                                                          σ2
+and a variance of
+
+                                                           4
+                                                 V [q] =      .                             (74)
+                                                           σ2
+That is, the standard deviation of q is σq = 2/σ, where the standard deviation of µ̂, σ, can
+be estimated, e.g., using the second derivatives of the log-likelihood function as described in
+Sec. 3.1 or with the methods discussed in Sec. 3.2. Recall that in general σ depends on the
+hypothesized value of µ; here we will refer to these as σb and σs+b for the µ = 0 and µ = 1
+hypotheses, respectively.
+    From Eq. (73) one sees that for the s + b hypothesis (µ = 1) the values of q tend to be
+lower, and for the b hypothesis (µ = 0) they are higher. Therefore we can find the p-values
+for the two hypothesis from
+
+                                                                              2
+                                                                                   !
+                                                                   qobs + 1/σs+b
+                              Z ∞
+                    ps+b =            f (q|s + b) dq = 1 − Φ                           ,    (75)
+                               qobs                                    2/σs+b
+                                                                        !
+                                                 qobs − 1/σb2
+                              Z qobs
+                     pb =         f (q|b) dq = Φ                            ,               (76)
+                               −∞                    2/σb
+
+where we have used Eqs. (73) and (74) for the mean and variance of q under the b and s + b
+hypotheses.
+    The p-values from Eqs. (75) and (76) incorporate the effects of systematic uncertainties
+to the extent that these are connected to the nuisance parameters θ. In analyses done at the
+Tevatron such as in Ref. [10], these effects are incorporated into the distribution of q in a
+different but largely equivalent way. There, usually one treats the control measurements that
+constrain the nuisance parameters as fixed, and to determine the distribution of q one only
+generates the main search measurement (i.e., what corresponds in our generic analysis to the
+histogram n). The effects of the systematic uncertainties are taken into account by using the
+control measurements as the basis of a Bayesian prior density π(θ), and the distribution of q
+is computed under assumption of the Bayesian model average
+                                                 Z
+                                       f (q) =       f (q|θ)π(θ) dθ .                       (77)
+
+    The prior pdf π(θ) used in Eq. (77) would be obtained from some measurements char-
+acterized by a likelihood function Lθ (θ), and then used to find the prior π(θ) using Bayes’
+theorem,
+
+                                         π(θ) ∝ Lθ (θ)π0 (θ) .                              (78)
+
+Here π0 (θ) is the initial prior for θ that reflected one’s knowledge before carrying out the
+control measurements. In many cases this is simply take as a constant, in which case π(θ) is
+simply proportional to Lθ (θ).
+
+                                                      18
+    In the approach of this paper, however, all measurements are regarded as part of the
+data, including control measurements that constrain nuisance parameters. That is, here to
+generate a data set by MC means, for a given assumed point in the model’s parameter space,
+one simulates both the control measurements and the main measurement. Although this is
+done for a specific value of θ, in the asymptotic limit the distributions required for computing
+the p-values (75) and (76) are only weakly dependent on θ to the extent that this can affect
+the standard deviation σq . By contrast, in the Tevatron approach one generates only the
+main measurement with data distributed according to the averaged model (77). In the case
+where the nuisance parameters are constrained by Gaussian distributed estimates and the
+initial prior π0 (θ) is taken to be constant, the two methods are essentially equivalent.
+    Assuming the Wald approximation holds, the statistic q as well as q0 from Eq. (12),
+qµ from Eq. (14) and q̃µ from Eq. (16) are all monotonic functions of µ̂, and therefore all
+are equivalent to µ̂ in terms of yielding the same statistical test. If there are no nuisance
+parameters, then the Neyman–Pearson lemma (see, e.g., [7]) states that the likelihood ratio
+Ls+b /Lb (or equivalently q) is an optimal test statistic in the sense that it gives the maximum
+power for a test of the background-only hypothesis with respect to the alternative of signal
+plus background (and vice versa). But if the Wald approximation holds, then q0 and qµ
+lead to equivalent tests and are therefore also optimal in the Neyman–Pearson sense. If the
+nuisance parameters are well constrained by control measurements, then one expects this
+equivalence to remain approximately true.
+    Finally, note that in many analyses carried out at the Tevatron, hypothesized signal
+models are excluded based not on whether the p-value ps+b from Eq. (75) is less than a given
+threshold α, but rather the ratio CLs = ps+b /(1 − pb ) is compared to α. We do not consider
+this final step here; it is discussed in, e.g., Ref. [12].
+
+
+4    Experimental sensitivity
+
+To characterize the sensitivity of an experiment, one is interested not in the significance
+obtained from a single data set, but rather in the expected (more precisely, median) signifi-
+cance with which one would be able to reject different values of µ. Specifically, for the case
+of discovery one would like to know the median, under the assumption of the nominal signal
+model (µ = 1), with which one would reject the background-only (µ = 0) hypothesis. And for
+the case of setting exclusion limits the sensitivity is characterized by the median significance,
+assuming data generated using the µ = 0 hypothesis, with which one rejects a nonzero value
+of µ (usually µ = 1 is of greatest interest).
+    The sensitivity of an experiment is illustrated in Fig. 2, which shows the pdf for qµ
+assuming both a strength parameter µ and also assuming a different value µ′ . The distribution
+f (qµ |µ′ ) is shifted to higher value of qµ , corresponding on average to lower p-values. The
+sensitivity of an experiment can be characterized by giving the p-value corresponding to the
+median qµ assuming the alternative value µ′ . As the p-value is a monotonic function of qµ ,
+this is equal to the median p-value assuming µ′ .
+    In the rest of this section we describe the ingredients needed to determine the experi-
+mental sensitivity (median discovery or exclusion significance). In Sec. 3.2 we introduced the
+Asimov data set, in which all statistical fluctuations are suppressed. This will lead directly
+to estimates of the experimental sensitivity (Sec. 4.1) as well as providing an alternative
+estimate of the standard deviation σ of the estimator µ̂. In Sec. 4.2 we indicate how the
+
+
+                                               19
+                             med[qµ|µ’]
+               f(qµ|µ)
+                                           f(qµ|µ’)
+
+
+                                             p−value
+
+                                                                 Figure 2: Illustration of the the p-
+                                                                 value corresponding to the median
+                                                                 of qµ assuming a strength parame-
+                                                      qµ         ter µ′ (see text).
+
+
+procedure can be extended to the case where several search channels are combined, and in
+Sec. 4.3 we describe how to give statistical error bands for the sensitivity.
+
+
+4.1   The median significance from Asimov values of the test statistic
+
+By using the Asimov data set one can easily obtain the median values of q0 , qµ and q̃µ , and
+these lead to simple expressions for the corresponding median significance. From Eqs. (53),
+(60) and (68) one sees that the significance Z is a monotonic function of q, and therefore
+the median Z is simply given by the corresponding function of the median of q, which is
+approximated by its Asimov value. For discovery using q0 one wants the median discov-
+ery significance assuming a strength parameter µ′ and for upper limits one is particularly
+interested in the median exclusion significance assuming µ′ = 0, med[Zµ |0]. For these one
+obtains
+
+
+                                                            √
+                                      med[Z0 |µ′ ] =            q0,A ,                                  (79)
+                                                            √
+                                          med[Zµ |0] =          qµ,A .                                  (80)
+
+    When using q̃µ for establishing upper limits, the general expression for the exclusion
+significance Zµ is somewhat more complicated depending on µ′ , but is in any case found by
+substituting the appropriate values of q̃µ,A and σA into Eq. (68). For the usual case where one
+wants the median significance for µ assuming data distributed according to the background-
+only hypothesis (µ′ = 0), Eq. (68) reduces in fact to a relation of the same form as Eq. (60),
+and therefore one finds
+                                                            q
+                                          med[Zµ |0] =      q̃µ,A .                                     (81)
+
+
+4.2   Combining multiple channels
+
+In many analyses, there can be several search channels which need to be combined. For
+each channel i there is a likelihood function Li (µ, θ i ), where θ i represents the set of nuisance
+parameters for the ith channel, some of which may be common between channels. Here
+the strength parameter µ is assumed to be the same for all channels. If the channels are
+statistically independent, as can usually be arranged, the full likelihood function is given by
+the product over all of the channels,
+
+                                                       20
+                                                 Y
+                                     L(µ, θ) =          Li (µ, θ i ) ,                         (82)
+                                                    i
+
+where θ represents the complete set of all nuisance parameters. The profile likelihood ratio
+λ(µ) is therefore
+
+                                                Q              ˆ
+                                                    i Li (µ, θ̂ i )
+                                      λ(µ) = Q                         .                       (83)
+                                                    i Li (µ̂, θ̂ i )
+
+    Because the Asimov data contain no statistical fluctuations, one has µ̂ = µ′ for all chan-
+nels. Furthermore any common components of θ i are the same for all channels. Therefore
+when using the Asimov data corresponding to a strength parameter µ′ one finds
+
+                                                  ˆ
+                                         i Li (µ, θ̂)
+                                       Q
+                                                        Y
+                              λA (µ) =                =   λA,i (µ) ,                           (84)
+                                           i Li (µ , θ)
+                                       Q        ′
+                                                                 i
+
+where λA,i (µ) is the profile likelihood ratio for the ith channel alone.
+    Because of this, it is possible to determine the values of the profile likelihood ratio entering
+into (84) separately for each channel, which simplifies greatly the task of estimating the
+median significance that would result from the full combination. It should be emphasized,
+however, that to find the discovery significance or exclusion limits determined from real data,
+one needs to construct the full likelihood function containing a single parameter µ, and this
+must be used in a global fit to find the profile likelihood ratio.
+
+
+4.3   Expected statistical variation (error bands)
+
+By using the Asimov data set we can find the median, assuming some strength parameter µ′
+of the significance for rejecting a hypothesized value µ. Even if the hypothesized value µ′ is
+correct, the actual data will contain statistical fluctuations and thus the observed significance
+is not in general equal to the median.
+   For example, if the signal is in fact absent but the number of background events fluctuates
+upward, then the observed upper limit on the parameter µ will be weaker than the median
+assuming background only. It is useful to know by how much the significance is expected to
+vary, given the expected fluctuations in the data. As we have formulae for all of the relevant
+sampling distributions, we can also predict how the significance is expected to vary under
+assumption of a given signal strength.
+   It is convenient to calculate error bands for the median significance corresponding to the
+±N σ variation of µ̂. As µ̂ is Gaussian distributed, these error bands on the significance are
+simply the quantiles that map onto the variation of µ̂ of ±N σ about µ′ .
+    For the case of discovery, i.e., a test of µ = 0, one has from Eqs. (47) and (53) that the
+significance Z0 is
+                                           
+                                            µ̂/σ          µ̂ ≥ 0 ,
+                                    Z0 =                                                       (85)
+                                           0              µ̂ < 0 .
+
+
+
+                                                 21
+Furthermore the median significance is found from Eq. (79), so the significance values corre-
+sponding to µ′ ± N σ are therefore
+
+
+                         Z0 (µ′ + N σ) = med[Z|µ′ ] + N ,                                   (86)
+
+                         Z0 (µ′ − N σ) = max med[Z|µ′ ] − N, 0 .
+                                                                   
+                                                                                            (87)
+
+    For the case of exclusion, when using both the statistic qµ as well as q̃µ one found the
+same expression for the upper limit at a confidence level of 1 − α, namely, Eq. (61). Therefore
+the median upper limit assuming a strength parameter µ′ is found simply by substituting
+this for µ̂, and the ±N σ error bands are found similarly by substituting the corresponding
+values of µ′ ± N σ. That is, the median upper limit is
+
+                              med[µup |µ′ ] = µ′ + σΦ−1 (1 − α) ,                           (88)
+
+and the ±N σ error band is given by
+
+                             bandN σ = µ′ + σ(Φ−1 (1 − α) ± N ) .                           (89)
+
+The standard deviation σ of µ̂ can be obtained from the Asimov value of the test statistic qµ
+(or q̃µ ) using Eq. (30).
+
+
+5     Examples
+
+In this section we describe two examples, both of which are special cases of the generic analysis
+described in Section 2. Here one has a histogram n = (n1 , . . . , nN ) for the main measurement
+where signal events could be present and one may have another histogram m = (m1 , . . . , mM )
+as a control measurement, which helps constrain the nuisance parameters. In Section 5.1 we
+treat the simple case where each of these two measurements consists of a single Poisson
+distributed value, i.e., the histograms each have a single bin. We refer to this as a “counting
+experiment”. In Section 5.2 we consider multiple bins for the main histogram, but without
+a control histogram; here the measured shape of the main histogram on either side of the
+signal peak is sufficient to constrain the background. We refer to this as a “shape analysis”.
+
+
+5.1   Counting experiment
+
+Consider an experiment where one observes a number of events n, assumed to follow a Poisson
+distribution with an expectation value E[n] = µs + b. Here s represents the mean number
+of events from a signal model, which we take to be a known value; b is the expected number
+from background processes, and as usual µ is the strength parameter.
+    We will treat b as a nuisance parameter whose value is constrained by a control mea-
+surement. This measurement is also a single Poisson distributed value m with mean value
+E[m] = τ b. That is, τ b plays the role of the function u for the single bin of the control
+histogram in Eq. (5). In a real analysis, the value of the scale factor τ may have some uncer-
+tainty and could be itself treated as a nuisance parameter, but in this example we will take
+
+
+
+                                               22
+its value to be known. Related aspects of this type of analysis have been discussed in the
+literature, where it is sometimes referred to as the “on-off problem” (see, e.g., [11, 13]).
+    The data thus consist of two measured values: n and m. We have one parameter of
+interest, µ, and one nuisance parameter, b. The likelihood function for µ and b is the product
+of two Poisson terms:
+
+                                        (µs + b)n −(µs+b) (τ b)m −τ b
+                            L(µ, b) =            e              e     .                       (90)
+                                           n!               m!
+
+   To find the test statistics q0 , qµ and q̃µ , we require the ML estimators µ̂, b̂ as well as the
+                           ˆ
+conditional ML estimator b̂ for a specified µ. These are found to be
+
+
+                  n − m/τ
+          µ̂ =            ,                                                                   (91)
+                       s
+                  m
+          b̂ =       ,                                                                        (92)
+                  τ
+                                          "                                       #1/2
+          ˆ       n + m − (1 + τ )µs   (n + m − (1 + τ )µs)2 + 4(1 + τ )mµs
+          b̂ =                       +                                                   .    (93)
+                      2(1 + τ )                     4(1 + τ )2
+
+   Given measured values n and m, the estimators from Eqs. (91), (92) and (93) can be
+used in the likelihood function (90) to find the values of the test statistics q0 , qµ and q̃µ . By
+generating data values n and m by Monte Carlo we can compare the resulting distributions
+with the formulae from Section 3.
+    The pdf f (q0 |0), i.e., the distribution of q0 for under the assumption of µ = 0, is shown
+in Fig. 3(a). The histograms show the result from Monte Carlo simulation based on several
+different values of the mean background b. The solid curve shows the prediction of Eq. (49),
+which is independent of the nuisance parameter b. The point at which one finds a significant
+departure between the histogram and the asymptotic formula occurs at increasingly large
+q0 for increasing b. For b = 20 the agreement is already quite accurate past q0 = 25,
+                                           √
+corresponding to a significance of Z = q0 = 5. Even for b = 2 there is good agreement out
+to q0 ≈ 10.
+    Figure 3(b) shows distributions of q0 assuming a strength parameter µ′ equal to 0 and
+1. The histograms show the Monte Carlo simulation of the corresponding distributions using
+the parameters s = 10, b = 10, τ = 1. For the distribution f (q0 |1) from Eq. (48), one requires
+the value of σ, the standard deviation of µ̂ assuming a strength parameter µ′ = 1. Here this
+was determined from Eq. (32) using the Asimov value q0,A , i.e., the value obtained from the
+Asimov data set with n → µ′ s + b and m → τ b.
+    We can investigate the accuracy of the approximations used by comparing the discovery
+significance for a given observed value of q0 from the approximate formula with the exact
+significance determined using a Monte Carlo calculation. Figure 4(a) shows the discovery
+significance that one finds from q0 = 16. According to Eq. (53), this should give a nominal
+                      √
+significance of Z = q0 = 4, indicated in the figure by the horizontal line. The points
+show the exact significance for different values of the expected number of background events
+b in the counting analysis with a scale factor τ = 1. As can be seen, the approximation
+underestimates the significance for very low b, but achieves an accuracy of better than 10%
+for b greater than around 4. It slightly overestimates for b greater than around 5. This
+
+                                                 23
+                 10                                                          10
+      f(q |0)
+(a)                                                                                                                                      (b)
+                                               f(q |0)                                             s = 10, b = 10, τ = 1
+           0
+                     1                             0                             1
+
+                10−1
+                                               b=2                          10−1
+                                               b=5
+                10−2                                                        10−2                                  f(q0|1)
+                                               b = 20
+                  −3                                                          −3
+                10                                                          10
+                10−4                                                        10−4
+                  −5                                                          −5
+                10                                                          10
+                  −6                                                          −6
+                10                                                          10
+                                                                                         f(q0|0)
+                10−7                                                        10−7
+                10−8                                                        10−8
+                   0     5     10   15   20   25   30    35    40              0     5     10      15       20   25   30    35      40
+                                                               q                                                                 q
+                                                               0                                                                    0
+
+
+Figure 3: (a) The pdf f (q0 |0) for the counting experiment. The solid curve shows f (q0 |0) from
+Eq. (49) and the histograms are from Monte Carlo using different values of b (see text). (b) The
+distributions f (q0 |0) and f (q0 |1) from both the asymptotic formulae and Monte Carlo simulation
+based on s = 10, b = 10, τ = 1.
+
+
+phenomenon can be seen in the tail of f (q0 |0) in Fig. 3(b), which uses b = 10. The accuracy
+then rapidly improves for increasing b.
+
+(a)               6                                                         102                                                          (b)
+      Z0
+
+
+
+
+                                                                        0
+                                                                        q
+
+
+
+
+                                                                             10
+                  5                                                                                                        s = 20
+                                                                                 1                                         s = 10
+                  4
+                                                                                                                           s=5
+                                                                            10−1
+                                                                                                                           s=2
+                  3                                                                      q0,Asimov
+                             Monte Carlo                                                                                   s=1
+                                                                            10−2
+                             Nominal significance                                        median[q |1]
+                                                                                                        0
+                  2                                                         10−3
+                         1               10              102                         1                      10             102
+                                                               b                                                                 b
+
+Figure 4: (a) The discovery
+                  √         significance Z0 obtained from Monte Carlo (points) corresponding to a
+nominal value Z0 = q0 = 4 (dashed line) as a function of the expected number of background events
+b, in the counting analysis with a scale factor τ = 1. (b) The median of q0 assuming data distributed
+according to the nominal signal hypothesis from Monte Carlo for different values of s and b (points)
+and the corresponding Asimov values (curves).
+
+    Figure 4(b) shows the median value of the statistic q0 assuming data distributed according
+to the nominal signal hypothesis from Monte Carlo (points) and the value based on the Asimov
+data set as a function of b for different values of s, using a scale factor τ = 1. One can see
+that the Asimov data set leads to an excellent approximation to the median, except at very
+low s and b.
+    Figure 5(a) shows the distribution of the test statistic q1 for s = 6, b = 9, τ = 1 for data
+corresponding to a strength parameter µ′ = 1 and also µ′ = 0. The vertical lines indicate the
+
+
+                                                                   24
+Asimov values of q1 and q̃1 assuming a strength parameter µ′ = 0. These lines correspond to
+estimates of the median values of the test statistics assuming µ′ = 0. The areas under the
+curves f (q1 |1) and f (q̃1 |1) to the right of this line give the median p-values.
+
+(a)                                                                                                                                            (b)
+                    1                   s = 6, b = 9, τ = 1                                    1                 s = 6, b = 9, τ = 1
+
+
+                                                                f(q |0)                                                         f(~
+                                                                                                                                  q1|0)
+               10−1                                                     1                    10−1
+
+
+
+
+               10−2                                             f(q1|1)                      10−2
+
+                                                                                                              ~
+                                                                                                              q1,A              f(~
+                                                                                                                                  q1|1)
+                                    q1,A
+               10−3                                                                          10−3
+                  0         1   2   3        4     5     6          7           8               0   1   2    3     4   5    6    7     8
+                                                                                    q                                                      ~
+                                                                                                                                           q
+                                                                                    1                                                      1
+
+
+Figure 5: (a) The pdfs f (q1 |1) and f (q1 |0) for the counting experiment. The solid curves show the
+formulae from the text, and the histograms are from Monte Carlo using s = 6, b = 9, τ = 1. (b)
+The same set of histograms with the alternative statistic q̃1 . The oscillatory structure evident in the
+histograms is a consequence of the discreteness of the data. The vertical line indicates the Asimov
+value of the test statistic corresponding to µ′ = 0.
+
+    For the example described above we can also find the distribution of the statistic q =
+−2 ln(Ls+b /Lb ) as defined in Sec. 3.8. Figure 6 shows the distributions of q for the hypothesis
+of µ = 0 (background only) and µ = 1 (signal plus background) for the model described above
+using b = 20, s = 10 and τ = 1. The histograms are from Monte Carlo, and the solid curves
+are the predictions of the asymptotic formulae given in Sec. 3.8. Also shown are the p-values
+for the background-only and signal-plus-background hypotheses corresponding to a possible
+observed value of the statistic qobs .
+
+              0.2
+      f(q)
+
+
+
+
+                                             q
+                                             obs
+             0.15
+
+                        f(q|s+b)
+
+              0.1                                      f(q|b)
+
+
+
+             0.05       p
+                         b
+                                                                p
+                                                                 s+b
+                                                                                                Figure 6: The distribution of the statistic
+                                                                                                q = −2 ln(Ls+b /Lb ) under the hypotheses
+               0                                                                                of µ = 0 and µ = 1 (see text).
+                         −10             0                10
+                                                                            q
+
+
+5.1.1           Counting experiment with known b
+
+An important special case of the counting experiment above is where the mean background b
+is known with negligible uncertainty and can be treated as a constant. This would correspond
+
+                                                                                        25
+to having a very large value for the scale factor τ .
+   If we regard b as known, the data consist only of n and thus the likelihood function is
+
+                                                    (µs + b)n −(µs+b)
+                                     L(µ) =                  e        ,                        (94)
+                                                        n!
+The test statistic for discovery q0 can be written
+
+                                             −2 ln L(0)
+                                            
+                                                          L(µ̂)   µ̂ ≥ 0,
+                                     q0 =                                                      (95)
+                                                0                 µ̂ < 0 ,
+                                            
+
+
+where µ̂ = n − b. For sufficiently large b we can use the asymptotic formula (53) for the
+significance,
+                                            q
+                                             2 n ln n + b − n µ̂ ≥ 0,
+                                                              
+                                 √                   b
+                          Z0 =       q0 =                                                      (96)
+                                                0                            µ̂ < 0.
+                                            
+
+
+   To approximate the median significance assuming the nominal signal hypothesis (µ = 1)
+we replace n by the Asimov value s + b to obtain
+
+                                       √
+                                                      q
+                      med[Z0 |1] =      q0,A =          2 ((s + b) ln(1 + s/b) − s) .          (97)
+
+Expanding the logarithm in s/b one finds
+
+                                              s
+                                 med[Z0 |1] = √ (1 + O(s/b)) .                                 (98)
+                                               b
+                   √
+Although Z0 ≈ s/ b has been widely used for cases where s + b is large, one sees here that
+this final approximation is strictly valid only for s ≪ b.
+    Median values, assuming µ = 1, of Z0 for different values of s and b are shown
+                                                                                √ in Fig. 7.
+The solid curve shows Eq. (97), the dashed curve gives the approximation s/ b, and the
+points are the exact median values from Monte Carlo. The structure seen in the points
+is due to the discrete nature of the data. One√sees that Eq. (97) provides a much better
+approximation to the true median than does s/ b in regions where s/b cannot be regarded
+as small.
+
+
+5.2   Shape Analysis
+
+As a second example we consider the case where one is searching for a peak in an invari-
+ant mass distribution. The main histogram n = (n1 , . . . , nN ) for background is shown in
+Fig. 8, which is here taken to be a Rayleigh distribution. The signal is modeled as a Gaus-
+sian of known width and mass (position). In this example there is no subsidiary histogram
+(m1 , . . . , mM ).
+    If, as is often the case, the position of the peak is not known a priori, then one will test all
+masses in a given range, and appearance of a signal-like peak anywhere could lead to rejection
+of the background-only hypothesis. In such an analysis, however, the discovery significance
+
+
+                                                          26
+                            8
+    med[Z |1]
+             0                                                 q0,A
+
+                            6                                 s/ b
+                                   s=5                        exact
+
+                            4
+
+                                                               s = 10
+                            2
+                                   s=2
+                                                                                              Figure 7: The median, assuming µ = 1,
+                            0                                                                 of the discovery significance Z0 for different
+                            10−1              1          10                102                values of s and b (see text).
+                                                                           b
+
+
+                            50
+
+
+                            40
+         Events / 2 Units
+
+
+
+
+                            30
+
+
+                            20
+
+
+                            10
+                                                                                                     Figure 8: The background mass
+                             0                                                                       distribution for the shape analysis
+                              0    10    20   30   40   50    60      70   80    90     100          (see text).
+                                                        m
+
+
+must take into account the fact that a fluctuation could occur at any mass within the range.
+This is often referred to as the “look-elsewhere effect”, and is discussed further in Ref. [14].
+    In the example presented here, however, we will test all values of the mass and µ using the
+statistic qµ for purposes of setting an upper limit on the signal strength. Here, each hypothesis
+of mass and signal strength is in effect tested individually, and thus the look-elsewhere effect
+does not come into play.
+    We assume that the signal and background distributions are known up to a scale factor.
+For the signal, this factor corresponds to the usual strength parameter µ; for the background,
+we introduce an analogous factor θ. That is, the mean value of the number of events in the
+ith bin is E[ni ] = µsi + bi , where µ is the signal strength parameter and the si are taken as
+known. We assume that the background terms bi can be expressed as bi = θfb,i , where the
+probability to find a background event in bin i, fb,i , is known, and θ is a nuisance parameter
+that gives the total expected number of background events. Therefore the likelihood function
+can be written
+
+                                                                   N
+                                                                     (µsi + θfb,i)ni
+                                                                                              e−(µsi +θfb,i )
+                                                                   Y
+                                                    L(µ, θ) =                                                                             (99)
+                                                                   i=1
+                                                                                 ni !
+
+    For a given data set n = (n1 , . . . , nN ) one can evaluate the likelihood (99) and from this
+determine any of the test statistics discussed previously. Here we concentrate on the statistic
+qµ used to set an upper limit on µ, and compare the distribution f (qµ |µ′ ) from Eq.( 48) with
+histograms generated by Monte Carlo. Figure 9 shows f (qµ |0) (red) and f (qµ|µ) (blue).
+
+
+                                                                                 27
+        0
+   10                    median[q | 0]
+                                 µ
+        −1
+   10
+
+        −2
+   10
+
+        −3
+   10                                                            Figure 9:        The distributions
+                                                                 f (qµ |0) (red) and f (qµ |µ) (blue)
+        −4
+   10                                                            from both the asymptotic formulae
+            0        5               10          15         20
+                                                                 and Monte Carlo histograms (see
+                                     qµ
+                                                                 text).
+
+
+    The vertical line in Fig. 9 gives the median value of qµ assuming a strength parameter
+µ′ = 0. The area to the right of this line under the curve of f (qµ |µ) gives the p-value of
+the hypothesized µ, as shown shaded in green. The upper limit on µ at a confidence level
+CL = 1 − α is the value of µ for which the p-value is pµ = α. Figure 9 shows the distributions
+for the value of µ that gave pµ = 0.05, corresponding to the 95% CL upper limit.
+    In addition to reporting the median limit, one would like to know how much it would vary
+for given statistical fluctuations in the data. This is illustrated in Fig. 10, which shows the
+same distributions as in Figure 9, but here the vertical line indicates the 15.87% quantile of the
+distribution f (qµ |0), corresponding to having µ̂ fluctuate downward one standard deviation
+below its median.
+
+        0
+   10
+                         15.87% quantile (median−1σ)
+        −1
+   10
+
+
+        −2
+   10
+
+
+        −3
+   10
+
+                                                                 Figure 10:         The distributions
+        −4
+   10                                                            f (qµ |0) (red) and f (qµ |µ) (blue) as
+             0   5         10        15     20         25   30
+                                                                 in Fig. 9 and the 15.87% quantile of
+                                     qµ
+                                                                 f (qµ |0) (see text).
+
+
+    By simulating the experiment many times with Monte Carlo, we can obtain a histogram
+of the upper limits on µ at 95% CL, as shown in Fig. 11. The ±1σ (green) and ±2σ (yellow)
+error bands are obtained from the MC experiments. The vertical lines indicate the error
+bands as estimated directly (without Monte Carlo) using Eqs. (88) and (89). As can be seen
+from the plot, the agreement between the formulae and MC predictions is excellent.
+    Figures 9 through 11 correspond to finding upper limit on µ for a specific value of the peak
+position (mass). In a search for a signal of unknown mass, the procedure would be repeated
+for all masses (in practice in small steps). Figure 12 shows the median upper limit at 95% CL
+as a function of mass. The median (central blue line) and error bands (±1σ in green, ±2σ in
+yellow) are obtained using Eqs. (88) and (89). The points and connecting curve correspond
+to the upper limit from a single arbitrary Monte Carlo data set, generated according to the
+background-only hypothesis. As can be seen, most of the plots lie as expected within the
+±1σ error band.
+
+
+                                                       28
+                  350
+
+                  300
+
+                  250
+
+                  200
+         Events
+
+
+
+
+                  150
+
+                  100
+                                                                         Figure 11: Distribution of the
+                   50
+                                                                         upper limit on µ at 95% CL, as-
+                   0                                                     suming data corresponding to the
+                   −2        −1    0      1       2    3        4        background-only hypothesis (see
+                                          95
+                                         µup                             text).
+                                   CLs+b 95% limits
+        3
+
+       2.5
+
+        2
+ µup
+       1.5
+
+        1
+                                                                         Figure 12: The median (central
+       0.5
+                                                                         blue line) and error bands (±1σ in
+                                                                         green, ±2σ in yellow) for the 95%
+        0
+        10              20    30   40    50      60   70   80       90   CL upper limit on the strength pa-
+                                          m                              rameter µ (see text).
+
+
+6      Implementation in RooStats
+
+Many of the results presented above are implemented or are being implemented in the
+RooStats framework [15], which is a C++ class library based on the ROOT [16] and RooFit [17]
+packages. The tools in RooStats can be used to represent arbitrary probability density func-
+tions that inherit from RooAbsPdf, the abstract interfaces for probability density functions
+provided by RooFit.
+    The framework provides an interface with minimization packages such as Minuit [18].
+This allows one to obtain the estimators required in the the profile likelihood ratio: µ̂,
+         ˆ
+θ̂, and θ̂. The Asimov dataset defined in Eq. (24) can be determined for a probability
+density function by specifying the ExpectedData() command argument in a call to the
+generateBinned method. The Asimov data together with the standard HESSE covariance
+matrix provided by Minuit makes it is possible to determine the Fisher information matrix
+shown in Eq. (28), and thus obtain the related quantities such as the variance of µ̂ and the
+noncentrality parameter Λ, which enter into the formulae for a number of the distributions
+of the test statistics presented above.
+    The distributions of the various test statistics and the related formulae for p-values, sensi-
+tivities and confidence intervals as given in Sections 2, 3 and 4 are being incorporated as well.
+RooStats currently includes the test statistics tµ , t̃µ , q0 , and q,qµ , and q̃µ as concrete imple-
+mentations of the TestStatistic interface. Together with the Asimov data, this provides
+the ability to calculate the alternative estimate, σA , for the variance of µ̂ shown in Eq. (30).
+The noncentral chi-square distribution is being incorporated into both RooStats and ROOT’s
+mathematics libraries for more general use. The various transformations of the noncentral
+
+                                                           29
+chi-square used to obtain Eqs. (33), (41), (48), (55), and (63) are also in development in the
+form of concrete implementations of the SamplingDistribution interface. Together, these
+new classes will allow one to reproduce the examples shown in Section 5 and to extend them
+to an arbitrary model within the RooStats framework.
+
+
+7    Conclusions
+
+Statistical tests are described for use in planning and carrying out a search for new phe-
+nomena. The formalism allows for the treatment of systematic uncertainties through use of
+the profile likelihood ratio. Here a systematic uncertainty is included to the extent that the
+model includes a sufficient number of nuisance parameters so that for at least some point in
+its parameter space it can be regarded as true.
+    Approximate formulae are given for the distributions of test statistics used to characterize
+the level of agreement between the data and the hypothesis being tested, as well as the related
+expressions for p-values and significances. The statistics are based on the profile likelihood
+ratio and can be used for a two-sided test of a strength parameter µ (tµ ), a one-sided test for
+discovery (q0 ), and a one-sided test for finding an upper limit (qµ and q̃µ ). The statistic t̃µ
+can be used to obtain a “unified” confidence interval, in the sense that it is one- or two-sided
+depending on the data outcome.
+    Formulae are also given that allow one to characterize the sensitivity of a planned exper-
+iment through the median significance of a given hypothesis under assumption of a different
+one, e.g., median significance with which one would reject the background-only hypothesis
+under assumption of a certain signal model. These exploit the use of an artificial data set,
+the “Asimov” data set, defined so as to make estimators for all parameters equal to their true
+values. Methods for finding the expected statistical variation in the sensitivity (error bands)
+are also given.
+    These tools free one from the need to carry out lengthy Monte Carlo calculations, which
+in the case of a discovery at 5σ significance could require simulation of around 108 measure-
+ments. They are are particularly useful in cases where one needs to estimate experimental
+sensitivities for many points in a multidimensional parameter space (e.g., for models such as
+supersymmetry), which would require generating a large MC sample for each point.
+   The approximations used are valid in the limit of a large data sample. Tests with Monte
+Carlo indicate, however, that the formulae are in fact reasonably accurate even for fairly small
+samples, and thus can have a wide range of practical applicability. For very small samples
+and in cases where high accuracy is crucial, one is always free to validate the approximations
+with Monte Carlo.
+
+
+Acknowledgements
+
+The authors would like to thank Louis Fayard, Nancy Andari, Francesco Polci and Marumi
+Kado for fruitful discussions. We received useful feedback at the Banff International Research
+Station, specifically from Richard Lockhart and Earl Lawrence. We thank Christian Gumpert
+for spotting a typographical error in the previous version of the paper. One of us (E.G.) is
+obliged to the Benoziyo Center for High Energy Physics, to the the Israeli Science Founda-
+tion(ISF), the Minerva Gesellschaft and the German Israeli Foundation (GIF) for supporting
+this work. K.C. is supported by US National Science Foundation grant PHY-0854724. G.C.
+
+                                               30
+thanks the U.K. Science and Technology Facilities Council as well as the Einstein Center at
+the Weizmann Institute of Science, where part of his work on this paper was done.
+
+
+References
+  [1] S.S. Wilks, The large-sample distribution of the likelihood ratio for testing composite
+      hypotheses, Ann. Math. Statist. 9 (1938) 60-2.
+  [2] A. Wald, Tests of Statistical Hypotheses Concerning Several Parameters When the
+      Number of Observations is Large, Transactions of the American Mathematical Society,
+      Vol. 54, No. 3 (Nov., 1943), pp. 426-482.
+  [3] Isaac Asimov, Franchise, in Isaac Asimov: The Complete Stories, Vol. 1, Broadway
+      Books, 1990.
+  [4] V. Bartsch and G. Quast, Expected signal observability at future experiments, CMS
+      Note 2005/004 (2003) (available on CMS information server).
+  [5] ATLAS Collaboration, Expected Performance of the ATLAS Experiment, Detector,
+      Trigger and Physics, CERN-OPEN-2008-020, Geneva, 2008, e-print: arXiv:0901.0512.
+  [6] ALEPH, DELPHI, L3 and OPAL Collaborations, Search for the Standard Model Higgs
+      Boson at LEP, CERN-EP/2003-011, Phys. Lett. B565 (2003) 61-75.
+  [7] A. Stuart, J.K. Ord, and S. Arnold, Kendall’s Advanced Theory of Statistics, Vol.
+      2A: Classical Inference and the Linear Model 6th Ed., Oxford Univ. Press (1999), and
+      earlier editions by Kendall and Stuart.
+  [8] Robert D. Cousins and Gary J. Feldman, Phys. Rev. D 57, 3873 (1998).
+  [9] M. Abramowitz and I.A. Stegun, Handbook of Mathematical Functions, Dover (1972)
+      Section 26.4.25. See also Noncentral chi-square distribution, Wikipedia, The Free En-
+      cyclopedia. Wikimedia Foundation, Inc., 6 July 2010.
+ [10] T. Aaltonen et al., Phys. Rev. Lett. 104 061802 (2010); e-Print: arXiv:1001.4162 [hep-
+      ex].
+ [11] Kyle Cranmer, Frequentist Hypothesis Testing with Background Uncertainty in L. Lyons
+      et al. (eds.), Proceedings of PHYSTAT 2003, SLAC, Stanford California, September
+      8–11, 2003, 261–264.
+ [12] T. Junk, Nucl. Instrum. Methods Phys. Res., Sec. A 434, 435 (1999); A.L. Read, J.
+      Phys. G 28, 2693 (2002).
+ [13] Robert D. Cousins, James T. Linnemann, Jordan Tucker, Nuclear Instruments and
+      Methods in Physics Research A 595 (2008) 480–501; e-Print: arXiv:physics/0702156v4
+      [physics.data-an]
+ [14] Eilam Gross and Ofer Vitells, Trial factors or the look elsewhere effect in high energy
+      physics, arXiv:1005.1891 [physics.data-an] (2010).
+ [15] L. Moneta, K. Belasco, K. Cranmer et al., “The RooStats Project,” pro-
+      ceedings of ACAT, 2010, Jaipur, India [arXiv:1009.1003 [physics.data-an]].
+      [https://twiki.cern.ch/twiki/bin/view/RooStats/]
+
+                                             31
+[16] R. Brun, F. Rademakers, ROOT: An object oriented data analysis framework, Nucl.
+     Instrum. Meth. A389, 81-86 (1997).
+
+[17] W. Verkerke, D. P. Kirkby, The RooFit toolkit for data modeling, Proceedings for
+     CHEP03 (2003) [physics/0306116].
+
+[18] F. James, M. Roos, Minuit: A System for Function Minimization and Analysis of the
+     Parameter Errors and Correlations, Comput. Phys. Commun. 10, 343-367 (1975).
+
+
+
+
+                                         32
+

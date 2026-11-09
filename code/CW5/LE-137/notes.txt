@@ -1,0 +1,10 @@
+LE-137 (FORMULATED, not run; returns/R16/CW5.md §3.10 as corrected by returns/R16/CW5-errata.md, VER-CW5 row 34).
+Method A: scf.in for the L and R configurations of one TLS (same cell), then f_e(q) = FFT[rho_R - rho_L] at q = G_sc
+(pp.x plot_num = 0 or direct read of the charge-density file).
+Method B: ph.in at xq = 0 (Gamma of the supercell) with nat_todo restricted to the core atoms. A supercell vector G_sc is equivalent to
+Gamma, so one ph.x run gives drho_kappa at every G_sc (its Fourier components); do NOT run one ph.x per G_sc.
+scf.in uses K_POINTS automatic 1 1 1 0 0 0 (ph.x rejects K_POINTS gamma: Gamma-trick real wavefunctions).
+At Gamma of an insulator ph.x also computes eps_inf and Z*; these give the analytic long-range term below, never drho itself.
+Do NOT rebuild drho from Z*; below 2pi/L add the macroscopic term -i q.dp_e (1 - 1/eps_inf(qhat)).
+Convergence: ecutwfc 70/80/90 Ry, 216 -> 648 atoms for one TLS; f(q) to 2%.
+Cost note: K_POINTS automatic 1 1 1 doubles the memory and ~2x the SCF time relative to the Gamma trick [E].

@@ -1,0 +1,924 @@
+ 
+ A Dark Matter Interpretation of Excesses in Multiple Direct Detection Experiments 
+ // Restore the saved color scheme preference, or
+ // enact the browser preference if "automatic", 
+ // without expecting DOM load to have completed.
+ //
+ // Also restore any saved readingmode and ToC display preferences.
+ function initializeReadingPreferences() {
+ let saved_theme = localStorage.getItem("ar5iv_theme") || "automatic";
+ if (saved_theme === "automatic") {
+ if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+ saved_theme = "dark";
+ }
+ }
+ if (saved_theme == "dark") {
+ document.documentElement.setAttribute("data-theme", "dark");
+ } else {
+ document.documentElement.setAttribute("data-theme", "light");
+ }
+ const tocDisplay = localStorage.getItem('arxiv_html_paper_toc_display');
+ if (tocDisplay) {
+ document.documentElement.setAttribute("data-toc-display", tocDisplay);
+ }
+ const readingMode = localStorage.getItem('arxiv_html_paper_reading_mode');
+ if (readingMode) {
+ document.documentElement.setAttribute("data-reading-mode", readingMode);
+ }
+ }
+ // Run as soon as JS starts, to minimize repainting
+ initializeReadingPreferences();
+ /* Reading mode hides the chrome and the empty .arxiv-html-header marker: the pinned JS reads
+ the marker's display to know which way to toggle. The marker draws no box. */
+ .arxiv-html-header { display: contents; }
+ html[data-reading-mode="enabled"] :is(.arxiv-html-site-chrome, .arxiv-html-header, .ds-site-footer) { display: none; }
+ /* The paper controls' icons are blocks, so they sit centred (the pinned JS shows the theme
+ icon by making its span a block). */
+ .arxiv-html-site-chrome .ds-site-header-tools svg { display: block; width: 18px; height: 18px; flex-shrink: 0; fill: currentColor; }
+ /* ar5iv dims every image in dark mode and puts it on a white wash, for paper figures;
+ arXiv's own render as they are (the logo on the bar, the funder logos on their white
+ chips). Important: ar5iv's dark rules are unlayered, as specific as
+ :root:not([data-theme]) img:not(.ltx_no_dark_filter). */
+ :is(.ds-site-header, .ds-site-footer) img { filter: none !important; }
+ .ds-site-header img { background-color: transparent !important; }
+ /* Wide (the theme's 1280px): the theme lays the body out as a grid whose full-width top rows
+ were the band's and its sticky reader bar's. The band takes the first and scrolls away; the
+ header, the paper's bar (no site navigation, the paper's controls), takes the second and
+ stays in view, the one sticky bar, with the anchor clearance that requires (DESIGN-POLICIES).
+ The controls show their names. */
+ @media (min-width: 1280px) {
+ html { scroll-padding-top: 80px; }
+ .arxiv-html-site-chrome { display: contents; }
+ .arxiv-html-site-chrome > #ds-announcement { grid-area: announce; }
+ .arxiv-html-site-chrome > .ds-site-header { grid-area: header; position: sticky; top: 0; z-index: 3; }
+ .arxiv-html-site-chrome .tool-icon { display: none; }
+ }
+ /* Narrow: the header scrolls away, and the controls show icons (names kept for screen
+ readers; Why HTML? goes). The theme's contents panel is fixed below where its old sticky
+ bar was, and hidden only once the reader has closed it, so until then it is an invisible box
+ over the header and the paper: it shows only while open, under the chrome, in its place in
+ the page. The paper's footer (build logs, reporting instructions) keeps the text's side
+ inset; the theme gives it none, so it met the screen edges. */
+ @media (max-width: 1279px) {
+ .arxiv-html-site-chrome .tool-wide { display: none; }
+ .arxiv-html-site-chrome .tool-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+ html:not([data-toc-display="block"]) .ltx_page_navbar { display: none; }
+ .ltx_page_navbar { position: absolute; top: auto; }
+ .arxiv-html-footer { padding-inline: 1rem; }
+ }
+ Skip to main content 
+ Report GitHub Issue 
+ × 
+ Title: 
+ Content selection saved. Describe the issue below: 
+ Description: 
+ Submit without GitHub 
+ Submit in GitHub 
+ Why HTML? 
+ Report Issue 
+ Back to Abstract 
+ Download PDF 
+ Contents 
+ Reading mode 
+ Colour theme 
+ Abstract 
+ I Introduction 
+ II Review of Recent Low-Threshold Results 
+ II.1 Nuclear Recoil Searches 
+ II.2 Electron Recoil Searches 
+ II.3 Determining Signal Origin 
+ III Plasmon Interpretation 
+ III.1 Plasmon Properties 
+ III.2 Plasmons from Known Particles? 
+ IV Dark Matter Scenarios For Plasmon Excitation 
+ IV.1 Scenario 1: Secondary Plasmon Excitation through Hard Inelastic Scattering 
+ IV.2 Scenario 2: Direct Plasmon Excitation Through a Light Mediator 
+ V Conclusions 
+ A Differentiating Dark Counts from Signal 
+ B Using Electron Yield to Determine Recoil Type 
+ C Plasmon Review 
+ C.1 Plasmon measurements with EELS 
+ C.2 Role of the dielectric function 
+ C.3 Plasmon lineshape 
+ References 
+ License: arXiv.org perpetual non-exclusive license
+arXiv:2002.06937v2 [hep-ph] 24 Mar 2020 
+ FERMILAB-PUB-20-065-A 
+ A Dark Matter Interpretation of Excesses in Multiple Direct Detection Experiments 
+ Noah Kurinsky
+ Thanks:  kurinsky@fnal.gov
+ Affiliation:  Fermi National Accelerator Laboratory, Batavia, Illinois 60510, USA
+ Affiliation:  Kavli Institute for Cosmological Physics, University of Chicago, Chicago, Illinois 60637, USA
+ Daniel Baxter
+ Thanks:  dbaxter@kicp.uchicago.edu
+ Affiliation:  Kavli Institute for Cosmological Physics, University of Chicago, Chicago, Illinois 60637, USA
+ Affiliation:  Enrico Fermi Institute, University of Chicago, Chicago, Illinois 60637, USA
+ Yonatan Kahn
+ Thanks:  yfkahn@illinois.edu
+ Affiliation:  University of Illinois at Urbana-Champaign, Urbana, Illinois 61801, USA
+ Gordan Krnjaic
+ Thanks:  krnjaicg@fnal.gov
+ Affiliation:  Fermi National Accelerator Laboratory, Batavia, Illinois 60510, USA
+ Affiliation:  Kavli Institute for Cosmological Physics, University of Chicago, Chicago, Illinois 60637, USA
+ August 24, 2026 
+ Abstract 
+ We present a novel unifying interpretation of excess event rates observed in several dark matter direct-detection experiments that utilize single-electron threshold semiconductor detectors. Despite their different locations, exposures, readout techniques, detector composition, and operating depths, these experiments all observe statistically significant excess event rates of ∼ 10 Hz/kg.
+However, none of these persistent excesses has yet been reported as a dark matter signal because individually, each can be attributed to different well-motivated but unmodeled backgrounds, and taken together, they cannot be explained by dark matter particles scattering elastically off detector nuclei or electrons.
+We show that these results can be reconciled if the semiconductor detectors are seeing a collective inelastic process, consistent with exciting a plasmon. We further show that plasmon excitation could arise in two compelling dark matter scenarios, both of which can explain rates of existing signal excesses in germanium and, at least at the order of magnitude level, across several single-electron threshold detectors. At least one of these scenarios also yields the correct relic density from thermal freeze-out. Both dark matter scenarios motivate a radical rethinking of the standard interpretations of dark matter-electron scattering from recent experiments. 
+ I Introduction 
+ Searches for particle dark matter (DM) with masses below 1 GeV have proliferated in the last decade, driven by advances in detector technologies which have pushed heat detection thresholds below 100 eV [ 1 , 2 ] and charge detection thresholds to the single electron-hole pair level [ 3 , 4 , 5 ] .
+While high-mass ( ≳ 1 GeV) searches have continued to advance to larger background-free exposures, several low-mass searches, including
+EDELWEISS  [ 1 , 6 ] ,
+CDMS HVeV  [ 3 ] ,
+SENSEI  [ 4 ] ,
+DAMIC  [ 7 ] ,
+CRESST-III  [ 2 ] ,
+ ν CLEUS  [ 8 ] ,
+XENON10  [ 9 , 5 ] ,
+XENON100  [ 5 ] ,
+XENON1T  [ 10 ] , and
+Darkside50  [ 11 ] – see Table 1 and Fig.  1 – have observed events at low energy superficially consistent with either dark rate or unmodeled backgrounds. As more experiments approach these low-mass regions, it is pertinent to ask whether these excess rates – defined as the residual efficiency-corrected rate after subtracting known, modeled backgrounds – all have independent origins (as is typically assumed), or if a single mechanism can provide a unifying explanation. 
+ The standard signal interpretation of an excess in a detector with order 100 eV threshold is that of elastic nuclear recoils from DM (as described by Lewin and Smith [12] ), whereas a detector with a single-electron threshold is considered primarily sensitive to DM scattering on electrons (as described in detail by  Essig et al. [13] for semiconductors, see also [ 14 , 15 , 16 ] for earlier work).
+As has been recently shown in Refs.  [ 17 , 18 ] , the lines between these interpretations blur in the case of inelastic below-threshold nuclear recoils with accompanying above-threshold ionization, which, for a liquid noble detector, can be the dominant signal component for DM masses between approximately 100–1000 MeV. Because the term “inelastic” has different meanings in the theoretical and experimental communities, we emphasize that in this paper, “inelastic” refers to an energy and momentum transfer to the detector which differs from the relations from two-to-two scattering. In particular, it refers to exciting internal modes of the detector, not internal modes of the DM. 
+ In this paper, we postulate that existing excesses in silicon (Si), germanium (Ge), and sapphire (Al 2 O 3 ) detectors can be persuasively interpreted as the excitation of a plasmon resonance, a ubiquitous feature of nearly every well-ordered solid-state material [ 19 ] . The strong plasmon resonance in highly ordered crystals, and the absence of such a resonance in less ordered materials, provides a natural explanation for the large rate differences observed between these detectors and other materials such as CaWO 4 and liquid xenon or argon. Indeed, plasmon excitation is the quintessential many-body effect, and provides an important example of an inelastic process that dominates at low momentum transfers and which cannot be understood in terms of two-body scattering and non-interacting single-particle states, as has been the standard treatment of DM-electron interactions [ 13 ] . 
+ We argue that a compelling explanation of the common  ∼ 10 Hz/kg event rate seen in numerous charge detection experiments, in widely varying background environments, is lacking if the excesses are attributed to plasmon excitation sourced by known Standard Model (SM) particles.
+In contrast, these rates can be explained by a common DM origin, albeit through interactions that primarily excite collective charge modes in well-ordered crystals. We will argue that these interactions are easily accommodated by the most widely-studied DM benchmark models and have simply been neglected in previous studies in favor of the more familiar electron and nuclear recoils. Furthermore, one of these benchmark scenarios can explain the DM cosmological abundance with the same interaction strength that accommodates these experimental excesses. 
+ This paper is organized as follows. In Sec.  II , we review the various excesses in low-threshold experiments and propose a yield model which reconciles the observed ionization ( E e )  [ 6 ] and calorimetric ( E d ​ e ​ t )  [ 1 ] spectra in EDELWEISS germanium data, the only material for which excesses are currently observed in both E e and E d ​ e ​ t data. In Sec.  III , we show that interpreting the yield model as a plasmon is consistent with the similar event rates measured in silicon and Al 2 O 3 detectors as well as with the comparably lower rates measured in amorphous materials like CaWO 4 and liquid Xe. Additionally, we argue that SM sources cannot produce plasmon excitation rates consistent with the observed excesses. In Sec.  IV we present two illustrative DM scenarios which can explain the observed rate in Ge, and demonstrate their consistency with the other excesses at the order-of-magnitude level. Moreover, we point out that the excess rates considered are just beginning to scrape the models explored, while still likely containing some background; a follow-up demonstration of a lower rate by one of the experiments considered here would further probe interesting parameter space for the models we present. We conclude in Sec.  V with a number of predictions and suggestions for future studies. Further details on dark counts in semiconductor detectors, yield curves, and plasmons are provided in the Appendices. 
+ Readout Type 
+ Target 
+ Resolution 
+ Exposure 
+ Threshold 
+ Excess Rate (Hz/kg) 
+ Depth 
+ Reference 
+ Charge ( E e ) 
+ Ge 
+ 1.6  e − 
+ 80 g ⋅ d 
+ 0.5 eVee ( ∼ 1 e − ) 1 1 
+ 1 
+ There is a very small but non-zero sensitivity to single electrons that, when the large exposure is taken into account, becomes comparable in sensitivity to the other electron recoil experiments. 
+ [20, 100] 
+ 1.7 km 
+ EDELWEISS [ 6 ] 
+ Si 
+ ∼ 0.2 e − 
+ 0.18 g ⋅ d 
+ 1.2 eVee ( < 1  e − ) 
+ [6, 400] 
+ 100 m 
+ SENSEI [ 4 ] 
+ Si 
+ 0.1 e − 
+ 0.5 g ⋅ d 
+ 1.2 eVee ( < 1  e − ) 
+ [10, 2000] 
+ ∼ 1 m 
+ CDMS HVeV [ 3 ] 
+ Si 
+ 1.6  e − 
+ 200 g ⋅ d 
+ 1.2 eVee ( ∼ 1 e − ) 
+ [1 × 10 − 3 , 7] 
+ 2 km 
+ DAMIC [ 7 ] 
+ Energy ( E d ​ e ​ t ) 
+ Ge 
+ 18 eV 
+ 200 g ⋅ d 
+ 60 eV 
+ >  2 
+ ∼ 1 m 
+ EDELWEISS [ 1 ] 
+ CaWO 4 
+ 4.6 eV 
+ 3600 g ⋅ d 
+ 30 eV 
+ > 3 × 10 − 3 
+ 1.4 km 
+ CRESST-III  [ 2 ] 
+ Al 2 O 3 
+ 3.8 eV 
+ 0.046 g ⋅ d 
+ 20 eV 
+ > 30 
+ ∼ 1 m 
+ ν CLEUS [ 8 ] 
+ Photo e − 
+ Xe 
+ 6.7 PE ( ∼ 0.25 ​ e − ) 
+ 15 kg ⋅ d 
+ 12.1 eVee ( ∼ 14 PE) 
+ [0.5, 3] × 10 − 4 
+ 1.4 km 
+ XENON10 [ 9 , 5 ] 
+ Xe 
+ 6.2 PE ( ∼ 0.31 ​ e − ) 
+ 30 kg ⋅ yr 
+ ∼ 70 eVee ( ∼ 80 PE) 
+ > 2.2 × 10 − 5 
+ 1.4 km 
+ XENON100 [ 5 ] 
+ Xe 
+ < 10 PE 
+ 60 kg ⋅ yr 
+ ∼ 140 eVee ( ∼ 90 PE) 
+ >  1.7 × 10 − 6 
+ 1.4 km 
+ XENON1T [ 10 ] 
+ Ar 
+ ∼ 15 PE ( ∼ 0.5 ​ e − ) 
+ 6780 kg ⋅ d 
+ 50 eVee 
+ > 6 × 10 − 4 
+ 1.4 km 
+ Darkside50 [ 11 ] 
+ Table 1: Rates of observed low-energy excesses in experiments with single electron ( < 100 eV) charge (energy) resolutions. Lower bounds on the rate are given by integrating the rate above 2e - (or above threshold) whereas upper bounds are given by assuming that the entire 1e - rate is of the same origin, despite likely containing large experiment-specific backgrounds (see Appendix A for a discussion). Experiments sensitive to charge energy E e are in the top section of the table, while experiments sensitive to total detector energy E d ​ e ​ t are in the middle section. The bottom section lists experiments sensitive to secondary radiation produced by charge interactions. The main coincidence reported here is that the excesses for n e ≥ 2 across the first three charge detectors ( ∼ 10 Hz/kg) demonstrate nearly identical rates for their n e ≥ 2 bins (20, 6, and 10 Hz/kg), despite spanning ∼ 2 km of variation in overburden and almost three orders of magnitude in exposure. The total rate observed in the DAMIC detector is much lower, but the upper bound (7 Hz/kg) is intriguingly of the same order of magnitude. 
+ II Review of Recent Low-Threshold Results 
+ We begin by considering the standard interpretation of existing excesses in roughly chronological order of appearance to illustrate the difficulty in explaining them through conventional backgrounds. We restrict our discussion to experiments running detectors with source-independent energy resolution below 100 eV, where excesses are observed directly. 
+ II.1 Nuclear Recoil Searches 
+ In a typical nuclear recoil (NR) search, an excess manifests as an unexplained event rate rising with decreasing energy down to the detector threshold; by contrast most background processes are approximately flat in E d ​ e ​ t at these energies. Calorimetric detectors are sensitive to E d ​ e ​ t in the form of phonons, which are the longest-lived excitations after the relaxation of all charge processes. 
+ CRESST-III: In the calorimetric energy channel, the first hint of an unexpected signal at low energy came from the CRESST-III experiment  [ 2 ] . With a heat threshold of 30 eV in a CaWO 4 detector, this was the first result to achieve significant exposure (3.6 kg ⋅ days) below 100 eV, and their initial hypothesis for the excess of 440 events near threshold was crystal cracking [ 20 ] . The relatively low rate ( 3 × 10 − 3 Hz/kg; see Table  1 ) and the lack of other measured excesses at the time suggested this hypothesis as the least controversial explanation. 
+ ν CLEUS: Shortly thereafter, the ν CLEUS experiment  [ 8 ] , an off-shoot of the CRESST collaboration targeting coherent neutrino scattering, published a surface NR search in which an excess of 30 Hz/kg above expected background was observed in an Al 2 O 3 detector. Taken alone, this rate could potentially also be interpreted as crystal cracking [ 20 ] , though this would require an explanation for the drastically higher rate than the excess observed in CaWO 4 . 
+ EDELWEISS: Most recently, EDELWEISS published surface results from a Ge detector with a 60 eV threshold  [ 1 ] showing a very large low-energy excess above the expected background. This excess steeply rises below 500 eV and reaches over 100 times the measured flat background rate at the detector threshold of 60 eV, leaving no argument about its statistical significance; they observe on the order of 10 5 events. The observed rate above threshold is orders of magnitude larger than the CRESST-III excess and extends to higher energy, making it inconsistent with a simultaneous elastic nuclear recoil interpretation of the two. Independently of the CRESST-III excess, the EDELWEISS excess has eluded interpretation as a DM signal, since the sharp rise matches neither the expected spectrum of an elastic DM recoil (using the standard velocity distribution [ 12 ] ), nor secondary ionization induced by DM-nuclear scattering, the so-called Migdal effect (using Ibe et al. [21] to calculate the cross section for this process). 
+ The evidence from the E d ​ e ​ t spectra is thus inconclusive at this point in the story: multiple experiments observe excesses, none consistent with each other, without a unifying explanation (apart from crystal cracking, which should not produce any charge). 2 2 
+ 2 
+ It should be noted that one other experiment running a calorimetric detector has also noted a low energy excess. SuperCDMS, running an 11 g Si detector, has measured an excess above a threshold of around 20 eV [ 22 ] , but the rate was not published at that time. The rate rises above background around 30 eV, and also appears to be sharply rising. When information becomes available about the spectrum of this excess, it can be incorporated into this analysis, but at this time it remains a qualitatively interesting result which we cannot interpret further. 
+ II.2 Electron Recoil Searches 
+ In a typical electron recoil (ER) search, dark counts are expected to contribute a significant quantity of single-electron events, and for a given detector should produce a calculable number of pile-up events with two electrons (see Appendix  A ). An excess rate in ionization energy E e can thus either be interpreted as the number of events with two electrons exceeding this prediction, or the overall dark rate, interpreted as a limit on a putative signal rate. 
+ CDMS HVeV/SENSEI: 
+The successful demonstration of single-electron thresholds in Si detectors by CDMS HVeV [ 3 ] and SENSEI [ 4 ] led to a leap forward in electron recoil sensitivity to low-mass DM. Both experiments observed a roughly ∼ Hz/g dark rate in the single electron bin, and only ran for less than a gram-day of exposure. The relative similarity of the event rates was striking, but was considered to be a temporary coincidence that would soon be resolved as one of the experiments improved on their single electron dark rates. It is notable that neither experiment has demonstrated an improved dark rate as of this writing, which may point to a dark rate which is independent of detector environment and is not reduced with additional overburden. 
+ EDELWEISS: 
+Subsequently, the first electron recoil analysis in Ge was released by EDELWEISS [ 6 ] ; intriguingly, the observed event rate is within an order of magnitude of the Si rates, despite exposures differing by a factor of 400 among the three experiments, and the fact that the EDELWEISS search was conducted with significantly greater overburden. Further investigation reveals that the event rate per unit mass in the 2–3 electron bins is remarkably similar between the three experiments, the Ge rate being only roughly twice the Si rate. 
+ DAMIC: 
+Finally, the latest DAMIC [ 7 ] limit is stronger than the other ER limits, as explained by the significantly reduced dark rate in the single electron bin compared to other silicon detectors.
+The ER analysis presented by DAMIC does not have single-electron resolution and instead assumes Poisson-distributed dark counts, from which we extract a robust upper bound on the 1 e − bin and an inferred lower bound on the 2 e − bin.
+The DAMIC data is most in tension with the narrative presented here, indicating a source of events in CDMS HVeV and SENSEI that is absent in the DAMIC detector.
+Regardless, we would like to emphasize that the origin of the dark current in DAMIC remains unknown and could still be consistent with some realizations of the interpretation presented here. 
+ XENON10/100/1T: At face value, a DM-electron scattering interpretation in the semiconductor detectors is strongly inconsistent with results from XENON10 [ 9 ] , which sees a far smaller event rate. We list observed event rates at the bottom of Table  1 for several noble liquid experiments with phototube readout; of these, only XENON10 reports a single charge rate because its threshold is below the average energy (13.7 eV) needed to produce one quantum of charge in xenon [ 23 ] . Regardless of any assumption about whether the excesses in the XENON experiments arise from the same source as those in the semiconductor experiments (as we will explore further in Sec.  II.3 below), any consistent explanation of the semiconductor excesses must explain the orders of magnitude lower event rates observed in liquid noble experiments.
+All of these experiments do still observe unexplained excesses at low energy, as shown in Tab.  1 . 3 3 
+ 3 
+ We note that a recent result using phototube readout of EJ-301 scintillator reports a total single photoelectron rate of 3.8 Hz, corresponding to a mass-normalized single scintillation photon production rate of 14 Hz/kg [ 24 , 25 ] , much larger than the noble liquid rates and comparable to the semiconductor rates. However, since this experiment was the first demonstration of a new technique for light DM searches and was run with minimal overburden, we regard this result as qualitatively interesting and await further data from an underground run. A significant amount of work has been put into better understanding the source of these excess event rates in xenon TPCs  [ 26 , 27 , 28 , 29 ] ; however, we note that at very least some event rate appears to scale with detector mass [ 30 ] , as would be expected from a dark matter signal. 
+ II.3 Determining Signal Origin 
+ The significance of the apparent coincidences in the semiconductor detectors is that these detectors acquired data in very different environments (both near surface and deep underground), each with distinct technologies, at dramatically different temperatures and electric fields, with greatly varying degrees of shielding. There is no detector effect or known background that should conspire to produce the same event rate in these detectors. Furthermore, in all four charge-readout detectors, a charge produced with arbitrarily low energy above the band edge may be detected: there is no threshold for charge detection. By contrast, the calorimetric searches have a nonzero energy threshold, below which events can be hidden depending on the energy spectrum of the signal. 
+ Figure 1: Integrated rate of each excess versus approximate depth (shifted for clarity), separated by detector medium. Ranges are given according to the same criteria in Table  1 with the shaded bands indicating regions most consistent with all observed excess rates for Ge (red), Si (blue), and Xe (green), along with the muon flux from  [ 31 ] in dashed black to highlight the lack of dependence on depth. For the measurements which only give a lower bound on excess rate, we indicate the possibility of a larger total excess rate with an arrow.
+Given some reasonable model for the spectrum of each excess below threshold, an upper bound would apply to these measurements, but determining such a bound is outside of the scope of this paper. We note that there exists some tension among the silicon measurements shown here, indicative of non-negligible unresolved detector backgrounds which are not in conflict with the order of magnitude arguments herein.
+ Figure 2: 
+Comparison of measured ionization ( E e ) [ 6 ] and calorimetric ( E d ​ e ​ t ) [ 1 ] spectra from EDELWEISS in Ge with yield models (see Appendix  B for further details) for converting the total energy E d ​ e ​ t into electron-equivalent ioniation energy E e , with uncertainty on the measured E e spectrum due to statistical error and threshold effects shown in shaded grey.
+ The E d ​ e ​ t measurement is a lower bound on the differential rate once converted to E e by a yield model. For a model to be viable, it must predict an E e spectrum that is less than or equal to the measured spectrum; the rate will increase as the E d ​ e ​ t threshold is lowered. If the model does not fit inside of the black curve, then it is an inconsistent interpretation. Only the inelastic model is able to fit inside of the measured E e spectrum. Top Left: E d ​ e ​ t spectrum interpreted as electron-recoil, with E d ​ e ​ t = E e . Bottom Left: E d ​ e ​ t spectrum interpreted as nuclear recoil (NR) according to the models described in the text and Appendix  B . The blue shaded region around the NR curves illustrates the possible shape variation in the NR models which can be accommodated by physical variation of the yield model. Note that even the “Low” model over-predicts the E e spectrum above 20 eVee. Right: Example of a yield model in which an average of λ e ​ h ∼ 0.5 charges are produced per event regardless of the energy of the event (solid red, with dashed red showing the contribution from each integer number of charges), representative of a signal which produces very few charges independent of event energy. Also shown is a simpler yield model in which exactly 1 charge is produced for every event regardless of event energy (green).
+ At this point in our discussion we therefore make a bold assumption: that all the excesses in Tab.  1 are caused by a common source. 4 4 
+ 4 
+ Note here that we do not, at this stage, argue that the common source is the same population of dark matter scattering in each detector. Even if dark matter turns out not to be the explanation for these events, the conclusions made here stand independently of the particular source of events. We justify this assumption based on the charge-readout semiconductor results, arguing at the very least, that interesting new detector physics is being probed by these experiments. If this is the case, then it stands to reason that any other detector should be sensitive to the same rate of these events, and an excess above a modeled background can be interpreted as arising from the same source. The measurement of a statistically significant excess in Ge in both the E d ​ e ​ t and E e channels allows us to consider the nature of these events under the assumption of common origin, with the caveat that the location (and thus background environment) of the detector changed between these two runs. 
+ For the last decade, DM experiments have been rejecting irreducible electron recoil backgrounds using the differing yield between nuclear and electronic recoils, often called the quenching factor, utilizing simultaneous measurements of energy in complementary detection channels (see e.g. Refs.  [ 32 , 33 ] and Appendix  B ). For solid-state experiments, the readout typically comprises both a heat ( E d ​ e ​ t ) and charge or light ( E e ) signal. The charge (or light) yield for an event of energy E d ​ e ​ t is then computed as
+ y ⁡ ( E d ​ e ​ t ) = E e / E d ​ e ​ t ,
+where y = 1 is characteristic of an electron recoil event, and y < 1 , following a measured yield curve [ 33 ] , can be used to select the expected nuclear recoil band. 
+ Taking the example of a charge detector, E e is a derived parameter based on the empirical fact that, on average, one electron-hole pair is produced per ϵ e ​ h of E d ​ e ​ t energy. 5 5 
+ 5 
+ ϵ e ​ h is a measured material property and varies material to material, and is measured such that E e in different materials for a given calibration source can be plotted on a consistent energy axis. In other words, an average of
+ n e ​ h = E d ​ e ​ t / ϵ e ​ h 
+electron-hole pairs is produced for such an event, giving the relation E e = E d ​ e ​ t = n e ​ h ​ ϵ e ​ h for electron recoil.
+While this relation is usually used to convert measured charge to an equivalent energy spectrum, it can also be used to compare measured E e and E d ​ e ​ t spectra from the same source of events to determine whether they are consistent with expectations for electron recoils, nuclear recoils, or neither. For further details, see Appendix  B . 
+ The recent release of the high-voltage EDELWEISS DM search [ 6 ] is thus the most significant development to date because, taken with the previously published E d ​ e ​ t spectrum from a similar detector, it is the first dataset for which we can compare the two spectra directly in a single material to determine a likely origin. This type of detector actually measures a combination of E e and E d ​ e ​ t as we have defined them, producing an E e measurement according to 
+ E e = E d ​ e ​ t ​ [ y ⁡ ( E d ​ e ​ t ) + ϵ e ​ h e ⋅ V d ​ e ​ t ] , 
+ (1) 
+ where V d ​ e ​ t is the detector operating voltage and e is the electron charge. This reduces to our definition of E e only in the limit V d ​ e ​ t → ∞ ; the data considered here were taken at 78 V. This gives an additional correction term of ϵ e ​ h / e ​ V d ​ e ​ t ∼ 3.8 × 10 − 2 for ϵ e ​ h = 3.0  eV [ 33 ] . 
+ Figure  2 shows these spectra under three scenarios for the origin of the E d ​ e ​ t spectrum, assuming it originates from a single type of event: 
+ 1. 
+ Electron Recoil Interpretation: The events are electron recoils, with y = 1 (Figure  2 , top left). This is clearly inconsistent because the black and orange curves are markedly different, and electron recoils are strongly ruled out. 
+ 2. 
+ Elastic Nuclear Recoil Interpretation: The events are nuclear recoils, and the yield follows the measured Ge nuclear recoil yield model [ 33 ] with varying low-energy behavior (Figure  2 , bottom left). We consider an extrapolation of measured yield to the bandgap energy (Nominal), a yield constant below 100 eV (High), or a yield that drops discontinuously to 0 at 100 eV (Low). All are clearly also inconsistent with the measured E e spectrum. 
+ 3. 
+ Inelastic Interpretation: Finally, we consider a maximally inelastic yield, in which every event produces a charge yield independent of the recoil energy, such that 
+ ⟨ E e ⟩ = ϵ e ​ h ​ ( λ e ​ h + E d ​ e ​ t e ⋅ V d ​ e ​ t ) , 
+ (2) 
+ where λ e ​ h is the mean number of electron-hole pairs produced by the event (Figure  2 , right). Unlike the previous two cases, this matches the observed spectrum remarkably well both in signal shape and event rate for λ e ​ h ≤ 0.5 (no relative scaling is done to force the rate to match), suggesting an inelastic interpretation is allowed for the measured E e spectrum, in contrast to the two standard scenarios. 
+ Based on this simple analysis, we conclude that an interpretation of the EDELWEISS events based on standard elastic NR or ER models is inconsistent, and that the most likely interpretation of these events is an inelastic interaction, with a yield curve that increases with lower event energy. If this is the case, it also helps reconcile the event rates in well-ordered crystals (which see a rate of 𝒪 (10 Hz/kg)) compared to liquids or amorphous solids, which observe much smaller event rates. An inelastic interaction will be largely driven by condensed matter properties unrelated to the nuclear mass or electron density we use to relate different targets to each other under standard elastic assumptions. 
+ This observation therefore rules out “standard” backgrounds caused by known low-energy interactions of photons, charged particles, and neutrons. It does not preclude the aforementioned crystal cracking events, which would not intrinsically produce light or charge. However, we note at this point that, if crystal cracking events were truly causing the E e background, one would expect there to be a dependence on applied pressure, temperature, and operating history. We therefore either have to accept a crystal cracking rate determined only by material, or ask what other physical process might lead to a consistent rate with an inelastic-like charge yield. 
+ III Plasmon Interpretation 
+ III.1 Plasmon Properties 
+ Without committing to a particular source of signal events yet, we postulate that the nature of the observed excitations in low-threshold silicon, germanium, and sapphire detectors is the plasmon. 6 6 
+ 6 
+ In this work “plasmon” will only refer to a bulk plasmon, in contrast with surface plasmons which are qualitatively different phenomena. The plasmon model, presented here, is consistent with the maximally inelastic yield discussed in Section  II.3 given the known properties of plasmons. In this section we briefly review the properties of plasmons relevant for our analysis; see Appendix  C for more details. 
+ A plasmon is a long-wavelength collective excitation of charges in a lattice which carries energy near the classical plasma frequency, 
+ E p ≃ 4 ​ π ​ α ​ n e m e , 
+ (3) 
+ where α is the fine-structure constant and n e is the electron number density; in a semiconductor, n e is to be interpreted as the density of valence electrons. 7 7 
+ 7 
+ Plasmons can also appear in “metamaterials,” where n e is interpreted as the average electron density in a heterostructure averaged over large distances; see [ 34 ] for a proposal to use these plasmons to detect axion DM. Since most solid-state systems have roughly the same number density, with interatomic spacing of a few Angstroms, E p ∼ 𝒪 ⁡ ( 10 − 100 ) across essentially all materials (see Tab.  2 ). In particular, bulk plasmons exist and have been observed in silicon, germanium, and sapphire. The long-wavelength nature of the plasmon is reflected in a momentum cutoff 
+ q c ∼ 2 ​ π a ∼ 5 , 
+ (4) 
+ where a is the lattice spacing. If a plasmon carries q > q c , it represents a charge oscillation localized to within a single lattice site, and the plasmon will decay very rapidly into a single electron-hole pair in a process known as Landau damping [ 19 ] . Note that the creation of such a short-range plasmon is inconsistent with the analysis of the Ge spectra in Sec.  II.3 above, which suggests that the plasmon should have a dominant decay channel into phonons only. Thus we will focus exclusively on excitation of long-range ( q < q c ) plasmons. 
+ Material 
+ Plasmon Energy E p (eV) 
+ Width Γ (eV) 
+ Si 
+ 16.6 
+ 3.25 
+ Ge 
+ 16.1 
+ 3.65 
+ Al 2 O 3 
+ 24.0 [ 35 ] 
+ ∼ 5 
+ GaAs 
+ 16.0 
+ 4.0 
+ Xe (Solid) 
+ 14–15 [ 36 ] 
+ ∼ 4 
+ Ar (Solid) 
+ 19–21 [ 36 ] 
+ ∼ 5 
+ CaWO 4 
+ Unknown 
+ Table 2: Plasmon energies in various materials. Crystal values taken from Ref.  [ 37 ] unless otherwise referenced. We were unable to find measurements of plasmon features in CaWO 4 , and expect that it has a much weaker plasmon resonance than the other crystals considered here. It is significant to note that the solid forms of the noble elements show strong resonance features; the liquid forms do not. 
+ The plasmon is most easily observed in electron energy-loss spectroscopy (EELS), where fast ( ∼ 100 keV) electrons impinging on a material have a high probability of depositing energy E p . This probability is only weakly dependent on the incident electron energy E 0 , scaling as log ⁡ ( E 0 ) / E 0 (see Appendix  C ), and is independent of the target material except for the core electron contribution to the dielectric constant. At the same time, the probe must be fast in order to deposit a small amount of momentum for a given energy E p . In other words, probes with sufficient energy E 0 ≫ E p and sufficient velocity will strongly prefer to deposit energy E p , regardless of their initial energy, at similar rates across diverse materials. This behavior is typical of other resonances encountered in nuclear physics or electrical engineering; in a sense, the plasmon acts as a band-pass filter for E d ​ e ​ t . 
+ The lineshape of the plasmon near the peak is well described by a Lorentzian [ 37 ] , where the finite width Γ parameterizes the decay of the plasmon into phonons and/or electron/hole pairs, which are the long-lived excitations in the detector. We note that the plasmon is inherently a many-body excitation, and cannot be described in terms of non-interacting single-particle states, such as band structure wavefunctions derived using density functional theory [ 38 ] . Moreover, typical values of Γ / E p for semiconductors are of order ∼ 0.2 [ 37 ] , which is comparable to Γ / M for the ρ meson and larger than Γ / M for most other strongly-decaying hadronic resonances, and suggests that the couplings which govern plasmon decay are large or even nonperturbative. The simple yield model for the Ge spectra suggests that the plasmon must have a ∼ 50% branching fraction to phonons only. To our knowledge, the branching fractions of the plasmon to phonons or electron/hole pairs is unknown, but in principle these could be determined from a suitably modified EELS experiment with both calorimetric and charge readout. 
+ Based on this interpretation, assuming some incident flux of particles is dominantly exciting the plasmon over other elastic or inelastic excitations, detectors with E d ​ e ​ t thresholds approaching E p from above should see a sharp rise in events as the threshold is lowered; this qualitatively explains the results from the silicon, germanium, and sapphire experiments, as well as the null results from previous experiments with thresholds well above E p . Moreover, the plasmon in germanium has a significant high-energy tail and double-peaked structure resulting from contributions from the 3 ​ d shell [ 37 ] , further explaining the onset of events in EDELWEISS despite a threshold of 60 ∼ 4 ​ E p . By contrast, the plasmon in silicon lacks a corresponding tail, explaining the lack of a signal excess in higher-threshold analyses of DAMIC [ 39 ] and CDMSlite [ 40 ] data. Furthermore, materials without long-range order such as liquid xenon and, to a lesser extent, CaWO 4 do not have a pronounced plasmon peak, consistent with the lower event rates from XENON10 and CRESST. 
+ III.2 Plasmons from Known Particles? 
+ An interpretation of the plasmon excitation as sourced by SM particles or fields is extremely difficult. 
+ • 
+ Photons and electromagnetic fields: Transverse UV and soft X-ray photons cannot source the longitudinal plasmon oscillation, and static electric fields cannot source oscillating charges. 
+ • 
+ Charged SM Particles: 
+The inelastic mean free path for charged particles such as electrons or muons, or for x-rays, is on the order of tens of nm, so these particles would be expected to undergo multiple scattering and deposit many multiples of E p as they traversed a detector (all of which are much thicker than nm for the experiments we consider), which would lead to many events above threshold contrary to what was observed. A single energy deposit under 100 eV is only consistent with a particle of mean free path much larger than the detector thickness; if charged, this particle would have to have electric charge much less than e . 
+ • 
+ Neutrons: In principle, it is possible that hard scattering events induced by neutrons may create secondary plasmon excitations; indeed, we speculate on this possibility in Sec.  IV.1 below in the context of hard DM-nucleus scattering. However, one would have to explain why the neutron flux is the same at all the semiconductor experiments listed in Table I regardless of the shielding, detector environment, detector construction, and exposure. 
+ • 
+ Neutrinos: Astrophysical neutrinos can, in principle, undergo neutral-current scattering with a seminconductor nucleus whose recoil excites a plasmon independently of detector overburden. However, the known solar and atmospheric fluxes (assuming SM weak interactions) cannot account for rates of the observed magnitude [ 41 ] . We can conservatively estimate this contribution by considering solar p ​ p neutrinos whose peak flux is ∼ 10 11 cm -2 s -1 near their kinematic endpoint at E ν ∼ 400 keV [ 42 ] . The total coherent neutrino-nucleus scattering
+cross section on Ge targets is approximately σ ν − Ge ∼ 10 − 42 cm ( E ν / 400 keV ) 2 2 [ 43 ] ,
+so the total event rate from p ​ p neutrinos is roughly ∼ 10 − 6 Hz/kg, which is many orders of magnitude below
+the low-threshold excess rates observed in semiconductors; other populations of solar or atmospheric neutrinos have considerably lower fluxes.
+Although it may be possible for an unknown population of very low-energy neutrinos to excite plasmons through non-standard (larger than electroweak) interactions,
+exploring this scenario is beyond the scope of the present work. 
+ We conclude that none of these options offers a satisfactory explanation for the observed excesses. 
+ IV Dark Matter Scenarios For Plasmon Excitation 
+ Figure 3: Cartoon of indirect plasmon excitation through a hard scattering event, where the imparted momentum is dominantly carried by multiple phonons, while the imparted energy is carried by the low-momentum plasmon. 
+ Figure 4: Left: 
+If DM-SM scattering is assumed to involve elastic interactions with detector particles, there are many reported bounds on σ p assuming equal DM couplings to electrons and protons.
+Note that several of the bounds in this plot are based on translating electron recoil searches according to σ p = σ e ​ μ χ ​ p 2 / μ χ ​ e 2 where μ i ​ j is the i ​ j reduced mass. However every experiment shown in dashed contours observes an excess of events as shown in Table 1 (see also [ 44 , 45 ] for discussions of the upper part of the contours). These excesses are not currently reported as DM signals because the spectral shape for elastic DM scattering does not provide a good fit to these data (see the left panel of Fig.  2 for examples of such shape mismatch).
+Consequently, these results are reported as limits, not as evidence of a DM signal.
+ Right: 
+Favored parameter space for which an DM-proton interaction with an a secondary plasmon excitation probability 𝒫 
+can accommodate excess event rates in a Ge target on the order of 1 − 10 Hz/kg with E d ​ e ​ t up to 100 eV (shaded pink and red).
+Note that the CRESST-II [ 46 ] bounds are based
+on a nuclear recoil search, so these constraints still apply; the additional parameter space covered by CRESST-III is also the region in which an excess was seen. Although we are arguing that, in this scenario, the constraints from the left panel do not apply straightforwardly due to their observed excesses, these bounds are also model-dependent and inapplicable if the DM interacts only with nucleons since the low-threshold bounds assume electron recoil signals. Furthermore, a leptobhobic DM-nucleus interaction could excite plasmons without ever directly inducing electron recoils, so many of the dashed
+regions in the left panel may not even apply in principle. The one exception is the limit from EJ-301  [ 24 ] which does observe an excess rate but sets conservative limits based only on the total single-photoelectron rate rather than a fit to an expected spectrum.
+Also shown are exclusions from CMB scattering [ 47 ] 
+and Milky Way satellites [ 48 ] . 
+ Figure 5: Same red shaded favored parameter space as Fig. 4 (right panel) interpreted in the context of dark photon mediated scattering (see Scenario 1, Sec.  IV.1 ). The blue curve represents the parameter space for which direct χ ​ χ → SM SM annihilation
+accounts for the full DM abundance; parameter space above this curve can be viably accommodated if the DM population is particle-antiparticle asymmetric.
+The additional gray shaded region below the bounds shown in Fig.  4 (right panel) represents accelerator based constraints for a representative choice of parameters m A ′ = 3 ​ m χ and α D = 0.5 . This envelope contains bounds from the LSND [ 49 ] , MiniBooNE [ 50 ] , and E137 beam dumps [ 51 , 52 ] , BaBar [ 53 ] , and NA64 [ 54 ] . Also shown are projections for the LDMX
+missing momentum experiment [ 55 ] and the B -factory Belle-II [ 56 ] .
+As in Fig 4 (right), the pink shaded region is compatible with a 10 Hz/kg plasmon excitation rate in Ge for a virialized DM halo population; the region to the left can also accommodate this rate if a DM subcomponent is faster than the Galactic escape velocity.
+ Having excluded the possibility that the plasmon could arise from SM particles, we now make a further leap and consider the hypothesis that DM could account for these plasmon excitations. If a DM particle with mass m χ and incident velocity 𝐯 deposits energy E and momentum 𝐪 in a detector, energy conservation requires 
+ E = 𝐪 ⋅ 𝐯 − q 2 2 ​ m χ , 
+ (5) 
+ which implies 
+ q ≥ E v , 
+ (6) 
+ which is saturated in the limit of forward scattering and m → ∞ . Taking E = E p = 16 for the typical plasmon energy in Ge, we find that to excite the plasmon directly (i.e. q < q c , see Eq. ( 4 )) we must have 
+ v ≳ 10 − 2 ​ ( direct ​ plasmon ​ excitation ) . 
+ (7) 
+ Since this exceeds Galactic escape velocity in the Earth frame [ 57 ] , gravitationally-bound DM with v ∼ 10 − 3 cannot directly excite a long-range plasmon. However, we identify two qualitatively distinct mechanisms by which DM (or a sub-component) can still account for the observed excesses: 
+ • 
+ Scenario 1, Secondary Plasmon: 
+In analogy with the Migdal effect [ 58 , 21 ] , if halo DM with the
+standard Maxwellian velocity distribution peaked at v ∼ 10 − 3 first scatters off a target nucleus, the interaction can transfer a majority of the momentum to phonons, while imparting most of the deposited energy to the plasmon which carries q < q c (see Fig.  3 ). 8 8 
+ 8 
+ Note that the scale of the momentum transfers we will consider, 𝒪 ⁡ ( 15 ) from Eq. ( 6 ), is precisely in the regime between single-phonon excitation and direct nuclear scattering, where direct multi-phonon production is expected to dominate [ 59 ] . Indeed, the displacement energy of bulk Ge is 10–50 eV [ 60 ] , so below this energy, an elastic nuclear recoil is not even an on-shell state, and the non-electronic energy must appear in the form of phonons – see Appendix  B . The plasmon can then decay to phonons and electron/hole pairs. In this scenario, the signal rates scale as Z 2 
+where Z is the atomic number of the target material. 
+ • 
+ Scenario 2, Fast DM Sub-Component: 
+Although the majority of halo DM in our Galaxy must satisfy v ≲ 10 − 3 to
+account for observed rotation curves, it is possible
+that a small fraction f ≪ 1 of the local DM density is accelerated to speeds v ≳ 10 − 2 above Galactic escape velocity (e.g by solar reflection [ 61 , 62 ] ). 9 9 
+ 9 
+ Other possibilities for achieving a fast sub-component of dark sector particles include boosted DM [ 63 , 64 , 65 ] , cosmic ray up-scattering [ 66 , 67 , 68 , 69 ] , direct production in supernovae [ 70 , 71 ] , and acceleration from supernova remnants [ 72 ] . Unlike in Scenario 1 above, here the rate scales inversely with the target’s mass density and is independent of Z since the plasmon is excited directly without the DM having to first undergo nuclear scattering. 
+ These scenarios are complementary: Scenario 1 requires no non-standard DM ingredients but features large theoretical uncertainty in the plasmon-phonon coupling; by contrast, Scenario 2 has no theoretical uncertainty in the direct plasmon excitation probability, which is in one-to-one correspondence with an EELS measurement, but requires an explanation for the fast DM sub-component. In both scenarios, a plasmon with a large branching ratio to phonons only can accommodate the spectral shape of the excess and
+match the total observed rate in the EDELWEISS 78 V run for 2 or more charges, ∼ 20 Hz/kg [ 6 ] . 
+ Theoretically, both of these scenarios can be realized within a standard framework for DM below the GeV scale. Let χ be a DM candidate particle of mass m χ coupled to a new spin-1 U ⁡ ( 1 ) gauge boson A ′ , which kinetically mixes with the SM photon. Here
+ χ can be a scalar or a fermion and such an interaction has long been a standard benchmark for sub-GeV DM studies [ 73 , 74 , 75 ] . In the mass eigenbasis, the Lagrangian for this model can be written 
+ ℒ ⊃ − m A ′ 2 2 ​ A μ ′ ​ A ′ μ + A μ ′ ​ ( κ ​ e ​ J EM μ + g D ​ J D μ ) , 
+ (8) 
+ where J EM is the SM electromagnetic current, κ ≪ 1 is a small kinetic mixing parameter, g D is the DM- A ′ coupling constant and J D μ is the DM current 
+ J D μ = { i ⁡ ( χ ∗ ​ ∂ μ χ − χ ​ ∂ μ χ ∗ ) Scalar χ ¯ ​ γ μ ​ χ Fermion , 
+ (9) 
+ which are analogous to scalar and fermionic versions of
+“dark electromagnetism” with a massive dark photon. 
+ In the limit where the dark photon is massless, m A ′ → 0 , the DM effectively acquires an electric millicharge κ ​ g D ; this interpretation holds as long as m A ′ ≪ q where q is the typical momentum transfer in the process under consideration. In the opposite limit, where m A ′ ≫ q , the DM effectively has contact interactions with charged particles, including electrons and nuclei. 
+ IV.1 Scenario 1: Secondary Plasmon Excitation through Hard Inelastic Scattering 
+ One way to interpret the origin of this plasmon resonance signal is through the inelastic nuclear scattering of 100 MeV-scale DM through a contact interaction ( m A ′ ≫ q ).
+This is similar to recent calculations of the Migdal effect  [ 21 ] , except that the existing literature presenting the formalism for the Migdal effect relies on an isolated atom approximation and cannot be reliably extended to semiconductors. 10 10 
+ 10 
+ Ref.  [ 18 ] made strides toward addressing this problem, though their analysis was still restricted to non-interacting single-particle wavefunctions, which cannot describe the plasmon. 
+ In light of this uncertainty, we factorize the DM-induced ionization rate R in a semiconductor into a spin-averaged single-proton cross section 
+ σ p = 16 ​ π ​ κ 2 ​ α ​ α D ​ μ χ ​ p 2 m A ′ 4 , 
+ (10) 
+ where α D ≡ g D 2 / 4 ​ π ,
+times an energy/momentum-averaged plasmon excitation probability 𝒫 ≤ 1 per individual nuclear scatter, such that the total plasmon excitation rate is 
+ R = N T ​ 𝒫 ​ ρ χ m χ ​ Z 2 ​ σ p ​ v , 
+ (11) 
+ where ρ χ = 0.4 ​ GeV ​ cm − 3 is the local DM density [ 76 ] , N T the number of detector targets, v is the DM velocity, and Z is its atomic number. Note that 𝒫 is a property of the detector material, and would be expected to vary somewhat between Si and Ge, for example, but should be similar across all single-crystal detectors of the same material. Our assumption in this scenario is that, despite the fact that the DM transfers momentum q ≫ q c to the material, a long-wavelength plasmon with q < q c is excited, with phonons or Umklapp processes absorbing the remainder of the momentum. The factor of Z 2 in the rate arises because the maximum momentum transfer for sub-GeV DM is q max = 2 ​ m χ ​ v ∼ 2 , which is not large enough to probe the nuclear structure, so the interaction is coherent over all the protons in the nucleus (i.e. the nuclear form factor is unity). For Ge, we find 
+ R ∼ 10 ​ Hz kg ​ ( 𝒫 0.1 ) ​ ( σ p 7 × 10 − 35 ​ cm 2 ) ​ ( 50 m χ ) . 
+ (12) 
+ In Fig.  4 (left), we show the constraints on the relevant parameter space when limits from the various experiments shown in Tab.  1 are interpreted in terms of traditional electron recoil or nuclear recoil models. These bounds do not apply in the indirect plasmon excitation model we a considering here; in Fig.  4 (right) we show only the direct nuclear recoil bounds from CRESST-II and EJ-301 which survive. Indeed, we are proposing that many of the “bounds,” which correspond to actual low-energy excesses in the data, are in fact signals when interpreted in the plasmon model. We shade in red the region where DM at the Galactic escape velocity has kinetic energy 1 2 ​ m χ ​ v 2 > 100 in order for gravitationally-bound DM to explain the observed E d ​ e ​ t spectrum in Ge. In Fig.  5 we show the same parameter space including a variety of accelerator-based bounds and projections for future searches. If this scenario is correct, various fixed-target and B -factory follow-up measurements will be sensitive to the full parameter space responsible for the low threshold direct detection excesses. 
+ For each value of m χ , there is a specific value of σ p which would generate the observed cosmological DM abundance through thermal freeze-out, or in the case of asymmetric dark matter, provides a lower bound on the cross section required to annihilate away the symmetric component. This line is shown in blue in Fig.  5 [ 77 , 55 ] . We see that for 𝒫 of order 1, and a DM mass of 30 − 200 MeV, the multiple excesses described in Table 1 can be consistently explained with a dark photon interaction that also sets the relic density to SM particles in the early universe. 
+ Figure 6: Left: Lineshape S ⁡ ( E ) of the germanium plasmon from EELS measurements [ 37 ] (blue), normalized to match the peak of
+the best-fit Fröhlich model (red) described in Appendix  C . Right: Parameter space for a subcomponent of semi-relativistic DM interacting through a light mediator, expressed in terms of the effective millicharge κ ​ g D / e . The shaded pink region shows the preferred parameter space for the 20 Hz/kg plasmon signal in EDELWEISS, assuming a fraction f of the local DM density has velocity v = 0.1 , for f ranging from 10 − 5 to 10 − 1 . Exclusions from SN1987A  [ 70 ] , CMB  [ 78 ] ,
+SLAC [ 79 ] ,
+XENON1T  [ 10 ] , and stellar cooling [ 80 ] are shown in grey. 
+ Although a large value of 𝒫 ∼ 𝒪 ⁡ ( 1 ) is somewhat surprising, it is not unreasonable given that the consistency of this explanation requires a large branching fraction of the plasmon to phonons. As we describe in Appendix  C , the plasmon is best understood as a nonperturbative effect with relative width even exceeding that of QCD resonances, so large couplings are expected. Intriguingly, the interaction we are proposing is maximally coherent in the sense that it benefits from coherence over the nucleus in the hard scattering event, followed by coherence over the the lattice sites in the excitation of the plasmon, such that there is no suppression by factors of momentum anywhere in the rate. The conventional wisdom is that such coherent events are always suppressed by either a small momentum or small phase space [ 81 ] , but such arguments typically involve a single-particle picture, and it is plausible that this intuition is modified by many-body effects in condensed matter systems. To our knowledge, such a secondary excitation process has not been previously considered in the condensed matter literature, though the plasmon-phonon coupling has been computed for polar semiconductors [ 82 ] . We make some suggestions in Sec.  V for neutron experiments which may confirm this effect. Regardless, the near-perfect match between the observed rate and the expected cross section for thermally-produced DM suggests that this process should be taken seriously as a signal candidate. Indeed, the rates studied here should be considered the largest rates able to accommodate this well-motivated model, as some portion of the total integrated rate is expected from true dark rate backgrounds, particularly due to sources of single-electron emission which vary widely across the experiments considered. As detectors improve and the dark rates in the single-electron bin decrease, larger regions of parameter space for DM interacting through plasmon excitation may be uncovered. 
+ Another example of an inelastic detector signal was recently explored by Ibe et al. [21] in the context of DM scattering from isolated atoms, known as the Migdal effect. In the standard Migdal effect, orthogonality of initial- and final-state wavefunctions makes the rate proportional to ( m e / m N ) 2 ​ q 2 , as coherence over the final-state wavefunctions is lost [ 21 , 17 , 18 ] . This could explain why the event rate per unit mass in noble liquid detectors is smaller than in semiconductors, as those amorphous materials lack a pronounced long-range plasmon mode. Furthermore, the parameter space which lies near the thermal relic target is precisely the DM mass range in which the Migdal and direct electron scattering rates are comparable when scattering through a heavy mediator [ 17 , 18 ] . In fact, in the dark photon model, both processes will be present, giving a markedly different spectral shape to the signal. We emphasize, however, that the isolated atom approximations made in the standard treatment of the Migdal effect fail to take into account long-range interactions in the valence shell that are known to lead to nontrivial collective behavior in solid-state materials; we argue that the dominant signal in the 10–100 MeV mass range in semiconductors is not the Migdal effect, but instead plasmon excitation. 
+ IV.2 Scenario 2: Direct Plasmon Excitation Through a Light Mediator 
+ Alternatively, we can consider the limit where m A ′ ≪ q , such that DM is effectively millicharged. The EELS experiments which characterized plasmons with electron probes can thus be used to determine the event rate for DM-induced plasmons. As mentioned above, DM cannot excite the plasmon directly unless v ≳ 10 − 2 . Given a velocity distribution with support for v ≳ 10 − 2 , the plasmon excitation rate per unit detector mass can be derived from the analogous results for EELS. The plasmon excitation probability per incident particle per unit time is [ 37 ] 
+ P ⁡ ( E ) = α π 2 ​ ∫ d 3 
+ 𝐪 ​ 1 q 2 ​ Im ​ { − 1 ϵ ⁡ ( E , 𝐪 ) } 
+ × δ ⁡ ( E − 𝐪 ⋅ 𝐯 + q 2 2 ​ m χ ) , 
+ (13) 
+ where ϵ ⁡ ( E , 𝐪 ) is the dielectric function of the target. The single delta function enforces energy conservation, but there is no corresponding delta function for momentum conservation; it is in this sense that we refer to the plasmon as an inelastic excitation. The plasmon contribution is extracted by considering the region of small momentum transfer and approximating ϵ ⁡ ( E , 𝐪 ) ≈ ϵ ⁡ ( E , 0 ) , the imaginary part of which gives the plasmon lineshape S ⁡ ( E ) (see Appendix  C for details). By taking α → κ 2 ​ α D , multiplying by the number of DM particles in the detector volume, and integrating over the velocity distribution and momentum transfer, we obtain the DM-plasmon spectrum per unit detector mass: 
+ d ​ R d ​ E = f ​ ρ χ m χ ​ ρ T ​ 2 ​ κ 2 ​ α D π ​ S ​ ( E ) ​ ∫ 0 q c d ​ q q ​ η ​ ( v min ​ ( q , E ) ) , 
+ (14) 
+ where ρ χ is the DM mass density, ρ T is the target mass density, η ⁡ ( v ) is the mean inverse DM speed, and 
+ v min ​ ( q , E ) = E q + q 2 ​ m χ , 
+ (15) 
+ is the minimum χ speed required to deposit energy
+ E .
+Note that we have cut off the q integral at the maximum value of q c ∼ 2 ​ π / a ∼ 5 keV compatible with sourcing a long-range plasmon. 
+ The plasmon lineshape S ⁡ ( E ) is taken from Ref.  [ 37 ] and shown in Fig.  6 (left). Following the analysis of Ref.  [ 37 ] for silicon, we normalize S ⁡ ( E ) to the Fröhlich model of a single damped harmonic oscillator [ 83 ] with core electron dielectric constant ϵ c = 1 (see Appendix  C for further details). To understand the order of magnitude of the rate, we can use the fact that if η ⁡ ( v min ) is approximately independent of E , and that in the Fröhlich model, S ⁡ ( E ) is Lorentzian so 
+ ∫ d ​ R d ​ E ​ 𝑑 E ∝ ∫ S ⁡ ( E ) ​ 𝑑 E ≈ 3 2 ​ E p 
+ (16) 
+ (see Appendix  C ). This underestimates the true rate slightly because it neglects the long high-energy tail of the germanium plasmon. For a monochromatic velocity distribution at velocity v such that m χ ​ v 2 > E p , this gives an approximate total rate 
+ R ≈ 3 π ​ f ​ ρ χ m χ ​ ρ T ​ v ​ κ 2 ​ α D ​ E p ​ log ⁡ ( m χ ​ v 2 E p ) . 
+ (17) 
+ In Fig.  6 (right) the gray shaded pink region marks parameter space for which the χ -induced direct plasmon excitation yields a 20 Hz/kg event rate at EDELWEISS, for abundance fractions with v = 0.1 ranging from f = 10 − 5 to 10 − 1 . The shaded regions of this figure represent astrophysical bounds on millicharged particles, including constraints on χ ​ χ ¯ emission in red giants [ 84 ] and supernovae [ 70 , 71 ] . The curve labeled “Freeze-In” represents the parameter space for which the dominant, slower 1 − f fraction of the χ population can be produced out of equilibrium through the kinetic mixing interaction [ 14 , 78 , 85 ] . The effective DM millicharges κ ​ g D which match the observed rate for f < 1 are larger than the millicharges required to generate the observed relic abundance from freeze-in, so for those parameters, some interaction within the dark sector would be required to deplete the DM relic abundance  [ 86 , 87 ] . 
+ Finally, as in Scenario 1, we would expect to see a nonzero rate from the Migdal effect or electron scattering in noble liquid detectors, but one which is smaller than in semiconductors. The excitation rate for a generic system is proportional to | ⟨ Ψ f | e i ​ 𝐪 ⋅ 𝐱 | Ψ i ⟩ | 2 , where Ψ i and Ψ f are the full many-body electronic wavefunctions. In a solid-state system, these many-body contributions are incorporated in the dielectric function ϵ ⁡ ( 𝐪 , ω ) (see Appendix  C ), and the plasmon represents a many-body state with a very large dipole matrix element | ⟨ | Ψ f | ​ 𝐱 | Ψ i ⟩ | 2 , because the wavefunctions have support over many lattice spacings. By contrast, in noble liquids the final-state wavefunction contains an ionized electron, which will not have large overlap with the initial state except in the vicinity of the nucleus. However, the large exposure and the persistent low-energy excesses in xenon and argon experiments listed in Tab.  1 may still be consistent with a combination of DM-electron scattering and the Migdal effect, as in Scenario 1 above. A more quantitative analysis would also require including the fast DM fraction in the velocity distribution, which we leave for future work. 
+ Regardless of the particular model for the DM velocity distribution with which we choose to compute the rate, we note that plasmon excitation is a striking counterexample to the conventional wisdom that inelastic processes like the Migdal effect dominate at large momentum transfers [ 17 , 18 ] . While this may be true for isolated atoms, the long-range Coulomb force creates collective excitations which are enhanced at small momentum transfer in semiconductors. This example also illustrates the importance of many-body processes which account for electron-electron interactions, as opposed to scattering rates computed using non-interacting single-particle states. 
+ V Conclusions 
+ In this paper we have argued that multiple excesses in low-threshold dark matter experiments may be explained by an inelastic excitation, which can be consistently interpreted as a plasmon. We thus predict the following: 
+ 1. 
+ The ratio of E d ​ e ​ t to E e on an event-by-event basis measures the branching fraction of the plasmon to phonons and electron/hole pairs, respectively. The statistical moments of this ratio will be a function of energy, but they should be the same for all events with the same E e in a given detector material. To our knowledge this branching fraction has not been calculated in the literature; if our interpretation is correct, such a computation would be highly relevant to DM experiments. 
+ 2. 
+ With sufficient resolution (on the order of 1 eV, less than the typical width of the plasmon peak in Si and Ge) and a threshold below the expected plasmon energy, the E det spectrum should show a relative maximum at E det = E p . The E e spectrum may not show a peak above the 1 ​ e − bin for charge only detectors. For the CDMS and EDELWEISS detectors run in E e mode, a significant shift away from the quantized one- and two-electron peaks due to the large excess phonon energy should be observed. 
+ 3. 
+ A similar spectrum should be seen in sapphire, where E p = 24 , once an energy resolution below 5 eV (approximately the width of the plasmon peak) is achieved. 
+ The striking independence of these excesses with respect to detector composition, location, and environment suggests a common origin. Given the difficulty of explaining plasmon excitation in terms of SM backgrounds, we suggest an interpretation in terms of DM-induced excitations. We have proposed two scenarios, where DM interacts through a heavy or light mediator, producing secondary and primary plasmon excitations, respectively. In the context of these models, we make the following predictions: 
+ 1. 
+ Explaining these large signal rates with the dominant halo DM population (as in Scenario 1 of Sec.  IV.1 ) suggests a
+single-nucleon contact interaction satisfying σ p ≳ 10 − 35 ​ cm 2 and a DM mass scale 30 − 200 MeV.
+Such large SM couplings and light DM masses imply large DM production rates at terrestrial accelerator searches. In particular, if the underlying interaction is due to an invisibly-decaying dark photon ( m A ′ > 2 ​ m χ ) , some combination of Belle-II [ 56 ] , BDX [ 88 ] , SHiP [ 89 ] , NA62 [ 90 ] , NA64 [ 54 ] , DUNE [ 91 ] , and LDMX [ 92 ] among others will discover or falsify this scenario
+(see also [ 75 ] for a
+broad list of follow-up searches at accelerators). 
+ 2. 
+ There should be a reduced annual modulation signal in both Scenarios 1 and 2 (Secs. IV.1 and IV.2 ) compared to the standard expectation from WIMP DM, since DM dominantly deposits energy of order E p inside the detector, regardless of its initial energy. In particular, the spectrum itself should not show a significant annual modulation, although the overall rate should change due to the modulating DM flux.
+However, this prediction should be interpreted with great care. For instance, in Scenario 2, the signal arises from a boosted sub-population of the cosmic DM, which could arise from solar reflection [ 61 , 62 ] and would not exhibit the expected annual modulation signature at all. Furthermore, even if the source population has a conventional Maxwellian velocity distribution, there are subtleties in interpreting modulation results on sub-annual timescales as the phase of this modulation is sensitive to solar gravitational focusing effects [ 93 , 16 ] . Analyzing this effect is beyond the scope of the present work, but may become important in follow-up studies. That said, given the enormous total event rates which have so far been observed, some annual modulation signal should be visible at high statistical significance with enough exposure. 
+ 3. 
+ In an anisotropic material where plasmon-phonon interactions or the dielectric function are directional, a daily modulation may be seen. In the direct excitation model, there may also be strong directional signals in low-threshold experiments searching for the dominant 1 − f cold DM fraction [ 94 , 95 , 96 , 59 , 97 ] . 
+ 4. 
+ The secondary plasmon hypothesis from Sec. IV.1 implies a large plasmon-phonon coupling, which may be seen in condensed matter experiments involving neutron energy-loss spectroscopy, for example. 
+ 5. 
+ GaAs, a polar material with a direct gap and E p ∼ 15 , should have even larger plasmon-phonon couplings than Si or Ge and a markedly different branching ratio of the plasmon to phonons compared to Si and Ge, which have indirect gaps. This would result in a larger total signal rate in Scenario 1, with a different relationship between E e and E d ​ e ​ t in both Scenarios 1 and 2. Considerable attention has already been devoted to GaAs as a candidate for sub-MeV DM detection [ 98 , 99 ] , and this signals discussed here further motivate investigation of this material. 
+ A pressing question arising from this analysis is how one might discover or falsify a DM signal which dominantly produces plasmons. In the near future, we believe the most promising line of inquiry would be to operate a detector similar to the EDELWEISS or CDMS HVeV detectors in both calorimetric or charge mode in a low-background environment. To date, no experiment has published results from a detector operating in both modes in an experimental site with known backgrounds; such an experiment could significantly strengthen the case for an inelastic interaction. Furthermore, a signal of this magnitude presents the unique challenge in that it is significantly higher than ambient backgrounds. It is thus important to expose the detector to an elevated background to verify that the observed excess remains unchanged and does not correlate with photon or neutron rates. 
+ The gold standard of proof beyond these tests, likely at least a few years down the road, is a calorimetric measurement with sufficient resolution and a low enough threshold to detect and resolve the plasmon peak. In addition, it should be demonstrated that rates in different materials should scale according to the strength of the plasmon interaction, and more detailed calculations are needed to reinforce our assertion that the spectrum should closely resemble the plasmon lineshape (which, we stress, can be measured directly with EELS). An important corollary of the conclusions in this paper is that charge and light production are secondary processes after the initial energy deposition, and readout of these end-stage signals only provides a relative measurement of the branching ratio of deposited energy into these channels . Barring a calibration of this branching ratio, results from sub-GeV DM experiments are limited by the uncontrolled systematics related to the assumed charge or light production yield from the primary event. 
+ Similarly, we emphasize that it is imperative to try to understand the precise rate and spectra of expected signals in the context of liquid noble and scintillation detectors, and to continue to operate these detectors at lower thresholds to gain better insight into the shape of the observed spectra. Upcoming experiments will continue to shed light on the source of dark counts observed by xenon and argon experiments, for example, which will contribute to a better understanding of whether a similarly suggestive rate exists in these experiments. In parallel, more work to measure dynamic structure factors for these materials would elucidate the nature of low-energy inelastic interactions that, at this point, are still not well characterized. An intriguing possibility suggested by Table  2 is that solid xenon or argon detectors may allow one to test the theory that the event rate is strongly enhanced by the presence of a plasmonic resonance at low energy. 
+ A number of our predictions are nontrivial and represent qualitatively new effects and interpretations of dark matter interactions in condensed matter detectors. We eagerly look forward to the results of upcoming experiments to either support or refute these conclusions. In either case, we expect that the dark matter community will benefit greatly with the increased interactions with the condensed matter community which may be stimulated by this work. 
+ Acknowledgments 
+ We gratefully acknowledge Peter Abbamonte for discussions and for pointing out that plasmons are the likely mechanism by which light dark matter couples to charged particles in condensed matter systems, and Lucas Wagner for many enlightening conversations which helped to bridge the gap between the languages of condensed matter physics and high-energy physics. In parallel, we want to acknowledge Alan Robinson and Emile Michaud for pointing out that plasmon interactions should impact low-energy reconstruction of electron recoils. None of the observations in this paper would be possible without the results we cite, but also without private conversations with the collaborations responsible which led to early discussions on the various possible background origins of observed excesses. We thus want to acknowledge (in alphabetical order) Dan Bauer, Karl Berggren, Julien Billard, Alvaro Chavarria, Juan Collar, Rouven Essig, Enectali Figueroa-Feliciano, Jules Gascon, Yonit Hochberg, Ziqing Hong, Tongyan Lin, Sam McDermott, Kaixuan Ni, Paolo Privitera, Matt Pyle, Karthik Ramanathan, Wolfgang Rau, Florian Reindl, Peter Sorenson, Javier Tiffenberg, Belina von Krosigk, and Tien-Tien Yu. We are especially grateful to Nikita Blinov, Torben Ferber, Jeff Filippini, Paddy Fox, Roni Harnik, Dan Hooper, Lauren Hsu, Sam McDermott, Harikrishnan Ramani, Albert Stebbins, and Belina von Krosigk for their feedback on early drafts of this paper. We thank the Gordon and Betty Moore Foundation and the American Physical Society for the support of the “New Directions in Light Dark Matter” workshop where the key idea for this work was conceived. Fermilab is operated by Fermi Research Alliance, LLC, under Contract No. DE-AC02-07CH11359 with the US Department of Energy. This work was supported in part by the Kavli Institute for Cosmological Physics at the University of Chicago through an endowment from the Kavli Foundation and its founder Fred Kavli. 
+ Appendix A Differentiating Dark Counts from Signal 
+ Part of the difficulty in understanding excesses in single electron experiments is differentiating dark counts (a distinct type of detector background) from a putative signal, given that the rate of dark counts cannot easily be increased as a calibration step in the same way as nuclear or electronic recoil backgrounds. For this reason, it is very hard to interpret the single electron rate as signal. 
+ We can, however, use the single electron rate to determine whether the higher energy bins are consistent with dark count pileup; if not, we can conclude they arise from a distinct source. Given a single electron dark rate Γ d and an integration window T , we find a mean number of dark events λ d = Γ d ​ T . For measurements which integrate a fixed window of time, such as CCDs, we should therefore get a Poisson distribution with mean λ d of events, as in  [ 7 ] . 
+ CCDs actually sample all pixels, even empty ones, so those pixels without dark counts show up in the event histogram. We thus can determine a Poisson mean from the 0 and 1 electron bins, and predict the dark rate in the second bin; an excess above this rate is from a different source. For example, for a dark rate of 400 Hz/kg as seen in the SENSEI data 1-electron bin, a mass of about 4 × 10 − 10  kg (the mass of a single pixel), and an exposure of an hour, we find that the mean λ d is roughly 5 × 10 − 4 . This means that we expect the second bin to have a rate of roughly 0.1 Hz/kg, which is more than an order of magnitude lower than the measured rate. We can therefore conclude that the excess in the second bin is likely from a different source than the single electron bin, or that these two bins are not entirely dominated by dark counts. 
+ For experiments which take a time-stream of data, we find that the probability of a dark event being irreducible pileup on top of another dark event is p p ​ u = Γ d ​ δ ​ t , where δ ​ t is the minimum separation between events that can be distinguished. For example, in CDMS HVeV with a minimum time discrimination of 10 ​ μ ​ s [ 3 ] and a dark rate of 1 Hz in a 1g detector, we thus expect that p = 10 − 5 . For a measured dark rate of 10 3  Hz/kg, we expect the pileup rate to be 10 − 2  Hz/kg. This is 10 3 times lower than the measured rate in any of the 2-6 electron bins; we can therefore conclude that if the first bin is truly all dark counts, none of the other bins can possibly be dark counts unless the experiment is observing a correlated leakage process. Because models of dark counts only produce a single charge at a time, we conclude that the event rates in the charge bins above the single electron bin are not due to dark counts. 
+ This analysis allows us to state the following: while the single electron bin in both SENSEI and CDMS HVeV may be dominated by leakage, we can exclude simple leakage as being the source of events in the > 1 electron bins. There must be, at the least, another unknown source of events. In the main text, we follow this logic to exclude SM particles as the source, motivating a DM interpretation. 
+ Appendix B Using Electron Yield to Determine Recoil Type 
+ Conventional DM searches, probing physics at energy scales above ∼ 1 keV, classify events in a binary fashion as electron recoil (ER) or nuclear recoil (NR). This clean separation is due to the very different microphysics involved in each, and the large number of additional interactions which occur during the relaxation process as a high-energy particle deposits its momentum and energy in the detector. 
+ In the case of a semiconductor, an electron recoil produces a pair of high-energy charges, which interact primarily with other electrons, efficiently generating electron-hole pairs at a mean rate of n e ​ h = E e / ϵ e ​ h , where n e ​ h is the number of generated electron-hole pairs, E e is the initial energy in the electron system, and ϵ e ​ h is the mean energy per electron-hole pair produced. A remarkably generic property of semiconductors is that ϵ e ​ h is constant across energy scales from eV to MeV (see e.g. Ref.  [ 100 ] ); ϵ e ​ h ∼ 3.6  eV for Si and 3.0 eV for Ge, for example. This provides a convenient energy scale for charge detectors measuring n e ​ h , under the assumption that all events measured are interaction with electrons. The electron-equivalent energy scale E e , measure in eVee, is just n e ​ h ​ ϵ e ​ h . 
+ Nuclear recoils, on the other hand, involve a more complex picture. At very high energies (well above 15 eV in Si and Ge [ 101 ] ), a nuclear recoil produces a crystal defect: a nucleus is physically removed from its lattice site and bounces through the lattice, displacing some nuclei, ionizing others, and producing phonons. The relative scattering rate for ionization versus other loss processes is thus much more complex than electron scattering; in particular, screening effects, which depend on the momentum of the nucleus, become important. This means the relative energy given to the electron system, E e , versus the phonon system, E r , is momentum-dependent. At energies above 1 keV, this energy partition is well-modeled by a charge screening model, the so-called Lindhard model [ 33 , 32 ] , but at low energies experiments have begun to see sharp departures from this smooth energy dependence (see e.g. Ref.  [ 102 ] ). 
+ Figure 7: Top: EDELWEISS excess in E d ​ e ​ t [ 1 ] used for the various E e spectrum models in Figure  2 . The grey band shows the uncertainty in the measurement; bins near threshold have very small uncertainties due to the large number of events observed below 100 eV. Bottom: Yield curves used to generate simulated E e spectra in Figure  2 . The electron recoil (ER) yield curve is flat because energy is initially imparted to the E e system, and thus E e = E d ​ e ​ t . The NR curves show a decreased yield at lower energy. We have extended the NR yield model from Ref  [ 33 ] down to the lowest calibrated energy; we then consider the full range of options from an extrapolation, to constant yield, to yield which discontinuously goes to 0. We also show the model from Ref  [ 32 ] for comparison. Finally, we show two inelastic yield curves which assume a fixed charge mean produced, one with a Poisson distribution (red), the other with identically one charge produced per event (green). 
+ The key point is that, if two of the three quantities ( E e , E r , E d ​ e ​ t ) can be measured (usually one proportional to E e , the other either E r or E d ​ e ​ t = E r + E e ), then the recoil type of a given event can generally be determined using the ratio of these quantities by comparing to calibrated yield curves. This is generally applicable at energies above ∼ 1 keV, and has been used successfully by all recent DM experiments searching for DM with masses above a few GeV. Below these energies, however, better resolution is required in both measurements to successfully discriminate by recoil type, and statistical fluctuations begin to wash out discrimination ability on an event by event level. For this reason, many of the very low threshold experiments have resorted back to only measuring one quantity. In our analysis, we are primarily comparing experiments which only measure charge, and thus report spectra in E e , with experiments which measure heat, and are thus sensitive to E d ​ e ​ t = E e + E r . All electron recoil DM searches, by construction, are only measuring E e . 
+ The lack of a clear distinction between ER and NR at sub-keV energies becomes important when we try to compare two experiments in this regime in the presence of some unknown signal. In this paper, we consider the excesses observed by EDELWEISS [ 1 , 6 ] because, having measured both E e and E d ​ e ​ t with similar detectors, we are able to statistically determine the mean yield as a function of energy for a population of events, and thereby shed light on the origin of those events. Consider the E e spectrum shown in the different panels of Figure  2 compared with the E d ​ e ​ t spectrum plotted in Figure  7 . Ideally, both measurements would be made with infinite precision, and without a finite threshold. The remarkable development of single charge detectors over the past few years allows the E e measurement to have effectively no threshold, but the E d ​ e ​ t measurement still has a threshold E t ​ h ​ r ​ e ​ s ​ h = 60 . 
+ We can still, however, try to determine whether events are electron recoil, nuclear recoil, or an entirely different class of events by applying the yield model and ensuring that, when we convert the spectrum from E d ​ e ​ t to E e , the result is not in direct conflict with the measured spectrum. Put another way, we must have 
+ R t ​ o ​ t ​ a ​ l = ∫ 0 ∞ d ​ R d ​ E e ​ d ​ E e > ∫ E t ​ h ​ r ​ e ​ s ​ h ∞ d ​ R d ​ E d ​ e ​ t ​ d ​ E d ​ e ​ t . 
+ (18) 
+ We thus convert the E d ​ e ​ t spectrum to a modeled E e spectrum as 
+ d ​ R m ​ o ​ d ​ e ​ l d ​ E e = y ​ ( E d ​ e ​ t ) − 1 ​ d ​ R d ​ E d ​ e ​ t 
+ (19) 
+ where for this paper, this is a convolution done by Monte Carlo. We then check that 
+ ∫ E l ​ o ​ w E h ​ i ​ g ​ h d ​ R m ​ o ​ d ​ e ​ l d ​ E e < ∫ E l ​ o ​ w E h ​ i ​ g ​ h d ​ R m ​ e ​ a ​ s d ​ E e 
+ (20) 
+ for any choice of E l ​ o ​ w and E h ​ i ​ g ​ h . If we could sample all of the E d ​ e ​ t spectrum, this would be an equality, but because we know we’re only sampling the E d ​ e ​ t spectrum above E t ​ h ​ r ​ e ​ s ​ h , the model should always either match or undershoot the measured E e spectrum, which is complete. 
+ The yield models we consider in this paper, shown in Figure  7 , constitute a constant yield (ER), falling yield (NR), and fixed E e independent of E d ​ e ​ t . Because the yield is a ratio of E e to E d ​ e ​ t , these last models appear to rise in yield space at low energy. One of the primary conclusions of this paper is that the only yield models which satisfy Eq. ( 20 ) for the measured E e spectrum in Figure  2 are the rising models; in other words, the spectra are inconsistent with either a NR or ER interaction, and suggest a novel inelastic interaction. This also illustrates that interpreting either the E e spectrum or E d ​ e ​ t spectrum independently, without knowledge of the type of recoil, leads to erroneous exclusion curves. For example, the NR limit implied by converting the E e spectrum to an effective nuclear recoil energy scale would be overly aggressive. 
+ Appendix C Plasmon Review 
+ Since plasmons in solid-state systems are likely unfamiliar to many high-energy physics, in this appendix we review some basic properties of plasmons and their measurement using EELS. To facilitate comparison with the literature, we will use as much as possible the notation of Ref.  [ 37 ] , in contrast to the typical high-energy physics notation of the main text (i.e. ω instead of E , and e instead of α ). 
+ C.1 Plasmon measurements with EELS 
+ Plasmons are the quantized longitudinal oscillations of valence electrons in a condensed matter system, carrying energy on the order of the classical plasma frequency. In EELS experiments, plasmons are excited by the electric field of an electron traversing the material, which has a longitudinal component (i.e. there is a component of the field along the electron’s direction of motion). The response of a material to electromagnetic fields of momentum 𝐪 and frequency ω can be characterized by a complex dielectric function ϵ ⁡ ( ω , 𝐪 ) . For an electron with charge e , mass m e , and velocity v traversing a material with dielectric function ϵ , the differential probability per unit time of depositing energy ω is [ 37 ] 
+ d ​ P d ​ t ​ d ​ ω = e 2 4 ​ π 3 ​ ∫ d 3 
+ 𝐪 ​ 1 q 2 ​ Im ​ { − 1 ϵ ⁡ ( ω , 𝐪 ) } 
+ × δ ⁡ ( ω − 𝐪 ⋅ 𝐯 + q 2 2 ​ m e ) , 
+ (21) 
+ where we have converted to the Heaviside-Lorentz units conventional in high-energy physics (in contrast to the formulas from [ 37 ] which use Gaussian units common in condensed matter physics and contain additional factors of 4 ​ π ). 11 11 
+ 11 
+ Note that in the small- q limit, the q 2 / ( 2 ​ m e ) term is negligible, so this term is typically neglected in the condensed matter literature when considering electron probes. Note that we can rewrite the energy conservation condition enforced by the delta function as 
+ q = E v ​ cos ⁡ θ + q 2 2 ​ m e ​ v ​ cos ⁡ θ 
+ (22) 
+ where θ is the angle between 𝐪 and 𝐯 . We are interested in the forward-scattering region where cos ⁡ θ > 0 where momentum transfer is the smallest. In that part of phase space, both terms on the right-hand side are positive-definite, so we obtain the inequality q ≥ E / v by dropping the second term. Assuming the plasmon has typical energy ω = E p , we find the important relation 
+ q ≥ E p v , 
+ (23) 
+ which is saturated in the forward scattering limit where 𝐪 is parallel to 𝐯 and when the finite-mass term q 2 2 ​ m e is negligible (which typically holds for the kinematics relevant to EELS). This condition is simply an expression of energy conservation, which must be satisfied to excite the plasmon at the peak energy. Define q p = E p / v as the typical scale of momentum transfer for plasmon excitations. As mentioned in the main text, the plasmon has a cutoff frequency q c ∼ 2 ​ π / a . Plasmon resonances have been observed with q about a factor of 2 above this cutoff [ 19 ] , but for parametric estimates, it will suffice to require that q p < q c . To satisfy Eq. ( 23 ), we must have 
+ v ≥ E p / q p = 6.5 × 10 − 3 ​ ( E p 16 ) 
+ (24) 
+ Note that this condition is independent of the mass of the incident particle; it could be an electron, proton, or millicharged DM. In the main text we conservatively tighten this bound on v to 10 − 2 . This constraint on the velocity explains why EELS experiments to probe the plasmon are performed with semi-relativistic electrons. 
+ Assuming the plasmon kinematic condition ( 24 ) is satisfied, the presence of the 1 / q 2 in the integrand of Eq. ( 21 ) implies that the smallest allowed momentum transfers, q ∼ q p , will dominate. This is just the typical behavior of the long-range Coulomb force. In that case, we can approximate ϵ ⁡ ( ω , 𝐪 ) ≈ ϵ ⁡ ( ω , 0 ) and pull it out of the 𝐪 integral, giving 
+ d ​ P d ​ t ​ d ​ ω = e 2 2 ​ π 2 ​ v ​ Im ​ { − 1 ϵ ⁡ ( ω ) } ​ log ⁡ ( 2 ​ E 0 ω ) . 
+ (25) 
+ where E 0 is the incident electron energy. The logarithmic dependence on E 0 is a manifestation of the universal Coulomb logarithm, which here is cut off by the energy transfer ω . This formula can be modified in a straightforward way for relativistic probes. Note that since v = 2 ​ E 0 / m e , the plasmon excitation probability scales as log ⁡ ( E 0 ) / E 0 , a relation which holds for any nonrelativistic charged particle (in particular, for millicharged DM as well as electrons). 
+ Note that by dividing by v and integrating over ω , we can convert this expression into a probability per unit length for the probe to undergo some nonzero energy loss. Setting this to unity gives an inelastic mean free path, which for electrons ( Q = e ) with v = 0.1 is about 58 nm for 50 keV electrons in silicon [ 19 ] . For electrons, then, multiple scattering is an important consideration, and in thick samples this will give rise to energy deposits in integer multiples of E p . On the other hand, for DM with a small millicharge, the mean free path scales with κ 2 ​ g D and is orders of magnitude larger than the detector size for the millicharge values we consider. Thus, multiple scattering of DM will typically not occur in small semiconductor detectors. 
+ C.2 Role of the dielectric function 
+ In the non-interacting electron approximation, the complex dielectric function of a material is given by the Lindhard formula  [ 103 ] : 
+ ϵ ( ω , 𝐪 ) = 1 − lim η → 0 e 2 V 1 𝐪 2 ∑ 𝐤 ∑ l , l ′ f FD ​ ( E 𝐤 + 𝐪 , l ′ ) − f FD ​ ( E 𝐤 , l ) E 𝐤 + 𝐪 , l ′ − E 𝐤 , l − ω − i ​ η × | ⟨ | 𝐤 + 𝐪 , l ′ | e i ​ 𝐪 ⋅ 𝐱 | 𝐤 , l ⟩ | 2 . 
+ (26) 
+ Here, V is the volume of the material, l and l ′ are band indices, E 𝐤 , l is the energy of the l th band at lattice momentum 𝐤 , and f FD are Fermi-Dirac factors. The imaginary part of ϵ reflects “on-shell” transitions when two states have an energy difference ω . The dielectric function is closely related to the 1-loop vacuum polarization in quantum field theory, which has similar properties (i.e. its imaginary part reflects on-shell final states). Note that Im { − 1 / ϵ } = Im ϵ / | ϵ | 2 selects out these transitions and weights them by the corresponding squared matrix element, which is why this expression appears in the formula Eq. ( 21 ). 
+ It is important to emphasize that Eq. ( 26 ), which forms the basis for much of the recent literature on DM interactions in condensed matter systems [ 13 , 104 , 94 ] , assumes no electron-electron interactions. In this approximation, the plasmon does not appear. In the language of high-energy physics, the plasmon is analogous to a pole in a matrix element which does not correspond to the fields in the Lagrangian. 12 12 
+ 12 
+ Strictly speaking, one can understand the plasmon energy from the Lindhard function by treating the electrons as a free Fermi gas and taking the limit 𝐪 → 0 , giving ϵ ⁡ ( ω , 0 ) = 1 − ω p 2 / ω 2 ; however, this approximation does not give an imaginary part to the dielectric function and hence does not explain the finite width Γ . This is by no means unusual, and indeed is behavior characteristic of strongly-coupled field theories. Moreover, much like the Sudakov factor in QCD, the plasmon is a result of a resummation of an infinite series of diagrams (known in the condensed matter literature as the random phase approximation [ 105 ] ) and does not appear at any finite order in perturbation theory. Thus is is best to treat the plasmon phenomenologically as a nonperturbative effect which nonetheless contributes to the imaginary part of the dielectric function. 
+ Finally, we note that the factor of e 2 in the dielectric function represents the response of a material to (ordinary, electromagnetic, possibly virtual) photons. The DM-induced direct plasmon excitation rate is proportional to κ 2 ​ α D , which roughly speaking represents the probability of millicharged DM emitting a virtual dark photon which converts to a virtual photon. The dielectric function then parameterizes the response of the material to this photon, which is proportional to e 2 in perturbation theory. 13 13 
+ 13 
+ We note in passing that if DM-SM interactions were mediated by a light scalar rather than a light vector, a completely different object (essentially a scalar response function) would control the material response. This function has been calculated in perturbation theory for the case of isolated atoms [ 106 ] , but it would be very interesting to understand the nonperturbative plasmon contribution in solid-state systems in light of our work, which cannot be measured with any SM probe because no long-range scalar forces exist in the SM. 
+ C.3 Plasmon lineshape 
+ The Fröhlich damped-harmonic-oscillator model [ 83 ] posits the following form for ϵ ⁡ ( ω ) : 
+ ϵ ⁡ ( ω ) = ϵ c + E p 2 ( E g 2 − ω 2 ) − i ​ Γ ​ ω , 
+ (27) 
+ where ϵ c is the contribution to the dielectric constant from core electrons (assumed independent of ω ), E p is the plasma energy of the valence electrons, E g is an average band gap, and Γ is the plasmon damping parameter. As in the analogous Breit-Wigner formulae in high-energy physics, Γ represents the sum of the partial widths of all the plasmon decay modes, including to phonons and electron/hole pairs. In high-energy physics, if the decay of a resonance of energy E can be described perturbatively, the narrow-width approximation Γ / E ≪ 1 applies. For plasmons, typical values are Γ = 3 and E = 16 [ 19 , 37 ] , so Γ / E ≈ 0.2 is not particularly small. For comparison, Γ / E for the top quark is 0.008, and Γ / E for the lowest-lying Δ resonance is 0.09, so in this sense the plasmon is even more nonperturbative than QCD resonances. Thus it is not unreasonable that the plasmon-phonon coupling, which controls both plasmon production and plasmon decay, is nonperturbatively large, consistent with Scenario 1 in the main text. 
+ Substituting into Eq. ( 25 ), we find 
+ d ​ P d ​ t ​ d ​ ω = e 2 2 ​ π 2 ​ v ​ Γ ​ E p 2 ​ ω ​ ln ⁡ ( 2 ​ E 0 / ω ) ϵ c 2 ​ ( E g 2 + E p 2 / ϵ c 2 − ω 2 ) 2 + Γ 2 ​ ω 2 . 
+ (28) 
+ This model is an excellent fit to the observed plasmon in silicon, but the germanium plasmon has a longer high-energy tail due to contributions from the core 3 ​ d electrons. However, the region around the peak is well-modeled by a single Lorentzian, so following [ 37 ] we take ϵ c = 1 and use Eq. ( 28 ) to normalize the germanium plasmon, taking the best-fit values in the two-parameter model of [ 37 ] with an effective plasmon energy E p ′ 2 ≡ E g 2 + E p 2 / ϵ c 2 . Integrating over ω (or equivalently E ) for millicharged DM gives Eq. ( 17 ). On the other hand, to obtain the spectrum for a general velocity distribution f ⁡ ( v ) , we weight Eq. ( 21 ) by f ⁡ ( v ) and integrate over v . Solving the delta function by performing the velocity integral, as is standard in DM-electron scattering treatments, and performing the q integral up to q c gives Eq. ( 14 ) in the main text. In that equation, the (dimensionless) plasmon lineshape is 
+ S ⁡ ( ω ) ≡ Im ​ { − 1 ϵ ⁡ ( ω ) } , 
+ (29) 
+ which is 
+ S F ​ ( ω ) ≡ Γ ​ E p 2 ​ ω ϵ c 2 ​ ( E g 2 + E p 2 / ϵ c 2 − ω 2 ) 2 + Γ 2 ​ ω 2 
+ (30) 
+ in the Fröhlich model. Integrating Eq. ( 30 ) gives 
+ ∫ S F ​ ( ω ) ​ 𝑑 ω ≈ 3 2 ​ ϵ c ​ E p 
+ (31) 
+ for E g = 0 . 
+ References 
+ [1] 
+ E. Armengaud, C. Augier,
+A. Benoît, A. Benoit, L. Bergé, J. Billard, A. Broniatowski, P. Camus, A. Cazes, M. Chapellier, and et al., Physical Review D 99 (2019), 10.1103/physrevd.99.082003 . 
+ [2] 
+ A. Abdelhameed, G. Angloher, P. Bauer,
+A. Bento, E. Bertoldo, C. Bucci, L. Canonica, A. D’Addabbo, X. Defay, S. Di Lorenzo, and et al., Physical Review D 100 (2019), 10.1103/physrevd.100.102002 . 
+ [3] 
+ R. Agnese, T. Aralis,
+T. Aramaki, I. Arnquist, E. Azadbakht, W. Baker, S. Banik, D. Barker, D. Bauer, T. Binder, and et al., Physical Review Letters 121 (2018), 10.1103/physrevlett.121.051301 . 
+ [4] 
+ O. Abramoff, L. Barak,
+I. M. Bloch, L. Chaplinsky, M. Crisler, Dawa, A. Drlica-Wagner,
+R. Essig, J. Estrada, E. Etzion, and et al., Physical Review Letters 122 (2019), 10.1103/physrevlett.122.161801 . 
+ [5] 
+ R. Essig, T. Volansky, and T.-T. Yu, Physical Review D 96 (2017), 10.1103/physrevd.96.043017 . 
+ [6] 
+ Q. Arnaud et al. (EDELWEISS
+Collaboration), (2020), arXiv:2003.01046 [astro-ph.GA] 
+. 
+ [7] 
+ A. Aguilar-Arevalo et al. (DAMIC
+Collaboration), Phys. Rev. Lett. 123 , 181802 (2019) . 
+ [8] 
+ G. Angloher, P. Bauer,
+A. Bento, C. Bucci, L. Canonica, X. Defay, A. Erb, F. v. Feilitzsch, N. F. Iachellini, P. Gorla, and et al., The European Physical Journal C 77 (2017), 10.1140/epjc/s10052-017-5223-9 . 
+ [9] 
+ R. Essig, A. Manalaysay,
+J. Mardon, P. Sorensen, and T. Volansky, Physical Review Letters 109 (2012a), 10.1103/physrevlett.109.021301 . 
+ [10] 
+ E. Aprile et al. (XENON Collaboration), Phys. Rev. Lett. 123 , 251801 (2019) . 
+ [11] 
+ P. Agnes et al. (DarkSide), Phys. Rev. Lett. 121 , 111303 (2018) , arXiv:1802.06998 [astro-ph.CO] 
+. 
+ [12] 
+ J. Lewin and P. Smith, Astroparticle Physics 6 , 87 (1996) . 
+ [13] 
+ R. Essig, M. Fernandez-Serra, J. Mardon, A. Soto,
+T. Volansky, and T.-T. Yu, JHEP 05 , 046 (2016) , arXiv:1509.01598
+[hep-ph] . 
+ [14] 
+ R. Essig, J. Mardon, and T. Volansky, Phys. Rev. D85 , 076007 (2012b) , arXiv:1108.5383 [hep-ph] . 
+ [15] 
+ P. W. Graham, D. E. Kaplan,
+S. Rajendran, and M. T. Walters, Phys. Dark Univ. 1 , 32 (2012) , arXiv:1203.2531 [hep-ph] . 
+ [16] 
+ S. K. Lee, M. Lisanti,
+S. Mishra-Sharma, and B. R. Safdi, Phys. Rev. D92 , 083517 (2015) , arXiv:1508.07361 [hep-ph] . 
+ [17] 
+ D. Baxter, Y. Kahn, and G. Krnjaic, (2019), arXiv:1908.00012 [hep-ph] . 
+ [18] 
+ R. Essig, J. Pradler,
+M. Sholapurkar, and T.-T. Yu, (2019), arXiv:1908.10881 [hep-ph] . 
+ [19] 
+ H. Raether, Excitation of plasmons
+and interband transitions by electrons , Vol. 88 (Springer, 2006). 
+ [20] 
+ J. Åström, P. Di Stefano, F. Pröbst,
+L. Stodolsky, J. Timonen, C. Bucci, S. Cooper, C. Cozzini, F. Feilitzsch, H. Kraus, and et al., Physics Letters A 356 , 262–266 (2006) . 
+ [21] 
+ M. Ibe, W. Nakano,
+Y. Shoji, and K. Suzuki, JHEP 03 , 194 (2018) , arXiv:1707.07258
+[hep-ph] . 
+ [22] 
+ S. Watkins, “Performance of a Large Area Photon Detector and
+Applications,” (2019), 18th
+International Workshop on Low Temperature Detectors (LTD-18). 
+ [23] 
+ C. E. Dahl, Ph.D. thesis, Princeton
+University (2009). 
+ [24] 
+ J. I. Collar, Phys. Rev. D 98 , 023005 (2018) . 
+ [25] 
+ C. Blanco, J. I. Collar,
+Y. Kahn, and B. Lillard, (2019), arXiv:1912.02822 [hep-ph] . 
+ [26] 
+ B. Edwards et al. , Astroparticle Physics 30 , 54 (2008) . 
+ [27] 
+ E. Aprile et al. , Journal of Physics G: Nuclear and
+Particle Physics 41 , 035201 (2014) . 
+ [28] 
+ P. Sorensen and K. Kamdin, Journal of Instrumentation 13 , P02032 (2018) . 
+ [29] 
+ A. Tomás, H. Araújo,
+A. Bailey, A. Bayer, E. Chen, B. L. Paredes, and T. Sumner, Astroparticle Physics 103 , 49 (2018) . 
+ [30] 
+ A. Bernstein et al. , 16th International Conference on Topics in Astroparticle and
+Underground Physics (TAUP 2019) Toyama, Japan, September 9-13, 2019 , (2020), 10.1088/1742-6596/1468/1/012035 , [J. Phys. Conf.
+Ser.1468,012035(2020)], arXiv:2001.09311 [physics.ins-det] . 
+ [31] 
+ E. V. Bugaev, A. Misaki,
+V. A. Naumov, T. S. Sinegovskaya, S. I. Sinegovsky, and N. Takahashi, Phys.
+Rev. D 58 , 054001
+(1998) . 
+ [32] 
+ D. Barker, W.-Z. Wei,
+D.-M. Mei, and C. Zhang, Astroparticle Physics 48 , 8–15 (2013) . 
+ [33] 
+ R. Agnese, A. Anderson,
+T. Aramaki, I. Arnquist, W. Baker, D. Barker, R. Basu Thakur, D. Bauer, A. Borgland, M. Bowles, and et al., Physical Review D 95 (2017), 10.1103/physrevd.95.082002 . 
+ [34] 
+ M. Lawson, A. J. Millar,
+M. Pancaldi, E. Vitagliano, and F. Wilczek, Phys. Rev. Lett. 123 , 141802 (2019) , arXiv:1904.11872 [hep-ph] . 
+ [35] 
+ W. J. Gignac, R. S. Williams, and S. P. Kowalczyk, Phys. Rev. B 32 , 1237 (1985) . 
+ [36] 
+ J. D. Nuttall, T. E. Gallon,
+M. G. Devey, and J. A. D. Matthew, Journal of Physics C: Solid State Physics 8 , 445 (1975) . 
+ [37] 
+ M. K. Kundmann, Study of semiconductor
+valence plasmon line shapes via electron energy-loss spectroscopy in the
+transmission electron microscope , Tech. Rep. (Lawrence Berkeley Lab., CA (USA), 1988). 
+ [38] 
+ D. Pines, Rev. Mod. Phys. 28 , 184 (1956) . 
+ [39] 
+ A. Aguilar-Arevalo et al. (DAMIC
+Collaboration), Phys. Rev. D 94 , 082006 (2016) . 
+ [40] 
+ R. Agnese, T. Aralis,
+T. Aramaki, I. Arnquist, E. Azadbakht, W. Baker, S. Banik, D. Barker, D. Bauer, T. Binder, and et al., Physical Review D 99 (2019), 10.1103/physrevd.99.062001 . 
+ [41] 
+ R. Harnik, J. Kopp, and P. A. N. Machado, JCAP 1207 , 026 (2012) , arXiv:1202.6073 [hep-ph] . 
+ [42] 
+ A. Bellerive, Proceedings, 21st International Symposium on Lepton and Photon Interactions
+at High Energies (LP 03): Batavia, ILL, August 11-16, 2003 , Int. J. Mod. Phys. A19 , 1167 (2004) , arXiv:hep-ex/0312045 [hep-ex] 
+. 
+ [43] 
+ B. J. Scholz, First Observation of Coherent Elastic
+Neutrino-Nucleus Scattering , Ph.D. thesis , Chicago U.
+(2017), arXiv:1904.01155 [nucl-ex] . 
+ [44] 
+ T. Emken and C. Kouvaris, Phys. Rev. D97 , 115047 (2018) , arXiv:1802.04764 [hep-ph] . 
+ [45] 
+ T. Emken, R. Essig,
+C. Kouvaris, and M. Sholapurkar, JCAP 1909 , 070 (2019) , arXiv:1905.06348 [hep-ph] . 
+ [46] 
+ G. Angloher, A. Bento,
+C. Bucci, L. Canonica, X. Defay, A. Erb, F. von Feilitzsch, N. F. Iachellini, P. Gorla,
+A. Gütlein, and et al., The European Physical Journal C 76 
+(2016), 10.1140/epjc/s10052-016-3877-3 . 
+ [47] 
+ W. L. Xu, C. Dvorkin, and A. Chael, Phys. Rev. D97 , 103530 (2018) , arXiv:1802.06788 [astro-ph.CO] 
+. 
+ [48] 
+ E. O. Nadler, V. Gluscevic,
+K. K. Boddy, and R. H. Wechsler, Astrophys. J. Lett. 878 , 32 (2019) , arXiv:1904.10000 [astro-ph.CO] 
+. 
+ [49] 
+ P. deNiverville, M. Pospelov, and A. Ritz, Phys. Rev. D84 , 075020 (2011) , arXiv:1107.4580 [hep-ph] . 
+ [50] 
+ A. A. Aguilar-Arevalo et al. (MiniBooNE DM), Phys. Rev. D98 , 112004 (2018) , arXiv:1807.06137 [hep-ex] . 
+ [51] 
+ B. Batell, R. Essig, and Z. Surujon, Phys. Rev. Lett. 113 , 171802 (2014) , arXiv:1406.2698 [hep-ph] . 
+ [52] 
+ L. Marsicano, M. Battaglieri, M. Bondí, C. D. R. Carvajal, A. Celentano,
+M. De Napoli, R. De Vita, E. Nardi, M. Raggi, and P. Valente, Phys. Rev. Lett. 121 , 041802 (2018) . 
+ [53] 
+ R. Essig, J. Mardon,
+M. Papucci, T. Volansky, and Y.-M. Zhong, JHEP 11 , 167 (2013a) , arXiv:1309.5084 [hep-ph] . 
+ [54] 
+ D. Banerjee et al. , Phys. Rev. Lett. 123 , 121801 (2019) , arXiv:1906.00176
+[hep-ex] . 
+ [55] 
+ A. Berlin, N. Blinov,
+G. Krnjaic, P. Schuster, and N. Toro, Phys.
+Rev. D99 , 075001
+(2019) , arXiv:1807.01730 [hep-ph] . 
+ [56] 
+ W. Altmannshofer et al. (Belle-II), PTEP 2019 , 123C01 (2019) , arXiv:1808.10567 [hep-ex] . 
+ [57] 
+ N. W. Evans, C. A. J. O’Hare, and C. McCabe, Phys. Rev. D99 , 023012 (2019) , arXiv:1810.11468 [astro-ph.GA] 
+. 
+ [58] 
+ A. Migdal, Sov.
+Phys. JETP 9 , 1163
+(1939). 
+ [59] 
+ T. Trickle, Z. Zhang,
+K. M. Zurek, K. Inzani, and S. Griffin, (2019), arXiv:1910.08092
+[hep-ph] . 
+ [60] 
+ M. Jiang, H. Xiao,
+S. Peng, G. Yang, Z. Liu, L. Qiao, and X. Zu, Nanoscale research
+letters 13 , 133
+(2018). 
+ [61] 
+ T. Emken, C. Kouvaris, and N. G. Nielsen, Phys. Rev. D97 , 063007 (2018) , arXiv:1709.06573 [hep-ph] . 
+ [62] 
+ H. An, M. Pospelov,
+J. Pradler, and A. Ritz, Phys. Rev. Lett. 120 , 141801 (2018) , [Erratum: Phys. Rev. Lett.121,no.25,259903(2018)], arXiv:1708.03642 [hep-ph] . 
+ [63] 
+ K. Agashe, Y. Cui,
+L. Necib, and J. Thaler, JCAP 1410 , 062
+(2014) , arXiv:1405.7370 [hep-ph] . 
+ [64] 
+ L. Necib, J. Moon,
+T. Wongjirad, and J. M. Conrad, Phys. Rev. D95 , 075018 (2017) , arXiv:1610.03486 [hep-ph] . 
+ [65] 
+ J. Berger, Y. Cui,
+M. Graham, L. Necib, G. Petrillo, D. Stocks, Y.-T. Tsai, and Y. Zhao, (2019), arXiv:1912.05558 [hep-ph] 
+. 
+ [66] 
+ T. Bringmann and M. Pospelov, Phys. Rev. Lett. 122 , 171801 (2019) , arXiv:1810.10543 [hep-ph] 
+. 
+ [67] 
+ C. Cappiello and J. F. Beacom, Phys. Rev. D100 , 103011 (2019) , arXiv:1906.11283 [hep-ph] . 
+ [68] 
+ J. B. Dent, B. Dutta,
+J. L. Newstead, and I. M. Shoemaker, (2019), arXiv:1907.03782 [hep-ph] . 
+ [69] 
+ G. Krnjaic and S. D. McDermott, (2019), arXiv:1908.00007 [hep-ph] . 
+ [70] 
+ J. H. Chang, R. Essig, and S. D. McDermott, JHEP 09 , 051 (2018) , arXiv:1803.00993
+[hep-ph] . 
+ [71] 
+ W. DeRocco, P. W. Graham,
+D. Kasen, G. Marques-Tavares, and S. Rajendran, Phys. Rev. D100 , 075018
+(2019) , arXiv:1905.09284 [hep-ph] . 
+ [72] 
+ J.-T. Li and T. Lin, (2020), arXiv:2002.04625 [astro-ph.CO] 
+. 
+ [73] 
+ R. Essig et al. , in Proceedings, 2013 Community Summer Study on
+the Future of U.S. Particle Physics: Snowmass on the Mississippi (CSS2013):
+Minneapolis, MN, USA, July 29-August 6, 2013 (2013) arXiv:1311.0029 [hep-ph] 
+. 
+ [74] 
+ J. Alexander et al. (2016) arXiv:1608.08632 [hep-ph] . 
+ [75] 
+ M. Battaglieri et al. , in U.S. Cosmic Visions: New Ideas in Dark Matter
+College Park, MD, USA, March 23-25, 2017 (2017) arXiv:1707.04591 [hep-ph] 
+. 
+ [76] 
+ J. Bovy and S. Tremaine, Astrophys. J. 756 , 89 (2012) , arXiv:1205.4033 [astro-ph.GA] . 
+ [77] 
+ E. Izaguirre, G. Krnjaic,
+P. Schuster, and N. Toro, Phys. Rev. Lett. 115 , 251301 (2015) , arXiv:1505.00011 [hep-ph] . 
+ [78] 
+ C. Dvorkin, T. Lin, and K. Schutz, Phys. Rev. D99 , 115009 (2019) , arXiv:1902.08623 [hep-ph] . 
+ [79] 
+ M. D. Diamond and P. Schuster, Phys. Rev. Lett. 111 , 221803 (2013) , arXiv:1307.6861 [hep-ph] 
+. 
+ [80] 
+ S. Davidson, S. Hannestad,
+ and G. Raffelt, JHEP 05 , 003
+(2000) , arXiv:hep-ph/0001179 [hep-ph] . 
+ [81] 
+ E. Akhmedov, G. Arcadi,
+M. Lindner, and S. Vogl, JHEP 10 , 045 (2018) , arXiv:1806.10962
+[hep-ph] . 
+ [82] 
+ I. Yokota, Progress of Theoretical Physics Supplement 57 , 97 (1975) , https://academic.oup.com/ptps/article-pdf/doi/10.1143/PTP.57.97/5385903/57-97.pdf 
+. 
+ [83] 
+ H. Fröhlich, Phenomenological
+theory of the energy loss of fast particles in solids (VEB Deutscher Verlag der Wissenschaften, 1959). 
+ [84] 
+ H. Vogel and J. Redondo, JCAP 1402 , 029 (2014) , arXiv:1311.2600 [hep-ph] . 
+ [85] 
+ L. J. Hall, K. Jedamzik,
+J. March-Russell, and S. M. West, JHEP 03 , 080 (2010) , arXiv:0911.1120
+[hep-ph] . 
+ [86] 
+ G. Krnjaic, JHEP 10 , 136 (2018) , arXiv:1711.11038 [hep-ph] . 
+ [87] 
+ J. A. Evans, C. Gaidau, and J. Shelton, JHEP 01 , 032 (2020) , arXiv:1909.04671
+[hep-ph] . 
+ [88] 
+ M. Battaglieri et al. (BDX), (2016), arXiv:1607.01390 [hep-ex] . 
+ [89] 
+ S. Alekhin et al. , Rept. Prog. Phys. 79 , 124201 (2016) , arXiv:1504.04855
+[hep-ph] . 
+ [90] 
+ P. Mermod (SHiP), Proceedings, 2017 International Workshop on Neutrinos
+from Accelerators (NuFact17): Uppsala University Main Building, Uppsala,
+Sweden, September 25-30, 2017 , PoS NuFact2017 , 139 (2017) , arXiv:1712.01768 [hep-ex] . 
+ [91] 
+ V. De Romeri, K. J. Kelly, and P. A. N. Machado, Phys. Rev. D100 , 095010 (2019) , arXiv:1903.10505 [hep-ph] . 
+ [92] 
+ T. Åkesson et al. (LDMX), (2018), arXiv:1808.05219 [hep-ex] . 
+ [93] 
+ S. K. Lee, M. Lisanti,
+A. H. G. Peter, and B. R. Safdi, Phys. Rev. Lett. 112 , 011301 (2014) , arXiv:1308.1953 [astro-ph.CO] . 
+ [94] 
+ Y. Hochberg, Y. Kahn,
+M. Lisanti, K. M. Zurek, A. G. Grushin, R. Ilan, S. M. Griffin, Z.-F. Liu, S. F. Weber, and J. B. Neaton, Phys. Rev. D97 , 015004 (2018) , arXiv:1708.08929 [hep-ph] . 
+ [95] 
+ A. Coskuner, A. Mitridate,
+A. Olivares, and K. M. Zurek, (2019), arXiv:1909.09170 [hep-ph] . 
+ [96] 
+ R. M. Geilhufe, F. Kahlhoefer, and M. W. Winkler, (2019), arXiv:1910.02091 [hep-ph] . 
+ [97] 
+ S. M. Griffin, K. Inzani,
+T. Trickle, Z. Zhang, and K. M. Zurek, (2019), arXiv:1910.10716
+[hep-ph] . 
+ [98] 
+ S. Derenzo, R. Essig,
+A. Massari, A. Soto, and T.-T. Yu, Phys.
+Rev. D96 , 016026
+(2017) , arXiv:1607.01009 [hep-ph] . 
+ [99] 
+ S. Knapen, T. Lin,
+M. Pyle, and K. M. Zurek, Phys. Lett. B785 , 386
+(2018) , arXiv:1712.06598 [hep-ph] . 
+ [100] 
+ C. Canali, M. Martini,
+G. Ottaviani, and A. A. Quaranta, IEEE Transactions on Nuclear Science 19 , 9 (1972) . 
+ [101] 
+ Y. Chen and J. MacKay, Philosophical
+Magazine 19 , 357
+(1969). 
+ [102] 
+ B. Scholz, A. Chavarria,
+J. Collar, P. Privitera, and A. Robinson, Physical Review D 94 (2016), 10.1103/physrevd.94.122003 . 
+ [103] 
+ M. Dressel and G. Gruner, Electrodynamics of
+Solids, Optical Properties of Electrons in Matter (Cambridge University Press, 2002). 
+ [104] 
+ Y. Hochberg, M. Pyle,
+Y. Zhao, and K. M. Zurek, JHEP 08 , 057 (2016) , arXiv:1512.04533
+[hep-ph] . 
+ [105] 
+ A. Fetter and J. Walecka, Quantum Theory of Many-Particle Systems , Dover Books
+on Physics (Dover Publications, 2012). 
+ [106] 
+ R. Catena, T. Emken,
+N. Spaldin, and W. Tarantino, (2019), arXiv:1912.08204 [hep-ph] . 
+ Experimental support, please
+ view the build logs 
+ for errors. Generated by
+ L
+ A 
+ T
+ E 
+ xml 
+ .
+ Instructions for reporting errors 
+ We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+ support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+ methods listed below: 
+ Click the "Report Issue" ( 
+ ) button, located in the page header. 
+ Tip: You can select the relevant text first, to include it in your report. 
+ Our team has already identified the following issues . We appreciate your time reviewing and reporting rendering errors we
+ may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+ should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+ all. 
+ Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a list of packages that need conversion , and welcome developer contributions . 
+ We gratefully acknowledge support from our major funders ,
+ member institutions , ,
+ and all contributors.
+ About · 
+ Help · 
+ Contact · 
+ Subscribe · 
+ Copyright · 
+ Privacy · 
+ Accessibility · 
+ Operational Status (opens in new tab) 

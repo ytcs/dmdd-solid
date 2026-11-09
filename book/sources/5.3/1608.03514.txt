@@ -1,0 +1,482 @@
+                                                                   Ab initio Electron Mobility and Polar Phonon Scattering in GaAs
+
+                                                                                                Jin-Jian Zhou1 and Marco Bernardi1, ∗
+                                                                              1
+                                                                                  Department of Applied Physics and Materials Science, Steele Laboratory,
+                                                                                   California Institute of Technology, Pasadena, California 91125, USA
+                                                                                                         (Dated: November 1, 2021)
+                                                                  In polar semiconductors and oxides, the long-range nature of the electron-phonon (e-ph) interaction
+                                                                  is a bottleneck to compute charge transport from first principles. Here, we develop an efficient
+                                                                  ab initio scheme to compute and converge the e-ph relaxation times (RTs) and electron mobility
+                                                                  in polar materials. We apply our approach to GaAs, where using the Boltzmann equation with
+arXiv:1608.03514v2 [cond-mat.mtrl-sci] 28 Nov 2016
+
+
+
+
+                                                                  state-dependent RTs, we compute mobilities in excellent agreement with experiment at 250−500 K.
+                                                                  The e-ph RTs and the phonon contributions to intravalley and intervalley e-ph scattering are also
+                                                                  analyzed. Our work enables efficient ab initio computations of transport and carrier dynamics in
+                                                                  polar materials.
+
+
+                                                        Semiconductors with polar bonds, such as III-V and             ph matrix elements on fine Brillouin zone (BZ) grids.
+                                                     II-VI compounds, and oxides, are important in con-                In polar materials, Wannier interpolation is inconve-
+                                                     densed matter physics and for technological applications.         nient since the e-ph matrix elements for LO modes di-
+                                                     Charge transport in these polar materials plays a key role        verge as 1/q for q → 0. A method was recently proposed
+                                                     in electronics, optoelectronic, photovoltaics, and photo-         [18, 19] to split the e-ph matrix elements g into short-
+                                                     catalysis. Novel experiments [1, 2] are dramatically ad-          and long-range parts, g = g S + g L . The long range part
+                                                     vancing understanding of charge transport in polar ma-            g L containing the 1/q singularity is the ab initio general-
+                                                     terials. Yet, their microscopic interpretation requires de-       ization of the e-ph Fröhlich interaction [19], and can be
+                                                     tailed knowledge of the carrier scattering processes. Since       evaluated using an analytical formula based on the Vogl
+                                                     fabricating pure crystals is challenging for many polar           model [20]. The short-range part g S is well-behaved, and
+                                                     materials, extracting intrinsic charge transport proper-          can be computed by Wannier interpolation. This method
+                                                     ties from experiment is non-trivial; questions related to         can correctly reproduce the e-ph matrix elements com-
+                                                     the role of doping, impurities, and defects often arise           puted with DFPT for arbitrary values of q [18, 19]. It
+                                                     when interpreting transport measurements.                         has also been used to compute the e-ph RTs for specific
+                                                        Ab initio computational approaches to study carrier            electronic states [18, 19] for showcasing the computations
+                                                     transport and scattering mechanisms are uniquely poised           possible with this important approach. However, ab ini-
+                                                     to advance understanding of polar materials. Ab initio            tio computations of charge transport, which involve the
+                                                     calculations of carrier mobility [3–9] and scattering [10–        daunting task of computing and converging the e-ph RTs
+                                                     13] are a recent development, and have been reported so           on fine grids in the entire BZ, have yet to be carried out
+                                                     far only for a few metals and nonpolar semiconductors.            in polar bulk materials. Computations of e-ph scattering
+                                                     However, the mobility in polar semiconductors and ox-             have recently appeared for polar two-dimensional mate-
+                                                     ides, which is the focus of this Rapid Communication,             rials [4, 9, 21], where since the Fröhlich interaction is
+                                                     is still typically investigated with semi-empirical mod-          well-behaved at small q, the computational challenges
+                                                     els [1, 14]. One major challenge in computing transport           are similar to those of nonpolar bulk materials.
+                                                     in polar materials is the Fröhlich interaction [15], a long-        In this Rapid Communication, we present fully ab ini-
+                                                     range coupling between electrons and longitudinal optical         tio calculations of electron mobility in a polar bulk ma-
+                                                     (LO) phonons. Electron-phonon (e-ph) scattering due               terial. An efficient scheme to compute and converge the
+                                                     to LO modes, and in general to polar phonons (PPs), is            e-ph RTs on fine BZ grids is derived. We apply this ap-
+                                                     typically the main carrier scattering mechanism in po-            proach to GaAs, a polar material for which accurate mo-
+                                                     lar materials, but it cannot yet be included in ab initio         bility measurements are available. The Boltzmann equa-
+                                                     transport calculations.                                           tion within the RT approximation is employed, in com-
+                                                        When computed directly using density functional per-           bination with temperature- and state-dependent RTs,
+                                                     turbation theory (DFPT) [16], the e-ph matrix elements            to compute the electron mobility for temperatures of
+                                                     correctly include the Fröhlich interaction for arbitrary         200−700 K, achieving excellent agreement with experi-
+                                                     values of the phonon wavevector q. Yet, the very large            ment (e.g., within 5% of experiment at 300 K). We ana-
+                                                     number of e-ph matrix elements necessary to converge              lyze the phonon mode contributions to the RTs and mo-
+                                                     the mobility and the e-ph relaxation times (RTs) [10–             bility, and find that PPs dominate intravalley scattering
+                                                     12] make direct DFPT calculations impractical due to              and transport, while acoustic phonons dominate inter-
+                                                     computational cost. For metals and nonpolar semicon-              valley scattering and hot carrier dynamics. Our work en-
+                                                     ductors, in which the e-ph interaction is short-ranged,           ables ab initio transport calculations in polar materials
+                                                     Wannier interpolation [17] can be employed to obtain e-           at roughly the same computational cost as in nonpolar
+                                                                                                                                                           2
+
+materials, and advances the microscopic understanding         tum k to a Bloch state with quantum numbers m and
+of carrier dynamics in GaAs.                                  k+q, mediated by the emission or absorption of a phonon
+   We carry out density functional theory (DFT) calcula-      with branch index ν and wavevector q [25]. The e-ph
+tions on GaAs with a relaxed lattice constant of 5.55 Å,     matrix elements for arbitrary k- and q-points are then
+                                                                                                          S
+using the local density approximation (LDA) [22] and a        obtained by adding the short-range part gnmν   (k, q), ob-
+plane wave basis with the Quantum ESPRESSO code               tained by Wannier interpolation, and the long-range part
+                                                                L
+[23]. Norm-conserving pseudopotentials [24] and a plane-      gnmν  (k, q), which we independently implement using the
+wave kinetic energy cutoff of 72 Ry are employed to ob-       method in Ref. [19]. The band- and k-dependent e-ph
+tain the ground state charge density and bandstructure.       scattering rate Γe−ph
+                                                                                nk   is computed with an in-house mod-
+We use DFPT to compute the lattice dynamical prop-            ified version of the EPW code [26], from the imaginary
+erties [16] and the e-ph matrix elements, gnmν (k, q), on     part of the lowest order e-ph self-energy, ImΣe−ph
+                                                                                                            nk , using
+coarse 8×8×8 k- and q-point BZ grids. These e-ph ma-            e−ph            e−ph
+                                                              Γnk = 2/~ImΣnk [25]:
+trix elements represent the transition amplitudes from
+a Bloch state with band index n and crystal momen-
+
+
+             2π X                2
+Γe−ph
+ nk (T ) =          |gnmν (k, q)| [(Nνq + 1 − fmk+q ) δ(εnk − εmk+q − ~ωνq ) + (Nνq + fmk+q ) δ(εnk − εmk+q + ~ωνq )]
+              ~ mνq
+                                                                                                                                                      (1)
+
+
+where T is the temperature, εnk and ~ωνq the electron           a                                            b
+and phonon energies, respectively, and fnk and Nνq the                      4                                             2.0
+                                                                                    Total                                           L(10)
+corresponding occupations. Here, the temperature de-                                Long-range part
+                                                                            3                                                       L( 2 )
+pendence is included in the occupations, while the e-ph                             Remainder
+                                                              Im(Σ) (meV)
+
+
+
+
+                                                                                                            Im(Σ) (meV)
+matrix elements are computed in the ground state. The
+e-ph RTs, τnk = (Γe−ph −1                                                   2                                             1.2
+                  nk )    , are the inverse of the scatter-
+ing rates.                                                                                                                                   G(10)
+                                                                            1                                                                G( 5 )
+  The electrical conductivity σ is computed within the
+                                                                                                                                             G( 2 )
+RT approximation of the Boltzmann transport equation
+                                                                            0                                             0.4
+[27, 28],                                                                       0    0.1     0.2      0.3                       0        40           80
+                   Z +∞                                                              Energy (eV)                                    Energy (meV)
+
+        σαβ = e2          dE(−∂f /∂E)Σαβ (E, T ) .     (2)
+                    −∞                                        FIG. 1. (Color online) (a) The converged scattering rate
+                                                              in Eq. (1) (curve labeled as “Total”), expressed in terms of
+Σαβ (E, T ) is the transport distribution function (TDF)      ImΣe-ph in meV units. Shown are also the long-range and
+at energy E and temperature T ,                               remainder contributions, which add up to the total. (b) Con-
+                                                              vergence of the scattering rate near the CBM. Shown are the
+                    2 X          α   β                        results for Lorentzian (L) and Gaussian (G) broadenings. The
+   Σαβ (E, T ) =        τnk (T )vnk vnk δ(E − εnk ),   (3)    broadening parameter, in meV units, is given in parentheses.
+                   Vuc
+                       nk
+
+computed here with a tetrahedron integration method
+[29], using ab initio e-ph RTs and interpolated [30, 31]      to the singularity, this task is still relatively inexpensive.
+band velocities vnk ; Vuc is the unit cell volume. The        On the other hand, computing each short-range e-ph
+mobility is obtained as µ = σ/nC e, where nC is the           matrix element g S is rather costly as it requires Wannier
+intrinsic carrier concentration.                              interpolation. For example, converging Γe−ph       nk   using
+   We first discuss our approach for efficiently computing    g = g S alone, as done for nonpolar materials [10–12],
+the e-ph scattering rates in Eq. (1) in polar materials.      typically requires ∼103 −105 q points and is computa-
+Due to the 1/q singularity of the long-range part g L         tionally very expensive.
+(dropping all the indices from now on), converging Γe−ph
+                                                      nk         On this basis, we split |g|2 in Eq. (1) into two parts,
+when using g = g S + g L is computationally prohibitive       the long-range part |g L |2 and the remainder (|g|2 −|g L |2 ).
+since the sum over q in Eq. (1)converges very slowly. We      Equation (1) with |g|2 = |g L |2 and |g|2 = (|g|2 − |g L |2 )
+reason that the matrix elements g L are inexpensive to        is then used to separately compute the long-range and
+compute, as they merely require evaluating an analytical      remainder contributions to Γe−ph  nk , respectively, which
+function at one point [19]. While converging Γe−ph
+                                                 nk  using    add up to the total scattering rate. Figure 1(a) shows
+g = g L alone requires as many as 106 −107 q points due       the long-range, remainder, and total scattering rates
+                                                                                                                                                                                              3
+
+in GaAs at 300 K. Each contribution is computed and
+converged separately, with important advantages for                 a                                                                  b
+                                                                                          20                                                                             Energy
+the choice of the integration grids. For the long-range                                              Total Γ valley                                          L valley              X valley
+
+
+
+
+                                                               Scattering rate (1 012 s-1 )
+                                                                                                                                                                          valley
+part, we treat the 1/q 2 singularity of |g L |2 by using                                             Total L valley
+
+
+
+
+                                                                                                                                  Relaxation time (fs)
+                                                                                                                                                         3
+                                                                                              15     LO mode contribution                           10              EL        CBM
+                                                                                                                                                                                         EX
+
+Monte Carlo integration with importance sampling near                                                                                                           L                    X
+
+the BZ center, using q points randomly sampled from                                                ωLO               EL
+a Cauchy distribution [32]. For the remainder part,                                       10                                                                                       168 fs
+
+convergence requires ∼103 −105 q points as in nonpolar                                                                                              102
+materials, and is achieved incrementally using Monte                                          5
+                                                                                                                                                             Γ valley
+Carlo integration over multiple random q-point grids                                                                                                         L valley
+[11, 12].                                                                                     0                                                     101
+                                                                                               0.0       0.1    0.2         0.3                        0.0     0.2     0.4
+   Overall, the approach enables calculations of e-ph
+                                                                                                          Energy (eV)                                        Energy (eV)
+RTs in polar materials at roughly the same cost as in
+nonpolar materials, with a small overhead to compute
+                                                               FIG. 2. (Color online) (a) e-ph scattering rate and (b) RT
+the long-range contribution. For comparison, converging
+                                                               for electrons in GaAs with energies within ∼0.4 eV of the
+Γe−ph
+  nk   in Eq. (1) directly with g = g S + g L is dramat-       CBM, which is the origin of the energy axis. Data points in
+ically more expensive, by a factor equal to the ratio          blue (red) are for electronic states in the Γ (L) valley. The
+NL /NR ≈ 10−1,000 between the number of q points               scattering rate associated with LO phonon scattering alone is
+needed to converge the long-range (NL ≈ 106 −107 )             also shown in (a). The inset in (b) shows a schematic of the Γ
+and the remainder (NR ≈ 103 −105 ) parts. Our idea of          valley, and of the L and X valleys in GaAs, with energies of
+dividing and conquering the long-range part thus enables       EL ≈ 0.25 eV and EX ≈ 0.45 eV above the CBM, respectively.
+fast computations of the e-ph RTs in polar materials.
+   The approximation employed for the δ function in
+Eq. (1) is also crucial to converge the scattering rate,       energy are less sensitive to broadening. In what follows,
+especially near the conduction band minimum (CBM).             we employ a 5 meV Gaussian broadening.
+We use δ(x) = limη→0 f (x, η), where η is a small broad-           The conduction band of GaAs has a multi-valley
+ening parameter, and test both Lorentzian and Gaussian         character, as sketched in the inset of Fig. 2(b). The
+                                                 η
+broadenings, with distributions f (x, η) = π1 x2 +η 2 and      minima of the L and X valleys are at energies EL ≈ 0.25
+                      x 2
+f (x, η) =   √1 1 e−( η ) ,   respectively.   Convergence of   eV and EX ≈ 0.45 eV above the CBM at Γ, respec-
+               πη
+                                                               tively [33]. We first focus on e-ph scattering in the Γ
+Γe−ph
+ nk   in Eq. (1) is achieved by choosing a small value
+                                                               and L valleys, which is of crucial importance to compute
+of η (e.g., 10 meV) and using a number of q points
+                                                               charge transport in GaAs. Figure 2(a) shows the e-ph
+Nq (η) large enough to converge the sum over q for the
+                                                               scattering rate at 300 K within ∼0.4 eV of the CBM,
+given value of η. Existence of the limit guarantees that
+                                                               separately for electronic states in the Γ and L valleys.
+upon decreasing η to a new value, and increasing Nq (η)
+                                                               For electrons in the Γ valley, only intravalley scattering
+accordingly, the scattering rate no longer varies as η
+                                                               is possible for energies up to EL . Small-q LO phonon
+is decreased further. We employ both Lorentzian and
+                                                               scattering dominates in this energy range, as shown
+Gaussian broadenings, with parameters η of 2, 5, and
+                                                               in Fig. 2(a) by comparing the total e-ph scattering
+10 meV, and for each case we converge the scattering
+                                                               rate with the one due to LO phonons alone. The
+rate with respect to the number of q points.
+                                                               scattering rate is nearly constant over the 0.05−0.25
+   The results of this convergence study are shown in
+                                                               eV energy range, with an associated RT [see Fig. 2(b)]
+Fig. 1(b) for energies up to ∼0.1 eV above the CBM
+                                                               of ∼168 fs. Our RT at 300 K is excellent agreement
+(from now on, we reference the electron energy to the
+                                                               with room temperature experiments, e.g., ∼165 fs in
+CBM). We find that the scattering rate for low energy
+                                                               Ref. [34]. At energies below ∼0.05 eV the scattering
+electrons in the Γ valley is highly sensitive to the broad-
+                                                               rate drops sharply, and approaches the CBM with a
+ening. In particular, Lorentzian broadening tends to
+                                                               constant trend. Within ~ωLO ≈ 35 meV of the CBM,
+overestimate the scattering rate even for a small value of
+                                                               the phase space for LO phonon emission vanishes, and
+η = 2 meV. Gaussian broadening is easier to converge: A
+                                                               the scattering process is dominated by LO phonon
+small parameter η ≈ 5 meV is sufficient to converge the
+                                                               absorption. The scattering rate in this energy range
+scattering rate in the Γ and L valleys. As shown below,
+                                                               is roughly proportional to the LO phonon occupation,
+electronic states in this energy range play a crucial role
+                                                               and is strongly temperature dependent. Our computed
+in transport. Note that even a relatively small 10 meV
+                                                               RT for LO phonon absorption at 300 K is ∼600 fs
+Lorentzian broadening, as typically employed, would
+                                                               [Fig. 2(b)]. At energy higher than EL , Γ−L intervalley
+lead to enormous errors in the mobility. On the other
+                                                               scattering becomes possible, and the scattering rate
+hand, a 10 meV Lorentzian broadening is acceptable at
+                                                               increases rapidly as a result. Intravalley scattering in
+energy above ∼0.3 eV, as electronic states with higher
+                                                               the L valley, also possible above EL , is dominated by
+                                                                                                                                                                                           4
+
+
+       a                                    2
+                                                                                b                                     a                           5
+                               10
+  Scattering rate (1012 s-1)                                E L EX                     E L EX                                                                            This work
+
+
+
+
+                                                                                                                       Mobility (cm2 /Vs)
+                                                                                                                                                                 Wolfe et al.   Chang
+                                                                                                                                                  2              Hicks et al.   Blood
+                                            1
+                               10                                                                                                                                Nichols et al.
+                                                                                                                                                 104
+
+                               100                                                                TA1                                             5
+                                                                        Total
+                                                                                                  TA2
+                                                                         LA
+                                                                                                  TO1
+                                                                         LO
+                                                                                                  TO2                                             2
+                               10-1                                                                                                               200       300       400            500
+                                   0                               0.5          10          0.5          1
+                                                                Energy (eV)              Energy (eV)                                                       Temperature (K)
+                                   c                                                                                  b                          12
+                                                      103
+
+
+
+
+                                                                                                                       Σ*(−df/dE) (10−4 a. u.)
+                                                                   EL   EX           This work                                                                   k-grid   Mobility
+                               Relaxation time (fs)
+
+
+
+
+                                                                                       Ref. 11                                                                    803      4795
+                                                                                                                                                  8
+                                                      102                                                                                                         1503     7282
+                                                                                                                                                                  3203     8789
+                                                                                                                                                  4               6003     8899
+                                                        1
+                                                      10
+
+                                                            0            0.5         1.0           1.5                                            0
+                                                                                                                                                       0      0.1         0.2
+                                                                           Energy (eV)                                                                        Energy (eV)
+
+FIG. 3. (Color online) Mode resolved e-ph scattering rates.
+(a) Total scattering rate, shown along with the contributions                                                FIG. 4. (Color online) (a) Electron mobilities close to
+from the LO and LA modes alone. (b) Contributions from the                                                   room temperature. The experimental values are taken from
+transverse modes. (c) Comparison of ab initio RTs including                                                  Refs. [37, 38], and compared with our computed ab initio mo-
+the PP scattering (red curve), as computed in this work, with                                                bilities (red line). (b) Convergence of the integrand in Eq. (2)
+previous calculations in Ref. [11] that neglect PP scattering                                                and the mobility (values given as a table) at 300 K with re-
+(gray curve).                                                                                                spect to the fine k grids used for the tetrahedron integration
+                                                                                                             in Eq. (3). The blue, green, purple and red curves are com-
+                                                                                                             puted using fine grids of 803 , 1503 , 3203 , 6003 k points in the
+                                                                                                             BZ, respectively.
+PP scattering. It exhibits a scattering rate with multiple
+branches [Fig. 2(a)], and thus a strong k-dependence,
+due to the anisotropy of the L valley.                                                                       is rather small, consistent with the fact that large-q
+   To gain additional insight into e-ph scattering, we                                                       scattering dominates in this energy range. PP scattering
+plot in Figs. 3(a) and 3(b) the contributions from                                                           is thus almost negligible in hot carrier dynamics, and
+different phonon modes to the total scattering rates,                                                        the conclusion that carriers excited above EX in GaAs
+over a wider energy range (up to ∼1 eV) than analyzed                                                        thermalize chiefly by emitting acoustic phonons [11] is
+above. Though LO scattering is dominant in the Γ                                                             still valid when PP scattering is included. However,
+and L valleys (below and above EL , respectively), the                                                       Fig. 3(c) also shows that for electronic states with
+longitudinal acoustic (LA) mode also contributes to                                                          energy lower than EL , the inclusion of PP scattering
+small-q intravalley scattering through the so-called                                                         makes a dramatic difference in the RTs. PP scattering
+piezoelectric interaction [35, 36]. For energies between                                                     additionally leads to a strong k-dependence of the RTs
+EL and EX , the Γ−L intervalley scattering is dominated                                                      for energies between EL and EX . These effects are
+by large-q LA and transverse acoustic (TA) phonon                                                            crucial to accurately compute electron mobility and
+scattering. At energy greater than EX , the TA modes                                                         transport.
+are the main source of e-ph scattering, consistent with                                                         Next, we discuss the phonon-limited mobility in
+recent results [11].                                                                                         GaAs, as shown in Fig. 4(a). For temperatures be-
+   Figure 3(c) compares our computed e-ph RTs with                                                           tween 200 and 500 K, our computed mobilities are
+those obtained in previous work [11] that did not include                                                    in excellent agreement with experiment; for example,
+PP scattering as it focused on hot carriers with high                                                        our room-temperature result is ∼8900 cm2 /Vs, versus
+energy above the CBM. We note that hot carrier calcu-                                                        experimental values of 8200−8900 cm2 /Vs [37, 38].
+lations in GaAs have also appeared in Ref. [13], which,                                                      Converging the electron mobility is very challenging
+similar to Ref. [11], focused on higher carrier energies                                                     since Eq. (3) requires BZ integration on very fine k-point
+than those of interest here. For energies above EX , we                                                      grids. We employ the tetrahedron integration method
+find that the change in the RTs due to PP scattering                                                         to converge the conductivity with high accuracy. To
+                                                                                                                                   5
+
+investigate the convergence of our mobility calculations,
+we plot the integrand in Eq. (2), (−∂f /∂E)Σαα (E, T ),                                   10
+
+
+
+
+                                                                     Mobility (1000 cm /Vs)
+                                                                                                            DFT-relaxed
+at T = 300 K; this function is proportional to the                                            8         Thermal exp. corr.
+
+
+
+
+                                                                    2
+TDF, and is employed to visualize the contributions
+                                                                                                            Experimental
+to the conductivity from electronic states at different                                       6
+energies. The integrands calculated using four different
+                                                                                              4
+choices of the k-point grids, together with the corre-
+sponding mobilities, are shown in Fig. 4(b). We find                                          2
+that the main contribution to the mobility originates
+from electronic states in a small energy window (at                                           0
+                                                                                              300   400    500       600     700
+room temperature, ∼0.05 eV) above the CBM, where
+                                                                                                      Temperature ( K )
+scattering is dominated by LO phonon absorption.
+Extremely fine grids are necessary to sample this small
+                                                             FIG. 5. (Color online) Electron mobilities computed using
+BZ region and capture the rapid changes of the RTs near      both the DFT-relaxed and thermal expansion corrected lat-
+the CBM. Figure 4(b) shows that convergence of the           tice parameters, for temperatures above 300 K. The sources
+mobilities is achieved only for grids with more than 6003    of the experimental data are the same as in Fig. 4(a).
+k points, and that even fine grids with 1503 k points
+lead to large errors in the mobility calculation. Previous
+theoretical work [37] using empirical models concluded       e-ph matrix elements can also be derived from the GW
+that iterative methods beyond the RT approximation           self-energy rather than from DFPT based on semilocal
+are necessary to obtain mobilities in agreement with         DFT as is done here. Recent work [43] has shown
+experiment. However, our results demonstrate that if         that the e-ph coupling strength can differ significantly
+ab initio temperature- and state-dependent RTs are           in DFPT and GW . Future work on carrier transport
+employed, together with fine BZ sampling to converge         should investigate this point further.
+the mobilities, then the Boltzmann transport equation           In summary, we demonstrate the crucial role of BZ
+within the RT approximation [Eq. (2)] can yield highly       sampling and convergence in computing the e-ph RTs
+accurate results over a wide temperature range.              and the mobility in polar bulk materials. The algorithms
+   The computed mobility increasingly deviates from          developed in this work reduce the computational cost
+the experimental result at high temperatures above           significantly by dividing and conquering the long range
+500 K. Note that for each temperature we investigate,        part of the e-ph interaction, and optimizing BZ sampling.
+we employ RTs computed at the same temperature,              Our mobility calculations in GaAs achieve excellent
+but the band velocities are obtained from DFT without        agreement with experiment, thus demonstrating that,
+accounting for finite-temperature corrections to the         contrary to previous results, the RT approximation of
+bandstructure. In particular, we find that our computed      the Boltzmann equation can accurately compute the
+mobilities are lower than experiment at T > 500 K, a         mobility in GaAs at room temperature. Our approach
+trend opposite to that shown in previous work using          enables ab initio studies of charge transport and carrier
+empirical models [37]. A possible explanation for this       dynamics in polar materials, with broad applications in
+difference is that most previous studies neglected the       materials science and condensed matter physics. The
+Γ−L intervalley scattering, which is incorrect since the     authors are working toward releasing a code to carry out
+integrand in Eq. (2) extends well beyond EL at high          the calculations shown in this work.
+temperature.                                                    Note added. Recently, we became aware of a related
+    We attribute the deviation of our results at T > 500     calculation for GaAs reported by Liu et al. [44]. Their
+K to the lack of finite-temperature corrections to our       computed mobility within the RT approximation is sig-
+bandstructure. To test this hypothesis, we compute the       nificantly lower than our result, and their scattering rate
+mobility using a thermal expansion corrected lattice         in the Γ valley is greater than ours. While convergence
+parameter (a ≈ 5.57 Å) [39]. Figure 5 shows that            and broadening are not discussed in their work, their
+agreement of the computed mobility with experiment           results are consistent with those found here for a too
+at T > 500 K improves when we employ a lattice               large Lorentzian broadening and for underconverged
+parameter corrected for thermal expansion. Our simple        (∼1003 ) k-point grids in the mobility calculation. These
+attempt to include finite temperature effects suggests       important differences lead to different conclusions in
+that bandstructure renormalization is an important           their work.
+aspect of high temperature mobility calculations. On
+the other hand, we anticipate that combining ab initio         This work was supported by the Joint Center
+temperature-dependent band structures [40–42] with           for Artificial Photosynthesis, a DOE Energy Innovation
+our accurate RT and mobility calculations would be           Hub, supported through the Office of Science of the U.S.
+computationally very challenging. Lastly, we note that       Department of Energy under Award No. DE-SC0004993.
+                                                                                                                              6
+
+This research used resources of the National Energy                  C. Cavazzoni, D. Ceresoli, G. L. Chiarotti, M. Cococ-
+Research Scientific Computing Center, a DOE Office of                cioni, I. Dabo, et al., J. Phys.: Condens. Matter 21,
+Science User Facility supported by the Office of Science             395502 (2009).
+of the U.S. Department of Energy under Contract No.             [24] N. Troullier and J. L. Martins, Phys. Rev. B 43, 1993
+                                                                     (1991).
+DE-AC02-05CH11231.                                              [25] M. Bernardi, Eur. Phys. J. B 89, 239 (2016).
+                                                                [26] J. Noffsinger, F. Giustino, B. D. Malone, C.-H. Park,
+                                                                     S. G. Louie, and M. L. Cohen, Comput. Phys. Commun.
+                                                                     181, 2140 (2010).
+   ∗
+                                                                [27] G. D. Mahan, Condensed matter in a nutshell (Princeton
+     bmarco@caltech.edu                                              University Press, 2010).
+ [1] A. Verma, A. P. Kajdos, T. A. Cain, S. Stemmer, and        [28] G. Pizzi, D. Volja, B. Kozinsky, M. Fornari, and
+     D. Jena, Phys. Rev. Lett. 112, 216601 (2014).                   N. Marzari, Comput. Phys. Commun. 185, 422 (2014).
+ [2] Z. Yu, Z.-Y. Ong, Y. Pan, Y. Cui, R. Xin, Y. Shi,          [29] P. E. Blöchl, O. Jepsen, and O. K. Andersen, Phys. Rev.
+     B. Wang, Y. Wu, T. Chen, Y.-W. Zhang, G. Zhang, and             B 49, 16223 (1994).
+     X. Wang, Adv. Mater. 28, 547 (2016).                       [30] J. R. Yates, X. Wang, D. Vanderbilt, and I. Souza, Phys.
+ [3] O. D. Restrepo, K. Varga, and S. T. Pantelides, Appl.           Rev. B 75, 195121 (2007).
+     Phys. Lett. 94, 212103 (2009).                             [31] A. A. Mostofi, J. R. Yates, G. Pizzi, Y.-S. Lee, I. Souza,
+ [4] K. Kaasbjerg, K. S. Thygesen, and K. W. Jacobsen,               D. Vanderbilt, and N. Marzari, Comput. Phys. Commun.
+     Phys. Rev. B 85, 115317 (2012).                                 185, 2309 (2014).
+ [5] X. Li, J. T. Mullen, Z. Jin, K. M. Borysenko, M. Buon-     [32] We sample each component of q within [-0.5, 0.5] us-
+     giorno Nardelli, and K. W. Kim, Phys. Rev. B 87,                ing the Cauchy distribution, with a probability density
+     115418 (2013).                                                                         ε
+                                                                     function P (x) = π1 x2 +ε 2 . We employ ε = 0.035 in our
+ [6] C.-H. Park, N. Bonini, T. Sohier, G. Samsonidze,                calculations..
+     B. Kozinsky, M. Calandra, F. Mauri, and N. Marzari,        [33] See Supplemental Material for computed band structure
+     Nano Lett. 14, 1113 (2014).                                     of GaAs.
+ [7] W. Li, Phys. Rev. B 92, 075405 (2015).                     [34] J. A. Kash, J. C. Tsang, and J. M. Hvam, Phys. Rev.
+ [8] J. I. Mustafa, M. Bernardi, J. B. Neaton, and S. G.             Lett. 54, 2151 (1985).
+     Louie, Phys. Rev. B 94, 155105 (2016).                     [35] P. Y. Yu and M. Cardona, Fundamentals of Semiconduc-
+ [9] T. Gunst, T. Markussen, K. Stokbro, and M. Brandbyge,           tors, 4th ed. (Springer, Berlin, 2010).
+     Phys. Rev. B 93, 035414 (2016).                            [36] Note that we neglect the quadrupole term proportional
+[10] M. Bernardi, D. Vigil-Fowler, J. Lischner, J. B. Neaton,        to the second derivative of the effective charges with re-
+     and S. G. Louie, Phys. Rev. Lett. 112, 257402 (2014).           spect to the phonon wavevector (see eq. 3.15 in Ref. [20]).
+[11] M. Bernardi, D. Vigil-Fowler, C. S. Ong, J. B. Neaton,          However, as shown in Fig. S2(b) of the Supplemental Ma-
+     and S. G. Louie, Proc. Natl. Acad. Sci. USA 112, 5291           terial [33], comparison with our DFPT calculation shows
+     (2015).                                                         that this term is negligibly small in GaAs..
+[12] M. Bernardi, J. Mustafa, J. B. Neaton, and S. G. Louie,    [37] D. L. Rode, Phys. Rev. B 2, 1012 (1970); D. L. Rode
+     Nat. Commun. 6 (2015).                                          and S. Knight, Phys. Rev. B 3, 2534 (1971).
+[13] H. Tanimura, J. Kanasaki, Katsumi Tanimura, J. Sjak-       [38] J. S. Blakemore, J. Appl. Phys. 53, R123 (1982); H. G. B.
+     ste, N. Vast, M. Calandra, and F. Mauri, Phys. Rev. B           Hicks and D. F. Manley, Solid State Commun. 7, 1463
+     93, 161203 (2016).                                              (1969); C. M. Wolfe, G. E. Stillman, and W. T. Lindley,
+[14] A. Faghaninia, J. W. Ager, and C. S. Lo, Phys. Rev. B           J. Appl. Phys. 41, 3088 (1970); P. Blood, Phys. Rev. B
+     91, 235123 (2015).                                              6, 2257 (1972); K. H. Nichols, C. M. L. Yee, and C. M.
+[15] H. Fröhlich, Adv. Phys. 3, 325 (1954).                         Wolfe, Solid-State Electron. 23, 109 (1980).
+[16] S. Baroni, S. de Gironcoli, A. Dal Corso, and P. Gian-     [39] V. M. Glazov and A. S. Pashinkin, Inorg. Mater. 36, 225
+     nozzi, Rev. Mod. Phys. 73, 515 (2001).                          (2000).
+[17] F. Giustino, M. L. Cohen, and S. G. Louie, Phys. Rev.      [40] H. Kawai, K. Yamashita, E. Cannuccia, and A. Marini,
+     B 76, 165108 (2007).                                            Phys. Rev. B 89, 085202 (2014).
+[18] J. Sjakste, N. Vast, M. Calandra, and F. Mauri, Phys.      [41] S. Poncé, Y. Gillet, J. L. Janssen, A. Marini, M. Ver-
+     Rev. B 92, 054307 (2015).                                       straete, and X. Gonze, J. Chem. Phys. 143, 102813
+[19] C. Verdi and F. Giustino, Phys. Rev. Lett. 115, 176401          (2015).
+     (2015).                                                    [42] J. P. Nery and P. B. Allen, Phys. Rev. B 94, 115135
+[20] P. Vogl, Phys. Rev. B 13, 694 (1976).                           (2016).
+[21] T. Sohier, M. Calandra, and F. Mauri, Phys. Rev. B 94,     [43] G. Antonius, S. Poncé, P. Boulanger, M. Côté, and
+     085415 (2016).                                                  X. Gonze, Phys. Rev. Lett. 112, 215501 (2014).
+[22] J. P. Perdew and A. Zunger, Phys. Rev. B 23, 5048          [44] T.-H. Liu, J. Zhou, B. Liao, D. J. Singh, and G. Chen,
+     (1981).                                                         arXiv:1606.07074 [cond-mat] (2016).
+[23] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car,
+

@@ -1,0 +1,105 @@
+\let\origsectionmark\sectionmark\renewcommand*{\sectionmark}[1]{\origsectionmark{Hohenberg--Kohn theorems and Kohn--Sham construction}}% short running head
+\section{Hohenberg--Kohn theorems and the Kohn--Sham construction}\label{app:D.5}
+\let\sectionmark\origsectionmark
+
+The ground-state density of the electrons in silicon, a function of three variables, fixes the potential of the nuclei and with it the whole Hamiltonian, every excited state included. This is the first theorem of Hohenberg and Kohn~\cite{hohenberg1964inhomogeneous}. Their second theorem turns the ground-state energy into the minimum of a functional of the density, and Kohn and Sham~\cite{kohn1965self} made that minimum computable with one-electron equations, the Kohn--Sham equations that every band structure in this book comes from (\cref{sec:3.4}). This section proves the two theorems, derives the equations and the total energy, and states what the eigenvalues mean. It uses the constrained-search formulation of Levy~\cite{levy1979universal}, which needs fewer assumptions than the original proof, and follows Ref.~\cite[Chaps.~6 and 7]{martin2004electronic}.
+
+\subsection*{The density determines the potential}
+
+Take $N_e$ electrons in an external potential $U_1(\vect{r})$, the attraction of the clamped nuclei, with
+\begin{equation*}
+  H = H_{\mathrm{kin}} + H_{ee} + \sum_{i=1}^{N_e}U_1(\vect{r}_i), \qquad H_{\mathrm{kin}} = \sum_i\frac{\vect{p}_i^2}{2m_e} ,
+\end{equation*}
+and $H_{ee}$ the Coulomb repulsion of \cref{eq:2.3-Hee-density}. Only the last term depends on the material, and it enters every expectation value through the density alone: $\langle\Psi|\sum_iU_1(\vect{r}_i)|\Psi\rangle = \int\dd^3r\,U_1(\vect{r})\,\nd(\vect{r})$, with $\nd(\vect{r})$ the electron density of $\Psi$.
+
+Suppose two potentials $U_1$ and $U_1'$, which differ by more than a constant, had nondegenerate ground states $\Psi$ and $\Psi'$ with the same density $\nd$. The two states are different. If they were equal, subtracting the two Schr\"odinger equations would give $\sum_i[U_1(\vect{r}_i) - U_1'(\vect{r}_i)]\Psi = (E_0 - E_0')\Psi$, so that the sum would be constant wherever $\Psi \neq 0$, which for a ground state is almost everywhere, and the potentials would differ by a constant. Since the ground state of $H$ is nondegenerate, $\Psi'$ has a strictly higher energy in $H$:
+\begin{equation*}
+  E_0 < \langle\Psi'|H|\Psi'\rangle = \langle\Psi'|H'|\Psi'\rangle + \int\dd^3r\,\bigl[U_1(\vect{r}) - U_1'(\vect{r})\bigr]\nd(\vect{r}) = E_0' + \int\dd^3r\,\bigl[U_1 - U_1'\bigr]\nd .
+\end{equation*}
+The same argument with the primed and unprimed quantities exchanged gives $E_0' < E_0 + \int\dd^3r\,[U_1' - U_1]\nd$. Adding the two inequalities, the integrals cancel and $E_0 + E_0' < E_0' + E_0$, a contradiction. Hence the ground-state density determines $U_1$ up to a constant~\cite{hohenberg1964inhomogeneous}. It also fixes $N_e = \int\dd^3r\,\nd$, so it fixes $H$, and through $H$ every property of the system. The proof says nothing about how to find any of them from $\nd$.
+
+\subsection*{The variational principle}
+
+For a density $\nd$ define
+\begin{equation}
+  \mathcal{F}[\nd] = \min_{\Psi\to\nd}\langle\Psi|H_{\mathrm{kin}} + H_{ee}|\Psi\rangle ,
+  \label{eq:D.5-levy}
+\end{equation}
+where the minimum is over all normalized antisymmetric states of $N_e$ electrons that have the density $\nd$~\cite{levy1979universal}. The functional $\mathcal{F}$ is universal: it does not depend on the nuclei, and the same $\mathcal{F}$ serves silicon, germanium and an isolated atom. Every reasonable density, nonnegative, integrating to $N_e$ and with a finite kinetic energy, comes from some determinant, so $\mathcal{F}$ is defined on all of them. For a given potential let
+\begin{equation*}
+  E_{U}[\nd] = \mathcal{F}[\nd] + \int\dd^3r\,U_1(\vect{r})\,\nd(\vect{r}) .
+\end{equation*}
+For any $\nd$, the state $\Psi_{\nd}$ that realizes the minimum in \cref{eq:D.5-levy} has $\langle\Psi_{\nd}|H|\Psi_{\nd}\rangle = E_U[\nd]$, and by the ordinary variational principle this is at least $E_0$. The minimum over all states, on the other hand, can be done in two steps, first over the states with a given density and then over the densities:
+\begin{equation*}
+  E_0 = \min_\Psi\langle\Psi|H|\Psi\rangle = \min_{\nd}\Bigl[\min_{\Psi\to\nd}\langle\Psi|H_{\mathrm{kin}} + H_{ee}|\Psi\rangle + \int\dd^3r\,U_1\nd\Bigr] = \min_{\nd}E_U[\nd] .
+\end{equation*}
+The ground-state energy is the minimum of $E_U$ over densities, and the minimum is reached at the ground-state density. This is the second theorem of Hohenberg and Kohn, here without the assumption of a nondegenerate ground state, and without the requirement that every trial density be the ground-state density of some potential. Where $\mathcal{F}$ is differentiable, the minimum under the constraint $\int\nd = N_e$ obeys $\delta\mathcal{F}/\delta\nd(\vect{r}) + U_1(\vect{r}) = \mu_{\mathrm{ch}}$, with the chemical potential as the Lagrange multiplier.
+
+\subsection*{The Kohn--Sham equations}
+
+Nobody knows $\mathcal{F}$, and the kinetic energy is its hardest part. Kohn and Sham computed that part exactly for a system of independent electrons with the same density. Define the independent-electron kinetic energy, written $T_{\mathrm{s}}$ in the literature, by the same constrained search over determinants $\Phi$ alone,
+\begin{equation*}
+  K_{\mathrm{s}}[\nd] = \min_{\Phi\to\nd}\langle\Phi|H_{\mathrm{kin}}|\Phi\rangle ,
+\end{equation*}
+and the Hartree energy $E_{\mathrm{H}}[\nd] = \tfrac12\int\dd^3r\,\dd^3r'\,e^2\nd(\vect{r})\nd(\vect{r}')/(4\pi|\vect{r} - \vect{r}'|)$, the classical electrostatic energy of the density. The exchange--correlation energy is everything else:
+\begin{equation}
+  \mathcal{F}[\nd] = K_{\mathrm{s}}[\nd] + E_{\mathrm{H}}[\nd] + E_{\mathrm{xc}}[\nd] .
+  \label{eq:D.5-Exc}
+\end{equation}
+It holds the exchange energy, which removes the self-repulsion contained in $E_{\mathrm{H}}$ as in \cref{app:D.4}, the correlation energy, and the part of the true kinetic energy that independent electrons miss. It is the only part that has to be approximated.
+
+Write the minimizing determinant through its orbitals $\psi_\gamma$, with occupations $n_\gamma$ equal to one for the $N_e$ occupied orbitals and zero otherwise, and the density $\nd(\vect{r}) = \sum_\gamma n_\gamma\sum_s|\psi_\gamma(\vect{r}, s)|^2$. Then
+\begin{equation*}
+  E_U = \sum_\gamma n_\gamma\int\dd x\,\psi^*_\gamma(x)\Bigl(-\frac{\nabla^2}{2m_e}\Bigr)\psi_\gamma(x) + \int\dd^3r\,U_1\nd + E_{\mathrm{H}}[\nd] + E_{\mathrm{xc}}[\nd] ,
+\end{equation*}
+which depends on the orbitals explicitly through the kinetic term and implicitly through $\nd$. We vary $\psi^*_\gamma(x)$, with Lagrange multipliers for orthonormality chosen diagonal, as in \cref{app:D.4}. The chain rule gives $\delta E_{\mathrm{H}}/\delta\psi^*_\gamma(x) = n_\gamma v_{\mathrm{H}}(\vect{r})\psi_\gamma(x)$, with the Hartree potential $v_{\mathrm{H}} = \delta E_{\mathrm{H}}/\delta\nd$ of \cref{app:D.4}, and similarly for $E_{\mathrm{xc}}$. Dividing by $n_\gamma$,
+\begin{equation}
+  \begin{gathered}
+  \Bigl[-\frac{\nabla^2}{2m_e} + V_{\mathrm{KS}}(\vect{r})\Bigr]\psi_\gamma(x) = E_\gamma\,\psi_\gamma(x), \\
+  V_{\mathrm{KS}}(\vect{r}) = U_1(\vect{r}) + v_{\mathrm{H}}(\vect{r}) + v_{\mathrm{xc}}(\vect{r}), \qquad
+  v_{\mathrm{xc}}(\vect{r}) = \frac{\delta E_{\mathrm{xc}}}{\delta\nd(\vect{r})} ,
+  \end{gathered}
+  \label{eq:D.5-KS}
+\end{equation}
+with the density built from the $N_e$ orbitals of lowest $E_\gamma$. These are the Kohn--Sham equations~\cite{kohn1965self}. They have the form of the Hartree--Fock equations \cref{eq:D.4-HF}, but the potential $V_{\mathrm{KS}}$ is local, a multiplicative function of $\vect{r}$, where the Fock term was an integral operator. And if $E_{\mathrm{xc}}$ were exact, the density they produce would be the exact ground-state density of the interacting electrons. Filling the lowest orbitals assumes that the minimizing density is the ground-state density of independent electrons in some local potential, the noninteracting $v$-representability of the density; for the crystals of this book it is taken for granted. In a crystal, $\gamma$ becomes the band and crystal momentum $n\vect{k}$, $E_\gamma$ the band energy $\varepsilon_{n\vect{k}}$ and $n_\gamma$ the occupation $f_{n\vect{k}}$, and the density is \cref{eq:E.1-density}. The equations are nonlinear, since $V_{\mathrm{KS}}$ depends on the density, and they are iterated to self-consistency as \cref{app:E.1} describes.
+
+\subsection*{Total energy and the eigenvalues}
+
+Multiplying \cref{eq:D.5-KS} by $n_\gamma\psi^*_\gamma$, integrating and summing gives $\sum_\gamma n_\gamma E_\gamma = K_{\mathrm{s}} + \int\dd^3r\,V_{\mathrm{KS}}\nd$, and $\int v_{\mathrm{H}}\nd = 2E_{\mathrm{H}}$. The ground-state energy is therefore
+\begin{equation}
+  E_0 = \sum_\gamma n_\gamma E_\gamma - E_{\mathrm{H}}[\nd] - \int\dd^3r\,v_{\mathrm{xc}}(\vect{r})\nd(\vect{r}) + E_{\mathrm{xc}}[\nd] .
+  \label{eq:D.5-Etot}
+\end{equation}
+As in Hartree--Fock, \cref{eq:D.4-Etot}, the sum of the eigenvalues counts the interaction twice and the other terms correct for it.
+
+The eigenvalues are Lagrange multipliers, and \cref{eq:D.5-KS} alone does not make them removal or addition energies. One exact statement connects them to energies. Let the occupations $n_\gamma$ take fractional values and keep the orbitals self-consistent at each set of $n_\gamma$. Then $E_U$ is a function of the occupations, and
+\begin{equation}
+  \frac{\partial E_U}{\partial n_\gamma} = E_\gamma ,
+  \label{eq:D.5-janak}
+\end{equation}
+which is Janak's theorem~\cite{janak1978proof}. The explicit dependence on $n_\gamma$, through the kinetic term and through $\nd$, gives the expectation value of the Kohn--Sham Hamiltonian in $\psi_\gamma$, which is $E_\gamma$. The implicit dependence through the orbitals gives, by \cref{eq:D.5-KS},
+\begin{equation*}
+  \sum_{\gamma'}n_{\gamma'}E_{\gamma'}\,\frac{\partial\langle\psi_{\gamma'}|\psi_{\gamma'}\rangle}{\partial n_\gamma} = 0 ,
+\end{equation*}
+because every orbital stays normalized. For the exact functional the ground-state energy of a fractional number of electrons is a straight line between integers~\cite{perdew1982density}. Integrating \cref{eq:D.5-janak} from $N_e - 1$ to $N_e$ in the highest occupied level, whose eigenvalue is then constant, gives $E_{N_e} - E_{N_e-1} = E_{\mathrm{HOMO}}$, with $E_{\mathrm{HOMO}}$ the eigenvalue of the highest occupied molecular orbital (HOMO): the highest occupied Kohn--Sham eigenvalue is minus the ionization energy $I$. In the same way, the eigenvalue of the level that fills between $N_e$ and $N_e + 1$ is minus the electron affinity $A$. No other eigenvalue has an exact meaning.
+
+The fundamental gap is $E_{\mathrm{g}} = I - A$, the difference of the two removal and addition energies at the edge. It is not the Kohn--Sham gap $E_{\mathrm{g}}^{\mathrm{KS}}$, the difference of the lowest empty and highest occupied eigenvalues of the $N_e$-electron potential. The straight lines on either side of $N_e$ have the slopes $-I$ and $-A$, so the chemical potential jumps at $N_e$ by the fundamental gap. The derivative of the Kohn--Sham kinetic energy with respect to the electron number jumps only by $E_{\mathrm{g}}^{\mathrm{KS}}$, since the added electron enters the lowest unoccupied molecular orbital (LUMO). The Hartree energy is smooth in $\nd$, so the rest of the jump belongs to $E_{\mathrm{xc}}$. As the electron number passes through $N_e$, the derivative $\delta E_{\mathrm{xc}}/\delta\nd$ of the exact functional therefore jumps by a constant $\Delta_{\mathrm{xc}}$, the derivative discontinuity, and every eigenvalue jumps with it; the Hartree and kinetic parts do not jump. The level that fills above $N_e$ therefore has the eigenvalue $E_{\mathrm{LUMO}} + \Delta_{\mathrm{xc}}$, and
+\begin{equation}
+  E_{\mathrm{g}} = I - A = E_{\mathrm{g}}^{\mathrm{KS}} + \Delta_{\mathrm{xc}}
+  \label{eq:D.5-gap}
+\end{equation}
+for the exact functional~\cite{perdew1983physical,sham1983density}. Even exact Kohn--Sham bands have the wrong gap. The local and semilocal functionals below are smooth functions of the density and have no discontinuity; this is the band-gap problem of \cref{sec:3.4}.
+
+\subsection*{The local-density approximation}
+
+The local-density approximation takes the exchange--correlation energy per electron of the uniform gas, $\varepsilon_{\mathrm{xc}}(\nd)$, at the local density,
+\begin{equation}
+  E_{\mathrm{xc}}^{\mathrm{LDA}}[\nd] = \int\dd^3r\,\nd(\vect{r})\,\varepsilon_{\mathrm{xc}}\bigl(\nd(\vect{r})\bigr), \qquad
+  v_{\mathrm{xc}}^{\mathrm{LDA}}(\vect{r}) = \frac{\dd\bigl[\nd\,\varepsilon_{\mathrm{xc}}(\nd)\bigr]}{\dd\nd}\bigg|_{\nd = \nd(\vect{r})} .
+  \label{eq:D.5-LDA}
+\end{equation}
+It is exact for a uniform density and accurate where the density varies slowly on the scale of the local $1/k_{\mathrm{F}}$~\cite{kohn1965self}. The exchange part is \cref{eq:D.4-Ex}, $\varepsilon_{\mathrm{x}}(\nd) = -3e^2k_{\mathrm{F}}/16\pi^2$ with the local $k_{\mathrm{F}} = (3\pi^2\nd)^{1/3}$, which follows from \cref{eq:2.5-fermi}. Since $\nd\,\varepsilon_{\mathrm{x}} \propto \nd^{4/3}$, the exchange potential is
+\begin{equation*}
+  v_{\mathrm{x}}^{\mathrm{LDA}} = \frac43\,\varepsilon_{\mathrm{x}} = -\frac{e^2k_{\mathrm{F}}}{4\pi^2} = \Sigma_{\mathrm{x}}(k_{\mathrm{F}}) ,
+\end{equation*}
+the Hartree--Fock exchange of an electron at the Fermi surface of the gas, \cref{eq:D.4-gas} at $F_{\mathrm{L}}(1) = \tfrac12$. Slater had earlier proposed to replace the Fock term by its average over the occupied states~\cite{slater1951simplification}, which in the gas is $\langle\Sigma_{\mathrm{x}}\rangle = \tfrac34\Sigma_{\mathrm{x}}(0) = \tfrac32v_{\mathrm{x}}^{\mathrm{LDA}}$; Kohn and Sham pointed out that the variational principle leads to two thirds of Slater's potential~\cite{kohn1965self}. At the valence density of silicon, $v_{\mathrm{x}}^{\mathrm{LDA}} = \SI{-8.29}{eV}$ and Slater's average is \SI{-12.4}{eV}. The correlation part of $\varepsilon_{\mathrm{xc}}$ has no closed form. It is taken from quantum Monte Carlo energies of the gas~\cite{ceperley1980ground}, fitted as a function of $r_s$~\cite{perdew1981self}. Unlike the Fock term, the local exchange potential does not cancel the self-repulsion of an electron in $v_{\mathrm{H}}$ exactly, and the residual self-interaction is one source of the error of the local-density approximation in localized states~\cite{perdew1981self}. The generalized-gradient approximations add a dependence on $|\nabla\nd|$, and hybrid functionals replace part of the local exchange by the Fock term built from the Kohn--Sham orbitals; \cref{app:E.1} describes the functionals in use and their accuracy for silicon.

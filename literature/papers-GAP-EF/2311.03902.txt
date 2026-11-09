@@ -1,0 +1,522 @@
+                                                     Measurement of the electron-hole pair creation energy in a 4H-SiC p-n diode
+
+                                                             Andreas Gsponer∗, Matthias Knopf, Philipp Gaggl, Jürgen Burin, Simon Waid, Thomas Bergauer
+                                                                                Institute of High Energy Physics, Austrian Academy of Sciences, Vienna, Austria
+
+
+
+
+                                                  Abstract
+                                                  For 4H silicon carbide (4H-SiC), the values for the electron-hole pair creation energy ϵi published in the literature
+arXiv:2311.03902v3 [physics.ins-det] 1 Apr 2024
+
+
+
+
+                                                  vary significantly. This work presents an experimental determination of ϵi using 50 µm 4H-SiC p-n diodes designed
+                                                  for particle detection in high-energy physics. The detector response was measured for α particles between 4.2 MeV
+                                                  and 5.6 MeV for 4H-SiC and a silicon reference device. Different α energies were obtained by using multiple nuclides
+                                                  and varying the effective air gap between the α source and the detector. The energy deposited in the detectors was
+                                                  determined using a Monte Carlo simulation, taking into account the device cross-sections. A linear fit of the detector
+                                                  response to the deposited energy yields ϵi = (7.83 ± 0.02) eV, which agrees well with the most recent literature. For
+                                                  the 4H-SiC detectors, a linewidth of 28 keV FWHM was achieved, corresponding to an energy resolution of 0.5 %.
+                                                  Keywords: Silicon carbide, 4H-SiC, Wide-bandgap detector, Electron-pair creation energy, planar diode
+
+
+
+                                                  1. Introduction
+
+                                                       4H-Silicon carbide (4H-SiC) is gaining popularity as a material for detector development. It offers multiple
+                                                  advantages over the ubiquitous silicon (Si) detectors currently in use. The wide bandgap of 4H-SiC allows for high-
+                                                  temperature operation [1] and enables operation without cooling even after irradiation to high fluence (especially
+                                                  relevant for future high luminosity experiments) [2]. The high breakdown voltage and carrier saturation velocity of
+                                                  4H-SiC promises to enable enhanced timing performances compared to Si [3, 4].
+                                                       For the design of 4H-SiC detectors and their readout electronics, a proper understanding of 4H-SiC material
+                                                  properties is essential. Among these are the ionization energy ϵi (energy needed to create an electron-hole pair) and the
+                                                  intrinsic energy resolution described by the Fano factor F. In the literature, there is still a considerable disagreement
+                                                  over their respective values, likely also due to the ongoing considerable improvements in material quality [2]. For
+                                                  example, a review paper from 2023 [5] uses ϵi = 7.2 eV, which disagrees with values in the range of 7.6 eV to 7.8 eV
+                                                  found in other publications.
+                                                       In this paper, we thus provide an overview of 4H-SiC values for ϵi and F available in the literature. We further
+                                                  present measurements on SiC and Si-based particle detectors, both designed primarily for high-energy physics (HEP)
+                                                  applications, to determine ϵi of a SiC p-n diode. Differences in the detector cross-section are accounted for using a
+                                                  precise GATE [6] simulation. By controlling the air pressure during the measurement (from vacuum to ambient air
+                                                  pressure), a range of energies and distributions can be accessed using the same α source, presented in Section 3. For
+                                                  extracting ϵi , we compare the signals for SiC and Si and scale the ratio with the well-known ionization energy of the
+                                                  latter. Finally, we assess and discuss the energy resolution of SiC detectors in Section 4.
+
+                                                  1.1. Ionization Energy and Fano Factor
+                                                      The average energy a single primary particle has to expend to create one electron-hole pair on its passage through
+                                                  matter is referred to as the ionization energy ϵi . It can be used to convert the incident energy of a primary particle to
+                                                  an amount of generated charge carrier pairs ne-h , provided that the particle stops in the medium, thus transferring its
+
+                                                     ∗ Corresponding author
+
+                                                      Email address: andreas.gsponer@oeaw.ac.at (Andreas Gsponer )
+
+                                                  Preprint submitted to NIM A                                                                                     April 2, 2024
+total kinetic energy. In an ideal detector, all events along a particle track are considered independent, and the total
+number of electron-hole pairs is equal to ne-h = E/ϵi , where E is the total deposited energy. The stopping of particles
+in matter is subject to energy straggling and exhibits statistical fluctuations in the number of individual processes and
+energy losses. This process may be described by the Poisson statistic and leads to signal fluctuations on the order of
+√
+  ne-h . However, due to the fact that the individual particle-particle interactions are not statistically independent [7],
+                                               √
+the energy resolution is improved by a factor F. This Fano factor F is a measure of the intrinsic energy resolution for
+a given material due to fluctuations in the primary signal formation process. It is defined as the ratio of the observed
+                                                     √
+variance σ2 to the variance of the Poisson statistic ne-h
+
+                                                            observed variance   σ2
+                                                       F=                     =      .                                                         (1)
+                                                            Poisson variance    E/ϵi
+With this, the standard deviation in terms of energy σFano = σ/ϵi can be written in the usual form:
+                                                            p
+                                                    σFano = ϵi FE                                                                              (2)
+
+In practice, however, there are also other effects contributing to the variation of the measured energy resolution σmeas. ,
+i.e.,
+                                            σ2meas. = σ2Fano + σ2noise + σ2absorbed                                   (3)
+The contribution σnoise corresponds to the noise of the readout electronics and σabsorbed to energy straggling caused by
+material that covers the sensitive volume of the detector [8]. Losses due to the variation in charge collection can be
+minimized by using high-quality materials and adequate bias voltages.
+   The literature reports a wide range of ionization energies for 4H-SiC, with values ranging between 5.05 eV [9]
+and 8.6 eV [10]. A summary is shown in Table 1. However, more recent measurements have converged in the
+
+Table 1: Previously published values of ϵi,SiC for 4H-SiC. For measurements that compare to silicon, the value of ϵi,Si is indicated. The reference
+labeled “*” refers to the results obtained in this work.
+
+                     Ref.      Year      ϵi,SiC [eV]        Radiation           Method           Device Type        ϵi, Si [eV]
+                     *         2023     7.83 ± 0.02             α              Comp. to Si         Diode                3.62
+                     [11]      2013     7.82 ± 0.02             α              Charge inj.        Schottky                 -
+                     [8]       2013          7.28               α              Charge inj.        Schottky                 -
+                     [9]       2006          5.05              e−              DC Current          Diode                   -
+                     [12]      2005     7.78 ± 0.05             α              Comp. to Si        Schottky              3.62
+                     [12]      2005     7.79 ± 0.09          protons           Comp. to Si        Schottky              3.64
+                     [13]      2005           7.6        X-Rays ( 241Am)       Comp. to Si         Diode                3.60
+                     [10]      2004           8.6               α              Comp. to Si         Diode                3.62
+                     [14]      2004          7.71               α              Comp. to Si        Schottky              3.62
+                     [15]      2003           7.8         X-rays (SEM)         Comp. to Si         Diode                3.67
+
+range of 7.6 eV to 7.8 eV [8, 13–15]. Different methods have been used, but most frequently, ϵi was determined via
+comparison to a silicon detector. This method is described in more detail in the next section, 1.2. As the ionization
+energies obtained by this method depend directly on the ϵi of silicon, ϵi,Si , the values used in each publication are
+listed in the table as well. Due to the difficulty of measuring the Fano factor, only a few published values are available
+for 4H-SiC. An overview is given in Table 2. Estimations have been made from the Fano factor of silicon [15], and
+
+                                          Table 2: Values of FSiC for 4H-SiC used in published literature.
+
+                            Ref.   Year         F        Radiation              Method                       Device Type
+                            [8]    2013      0.128          α              Klein model [16]                   Schottky
+                            [17]   2011        0.1        X-rays       Calculated from linewidth              Schottky
+                            [13]   2005      ≤ 0.04       X-rays       Upper limit from linewidth              Diode
+                            [15]   2003       0.12           -               Hypothesized                         -
+
+                                                                         2
+using Klein’s model [8, 16]. Experimental data is available from X-ray measurements, with one publication observing
+no significant statistical broadening of the energy resolution (and estimating FSiC < 0.04 [13]), and another finding
+FSiC = 0.100 [17].
+
+1.2. Comparison Method with Silicon
+    To determine ϵi based on a comparison to Si, a spectroscopic measurement is performed in the same experimental
+setup for a Si and a 4H-SiC detector. In most cases, α sources are used for this purpose, as α particles are quickly
+absorbed even in thin detectors (with a range of about 26 µm for 241Am in Si [18]). In an ideal experimental setup,
+the ionization energy can then be calculated from the ratio of the obtained signals (µSi and µSiC ), which is directly
+proportional to the number of generated charge carriers ne-h :
+                                             µSi    Eα ϵi,SiC            µSi
+                                                  =           ⇒ ϵi,SiC =      · ϵi,Si .                                                            (4)
+                                             µSiC   Eα ϵi,Si             µSiC
+
+Here, ϵi,Si and ϵi,SiC denote the ionization energies of Si and SiC, respectively, and Eα is the energy deposited by the α
+particles. The main advantage of this method is that no absolute charge calibration of the electronics is necessary [8].
+    However, there are a couple of caveats: This method assumes a charge collection efficiency (CCE) of 100 %
+and an identical amplifier response for both detectors. The former can be achieved by operating the detector with
+voltages above the full depletion voltage, while the latter can be minimized by using devices with similar capacitance
+or introducing a correction factor [12]. A major source of uncertainties is the energy loss in the detector layers above
+the sensitive volume (passivation and metal layers). If there is a difference in these layers among devices, this needs
+to be considered as well, using stopping power calculations [12] or Monte Carlo simulations [8].
+
+
+2. Materials and Methods
+
+    Two 4H-SiC detectors and a reference Si diode were used for the measurements, depicted in Figure 1. The
+employed SiC detectors were planar p-n diodes developed and manufactured by IMB-CNM-CSIC [19], with two
+different types: One with metal covering the entire active area and another where the active area is only covered
+by the passivation layer. Detectors from this production have previously been investigated using UV-TCT [20], α
+particles [21], and proton beams [22, 23] before and after irradiation with neutrons. These detectors featured a
+3 × 3 mm2 large and 50 µm thick epitaxial layer with a resistivity of 20 Ω cm on a 4H-SiC substrate. The metal layer
+of the detectors used titanium, aluminum, and nickel with a total thickness of 1020 nm, while the passivation layer
+was composed of SiO2 and Si3 N4 [19, 24]. For the sensor without metallization, metal is only present at the bond
+pads. The thickness of the layers has been measured using transmission electron microscopy (TEM). It corresponds
+to an equivalent aluminum thickness of 1.72 µm for the detector with metal and 0.60 µm for the detector without.
+Full depletion was attained at 300 V. However, for the α source, a charge collection efficiency of 100 % was already
+
+
+
+
+          (a) Silicon detector                       (b) SiC detector with metallization                  (c) SiC detector without metallization
+
+                                 Figure 1: Microscopy images of Si and SiC detectors used in this work.
+
+
+                                                                     3
+reached at 100 V, due to the low penetration depth.
+The silicon device was a planar n-type Si diode from the CMS production [25], shown in Figure 1a. This diode had
+an active thickness of 300 µm and a measured full depletion voltage of 180 V. The metal layer consisted of only
+aluminum (albeit thicker than for the SiC samples), with a passivation layer very similar to the 4H-SiC devices, for an
+equivalent aluminum thickness of 2.23 µm.
+     When α-particles travel through the air, they scatter and quickly lose energy (with an average range in the order of
+cm). Small changes in the source-detector distance can lead to significant uncertainties if the experimental geometry
+is not reproducible. In order to eliminate this effect, measurements can be performed in a vacuum. In this work, how-
+ever, we performed measurements in a vacuum and at different air pressures to obtain results for multiple α-particle
+energies. This additionally allows us to verify the simulation results of the energy lost in the passivation and metal
+layers. In order to perform measurements at different air pressures, a Pfeiffer EVR116 valve and a Pfeiffer RPT200
+pressure gauge were used to actively control the pressure inside the setup using a PID loop. For the measurements
+assessing the energy resolution of the detectors, the maximum achievable vacuum of 0.3 mbar was used.
+     The Si and SiC detectors were operated using a reverse bias of 400 V to ensure full depletion and, thus, a 100 %
+charge collection efficiency. All measurements were performed at room temperature (25◦ ). As an α-source, an Eckert
+& Ziegler QCRB2500 spectrometric mixed nuclide source was used. The radionuclides present in the source were
+239
+    Pu, 241Am, and 244Cm, with an activity of 1 kBq per isotope. The main decay energies of the employed sources are
+almost equidistant, at 5.157 MeV, 5.483 MeV, and 5.805 MeV [26]. The radionuclides were concentrated on a 7 mm
+disk with a thickness of about 1 µm, located behind a steel collimator. The detectors were mounted and wire-bonded
+on passive ceramic PCBs. A custom-made holder was designed, which allows for a constant source-detector distance
+of 6 mm. The entire setup was wrapped with aluminum foil and situated inside a stainless steel vacuum chamber to
+ensure RF shielding.
+     The spectroscopic measurements were performed with two readout chains. The first readout chain, used for
+the pressure scan and determination of the SiC ionization energy (Section 3) was a Cividec Cx-L shaping charge-
+sensitive amplifier (CSA). The histogramming of the CSA pulse heights was performed by a Rohde & Schwarz RTO6
+oscilloscope in HD mode (16 bit resolution at an analog bandwidth of 100 MHz). The second readout chain, used to
+assess the energy resolution of the detectors (Section 4), was composed of an Amptek CoolFET (A250CF based) CSA
+together with an Ortec 671 shaper and Ortec 928 multichannel analyzer. A Keithley 2470 source meter was used to
+apply the reverse bias via a bias-T integrated into the respective CSAs.
+
+
+3. Ionization Energy
+
+3.1. Simulation Results
+    A GATE [6] simulation was used to determine the energy spectrum expected in the detectors (Si and SiC) as a
+function of the air pressure in the vacuum chamber. For each nuclide and decay line, 5 million events were simulated,
+and the total energy deposited inside the detector was histogrammed. Figure 2 shows the average energy per nuclide
+for both detector types. As expected, the energy lost in the air gap increases with the air pressure. An energy range of
+around 500 keV can be accessed by tuning the pressure. Due to the thicker metal layer of the Si device, α-particles of
+about 150 keV less energy reaches the sensitive volume than for the SiC device.
+
+
+
+
+                                                           4
+                                     5600
+                                     5400
+                                     5200
+                                     5000
+                           E [keV]
+
+
+                                     4800
+                                     4600
+                                     4400
+                                                239Pu           241Am                      244Cm
+                                     4200
+                                                Si              SiC
+                                        10 2         10 1           100           101               102     103
+                                                                     Air Pressure [mBar]
+
+      Figure 2: Energy deposited in detector Eα as a function of air pressure and nuclide for Si (black) and SiC with metallization (red).
+
+
+
+3.2. Measurement Results
+    Measurements were performed in air at pressures between 0.3 mbar and 1000 mbar. For each pressure setting,
+25 000 events were recorded for the Si and metallized SiC detectors. Due to sample availability, no measurements
+with the SiC sample without metallization were performed. As the individual decay energies of the nuclides could not
+be separated in the data (due to the straggling in air), one single fit was used for each nuclide. The individual decay
+energies (and their probabilities) introduce an asymmetric energy distribution, so a skew-normal distribution [27] was
+used for the fits. The probability density function ϕ(x) of this distribution is given by
+                                                                                Z α x−ξ 
+                                                            2    − (x−ξ)2
+                                                                            2          ω      1   t2
+                                               ϕ(x) =       √   e     2ω                     √ e− 2 dt,                                      (5)
+                                                        ω 2π                      −∞          2π
+
+with ξ being the location, ω the scale, and α the shape parameters respectively. The mean µ and variance σ2 of this
+distribution are given by
+                                          r
+                                    α                                                2α2
+                                                                                            !
+                                             2
+                       µ=ξ+ω√                  ,                    σ2 = ω2 1 −               .                 (6)
+                                   1 + α2 π                                        1 + α2 π
+                                                                                         
+
+Figure 3 shows the fitted center positions plotted versus the energy deposited in the detector. The simulated energy
+deposition corresponds closely to the measured detector signal. Linear fits were performed for the Si and SiC data,
+resulting in a slope of aSi = (0.398 ± 0.001) V MeV−1 and aSiC = (0.184 ± 0.002) V MeV−1 . Taking the ratio of the
+slopes (compare with equation 4) and using a silicon ionization energy ϵi,Si =3.62 eV [28], the ionization energy for
+4H-SiC is obtained:
+                                               ϵi,SiC = (7.83 ± 0.02) eV
+In this configuration, the RMS noise of the CSA was measured to be 6.2 ke, which equates to a FWHM of 51 keV for
+the Si detector and 117 keV for the SiC detector (a resolution of 2 %). The most likely origin of the CSA noise was
+due to insufficient filtering of RF noise injected by the SMU into the CSA bias-T. The energy resolution of the SiC
+detectors is investigated more closely with lower noise electronics in the next section.
+
+
+
+
+                                                                            5
+                                                           0.3 mbar          50 mbar     100 mbar          500 mbar   1000 mbar
+                                                           239Pu             241Am       244Cm
+
+
+                                                  2.5
+                            Detector Signal [V]
+                                                  2.0
+                                                             Si
+                                                  1.5
+
+
+                                                  1.0        SiC
+                                                    4000   4250       4500       4750    5000       5250       5500   5750        6000
+                                                                                        E [keV]
+
+Figure 3: Detector signal versus energy in the detector. The color of the measured data points corresponds to the pressure inside of the vacuum
+chamber. For SiC, the detector with metallization (Figure 1b) been used.
+
+
+
+4. Energy Resolution
+
+    In order to evaluate the spectroscopic performance of the detectors and to investigate the influence of the Fano
+factor, measurements using the CoolFET-based electronics chain were performed for the silicon and SiC detectors
+(with and without metallization). Using this readout chain and an optimized Gaussian shaping of 2 µs, an RMS
+electron-noise-equivalent of 560 e was obtained using a precision pulser while the Si and SiC detectors were connected
+and biased. This corresponds to a FWHM resolution of 5.2 keV for Si and 10.3 keV for SiC. For each detector,
+spectra were recorded for 8 hours at a vacuum of 0.3 mbar and are shown in Figure 4. With the low noise CSA, the
+individual decay energies of the nuclides ( 239Pu, 241Am, and 244Cm) could be distinguished and fitted using a mixture
+of Gaussians. For 239Pu, the two most prominent decay energies are only 12.7 keV apart, and the fit was performed
+using a single Gaussian for both energies.
+    Figure 4a shows the obtained spectrum for the Si detector with a FWHM resolution of around 30 keV for the most
+probable decay energies. For the decay energies with lower counts, the energy resolution is degraded and a large
+background signal is observed. This background is thought to be caused by non-uniformities in the metal covering
+the Si detector (see Figure 1a), which introduce differences in energy absorption.
+    For the silicon carbide detector with metallization (Figure 4b) a similar performance was obtained, with a 33 keV
+FWHM resolution of the main decay energies. Similar to the silicon detector, the energy resolution is decreased at
+lower counts. A small asymmetric background is visible towards higher channel numbers. As the channel number of
+this background is identical to the main peaks for the SiC detector without metal (see Figure 4c), this is thought to be
+related to particles impinging the area around the guard ring, where no metallization is present on the detector surface.
+    The SiC detector without metallization (Figure 4c) showed the best spectroscopic performance, achieving a
+FWHM energy resolution below 30 keV (a resolution better than 0.5 % for 244Cm). Additionally, the background
+counts are much lower than for the previous detectors, and a resolution of 35 keV FWHM can still be obtained for the
+5388 keV decay of 241Am, which has a decay ratio of just 1.7 %. To the author’s knowledge, this is the best energy
+resolution for 4H-SiC p-n junction detectors reported in literature to date.
+    Comparing the channel numbers between the Si and SiC detectors in this individual measurement, ionization
+energies of ϵi,SiC, Metal = (7.88 ± 0.09) eV and ϵi,SiC, No Metal = (7.79 ± 0.07) eV are extracted, consistent with the value
+obtained in the previous section.
+    For the detectors, the energy straggling contributions σabsorbed obtained from the GATE simulations are the follow-
+ing: 15.3 keV for Si and 12.0 keV / 9.1 keV FWHM for the SiC detectors with / without metallization. Together with
+the electronic noise contribution σnoise of 10.3 keV, this is not sufficient to explain the observed energy resolution in
+the range of 30 keV FWHM. Two possible sources of the lower-than- expected energy resolution are hypothesized:
+
+                                                                                        6
+         8000                                                                                                         6000
+         7000            239Pu
+                         1/2
+                      39 keV                                                                                          5000                                          241Am
+                                                                                                                                                                    1
+         6000                                                                                                                        239Pu
+                                                                                                                                     1/2                           33 keV
+                                                  241Am
+                                                  1                                                                              33 keV                                           244Cm
+
+                                              30 keV                                                                  4000                                                        1
+                                                                                                                                                                                 32 keV
+         5000                                                                     244Cm
+                                                                                  1
+                                                                                 28 keV
+Counts
+
+
+
+
+                                                                                                             Counts
+         4000                                                                                                         3000
+         3000                                 241Am
+                                              2
+                                                                             244Cm
+                                                                             2
+                 239Pu                       71 keV                         65 keV                                    2000       239Pu                         241Am
+                                                                                                                                                                             244Cm
+                                                                                                                                                                             2
+                 3                                                                                                               3                             2            48 keV
+         2000   52 keV                                                                                                         67 keV                      51 keV
+                                                                                                                      1000
+         1000                            241Am
+                                         3
+                                                                                                                                                           241Am
+                                                                                                                                                           3
+                                        51 keV                                                                                                            46 keV
+           0                                                                                                            0
+                2800             2900   3000      3100   3200                             3300                                 1350               1400      1450     1500        1550     1600
+                                          Channel Number                                                                                                   Channel Number
+                     (a) Measured Energy Spectrum for Silicon detector.                                                (b) Measured Energy Spectrum for SiC detector with metallization.
+
+
+                                                               7000
+                                                                                                             241Am
+                                                                             239Pu                           1
+                                                                             1/2                         28 keV
+                                                               6000         31 keV
+                                                                                                                                          244Cm
+                                                                                                                                          1
+                                                               5000                                                                      28 keV
+
+                                                               4000
+                                                      Counts
+
+
+
+
+                                                               3000
+                                                                                                                                     244Cm
+                                                                                                                                     2
+                                                               2000     239Pu                            241Am                   33 keV
+                                                                        3                                2
+                                                                       44 keV                           37 keV
+                                                               1000                                 241Am
+                                                                                                    3
+                                                                                                   35 keV
+                                                                  0
+                                                                            1400            1450       1500     1550                          1600       1650
+                                                                                                   Channel Number
+                                                               (c) Measured Energy Spectrum for SiC detector without metallization.
+
+Figure 4: Histograms of the measured α spectrum at a vacuum of 0.3 mbar for the Si (black) and SiC (red, blue) detectors. The Gaussian fits for
+each decay energy are indicated by dashed lines, with the sum shown using a solid line. For each energy, the fitted FWHM resolution is annotated.
+
+
+
+Inhomogeneities in the thickness of the passivation and metal layers can lead to differences in energy absorbed by the
+α particles and broaden the energy distribution. For the metal layer, the inhomogeneities are related to areas around
+the guard ring, where metal is only partially present. A collimator on top of the detector could be used to constrain
+the detector area to the uniform sensitive area in the center. For the passivation layer, especially in the SiC detectors,
+the height of the passivation is not always perfectly uniform due to manufacturing variations (observed in TEM). This
+could be further improved by either thinning the passivation or by polishing.
+The second possible source of a decreased energy resolution is imperfect collimation of the α-source. If the incidence
+angle of the α-particles on the sensor is not perfectly normal, this can lead to variations in the effective path length
+as well, again leading to stochastic fluctuations of the energy loss. Investigations in optimized source collimator
+geometries are currently ongoing.
+    Assuming a Fano factor of F = 0.100 [17], the expected Fano noise σFano is smaller than 5 keV FWHM. This
+implies that even with the best energy resolution currently obtained in SiC α-spectroscopy (15.7 keV using a Schottky
+diode [29]), the Fano noise contributes only a negligible role. As the Fano noise grows with the square root of
+the incident particle energy, it is much more prominent in the measurement of low energy x-rays and plays a less
+significant role in α-spectroscopy. Measurements using soft x-rays emitted by the nuclides present in the α-source
+could be envisioned in the future to try and determine the Fano factor of 4H-SiC.
+
+
+
+
+                                                                                                             7
+5. Discussion
+
+     The ionization energy of 4H silicon carbide (4H-SiC), where significant discrepancies in the literature values
+still exist, has been determined using a p-n diode designed for high-energy physics applications. The measurements
+leveraged an α source and an air gap between the source and detector at different air pressures, resulting in a varying
+energy deposition in the detector. By comparing the spectrum obtained for the 4H-SiC device with a silicon reference
+detector, an ionization energy of ϵi,SiC = (7.83 ± 0.02) eV was obtained. This value compares well with the most recent
+results in the literature (see summary table 1). The spectroscopic performance of SiC detectors with and without a
+metallization layer has been assessed using a low noise charge-sensitive amplifier. An energy resolution of up to
+28 keV FWHM (corresponding to 0.5 %) has been obtained, allowing for a clear distinction of the individual α-decay
+energies. The limitations of the energy resolution are still not fully understood and could be improved in the future
+by a factor of 2, as the contribution of electronics noise and scattering sum to only 13.7 keV. Likely candidates are
+thought to be an imperfect collimation of the α-source and nonuniformities in the thickness of the detector passivation
+layer.
+
+
+Acknowledgments
+
+    This project has received funding from the Austrian Research Promotion Agency FFG, grant number 883652.
+Production and development of the 4H-SiC samples was supported by the Spanish State Research Agency (AEI) and
+the European Regional Development Fund (ERDF), ref. RTC-2017-6369-3.
+
+
+References
+ [1] F. Nava, G. Bertuccio, A. Cavallini, E. Vittone, Silicon carbide and its use as a radiation detector material, Measurement Science and
+     Technology 19 (10) (2008) 102001. doi:10.1088/0957-0233/19/10/102001.
+ [2] M. De Napoli, Sic detectors: A review on the use of silicon carbide as radiation detection material, Frontiers in Physics 10 (2022). doi:
+     10.3389/fphy.2022.898833.
+ [3] T. Yang, Y. Tan, Q. Liu, S. Xiao, K. Liu, J. Zhang, R. Kiuchi, M. Zhao, X. Zhang, C. Wang, B. Wu, J. Lin, W. Song, H. Lu, X. Shi, Time
+     resolution of the 4h-SiC PIN detector, Frontiers in Physics 10 (mar 2022). doi:10.3389/fphy.2022.718071.
+ [4] P. Barletta, M. Cerullo, C. Haber, S. E. Holland, J. Muth, B. Sekely, Fast timing with silicon carbide low gain avalanche detectors, type:
+     article (2022). arXiv:2203.08554[physics], doi:10.48550/arXiv.2203.08554.
+ [5] K. C. Mandal, S. K. Chaudhuri, F. H. Ruddy, High-resolution alpha spectrometry using 4h-sic detectors: A review of the state-of-the-art,
+     IEEE Transactions on Nuclear Science 70 (5) (2023) 823–830. doi:10.1109/TNS.2023.3267996.
+ [6] S. Jan, G. Santin, D. Strul, S. Staelens, K. Assié, D. Autret, S. Avner, R. Barbier, M. Bardiès, P. M. Bloomfield, D. Brasse, V. Breton,
+     P. Bruyndonckx, I. Buvat, A. F. Chatziioannou, Y. Choi, Y. H. Chung, C. Comtat, D. Donnarieix, L. Ferrer, S. J. Glick, C. J. Groiselle,
+     D. Guez, P.-F. Honore, S. Kerhoas-Cavata, A. S. Kirov, V. Kohli, M. Koole, M. Krieguer, D. J. van der Laan, F. Lamare, G. Largeron,
+     C. Lartizien, D. Lazaro, M. C. Maas, L. Maigne, F. Mayet, F. Melot, C. Merheb, E. Pennacchio, J. Perez, U. Pietrzyk, F. R. Rannou, M. Rey,
+     D. R. Schaart, C. R. Schmidtlein, L. Simon, T. Y. Song, J.-M. Vieira, D. Visvikis, R. V. de Walle, E. Wieërs, C. Morel, GATE: a simulation
+     toolkit for PET and SPECT, Physics in Medicine and Biology 49 (19) (2004) 4543–4561. doi:10.1088/0031-9155/49/19/007.
+ [7] U. Fano, Ionization yield of radiations. ii. the fluctuations of the number of ions, Phys. Rev. 72 (1947) 26–29. doi:10.1103/PhysRev.72.
+     26.
+     URL https://link.aps.org/doi/10.1103/PhysRev.72.26
+ [8] S. K. Chaudhuri, K. J. Zavalla, K. C. Mandal, Experimental determination of electron-hole pair creation energy in 4H-SiC epitaxial layer: An
+     absolute calibration approach, Applied Physics Letters 102 (3) (2013) 031109. doi:10.1063/1.4776703.
+ [9] M. V. S. Chandrashekhar, C. I. Thomas, M. G. Spencer, Measurement of the mean electron-hole pair ionization energy in 4h sic, Applied
+     Physics Letters 89 (4) (2006) 042113. doi:10.1063/1.2243799.
+[10] A. Lebedev, A. Ivanov, N. Strokan, Radiation resistance of SiC and nuclear-radiation detectors based on SiC films, Semiconductors 38 (2)
+     (2004) 125–147.
+[11] T. R. Garcia, A. Kumar, B. Reinke, T. E. Blue, W. Windl, Electron-hole pair generation in SiC high-temperature alpha particle detectors,
+     Applied Physics Letters 103 (15) (2013) 152108. doi:10.1063/1.4824774.
+[12] A. Lo Giudice, F. Fizzotti, C. Manfredotti, E. Vittone, F. Nava, Average energy dissipated by mega-electron-volt hydrogen and helium ions
+     per electron-hole pair generation in 4h-sic, Applied Physics Letters 87 (22) (2005) 222105. doi:10.1063/1.2135507.
+[13] B. Phlips, K. Hobart, F. Kub, R. Stahlbush, M. Das, B. Hull, G. De Geronimo, P. O’Connor, Silicon carbide pin diodes as radiation detectors,
+     in: IEEE Nuclear Science Symposium Conference Record, 2005, Vol. 3, 2005, pp. 1236–1239. doi:10.1109/NSSMIC.2005.1596542.
+[14] A. Ivanov, E. Kalinina, A. Konstantininov, N. Onushkin, G.A.and Strokan, G. Kholuyanov, A. Hallén, High-resolution short range ion
+     detectors based on 4h-sic films, Technical Physics Letters 30 (2004) 575–577. doi:10.1134/1.1783406.
+[15] G. Bertuccio, R. Casiraghi, Study of silicon carbide for x-ray detection and spectroscopy, IEEE Transactions on Nuclear Science 50 (1) (2003)
+     175–185. doi:10.1109/TNS.2003.807855.
+
+
+                                                                        8
+[16] C. A. Klein, Bandgap dependence and related features of radiation ionization energies in semiconductors, Journal of Applied Physics 39 (4)
+     (1968) 2029–2038. doi:10.1063/1.1656484.
+[17] G. Bertuccio, S. Caccia, D. Puglisi, D. Macera, Advances in silicon carbide x-ray detectors, Nuclear Instruments and Methods in Physics
+     Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment 652 (1) (2011) 193–196, symposium on Radiation
+     Measurements and Applications (SORMA) XII 2010. doi:10.1016/j.nima.2010.08.046.
+[18] M. J. Berger, J. Coursey, M. Zucker, J. Chang, Stopping-power & range tables for electrons, protons, and helium ions, NIST Standard
+     Reference Database 124 (2017).
+[19] J. M. Rafı́, G. Pellegrini, P. Godignon, S. O. Ugobono, G. Rius, I. Tsunoda, M. Yoneoka, K. Takakura, G. Kramberger, M. Moll, Electron,
+     neutron, and proton irradiation effects on sic radiation detectors, IEEE Transactions on Nuclear Science 67 (12) (2020) 2481–2489. doi:
+     10.1109/TNS.2020.3029730.
+[20] P. Gaggl, T. Bergauer, M. Göbel, R. Thalmeier, M. Villa, S. Waid, Charge collection efficiency study on neutron-irradiated planar silicon
+     carbide diodes via uv-tct, Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and
+     Associated Equipment 1040 (2022) 167218. doi:10.1016/j.nima.2022.167218.
+[21] P. Gaggl, A. Gsponer, R. Thalmeier, S. Waid, G. Pellegrini, P. Godignon, J. Rafı́, T. Bergauer, Performance of neutron-irradiated 4h-silicon
+     carbide diodes subjected to alpha radiation, Journal of Instrumentation 18 (01) (2023) C01042. doi:10.1088/1748-0221/18/01/C01042.
+[22] M. Christanell, M. Tomaschek, T. Bergauer, 4h-silicon carbide as particle detector for high-intensity ion beams, Journal of Instrumentation
+     17 (01) (2022) C01060. doi:10.1088/1748-0221/17/01/c01060.
+[23] A. Gsponer, P. Gaggl, J. Maier, R. Thalmeier, S. E. Waid, T. Bergauer, Neutron radiation induced effects in 4h-sic pin diodes (2023).
+     doi:10.48550/ARXIV.2310.02047.
+[24] J. Rafı́, G. Pellegrini, P. Godignon, D. Quirion, S. Hidalgo, O. Matilla, A. Fontserè, B. Molas, K. Takakura, I. Tsunoda, M. Yoneoka, D. Pothin,
+     P. Fajardo, Four-quadrant silicon and silicon carbide photodiodes for beam position monitor applications: electrical characterization and
+     electron irradiation effects, Journal of Instrumentation 13 (01) (2018) C01045. doi:10.1088/1748-0221/13/01/C01045.
+[25] J.-L. Agram, M. Angarano, S. Assouak, T. Bergauer, G. Bilei, L. Borrello, M. Brianzi, C. Civinini, A. Dierlamm, N. Dinu, N. Demaria,
+     L. Feld, E. Focardi, J.-C. Fontaine, E. Forton, A. Furgeri, G. Gregoire, F. Hartmann, A. Honma, P. Juillot, D. Kartashov, M. Krammer,
+     A. Macchiolo, M. Mannelli, A. Messineo, E. Migliore, O. Militaru, C. Piasecki, R. Santinelli, D. Sentenac, L. Servoli, A. Starodumov,
+     G. Tonelli, J. Wang, The silicon sensors for the compact muon solenoid tracker—design and qualification procedure, Nuclear Instruments
+     and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment 517 (1-3) (2004) 77–93.
+     doi:10.1016/j.nima.2003.08.175.
+[26] A. Sonzogni, Nudat 3, National Nuclear Data Center (NNDC) - Brookhaven National Laboratory (2023).
+[27] A. Azzalini, A. Capitanio, The Skew-Normal and Related Families, Cambridge University Press, 2013. doi:10.1017/cbo9781139248891.
+[28] M. Mazziotta, Electron–hole pair creation energy and fano factor temperature dependence in silicon, Nuclear Instruments and Methods in
+     Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment 584 (2-3) (2008) 436–439. doi:10.1016/
+     j.nima.2007.10.043.
+[29] K. C. Mandal, J. W. Kleppinger, S. K. Chaudhuri, Advances in high-resolution radiation detection using 4h-sic epitaxial layer devices,
+     Micromachines 11 (3) (2020) 254. doi:10.3390/mi11030254.
+     URL http://dx.doi.org/10.3390/mi11030254
+
+
+
+
+                                                                          9
+

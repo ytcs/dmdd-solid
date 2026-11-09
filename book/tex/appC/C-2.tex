@@ -1,0 +1,64 @@
+\section{Box normalization and Brillouin-zone sums}\label{app:C.2}
+
+A crystal of $10^{23}$ cells has $10^{23}$ allowed crystal momenta per band, and no calculation sums over them one by one. Every rate in this book replaces such a sum by an integral, \cref{eq:2.1-box,eq:A.3-box,eq:A.3-BZ}, and every first-principles calculation then replaces the integral by a sum again, over a grid of perhaps $10^3$ to $10^6$ points. This section says when each replacement is accurate and how large its error is. The tool for both is the Poisson summation formula, which also gives the infinite-crystal form of the lattice sum of \cref{sec:3.1}.
+
+\subsection{From sums to integrals}
+
+In a periodic box of side $L$ the allowed momenta in one dimension are $p = 2\pi n/L$ with integer $n$. The replacement of \cref{eq:2.1-box} is $\sum_n g(2\pi n/L) \to (L/2\pi)\int\dd p\,g(p)$. Its exact form follows from the Dirac comb. The function $\sum_n\delta(y - n)$ is periodic in $y$ with period one, and its Fourier coefficients over one period are $\int_{-1/2}^{1/2}\dd y\,\delta(y)\,\ee^{-2\pi\ii my} = 1$ for every integer $m$, so
+\begin{equation}
+  \sum_{n=-\infty}^{\infty}\delta(y - n) = \sum_{m=-\infty}^{\infty}\ee^{2\pi\ii my} .
+  \label{eq:C.2-comb}
+\end{equation}
+Multiplying by $\mathcal{F}(y)$ and integrating gives the Poisson summation formula, $\sum_n\mathcal{F}(n) = \sum_m\int\dd y\,\mathcal{F}(y)\,\ee^{2\pi\ii my}$~\cite[Eq.~(1.8.14)]{olver2010nist}. With $\mathcal{F}(y) = g(2\pi y/L)$ and $p = 2\pi y/L$,
+\begin{equation}
+  \sum_{p}g(p) = \frac{L}{2\pi}\sum_{m=-\infty}^{\infty}\tilde g(mL), \qquad \tilde g(x) \equiv \int\dd p\;\ee^{\ii px}\,g(p) .
+  \label{eq:C.2-poisson}
+\end{equation}
+The term $m = 0$ is the integral. The others are the Fourier transform of $g$ evaluated at multiples of the box size: in position space they are the contributions of the periodic images of the system, which the boundary conditions put at distances $mL$. If $g$ varies on a momentum scale $\Delta p$, its transform is confined to $|x| \lesssim 1/\Delta p$, and the images do not matter once $L\,\Delta p \gg 1$, which is the condition stated in \cref{sec:2.1}.
+
+How small the remainder is depends on the smoothness of $g$. A Gaussian of width $\Delta p$ has $\tilde g(L) \propto \ee^{-L^2\Delta p^2/2}$, and the error is exponentially small. A function with a jump, such as the occupation of a Fermi sea with its step at $k_{\mathrm{F}}$, has a transform that falls off only as $1/x$, and the error then decreases only as a power of $1/(L\,\Delta p)$. In three dimensions the comb is a product of three combs, the images sit on the lattice of vectors $L\vect{n}$, and \cref{eq:C.2-poisson} holds with $L/2\pi \to \Vol/(2\pi)^3$ and a sum over all image vectors. A delta function in $g$, such as the energy delta of the golden rule, has no meaning on a discrete set of momenta. It must first be broadened by more than the level spacing, as \cref{sec:2.1} required of the time window, and the limit $\Vol\to\infty$ is taken before the broadening is removed.
+
+The density of final states is the main application. With \cref{eq:C.1-surface}, the number of states per unit energy of a band $\varepsilon(\vect{p})$ is
+\begin{equation}
+  \mathcal{D}_f(E) = \sum_{\vect{p}}\delta\bigl(E - \varepsilon(\vect{p})\bigr) = \Vol\int\frac{\dd^3p}{(2\pi)^3}\,\delta\bigl(E - \varepsilon(\vect{p})\bigr) = \frac{\Vol}{(2\pi)^3}\int_{\varepsilon(\vect{p}) = E}\frac{\dd S}{|\nabla_{\vect{p}}\varepsilon|} ,
+  \label{eq:C.2-dos}
+\end{equation}
+per spin state. For a free particle the surface is a sphere of area $4\pi p^2$ with $|\nabla_{\vect{p}}\varepsilon| = p/m$, which gives \cref{eq:2.1-Dfree}. In a crystal $\nabla_{\vect{k}}\varepsilon_{n\vect{k}}$ vanishes at points of every band, by periodicity; there the integrand of \cref{eq:C.2-dos} diverges. In three dimensions the divergence is integrable and produces square-root kinks in the density of states, the van Hove singularities; in two dimensions it produces a logarithm (\cref{app:C.8}).
+
+\subsection{The lattice sum}
+
+On the Born--von Karman grid of crystal momenta of a block of $N$ cells, \cref{eq:3.1-kgrid}, the geometric sums of \cref{sec:3.1} give the lattice sum
+\begin{equation}
+  \sum_{\vect{R}}\ee^{\ii\vect{k}\cdot\vect{R}} = N\sum_{\vect{G}}\delta_{\vect{k},\vect{G}} ,
+  \label{eq:C.2-latticesum}
+\end{equation}
+which is \cref{eq:3.1-latticesum}, together with the count of $N$ crystal momenta in a zone of volume $(2\pi)^3/\Omega$, one per cell. In an infinite crystal, with $\delta_{\vect{k}\vect{G}} \to [(2\pi)^3/\Vol]\,\delta^3(\vect{k} - \vect{G})$ by \cref{eq:A.3-box} and $\Vol = N\Omega$, it becomes $\sum_{\vect{R}}\ee^{\ii\vect{k}\cdot\vect{R}} = [(2\pi)^3/\Omega]\sum_{\vect{G}}\delta^3(\vect{k} - \vect{G})$, the three-dimensional form of \cref{eq:C.2-comb}.
+
+A sum over all momenta in the box decomposes as $\vect{q} = \vect{k} + \vect{G}$ with $\vect{k}$ in the zone,
+\begin{equation}
+  \sum_{\vect{q}}\mathcal{F}(\vect{q}) = \sum_{\vect{k}\in\mathrm{BZ}}\sum_{\vect{G}}\mathcal{F}(\vect{k} + \vect{G})
+  \;\longrightarrow\; \Vol\int_{\mathrm{BZ}}\frac{\dd^3k}{(2\pi)^3}\sum_{\vect{G}}\mathcal{F}(\vect{k} + \vect{G}) ,
+  \label{eq:C.2-unfold}
+\end{equation}
+which is how an integral over the unreduced momentum transfer $\vect{q}$ of the dark matter is matched to quantities indexed by $\vect{q}_r$ and $\vect{G}_q$ (\cref{app:A.3}).
+
+\subsection{Zone averages and grids}
+
+The zone average of a function of crystal momentum is $\langle \mathcal{F}\rangle_{\mathrm{BZ}} = N^{-1}\sum_{\vect{k}}\mathcal{F}(\vect{k})$, which by \cref{eq:A.3-BZ} equals $\Omega\int_{\mathrm{BZ}}\dd^3k\,\mathcal{F}(\vect{k})/(2\pi)^3$. A band energy, a squared matrix element or an occupation is periodic in $\vect{k}$, $\mathcal{F}(\vect{k} + \vect{G}) = \mathcal{F}(\vect{k})$. It therefore has a Fourier series over the direct lattice,
+\begin{equation*}
+  \mathcal{F}(\vect{k}) = \sum_{\vect{R}}\mathcal{F}_{\vect{R}}\,\ee^{\ii\vect{k}\cdot\vect{R}}, \qquad \langle \mathcal{F}\rangle_{\mathrm{BZ}} = \mathcal{F}_{\vect{R}=0} ,
+\end{equation*}
+where the zone average picks out $\vect{R} = 0$ by \cref{eq:C.2-latticesum} read with the roles of $\vect{k}$ and $\vect{R}$ exchanged. A calculation evaluates $\mathcal{F}$ on a uniform grid of $n_k = n_1n_2n_3$ points, the allowed momenta of a fictitious block of $n_k$ cells. By the same identity, the grid average of $\ee^{\ii\vect{k}\cdot\vect{R}}$ is one when $\vect{R}$ is a lattice vector of that block, $\vect{R} = \sum_i l_in_i\vect{a}_i$ with integer $l_i$, and zero otherwise. The grid average therefore equals
+\begin{equation}
+  \frac{1}{n_k}\sum_{\vect{k}\in\text{grid}}\mathcal{F}(\vect{k}) = \langle \mathcal{F}\rangle_{\mathrm{BZ}} + \sum_{(l_1,l_2,l_3)\neq0}\mathcal{F}_{\vect{R} = \sum_il_in_i\vect{a}_i} .
+  \label{eq:C.2-grid}
+\end{equation}
+The error of a grid is the set of Fourier components of the integrand at distances equal to the size of the fictitious block. It is the crystal version of the image terms of \cref{eq:C.2-poisson}, and it is small when $\mathcal{F}_{\vect{R}}$ has decayed over $n_i$ cells.
+
+In an insulator, the quantities summed over occupied bands are analytic functions of $\vect{k}$, their components $\mathcal{F}_{\vect{R}}$ decay exponentially with $|\vect{R}|$, on the scale of the localization length of the Wannier functions (\cref{sec:3.6}), and the grid average converges exponentially in $n_i$. In a metal, the occupation jumps at the Fermi surface, $\mathcal{F}_{\vect{R}}$ decays only as a power of $|\vect{R}|$, and convergence is slow; a smearing of the step, or an interpolation, is needed. Grids displaced from the origin, introduced by Monkhorst and Pack~\cite{monkhorst1976special}, have the same error structure, \cref{eq:C.2-grid} with a phase on each term (a sign alternating with $l_i$ for a shift of half a grid step), and need fewer symmetry-distinct points. These choices, smearing and the convergence tests are the subject of \cref{app:E.1}.
+
+Energy delta functions on a grid need one more step. The transition sum $N^{-1}\sum_{\vect{k}}\delta(\omega - \varepsilon_{c,\vect{k}+\vect{q}} + \varepsilon_{v\vect{k}})$ on $n_k$ points is a set of spikes, not a function of $\omega$. The spikes merge into a curve only after each is broadened by a width $\sigma_{\mathrm{br}}$ larger than the change of the transition energy between neighboring grid points, about $|\nabla_{\vect{k}}(\varepsilon_{c,\vect{k}+\vect{q}} - \varepsilon_{v\vect{k}})|\,|\vect{b}_i|/n_i$. A Gaussian broadening is preferred to a Lorentzian of the same width, because its error is of order $\sigma_{\mathrm{br}}^2$ times the curvature of the spectrum, while the slow tails of a Lorentzian give an error of order $\sigma_{\mathrm{br}}$ that depends on the whole spectrum (\cref{app:C.1,app:C.4}). The width must then be reduced together with the grid spacing. The alternative is the tetrahedron method, which interpolates the band energies linearly inside small tetrahedra filling the zone and integrates the delta function exactly within each~\cite{blochl1994improved}. Either way, a computed spectrum carries a resolution set by the grid, and features narrower than it, such as the onset of absorption at a gap, need a denser grid or an analytic treatment (\cref{sec:3.3}).
+
+\subsection{Normalization checks}
+
+Counting powers of $N$ and $\Vol$ catches most normalization errors. Each sum over an independent crystal momentum brings a factor $N$, or $\Vol/(2\pi)^3$ times an integral, and each plane wave or Bloch state normalized over the crystal brings $\Vol^{-1/2}$; an intensive quantity must have the powers of $N$ cancel. Each Kronecker delta in crystal momentum that a matrix element produces removes one sum. In the Bloch basis, the product of two lattice sums, \cref{eq:C.2-latticesum} for $\vect{k}$ and again for $\vect{k}'$, gives $N^2\delta_{\vect{k}\vect{G}}\delta_{\vect{k}'\vect{G}'}$, and the square of one Kronecker delta is the same Kronecker delta. In the continuum, the square of $\delta^3(\vect{k})$ is $\delta^3(0)\,\delta^3(\vect{k})$ with $\delta^3(0) = \Vol/(2\pi)^3$, which is the same statement and the reason why rates are worked out in the box (\cref{sec:2.1}).

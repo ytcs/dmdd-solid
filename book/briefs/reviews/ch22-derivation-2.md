@@ -1,0 +1,12 @@
+# Chapter 22 (part 2) batch review: derivation check (isolated)
+You are the derivation verifier (long-form-writing SKILL.md §5). Under review: /home/user/dmdd-solid/book/tex/ch22/ch22.tex, s22-2.tex, s22-3.tex. Also read /home/user/dmdd-solid/book/NOTATION.md and /home/user/dmdd-solid/book/STYLE.md, and the public sources that are cited; fetch them with /home/user/dmdd-solid/skills/breakthrough-maths/scripts/lit.py into /home/user/dmdd-solid/book/sources/review-ch22/ and delete the PDFs afterwards. Chapter 22 is a synthesis chapter: most of its numbers are quoted from Chapters 10–21, so consistency with the accepted text of those chapters is the main check.
+Check the following.
+- Redo every step that is not a definition from the previous line, using sympy for the algebra.
+- Do dimensional analysis on every displayed result, and check every limiting case the text claims.
+- Recompute every number in the text and the worked examples (figscripts/ch22 logs).
+- Check each cited value or equation against its source, and each cross-chapter number against the cited chapter's tex.
+- Report factor-of-2, π, sign or convention drift against NOTATION.
+Known items: everything in /home/user/dmdd-solid/book/ledgers/REVIEWS/ch22/editor-notes.md that concerns your files.
+Output /home/user/dmdd-solid/book/ledgers/REVIEWS/ch22/derivation-2.md, ≤ 250 lines: location → CHECKED / WRONG / GAP, with the correction. Run nothing heavy (no QE). Do not edit the tex. Do not commit. Final message ≤ 10 lines.
+- PRIORITY: 22.2 Table tab:22-gaps (72 rows): sample at least 30 rows and check each class (proof/bounded/estimate/unsized/test) and quoted magnitude against the source chapter text; flag rows misclassified or numbers that disagree (known: 18.3 SEAM 0.015 vs tex 0.008 — tex governs). 22.3: VERIFY (a) the isospin-limit claim that the full Fermi strength A−2Z sits in the isobaric analog state, ¹²⁵Te IAS threshold ≈14 MeV (uniform-sphere Coulomb estimate), and the consequence that Dror et al. (1908.10861) n_j ≃ A−Z overcounts (73 vs 21) — read their Eq. 4.6 and Table 1; (b) the claim that their printed Eq. 4.10 Fermi function has Γ(1+γ)² where Γ(1+2γ)² belongs (factor 3.2 at Z=53) — check against hayen2018high and the standard Fermi function; (c) eq:22.3-cc, -rows, -fermi, -sumrules and the worked example we:22-cc; the CDW phason/amplitudon statements.
+- Any number traceable to campaign returns: check it against state/CORRECTIONS.md and SOTA.md, and flag any use of a superseded value. Respect any quoting restriction in state/DC-RESULTS.md.

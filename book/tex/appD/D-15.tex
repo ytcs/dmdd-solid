@@ -1,0 +1,76 @@
+\section{The Debye--Waller factor}\label{app:D.15}
+
+A nucleus in a crystal is never exactly at its lattice site. Its displacement $\vect{u}_{\vect{R}\kappa}$ fluctuates, at zero temperature and even more at finite temperature, and a momentum transfer $\vect{q}$ to that nucleus acts through the operator $\ee^{\ii\vect{q}\cdot\vect{u}_{\vect{R}\kappa}}$ (\cref{app:C.6}). Its thermal average, the Debye--Waller factor $\ee^{-W_\kappa(\vect{q})}$, controls the elastic weight of every lattice response at finite momentum, and the correlation of two such exponentials at different times generates the multiphonon response of \cref{sec:5.6}. The average of the exponential of an operator is in general not the exponential of anything simple. For a harmonic crystal it is, by Bloch's identity \cref{eq:C.6-bloch}, $\langle\ee^{\op{A}}\rangle = \ee^{\langle\op{A}^2\rangle/2}$ for $\op{A}$ linear in the phonon operators. Here we prove the identity, write the displacement tensor $B_\kappa$ and the displacement correlation $\mathcal{C}_{\kappa\kappa'}$ as sums over phonon modes, derive the generating formula used in \cref{sec:5.6}, and evaluate $2W_\kappa$ in the Debye model at any temperature.
+
+\subsection*{Proof for one mode}
+
+Take one oscillator, $H = \omega_0(d^\dagger d + \tfrac12)$ as in \cref{app:C.6}, in thermal equilibrium at temperature $T = 1/\beta$, with $n_{\mathrm{B}} = n_{\mathrm{B}}(\omega_0)$, and let $\op{A} = \eta_1d + \eta_2d^\dagger$ with arbitrary complex $\eta_1$ and $\eta_2$, so that $\op{A}$ need not be Hermitian. Consider $F(\theta) = \langle\ee^{\theta\op{A}}\rangle$ as a function of a real parameter $\theta$. The proof uses two facts. The commutators $[\op{A}, d] = -\eta_2$ and $[\op{A}, d^\dagger] = \eta_1$ are numbers. By \cref{eq:C.6-hadamard}, the transformation by $\ee^{\theta\op{A}}$ therefore only shifts the ladder operators,
+\begin{equation*}
+  d\,\ee^{\theta\op{A}} = \ee^{\theta\op{A}}\,(d + \theta\eta_2), \qquad d^\dagger\,\ee^{\theta\op{A}} = \ee^{\theta\op{A}}\,(d^\dagger - \theta\eta_1) .
+\end{equation*}
+The cyclic property of the trace, in turn, moves a ladder operator past the Boltzmann factor at a known cost, as in the proof of Wick's theorem in \cref{app:D.11}: $d\,\ee^{-\beta H} = \ee^{-\beta\omega_0}\ee^{-\beta H}d$, since removing a quantum lowers $H$ by $\omega_0$, and $d^\dagger\ee^{-\beta H} = \ee^{+\beta\omega_0}\ee^{-\beta H}d^\dagger$. As a result, $\langle\ee^{\theta\op{A}}d\rangle = \Tr[d\,\ee^{-\beta H}\ee^{\theta\op{A}}]/\mathcal{Z} = \ee^{-\beta\omega_0}\langle d\,\ee^{\theta\op{A}}\rangle$, and combined with the shift,
+\begin{equation*}
+  \langle d\,\ee^{\theta\op{A}}\rangle = \ee^{-\beta\omega_0}\langle d\,\ee^{\theta\op{A}}\rangle + \theta\eta_2F(\theta), \qquad
+  \langle d\,\ee^{\theta\op{A}}\rangle = \frac{\theta\eta_2F(\theta)}{1 - \ee^{-\beta\omega_0}} = \theta\eta_2\,(n_{\mathrm{B}} + 1)\,F(\theta) .
+\end{equation*}
+The same steps for $d^\dagger$ give $\langle d^\dagger\ee^{\theta\op{A}}\rangle = \ee^{\beta\omega_0}\langle d^\dagger\ee^{\theta\op{A}}\rangle - \theta\eta_1F(\theta)$, and $\langle d^\dagger\ee^{\theta\op{A}}\rangle = \theta\eta_1\,n_{\mathrm{B}}\,F(\theta)$. The derivative of $F$ is then
+\begin{equation*}
+  F'(\theta) = \eta_1\langle d\,\ee^{\theta\op{A}}\rangle + \eta_2\langle d^\dagger\ee^{\theta\op{A}}\rangle = \theta\,\eta_1\eta_2\,(2n_{\mathrm{B}} + 1)\,F(\theta) = \theta\,\langle\op{A}^2\rangle\,F(\theta) ,
+\end{equation*}
+since $\langle\op{A}^2\rangle = \eta_1\eta_2\langle dd^\dagger + d^\dagger d\rangle = \eta_1\eta_2(2n_{\mathrm{B}} + 1)$, the averages of $d^2$ and $d^{\dagger2}$ being zero. With $F(0) = 1$ the solution is $F(\theta) = \ee^{\theta^2\langle\op{A}^2\rangle/2}$, and at $\theta = 1$
+\begin{equation}
+  \langle\ee^{\op{A}}\rangle = \ee^{\langle\op{A}^2\rangle/2} .
+  \label{eq:D.15-bloch}
+\end{equation}
+For several independent modes in thermal equilibrium, $\op{A} = \sum_\gamma\op{A}_\gamma$ is a sum of commuting pieces, one per mode, the exponential factorizes, and the average in the Gibbs state of \cref{sec:2.5} factorizes too. The exponents add, and $\sum_\gamma\langle\op{A}_\gamma^2\rangle = \langle\op{A}^2\rangle$, because the cross terms $\langle\op{A}_\gamma\op{A}_{\gamma'}\rangle = \langle\op{A}_\gamma\rangle\langle\op{A}_{\gamma'}\rangle$ vanish for $\gamma \ne \gamma'$. \Cref{eq:D.15-bloch} therefore holds for any $\op{A}$ linear in the operators of a set of harmonic modes. Mermin gave a short evaluation of averages of this form by a different route~\cite{mermin1966short}. The proof here is Wick's theorem of \cref{app:D.11} in generating-function form: expanded in powers of $\op{A}$, both sides count the pairings of $2n$ linear operators, $(2n)!/(2^nn!)$ of them, each worth $\langle\op{A}^2\rangle^n$.
+
+The hypotheses are the ones the proof used. The operator must be linear in $d$ and $d^\dagger$, so that its commutators are numbers, and the state must be the thermal state of a quadratic Hamiltonian, so that the trace moves each ladder operator at the cost of a number. In an anharmonic crystal neither holds exactly. The logarithm of $\langle\ee^{\op{A}}\rangle$ is then a series in the cumulants of $\op{A}$, of which the harmonic crystal has only the second. The anharmonic terms of \cref{sec:5.7} make the fourth cumulant nonzero, and the Debye--Waller exponent acquires a correction that grows with temperature faster than $T$.
+
+\subsection*{The displacement tensor}
+
+For a crystal, the operator is $\op{A} = \ii\vect{q}\cdot\vect{u}_{\vect{R}\kappa}$ with the displacement of \cref{eq:A.6-u}. The thermal averages of the displacement fields are $\langle B_{\vect{Q}\nu}B_{\vect{Q}'\nu'}\rangle = \delta_{\vect{Q}',-\vect{Q}}\delta_{\nu\nu'}(2n_{\vect{Q}\nu} + 1)$, since $\langle b_{\vect{Q}\nu}b^\dagger_{\vect{Q}\nu}\rangle + \langle b^\dagger_{-\vect{Q}\nu}b_{-\vect{Q}\nu}\rangle = (n_{\vect{Q}\nu} + 1) + n_{\vect{Q}\nu}$ and $n_{-\vect{Q}\nu} = n_{\vect{Q}\nu}$. With $\vect{e}_{\kappa\nu}(-\vect{Q}) = \vect{e}_{\kappa\nu}(\vect{Q})^*$ from \cref{eq:A.6-e}, the phases $\ee^{\ii\vect{Q}\cdot\vect{R}}\ee^{-\ii\vect{Q}\cdot\vect{R}}$ cancel, and the displacement tensor of \cref{eq:A.6-DW} is
+\begin{equation}
+  B^{\alpha\beta}_\kappa = \langle u^\alpha_{\vect{R}\kappa}u^\beta_{\vect{R}\kappa}\rangle = \frac1N\sum_{\vect{Q}\nu}\frac{2n_{\vect{Q}\nu} + 1}{2M_\kappa\,\omega_{\vect{Q}\nu}}\;e^\alpha_{\kappa\nu}(\vect{Q})\,e^\beta_{\kappa\nu}(\vect{Q})^* ,
+  \label{eq:D.15-B}
+\end{equation}
+the same in every cell. The terms at $\vect{Q}$ and $-\vect{Q}$ are complex conjugates of each other, which makes $B_\kappa$ real and symmetric, and positive since every term of the diagonal is. By \cref{eq:D.15-bloch},
+\begin{equation}
+  \bigl\langle\ee^{\ii\vect{q}\cdot\vect{u}_{\vect{R}\kappa}}\bigr\rangle = \ee^{-\langle(\vect{q}\cdot\vect{u}_{\vect{R}\kappa})^2\rangle/2} = \ee^{-W_\kappa(\vect{q})}, \qquad 2W_\kappa(\vect{q}) = \vect{q}\cdot B_\kappa\cdot\vect{q} .
+  \label{eq:D.15-W}
+\end{equation}
+The amplitude for a nucleus to absorb the momentum $\vect{q}$ without changing the state of the lattice is reduced by $\ee^{-W_\kappa}$, and the probability by $\ee^{-2W_\kappa}$, the Debye--Waller factor. The two limits of \cref{eq:D.15-B} are those of a single oscillator. At $T = 0$, $2n + 1 = 1$, and $B_\kappa$ is the zero-point tensor, a sum of $1/(2M_\kappa\omega_{\vect{Q}\nu})$ over the modes. For $T$ above every phonon energy, $2n + 1 \to 2T/\omega$, and $B_\kappa = (T/N)\sum_{\vect{Q}\nu}\vect{e}_{\kappa\nu}\vect{e}^*_{\kappa\nu}/(M_\kappa\omega_{\vect{Q}\nu}^2)$ grows linearly with $T$, the classical equipartition value. The acoustic modes have $\omega_{\vect{Q}\nu} \to 0$ at small $Q$, and their terms grow as $1/\omega$ at $T = 0$ and as $1/\omega^2$ at $T > 0$. In three dimensions the number of modes per unit frequency vanishes as $\omega^2$, and the sum stays finite at any temperature.
+
+\subsection*{The generating formula}
+
+In a harmonic crystal the Heisenberg operators evolve as $b_{\vect{Q}\nu}(t) = b_{\vect{Q}\nu}\ee^{-\ii\omega_{\vect{Q}\nu}t}$, and $\vect{u}_{\vect{R}\kappa}(t)$ stays linear in the ladder operators. Consider the correlation of the displacement of nucleus $\kappa$ in cell $\vect{R}$ at time $t$ with that of nucleus $\kappa'$ in the cell at the origin at time zero. It follows from the same averages as \cref{eq:D.15-B}, now with $\langle b_{\vect{Q}\nu}b^\dagger_{\vect{Q}\nu}\rangle\ee^{-\ii\omega_{\vect{Q}\nu}t}$ and $\langle b^\dagger_{-\vect{Q}\nu}b_{-\vect{Q}\nu}\rangle\ee^{+\ii\omega_{\vect{Q}\nu}t}$:
+\begin{equation}
+  \mathcal{C}^{\alpha\beta}_{\kappa\kappa'}(\vect{R},t) = \langle u^\alpha_{\vect{R}\kappa}(t)\,u^\beta_{\vect{0}\kappa'}(0)\rangle
+  = \frac1N\sum_{\vect{Q}\nu}\frac{e^\alpha_{\kappa\nu}(\vect{Q})\,e^\beta_{\kappa'\nu}(\vect{Q})^*\,\ee^{\ii\vect{Q}\cdot\vect{R}}}{2\omega_{\vect{Q}\nu}\sqrt{M_\kappa M_{\kappa'}}}\Bigl[(n_{\vect{Q}\nu} + 1)\,\ee^{-\ii\omega_{\vect{Q}\nu}t} + n_{\vect{Q}\nu}\,\ee^{\ii\omega_{\vect{Q}\nu}t}\Bigr] .
+  \label{eq:D.15-C}
+\end{equation}
+The term with $n + 1$ creates a phonon at time zero and removes it at time $t$; the term with $n$ does the reverse, and it vanishes at $T = 0$. At equal times and on the same nucleus, $\mathcal{C}_{\kappa\kappa}(\vect{0},0) = B_\kappa$. Where the cell and the time are clear from the context, \cref{sec:5.6} writes $\mathcal{C}_{\kappa\kappa'}(t)$.
+
+The product formula \cref{eq:C.6-product}, which follows from \cref{eq:D.15-bloch} and the Baker--Campbell--Hausdorff formula, applies with $\op{A} = -\ii\vect{q}\cdot\vect{u}_{\vect{R}\kappa}(t)$ and $\op{B} = \ii\vect{q}\cdot\vect{u}_{\vect{0}\kappa'}(0)$, both linear. The averages of their squares are $-2W_\kappa(\vect{q})$ and $-2W_{\kappa'}(\vect{q})$, since the state is stationary, and the average of their product is $\vect{q}\cdot\mathcal{C}_{\kappa\kappa'}(\vect{R},t)\cdot\vect{q}$. Hence
+\begin{equation}
+  \bigl\langle\ee^{-\ii\vect{q}\cdot\vect{u}_{\vect{R}\kappa}(t)}\,\ee^{\ii\vect{q}\cdot\vect{u}_{\vect{0}\kappa'}(0)}\bigr\rangle = \ee^{-W_\kappa(\vect{q}) - W_{\kappa'}(\vect{q})}\;\ee^{\vect{q}\cdot\mathcal{C}_{\kappa\kappa'}(\vect{R},t)\cdot\vect{q}} ,
+  \label{eq:D.15-gen}
+\end{equation}
+and for one nucleus, $\vect{R} = 0$ and $\kappa' = \kappa$, this is $\ee^{-2W_\kappa}\ee^{\vect{q}\cdot\mathcal{C}_{\kappa\kappa}(t)\cdot\vect{q}}$, the generating formula of \cref{sec:5.6}. At $t = 0$ the two exponentials of \cref{eq:D.15-gen} for one nucleus multiply to one, as they must, since $\ee^{-\ii\vect{q}\cdot\vect{u}}\ee^{\ii\vect{q}\cdot\vect{u}} = 1$. Expanding $\ee^{\vect{q}\cdot\mathcal{C}_{\kappa\kappa'}\cdot\vect{q}}$ in powers of $\vect{q}\cdot\mathcal{C}_{\kappa\kappa'}\cdot\vect{q}$ sorts the response by the number of phonons. The $n$th term contains products of $n$ factors $\ee^{\mp\ii\omega_{\vect{Q}\nu}t}$, and its Fourier transform puts weight at energies that are sums of $n$ phonon energies, each created with $n_{\vect{Q}\nu} + 1$ or absorbed with $n_{\vect{Q}\nu}$. The term $n = 0$ is the elastic weight $\ee^{-2W_\kappa}$, and the term $n = 1$ is the single-phonon response. The total weight of all terms is one, the value at $t = 0$.
+
+\subsection*{The Debye model at any temperature}
+
+For a crystal of one species, of nuclear mass $M$, with cubic site symmetry and all atoms of the cell equivalent, $B_\kappa$ is a multiple of the identity, $B_\kappa = \tfrac13\langle u^2\rangle\,\mathbf{1}$, the same for every $\kappa$. Averaging the trace of \cref{eq:D.15-B} over the $n_{\mathrm{at}}$ atoms of the cell, $\sum_\kappa|\vect{e}_{\kappa\nu}|^2 = 1$ removes the polarization vectors, and the sum over modes becomes an integral over the density of states per atom, $g_{\mathrm{ph}}/n_{\mathrm{at}}$, normalized to three (\cref{eq:5.3-u2}). In the Debye model it is $9\omega^2/\omega_{\mathrm{D}}^3$ below the Debye frequency $\omega_{\mathrm{D}}$ (\cref{eq:5.2-gD}). With $2n_{\mathrm{B}}(\omega) + 1 = \coth(\omega/2T)$,
+\begin{equation*}
+  \langle u^2\rangle = \int_0^{\omega_{\mathrm{D}}}\dd\omega\,\frac{9\omega^2}{\omega_{\mathrm{D}}^3}\,\frac{\coth(\omega/2T)}{2M\omega}
+  = \frac{9}{4M\omega_{\mathrm{D}}}\Bigl[1 + 4\Bigl(\frac{T}{\omega_{\mathrm{D}}}\Bigr)^2\int_0^{\omega_{\mathrm{D}}/T}\frac{x\,\dd x}{\ee^x - 1}\Bigr] ,
+\end{equation*}
+where $\coth = 1 + 2n_{\mathrm{B}}$ split the integral into its zero-point and thermal parts and $x = \omega/T$. With $2W_\kappa = q^2\langle u^2\rangle/3$,
+\begin{equation}
+  2W_\kappa(\vect{q}) = \frac{3q^2}{4M\omega_{\mathrm{D}}}\Bigl[1 + 4\Bigl(\frac{T}{\omega_{\mathrm{D}}}\Bigr)^2\int_0^{\omega_{\mathrm{D}}/T}\frac{x\,\dd x}{\ee^x - 1}\Bigr] .
+  \label{eq:D.15-debye}
+\end{equation}
+At $T = 0$ the exponent is $\tfrac32E_R/\omega_{\mathrm{D}}$, with $E_R = q^2/2M$ the free recoil energy: the Debye--Waller factor is small once the recoil energy exceeds the phonon energies, which is the condition for a nucleus to recoil as if free (\cref{app:C.6}). At high temperature, the integral is $y - y^2/4 + y^3/36 - \cdots$ with $y = \omega_{\mathrm{D}}/T$, and
+\begin{equation*}
+  2W_\kappa(\vect{q}) = \frac{3q^2T}{M\omega_{\mathrm{D}}^2}\Bigl[1 + \frac{\omega_{\mathrm{D}}^2}{36\,T^2} + O\Bigl(\frac{\omega_{\mathrm{D}}^4}{T^4}\Bigr)\Bigr] ,
+\end{equation*}
+linear in $T$, with the zero-point motion as the leading correction. At $T = \omega_{\mathrm{D}}$ the bracket of \cref{eq:D.15-debye} is $4.11$: the exponent is four times its zero-point value. A crystal with several atoms per cell or several species needs the full \cref{eq:D.15-B}, with the polarization vectors of each branch, and \cref{sec:5.6} computes it for silicon.

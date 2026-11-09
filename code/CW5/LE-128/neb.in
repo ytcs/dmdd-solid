@@ -1,0 +1,43 @@
+BEGIN
+BEGIN_PATH_INPUT
+&PATH
+  restart_mode = 'from_scratch'
+  string_method = 'neb'
+  nstep_path = 200
+  num_of_images = 9
+  opt_scheme = 'broyden'
+  CI_scheme = 'auto'
+  path_thr = 0.005
+/
+END_PATH_INPUT
+BEGIN_ENGINE_INPUT
+&control
+    prefix = 'si64neb'
+    pseudo_dir = '@PSEUDO@'
+    outdir = './'
+/
+&system
+    ibrav = 1
+    celldm(1) = 20.66
+    nat = 64
+    ntyp = 1
+    ecutwfc = 40
+/
+&electrons
+    conv_thr = 1.0d-9
+    mixing_beta = 0.5
+/
+ATOMIC_SPECIES
+ Si 28.0855 Si_ONCV_PBE-1.2.upf
+BEGIN_POSITIONS
+FIRST_IMAGE
+ATOMIC_POSITIONS crystal
+ @POSITIONS_INITIAL@
+LAST_IMAGE
+ATOMIC_POSITIONS crystal
+ @POSITIONS_FINAL@
+END_POSITIONS
+K_POINTS automatic
+2 2 2 0 0 0
+END_ENGINE_INPUT
+END

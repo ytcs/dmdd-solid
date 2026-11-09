@@ -1,0 +1,93 @@
+\section{Angular averages and spherical functions}\label{app:C.3}
+
+A dark-matter rate integrates over the direction of the momentum transfer, and an atomic form factor integrates over the direction of the electron. \Cref{sec:2.2} needed three such integrals: the average of a plane wave over directions, $4\pi\sin(qr)/(qr)$; its first moment, $4\pi\ii\,j_1(qr)$; and the sum rule $\sum_m|Y_{lm}|^2 = (2l + 1)/4\pi$ that makes a closed shell spherical. They are special cases of the expansion of a plane wave in spherical harmonics, which is derived here in full. The section closes with the cubic harmonics, the functions of direction that a cubic crystal such as silicon allows.
+
+\subsection{Plane waves averaged over directions}
+
+We write $\hat{\vect{n}}$ for a unit vector, $\dd\Omega_{\hat n}$ for the element of solid angle of its direction, and $\int\dd\Omega_{\hat n} = 4\pi$. With the polar axis along $\vect{q}$ and $u = \cos\theta$ the cosine of the angle between $\vect{q}$ and $\hat{\vect{n}}$, $\dd\Omega_{\hat n} = \dd\phi\,\dd u$ and the azimuth gives $2\pi$. For $\vect{r} = r\hat{\vect{n}}$,
+\begin{equation}
+  \int\dd\Omega_{\hat n}\,\ee^{\ii\vect{q}\cdot\vect{r}} = 2\pi\int_{-1}^{1}\dd u\,\ee^{\ii qru} = 4\pi\,\frac{\sin qr}{qr} = 4\pi\,j_0(qr) .
+  \label{eq:C.3-j0}
+\end{equation}
+The first moment follows by differentiating with respect to $a = qr$ under the integral, $\int_{-1}^{1}\dd u\,u\,\ee^{\ii au} = -\ii\,\dd(2\sin a/a)/\dd a = 2\ii(\sin a - a\cos a)/a^2$, so
+\begin{equation}
+  2\pi\int_{-1}^{1}\dd u\,u\,\ee^{\ii qru} = 4\pi\ii\,j_1(qr), \qquad j_1(z) = \frac{\sin z}{z^2} - \frac{\cos z}{z} .
+  \label{eq:C.3-j1}
+\end{equation}
+These are the spherical Bessel functions of orders zero and one~\cite[Eq.~(10.49.3)]{olver2010nist}. A spherical density $\nd(r)$ therefore has the transform $4\pi\int_0^\infty\dd r\,r^2 j_0(qr)\,\nd(r)$, a one-dimensional integral; for a density proportional to $\ee^{-\beta r}$ the remaining integrals are Laplace transforms of powers times $\sin$ and $\cos$. For instance, $\int_0^\infty\dd r\,r\,\ee^{-\beta r}\sin qr = 2\beta q/(\beta^2 + q^2)^2$ and $\int_0^\infty\dd r\,r^2\ee^{-\beta r}\cos qr = 2\beta(\beta^2 - 3q^2)/(\beta^2 + q^2)^3$. With \cref{eq:C.3-j1} they combine into
+\begin{equation*}
+  \int_0^\infty\dd r\,r^3\ee^{-\beta r}j_1(qr) = \frac{1}{q^2}\,\frac{2\beta q}{(\beta^2 + q^2)^2} - \frac{1}{q}\,\frac{2\beta(\beta^2 - 3q^2)}{(\beta^2 + q^2)^3} = \frac{8\beta q}{(\beta^2 + q^2)^3} ,
+\end{equation*}
+the radial integral of the hydrogen $1s \to 2p$ form factor in \cref{sec:2.2}.
+
+Averages of products of components of $\hat{\vect{n}}$ follow from symmetry. We write $n^\alpha$ for the Cartesian components, with $\alpha, \beta, \gamma, \delta$ as superscripts. The average $\langle n^\alpha n^\beta\rangle = (4\pi)^{-1}\int\dd\Omega_{\hat n}\,n^\alpha n^\beta$ is a tensor that does not change under rotations, so it is proportional to $\delta^{\alpha\beta}$; contracting with $\delta^{\alpha\beta}$ and using $\hat{\vect{n}}\cdot\hat{\vect{n}} = 1$ fixes the constant. In the same way the fourth moment is a combination of the three products of Kronecker deltas, with equal weights by the symmetry in its indices. Contracting two indices reduces it to the second moment:
+\begin{equation}
+  \langle n^\alpha n^\beta\rangle = \tfrac13\delta^{\alpha\beta}, \qquad
+  \langle n^\alpha n^\beta n^\gamma n^\delta\rangle = \tfrac{1}{15}\bigl(\delta^{\alpha\beta}\delta^{\gamma\delta} + \delta^{\alpha\gamma}\delta^{\beta\delta} + \delta^{\alpha\delta}\delta^{\beta\gamma}\bigr) .
+  \label{eq:C.3-moments}
+\end{equation}
+Odd moments vanish, since $\hat{\vect{n}} \to -\hat{\vect{n}}$ leaves the measure unchanged. As a result, the direction average of $(\vect{q}\cdot\vect{v})^2$ is $q^2v^2/3$, and that of a quadratic form $\vect{q}\cdot B\cdot\vect{q}$ is $q^2\Tr B/3$. In general, $\langle (n^x)^{2a}(n^y)^{2b}(n^z)^{2c}\rangle = (2a - 1)!!\,(2b - 1)!!\,(2c - 1)!!/(2a + 2b + 2c + 1)!!$, with $(-1)!! = 1$; it gives $\langle (n^x)^4\rangle = 1/5$, in agreement with \cref{eq:C.3-moments}.
+
+\subsection{Spherical harmonics}
+
+The spherical harmonics $Y_{lm}(\hat{\vect{n}})$, with $l = 0, 1, 2, \dots$ and $m = -l, \dots, l$, are the eigenfunctions of the squared angular momentum with eigenvalue $l(l + 1)$ and of its $z$ component with eigenvalue $m$. We use the convention, with the Condon--Shortley phase, of most quantum-mechanics texts~\cite[Eq.~(14.30.1)]{olver2010nist}: $Y_{00} = (4\pi)^{-1/2}$, $Y_{10} = (3/4\pi)^{1/2}\cos\theta$, $Y_{1,\pm1} = \mp(3/8\pi)^{1/2}\sin\theta\,\ee^{\pm\ii\phi}$, and $Y_{l,-m} = (-1)^mY_{lm}^*$. They are orthonormal on the sphere and complete,
+\begin{equation}
+  \int\dd\Omega_{\hat n}\,Y_{lm}^*(\hat{\vect{n}})\,Y_{l'm'}(\hat{\vect{n}}) = \delta_{ll'}\delta_{mm'} ,
+  \label{eq:C.3-ortho}
+\end{equation}
+so any function of direction expands as $\sum_{lm}c_{lm}Y_{lm}$~\cite[Eq.~(14.30.8)]{olver2010nist}. The harmonics of order $l$ are the restrictions to the sphere of the homogeneous polynomials of degree $l$ in $n^x, n^y, n^z$ that solve Laplace's equation, and under inversion $\hat{\vect{n}} \to -\hat{\vect{n}}$ they change by $(-1)^l$.
+
+The $m = 0$ harmonics are Legendre polynomials, $Y_{l0} = [(2l + 1)/4\pi]^{1/2}P_l(\cos\theta)$, with Rodrigues' formula $P_l(u) = (2^ll!)^{-1}\,\dd^l(u^2 - 1)^l/\dd u^l$ and $\int_{-1}^{1}\dd u\,P_lP_{l'} = 2\delta_{ll'}/(2l + 1)$. The addition theorem connects them to the full set~\cite[Eq.~(14.30.9)]{olver2010nist},
+\begin{equation}
+  P_l(\hat{\vect{n}}\cdot\hat{\vect{n}}') = \frac{4\pi}{2l + 1}\sum_{m=-l}^{l}Y_{lm}^*(\hat{\vect{n}})\,Y_{lm}(\hat{\vect{n}}') .
+  \label{eq:C.3-addition}
+\end{equation}
+Setting $\hat{\vect{n}}' = \hat{\vect{n}}$ and using $P_l(1) = 1$ gives Uns\"old's theorem,
+\begin{equation}
+  \sum_{m=-l}^{l}|Y_{lm}(\hat{\vect{n}})|^2 = \frac{2l + 1}{4\pi} ,
+  \label{eq:C.3-unsold}
+\end{equation}
+independent of direction. A filled shell, with every $m$ occupied equally, therefore has a spherical density whatever the shape of its individual orbitals, which is the statement used in \cref{sec:2.2}.
+
+\subsection{The plane-wave expansion}
+
+The function $\ee^{\ii zu}$ of $u \in [-1, 1]$ expands in Legendre polynomials as $\sum_lc_l(z)P_l(u)$, with $c_l(z) = \tfrac12(2l + 1)\int_{-1}^{1}\dd u\,P_l(u)\,\ee^{\ii zu}$ by their orthogonality. We evaluate the integral with Rodrigues' formula. Integrating by parts $l$ times moves the derivatives onto the exponential, and the boundary terms vanish because $(u^2 - 1)^l$ has zeros of order $l$ at $u = \pm1$:
+\begin{equation*}
+  \int_{-1}^{1}\dd u\,P_l(u)\,\ee^{\ii zu} = \frac{(-\ii z)^l}{2^ll!}\int_{-1}^{1}\dd u\,(u^2 - 1)^l\ee^{\ii zu} = \frac{(\ii z)^l}{2^ll!}\,I_l(z), \qquad I_l(z) \equiv \int_{-1}^{1}\dd u\,(1 - u^2)^l\ee^{\ii zu} .
+\end{equation*}
+The integrals $I_l$ obey a recursion. Differentiating under the integral and integrating by parts once, with $u(1 - u^2)^l = -\dd(1 - u^2)^{l+1}/\dd u\,/[2(l + 1)]$,
+\begin{equation*}
+  \frac{\dd I_l}{\dd z} = \ii\int_{-1}^{1}\dd u\,u(1 - u^2)^l\ee^{\ii zu} = \frac{\ii\cdot\ii z}{2(l + 1)}\,I_{l+1}(z) = -\frac{z}{2(l + 1)}\,I_{l+1}(z) .
+\end{equation*}
+Starting from $I_0 = 2\sin z/z$ and iterating $I_{l+1} = -2(l + 1)\,z^{-1}\,\dd I_l/\dd z$ gives
+\begin{equation*}
+  I_l(z) = 2^{l+1}l!\,\Bigl(-\frac{1}{z}\frac{\dd}{\dd z}\Bigr)^l\frac{\sin z}{z} = 2^{l+1}l!\,z^{-l}j_l(z) ,
+\end{equation*}
+where the second step uses $j_l(z) = z^l(-z^{-1}\dd/\dd z)^l(\sin z/z)$~\cite[Eq.~(10.49.14)]{olver2010nist}. Therefore $\int_{-1}^{1}\dd u\,P_l\,\ee^{\ii zu} = 2\ii^lj_l(z)$. Hence $c_l = (2l + 1)\,\ii^l j_l(z)$, and with $z = qr$, $u = \hat{\vect{q}}\cdot\hat{\vect{r}}$ and \cref{eq:C.3-addition},
+\begin{equation}
+  \ee^{\ii\vect{q}\cdot\vect{r}} = \sum_{l=0}^{\infty}(2l + 1)\,\ii^l j_l(qr)\,P_l(\hat{\vect{q}}\cdot\hat{\vect{r}})
+  = 4\pi\sum_{l=0}^{\infty}\sum_{m=-l}^{l}\ii^l j_l(qr)\,Y_{lm}^*(\hat{\vect{q}})\,Y_{lm}(\hat{\vect{r}}) ,
+  \label{eq:C.3-planewave}
+\end{equation}
+the Rayleigh expansion~\cite[Eq.~(10.60.7)]{olver2010nist}. Integrating over the directions of $\hat{\vect{r}}$ keeps only $l = 0$ and returns \cref{eq:C.3-j0}; multiplying by $Y_{10}$ before integrating keeps only $l = 1$ and returns \cref{eq:C.3-j1}.
+
+The expansion is the multipole expansion of a form factor. A transition between orbitals of angular momenta $l_i$ and $l_f$, through $\langle f|\ee^{\ii\vect{q}\cdot\vect{r}}|i\rangle$, picks out the terms with $|l_i - l_f| \le l \le l_i + l_f$, and $l_i + l + l_f$ even by parity. The spherical Bessel functions behave as
+\begin{equation}
+  j_l(z) \simeq \frac{z^l}{(2l + 1)!!} \quad (z \ll 1), \qquad j_l(z) \simeq \frac{\sin(z - l\pi/2)}{z} \quad (z \gg l) ,
+  \label{eq:C.3-jlimits}
+\end{equation}
+\cite[Eqs.~(10.52.1) and (10.52.3)]{olver2010nist}. For an orbital of size $r_{\mathrm{orb}}$, the multipole $l$ of the form factor is therefore suppressed by $(qr_{\mathrm{orb}})^l$ when $qr_{\mathrm{orb}} \ll 1$, and the lowest allowed multipole dominates: the monopole for elastic scattering, the dipole for $s \to p$ transitions. When $qr_{\mathrm{orb}} \gtrsim 1$ many multipoles contribute with comparable weight, and the transition sees the electron as a particle rather than as a charge distribution. For an atomic valence orbital, $r_{\mathrm{orb}}$ is about an \AA ngstr\"om, and $qr_{\mathrm{orb}} = 1$ at $q \simeq \SI{2}{keV}$, which is $\sim q_0/2$ (\cref{sec:1.3}); light dark matter sits in the transition region.
+
+\subsection{Cubic harmonics}
+
+A crystal is not spherical, but a cubic crystal comes close. The point group of silicon and germanium, $O_h$, contains all the rotations and reflections that map a cube onto itself, and the response of such a crystal at fixed $|\vect{q}|$ is a function of $\hat{\vect{q}}$ invariant under them. The point group of gallium arsenide, $T_d$, has only half of these operations and lacks inversion. A response that is even in $\vect{q}$, such as $S(\vect{q},\omega)$ in a target with time-reversal symmetry (\cref{app:A.4}), is invariant under $\hat{\vect{q}} \to -\hat{\vect{q}}$ all the same, and $T_d$ together with this inversion is $O_h$. The functions of direction we need are then those invariant under all permutations of $(n^x, n^y, n^z)$ and all changes of their signs.
+
+Which orders $l$ admit such functions? A homogeneous polynomial invariant under the sign changes contains only even powers of each component, so odd $l$ is absent. At degree two, invariance under permutations leaves $(n^x)^2 + (n^y)^2 + (n^z)^2 = 1$, which is the $l = 0$ harmonic, so $l = 2$ is absent too. At degree four the invariants are $\sum_\alpha(n^\alpha)^4$ and $1$, and the combination orthogonal to the constant is new. At degree six there is one more, built from $(n^xn^yn^z)^2$. The first cubic harmonics are therefore
+\begin{equation}
+  Y^{\mathrm{c}}_0 = \frac{1}{\sqrt{4\pi}}, \qquad
+  Y^{\mathrm{c}}_4(\hat{\vect{n}}) = \frac58\sqrt{\frac{21}{\pi}}\Bigl[(n^x)^4 + (n^y)^4 + (n^z)^4 - \frac35\Bigr], \qquad \dots ,
+  \label{eq:C.3-cubic}
+\end{equation}
+normalized as in \cref{eq:C.3-ortho}. The constant $-3/5$ makes $Y^{\mathrm{c}}_4$ orthogonal to $Y^{\mathrm{c}}_0$, since $\langle\sum_\alpha(n^\alpha)^4\rangle = 3/5$. The prefactor follows from the moment formula above: $\langle(\sum_\alpha(n^\alpha)^4)^2\rangle = 3\langle(n^x)^8\rangle + 6\langle(n^x)^4(n^y)^4\rangle = 3/9 + 6/105 = 41/105$, the variance is $41/105 - 9/25 = 16/525$, and $4\pi\times(5/8)^2(21/\pi)\times16/525 = 1$. In spherical harmonics with the polar axis along a cube edge, $Y^{\mathrm{c}}_4 = (7/12)^{1/2}Y_{40} + (5/24)^{1/2}(Y_{44} + Y_{4,-4})$, the combination given by Von der Lage and Bethe~\cite{vonderlage1947method}, who introduced these functions for electronic states in cubic crystals. The next invariant orders are $l = 6, 8, 10$ with one function each, and $l = 12$ with two.
+
+Consider a property of a cubic crystal that is a second-rank tensor in $\hat{\vect{q}}$. Examples are the dielectric tensor at $q \to 0$, the displacement tensor $B_\kappa$ at a site of cubic symmetry (\cref{app:A.6}) or the effective-mass tensor of a nondegenerate band extremum at $\Gamma$. Each is a multiple of the unit tensor, since an anisotropy would need an $l = 2$ component, and none exists. The direction dependence of a cubic response at fixed $|\vect{q}|$ starts at $l = 4$. In silicon the anisotropy of $S(\vect{q},\omega)$ is a combination of $Y^{\mathrm{c}}_4(\hat{\vect{q}})$, $Y^{\mathrm{c}}_6(\hat{\vect{q}})$ and higher terms, with coefficients that depend on $|\vect{q}|$ and $\omega$, and it is small where the momentum transfer is small compared with the reciprocal-lattice vectors. \Cref{sec:11.7} expands rates in these functions to compute the daily modulation of \cref{sec:1.2} for cubic targets.

@@ -1,0 +1,881 @@
+                                                           Temperature dependent effective potential method for accurate free energy
+                                                                                    calculations of solids
+                                                                             Olle Hellman,1 Peter Steneteg,1 I. A. Abrikosov,1 and S. I. Simak1
+                                                                                     1
+                                                                                         Department of Physics, Chemistry and Biology (IFM),
+                                                                                         Linköping University, SE-581 83, Linköping, Sweden.
+                                                                    We have developed a thorough and accurate method of determining anharmonic free energies,
+                                                                 the temperature dependent effective potential technique (TDEP). It is based on ab initio molecular
+                                                                 dynamics followed by a mapping onto a model Hamiltonian that describes the lattice dynamics. The
+                                                                 formalism and the numerical aspects of the technique are described in details. A number of practical
+arXiv:1303.1145v1 [cond-mat.stat-mech] 5 Mar 2013
+
+
+
+
+                                                                 examples are given, and results are presented, which confirm the usefulness of TDEP within ab initio
+                                                                 and classical molecular dynamics frameworks. In particular, we examine from first-principles the
+                                                                 behavior of force constants upon the dynamical stabilization of body centered phase of Zr, and show
+                                                                 that they become more localized. We also calculate phase diagram for 4 He modeled with the Aziz et
+                                                                 al. potential and obtain results which are in favorable agreement both with respect to experiment
+                                                                 and established techniques.
+
+
+                                                                    I.   INTRODUCTION                                ism by Souvatzis et al.9,10 uses ab initio supercell cal-
+                                                                                                                     culations. A problem with this approach is that the
+                                                       One of the common goals for first principles calcu-           excitations could only be done in the harmonic sense
+                                                    lations is the comparison of energies, such as configu-          which means probing phase space with a limited basis set.
+                                                    rational energies, surface energies, mixing enthalpies or        Where the harmonic approximation works well this is not
+                                                    lattice stabilities. Usually the comparison is limited to        a problem. When the harmonic approximation fails it is
+                                                    total energies. This is appropriate when the effects of          due to a strong anharmonic contribution. Strongly an-
+                                                    temperature can be neglected. However, for many prob-            harmonic systems are by definition badly described with
+                                                    lems within physics, materials and Earth sciences they           the harmonic approximation.
+                                                    are not negligible and Gibbs free energy represents the             Several techniques use Born-Oppenheimer molecular
+                                                    proper thermodynamic potential when the temperature              dynamics to obtain anharmonic corrections to quasi-
+                                                    and pressure are external parameters. The quasihar-              harmonic free energies.11,12,18 They focus on anharmonic
+                                                    monic approximation can bridge the temperature gap,              corrections to materials that are well described in the
+                                                    but there are cases where it falls short. Strongly an-           quasiharmonic approximation, and the applicability to
+                                                    harmonic systems are not described well1 , especially dy-        strongly anharmonic systems is questionable when the
+                                                    namically unstable systems. Traditionally the problem            phonon renormalization due to increased temperature
+                                                    of dynamical instability was addressed either by includ-         can not be described by a linear equation.
+                                                    ing more terms in the Taylor expansion of the potential             We have developed a new method13 that is similar to
+                                                    energy or via a self-consistent approach.2–4                     Hootons5 original idea, but with a foundation in (ab ini-
+                                                                                                                     tio) molecular dynamics. In this paper we present a sub-
+                                                       Hooton5 realised that even though the second deriva-
+                                                                                                                     stantial refinement and generalization of the temperature
+                                                    tives at the equilibrium positions are negative, the atoms
+                                                                                                                     dependent effective potential method (TDEP), showing
+                                                    in a solid rarely occupy these positions. They move in
+                                                                                                                     how it deals with: a model one-dimensional anharmonic
+                                                    the effective potential of their non-stationary neighbours.
+                                                                                                                     oscillator, a strongly anharmonic system, bcc Zr, treated
+                                                    By sampling the potential energy surface not at the equi-
+                                                                                                                     from first-principles, and 4 He modelled with the Aziz et
+                                                    librium positions but at the most probable positions for
+                                                                                                                     al. potential.
+                                                    a given temperature one can obtain a harmonic approx-
+                                                    imation that describes the system at elevated tempera-
+                                                    tures. The self-consistent formalism employs an iterative                       II.   TDEP FORMALISM
+                                                    procedure6 by creating a harmonic potential, which is
+                                                    used to describe the thermal excitations that again give
+                                                                                                                       The starting point of our method is to introduce a
+                                                    a new harmonic potential. This is then repeated until
+                                                                                                                     model Hamiltonian for a Bravais lattice in the harmonic
+                                                    self-consistency.
+                                                                                                                     form:
+                                                       The double-time Green’s functions, developed by
+                                                    Choquard,7 use a cumulant expansion in the higher order                              X p2
+                                                                                                                                                            ¯ u
+                                                                                                                                                     X
+                                                                                                                                               i
+                                                                                                                               Ĥ = U0 +           +     ui Φ̄ij j       (1)
+                                                    terms. Although formally exact, this formalism requires                                  2m  i
+                                                                                                                                           i          ij
+                                                    knowledge of the higher order force constants. Obtain-
+                                                    ing these accurately for something other than the struc-         which describes the lattice dynamics. Here pi and ui are
+                                                    turally simple systems is computationally very demand-           the momentum and displacement of atom i, bold symbols
+                                                    ing from first principles.8                                      indicate vectors and doubly overlined symbols matrices
+                                                       A recent implementation of the self-consistent formal-        respectively. The reference point for the displacements
+                                                                                                                            2
+
+is the 0K relaxed lattice (initially, in Sec. IV we will        Φαβ
+                                                                 µν (Rl ) with unknown variables θk
+                                               ¯ and the
+revisit this). The interatomic force constants Φ̄                                                    
+ground state energy U0 are yet to be determined. Given                           11
+                                                                                           θ1 θ2 θ3
+                                                                               ¯ (R ) = θ θ θ 
+                                                                               Φ̄
+Na atoms in this model system the forces acting on the                              1       4  5    6
+atoms are given by                                                                         θ7 θ8 θ9
+                                                                                                                        (6)
+            ¯                                                                             θ10 θ11 θ12
+                 ¯            ¯                                             11
+                                                                               ¯ (R ) = θ θ θ 
+     f1      Φ̄11 Φ̄  12 · · ·  Φ̄ 1Na      u1                                 Φ̄   2       13   14   15
+   f2   Φ̄¯     ¯            ¯
+     21 Φ̄22 · · · Φ̄2Na   u2                                                        θ16 θ17 θ18
+                                             
+   ..  =  .       ..  ..                  .
+                                    ..   .    . (2)
+   .   ..
+                                        
+                      .      .       .       .                 and so on, including vectors Rl up to a cutoff deter-
+    fNa     ¯
+            Φ̄    ¯
+                  Φ̄           ¯
+                         · · · Φ̄          uNa                  mined by the size of the supercell. Some of these θk are
+  | {z } | Na 1 Na 2{z           Na Na
+
+      FH
+                                       } | {z }
+                                                Ut              equivalent. To find out which, we look at the symmetry
+       t                     ¯
+                             Φ̄
+                                                                relations the force constant matrices have to obey. We
+                                                                have14
+As detailed in our previous paper13 we seek to determine
+the force constant matrices through minimization of the                        X αβ
+                                                                                   ¯ (R ) = 0 for each β
+                                                                                  Φ̄                                 (7)
+                                                                                         l
+difference in forces from the model system a real system,
+                                                                                lα
+simulated, for instance, by means of ab initio molecular
+dynamics (AIMD). An AIMD simulation will provide a                                   ¯ αβ (R ) = Φ̄
+                                                                                     Φ̄          ¯ βα (−R )               (8)
+                                                                                            l            l
+set of displacements {UMD   }, forces {FMD } and potential                           Φαβ          αβ
+                                                                                      µν (Rl ) = Φνµ (Rl )                (9)
+                         t              t
+             MD
+energies {Et }. We seek to minimize the difference in
+forces from AIMD and our harmonic form (FH ) at time            that stem, in order, from the facts that there is no net
+step t, summed over all time steps Nt :                         translation of the crystal, all Bravais lattices have inver-
+                                                                sion symmetry, and that the order of the second deriva-
+               t N
+          1 X             2                                     tives does not matter. Each relation will give us a few
+ min ∆F =        FMD
+                  t  − FH
+                        t   =                                   equations for the unknowns θk , reducing their number.
+  ¯
+  Φ̄      Nt t=1
+                                                                In addition to these fundamental properties of the force
+                 N
+             1 X  t
+                               ¯ UMD =
+                                        2                       constant matrices we can benefit from the symmetry of
+           =         FMD
+                      t     − Φ̄   t                            the lattice. If symmetry relation S, belonging to the
+             Nt t=1
+                                                                point group of the lattice, relates two vectors Rl = SRk
+             1                     ¯                           we have the following relation:
+                  FMD   . . . FMD    − Φ̄ UMD . . . UMD
+                                                        
+           =        1          Nt          1         Nt    .
+             Nt
+                                                          (3)                   ¯ αβ (R ) = S Φ̄
+                                                                                Φ̄            ¯ αβ (R )S T               (10)
+                                                                                       l             k
+
+This is realized with a a Moore-Penrose pseudoinverse           By applying equations (7)–(10) the number of unknown
+                                                                variables is massively reduced. For example, a bcc lat-
+           ¯ = FMD . . . FMD  UMD . . . UMD +
+           Φ̄                                            (4)    tice modelled as a 4 × 4 × 4 supercell (128 atoms) would
+                1         Nt    1         Nt
+                                                                have 147456 unknown variables in Φ̄   ¯ , if one does not con-
+                                                ¯ that min-
+to obtain the linear least squares solution for Φ̄              sider symmetry arguments. Application of Eqs. (7)–(10)
+imize ∆F. This is then mapped to the form                       reduces the problem to 11 unknown variables. Having
+                                                                found the reduced problem with Nθ unknown variables,
+                      ¯ −→ Φαβ (R ),
+                      Φ̄                                 (5)    it can be substituted back into (2). The expression for
+                            µν   l
+                                                                the forces at timestep t will schematically look like this:
+where αβ are indices to atoms in a unit cell with Nuc ≤
+                                                                                   θ1    0      0 ...
+                                                                                                              
+Na atoms and µν Cartesian indices. The pair vectors                     f1                                     u1
+in the supercell Rij are mapped to stars of lattice vec-              f2   0          θ1     0 . . .  u2 
+                                                                                    0    0      θ  1 . . .  . 
+                                                                                                              
+tors Rl connecting atoms of type α and β. From this                   ..                                     .. 
+                                                                      .  θ
+                                                                              2 θ3 −θ4 . . . 
+                                                                                                            
+form the phonon dispersion relations, free energy and all             fγ  =  θ −θ
+                                                                                                                  .     (11)
+                                                                                                0 . . .     uδ 
+                                                                                                                  
+other quantities can be extracted. This direct implemen-                     3
+                                                                      ..  −θ
+                                                                                             2
+                                                                                                              . 
+tation works well,13 but the numerical efficiency can be              .   4 0                0 . . .     .. 
+improved, as is demonstrated below.                                                 ..    ..     .. . .
+                                                                       f3Na          .     .      .      .    u3Na
+                                                                     | {z } |                {z            } | {z }
+                                                                       FH
+                                                                        t                      ¯
+                                                                                               Φ̄
+                                                                                                              Ut
+
+   III.    SYMMETRY CONSTRAINED FORCE
+             CONSTANT EXTRACTION
+                                                                The actual distribution of the θk will depend on the prob-
+                                                                lem at hand. Carrying out the matrix product gives us
+                                                                a new set of equations for the forces
+   The form of the force constant matrices depends only                                X X
+on the supercell used in the AIMD and the crystal lat-                            fγ =      θk    ckγδ uδ .           (12)
+tice. We begin by populating the force constant matrices                                   k        δ
+                                                                                                                                                                                                       3
+
+where second sum describes the coefficients for each                                           70
+
+
+
+
+                                                                Free energy difference (meV)
+                                                                                                                          (a)                                                                  (b)
+
+
+
+
+                                                                                                                                     Free energy difference (meV)
+θk contained in the expression for force component fγ .                                                                                                             1.75
+                                                                                               60
+These coefficients are linear combinations of the displace-                                                                                                         1.50
+                                                                                               50
+ment components uδ . The explicit form is determined by                                                                                                             1.25
+the lattice. In matrix form this is written as                                                 40
+                                                                                                                                                                    1.00
+                ¯ (U)Θ, C(U) =                                                                 30
+                                      X
+           F = C̄                kγ       ckγδ uδ .    (13)                                                                                                         0.75
+                                        δ                                                      20
+                                                                                                                                                                    0.50
+                                                                                               10
+Eq. 13 is equivalent to Eq. 2, it is just rewritten in terms                                                                                                        0.25
+of the symmetry inequivalent interactions. This imple-                                          0
+                                                                                                                                                                      0
+mentation symbolically reduces the number of unknowns,
+
+
+
+
+                                                                                                    50
+
+
+                                                                                                         10
+
+
+                                                                                                                15
+
+
+                                                                                                                     20
+
+
+                                                                                                                            25
+                                                                                                                                                                           20   40   60   80     100
+
+
+
+
+                                                                                                                00
+                                                                                                            0
+
+
+
+
+                                                                                                                                00
+                                                                                                    00
+
+
+
+
+                                                                                                                     00
+                                                 ¯ from a set
+
+
+
+
+                                                                                                           00
+
+
+
+                                                                                                                 0
+
+
+
+
+                                                                                                                                0
+                                                                                                                       0
+generates the function that gives the matrix C̄                                                     Number of timesteps                                                    Number of timesteps
+of displacements U and the mapping from the set of θk
+back to the force constant matrix Φαβ  µν (Rl ).
+                                                15
+                                                                FIG. 1. (color online) Convergence of the free energy of bcc
+   To find Θ we minimize the difference in forces between       Zr at 1300K with respect to the number of timesteps. In panel
+AIMD simulations and the model hamiltonian                      (a) symmetry is treated numerically and in (b) it is treated
+                  t N                                           in the novel analytical way. The same input data is used in
+             1 X             2                                  both cases, and it converges to the same value, but we have
+    min ∆F =        FMD − FH   =
+     Θ       Nt t=1 t      t
+                                                                improved the performance by several orders of magnitude.
+                    N
+                    t
+               1 X                        2
+             =         FMD   ¯ (UMD )Θ =
+                           − C̄
+                         t        t                             the equilibrium positions are by no means constant with
+               Nt t=1                                   (14)
+                    MD   ¯ MD                               respect to temperature. TDEP handles this in an el-
+                      F1        C̄(U1 )                         egant way. Note that we find the second order terms
+               1  .              ..
+             =      ..  −         .    Θ .
+                                                               in (1) with a least squares fit of the slope of force versus
+               Nt                                               displacement. Originally, the displacements could be cal-
+                      F MD      ¯
+                                C̄(U ) MD
+                        Nt              Nt                      culated with respect to the wrong equilibrium positions
+This is again realised with the least squares solution for      that do not correspond to the temperature of the simula-
+Θ                                                               tion. Still our experience shows that slope will be the well
+                                                                approximated. That allows for the following procedure:
+                    ¯ MD +  MD 
+                     C̄(U1 )        F1                                                         – Guess equilibrium positions, usually the ideal lat-
+                         .
+                         ..            . 
+             Θ=                 ..  .             (15)                                       tice positions.
+                                
+                      ¯
+                     C̄(U ) MD      F MD
+                             Nt        Nt                                                      – Use these to calculate the displacements u from the
+                                                                                                 AIMD simulations.
+Having determined Θ we can substitute the components
+into the force constant matrix and proceed to calculate                                        – Determine Θ and from that the residual force
+thermodynamic properties of the original (real) system.
+   The suggested scheme is a superior way of using sym-                                                                Nt
+                                                                                                                       X  1
+                                                                                                                                         FMD − FH
+                                                                                                                                                  
+metry to improve the numerical accuracy. Most schemes                                                           Fr =                      t     t ,                                             (16)
+                                                                                                                           Nt
+involving symmetry revolve around determining the in-                                                                  t=1
+teraction in one direction and then using the symmetry
+relations to translate and rotate that interaction. Any                                             where FMD
+                                                                                                            t    are the AIMD forces and FH t are given
+numerical errors–which are always present–will propa-                                               by equation 13. Nt is the number of timesteps, and
+gate to all interactions, whereas in the present approach                                           subscript t denote the corresponding forces at time
+the errors will be averaged and should cancel each other                                            step t.
+to a large degree.                                                                             – These forces are then used to move the atoms in a
+   The advantage of this procedure will be illustrated be-                                       steepest descent scheme towards equilibrium posi-
+low.                                                                                             tions. The whole process is repeated until conver-
+                                                                                                 gence.
+   IV.    INTERNAL DEGREES OF FREEDOM                              Our test shows that this procedure is remarkably sta-
+                                                                ble. The second order force constants Φ are weakly af-
+   If the system has internal degrees of freedom for the        fected by the choice of equilibrium positions. The vibra-
+structural relaxations, such as a crystal with point de-        tional entropy and phonon dispersion relations are largely
+fects, an interface or a random alloy the atoms ideal po-       unaffected as well. Eliminating the first order term, how-
+sitions and equilibrium positions do not coincide. While        ever, is formally important and crucial when extract-
+one could find the relaxed positions from 0K calculations,      ing higher order terms. Note that self-consistent itera-
+                                                                                                                                              4
+
+tions are numerically efficient, because the most time-                                             Free energy F=U-TS
+consuming step for applications of TDEP is MD simu-
+                                                                     Static DFT
+lations, while their mapping on model Hamiltonian (1)                             U correct at 0K          No vibrational contribution
+                                                                   calculations
+represents post-processing of the MD results with mini-                                                                  Anharmonic
+mal computaional cost.                                                                                                   contributions,
+                                                                     Harmonic     U correct at 0K      Harmonic F        no temperature
+                                                                 approximation                                           dependence
+
+    V.   DETERMINING THE FREE ENERGY                                               Correct temperature
+                                                                        BOMD       dependent U                     No explicit entropy
+
+
+   We will begin by reiterating the traditional way how                              U extracted from                                     H
+                                                                                                                 Model Hamiltonian
+                                                                         HTEP         BOMD, correct                                       O
+free energy is determined in the quasiharmonic approxi-                                                          entropy contribution
+                                                                                  temperature dependence                                  T
+mation. Divided into parts it will be
+
+  F = U − TS                                                    FIG. 2. Illustration of the different terms included in free en-
+                                                                ergy calculations using different approaches. The filled boxes
+    = Utot − T Sel + hEk i + hUvib i + Uzp − T Svib ,   (17)    denote the terms that are included, and the striped areas what
+      |    {z    } |                {z            }
+            Fel                      Fvib                       is omitted. The main message is to point out that the internal
+                                                                energy has a non-trivial temperature dependence, something
+where a division of the right hand side into parts makes        that is omitted in the quasiharmonic approximation. HOT
+a clear distinction between the electronic contribution         indicate the higher order terms that are missing in the TDEP
+Fel and the vibrational contribution Fvib . The electronic      free energy, Eq. 22 and 18.
+contribution is divided into the total energy of the lattice,
+Utot , and the electronic entropy Sel . The vibrational con-
+                                                                hUMD i = hUTDEP i, gives us
+tribution is divided into average kinetic Ek and potential
+energy Uvib of the ions, vibrational entropy Svib and zero
+                                                                            *                             +
+                                                                                          X 1 αβ     β
+                                                                                                 α
+point energy Uzp . The lattice contribution is obtained                 U0 = UMD (t) −       Φ u (t)uj (t)                               (21)
+                                                                                            2 ij i
+from DFT calculations with the Mermin functional and                                                ijαβ
+the vibrational part from the harmonic approximation
+                                                                By removing the thermal excitations of the harmonic
+via
+                                                                form the fluctuations can be decreased by roughly an or-
+         Z ∞
+                                                                der of magnitude and the accuracy of U0 is thus increased
+                                                   
+                                          ~ω         ~ω
+Fvib =       g(ω) kB T ln 1 − exp −               +       dω,   be the same amount. Including higher order terms in the
+          0                              kB T         2
+                                                        (18)    energy expansion would further serve to minimize these
+Where g(ω) is the phonon density of states. In this ap-         fluctuations.
+proach, all the vibrational contributions are calculated           The potential energy that was removed will be added
+within the harmonic approximation.                              again when the Helmholtz free energy is calculated:
+   Turning to AIMD, the free energy (in the canonical                                  FTDEP = U0 + Fvib ,                               (22)
+ensemble) is divided as
+                                                                where Fvib is the phonon contribution given Eq. 18, with
+              F = hUMD i + hEk i − T SMD ,              (19)    the phonon density of states determined in the TDEP
+                                                                formalism. It includes the kinetic and potential energy
+were the potential energy UMD is temperature dependent.         of the ions. In Fig. 2 we further illustrate the difference
+Since the ions move as classical particles the zero point       in methods of obtaining the free energy.
+energy is missing. There is unfortunately no informa-              The formally exact method of thermodynamic
+tion about the entropy, but through the force constant          integration17 can be used to determine the free energy.
+matrices obtained using TDEP, the vibrational entropy           This method will determine the anharmonic correction
+and zero point energy can be estimated. For TDEP to             to the free energy. If the TDEP model Hamiltonian is
+have an accurate free energy the potential energy should,       used as the reference point the full free energy will be
+on average, be equal to that of AIMD. This would ensure                                Z 1
+that the full anharmonic hUMD i is included. The problem
+                                                                     F = U0 + Fvib +       hUMD − UTDEP iλ dλ .        (23)
+is that UMD is rapidly oscillating over time, requiring a
+long simulation time to converge. If we look at the TDEP                               |0         {z           }
+                                                                                                            ∆FAH
+potential energy
+                                                                The integral is over the Kirkwood coupling parameter λ,
+                            1 X αβ α                            and the potential energy difference is between the model
+         UTDEP (t) = U0 +      Φij ui (t)uβj (t)        (20)
+                            2                                   Hamiltonian and the molecular dynamics potential en-
+                              ijαβ
+                                                                ergy.
+and recognise that it should model the thermal fluctua-           The model TDEP Hamiltonian is constructed to de-
+tions of the original system we can overcome the numer-         scribe the system as accurately as possible while retain-
+ical issues. Setting the average potential energies equal,      ing the harmonic form. It is then easy to argue that
+                                                                                                                                                                                                                             5
+
+the anharmonic correction term ∆FAH should be small.                                                                  3.0
+While it is difficult to make general statements regarding                                                            2.5
+
+
+
+
+                                                                                         ∆F (meV/atom)
+this, our experience so far is that this correction is very
+small in every system we have tested.                                                                                 2.0
+
+   In addition, the thermodynamic integration technique                                                               1.5
+can be numerically inefficient when high accuracy is
+                                                                                                                      1.0
+needed. While one can accurately control the numerical
+accuracy18 the finite size effects are more difficult to con-                                                         0.5
+trol, especially in ab intio simulations. In Fig. 3 we show
+                                                                                                                      0.0
+that the error due to the limited size is on the same order
+as the correction to the TDEP free energy in reasonable                                                                     100         300              500                                   700        900
+simulation sizes16 . It makes little use to add a correction                                                                                        Number of atoms
+to the TDEP free energy where the uncertainty is of the
+same order of magnitude as the correction itself.                                 FIG. 4. (color online) Convergence of the free energy from
+   The TDEP free energy, on the other hand, behaves                               TDEP with respect to simulation size. The system in question
+well with respect to limited simulation cell. In figure 4                         is fcc Cu with a classical embedded atom potential21 . At sizes
+we see that at the reasonable system size of 100 atoms the                        about 100 atoms it is converged within 1meV/atom.
+free energy is converged within 1meV/atom.19 It is also
+easily converged in terms of simulation length: in Fig. 5                                                        70
+
+
+
+
+                                                                                  Free energy difference (meV)
+we illustrate the advantage of analytically treating sym-                                                                                     (a)                                                                    (b)
+
+
+
+
+                                                                                                                                                         Free energy difference (meV)
+                                                                                                                                                                                        1.75
+                                                                                                                 60
+metry. In our previous work,13 we studied Zr in the bcc                                                                                                                                 1.50
+phase. There, we found convergence within 1meV/atom                                                              50
+                                                                                                                                                                                        1.25
+for the free energies after 25000 time steps. With the                                                           40
+symmetry constraints, we converged to the same value                                                                                                                                    1.00
+                                                                                                                 30
+using 50 time steps, an improvement by several orders of                                                                                                                                0.75
+magnitude.                                                                                                       20
+                                                                                                                                                                                        0.50
+                                                                                                                 10
+                  3                                                                                                                                                                     0.25
+
+                                                                                                                  0
+                                                                                                                                                                                          0
+                  2
+                                                                                                                      50
+
+
+                                                                                                                            10
+
+
+                                                                                                                                   15
+
+
+                                                                                                                                        20
+
+
+                                                                                                                                                25
+∆FAH (meV/atom)
+
+
+
+
+                                                                                                                                                                                               20    40   60    80     100
+                                                                                                                                   00
+                                                                                                                               0
+
+
+
+
+                                                                                                                                                    00
+                                                                                                                       00
+
+
+
+
+                                                                                                                                        00
+                                                                                                                              00
+
+
+
+                                                                                                                                    0
+
+
+
+
+                                                                                                                                                     0
+                  1                                                                                                                      0
+                                                                                                                       Number of timesteps                                                     Number of timesteps
+
+                  0
+                                                                                  FIG. 5. (color online) Convergence of the free energy of bcc
+                  -1                                                              Zr at 1300K with respect to the number of timesteps. In panel
+                                                                                  (a) symmetry is treated numerically and in (b) it is treated
+                  -2                                                              in the novel analytical way. The same input data is used in
+                                                                                  both cases, and it converges to the same value, but we have
+                       0    200      400     600   800       1000   1200   1400   improved the performance by several orders of magnitude.
+                                           Number of atoms
+
+FIG. 3. (color online) Convergence of the free energy correc-                     Here x is the position and k, α and β are known param-
+tion from thermodynamic integration (∆FAH in Eq. 23) with
+                                                                                  eters. The equilibrium position can depend on temper-
+respect to system size. At system sizes smaller than ∼700
+atoms the uncertainty is of about the same order as the cor-                      ature and is assumed to be 0 at T = 0K. The aim is
+rection. This particular case is for fcc Cu modelled with an                      to find the second degree polynomial fit to Eq. 24 that
+embedded atom potential21 .                                                       best describes the system. If this polynomial only con-
+                                                                                  sist of a quadratic and a constant term it will describe a
+                                                                                  harmonic oscillator with well defined free energy. If one
+                                                                                  applies the harmonic approximation to this potential it
+                                                                                  will not work well. The second derivative
+                   VI. APPLICATION OF TDEP TO A
+                   ONE-DIMENSIONAL ANHARMONIC
+                            OSCILLATOR                                             d2 U                     2                            2
+
+                                                                                      2
+                                                                                        = k − 2αβe−β(x−x0 ) + (4αβ(x − x0 ))2 e−β(x−x0 )
+                                                                                   dx
+                                                                                                                                    (25)
+  To illustrate TDEP we first apply it to a one-                                  will determine the force constant Φ. The temperature
+dimensional anharmonic oscillator. Consider the follow-                           dependence of x0 is omitted and we will end up with
+ing one-dimensional potential:
+
+                                     k(x − x0 )2                                                                            d2 U                            2
+
+                           U (x) =
+                                                              2
+                                                 + αe−β(x−x0 ) .           (24)                                       Φ=            = k + 2αβ(2αβx0 − 1)e−βx0 .                                                       (26)
+                                         2                                                                                  dx2 x=0
+                                                                                                                                                                                                                     6
+
+This, as seen in Fig. 6, will not be a particularly good
+model for the true potential. These issues arise from the                                                                                      (a)
+fact that the potential energy surface is only probed at
+x = 0, the T = 0 equilibrium positions. To work around                                                                                                                     n=2
+                                                                                                                                                                         n=4
+this problem, let us apply TDEP and put a particle in                                                                                                                   n=6
+the potential given by equation (24) and perform a MD
+
+
+
+
+                                                                                                                                Energy (a.u)
+simulation. When controlled by an appropriate thermo-
+stat, the particle will yield a set of Nt forces, positions
+and energies, {Ft , xt , Et }, one for each timestep. This                                                                                     (b)
+data can now be used to fit a potential of the form                                                                                                                                                          n=6
+                                                                                                                                                                                      n=2
+
+                     (a)                                                          (b)
+                                     α<0                                                                                                                                                                     n=4
+                                     x 0= 0
+
+                                                                                                                                                                        Displacement (a.u.)
+                     (c)              α>0                                         (d)
+Energy (a.u.)
+
+
+
+
+                                                                                                                                FIG. 7. Comparison of the effects of including higher or-
+                                                                  Force (a.u.)
+
+
+
+
+                                      x 0= 0                                                                                    der terms between the harmonic approximation and TDEP.
+                                                                                                                                When extending the Taylor expansion of an anharmonic po-
+                                                                                                                                tential (dashed blue line) in the Born–von Karman ansatz to
+                                                                                                                                higher order terms we end up with the series of lines depicted
+                     (e)              α>0                                         (f)                                           in panel (b). Panel (a) shows the same extension for TDEP.
+                                      x 0>0                                                                                     Even limiting oneself to the second order term (n = 2), the fit
+                                                                                                                                will implicitly contain anharmonism to an arbitrary degree in
+                                                                                                                                the range that is thermally accessible. Extending TDEP to a
+                                                                                                                                higher order converges towards the true potential faster than
+                -5   -4    -3   -2   -1   0   1   2   3   4   5              -5   -4    -3   -2   -1   0   1    2   3   4   5
+                           Displacement (a.u.)                                          Displacement (a.u.)
+                                                                                                                                when higher order terms are added to the harmonic approxi-
+                                                                                                                                mation.
+                           True potential                              TDEP                                    Harmonic
+
+
+FIG. 6. Comparison of performance of TDEP and the har-
+monic Taylor expansion for the potential described by equa-
+tion 24. Three examples are shown when the conventional                                                                         a guess for x00 gives us a Φ̃(2) and ∆F . This residual force
+harmonic approximation fails to describe the potential while                                                                    is used to move x00 to a new position, and the process is
+TDEP succeeds. Panels (a),(c) and (e) show the potentials                                                                       repeated until self-consistency is reached. When we have
+and (b), (d) and (f) show the forces. α and x0 are the param-                                                                   found the equilibrium position we can safely assume that
+eters of Eq. 24. In panel (a) the harmonic approximation cor-                                                                   any first order term in our polynomial can be set to 0.
+respongd to a dynamically unstable system, whereas TDEP                                                                         As described in Sec. V The constant energy term, Φ(0) ,
+provides a dynamically stable solution. In panel (b) the har-                                                                   can be determined from the energies {Et } obtained from
+monic approximation provides an inaccurate potential. Panel                                                                     molecular dynamics simulations:
+(c) shows how TDEP finds the high temperature equilibrium
+position x0 .
+                                                                                                                                                                                                
+                                                                                                                                                                           1
+                                                    1                                                                                                Φ   (0)
+                                                                                                                                                               =       Et − Φ̃(2) (xt − x00 )2           .         (29)
+                                     U (x) = Φ̃(0) + Φ̃(2) (x − x00 )2 ,                                                (27)                                               2                         t
+                                                    2
+a harmonic potential centered at x00 . Let us begin by
+determining the second order term. As discussed in Sec.                                                                         This is the best possible potential of the harmonic form
+IV we guess a value for x00 , use the forces from molecular                                                                     at a given temperature that approximates the original
+dynamics {Ft } and minimize                                                                                                     potential in Eq. 24. In Fig. 6 the true potential and
+                                                      N
+                                                                                                                                the fit are illustrated for different α,β and x0 . The an-
+                                                    t
+                                               1 X                                                                              harmonism of the potential is implicitly described by the
+                                 ∆F =                 |Ft − Φ̃(2) (xt − x00 )|.                                         (28)
+                                               Nt t=1                                                                           polynomial fit. In Fig. 7 the expansion in Eq. 27 has been
+                                                                                                                                extended to higher orders for an anharmonic potential.
+This is easiest realized as a least squares fit of a straight                                                                   TDEP, probing the effective potential at finite temper-
+line in forces, as demonstrated in the right panels of                                                                          ature, converges to the true potential rapidly whereas
+Fig. 6. Equation (28) determines the second order term.                                                                         including more terms in the Taylor expansion in Eq. (1)
+The residual force at x00 , ∆F , can be used to find the                                                                        does by no means guarantee numerical stability at finite
+equilibrium position. It is done in the following manner:                                                                       temperature.
+                                                                                                                                                                   7
+
+ VII.   PRACTICAL APPLICATIONS OF TDEP                                                                                                 6
+                                                                                                      1300K TDEP
+                                                                                                                                       4
+  Let us summarize this and present the scheme used                                                   0K Harmonic
+
+
+
+
+                                                                                                                     Frequency (THz)
+to calculate accurate Gibbs free energy surfaces in the                                     1.5
+                                                                                                                                       2
+TDEP formalism from first principles.
+                                                                                                                                       0
+   – First calculate DFT total energy as a function of
+     volume. This provides an equation of state and                                                                              -2i
+     allows us to choose the volume interval, which                                                                                        Γ   H       P   Γ       N
+
+
+
+
+                                                             Frobenius norm of Φ (eV/Å 2)
+     covers pressure of interest.                                                                                                      6
+                                                                                            1.0
+   – If feasible, obtain approximate harmonic                                                                                          4
+
+
+
+
+                                                                                                                     Frequency (THz)
+     potentials for the systems at hand in this volume
+     interval. These potentials are used to speed up                                                                                   2
+     the calculations as described in Steneteg et al.
+                                                                                                                                       0
+     (submitted to PrB, BZ11707).
+                                                                                            0.5                                 -2i
+   – On the grid of volumes and temperatures, perform                                                                                      Γ   H       P   Γ       N
+     AIMD simulations in the canonical ensemble.
+   – From these simulations, extract internal energy U0
+     (21) and interatomic force constants using Eq. 14,
+     ensuring convergence of the free energy with
+     respect to simulation length.                                                          0.0
+                                                                                                  1         2                              3       4           5
+   – To increase further the accuracy of the                                                                     Coordination shell
+     calculation, it is recommended to select a subset of
+     uncorrelated samples from the AIMD simulations          FIG. 8. (color online) Comparison of the TDEP and quasi-
+     upsample these to high accuracy, as described in        harmonic force constant matrices. We have plotted the Frobe-
+     Ref. 18. A new free energy is calculated.               nius norm of the force constants versus coordination shell. In
+                                                             the inset we show the corresponding phonon dispersion re-
+   – The equation of state is interpolated over the grid     lations. The empty circles are 0K harmonic values and the
+     of temperatures and volumes providing the Gibbs         filled circles are TDEP values extracted at 1300K. At high
+     free energy surface. This is then repeated for each     temperature the interactions at close distances are stronger,
+     structure, compound or composition of interest.         and fall off faster with increasing distance.
+   TDEP is a thorough and time-consuming method, but
+the results are excellent. The phonon dispersion rela-
+                                                             stabilities at high temperature. They do, however, re-
+tions of a material that is dynamically unstable at zero
+                                                             quire simulation cells much larger than what is accessible
+temperature is a good example. When re-evaluating the
+                                                             to AIMD, and can only be used with classical potentials.
+results for Zr obtained in Ref. 13, we observe a striking
+                                                             We show here that with the presented method we can
+difference in harmonic and TDEP force constants. This is
+                                                             with simulation sizes of 125 atoms accurately reproduce
+illustrated in Fig. 8. The effective TDEP force constants
+                                                             the same transition temperatures. This verifies the ac-
+decrease faster with distance compared to the harmonic
+                                                             curacy of the method and opens up the applicability to
+ones, a behavior that is expected. It is a vivid illustra-
+                                                             high pressure high temperature studies of phase stabili-
+tion of the temperature dependence of the potential en-
+                                                             ties close to melting.
+ergy landscape, and at the same time a confirmation that
+the TDEP technique describes this renormalisation well.
+From the free energy surface we can extract the finite
+temperature equation of state for bcc Zr, as illustrated                                                 VIII.      CONCLUSIONS
+in Fig. 9.
+   To test the performance of TDEP close to melting,           We have presented detailed description of the Tem-
+we turn to solid He modelled with the Aziz et al.            perature Dependent Effective Potential method for the
+potential22,20 . The melting curve and bcc-fcc transi-       treatment of lattice dynamics of strongly anharmonic
+tion just before melting has been extensively studied,       solids, including an extension and refinement to this ac-
+see Ref. 24 and references therein. As demonstrated in       curate technique. Moreover, we have detailed how the
+Fig. 10 strongly anharmonic He pose no problem for the       temperature dependence of all components of the free
+presented method. The stabilization of the bcc phase         energy should be taken into account, and presented sev-
+before melting is consistent with results from phase-        eral successful examples, including a model anharmonic
+coexistence simulations. This are at the moment consid-      potential, first-principles calculations of equation of state
+ered the most accurate methods for determining phase         for bcc Zr, and classical molecular-dynamics simulations
+                                                                                                                                    8
+
+       1.14                                                                        1400
+
+                                           T=1500K
+       1.12                                                                        1200
+                                           T=1000K                                               bcc
+       1.10                                                                        1000
+
+
+
+
+                                                                 Temperature (K)
+                                           T=500K
+       1.08
+                                                                                   800
+                                           T=0K
+    1.06
+                                                                                   600
+V/V0
+
+
+
+
+       1.04                                                                                                        fcc
+                                                                                   400
+       1.02
+                                                                                   200
+    1.00
+
+    0.98                                                                              30    40     50     60      70     80   90   100
+                                                                                                        Pressure (GPa)
+    0.96
+
+              0   1         2          3            4       5     FIG. 10. (color online) The calculated phase diagram for 4 He
+                           Pressure (GPa)                         modelled with the Aziz et al. potential.22 The red line indi-
+                                                                  cates the experimental melting curve. The observation of the
+FIG. 9. (color online) Equation of state for bcc Zr calcu-        stabilization of the bcc phase before the melting demonstrates
+lated with TDEP method at temperatures 500K (dashed line),        that TDEP treats this system accurately and in agreement
+1000K dot-dashed line, and 1500K (dotted line). Equation of       with other approaches even in such a strongly anharmonic
+state obtained by means of conventional DFT calculations at       system as 4 He.
+T=0K is also shown with full line, and the zero temperature
+equilibrium volume V0 =22.83Å3 is chosen as a reference point
+at all the temperatures. Note, that bcc Zr is dynamically un-     of bcc-to-fcc transition in 4 He.
+stable at T=0K, see the bottom inset in Fig. 7.
+
+                                                                                           IX.   ACKNOWLEDGEMENTS
+
+                                                                     Support from the Knut & Alice Wallenberg Foundation
+                                                                  (KAW) project Isotopic Control for Ultimate Material
+                                                                  Properties, the Swedish Research Council (VR) projects
+                                                                  621-2011-4426 and LiLi-NFM, and the Swedish Founda-
+                                                                  tion for Strategic Research (SSF) program SRL10-0026
+                                                                  is gratefully acknowledged. SSI acknowledges support
+                                                                  from the Swedish Government Strategic Research Area
+                                                                  Grant in Materials Science to AFM research environment
+                                                                  at LiU. Supercomputer resources were provided by the
+                                                                  Swedish National Infrastructure for Computing (SNIC).
+                                                                  We would also like to thank Prof. Anatoly Belonoshko
+                                                                  for suggesting the investigation of He phase transitions.
+
+
+
+
+1                                                                     9
+  G. Grimvall, B. Magyari-Köpe, V. Ozoliš, and K. Persson,         P. Souvatzis, O. Eriksson, M. I. Katsnelson, and S. Rudin,
+  Reviews of Modern Physics 84, 945 (2012).                          Physical Review Letters 100, 95901 (2008).
+2                                                                 10
+  M. L. Klein and G. K. Horton, Journal of Low Temperature           P. Souvatzis, S. Arapan, O. Eriksson, and M. I. Katsnel-
+  Physics 9, 151 (1972).                                             son, EPL (Europhysics Letters) 96, 66006 (2011).
+3                                                                 11
+  M. Born, Festschr. Akad. Wiss. Göttingen 1951, Math.-             Z. Wu and R. Wentzcovitch, Physical Review B 79, 104304
+  Phys. Kl., 1-16 , 1 (1951).                                        (2009).
+4                                                                 12
+  M. Born and K. Huang, Dynamical theory of crystal lattices         Z. Wu, Physical Review B 81, 172301 (2010).
+                                                                  13
+  (Oxford University Press, Oxford, 1964).                           O. Hellman, I. A. Abrikosov, and S. I. Simak, Physical
+5
+  D. J. Hooton, Zeitschrift für Physik 142, 42 (1955).              Review B 84, 180301 (2011).
+6                                                                 14
+  N. Gillis, N. Werthamer, and T. Koehler, Physical Review           A. A. Maradudin and S. Vosko, Reviews of Modern Physics
+  165, 951 (1968).                                                   40, 1 (1968).
+7                                                                 15
+  P. Choquard, The anharmonic crystal (W. A. Benjamin,               In practice, this is implemented in Mathematica.
+                                                                  16
+  INC., New York, 1967).                                             Modelled as a 128 atom supercell using VASP25–28 . We
+8
+  L. Chaput, A. Togo, I. Tanaka, and G. Hug, Physical                used a 1 fs timestep and ran the simulations using the Γ-
+  Review B 84, 094302 (2011).                                        point for BZ integration for 30000 timesteps. A random
+                                                                                                                           9
+
+                                                               21
+   subset of these configurations where then upsampled using      M. W. Finnis and J. E. Sinclair, Philosophical Magazine
+   a 4 × 4 × 4 k-point grid and increased cutoff.                 A 50, 45 (1984).
+17                                                             22
+   D. Frenkel and B. Smit, Understanding molecular simula-        R. a. Aziz, V. P. S. Nain, J. S. Carley, W. L. Taylor, and
+   tion: from algorithms to applications, Computational sci-      G. T. McConville, The Journal of Chemical Physics 70,
+   ence (Academic Press, 2002).                                   4330 (1979).
+18                                                             23 4
+   B. Grabowski, L. Ismer, T. Hickel, and J. Neugebauer,            He was modelled using the Aziz potential.22 The bcc and
+   Physical Review B 79, 134106 (2009).                           fcc phases were both described by 5 × 5 × 5 supercells (125
+19
+   The thermodynamic integrations were carried out from a         atoms), a 0.5fs timestep for a total simulation length of
+   TDEP potential extracted for fcc Cu modelled with an em-       20ps. Free energies were converged within 1meV/atom af-
+   bedded atom potential21 . A Langevin thermostat was used       ter about 5ps. Free energy surfaces were interpolated from
+   to control the temperature and break the mode-locking.         a grid of six volumes and five temperatures in the appro-
+   The numerical integration over coupling parameter λ was        priate range.
+                                                               24
+   carried out over 15 discrete steps, and the we ran the MD      A. B. Belonoshko, L. Koči, and A. Rosengren, Physical
+   simulations for ∼ 300000 timesteps to ensure convergence       Review B 85, 012503 (2012).
+                                                               25
+   within 0.1meV/atom.                                            G. Kresse, Physical Review B 59, 1758 (1999).
+20                                                             26
+   The convergenve tests for TDEP used an an embedded             G. Kresse and J. Furthmüller, Physical Review B 54, 11169
+   atom potential21 for fcc Co. We used A Langevin thermo-        (1996).
+                                                               27
+   stat and ran the MD simulations for ∼ 150000 timesteps         G. Kresse and J. Hafner, Physical Review B 48, 13115
+   to ensure convergence within 0.1meV/atom.                      (1993).
+                                                               28
+                                                                  G. Kresse, Computational Materials Science 6, 15 (1996).
+

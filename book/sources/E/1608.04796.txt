@@ -1,0 +1,401 @@
+                                                                           Predicting Band Gaps with Hybrid Density Functionals
+
+                                                                                                          Alejandro J. Garza
+                                                                           Department of Chemistry, Rice University, Houston, Texas 77251-1892, USA∗
+
+                                                                                                          Gustavo E. Scuseria
+                                                                                Department of Chemistry and Department of Physics and Astronomy,
+                                                                                        Rice University, Houston, Texas 77251-1892, USA†
+
+                                                                     We compare the ability of four popular hybrid density functionals (B3LYP, B3PW91, HSE, and
+                                                                  PBE0) for predicting band gaps of semiconductors and insulators over a large benchmark set using a
+                                                                  consistent methodology. We observe no significant statistical difference in their overall performance
+arXiv:1608.04796v3 [cond-mat.mtrl-sci] 6 Oct 2016
+
+
+
+
+                                                                  although the screened hybrid HSE is more accurate for typical semiconductors. HSE can improve its
+                                                                  accuracy for large large band gap materials –without affecting that of semiconductors– by including
+                                                                  a larger portion of Hartree–Fock exchange in its short range. Given that screened hybrids are
+                                                                  computationally much less expensive than their global counterparts, we conclude that they are a
+                                                                  better option for the black box prediction of band gaps.
+
+
+                                                       Introduction. Band structure calculations are an                methodology. We here carry out such detailed com-
+                                                    important application of electronic structure methods              parison. We also comment upon the pitfalls that arise
+                                                    in materials science. Due to the cost of computing                 when benchmarking density functionals [10, 11], as well
+                                                    electronic properties for extended solids, density func-           as aspects of computational efficiency for solids between
+                                                    tional theory (DFT) methods are most often used for                short-range hybrids like HSE [12] and standard global
+                                                    such calculations. However, local and semilocal density            hybrids (by global, we mean standard full-range hybrids
+                                                    functional approximations—the most affordable type of              like B3PW91).
+                                                    Kohn–Sham functionals for solids—badly underestimate
+                                                                                                                          The present study focuses on band gap prediction by
+                                                    the band gaps of semiconductors (the materials of princi-
+                                                                                                                       both short-range screened and global hybrids. We bench-
+                                                    pal interest in practical applications) and insulators due
+                                                                                                                       mark popular hybrids like HSE06 (henceforth referred
+                                                    to self-interaction error [1, 2]. Hybrid functionals that
+                                                                                                                       to as simply HSE), B3PW91, B3LYP, and PBE0 (also
+                                                    incorporate a fraction of nonlocal Hartree–Fock (HF) ex-
+                                                                                                                       known as PBEh or PBE1PBE). For this comparison, we
+                                                    change overcome this issue; however, computing HF ex-
+                                                                                                                       utilize a variety of error measures in order to avoid the
+                                                    change in solids is considerably more expensive than eval-
+                                                                                                                       difficulties and ambiguities that emerge when trying to
+                                                    uating a semilocal density functional. Methods based on
+                                                                                                                       decide which electronic structure method is best for a
+                                                    the GW approximation can also be used to compute band
+                                                                                                                       determined task [10, 11]. We find that these four func-
+                                                    gaps more accurately, but these techniques are even more
+                                                                                                                       tionals are similarly adequate for the calculation of band
+                                                    expensive than hybrids. A good compromise between
+                                                                                                                       gaps; different error measures for HSE, B3PW91, and
+                                                    cost and accuracy is provided by short-range screened
+                                                                                                                       B3LYP are very close to each other and, while PBE0
+                                                    hybrids: functionals that include HF exchange only for
+                                                                                                                       tends to overestimate band gaps, the error is systematic
+                                                    the short-range part of the electron–electron interaction,
+                                                                                                                       and straightforward to correct with a linear fit. If the
+                                                    which significantly reduces the cost of evaluating the non-
+                                                                                                                       benchmark set is narrowed to traditional semiconductors
+                                                    local HF part of the exchange as compared to standard
+                                                                                                                       then HSE emerges as the winner. In addition, we show
+                                                    hybrids [3]. This type of functionals have been shown to
+                                                                                                                       that short-range hybrids can describe even large band
+                                                    provide reasonably accurate band gaps for semiconduc-
+                                                                                                                       gap insulators by including an increased portion of HF
+                                                    tors, and variants of the Heyd–Scuseria–Ernzerhof [3–
+                                                                                                                       exchange in the short range only. Due to their lower cost
+                                                    7] (HSE) short-range hybrid have been widely used for
+                                                                                                                       as compared to global hybrids, greater ease to achieve
+                                                    the calculation of semiconductor band gaps for many
+                                                                                                                       convergence, and overall good performance, we conclude
+                                                    years [8].
+                                                                                                                       that screened hybrids are a better option for the predic-
+                                                       A recent study [9] declares the (standard) hybrid               tion of band gaps.
+                                                    B3PW91 as the winner for resolving the band gap predic-               Statistical Evaluation. We have carried out band
+                                                    tion problem for materials design. However, that study             gap calculations for 41 semiconductors and insulators us-
+                                                    did not evaluate the performance of other hybrid func-             ing the Gaussian [13] suite of programs. The set in-
+                                                    tionals using a direct comparison based on a consistent            cludes materials from the SC40 dataset [7], as well as
+                                                                                                                       transition metal oxides (FeO, CoO, NiO, MnO, and VO2 )
+                                                                                                                       and large band gap salts (NaCl, LiCl, and LiF); the set
+                                                    ∗ Present                                                          is similar to that of Ref. 9 (some compounds have been
+                                                               address: The Joint Center for Artificial Photosynthe-
+                                                    sis, Lawrence Berkeley National Laboratory, Berkeley, California   excluded because spin-orbit effects are very large, and we
+                                                    94720, USA                                                         have not used spin-orbit corrections in our calculations).
+                                                    † Electronic address: guscus@rice.edu                              As in that reference, we employed experimental geome-
+                                                                                                                          2
+
+                                                                which leads to an overestimation of the band gaps as
+                      10                                        compared to experiment and the other functionals; how-
+                           HSE                                  ever, all four functionals underestimate very large insu-
+                      8    B3PW91                               lator band gaps and follow the linear trend mentioned
+Calculated Gap (eV)
+
+                           B3LYP                                above. In fact, if one fits the data in Figure 1 to a lin-
+                                                                ear function, the slopes for the four hybrids differ by no
+                      6    PBE0                                 more than about 3% (see Table I). HSE, however has a
+                                                                linear fit intercept much smaller than the global hybrids
+                      4                                         (0.36 eV, as compared to 0.65, 0.63, and 0.95 eV for
+                                                                B3PW91, B3LYP, and PBE0, respectively), indicating
+                                                                better agreement with the experimental data.
+                      2
+                                                                   We now discuss the different error measures in Table I.
+                                                                The first two, the mean error (ME) and the mean abso-
+                      00   2         4      6          8   10   lute error (MAE) are some of the most widely used error
+                               Experimental Gap (eV)            measures in quantum chemistry. The ME shows that
+                                                                HSE has a tendency to underestimate band gaps (−0.24
+                                                                eV), while B3PW91 and B3LYP slightly overestimate
+FIG. 1: Calculated vs experimental band gaps for the func-      (0.14 and 0.13 eV, respectively), and PBE0 significantly
+tionals studied here.                                           overestimates (0.43 eV). Based on MAE, HSE predicts
+                                                                band gaps closer to experiment (MAE = 0.37 eV) and
+                                                                is closely followed by B3PW91 and B3LYP (0.44 eV for
+tries. The basis sets used for SC40 compounds are the           both). PBE0 has the worst MAE (0.59 eV) mainly due to
+same as those of Ref. 7 (which are similar or identical to      the aforementioned tendency to overestimate band gaps.
+those in Ref. 9) and the basis sets of Ref. 9 are used for      In terms of the mean absolute percent error (MAPE),
+the rest of the compounds. However, while we had no             HSE also comes out better (16%) than the other hybrids
+problems to compute band gaps for all these compounds           (27, 23, and 45% for B3PW91, B3LYP, and PBE0 re-
+with HSE, some of the global hybrid calculations (partic-       spectively). The lower MAPE of HSE as compared to
+ularly PBE0) were too expensive or too difficult to con-        the other hybrids is more notable than its lower MAE,
+verge, even when starting from a converged HSE guess.           in part because the average error for HSE is increased
+Inaccuracies in building an approximate Fock matrix for         substantially by the errors for the high band gap com-
+full-range hybrids make these calculations harder to con-       pounds: if the very large band gap (i.e., more than
+verge, specially for compounds with smaller gaps [14].          ≈ 8 eV) compounds are excluded, the MAEs for HSE,
+We were thus unable to obtain results for all 41 com-           B3PW91, B3LYP, and PBE0 are 0.26, 0.37, 0.36, and
+pounds with global hybrids. The calculated vs exper-            0.57 eV, respectively. Furthermore, if we consider only
+imental band gaps for the 27 compounds for which all            typical semiconductors for which low-temperature exper-
+four functionals successfully converged are shown in Fig-       imental band gaps are available (group 1 of the SC40 set;
+ure 1 (see detailed data in the Supporting Information).        see Ref. 7), the MAEs (in the same order) are 0.18, 0.32,
+Various statistics of the error (which we shall discuss in      0.31, and 0.55 eV, and the MAPEs are 17, 33, 26, and
+short and are a compilation of those presented in Ref. 10)      62. We also report in Table I the standard deviations
+for these calculations and for all of the compounds for         (SDs) of the error; a perfect approximation would have
+which each functional converged are summarized in Ta-           zero ME and zero SD. However, no significant difference
+ble I. As shown by the insignificant changes (≈ 0.01–0.03       is observed between the SDs of the hybrids: the largest
+eV) in the different error measures when increasing the         difference is 0.05 eV between HSE and PBE0. Note also
+size of the benchmark set—from 27 to 41 for HSE, 37 for         that the functional with the worst ME and MAE, PBE0,
+B3PW91, and 34 for B3LYP—, the 27 seven compounds               has the smallest SD. Thus, as has been pointed out by
+for which all four functionals converged are representa-        Savin et al. [10, 11], using different error measures to
+tive enough to get accurate estimates of the expected           judge the quality of a functional can lead to contradic-
+deviations from experiment for each functional.                 tory results.
+   The first thing that is noticeable from Figure 1 is that        The following three statistics of the deviations from ex-
+the four functionals follow the same, fairly linear, trend.     periment in Table I, the median, the median absolute de-
+Results from HSE, B3LYP, and B3PW91 are close to-               viation, and the interquartile range, are measures taken
+gether; the latter two in particular give extremely similar     from robust statistics, which are more resilient to outliers
+band gaps. This is most likely due to the incorporation of      as compared to the ME, MAE, and SD. In statistics, the
+similar amounts of HF exchange: B3LYP and B3PW91                median is considered a better descriptor of typical out-
+have both 20% full-range nonlocal exchange, while HSE           come than the mean when the latter is biased by out-
+includes 25% but only in the short range. Inclusion of          liers; the median absolute deviation measures statistical
+larger fractions of exact exchange increases the calculated     dispersion (in this case of the error); and the interquar-
+band gaps: PBE0 includes 25% full-range HF exchange,            tile range measures the variability in a set of data. For
+                                                                                                                                   3
+
+
+                 TABLE I: Different band gap prediction error measures for the four functionals studied here.
+                                                         Expt.        HSE        B3PW91      B3LYP    PBE0
+                      Size of Test Set                             27     41     27   37     27   34    27
+                      Mean Error                           0     −0.24 −0.21    0.14 0.12   0.13 0.16 0.43
+                      Mean Absolute Error                  0     0.37    0.38   0.44 0.41   0.44 0.47 0.59
+                      Mean Absolute Percent Error          0       16     15     27   26     23   25    45
+                      Standard Deviation                   0     0.55    0.54   0.53 0.51   0.56 0.56 0.50
+                      Median                               0     −0.06 −0.07    0.33 0.29   0.19 0.27 0.63
+                      Median Absolute Deviation            0      0.21   0.27   0.25 0.29   0.34 0.3   0.14
+                      Interquartile Range                  0     0.49    0.50   0.57 0.55   0.69 0.73 0.43
+                      Linear Fit Slope                     1     0.79    0.87   0.82 0.82   0.82 0.81 0.82
+                      Linear Fit Intercept                 0     0.36    0.23   0.65 0.65   0.63 0.70 0.95
+                      Kendall τ Correlation                1      0.85   0.88   0.85 0.88   0.84 0.85 0.86
+
+
+a method that perfectly predicts band gaps, all these
+                                                                     TABLE II: Wilcoxon signed-rank test W values for the abso-
+values must be zero. We observe, as before, that dif-
+                                                                     lute errors of pairs of hybrid functionals using the data that
+ferent functionals provide the best results for different            appears in Figure 1. The associated p-values are included in
+error measures: HSE has the best median and PBE0 the                 parenthesis. The value for Wcrit with a 95% confidence inter-
+worst, but the latter has the best median absolute devi-             val is 107; W < Wcrit for a pair of methods indicates that their
+ation and interquartile range. Note, however, that the               absolute errors show the same statistical distribution around
+median absolute deviation and the interquartile range of             zero.
+HSE is only 0.06 eV larger than that of PBE0, while the                              HSE    B3PW91 B3LYP         PBE0
+median of HSE is 0.53 eV closer to zero than the median                    HSE        –      42(0.61) 84(0.31) 128(0.14)
+of PBE0. Thus, overall, measures from robust statistics                    B3PW91 42(0.61)      –      18(0.83) 227(0.01)
+favor HSE the most.                                                        B3LYP   84(0.31) 18(0.83)      –     214(0.01)
+   Apart from the various statistics analyzed so far, an                   PBE0   128(0.14) 227(0.01) 214(0.01)     –
+important feature of a quantum chemical method is its
+ability to correctly reproduce trends. A trend can be
+defined by a linear fit as follows:                                  where P is the number of concordant pairs, Q the number
+                                                                     of discordant pairs, and T and U the number of ties in
+                      yexpt = mycalc + b.                      (1)   the experimental and calculated set of band gaps, respec-
+                                                                     tively. Thus, τ measures the similarity in the orderings
+Table I shows the values of the slope m and the intercept            of two datasets: a τ value of 1 indicates perfect agree-
+b from this linear fit for the band gaps calculated by               ment in the ordering, whereas τ = −1 indicates complete
+the four hybrid functionals. Ideally, m = 1 and b = 0.               disagreement. It can, in a way, be considered a measure
+Judging by the values of the slopes, the four hybrids have           of qualitative agreement. We see in Table I that all four
+a similar quality for predicting trends: the slopes are all          hybrids provide essentially the same τ value (≈0.85), and
+around 0.80 and do not differ by more than about 3%.                 thus have all similarly good qualitative agreement with
+However, PBE0 has a substantially higher intercept (0.95             experiment.
+eV) than other methods, whereas HSE is closest to zero                  One could also analyze the distribution of the error of
+(0.36 eV), and B3PW91 and B3LYP are in between that                  pairs of methods, and ask whether the distributions differ
+(≈ 0.65 eV). Hence, with respect to trends, all functionals          statistically. This is done in Table II using the Wilcoxon
+are similar but HSE appears to be slightly better again.             signed-rank test for the absolute error data. The null hy-
+   Lastly, let us consider a measure of rank correlation             pothesis of the test is that the difference between pairs
+to judge the quality of predicted band gaps: the Kendall             (of absoulte errors for two methods) follows a symmetric
+τ rank correlation coefficient. In order to construct this           distribution around zero because each set has the same
+coefficient, we first need to define the pairs (giexpt , gicalc ),   statistical distribution, resulting in similar positive and
+where giexpt and gicalc are the experimental and calculated          negative differences; the null hypothesis is rejected when
+gaps, respectively. The pairs i and j and then said to be            the test statistic W is greater than a certain Wcrit de-
+concordant if giexpt < gjexpt and gicalc < gjcalc , or if giexpt >   termined by the sample size and level of confidence. A
+gjexpt and gicalc > gjcalc ; tied if gi = gj ; and discordant        p-value associated with the test represents the probability
+otherwise. The Kendall τ correlation coefficient is then             of obtaining the observed distribution, or a more asym-
+                                                                     metric distribution around zero, assuming that the null
+                       P −Q                                          hypothesis is true; p-values larger than 0.05 have been re-
+             τ=p                                               (2)
+                (P + Q + T )(P + Q + U )                             lated with a lack of meaningful difference in the context
+                                                                                                                                4
+
+of method comparison [15]. Based on both the W test
+statistic and its associated p-values, the results in Table II                   12
+indicate no significant statistical difference (considering a                                                    HSE-HF
+commonly used 95% confidence interval) in the absolute                           11                              Expt
+error distributions of HSE, B3PW91, and B3LYP. The W
+
+
+
+
+                                                                 Band Gap (eV)
+statistics suggest, however, that differences exist between                      10
+these three functionals and PBE0; the p-values also imply
+significant difference between PBE0 and both B3PW91                              9
+and B3LYP. If the same analysis is carried out for signed
+error and absolute percentage error, all pairs of function-                      8
+als come out as being statistically different except for
+the B3PW91/B3LYP pair. The results of the Wilcoxon                               7
+signed-rank test support the more qualitative compari-
+son of the ME, MAE, and MAPE discussed above, and
+                                                                                 0.0    0.1    0.2   0.3   0.4   0.5      0.6
+put such a discussion in a rigorous statistical framework.
+   On the underestimation of large band gaps. As
+                                                                                       Range Separation Parameter (au)
+shown here and in other works [10], even hybrid func-
+tionals underestimate band gaps when these are consid-           FIG. 2: NaCl band gap calculated by HSE-HF (HSE06 wtih
+erably large. No single hybrid with a fixed amount of HF         100% exact exchange) as a function of the range-separation
+exchange can accurately describe small and large band            parameter.
+gap materials simultaneously: the fraction of nonlocal
+exchange needed in a solid depends on its dielectric func-
+tion [15–17]. Increasing the percentage of HF exchange           be included when describing solids, its effect should be
+in a hybrid functional increases the band gap, which al-         mostly canceled by correlation. Inadequate treatment of
+lows for the description of larger band gap insulators,          correlation is the reason why the HF method and typ-
+but causes overestimation of semiconductor band gaps.            ical global hybrid functionals cannot describe metallic
+A way to optimize the fraction of HF exchange in hybrid          behavior. Hence, it is convenient to eliminate long-range
+functionals based on a local estimator of the dielectric         exchange and use a screened hybrid to more adequately
+function has been proposed in Ref. 16. With this proce-          describe the physics of an extended solid.
+dure, one obtains, for example, that HSE predicts a band            Additional Considerations. We have focused on
+gap 22.29 eV for solid Ne (which has an experimental gap         band gaps calculated using experimental geometries and
+of 21.70 eV), while still giving good semiconductor band         observed little overall difference between the different hy-
+gaps (e.g., 0.82 eV for Ge, compared to 0.74 eV from             brids tested. However, other properties, including ge-
+experiment) [16]. The method is applicable to global hy-         ometries, can be significantly different. For example,
+brids too: an optimized PBE0 gives gaps of 21.88 and             the MAE of B3LYP for lattice constants (0.053 Å) is
+0.68 eV for Ne and Ge, respectively, compared to 15.14           more than twice larger than the MAEs of HSE and PBE0
+and 1.31 eV predicted by standard PBE0 [16].                     (0.024 and 0.022 Å, respectively) [20]. Atomization ener-
+   As another example of how even screened hybrids can           gies of solids are also significantly worse when calculated
+describe large band gap insulators, consider the HSE-            with B3LYP (MAE = 0.59 eV) as compared to HSE and
+HF functional of Ref. 18, which is simply HSE06 but              PBE0 (MAE ≈ 0.26 eV); B3PW91 improves over B3LYP,
+with 100% exact exchange in the short range. Figure 2            but it is not as good as the latter two functionals (MAE
+shows the band gap of NaCl calculated by HSE-HF as               = 0.39 eV) [20]. The failure of B3LYP is attributed to
+a function of the range separation parameter, ω. The             not correctly reproducing the homogeneous electron gas
+smaller this parameter is, the larger the fraction of HF         behavior, and B3PW91 improves upon it by fulfilling this
+exchange incorporated. At small ω values, the band gap           limit [20].
+is overestimated; at ω ≈ 0.2–0.3 au the value is close to           Even when considering only band gaps and using ex-
+experiment; and at higher ω values the gap is underes-           perimental geometries, another important consideration
+timated. This is just one example, but this behavior is          arises: the quality of the experimental data. In partic-
+very general and this observation is in agreement with           ular for the band gaps, there can be a significant vari-
+previous works showing that long-range HF exchange is            ability depending on factors such as the method of mea-
+seldom necessary and that the physics behind the more            surement and temperature (which sometimes is not re-
+realistic properties computed with hybrid functionals is         ported). For example, band gap values of 3.6, 2.6, 2.5,
+the reduction of the self-interaction error by incorpora-        2.1, 2.7, and 5.43 eV have been reported for CoO (see
+tion of substantial amounts of exact exchange [18, 19].          Supporting Information of Ref. 9). This variability leads
+Thus, a short-range screened hybrid can describe even            to the question: What value should one use as reference?
+large band gaps insulators and one does not need to re-          One can average of all these values (3.16 eV) and obtain
+sort to more expensive global hybrids. Note also that            very good agreement with B3PW91 (calculated here as
+although, in principle, long-range HF exchange should            3.06 eV) [9]. However, this approach may not be appro-
+                                                                                                                           5
+
+priate in this case: the experimentally reported 5.43 eV        concluded that B3PW91 was superior to other function-
+value is most likely the direct gap, whereas the smaller        als by comparing against GW, assuming that GW is
+values correspond to the indirect gap [21]. Even if one         more accurate than these (other) functionals. However,
+decided to follow this methodology, the standard devi-          as shown here, such comparisons are not straightforward
+ation of the six experimental band gap values for CoO           and B3PW91 does not appear to have any decisive advan-
+is 1.22 eV, and hence all functionals predicting values         tage over other commonly used hybrids when the direct
+in the wide range between 1.90 and 4.34 eV would have           comparison is done using identical geometries, basis sets,
+to be considered to be in agreement with experiment.            etc.
+The often cited value of 2.5 eV for the CoO band gap               The effects of spin-orbit coupling should also be men-
+is in reasonable agreement with the HSE indirect gap of         tioned here. We have not included these effects in our
+2.82 eV. An additional consequence of the variability in        calculations, as such corrections are not widely available
+the reference data is that small differences in the average     in commercial codes. Nevertheless, our conclusions are
+errors of different functionals are not really meaningful.      not affected by neglecting spin-orbit coupling because of,
+Thus, based on, say, the MAEs in Table I, it would be           mainly, two reasons. The first one is that we have not
+hard to tell whether HSE, B3PW91, or B3LYP are truly            included compounds for which spin-orbit coupling effects
+closer to experiment. Furthermore, adding to the level          are important in our test set. The second one is related
+of uncertainty, experimental reference band gaps are as-        to the fact that spin-orbit corrections apply in the same
+sumed to be an ideal measurement of the fundamental             way to all functionals: i.e., if we use experimental spin-
+band gap (i.e., the difference between the ionization po-       orbit coupling values to correct the band gaps, the shift
+tential and electron affinity). However, this is not al-        in the error is the same for every functional. Here, we
+ways the case [10], whereas the calculation of generalized      observe that various hybrids provide rather similar re-
+Kohn–Sham band gaps (as done here) is a rigorous and            sults, with no clear winner in all cases and a different
+honest approximation to the fundamental band gap [22].          method being “better” depending on the error measure.
+Considering all of this, and the fact that the use of differ-   After spin-orbit coupling corrections, the functionals will
+ent, finite basis sets leads to further changes in predicted    still provide similar results because these corrections are
+band gaps, it would be unreasonable to assert that a cer-       identical for all of them.
+tain functional is decidedly better than another for band          Lastly, an important consideration for calculations on
+gap predictions if the differences in the error measures        extended systems is computational cost. The increase in
+are small (e.g., less than about 0.1 eV or, depending on        CPU time when going from a semilocal functional, to a
+the case, even more than this, as shown by the CoO ex-          screened hybrid, to a global hybrid depend on the type
+ample above). Statistical methods such as the ones used         of basis set employed. Here, we have used codes based on
+here should be considered for assessing whether the dif-        localized gaussian basis sets, which are not as efficient for
+ferences are significant.                                       semilocal functionals but have a less dramatic increase in
+   The importance of careful inspection of reference data       cost for hybrids as compared to plane-wave based codes.
+from the literature and the use of a consistent method-         This means that, in plane-wave implementations of DFT,
+ology in benchmark calculations applies not only to den-        screened hybrids are more strongly favored over global
+sity functionals. The GW method, for example, is quite          hybrids concerning CPU time.
+sensitive to a number of variables: the input (reference)          Conclusions. After carrying out a thorough compar-
+wavefunction, number of empty bands included, dielec-           ison between four popular hybrid functionals for predict-
+tric matrix energy cut-off, etc. To illustrate this, con-       ing band gaps using a consistent methodology in the cal-
+sider the GW band gaps of ZnO used as reference to              culations, we did not find truly significant differences in
+compare against B3PW91 in the Supporting Information            the overall performance of three of them: HSE, B3PW91,
+document of Ref. 9. The experimental band gap is 3.44           and B3LYP (the latter two in particular give very sim-
+eV; the GW gaps in the literature vary from 0.1 to 4.61         ilar gaps). PBE0 tends to overestimate band gaps but
+eV. The worst value, 0.1 eV, was computed using the             the error is systematic and the statistical analysis shows
+static Coulomb hole and screened exchange (COHSEX)              that all four functionals provide good qualitative agree-
+approximation, which is generally not recommended for           ment with the reference data. Nevertheless, our results
+quantitative calculations [23]. Shih et al. [24] report that    do suggest that HSE is more accurate for typical semicon-
+conventional GW approaches can provide accurate esti-           ductors. The analysis here shows that there is nothing
+mates of the ZnO band gap if convergence in the evalua-         particularly remarkable about the band gaps predicted
+tion of the Coulomb-hole self-energy is carefully resolved.     by B3PW91 [9] when they are compared to other global
+Further examples with large variability (more than 1            hybrids using a similar amount of HF exchange. We have
+eV) in the GW gaps cited in Ref. 9 include Si (0.56–            also shown how screened hybrids can incorporate larger
+1.91), GaAs (1.09–3.77), SiC (1.8–2.88), AlP (1.88–3.1),        fractions of HF exchange in the short range to compen-
+CdS (2.11–3.41), CoO (2.4–4.78), GaN (2.75–3.82), MnO           sate for the effects that result from screening in large gap
+(2.34–4.39), ZnS (1.52–4.15), NiO (1.74–5.0), diamond           insulators, and ways to tune the mixing parameter that
+(5.59–6.99), LiCl (8.75–10.98), and LiF (13.13–16.17)           solve this problem have also been proposed in the lit-
+among others. It is worth pointing out here that Ref. 9         erature [15–17]. Global hybrids also underestimate very
+                                                                                                                               6
+
+large band gaps, and can too be modified to include more             Acknowledgements. This work was supported as
+exchange to solve this problem, but at a higher computa-          part of the Center for the Computational Design of Func-
+tional cost. Thus, based on cost and accuracy considera-          tional Layered Materials, an Energy Frontier Research
+tions, we recommend HSE for semiconductors and tuned              Center funded by the US Department of Energy, Of-
+versions of HSE for larger gap cases.                             fice of Science, Basic Energy Sciences under Award [#
+   In summary, screened hybrids can describe the same             de-sc0012575]. G.E.S. is a Welch Foundation chair (C-
+type of problems that global hybrids do, but in addition,         0036). We also thank the authors of Ref 15 for bringing
+they provide access to modelling metallic behavior, have          their paper to our attention and suggesting the use of the
+a much lower computational cost, and are easier to con-           Wilcoxon signed-rank test.
+verge. Our conclusion is therefore that a screened hybrid            Supporting Information Available. Details about
+like HSE is preferable over global hybrids for the black          the calculations, as well as band gap data used in this
+box prediction of band gaps of novel materials.                   work.
+
+
+
+
+ [1] Perdew, J. P.; Levy, M. Physical Content of the Exact        [14] Natiello, M. A.; Scuseria, G. E. Convergence properties of
+     Kohn–Sham Orbital Energies: Band Gaps and Derivative              Hartree–Fock SCF Molecular Calculations. Int. J. Quan-
+     Discontinuities. Phys. Rev. Lett. 1983, 51, 1884–1887.            tum Chem. 1984, 26, 1039.
+ [2] Mori–Sánchez P.; Cohen, A. J.; Yang, W. Localization        [15] Skone, J. H.; Govoni, M.; Galli, G. Nonempirical Range-
+     and Delocalization Errors in Density Functional Theory            Separated Hybrid Functionals for Solids and Molecules.
+     and Implications for Band-Gap Prediction. Phys. Rev.              Phys. Rev. B 2016, 93, 235106.
+     Lett. 2008, 100, 146401.                                     [16] Marques, M. A. L.; Vidal, J.; Oliveira, M. J. T.; Reining,
+ [3] Heyd, J.; Scuseria, G. E.; Ernzerhof, M. Hybrid Func-             L.; Botti, S. Density-based Mixing Parameter for Hybrid
+     tionals Based on a Screened Coulomb Potential. J. Chem.           Functionals, Phys. Rev. B 2011, 83, 035119.
+     Phys. 2003, 118, 8207–8215.                                  [17] Skone, J. H.; Govoni, M.; Galli, G. Self-Consistent Hy-
+ [4] Heyd, J.; Scuseria, G. E.; Ernzerhof, M. Erratum: “Hy-            brid Functional for Condensed Systems, Phys. Rev. B
+     brid functionals based on a screened Coulomb potential”.          2014, 89, 195112.
+     J. Chem. Phys. 2006, 124, 219906.                            [18] Garza, A. J.; Wazzan, N. A.; Asiri, A. M.; Scuseria, G. E.
+ [5] Henderson, T. M.; Izmaylov, A. F.; Scuseria, G. E.;               Can Short- and Middle-Range Hybrids Describe the Hy-
+     Savin, A. The Importance of Middle-Range Hartree–                 perpolarizabilities of Long-Range Charge-Transfer Com-
+     Fock-type Exchange for Hybrid Density Functionals. J.             pounds? The Journal of Physical Chemistry A 2014 118,
+     Chem. Phys. 2007, 127, 221103.                                    11787–11796.
+ [6] Moussa, J. E.; Schultz, P. A.; Chelikowsky, J. R. Anal-      [19] Henderson, T. M.; Izmaylov, A. F.; Scalmani, G.; Scuse-
+     ysis of the Heyd-Scuseria-Ernzerhof Density Functional            ria, G. E. Can Short-Range Hybrids Describe Long-
+     Parameter Space. J. Chem. Phys. 2012, 136, 204117.                Range-Dependent Properties? J. Chem. Phys. 2009,
+ [7] Lucero, M. J.; Henderson, T. M.; Scuseria, G. E. Im-              131, 044108.
+     proved Semiconductor Lattice Parameters and Band             [20] Paier, J.; Marsman, M.; Kresse, G. Why Does the B3LYP
+     Gaps from a Middle-Range Screened Hybrid Exchange                 Hybrid Functional Fail for Metals? J. Chem. Phys. 2007,
+     functional. J. Phys.: Condens. Matter 2012, 24, 145504.           127, 024103.
+ [8] Henderson, T. M.; Paier, J.; Scuseria, G. E. Accurate        [21] Gillen, R.; Robertson, J. Accurate Screened Exchange
+     treatment of solids with the HSE Screened Hybrid. Phys.           Band Structures for the Transition Metal Monoxides
+     Status Solidi B 2011, 248, 767–774.                               MnO, FeO, CoO and NiO. J. Phys.: Condens. Matter
+ [9] Crowley, J. M.; Tahir-Kheli, J.; Goddard III, W. A. Reso-         2013, 25, 165502.
+     lution of the Band Gap Prediction Problem for Materials      [22] Perdew, J. P.; Yang, W.; Burke, K.; Yang, Z.; Gross,
+     Design. J. Chem. Phys. Lett. 2016, 7, 1198–1203.                  E. K. U.; Scheffler, M. Scuseria, G. E.; Henderson, T.
+[10] Civalleri, B.; Presti, D.; Dovesi, R.; Savin, A. On Choos-        M.; Zhang, I. Y.; Ruzsinszky, A.; Peng, H.; Sun, J. Un-
+     ing the Best Density Functional Approximation. Chem.              derstanding Band Gaps of Solids in Generalized Kohn–
+     Modell. 2012, 9, 168–185.                                         Sham Theory. 2016, arXiv:1608.06715. arXiv.org e-Print
+[11] Savin, A.; Johnson, E. Judging Density-Functional Ap-             archive. https://arxiv.org/abs/1608.06715 (accessed Oct
+     proximations: Some Pitfalls of Statistics. Top. Curr.             2, 2016).
+     Chem. 2015, 365, 81–96.                                      [23] Hüser, F; Olsen, T.; Thygesen, K. S. Quasiparticle GW
+[12] Heyd, J. Screened Coulomb Hybrid Density Functionals.             Calculations for Solids, Molecules, and Two-Dimensional
+     Ph.D. Dissertation, Rice University, Houston, TX, 2004.           Materials. Phys. Rev. B 2013, 87, 235132.
+[13] Frisch, M. J.; Trucks, G. W.; Schlegel, H. B.; Scuseria,     [24] Shih, B.-C.; Xue, Y.; Zhang, P.; Cohen, M. L.; Louie,
+     G. E.; Robb, M. A.; Cheeseman, J. R.; Scalmani, G.;               S. G. Quasiparticle Band Gap of ZnO: High Accuracy
+     Barone, V.; Mennucci, B.; Petersson, G. A. et al. Gaus-           from the Conventional G0 W0 Approach. Phys. Rev. Lett.
+     sian 09, Revision A.02; Gaussian Inc.: Wallingford, CT,           2010, 105, 146401.
+     2009.
+

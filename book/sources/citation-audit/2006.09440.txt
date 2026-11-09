@@ -1,0 +1,999 @@
+                                                                            The Bethe-Salpeter Equation Formalism:
+                                                                                  From Physics to Chemistry
+
+                                                                 Xavier Blase,∗,† Ivan Duchemin,‡ Denis Jacquemin, ¶ and Pierre-François Loos∗,§
+
+                                                                    †Université Grenoble Alpes, CNRS, Institut NEEL, F-38042 Grenoble, France
+                                                                    ‡Université Grenoble Alpes, CEA, IRIG-MEM-L Sim, 38054 Grenoble, France
+arXiv:2006.09440v2 [physics.chem-ph] 8 Aug 2020
+
+
+
+
+                                                                     ¶Université de Nantes, CNRS, CEISAM UMR 6230, F-44000 Nantes, France
+                                                              §Laboratoire de Chimie et Physique Quantiques, Université de Toulouse, CNRS, UPS, France
+
+                                                                                  E-mail: xavier.blase@neel.cnrs.fr; loos@irsamc.ups-tlse.fr
+
+
+
+
+                                                                                                                                   Abstract
+                                                              The Bethe-Salpeter equation (BSE) formalism is steadily asserting itself as a new efficient and accurate
+                                                         tool in the ensemble of computational methods available to chemists in order to predict optical excitations in
+                                                         molecular systems. In particular, the combination of the so-called GW approximation, giving access to reliable
+                                                         ionization energies and electron affinities, and the BSE formalism, able to model UV/Vis spectra, has shown to
+                                                         provide accurate singlet excitation energies with a typical error of 0.1–0.3 eV. With a similar computational cost
+                                                         as time-dependent density-functional theory (TD-DFT), BSE is able to provide an accuracy on par with the most
+                                                         accurate global and range-separated hybrid functionals without the unsettling choice of the exchange-correlation
+                                                         functional, resolving further known issues (e.g., charge-transfer excitations). In this Perspective article, we
+                                                         provide a historical overview of BSE, with a particular focus on its condensed-matter roots. We also propose a
+                                                         critical review of its strengths and weaknesses in different chemical situations.
+
+
+                                                  Graphical TOC Entry
+
+
+
+                                                                                                           Kohn-Sham DFT
+                                                                                                                        
+                                                                                                        ∇2
+                                                                                                      −    + vext + V Hxc φKp S = εKp S φKp S
+                                                                                                        2
+
+                                                                                                                          Fundamental gap
+                                                                                                          GW approximation                          Ionization potentials      (Inverse)
+                                                                                                                                                     Electron affinities
+                                                                                                                                                                            photoemission
+                                                                                                 εGW
+                                                                                                  p  = εpK S + φpK S ΣGW (εGW
+                                                                                                                           p  ) − V xc φpK S                                 spectroscopy
+                                                                                                                          Excitonic effect
+                                                                                                     Bethe-Salpeter equation                         Optical excitations      Optical
+                                                                                                                                                                            spectroscopy
+                                                                                                                                  
+                                                                                                         R      C      Xm          Xm
+                                                                                                                             = Ωm
+                                                                                                        −C ∗   −R∗      Ym          Ym
+
+
+
+
+                                                  Introduction.       In its press release announcing the attri-                                      are “much too complicated to be soluble”, urging scien-
+                                                  bution of the 2013 Nobel prize in Chemistry to Karplus,                                             tists to develop “approximate practical methods”. This is
+                                                  Levitt, and Warshel, the Royal Swedish Academy of Sci-                                              where the electronic structure community stands, attempting
+                                                  ences concluded by stating “Today the computer is just as                                           to develop robust approximations to study with increasing
+                                                  important a tool for chemists as the test tube. Simulations                                         accuracy the properties of ever more complex systems. The
+                                                  are so realistic that they predict the outcome of traditional                                       study of optical excitations (also known as neutral excitations
+                                                  experiments.” 1 Martin Karplus’ Nobel lecture moderated                                             in condensed-matter systems), from molecules to extended
+                                                  this statement, introducing his presentation by a 1929 quote                                        solids, has witnessed the development of a large number of
+                                                  from Dirac emphasizing that laws of quantum mechanics                                               such approximate methods with numerous applications to
+
+
+                                                                                                                                                1
+a large variety of fields, from the prediction of the colour             affinities) of the system
+of precious metals for jewellery, 2 to the understanding,
+e.g., of the basic principles behind organic photovoltaics,
+                                                                                                  Õ           fs (x) fs∗ (x 0)
+                                                                                 G(x, x 0; ω) =                                  ,        (3)
+photocatalysis and DNA damage under irradiation. 3–5 The                                           s
+                                                                                                       ω − εs + iη × sgn(εs − µ)
+present Perspective aims at describing the current status and
+upcoming challenges for the Bethe-Salpeter equation (BSE)                where µ is the chemical potential, η is a positive infinites-
+formalism 6,7 that, while sharing many features with time-               imal, εs = EsN +1 − E0N for εs > µ, and εs = E0N − EsN −1
+dependent density-functional theory (TD-DFT), 8 including                for εs < µ. Here, EsN is the total energy of the sth excited
+computational scaling with system size, relies on a very dif-            state of the N-electron system. The fs ’s are the so-called
+ferent formalism, with specific difficulties but also potential          Lehmann amplitudes that reduce to one-body orbitals in the
+solutions to known TD-DFT issues. 9                                      case of single-determinant many-body wave functions (see
+                                                                         below). Unlike KS eigenvalues, the poles of the Green’s
+                                                                         function {εs } are proper addition/removal energies of the
+                                                                         N-electron system, leading to well-defined ionization poten-
+Theory.     The BSE formalism 6,7,10–13 belongs to the fam-
+                                                                         tials and electronic affinities. In contrast to standard ∆SCF
+ily of Green’s function many-body perturbation theories
+                                                                         techniques, the knowledge of G provides the full ionization
+(MBPT) 14–16 together with, for example, the algebraic-
+                                                                         spectrum, as measured by direct and inverse photoemission
+diagrammatic construction (ADC) techniques 17 or the polar-
+                                                                         spectroscopy, not only that associated with frontier orbitals.
+ization propagator approaches (like SOPPA 18 ) in quantum
+                                                                            Using the equation-of-motion formalism for the cre-
+chemistry. While the one-body density stands as the basic
+                                                                         ation/destruction operators, it can be shown formally that
+variable in density-functional theory (DFT), 19,20 the pillar
+                                                                         G verifies
+of Green’s function MBPT is the (time-ordered) one-body
+Green’s function                                                               ∂
+                                                                                                    ∫
+                                                                                  − h(r 1 ) G(1, 2) −    d3 Σ(1, 3)G(3, 2) = δ(1, 2), (4)
+                                                                              ∂t1
+         G(xt, x 0t 0) = −i hN |T ψ̂(xt)ψ̂ † (x 0t 0) |Ni , (1)
+                                                    
+
+                                                                         where we introduce the composite index, e.g., 1 ≡ (x 1 t1 ).
+where |Ni is the N-electron ground-state wave function. The              Here, δ is Dirac’s delta function, h is the one-body Hartree
+operators ψ̂(xt) and ψ̂ † (x 0t 0) remove and add an electron (re-       Hamiltonian and Σ is the so-called exchange-correlation (xc)
+spectively) in space-spin-time positions (xt) and (x 0t 0), while        self-energy operator. Using the spectral representation of G
+T is the time-ordering operator. For t > t 0, G provides the             [see Eq. (3)], dropping spin variables for simplicity, one gets
+amplitude of probability of finding, on top of the ground-state          the familiar eigenvalue equation, i.e.,
+Fermi sea (i.e., higher in energy than the highest-occupied
+energy level, also known as Fermi level), an electron in (xt)
+                                                                                              ∫
+                                                                                h(r) fs (r) +   d r 0 Σ(r, r 0; εs ) fs (r 0) = εs fs (r), (5)
+that was previously introduced in (x 0t 0), while for t < t 0 the
+propagation of an electron hole (often simply called a hole)
+is monitored.                                                            which formally resembles the KS equation 20 with the differ-
+   This definition indicates that the one-body Green’s func-             ence that the self-energy Σ is non-local, energy-dependent
+tion is well suited to obtain “charged excitations", more com-           and non-hermitian. The knowledge of Σ allows to access the
+monly labeled as electronic energy levels, as obtained, e.g.,            true addition/removal energies, namely the entire spectrum
+in a direct or inverse photo-emission experiments where an               of occupied and virtual electronic energy levels, at the cost
+electron is ejected or added to the N-electron system. In par-           of solving a generalized one-body eigenvalue equation.
+ticular, and as opposed to Kohn-Sham (KS) DFT, the Green’s
+function formalism offers a more rigorous and systematically
+improvable path for the obtention of the ionization potential            The GW self-energy.            While the equations reported
+I N = E0N −1 − E0N , the electronic affinity A N = E0N − E0N +1 ,        above are formally exact, it remains to provide an expres-
+and the experimental (photoemission) fundamental gap                     sion for the xc self-energy operator Σ. This is where Green’s
+                                                                         function practical theories differ. Developed by Lars Hedin in
+                       Egfund = I N − A N                     (2)
+                                                                         1965 with application to the interacting homogeneous elec-
+                                                                         tron gas, 14 the GW approximation 15,21 follows the path of
+of the N-electron system, where E0N corresponds to its
+                                                                         linear response by considering the variation of G with re-
+ground-state energy. Since these energy levels are key input
+                                                                         spect to an external perturbation (see Fig. 1). The resulting
+quantities for the subsequent BSE calculation, we start by
+                                                                         equation, when compared with the equation for the time-
+discussing these in some details.
+                                                                         evolution of G [see Eq. (4)], leads to a formal expression for
+                                                                         the self-energy
+                                                                                               ∫
+Charged excitations.           A central property of the one-                      Σ(1, 2) = i d34 G(1, 4)W(3, 1+ )Γ(42, 3),        (6)
+body Green’s function is that its frequency-dependent (i.e.,
+dynamical) spectral representation has poles at the charged
+                                                                         where W is the dynamically-screened Coulomb potential and
+excitation energies (i.e., the ionization potentials and electron
+                                                                         Γ is the so-called “vertex" function. The notation 1+ means
+
+
+                                                                     2
+that the time t1 is taken at t1+ = t1 + 0+ for sake of causal-                                              In practice, the input G and χ0 required to initially build
+ity, where 0+ is a positive infinitesimal. The neglect of the                                            ΣGW are chosen as the “best” Green’s function and suscepti-
+vertex, i.e., Γ(42, 3) = δ(23)δ(24), leads to the so-called GW                                           bility that can be easily computed, namely the KS or Hartree-
+approximation of the self-energy                                                                         Fock (HF) ones where the {ε p, fp } of Eq. (3) are taken to
+                                                                                                         be KS (or HF) eigenstates. Taking then (ΣGW − V xc ) as a
+                  ΣGW (1, 2) = i G(1, 2)W(2, 1+ ),                                             (7)       correction to the KS xc potential V xc , a first-order correction
+                                                                                                         to the input KS energies {ε KSp } is obtained by solving the
+that can be regarded as the lowest-order perturbation in terms                                           so-called quasiparticle equation
+of the screened Coulomb potential W with
+                        ∫                                                                                           ω = ε KS   KS GW
+                                                                                                                          p + φp Σ   (ω) − V xc φKS
+                                                                                                                                                 p  .                (10)
+    W(1, 2) = v(1, 2) +     d34 v(1, 3) χ0 (3, 4)W(4, 2), (8a)
+                                                                                                         As a non-linear equation, the self-consistent quasiparticle
+                  χ0 (1, 2) = −iG(1, 2+ )G(2, 1+ ),                                           (8b)       equation (10) has various solutions associated with different
+                                                                                                         spectral weights. The existence of a well defined quasipar-
+where χ0 is the independent electron susceptibility and v the                                            ticle energy requires a solution with a large spectral weight,
+bare Coulomb potential. Equation (8a) can be recast as                                                   i.e., close to unity, a condition not always fulfilled for states
+                          ∫                                                                              far away from the fundamental gap. 22
+      W(1, 2) = v(1, 2) +    d34 v(1, 3) χ(3, 4)v(4, 2),  (9)                                               Such an approach, where input KS energies are corrected
+                                                                                                         to yield better electronic energy levels, is labeled as the
+where χ is the interacting susceptibility. In this latter expres-                                        single-shot, or perturbative, G0W0 technique. This simple
+sion, (v χv) represents the field created in (2) by the charge                                           scheme was used in the early GW studies of extended semi-
+rearrangement of the N-electron system generated by a (unit)                                             conductors and insulators, 23–26 and surfaces, 27–29 allowing
+charge added in (1). As such, this term contains the effect                                              to dramatically reduce the errors associated with KS eigenval-
+of dielectric screening (or polarization in a quantum chemist                                            ues in conjunction with common local or gradient-corrected
+language). As in a standard ∆SCF calculation, the GW for-                                                approximations to the xc potential. In particular, the well-
+malism contains the response of the N-electron system to an                                              known “band gap" problem, 30,31 namely the underestimation
+electron added (removed) to any virtual (occupied) molecular                                             of the occupied to unoccupied bands energy gap at the local-
+orbital, but without the restriction that only frontier orbitals                                         density approximation (LDA) KS level, was dramatically re-
+can be tackled. This explains that the GW one-electron ener-                                             duced, bringing the agreement with experiment to within a
+gies are proper addition/removal energies.                                                               few tenths of an eV with a computational cost scaling quarti-
+                                                                                                         cally with the system size (see below). A compilation of data
+                            BSE                                       KS-DFT                             for G0W0 applied to extended inorganic semiconductors can
+                                                                                                         be found in Ref. 32.
+                       W (ω) & εGW
+
+
+
+
+                                                                                                            Although G0W0 provides accurate results (at least for
+                                                                           εKS
+
+
+
+
+                                                                                                         weakly/moderately correlated systems), it is strongly starting-
+                                                                                                         point dependent due to its perturbative nature. For exam-
+                                          G = G0 + G0 ΣG
+                                     Σ                                    G                              ple, the quasiparticle energies, and in particular the HOMO-
+                                                                                                         LUMO gap, depends on the input KS eigenvalues. Tuning
+                                                                              Γ=
+                       Γ
+
+
+
+
+                                                                                                         the starting point functional or applying a self-consistent GW
+                   iGW
+
+
+
+
+                                                                                 1 + δG
+                                                                  1)
+
+
+
+
+                                                                                                         scheme are two different approaches commonly employed to
+                                                             (Γ =
+
+
+
+
+                                                                                     δ Σ GG
+                  Σ=
+
+
+
+
+                                                                                                         tackle this problem. We will comment further on this par-
+                                                              G
+
+
+
+
+                                                                                          Γ
+
+
+
+
+                                                                                                         ticular point below when addressing the quality of the BSE
+                                                           −iG
+
+
+
+
+                 W                                                                        Γ
+                         W                                                                               optical excitations.
+                                                       P=
+
+
+
+
+                                     =
+                                         v+
+                                              vP                            GG
+                                                                              Γ                             Another important feature compared to other perturbative
+                                                   W                      −i                             techniques, the GW formalism can tackle finite and peri-
+                                                                      =
+                                                                  P
+                                                       P                                                 odic systems, and does not present any divergence in the
+                                                                                                         limit of zero gap (metallic) systems. 33 However, remaining
+Figure 1: Hedin’s pentagon connects the Green’s function G, its                                          a low-order perturbative approach starting with a single-
+non-interacting analog G0 , the irreducible vertex function Γ, the irre-                                 determinant mean-field solution, it is not intended to explore
+ducible polarizability P, the dynamically-screened Coulomb poten-                                        strongly correlated systems. 34
+tial W , and the self-energy Σ through a set of five integro-differential
+equations known as Hedin’s equations. 14 The path made of black
+arrows shows the GW process which bypasses the computation of
+Γ (gray arrows). As input, one must provide KS (or HF) orbitals                                          Neutral excitations.      Like TD-DFT, BSE deals with the
+and their corresponding energies. Depending on the level of self-                                        calculations of optical (or neutral) excitations, as measured
+consistency in the GW calculation, only the orbital energies or both                                     by optical (e.g., absorption) spectroscopy, However, while
+the orbitals and their energies are corrected. As output, GW pro-
+                                                                                                         TD-DFT starts with the variation of the charge density ρ(1)
+vides corrected quantities, i.e., quasiparticle energies and W , which
+                                                                                                         with respect to an external local perturbation U(1), the BSE
+can then be used to compute the BSE optical excitations of the sys-
+tem of interest.
+                                                                                                         formalism considers a generalized four-point susceptibility,
+                                                                                                         or two-particle correlation function, that monitors the varia-
+
+
+                                                                                                     3
+                                         opt
+Figure 2: Definition of the optical gap Eg     and fundamental gap Egfund . E B is the electron-hole or excitonic binding energy, while I N and A N
+are the ionization potential and the electron affinity of the N -electron system. EgKS and EgGW are the KS and GW HOMO-LUMO gaps. See
+main text for the definition of the other quantities
+
+
+
+tion of the one-body Green’s function G(1, 10) with respect                   where it is customary to neglect the derivative (∂W/∂G) that
+to a non-local external perturbation U(2, 20): 7                              introduces again higher orders in W. 35–37 At that stage, the
+                                                                              BSE kernel is fully dynamical, i.e., it explicitly depends on the
+           DFT   ∂ ρ(1)                             BSE ∂G(1, 1 )
+                                                               0
+                                                                              frequency ω. Taking the static limit, i.e., W(ω = 0), for the
+   χ(1, 2) =                →     L(1, 2; 10, 20) =               .
+                 ∂U(2)                                  ∂U(2 , 2)
+                                                            0
+                                                                              screened Coulomb potential, that replaces the static DFT xc
+                                                        (11)                  kernel, and expressing Eq. (13) in the standard product space
+The formal relation χ(1, 2) = −iL(1, 2; 1+, 2+ ) with ρ(1) =                  {φi (r)φ a (r 0)} [where (i, j) are occupied spatial orbitals and
+−iG(1, 1+ ) offers a direct bridge between the TD-DFT and                     (a, b) are unoccupied spatial orbitals], leads to an eigenvalue
+BSE worlds. The equation of motion for G [see Eq. (4)] can                    problem similar to the so-called Casida equations in TD-
+be reformulated in the form of a Dyson equation                               DFT: 38                        m         m
+                                                                                                  R    C       X            X
+                  G = G0 + G0 (v H + U + Σ)G,                      (12)                                             = Ω m         ,        (18)
+                                                                                                 −C ∗ −R∗ Y m              Ym
+that relates the full (interacting) Green’s function, G, to its               with electron-hole (eh) eigenstates written as
+non-interacting version, G0 , where v H and U are the Hartree                                     Õ
+                                                                               ψmeh
+                                                                                    (r e, r h ) =     m
+                                                                                                         φi (r h )φ a (r e ) + Yia
+                                                                                                                                 m
+                                                                                                                                   φi (r e )φ a (r h ) ,
+                                                                                                                                                      
+and external potentials, respectively. The derivative with                                           Xia
+respect to U of this Dyson equation yields the self-consistent                                     ia
+Bethe-Salpeter equation                                                                                                                    (19)
+                                                                              where m indexes the electronic excitations. The {φi/a } are
+                                                                              typically the input (KS) eigenstates used to build the GW self-
+   L(1, 2; 10, 20) = L0 (1, 2; 10, 20)+
+   ∫                                                                          energy. They are here taken to be real in the case of finite-size
+       d3456 L0 (1, 4; 10, 3)ΞBSE (3, 5; 4, 6)L(6, 2; 5, 20),      (13)       systems. In the case of a closed-shell singlet ground state,
+                                                                              the resonant and coupling parts of the BSE Hamiltonian read
+where L0 (1, 2; 10, 20) = G(1, 20)G(2, 10) is the non-interacting                                       
+4-point susceptibility and                                                       Rai,b j = εaGW − εiGW δi j δab + κ(ia| jb) − Wi j,ab, (20)
+                                                                                                   Cai,b j = κ(ia|bj) − Wib,a j ,                   (21)
+                                                     ∂Σ(3, 4)
+    i ΞBSE (3, 5; 4, 6) = v(3, 6)δ(34)δ(56) + i                    (14)
+                                                     ∂G(6, 5)                 with κ = 2 or 0 if one targets singlet or triplet excited states
+                                                                              (respectively), and
+is the so-called BSE kernel. This equation can be compared
+to its TD-DFT analog                                                                    ∬
+                        ∫                                                     Wi j,ab =      d r d r 0 φi (r)φ j (r)W(r, r 0; ω = 0)φ a (r 0)φb (r 0),
+  χ(1, 2) = χ0 (1, 2) +   d34 χ0 (1, 3)ΞDFT (3, 4) χ(4, 2), (15)                                                                                  (22)
+                                                                              where we notice that the two occupied (virtual) eigenstates
+where                                                                         are taken at the same position of space, in contrast with the
+                                             ∂V xc (3)                        (ia| jb) bare Coulomb term defined as
+                 ΞDFT (3, 4) = v(3, 4) +                           (16)
+                                              ∂ ρ(4)                                       ∬
+is the TD-DFT kernel. Plugging now the GW self-energy                           (ia| jb) =    d r d r 0 φi (r)φ a (r)v(r − r 0)φ j (r 0)φb (r 0). (23)
+[see Eq. (7)], in a scheme that we label BSE@GW, leads to
+an approximate version of the BSE kernel                                      Neglecting the coupling term C between the resonant term
+                                                                              R and anti-resonant term −R∗ in Eq. (18), leads to the well-
+  i ΞBSE (3, 5; 4, 6)                                                         known Tamm-Dancoff approximation (TDA).
+             = v(3, 6)δ(34)δ(56) − W(3+, 4)δ(36)δ(45),             (17)         As compared to TD-DFT: i) the GW quasiparticle energies
+                                                                                GW
+                                                                              {εi/a } replace the KS eigenvalues, and ii) the non-local
+
+
+                                                                          4
+screened Coulomb matrix elements replaces the DFT xc                    where EB accounts for the excitonic effect, that is, the stabi-
+kernel. We emphasize that these equations can be solved at              lization induced by the attraction of the excited electron and
+exactly the same cost as the standard TD-DFT equations once             its hole left behind (see Fig. 2).
+the quasiparticle energies and screened Coulomb potential W                Such a residual gap problem can be significantly im-
+are inherited from preceding GW calculations. This defines              proved by adopting xc functionals with a tuned amount
+the standard (static) BSE@GW scheme that we discuss in                  of exact exchange 59,60 that yield a much improved KS
+this Perspective, highlighting its pros and cons.                       gap as a starting point for the GW correction. 56,61–63 Al-
+                                                                        ternatively, self-consistent approaches such as eigenvalue
+                                                                        self-consistent (evGW) 24 or quasiparticle self-consistent
+                                                                        (qsGW) 64 schemes, where corrected eigenvalues, and possi-
+Historical overview.        Originally developed in the frame-
+                                                                        bly orbitals, are reinjected in the construction of G and W,
+work of nuclear physics, 6 the BSE formalism has emerged
+                                                                        have been shown to lead to a significant improvement of the
+in condensed-matter physics around the 1960’s at the tight-
+                                                                        quasiparticle energies in the case of molecular systems, with
+binding level with the study of the optical properties of simple
+                                                                        the advantage of significantly removing the dependence on
+semiconductors. 37,39,40 Three decades later, the first ab initio
+                                                                        the starting point functional. 62,65–69 As a result, BSE singlet
+implementations, starting with small clusters, 11,41 extended
+                                                                        excitation energies starting from such improved quasiparticle
+semiconductors, and wide-gap insulators 12,42,43 paved the
+                                                                        energies were found to be in much better agreement with ref-
+way to the popularization in the solid-state physics commu-
+                                                                        erence calculations. For sake of illustration, an average error
+nity of the BSE formalism.
+                                                                        of 0.2 eV was found for the well-known Thiel set 57 gathering
+   Following pioneering applications to periodic polymers
+                                                                        ca. 200 representative singlet excitations from a large variety
+and molecules, 44–47 BSE gained much momentum in quan-
+                                                                        of representative molecules. 50,51,55,56 This is equivalent to the
+tum chemistry 48 with, in particular, several benchmarks 49–56
+                                                                        best TD-DFT results obtained by scanning a large variety of
+on large molecular sets performed with the very same pa-
+                                                                        hybrid functionals with various amounts of exact exchange.
+rameters (geometries, basis sets, etc) than the available
+higher-level reference calculations. 57 Such comparisons were
+grounded in the development of codes replacing the plane-               Charge-transfer excited states.           A very remarkable
+wave paradigm of solid-state physics by Gaussian basis sets,            success of the BSE formalism lies in the description of
+together with adequate auxiliary bases when resolution-of-              charge-transfer (CT) excitations, a notoriously difficult prob-
+the-identity (RI) techniques 58 were used.                              lem for TD-DFT adopting standard (semi-)local function-
+   An important conclusion drawn from these calculations                als. 70 Similar difficulties emerge in solid-state physics for
+was that the quality of the BSE excitation energies is strongly         semiconductors where extended Wannier excitons, charac-
+correlated to the deviation of the preceding GW HOMO-                   terized by weakly overlapping electrons and holes (Fig. 3),
+LUMO gap                                                                cause a dramatic deficit of spectral weight at low energy. 71
+                   EgGW = εLUMO
+                             GW
+                                    − εHOMO
+                                       GW
+                                             ,              (24)        These difficulties can be ascribed to the lack of long-range
+                                                                        electron-hole interaction with local xc functionals. It can be
+with the experimental (photoemission) fundamental gap de-
+                                                                        cured through an exact exchange contribution, a solution that
+fined in Eq. (2).
+                                                                        explains the success of (optimally-tuned) range-separated
+   Standard G0W0 calculations starting with KS eigenstates
+                                                                        hybrids for the description of CT excitations. 59,60 The anal-
+generated with (semi)local functionals yield much larger
+                                                                        ysis of the screened Coulomb potential matrix elements in
+HOMO-LUMO gaps than the input KS gap
+                                                                        the BSE kernel [see Eq. (17)] reveals that such long-range
+                   EgKS = εLUMO
+                           KS      KS
+                                − εHOMO,                    (25)        (non-local) electron-hole interactions are properly described,
+                                                                        including in environments (solvents, molecular solid, etc.)
+but still too small as compared to the experimental value, i.e.,        where the screening reduces the long-range electron-hole
+                                                                        interactions. The success of the BSE formalism to treat CT
+                   EgKS  EgG0W0 < Egfund .                 (26)        excitations has been demonstrated in several studies, 66,72–79
+                                                                        opening the way to the modeling of key applications such as
+Such a residual discrepancy has been attributed by several              doping, 80 photovoltaics or photocatalysis in organic systems.
+authors to “overscreening", namely the effect associated with
+building the susceptibility χ based on a grossly underesti-
+mated (KS) band gap. This leads to a spurious enhancement
+of the screening or polarization and, consequently, to an un-           Combining BSE with PCM and QM/MM models.
+derestimated G0W0 gap as compared to the (exact) fundamen-              The ability to account for the effect on the excitation energies
+tal gap. More prosaically, the G0W0 approach is constructed             of an electrostatic and dielectric environment (an electrode,
+as a first-order perturbation theory, so by correcting a very           a solvent, a molecular interface. . . ) is an important step to-
+“bad" zeroth-order KS system one cannot expect to obtain                wards the description of realistic systems. Pioneering BSE
+an accurate corrected gap. Such an underestimation of the               studies demonstrated, for example, the large renormalization
+fundamental gap leads to a similar underestimation of the               of charged and neutral excitations in molecular systems and
+               opt
+optical gap Eg , i.e., the lowest optical excitation energy:            nanotubes close to a metallic electrode or in bundles. 74,81,82
+                                                                        Recent attempts to merge the GW and BSE formalisms with
+                 opt
+               Eg = E1N − E0N = Egfund + EB,                (27)        model polarizable environments at the PCM or QM/MM lev-
+
+
+                                                                    5
+                                                                                              Mo'(Wannier.
+                (a)                                                          ronment, is that the renormalization of the electron-electron
+                                                                             and electron-hole interactions by the reaction field captures
+                           +
+                                                                             both linear-response+"and state-specific contributions 90 to the
+                                  W = V/e                                    solvatochromic shift of the optical lines, allowing to treat on
+                                                                                                             W=v/ε
+                                                                             the same footing local (Frenkel) and CT excitations. This is
+                                µe4                                          an important advantage as compared to, e.g., TD-DFT where
+                      EB =
+                               2~2 ✏2       -                                linear-response and state-specific
+                                                                                                  EB =
+                                                                                                            µe4 effects have to be explored
+                                                                             with different formalisms. 2~2 ✏2            #"
+                                                                                To date, environmental effects on fast electronic excita-
+                                                                             tions are only included by considering the low-frequency
+                                                                             optical response of the polarizable medium (e.g., consider-
+                                                                             ing the ∞ ≃ 1.78 macroscopic dielectric constant of water
+               (b)                      Frenkel                              in the optical range), neglecting the frequency dependence
+                                                                                                               Frenkel.
+                                    +                                        of the dielectric constant in the
+                                                                                                             +" optical range. Generaliza-
+                                                                             tion to fully frequency-dependent polarizable properties of
+                                    -                                        the environment would allow to#" explore systems where the
+                                                                             relative dynamics of the solute and the solvent are not de-
+                                                                             coupled, i.e., situations where
+                                                                                                        CT. neither the adiabatic limit nor
+                           +                                                                        +" are
+                                                                             the anti-adiabatic limits     expected to be valid (for a recent
+                      CT                                                     discussion, see Ref. 91).
+                                                                                We now leave the description of successes to discuss
+                                                                             difficulties and future directions of developments and im-
+                           -                                                 provements.             #"
+
+
+Figure 3: Symbolic representation of (a) extended Wannier exciton
+with large electron-hole average distance, and (b) Frenkel (local) and
+                                                                             The computational challenge.             As emphasized above,
+charge-transfer (CT) excitations at a donor-acceptor interface. Wan-         the BSE eigenvalue equation in the single-excitation space
+nier and CT excitations require long-range electron-hole interaction         [see Eq. (18)] is formally equivalent to that of TD-DFT or TD-
+accounting for the host dielectric constant. In the case of Wannier          HF. 92 Searching iteratively for the lowest eigenstates exhibits
+                                                                             the same O(Norb 4 matrix-vector multiplication computational
+excitons, the binding energy E B can be well approximated by the                                )
+standard hydrogenoid model where µ is the effective mass and  is            cost within BSE and TD-DFT. Concerning the construction
+the dielectric constant.                                                     of the BSE Hamiltonian, it is no more expensive than build-
+                                                                             ing its TD-DFT analogue with hybrid functionals, reducing
+                                                                             again to O(Norb4 operations with standard RI techniques. Ex-
+                                                                                               )
+els 83–89 paved the way not only to interesting applications                 plicit calculation of the full BSE Hamiltonian in transition
+but also to a better understanding of the merits of these ap-                space can be further avoided using density matrix perturba-
+proaches relying on the use of the screened Coulomb potential                tion theory, 72,93 not reducing though the O(Norb 4
+                                                                                                                                 ) scaling, but
+designed to capture polarization effects at all spatial ranges.              sacrificing further the knowledge of the eigenvectors. Ex-
+As a matter of fact, dressing the bare Coulomb potential with                ploiting further the locality of the atomic orbital basis, the
+the reaction field matrix [v(r, r 0) −→ v(r, r 0)+v reac (r, r 0; ω)]        BSE absorption spectrum can be obtained with O(Norb        3
+                                                                                                                                          ) op-
+in the relation between the screened Coulomb potential W                                                                   94
+                                                                             erations using such iterative techniques. With the same
+and the independent-electron susceptibility [see Eq. (8a)] al-               restriction on the eigenvectors, a time-propagation approach,
+lows to perform GW and BSE calculations in a polarizable                     similar to that implemented for TD-DFT, 95 combined with
+environment at the same computational cost as the corre-                     stochastic techniques to reduce the cost of building the BSE
+sponding gas-phase calculation. The reaction field operator                  Hamiltonian matrix elements, allows quadratic scaling with
+v reac (r, r 0; ω) describes the potential generated in r 0 by the           systems size. 96
+charge rearrangements in the polarizable environment in-                        In practice, the main bottleneck for standard BSE calcula-
+duced by a source charge located in r, where r and r 0 lie in                tions as compared to TD-DFT resides        in the preceding GW
+the quantum mechanical subsystem of interest. The reaction                   calculation that scales as O Norb  4
+                                                                                                                  
+                                                                                                                    with system size using
+field is dynamical since the dielectric properties of the envi-              plane-wave basis sets or RI techniques, but with a rather
+ronment, such as the macroscopic dielectric constant  M (ω),                large prefactor. The field of low-scaling GW calculations is
+are in principle frequency dependent. Once the reaction                      however witnessing significant advances. While the sparsity
+field matrix is known, with typically O(Norb NMM  2
+                                                      ) operations           of, for example, the overlap matrix in the atomic orbital
+(where Norb is the number of orbitals and NMM the number of                  basis allows to reduce the scaling in the large size limit, 97,98
+polarizable atoms in the environment), the full spectrum of                  efficient real-space grids and time techniques are bloom-
+GW quasiparticle energies and BSE neutral excitations can                    ing, 99,100 borrowing in particular the well-known Laplace
+be renormalized by the effect of the environment.                            transform approach used in quantum chemistry. 101 Together
+    A remarkable property 87 of the scheme described above,                  with a stochastic sampling of virtual states, this family of
+which combines the BSE formalism with a polarizable envi-
+
+
+                                                                         6
+techniques allow to set up linear scaling GW calculations. 102        evaluated within the ACFDT framework, 117 was mostly dis-
+The separability of occupied and virtual states summations            carded from the set of tested techniques due to instabilities
+lying at the heart of these approaches are now spreading              (negative frequency modes in the BSE polarization propa-
+fast in quantum chemistry within the interpolative separa-            gator) and replaced by an approximate (RPAsX) approach
+ble density fitting (ISDF) approach applied for calculating           where the screened-Coulomb potential matrix elements was
+with cubic scaling the susceptibility needed in random-phase          removed from the resonant electron-hole contribution. 113,121
+approximation (RPA) and GW calculations. 103–105 These on-            Moreover, it was also observed in Ref. 115 that, in some
+going developments pave the way to applying the GW@BSE                cases, unphysical irregularities on the ground-state PES ap-
+formalism to systems containing several hundred atoms on              pear due to the appearance of discontinuities as a function of
+standard laboratory clusters.                                         the bond length for some of the GW quasiparticle energies.
+                                                                      Such an unphysical behavior stems from defining the quasi-
+                                                                      particle energy as the solution of the quasiparticle equation
+                                                                      with the largest spectral weight in cases where several so-
+The triplet instability challenge.          The analysis of the
+                                                                      lutions can be found [see Eq. (10)]. We refer the interested
+singlet-triplet splitting is central to numerous applications
+                                                                      reader to Refs. 22,122–125 for detailed discussions.
+such as singlet fission or thermally activated delayed fluores-
+cence (TADF). From a more theoretical point of view, triplet
+instabilities that often plague the applicability of TD-DFT
+are intimately linked to the stability analysis of restricted         The challenge of analytical nuclear gradients.              The
+closed-shell solutions at the HF 106 and KS 107 levels. While         features of ground- and excited-state potential energy sur-
+TD-DFT with range-separated hybrids can benefit from tun-             faces (PES) are critical for the faithful description and a
+ing the range-separation parameter(s) as a mean to act on             deeper understanding of photochemical and photophysical
+the triplet instability, 108 BSE calculations do not offer this       processes. 126 For example, chemoluminescence and fluo-
+pragmatic way-out since the screened Coulomb potential that           rescence are associated with geometric relaxation of ex-
+builds the kernel does not offer any parameter to tune.               cited states, and structural changes upon electronic excita-
+   Benchmark calculations 109,110 clearly concluded that              tion. 127 Reliable predictions of these mechanisms, which
+triplets are notably too low in energy within BSE and                 have attracted much experimental and theoretical interest
+that the use of the TDA was able to partly reduce this error.         lately, require exploring the ground- and excited-state PES.
+However, as it stands, the BSE accuracy for triplets remains          From a theoretical point of view, the accurate prediction of
+rather unsatisfactory for reliable applications. An alternative       excited electronic states remains a challenge, 128 especially
+cure was offered by hybridizing TD-DFT and BSE, that                  for large systems where state-of-the-art computational tech-
+is, by adding to the BSE kernel the correlation part of the           niques (such as multiconfigurational methods 129 ) cannot be
+underlying DFT functional used to build the susceptibility            afforded. For the last two decades, TD-DFT has been the
+and resulting screened Coulomb potential W. 111                       go-to method to compute absorption and emission spectra in
+                                                                      large molecular systems.
+                                                                         In TD-DFT, the PES for the excited states can be easily and
+                                                                      efficiently obtained as a function of the molecular geometry
+The challenge of the ground-state energy.             In con-
+                                                                      by simply adding the ground-state DFT energy to the excita-
+trast to TD-DFT which relies on KS-DFT as its ground-state
+                                                                      tion energy of the selected state. One of the strongest assets of
+analog, the ground-state BSE energy is not a well-defined
+                                                                      TD-DFT is the availability of first- and second-order analytic
+quantity, and no clear consensus has been found regarding its
+                                                                      nuclear gradients (i.e., the first- and second-order deriva-
+formal definition. Consequently, the BSE ground-state for-
+                                                                      tives of the excited-state energy with respect to atomic dis-
+malism remains in its infancy with very few available studies
+                                                                      placements), which enables the exploration of excited-state
+for atomic and molecular systems. 88,112–115
+                                                                      PES. 130
+   A promising route, which closely follows RPA-type for-
+                                                                         A significant limitation of the BSE formalism, as compared
+malisms, 116 is to calculate the ground-state BSE energy
+                                                                      to TD-DFT, lies in the lack of analytical nuclear gradients
+within the adiabatic-connection fluctuation-dissipation the-
+                                                                      for both the ground and excited states, preventing efficient
+orem (ACFDT) framework. 117 Thanks to comparisons with
+                                                                      studies of many key excited-state processes. While calcu-
+both similar and state-of-art computational approaches, it
+                                                                      lations of the GW quasiparticle energy ionic gradients is
+was recently shown that the ACFDT@BSE@GW approach
+                                                                      becoming increasingly popular, 131–135 only one pioneering
+yields extremely accurate PES around equilibrium, and can
+                                                                      study of the excited-state BSE gradients has been published
+even compete with high-order coupled cluster methods in
+                                                                      so far. 136 In this seminal work devoted to small molecules
+terms of absolute ground-state energies and equilibrium
+                                                                      (CO and NH3 ), only the BSE excitation energy gradients
+distances. 115 However, their accuracy near the dissociation
+                                                                      were calculated, with the approximation that the gradient of
+limit remains an open question. 112,113,118–120 Indeed, in the
+                                                                      the screened Coulomb potential can be neglected, computing
+largest available benchmark study 113 encompassing the total
+                                                                      further the KS-LDA forces as its ground-state contribution.
+energies of the atoms H–Ne, the atomization energies of
+the 26 small molecules forming the HEAT test set, and the
+bond lengths and harmonic vibrational frequencies of 3d
+transition-metal monoxides, the BSE correlation energy, as
+
+
+                                                                  7
+Beyond the static approximation.               Going beyond the         ment of the strengths and weaknesses of the BSE formalism
+static approximation is a difficult challenge which has been,           of many-body perturbation theory. To do so, we have briefly
+nonetheless, embraced by several groups. 7,137–145 As men-              reviewed the theoretical aspects behind BSE, and its in-
+tioned earlier in this Perspective, most of BSE calcula-                timate link with the underlying GW calculation that one
+tions are performed within the so-called static approxi-                must perform to compute quasiparticle energies and the
+mation, which substitutes the dynamically-screened (i.e.,               dynamically-screened Coulomb potential; two of the key in-
+frequency-dependent) Coulomb potential W(ω) by its static               put ingredients associated with the BSE formalism. We have
+limit W(ω = 0) [see Eq. (22)]. It is important to mention that          then provided a succinct historical overview with a particular
+diagonalizing the BSE Hamiltonian in the static approxima-              focus on its condensed-matter roots, and the lessons that the
+tion corresponds to solving a linear eigenvalue problem in the          community has learnt from several systematic benchmark
+space of single excitations, while it is, in its dynamical form,        studies on large molecular systems. Several success stories
+a non-linear eigenvalue problem (in the same space) which is            are then discussed (charge-transfer excited states and combi-
+much harder to solve from a numerical point of view. In com-            nation with reaction field methods), before debating some of
+plete analogy with the ubiquitous adiabatic approximation in            the challenges faced by the BSE formalism (computational
+TD-DFT, one key consequence of the static approximation                 cost, triplet instabilities, ambiguity in the definition of the
+is that double (and higher) excitations are completely absent           ground-state energy, lack of analytical nuclear gradients, and
+from the BSE optical spectrum, which obviously hampers                  limitations due to the static approximation). We hope that,
+the applicability of BSE as double excitations may play, in-            by providing a snapshot of the ability of BSE in 2020, the
+directly, a key role in photochemistry mechanisms. Higher               present Perspective article will motivate a larger commu-
+excitations would be explicitly present in the BSE Hamil-               nity to participate to the development of this alternative to
+tonian by “unfolding” the dynamical BSE kernel, and one                 TD-DFT which, we believe, may become a very valuable
+would recover a linear eigenvalue problem with, nonetheless,            computational tool for the physical chemistry community.
+a much larger dimension. Corrections to take into account
+the dynamical nature of the screening may or may not recover
+                                                                        ACKNOWLEDGMENTS
+these multiple excitations. However, dynamical corrections
+                                                                        PFL thanks the European Research Council (ERC) under
+permit, in any case, to recover, for transitions with a domi-
+                                                                        the European Union’s Horizon 2020 research and innovation
+nant single-excitation character, additional relaxation effects
+                                                                        programme (Grant agreement No. 863481) for financial sup-
+coming from higher excitations.
+                                                                        port. Funding from the “Centre National de la Recherche
+   From a more practical point of view, dynamical effects have
+                                                                        Scientifique” is also acknowledged. This work has also been
+been found to affect the positions and widths of core-exciton
+                                                                        supported through the EUR Grant NanoX ANR-17-EURE-
+resonances in semiconductors, 36,37 rare gas solids, and tran-
+                                                                        0009 in the framework of the “Programme des Investisse-
+sition metals. 146 Thanks to first-order perturbation theory,
+                                                                        ments d’Avenir”. DJ acknowledges the Région des Pays de
+Rohlfing and coworkers have developed an efficient way of
+                                                                        la Loire for financial support.
+taking into account the dynamical effects via a plasmon-pole
+approximation combined with TDA. 137–139,147 With such a
+scheme, they have been able to compute the excited states of
+biological chromophores, showing that taking into account               REFERENCES
+the electron-hole dynamical screening is important for an ac-
+curate description of the lowest n → π ∗ excitations. 138,139,147         (1) The Royal Swedish Academy of Sciences, The Nobel
+Studying PYP, retinal and GFP chromophore models, Ma                          Prize in Chemistry 2013. Press release, 2013.
+et al. found that “the influence of dynamical screening                   (2) Prandini, G.; Rignanese, G.-M.; Marzari, N. Photore-
+on the excitation energies is about 0.1 eV for the lowest                     alistic Modelling of Metals from First Principles. npj
+π → π ∗ transitions, but for the lowest n → π ∗ transitions                   Comput. Mater. 2019, 129.
+the influence is larger, up to 0.25 eV.” 139 Zhang et al. have            (3) Kippelen, B.; Brédas, J.-L. Organic photovoltaics. En-
+studied the frequency-dependent second-order BSE kernel                       ergy Environ. Sci. 2009, 2, 251–261.
+and they have observed an appreciable improvement over                    (4) Improta, R.; Santoro, F.; Blancafort, L. Quantum Me-
+configuration interaction with singles (CIS), time-dependent                  chanical Studies on the Photophysics and the Photo-
+Hartree-Fock (TDHF), and adiabatic TD-DFT results. 143                        chemistry of Nucleic Acids and Nucleobases. Chem.
+Rebolini and Toulouse have performed a similar investiga-                     Rev. 2016, 116, 3540–3593.
+tion in a range-separated context, and they have reported a               (5) Wu, X.; Choudhuri, I.; Truhlar, D. G. Computational
+modest improvement over its static counterpart. 144 In these                  Studies of Photocatalysis with Metal–Organic Frame-
+two latter studies, they also followed a (non-self-consistent)                works. Energy Environ. Mat. 2019, 2, 251–263.
+perturbative approach within TDA with a renormalization of                (6) Salpeter, E. E.; Bethe, H. A. A Relativistic Equation
+the first-order perturbative correction.                                      for Bound-State Problems. Phys. Rev. 1951, 84, 1232.
+                                                                          (7) Strinati, G. Application of the Green’s Functions
+                                                                              Method to the Study of the Optical Properties of Semi-
+Conclusion.      Although far from being exhaustive, we                       conductors. Riv. Nuovo Cimento 1988, 11, 1–86.
+hope that this Perspective provides a concise and fair assess-            (8) Runge, E.; Gross, E. K. U. Density-Functional Theory
+
+
+
+                                                                    8
+     for Time-Dependent Systems. Phys. Rev. Lett. 1984,                   Quasiparticle Energies. Phys. Rev. B 1986, 34, 5390–
+     52, 997–1000.                                                        5413.
+ (9) Blase, X.; Duchemin, I.; Jacquemin, D. The Bethe–               (25) Godby, R. W.; Schlüter, M.; Sham, L. J. Self-Energy
+     Salpeter Equation in Chemistry: Relations with TD-                   Operators and Exchange-Correlation Potentials in
+     DFT, Applications and Challenges. Chem. Soc. Rev.                    Semiconductors. Phys. Rev. B 1988, 37, 10159–
+     2018, 47, 1022–1043.                                                 10175.
+(10) Albrecht, S.; Reining, L.; Del Sole, R.; Onida, G. Ab           (26) von der Linden, W.; Horsch, P. Precise Quasiparticle
+     Initio Calculation of Excitonic Effects in the Optical               Energies and Hartree-Fock Bands of Semiconductors
+     Spectra of Semiconductors. Phys. Rev. Lett. 1998, 80,                and Insulators. Phys. Rev. B 1988, 37, 8351–8362.
+     4510–4513.                                                      (27) Northrup, J. E.; Hybertsen, M. S.; Louie, S. G. Many-
+(11) Rohlfing, M.; Louie, S. G. Electron-Hole Excitations                 body Calculation of the Surface-State Energies for
+     in Semiconductors and Insulators. Phys. Rev. Lett.                   Si(111)2×1. Phys. Rev. Lett. 1991, 66, 500–503.
+     1998, 81, 2312–2315.                                            (28) Blase, X.; Zhu, X.; Louie, S. G. Self-Energy Effects
+(12) Benedict, L. X.; Shirley, E. L.; Bohn, R. B. Optical                 on the Surface-State Energies of H-Si(111)1×1. Phys.
+     Absorption of Insulators and the Electron-Hole In-                   Rev. B 1994, 49, 4973–4980.
+     teraction: An Ab Initio Calculation. Phys. Rev. Lett.           (29) Rohlfing, M.; Krüger, P.; Pollmann, J. Efficient
+     1998, 80, 4514–4517.                                                 Scheme for GW Quasiparticle Band-Structure Cal-
+(13) van der Horst, J.-W.; Bobbert, P. A.; Michels, M. A. J.;             culations with Aapplications to Bulk Si and to the
+     Brocks, G.; Kelly, P. J. Ab Initio Calculation of the                Si(001)-(2×1) Surface. Phys. Rev. B 1995, 52, 1905–
+     Electronic and Optical Excitations in Polythiophene:                 1917.
+     Effects of Intra- and Interchain Screening. Phys. Rev.          (30) Perdew, J. P.; Levy, M. Physical Content of the Exact
+     Lett. 1999, 83, 4413–4416.                                           Kohn-Sham Orbital Energies: Band Gaps and Deriva-
+(14) Hedin, L. New Method for Calculating the One-                        tive Discontinuities. Phys. Rev. Lett. 1983, 51, 1884–
+     Particle Green’s Function with Application to the                    1887.
+     Electron-Gas Problem. Phys. Rev. 1965, 139, A796.               (31) Sham, L. J.; Schlüter, M. Density-Functional Theory
+(15) Onida, G.; Reining, L.; and, A. R. Electronic Excita-                of the Energy Gap. Phys. Rev. Lett. 1983, 51, 1888–
+     tions: Density-Functional Versus Many-Body Green’s                   1891.
+     Function Approaches. Rev. Mod. Phys. 2002, 74, 601–             (32) Shishkin, M.; Kresse, G. Self-Consistent GW Calcu-
+     659.                                                                 lations for Semiconductors and Insulators. Phys. Rev.
+(16) Martin, R.; Reining, L.; Ceperley, D. Interacting Elec-              B 2007, 75, 235102.
+     trons: Theory and Computational Approaches; Cam-                (33) Campillo, I.; Pitarke, J. M.; Rubio, A.; Zarate, E.;
+     bridge University Press, 2016.                                       Echenique, P. M. Inelastic Lifetimes of Hot Electrons
+(17) Dreuw, A.; Wormit, M. The Algebraic Diagrammatic                     in Real Metals. Phys. Rev. Lett. 1999, 83, 2230–2233.
+     Construction Scheme for the Polarization Propagator             (34) Verdozzi, C.; Godby, R. W.; Holloway, S. Evaluation
+     for the Calculation of Excited States. Wiley Interdiscip.            of GW Approximations for the Self-Energy of a Hub-
+     Rev. Comput. Mol. Sci. 2015, 5, 82–95.                               bard Cluster. Phys. Rev. Lett. 1995, 74, 2327–2330.
+(18) Packer, M. K.; Dalskov, E. K.; Enevoldsen, T.;                  (35) Hanke, W.; Sham, L. J. Many-Particle Effects in the
+     Jensen, H. J.; Oddershede, J. A New Implementation                   Optical Spectrum of a Semiconductor. Phys. Rev. B
+     of the Second-Order Polarization Propagator Approx-                  1980, 21, 4656.
+     imation (SOPPA): The Excitation Spectra of Benzene              (36) Strinati, G. Dynamical Shift and Broadening of Core
+     and Naphthalene. J. Chem. Phys. 1996, 105, 5886–                     Excitons in Semiconductors. Phys. Rev. Lett. 1982, 49,
+     5900.                                                                1519.
+(19) Hohenberg, P.; Kohn, W. Inhomogeneous Electron                  (37) Strinati, G. Effects of Dynamical Screening on Reso-
+     Gas. Phys. Rev. 1964, 136, B864–B871.                                nances at Inner-Shell Thresholds in Semiconductors.
+(20) Kohn, W.; Sham, L. J. Self-Consistent Equations In-                  Phys. Rev. B 1984, 29, 5718.
+     cluding Exchange and Correlation Effects. Phys. Rev.            (38) Casida, M. E. In Time-Dependent Density Functional
+     1965, 140, A1133–A1138.                                              Response Theory for Molecules; Chong, D. P., Ed.;
+(21) Golze, D.; Dvorak, M.; Rinke, P. The GW Com-                         Recent Advances in Density Functional Methods;
+     pendium: A Practical Guide to Theoretical Photoe-                    World Scientific, Singapore, 1995; pp 155–192.
+     mission Spectroscopy. Front. Chem. 2019, 7, 377.                (39) Sham, L. J.; Rice, T. M. Many-Particle Derivation of
+(22) Veril, M.; Romaniello, P.; Berger, J. A.; Loos, P. F.                the Effective-Mass Equation for the Wannier Exciton.
+     Unphysical Discontinuities in GW Methods. J. Chem.                   Phys. Rev. 1966, 144, 708–714.
+     Theory Comput. 2018, 14, 5220.                                  (40) Delerue, C.; Lannoo, M.; Allan, G. Excitonic and
+(23) Strinati, G.; Mattausch, H. J.; Hanke, W. Dynamical                  Quasiparticle Gaps in Si Nanocrystals. Phys. Rev. Lett.
+     Correlation Effects on the Quasiparticle Bloch States                2000, 84, 2457–2460.
+     of a Covalent Crystal. Phys. Rev. Lett. 1980, 45, 290–          (41) Onida, G.; Reining, L.; Godby, R. W.; Del Sole, R.;
+     294.                                                                 Andreoni, W. Ab Initio Calculations of the Quasipar-
+(24) Hybertsen, M. S.; Louie, S. G. Electron Correlation                  ticle and Absorption Spectra of Clusters: The Sodium
+     in Semiconductors and Insulators: Band Gaps and                      Tetramer. Phys. Rev. Lett. 1995, 75, 818–821.
+
+
+                                                                 9
+(42) Albrecht, S.; Onida, G.; Reining, L. Ab initio Cal-             (58) Ren, X.; Rinke, P.; Blum, V.; Wieferink, J.;
+     culation of the Quasiparticle Spectrum and Excitonic                 Tkatchenko, A.; Sanfilippo, A.; Reuter, K.;
+     Effects in Li2 O. Phys. Rev. B 1997, 55, 10278–10281.                Scheffler, M. Resolution-of-identity Approach to
+(43) Rohlfing, M.; Louie, S. G. Excitons and Optical Spec-                Hartree–Fock, Hybrid Fensity Functionals, RPA, MP2
+     trum of the Si(111) − (2 × 1) Surface. Phys. Rev. Lett.              and GW with Numeric Atom-Centered Orbital Basis
+     1999, 83, 856–859.                                                   Functions. New J. Phys. 2012, 14, 053020.
+(44) Rohlfing, M.; Louie, S. G. Optical Excitations in Con-          (59) Stein, T.; Kronik, L.; Baer, R. Reliable Prediction of
+     jugated Polymers. Phys. Rev. Lett. 1999, 82, 1959–                   Charge Transfer Excitations in Molecular Complexes
+     1962.                                                                Using Time-Dependent Density Functional Theory. J.
+(45) van der Horst, J.-W.; Bobbert, P. A.; Michels, M. A. J.;             Am. Chem. Soc. 2009, 131, 2818–2820.
+     Brocks, G.; Kelly, P. J. Ab Initio Calculation of the           (60) Kronik, L.; Stein, T.; Refaely-Abramson, S.; Baer, R.
+     Electronic and Optical Excitations in Polythiophene:                 Excitation Gaps of Finite-Sized Systems from Opti-
+     Effects of Intra- and Interchain Screening. Phys. Rev.               mally Tuned Range-Separated Hybrid Functionals. J.
+     Lett. 1999, 83, 4413–4416.                                           Chem. Theory Comput. 2012, 8, 1515–1531.
+(46) Puschnig, P.; Ambrosch-Draxl, C. Suppression of                 (61) Bruneval, F.; Marques, M. A. L. Benchmarking
+     Electron-Hole Correlations in 3D Polymer Materials.                  the Starting Points of the GW Approximation for
+     Phys. Rev. Lett. 2002, 89, 056405.                                   Molecules. J. Chem. Theory Comput. 2013, 9, 324–
+(47) Tiago, M. L.; Northrup, J. E.; Louie, S. G. Ab Initio                329.
+     Calculation of the Electronic and Optical Properties            (62) Rangel, T.; Hamed, S. M.; Bruneval, F.; Neaton, J. B.
+     of Solid Pentacene. Phys. Rev. B 2003, 67, 115212.                   Evaluating the GW Approximation with CCSD(T) for
+(48) See Table 1 of Ref. 9 for an exhaustive list of applica-             Charged Excitations Across the Oligoacenes. J. Chem.
+     tions to molecular systems.                                          Theory Comput. 2016, 12, 2834–2842.
+(49) Boulanger, P.; Jacquemin, D.; Duchemin, I.; Blase, X.           (63) Knight, J. W.; Wang, X.; Gallandi, L.; Dolgo-
+     Fast and Accurate Electronic Excitations in Cyanines                 unitcheva, O.; Ren, X.; Ortiz, J. V.; Rinke, P.; Körzdör-
+     with the Many-Body Bethe–Salpeter Approach. J.                       fer, T.; Marom, N. Accurate Ionization Potentials
+     Chem. Theory Comput. 2014, 10, 1212–1218.                            and Electron Affinities of Acceptor Molecules III: A
+(50) Jacquemin, D.; Duchemin, I.; Blase, X. Benchmarking                  Benchmark of GW Methods. J. Chem. Theory Com-
+     the Bethe–Salpeter Formalism on a Standard Organic                   put. 2016, 12, 615–626.
+     Molecular Set. J. Chem. Theory Comput. 2015, 11,                (64) van Schilfgaarde, M.; Kotani, T.; Faleev, S. Quasi-
+     3290–3304.                                                           particle Self-Consistent GW Theory. Phys. Rev. Lett.
+(51) Bruneval, F.; Hamed, S. M.; Neaton, J. B. A System-                  2006, 96, 226402.
+     atic Benchmark of the ab initio Bethe-Salpeter Equa-            (65) Rostgaard, C.; Jacobsen, K. W.; Thygesen, K. S. Fully
+     tion Approach for Low-Lying Optical Excitations of                   Self-Consistent GW Calculations for Molecules. Phys.
+     Small Organic Molecules. J. Chem. Phys. 2015, 142,                   Rev. B 2010, 81, 085103.
+     244101.                                                         (66) Blase, X.; Attaccalite, C. Charge-Transfer Excitations
+(52) Jacquemin, D.; Duchemin, I.; Blase, X. 0–0 Ener-                     in Molecular Donor-Acceptor Complexes within the
+     gies Using Hybrid Schemes: Benchmarks of TD-DFT,                     Many-Body Bethe-Salpeter Approach. Appl. Phys.
+     CIS(D), ADC(2), CC2, and BSE/GW formalisms for                       Lett. 2011, 99, 171909.
+     80 Real-Life Compounds. J. Chem. Theory Comput.                 (67) Ke, S.-H. All-Electron G W Methods Implemented
+     2015, 11, 5340–5359.                                                 in Molecular Orbital Space: Ionization Energy and
+(53) Hirose, D.; Noguchi, Y.; Sugino, O. All-                             Electron Affinity of Conjugated Molecules. Phys. Rev.
+     Electron GW+Bethe-Salpeter Calculations on Small                     B 2011, 84, 205415.
+     Molecules. Phys. Rev. B 2015, 91, 205111.                       (68) Kaplan, F.; Harding, M. E.; Seiler, C.; Weigend, F.;
+(54) Jacquemin, D.; Duchemin, I.; Blase, X. Is the Bethe–                 Evers, F.; van Setten, M. J. Quasi-Particle Self-
+     Salpeter Formalism Accurate for Excitation Energies?                 Consistent GW for Molecules. J. Chem. Theory Com-
+     Comparisons with TD-DFT, CASPT2, and EOM-                            put. 2016, 12, 2528–2541.
+     CCSD. J. Phys. Chem. Lett. 2017, 8, 1524–1529.                  (69) Caruso, F.; Dauth, M.; van Setten, M. J.; Rinke, P.
+(55) Krause, K.; Klopper, W. Implementation of the Bethe-                 Benchmark of GW Approaches for the GW100 Test
+     Salpeter equation in the TURBOMOLE program. J.                       Set. J. Chem. Theory Comput. 2016, 12, 5076.
+     Comp. Chem. 2017, 38, 383–388.                                  (70) Dreuw, A.; Head-Gordon, M. Failure of Time-
+(56) Gui, X.; Holzer, C.; Klopper, W. Accuracy Assess-                    Dependent Density Functional Theory for
+     ment of GW Starting Points for Calculating Molecular                 Long-Range Charge-Transfer Excited States:
+     Excitation Energies Using the Bethe–Salpeter Formal-                 The      Zincbacteriochlorin-Bacteriochlorin         and
+     ism. J. Chem. Theory Comput. 2018, 14, 2127–2136.                    Bacteriochlorophyll-Spheroidene Complexes. J. Am.
+(57) Schreiber, M.; Silva-Junior, M. R.; Sauer, S. P. A.;                 Chem. Soc. 2004, 126, 4007–4016.
+     Thiel, W. Benchmarks for Electronically Excited                 (71) Botti, S.; Sottile, F.; Vast, N.; Olevano, V.; Rein-
+     States: CASPT2, CC2, CCSD and CC3. J. Chem.                          ing, L.; Weissker, H.-C.; Rubio, A.; Onida, G.;
+     Phys. 2008, 128, 134110.                                             Del Sole, R.; Godby, R. W. Long-Range Contribu-
+                                                                          tion to the Exchange-Correlation Kernel of Time-
+
+
+                                                                10
+     Dependent Density Functional Theory. Phys. Rev. B                (86) Varsano, D.; Caprasecca, S.; Coccia, E. Theoretical
+     2004, 69, 155112.                                                     Description of Protein Field Effects on Electronic Ex-
+(72) Rocca, D.; Lu, D.; Galli, G. Ab Initio Calculations of                citations of Biological Chromophores. J. Phys.: Cond.
+     Optical Absorption Spectra: Solution of the Bethe–                    Matt. 2016, 29, 013002.
+     Salpeter Equation Within Density Matrix Perturbation             (87) Duchemin, I.; Guido, C. A.; Jacquemin, D.; Blase, X.
+     Theory. J. Chem. Phys. 2010, 133, 164109.                             The Bethe–Salpeter Formalism with Polarisable Con-
+(73) Cudazzo, P.; Attaccalite, C.; Tokatly, I. V.; Ru-                     tinuum Embedding: Reconciling Linear-Response
+     bio, A. Strong Charge-Transfer Excitonic Effects and                  and State-Specific Features. Chem. Sci. 2018, 9, 4430–
+     the Bose-Einstein Exciton Condensate in Graphane.                     4443.
+     Phys. Rev. Lett. 2010, 104, 226804.                              (88) Li, J.; Drummond, N. D.; Schuck, P.; Olevano, V.
+(74) Garcia-Lastra, J. M.; Thygesen, K. S. Renormaliza-                    Comparing Many-Body Approaches Against the He-
+     tion of Optical Excitations in Molecules Near a Metal                 lium Atom Exact Solution. SciPost Phys. 2019, 6, 040.
+     Surface. Phys. Rev. Lett. 2011, 106, 187402.                     (89) Tirimbò, G.;        Sundaram, V.;         Çaylak, O.;
+(75) Baumeier, B.; Andrienko, D.; Rohlfing, M. Frenkel                     Scharpach, W.; Sijen, J.; Junghans, C.; Brown, J.;
+     and Charge-Transfer Excitations in Donor–Acceptor                     Ruiz, F. Z.; Renaud, N.; Wehner, J. et al. Excited-state
+     Complexes From Many-Body Green’s Functions The-                       electronic structure of molecules using many-body
+     ory. J. Chem. Theory Comput. 2012, 8, 2790–2795.                      Green’s functions: Quasiparticles and electron–hole
+(76) Duchemin, I.; Deutsch, T.; Blase, X. Short-Range                      excitations with VOTCA-XTP. J. Chem. Phys. 2020,
+     to Long-Range Charge-Transfer Excitations in the                      152, 114103.
+     Zincbacteriochlorin-Bacteriochlorin Complex: A                   (90) Cammi, R.; Corni, S.; Mennucci, B.; Tomasi, J.
+     Bethe-Salpeter Study. Phys. Rev. Lett. 2012, 109,                     Electronic Excitation Energies of Molecules in So-
+     167801.                                                               lution: State Specific and Linear Response Methods
+(77) Sharifzadeh, S.; Darancet, P.; Kronik, L.; Neaton, J. B.              for Nonequilibrium Continuum Solvation Models. J.
+     Low-Energy Charge-Transfer Excitons in Organic                        Chem. Phys. 2005, 122, 104513.
+     Solids from First-Principles: The Case of Pentacene.             (91) Phan Huu, D. K. A.; Dhali, R.; Pieroni, C.;
+     J. Phys. Chem. Lett. 2013, 4, 2197–2201.                              Di Maiolo, F.; Sissa, C.; Terenziani, F.; Painelli, A.
+(78) Cudazzo, P.; Gatti, M.; Rubio, A.; Sottile, F. Frenkel                Antiadiabatic View of Fast Environmental Effects on
+     versus Charge-Transfer Exciton Dispersion in Molec-                   Optical Spectra. Phys. Rev. Lett. 2020, 124, 107401.
+     ular Crystals. Phys. Rev. B 2013, 88, 195152.                    (92) Dreuw, A.; Head-Gordon, M. Single-Reference Ab
+(79) Yin, H.; Ma, Y.; Mu, J.; Liu, C.; Rohlfing, M. Charge-                Initio Methods for the Calculation of Excited States of
+     Transfer Excited States in Aqueous DNA: Insights                      Large Molecules. Chem. Rev. 2005, 105, 4009–4037.
+     from Many-Body Green’s Function Theory. Phys. Rev.               (93) Nguyen, N. L.; Ma, H.; Govoni, M.; Gygi, F.; Galli, G.
+     Lett. 2014, 112, 228301.                                              Finite-Field Approach to Solving the Bethe-Salpeter
+(80) Li, J.; D’Avino, G.; Pershin, A.; Jacquemin, D.;                      Equation. Phys. Rev. Lett. 2019, 122, 237402.
+     Duchemin, I.; Beljonne, D.; Blase, X. Correlated                 (94) Ljungberg, M. P.; Koval, P.; Ferrari, F.; Foerster, D.;
+     electron-hole mechanism for molecular doping in or-                   Sánchez-Portal, D. Cubic-Scaling Iterative Solution of
+     ganic semiconductors. Phys. Rev. Materials 2017, 1,                   the Bethe-Salpeter Equation for Finite Systems. Phys.
+     025602.                                                               Rev. B 2015, 92, 075422.
+(81) Rohlfing, M. Redshift of Excitons in Carbon Nan-                 (95) Yabana, K.; Bertsch, G. F. Time-Dependent Local-
+     otubes Caused by the Environment Polarizability.                      Density Approximation in Real Time. Phys. Rev. B
+     Phys. Rev. Lett. 2012, 108, 087402.                                   1996, 54, 4484–4487.
+(82) Spataru, C. D. Electronic and Optical Gap Renormal-              (96) Rabani, E.; Baer, R.; Neuhauser, D. Time-Dependent
+     ization in Carbon Nanotubes Near a Metallic Surface.                  Stochastic Bethe-Salpeter Approach. Phys. Rev. B
+     Phys. Rev. B 2013, 88, 125412.                                        2015, 91, 235302.
+(83) Baumeier, B.; Rohlfing, M.; Andrienko, D. Electronic             (97) Foerster, D.; Koval, P.; Sánchez-Portal, D. An O(N3)
+     Excitations in Push–Pull Oligomers and Their Com-                     Implementation of Hedin’s GW Approximation for
+     plexes with Fullerene from Many-Body Green’s Func-                    Molecules. J. Chem. Phys. 2011, 135, 074105.
+     tions Theory with Polarizable Embedding. J. Chem.                (98) Wilhelm, J.; Golze, D.; Talirz, L.; Hutter, J.;
+     Theory Comput. 2014, 10, 3104–3110.                                   Pignedoli, C. A. Toward GW Calculations on Thou-
+(84) Duchemin, I.; Jacquemin, D.; Blase, X. Combining                      sands of Atoms. J. Phys. Chem. Lett. 2018, 9, 306–
+     the GW Formalism with the Polarizable Continuum                       312.
+     Model: A State-Specific Non-Equilibrium Approach.                (99) Rojas, H. N.; Godby, R. W.; Needs, R. J. Space-Time
+     J. Chem. Phys. 2016, 144, 164106.                                     Method for Ab Initio Calculations of Self-Energies
+(85) Li, J.; D’Avino, G.; Duchemin, I.; Beljonne, D.;                      and Dielectric Response Functions of Solids. Phys.
+     Blase, X. Combining the Many-Body GW Formal-                          Rev. Lett. 1995, 74, 1827.
+     ism with Classical Polarizable Models: Insights on              (100) Liu, P.; Kaltak, M.; Klimeš, J. c. v.; Kresse, G. Cu-
+     the Electronic Structure of Molecular Solids. J. Phys.                bic Scaling GW: Towards Fast Quasiparticle Calcula-
+     Chem. Lett. 2016, 7, 2814–2820.                                       tions. Phys. Rev. B 2016, 94, 165109.
+
+
+
+                                                                11
+(101) Häser, M.; Almlöf, J. Laplace Transform Techniques                     Connection Fluctuation Dissipation Theorem Ap-
+      in Møller–Plesset Perturbation Theory. J. Chem. Phys.                  proach. J. Chem. Theory Comput. 2011, 7, 3116–
+      1992, 96, 489–494.                                                     3130.
+(102) Vlček, V.; Rabani, E.; Neuhauser, D.; Baer, R.                   (117) Furche, F.; Van Voorhis, T. Fluctuation-Dissipation
+      Stochastic GW Calculations for Molecules. J. Chem.                     Theorem Density-Functional Theory. J. Chem. Phys.
+      Theory Comput. 2017, 13, 4997–5003.                                    2005, 122, 164106.
+(103) Lu, J.; Thicke, K. Cubic Scaling Algorithms for RPA              (118) Caruso, F.; Rohr, D. R.; Hellgren, M.; Ren, X.;
+      Correlation Using Interpolative Separable Density Fit-                 Rinke, P.; Rubio, A.; Scheffler, M. Bond Break-
+      ting. J. Comput. Phys. 2017, 351, 187 – 202.                           ing and Bond Formation: How Electron Correla-
+(104) Duchemin, I.; Blase, X. Separable resolution-of-the-                   tion Is Captured in Many-Body Perturbation Theory
+      identity with all-electron Gaussian bases: Applica-                    and Density-Functional Theory. Phys. Rev. Lett. 2013,
+      tion to cubic-scaling RPA. J. Chem. Phys. 2019, 150,                   110, 146403.
+      174120.                                                          (119) Colonna, N.; Hellgren, M.; de Gironcoli, S. Correla-
+(105) Gao, W.; Chelikowsky, J. R. Accelerating Time-                         tion Energy Within Exact-Exchange Adiabatic Con-
+      Dependent Density Functional Theory and GW Calcu-                      nection Fluctuation-Dissipation Theory: Systematic
+      lations for Molecules and Nanoclusters with Symme-                     Development and Simple Approximations. Phys. Rev.
+      try Adapted Interpolative Separable Density Fitting.                   B 2014, 90, 125150.
+      J. Chem. Theory Comput. 2020, 16, 2216–2223.                     (120) Hellgren, M.; Caruso, F.; Rohr, D. R.; Ren, X.; Ru-
+(106) Seeger, R.; Pople, J. A. SelfâĂŘConsistent Molecular                   bio, A.; Scheffler, M.; Rinke, P. Static Correlation and
+      Orbital Methods. XVIII. Constraints and Stability in                   Electron Localization in Molecular Dimers from the
+      Hartree–Fock Theory. J. Chem. Phys. 1977, 66, 3045–                    Self-Consistent RPA and G W Approximation. Phys.
+      3050.                                                                  Rev. B 2015, 91, 165110.
+(107) Bauernschmitt, R.; Ahlrichs, R. Stability Analysis for           (121) Maggio, E.; Kresse, G. Correlation Energy for the Ho-
+      Solutions of the Closed Shell Kohn–Sham Equation.                      mogeneous Electron Gas: Exact Bethe-Salpeter Solu-
+      J. Chem. Phys. 1996, 104, 9047–9052.                                   tion and an Approximate Evaluation. Phys. Rev. B
+(108) Sears, J. S.; Koerzdoerfer, T.; Zhang, C.-R.; Brédas, J.-              2016, 93, 235113.
+      L. Orbital Instabilities and Triplet States fFrom Time-          (122) van Setten, M. J.; Caruso, F.; Sharifzadeh, S.;
+      Dependent Density Functional Theory and Long-                          Ren, X.; Scheffler, M.; Liu, F.; Lischner, J.; Lin, L.;
+      Range Corrected Functionals. J. Chem. Phys. 2011,                      Deslippe, J. R.; Louie, S. G. et al. GW 100: Bench-
+      135, 151103.                                                           marking G0 W 0 for Molecular Systems. J. Chem. The-
+(109) Jacquemin, D.; Duchemin, I.; Blondel, A.; Blase, X.                    ory Comput. 2015, 11, 5665–5687.
+      Benchmark of Bethe-Salpeter for Triplet Excited-                 (123) Maggio, E.; Liu, P.; van Setten, M. J.; Kresse, G. GW
+      States. J. Chem. Theory Comput. 2017, 13, 767–783.                     100: A Plane Wave Perspective for Small Molecules.
+(110) Rangel, T.; Hamed, S. M.; Bruneval, F.; Neaton, J. B.                  J. Chem. Theory Comput. 2017, 13, 635–648.
+      An Assessment of Low-Lying Excitation Energies                   (124) Loos, P. F.; Romaniello, P.; Berger, J. A. Green
+      and Triplet Instabilities of Organic Molecules with an                 Functions and Self-Consistency: Insights From the
+      Ab Initio Bethe-Salpeter Equation Approach and the                     Spherium Model. J. Chem. Theory Comput. 2018, 14,
+      Tamm-Dancoff Approximation. J. Chem. Phys. 2017,                       3071–3082.
+      146, 194108.                                                     (125) Duchemin, I.; Blase, X. Robust Analytic-Continuation
+(111) Holzer, C.; Klopper, W. A Hybrid Bethe–                                Approach to Many-Body GW Calculations. J. Chem.
+      Salpeter/Time-Dependent Density-Functional-Theory                      Theory Comput. 2020, 16, 1742–1756.
+      Approach for Excitation Energies. J. Chem. Phys.                 (126) Olivucci, M. Computational Photochemistry; Elsevier
+      2018, 149, 101101.                                                     Science: Amsterdam; Boston (Mass.); Paris, 2010.
+(112) Olsen, T.; Thygesen, K. S. Static Correlation Be-                (127) Navizet, I.; Liu, Y.-J.; Ferre, N.; Roca-
+      yond the Random Phase Approximation: Dissociat-                        Sanjun, D.; Lindh, R. The Chemistry of Biolumi-
+      ing H2 With the Bethe-Salpeter Equation and Time-                      nescence: An Analysis of Chemical Functionalities.
+      Dependent GW. J. Chem. Phys. 2014, 140, 164116.                        ChemPhysChem 2011, 12, 3064–3076.
+(113) Holzer, C.; Gui, X.; Harding, M. E.; Kresse, G.; Hel-            (128) Loos, P. F.; Scemama, A.; Jacquemin, D. The Quest
+      gaker, T.; Klopper, W. Bethe-Salpeter Correlation En-                  for Highly-Accurate Excitation Energies: a Computa-
+      ergies of Atoms and Molecules. J. Chem. Phys. 2018,                    tional Perspective. J. Phys. Chem. Lett. 2020, submit-
+      149, 144106.                                                           ted.
+(114) Li, J.; Duchemin, I.; Blase, X.; Olevano, V. Ground-             (129) Roos, B. O.; Andersson, K.; Fulscher, M. P.;
+      state correlation energy of beryllium dimer by the                     Malmqvist, P.-A.; Serrano-Andrés, L. In Multiconfig-
+      Bethe-Salpeter equation. SciPost Phys. 2020, 8, 20.                    urational Perturbation Theory: Applications In Elec-
+(115) Loos, P.-F.;       Scemama, A.;         Duchemin, I.;                  tronic Spectroscopy; Prigogine, I., Rice, S. A., Eds.;
+      Jacquemin, D.; Blase, X. Pros and Cons of the Bethe-                   Adv. Chem. Phys.; Wiley, New York, 1996; Vol.
+      Salpeter Formalism for Ground-State Energies . 2020,                   XCIII; pp 219–331.
+(116) Angyan, J. G.; Liu, R.-F.; Toulouse, J.; Jansen, G.              (130) Furche, F.; Ahlrichs, R. Adiabatic Time-Dependent
+      Correlation Energy Expressions from the Adiabatic-
+
+
+                                                                  12
+      Density Functional Methods for Excited State Proper-                   Frequency-Dependent Second-Order Bethe-Salpeter
+      ties. J. Chem. Phys. 2002, 117, 7433.                                  Correlation Kernel. J. Chem. Phys. 2016, 144,
+(131) Lazzeri, M.; Attaccalite, C.; Wirtz, L.; Mauri, F. Im-                 094107.
+      pact of the Electron-Electron Correlation on Phonon              (145) Olevano, V.; Toulouse, J.; Schuck, P. A formally
+      Dispersion: Failure of LDA and GGA DFT Function-                       exact one-frequency-only Bethe-Salpeter-like equa-
+      als in Graphene and Graphite. Phys. Rev. B 2008, 78,                   tion. Similarities and differences between GW+BSE
+      081406.                                                                and self-consistent RPA. J. Chem. Phys. 2019, 150,
+(132) Faber, C.; Janssen, J. L.; Côté, M.; Runge, E.; Blase, X.              084112.
+      Electron-Phonon Coupling in the C60 Fullerene within             (146) Ankudinov, A. L.; Nesvizhskii, A. I.; Rehr, J. J. Dy-
+      the Many-body GW Approach. Phys. Rev. B 2011, 84,                      namic Screening Effects in X-Ray Absorption Spectra.
+      155104.                                                                Phys. Rev. B 2003, 67, 115120.
+(133) Yin, Z. P.; Kutepov, A.; Kotliar, G. Correlation-                (147) Baumeier, B.; Andrienko, D.; Ma, Y.; Rohlfing, M.
+      Enhanced Electron-Phonon Coupling: Applications                        Excited States of Dicyanovinyl-Substituted Oligothio-
+      of GW and Screened Hybrid Functional to Bis-                           phenes from Many-Body Green’s Functions Theory.
+      muthates, Chloronitrides, and Other High-Tc Super-                     J. Chem. Theory Comput. 2012, 8, 997–1002.
+      conductors. Phys. Rev. X 2013, 3, 021011.
+(134) Monserrat, B. Correlation Effects on Electron-Phonon
+      Coupling in Semiconductors: Many-Body Theory
+      Along Thermal Lines. Phys. Rev. B 2016, 93, 100301.
+(135) Li, Z.; Antonius, G.; Wu, M.; da Jornada, F. H.;
+      Louie, S. G. Electron-Phonon Coupling from Ab Ini-
+      tio Linear-Response Theory within the GW Method:
+      Correlation-Enhanced Interactions and Superconduc-
+      tivity in Ba1−x Kx BiO3 . Phys. Rev. Lett. 2019, 122,
+      186402.
+(136) Ismail-Beigi, S.; Louie, S. G. Excited-State Forces
+      within a First-Principles Green’s Function Formalism.
+      Phys. Rev. Lett. 2003, 90, 076401.
+(137) Rohlfing, M.; Louie, S. G. Electron-hole Excitations
+      and Optical Spectra from First Principles. Phys. Rev.
+      B 2000, 62, 4927–4944.
+(138) Ma, Y.; Rohlfing, M.; Molteni, C. Excited States
+      of Biological Chromophores Studied Using Many-
+      Body Perturbation Theory: Effects of Resonant-
+      Antiresonant Coupling and Dynamical Screening.
+      Phys. Rev. B 2009, 80, 241405.
+(139) Ma, Y.; Rohlfing, M.; Molteni, C. Modeling the
+      Excited States of Biological Chromophores within
+      Many-Body Green’s Function Theory. J. Chem. The-
+      ory. Comput. 2009, 6, 257–265.
+(140) Romaniello, P.; Sangalli, D.; Berger, J. A.; Sottile, F.;
+      Molinari, L. G.; Reining, L.; Onida, G. Double Exci-
+      tations in Finite Systems. J. Chem. Phys. 2009, 130,
+      044108.
+(141) Sangalli, D.; Romaniello, P.; Onida, G.; Marini, A.
+      Double Excitations in Correlated Systems: A
+      Many–Body Approach. J. Chem. Phys. 2011, 134,
+      034115.
+(142) Huix-Rotllant, M.;         Ipatov, A.;     Rubio, A.;
+      Casida, M. E. Assessment of Dressed Time-
+      Dependent Density-Functional Theory for the Low-
+      Lying Valence States of 28 Organic Chromophores.
+      Chem. Phys. 2011, 391, 120–129.
+(143) Zhang, D.; Steinmann, S. N.; Yang, W. Dynami-
+      cal second-order Bethe-Salpeter equation kernel: A
+      method for electronic excitation beyond the adiabatic
+      approximation. J. Chem. Phys. 2013, 139, 154109.
+(144) Rebolini, E.; Toulouse, J. Range-Separated Time-
+      Dependent Density-Functional Theory with a
+
+
+                                                                  13
+

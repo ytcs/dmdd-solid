@@ -1,0 +1,506 @@
+                                                                                 First principles study of the T-center in Silicon∗
+
+                                                                                                              Diana Dhaliah
+                                                                    Institute of Condensed Matter and Nanosciences (IMCN), Université Catholique de Louvain,
+                                                                                     Chemin des Étoiles 8, B-1348 Louvain-la-Neuve, Belgium
+
+                                                                                                              Yihuang Xiong
+                                                                  Thayer School of Engineering, Dartmouth College, 14 Engineering Dr, Hanover, NH 03755, USA
+
+                                                                                                              Alp Sipahigil
+                                                                                   Department of Electrical Engineering and Computer Sciences,
+arXiv:2202.04149v2 [cond-mat.mtrl-sci] 30 Mar 2022
+
+
+
+
+                                                                               University of California, Berkeley, Berkeley, California 94720, USA
+                                                                                         Department of Physics, University of California,
+                                                                                         Berkeley, Berkeley, California 94720, USA and
+                                                               Materials Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, California 94720, USA
+
+                                                                                                          Sinéad M. Griffin
+                                                             Materials Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, California 94720, USA and
+                                                                   Molecular Foundry, Lawrence Berkeley National Laboratory, Berkeley, California 94720, USA
+
+                                                                                                           Geoffroy Hautier
+                                                                                        Thayer School of Engineering, Dartmouth College,
+                                                                                       14 Engineering Dr, Hanover, NH 03755, USA and
+                                                                    Institute of Condensed Matter and Nanosciences (IMCN), Université Catholique de Louvain,
+                                                                                     Chemin des Étoiles 8, B-1348 Louvain-la-Neuve, Belgium
+                                                                                                       (Dated: April 1, 2022)
+                                                                     The T-center in silicon is a well-known carbon-based color center that has been recently considered
+                                                                  for quantum technology applications. Using first principles computations, we show that the excited
+                                                                  state is formed by a defect-bound exciton made of a localized defect state occupied by an electron
+                                                                  to which a hole is bound. The localized state is of strong carbon p character and reminiscent of
+                                                                  the localization of the unpaired electron in the ethyl radical molecule. The radiative lifetime for
+                                                                  the defect-bound exciton is calculated to be on the order of µs, much longer than other quantum
+                                                                  defects such as the NV center in diamond and in agreement with experiments. The longer lifetime
+                                                                  is associated with the small transition dipole moment as a result of the very different nature of the
+                                                                  localized and delocalized states forming the defect-bound exciton. Finally, we use first principles
+                                                                  calculations to assess the stability of the T-center. We find the T-center to be stable against
+                                                                  decomposition into simpler defects when keeping the stoichiometry fixed. However, we identify that
+                                                                  the T-center is easily prone to (de)hydrogenation and so requires very precise annealing conditions
+                                                                  (temperature and atmosphere) to be efficiently formed.
+
+
+                                                                      I.   INTRODUCTION                                ease of scalable integration into photonic and electronic
+                                                                                                                       circuits [4, 7, 8]. In fact, color centers in silicon have a
+                                                        There is a strong interest in controlling optically active     long history with numerous studies identifying and char-
+                                                     point defects in semiconductors for applications in quan-         acterizing these defects prior to interest in quantum ap-
+                                                     tum communication [1], sensing [2], and computing [3, 4].         plications [9]. Defects made by carbon implantation have
+                                                     These “quantum defects” act as artificial atoms that can          received much attention with a series of defects identified
+                                                     couple long-lived spin states and optical photons for opti-       by letters from the alphabet (G-center, I-center, etc.). Of
+                                                     cal spin readout and entanglement distribution over long          these, the T-center (composed of two carbons and one
+                                                     distances [5, 6]. Well-studied quantum defects include            hydrogen) is of particular interest for applications as it
+                                                     the NV center in diamond, and the silicon divacancy in            shows emission in the technologically relevant O-band of
+                                                     SiC, which have already demonstrated important initial            the infra-red spectra (1260 to 1360 nm) that is split un-
+                                                     steps for the development of quantum computers and sen-           der a magnetic field. This last requirement is critical as
+                                                     sors [1]. However, silicon has significant potential bene-        defects with unpaired electrons (i.e., having a doublet or
+                                                     fits over diamond as a quantum defect host including its          triplet ground state) are necessary to store quantum in-
+                                                                                                                       formation through spin. Though the T-center was first
+                                                                                                                       reported in 1981 by Mianev and Mudryi [10], more recent
+                                                                                                                       work proposed to use the T-center for quantum applica-
+                                                     ∗ To    whom correspondence    should   be   addressed    geof-   tions using isotopically pure silicon [11, 12]. The T-center
+                                                       froy.hautier@dartmouth.edu                                      has become an exciting candidate for a high-performance
+                                                                                                                                    2
+
+quantum defect in silicon that could become an key build-           position of the bulk valence band maximum (VBM) in
+ing block for future quantum technologies.                          charged-defect calculations due to the presence of the
+   First-principles calculations have proved essential for          compensating background charge density [26, 27]. The
+the understanding of quantum defects, including calcu-              chemical potentials for silicon and carbon were set to the
+lations of their relevant structural, electronic, optical,          energies of their elemental solid.
+and magnetic properties [13–15]. Here, we report on                    We further computed the hyperfine coupling param-
+a first-principles study of the T-center. Previous first-           eters using the relaxed 512 atoms supercell at HSE
+principles results on the T-center focused mainly on vi-            level with VASP. The hyperfine tensor AIij of nucleus
+brational frequencies and were carried out over a decade            I comprises the isotropic Fermi-contact term and the
+ago [16, 17]. However, major developments in ab initio              anisotropic spin dipolar term, which are described by the
+methodology and compute power over the past decade                  two equations below, respectively:
+motivate us to revisit first principles calculations of the
+T-center to study its electronic structure in detail and                                             Z
+                                                                                    2 µ0 γe γI
+identify the bound exciton nature of its excited state.                     AIiso =            δij       δT (r)ρs (r + RI ) dr,    (2)
+                                                                                    3       S
+We confirm and rationalize the rather long radiative life-
+time (µs) measured experimentally. Finally, we analyze                                      Z
+the thermodynamic stability of the T-center and identify                         µ0 γe γI       ρs (r + RI ) 3ri rj − δij r2
+                                                                       AIani =                                               dr,   (3)
+dehydrogenation as the primary stability concern for this                        4π S                r3             r2
+defect.                                                             where µ0 is the permeability of vacuum, γe and γI are
+                                                                    the gyromagnetic ratios of electron and nuclei. δT (r) is
+                                                                    a smeared out δ function in the relativistic case [28]. ρs
+                    II.       METHODS                               is the spin density of spin state S at coordinates r with
+                                                                    respect to the position of the nucleus RI .
+   Our first-principles calculations were performed using              The radiative lifetime calculations were performed us-
+VASP [18, 19] and the projector-augmented wave (PAW)                ing an independent-particle approximation approach on
+framework [20]. We used spin polarized computations                 the HSE Kohn-Sham states. The transition dipole mo-
+with supercells that are relaxed at fixed volume until the          ment was calculated using the wavefunctions from VASP
+forces on the ions are smaller than 0.01 eV/Å. We used a           and the PyVaspwfc code [29]. We use the Wigner-
+512 atoms supercell and a Γ-only k-point sampling. All              Weisskopf theory of fluorescence to compute the radiative
+computations were performed using the Heyd-Scuseria-                lifetime give by: [30–32]
+Ernzerhoff (HSE) [21] functional with 25% exact ex-
+change except when specified otherwise. The HSE func-                                     1   nr (2π)3 ν 3 |µ̄|2
+tional provides an accurate band gap for silicon, 1.114 eV,                                 =                    ,                 (4)
+                                                                                          τ       3ε0 hc3
+which compares well with the measured bandgap of 1.17
+eV at 0 K. More specifically, the decomposition and hy-             where τ is the radiative life time, nr is the refractive index
+drogenation computations are performed using the gener-             of silicon, ν is the transition frequency, µ̄ is the k-point
+alized gradient approximation (GGA) with the Perdew-                averaged transition dipole moment, ε0 is the vacuum per-
+Burke-Ernzerhof (PBE) functional [22]. For all defect               mittivity, h is the Planck constant and c is the speed of
+calculations, the input generation and output analysis              light. The transition dipole moment at a single k point
+were performed using PyCDT [23]. The formation energy               is:
+of each charged-defect state is calculated as a function of
+the Fermi level Ef as [24, 25]                                                                 i~
+                                                                                 µk =                    hψf,k |p|ψi,k i ,         (5)
+                                        X                                               (f,k − i,k ) m
+         q              q      bulk
+ Eform [X ] = Etot [X       ]−Etot  −       ni µi +qEf +Ecorr (1)
+                                                                    where i,k and f,k stands for the eigenvalues of the initial
+                                                                    and final states, m is electron mass, ψi and ψi stands for
+where Etot [X q ] and Etot
+                        bulk
+                             are the total energies of the          the initial and final wavefunctions, and p is the momen-
+defect-containing supercell (for a given defect X in the            tum operator.
+charge state q) and the bulk, respectively. The third                 The chemical potential of hydrogen µH can be linked
+term represents the energy needed to exchange atoms                 to the synthesis conditions using an ideal gas model.
+with thermodynamic reservoirs where ni indicates the
+number of atoms of species i removed or added to create
+                                                                                        1             exp
+the defect, and µi their corresponding chemical poten-                     µH (T, P ) =   (EH2 − T SH     + RT ln(PH2 )),    (6)
+tial. The fourth term represents the energy to exchange                                 2              2
+
+                                                                                                                          exp
+electrons with the host material through the electronic             where EH2 is the energy of the H2 molecule. SH         2
+                                                                                                                              is
+chemical potential given by the Fermi level. Finally, the           the entropy of H2 measured experimentally at standard
+last term is a correction accounting for spurious image-            condition [33], pH2 is the partial pressure of H2 . We used
+charge Coulomb interactions due to finite supercell size,           the H2 molecule at 0K as our reference, zero chemical
+as well as potential-alignment corrections to restore the           potential.
+                                                                                                                          3
+
+                    III.   RESULTS
+
+ A.   Formation energy and charge transition levels
+
+   The T-center is composed of bound carbon atoms sub-
+stituting on a single silicon site, with a hydrogen atom
+binding directly to one of the carbon atoms (see Figure
+1a). This specific atomic structure of the T-center has
+been assigned from previous magnetometry, isotope shift
+and stress studies [17, 34]. More recent work from Berg-
+eron et al. is consistent with this previously suggested
+structure [11]. We used this proposed structure to per-
+form first principles calculations using the hybrid HSE
+functional. Since defects can exhibit different charged
+states, we calculated a negatively charged -1 defect and
+a positively charged +1 defect, in addition to the neu-
+tral T-center. Figure 1b shows the defect formation en-
+ergy versus Fermi level for the T-center in these different
+charged states. The defect shows a stable neutral state
+for almost the entire range of Fermi levels within the
+band gap indicating that doping or gate voltage should
+not affect the defect charge state. The +1 state is not
+stable within the band gap and the -1 state is stable only
+for Fermi levels very close to the conduction band edge.
+The transition level between the 0 and -1 state is 1.07
+eV above the valence band maximum (VBM), 44 meV
+below the conduction band minimum (CBM).
+
+
+B.    Electronic structure of the ground and excited          FIG. 1. (a) Atomic structure of T-center. Two bound carbon
+                        states                                atoms replace a single silicon atom. A hydrogen is bound to
+                                                              one of the carbons. (b) Defect formation energy versus the
+   The ground state, single-electron, Kohn-Sham levels        Fermi energy for T-centers with charges –1, 0, and 1. The zero
+within HSE for the T-center are shown in Figure 2a.           of Fermi energy is referenced to the valence band maximum.
+                                                              We used the chemical potentials of elemental carbon, silicon,
+The bands from the silicon host are represented by the
+                                                              and the H2 gas as reference.
+continuum in blue (valence band) and green (conduction
+band). The defect levels obtained from our calculations
+are shown in dark blue for the states due to the sili-
+con host and in red for defect states. Given the point        this discrepancy including their cluster model or their
+group symmetry of the center, C1h [17], we identify an a0     use of a Gaussian basis set (as opposed to our planewave
+state where both spin up and down levels are degenerate       basis set). Figure 2c shows our calculated isosurface for
+300 meV below the valence band maximum. A second              the square of the wavefunction of the a00 state, showing
+defect state with symmetry a00 is split between spin up       that that it is well localized on the defect. The unpaired
+and spin down with a large splitting of more than 1 eV.       electron localizes in an orbital of strong carbon p char-
+The spin up state is below the valence band maximum           acter. The localization of this unpaired electron is remi-
+while the spin down state is at the CBM (6 meV higher         niscent to the molecular ethyl radical CH3 CH2 • [36–38].
+than the CBM). We note that this result is not consis-        We also computed the hyperfine coupling matrix of the
+tent with earlier ab initio calculations where they found     H nuclei with the spin density and found the three eigen-
+the ground state Kohn-Sham levels to have a single spin       values for the hyperfine tensor to be 5.39, 4.14 and -2.08
+up and spin down level in the gap with a further defect       MHz. This is in fair agreement with the experimental
+level in the conduction band [16]. Compared to our re-        data from Bergeron et al. which measured an average
+sults, they appear to have systematically higher defect       hyperfine coupling of 2.6MHz. However, in this work
+level energies. This is somewhat surprising given that        they could only observe the anisotropy of the hyperfine
+their choice of exchange-correlation functional – the lo-     coupling without being able to resolve the full tensor.
+cal density functional – tends to systematically underesti-      We find that the lowest energy excitation is from the
+mate fundamental bandgaps and defect level energies[35],      valence band edge to the localized a00 state. The ex-
+which is opposite to the trend we observe from our HSE        cited state is made of an electron in a localized state
+results. However, several other factors could be causing      and a hole from a band edge state. Using constrained-
+                                                                                                                        4
+
+                                                              ground and excited states to estimate the radiative life-
+                                                              time. We first calculate the transition dipole in the
+                                                              independent-particle approximation from the HSE elec-
+                                                              tronic structure and find a transition dipole moment of
+                                                              2.2 D and 0.46 D depending on the use of the excited or
+                                                              ground state electronic structure. The radiative lifetime
+                                                              can then be computed using these transition dipole mo-
+                                                              ments and range from 1.3 to 5 µs depending on the use
+                                                              of the ground state or excited electronic structure. This
+                                                              is longer than the experimental value of 0.9 µs reported
+                                                              by Bergeron et al [11]. Our larger values could indicate a
+                                                              component of non-radiative transition in the experiment.
+                                                              The long lifetime of the T-center excited state compared
+                                                              to other quantum defects observed in experiments is con-
+                                                              firmed by our first-principles calculations. The NV center
+                                                              for instance has a radiative lifetime of around 12 ns both
+                                                              from experiments and calculations with a similar level of
+                                                              theory [42, 43].
+                                                                 The longer lifetime is inherent to the defect-bound ex-
+                                                              citon nature of the excited state and to the large dif-
+                                                              ference in nature between the localized and delocalized
+                                                              states constituting this exciton. The transition dipole
+FIG. 2. Kohn-Sham levels of T-center using HSE in (a) the     moment is sensitive to the overlap between the wave-
+ground state and (b) the excited state (using constrained-    functions of these two states which are sufficiently dif-
+HSE). (c) isosurface for the square of the wavefunction for   ferent to result in a small overlap. Moreover, since the
+the a00 level.                                                sp3 hybridization in the bulk now permits the nominally
+                                                              forbidden p ↔ p transition, this further suggests a small
+                                                              dipole matrix element. For these reasons, we expect most
+HSE, we show in Figure 2b the electronic structure of         weakly bound excitons in silicon to show longer radiative
+the defect when the electron is promoted to the local-        lifetime than the NV center and thus lower brightness.
+ized state leaving a hole in the highest energy band edge     We note that the ground state valence band edge states
+state. This hole and electron bind to form a defect-bound     that are 3-fold degenerate in a perfect bulk silicon su-
+exciton. This excited defect can be classified as an iso-     percell are here split by the presence of the defect. This
+electronic acceptor [39]. Our assignment of the electron      splitting is consistent with the second peak observed ex-
+being in a localized state while the hole is delocalized is   perimentally above the ZPL and called TX1 in Ref. [11].
+in agreement with most previous studies including the         The splitting between the valence band states in our HSE
+recent work from Bergeron et al., but disagrees with an       calculations is 11 meV, which is larger than the exper-
+earlier assignment from Irions et al. which assigned the      imental value of 1.76 meV. This overestimation likely
+electron to the delocalized state and the hole to the lo-     comes from finite supercell size effects as demonstrated
+calized one [17, 34, 40].                                     by Zhang et al. on the silicon divacancy in diamond [44].
+   We next calculate the zero-phonon line (ZPL) energy.       Combining the calculated transition levels between the
+To calculate the ZPL, we use our constrained-HSE cal-         neutral and charge -1 state (0/-1 transition level in Figure
+culations which provide the total energy of the relaxed       1) of 1.07 eV and the calculated ZPL energy of 985 meV,
+defect when forcing the occupation of the a00 spin down       we can evaluate the energy required to release the weakly
+state. The difference between the energy of this ex-          bound hole from the defect-bound exciton as 1.07 eV -
+cited state and the energy of the ground state is pre-        0.985 eV= 85 meV. This is larger than the measured ac-
+cisely the ZPL energy. While this approach does not fully     tivation energy for the thermal photoluminescence (PL)
+treat electron-hole interactions, it does not have the same   quench (22 meV, 32 meV to 35 meV) [11, 17, 40] but
+computational cost as more sophisticated methods (e.g.        within the error expected from our methodology.
+GW-BSE) and is more amenable to use in a supercell
+approach. Constrained-HSE has shown good agreement
+with more advanced theories such as time-dependent den-              C.   Stability versus decomposition and
+sity functional theory (TD-DFT) as well as experiments                             hydrogenation
+in the case of quantum defects in diamond [41]. We cal-
+culate a ZPL energy of 985 meV which compares reason-           In addition to our studies on the stability of the T-
+ably well with the 935 meV ZPL measured experimen-            center’s charge states, we now use first principles com-
+tally [11].                                                   putations to assess the stability of the defect against de-
+   We now use information from the wavefunction of the        composition into simpler defects made from carbon and
+                                                                                                                          5
+
+hydrogen. Table I shows the reaction energy of decom-           the possibility to exchange hydrogen with the T-center is
+position for the T-center (noted as (C-C-H)Si ) keeping a       taken into account, the picture of the T-center stability
+fixed composition of two carbons and one hydrogen. For          changes significantly. The T-center is competing with its
+this investigation, we used DFT-GGA-PBE rather than             hydrogenated ((H-C-C-H)Si ) and dehydrogenated ((C-
+the more computationally expensive HSE as the energet-          C)Si ) counterparts and will be present only within a nar-
+ics for these processes are already well captured by stan-      row chemical potential window (around µH =-0.92 eV).
+dard DFT. All decomposition reactions are endothermic           Within standard conditions (25°C and 1 bar of hydro-
+indicating that the T-center is thermodynamically stable        gen partial pressure, µH =-0.2 eV), the most stable form
+against decomposition into simpler defects. It has been         of the T-center is the fully hydrogenated one ((H-C-C-
+suggested that the T-center forms through the combi-            H)Si ). In fact, the ethyl radical molecule also shows a
+nation of C substitutional defects and C-H interstitials        strong tendency to bind with hydrogen under standard
+created by ion implantation [17, 34]. Our computations          conditions [45]. A few typical conditions in terms of tem-
+agree with this picture and confirm there is a thermody-        perature and partial pressure of H2 are labeled on Figure
+namic driving force of 1.75 eV for that process. However,       3 (see Methods).
+other processes could be at play as well as our Table sug-
+gests.
+
+TABLE I. Reaction energy of decomposing T-center into sim-
+pler defects with a fixed compositions of two carbons and one
+hydrogen
+         T-center                       T-center
+  decomposition reaction         decomposition energy (eV)
+(C-C-H)Si → 2 CSi + Hi                     2.15
+(C-C-H)Si → 2 Ci + Hi                      8.41
+(C-C-H)Si → CSi + Ci + Hi                  5.28
+(C-C-H)Si → (C-H)Si + Ci                   3.94
+(C-C-H)Si → CSi + (C-H)i                   1.75
+(C-C-H)Si → (C-H)Si + CSi                  0.80
+(C-C-H)Si → (C-H)i + Ci                    4.88
+(C-C-H)Si → (C-C)Si + Hi                   2.81
+
+
+   The stability of the complex with hydrogenation is also
+of interest. Given hydrogen’s rapid diffusion in solid-state    FIG. 3. Stability of T center in a grand canonical ensemble
+materials, the environment during annealing or operation        open to hydrogen
+could lead to hydrogen exchange with the defect. Follow-
+ing the analogy of the T-center with an ethyl radical, it          Our thermodynamic analysis can be used to rational-
+is reasonable to expect that the unpaired electron of the       ize some recent findings in the preparation of the T-
+T-center will react spontaneously with hydrogen [45]. In        center [12]. The preparation steps reported by MacQuar-
+fact, hydrogenation of silicon color centers has been sug-      rie et al. starts with carbon implantation and hydrogen
+gested as a potential cause of PL degradation [46]. On the      implantation. The sample is then annealed under boil-
+other hand, we also consider a dehydrogenated T-center          ing water and finally annealed in nitrogen at higher tem-
+(C-C)Si which is the “configuration C” defect previously        perature (around 400°C). Using Figure 3 to guide our
+discussed in the context of the silicon G-center [47]. We       understanding, we suggest that the hydrogen implanta-
+use here a thermodynamic model which considers a fixed          tion and boiling water anneal are there to ensure a high
+number of carbon in a silicon matrix (two carbon atoms)         enough hydrogen chemical potential favoring the forma-
+and an open system for hydrogen (modeling the envi-             tion of the hydrogenated form of the T-center (H-C-C-
+ronment of the host). The thermodynamic potential is            H)Si . This agrees with the reported ion implantation
+then defined as Edefect − nH µH , where Edefect is the for-     procedure of using carbon and hydrogen in a fixed 1:1
+mation energy of the defect obtained from DFT, nH is            ratio [12]. We hypothesize that the high hydrogen chem-
+the number of hydrogen in the defect, and µH the hy-            ical potential could be important to favor the formation
+drogen chemical potential. Figure 3 shows how the ther-         of the hydrogenated T-center versus the decomposition in
+modynamic potential of different defects varies with the        2 substitutional carbon defects (2 CSi ). The final anneal-
+hydrogen chemical potential. The reference chemical po-         ing (at higher temperature and under nitrogen gas) plays
+tential (µH =0 eV) is the H2 molecule at 0K. We include         a decisive role for successfully forming the T-center. In
+here the T-center with different levels of hydrogenation        addition to potentially recovering the ion implanted lat-
+as well a selection of calculated decomposition products        tice, our analysis indicates that the annealing is essential
+for clarity. All possible decomposition pathways is avail-      to dehydrogenate (H-C-C-H)Si and form the T-center.
+able in Supplementary Information (see Fig. S1). When           In view of the narrow range of stability for (C-C-H)Si ,
+                                                                                                                           6
+
+the annealing conditions (hydrogen partial pressure and          charge state for most of the Fermi levels across the band
+temperature) need to be very well controlled. Annealing          gap. We compute a ZPL of 985 meV in fair agreement
+at too high a hydrogen chemical potential will not bring         with experiment. The excited state forms a defect-bound
+the driving force necessary for T-center (C-C-H)Si forma-        exciton by filling a localized state and leaving a bound
+tion. Annealing at too low a hydrogen chemical poten-            hole in a valence band state. The localized state shows
+tial will favor the fully dehydrogenated T-center (C-C)Si .      a strong carbon p character reminiscent of the ethyl rad-
+We note that the formation of the 2 carbon substitu-             ical molecule. The bound-defect excitonic nature of the
+tional (2CSi , orange line in Figure 3) is thermodynami-         excited state leads to long radiative lifetime on the or-
+cally favored during typical annealing conditions but will       der of µs and low brightness. Finally, we have analyzed
+be kinetically more difficult than hydrogen exchange and         the stability of the T-center and rationalize the sequence
+could be kinetically inhibited. Quantitatively, we have          of implantation such that annealing necessary to its for-
+found that the optimal annealing conditions for (C-C-            mation. The T-center is stable versus (de)hydrogenation
+H)Si formation lies at µH =-0.92 eV. This corresponds to         in a very narrow range of hydrogen chemical potential
+a temperature of 450°C and a partial pressure of hydro-          and annealing conditions (atmosphere and temperature)
+gen of 10−6 bar in good agreement with the experimen-            need to be very precisely controlled to lead to a large
+tal observations setting the optimum annealing around            concentration of T-centers.
+400°C under nitrogen gas. Our analysis also agrees with
+previous experimental observations indicating that the
+PL disappears when T-centers are annealed under hydro-                       V.   ACKNOWLEDGMENTS
+gen atmosphere as this will lead to the formation of the
+optically inactive (H-C-C-H)Si [46]. Finally, even when             This work was supported by the U.S. Department
+conditions are optimal for the T-center formation, the           of Energy, Office of Science, Basic Energy Sciences in
+hydrogenated and dehydrogenated form are very com-               Quantum Information Science under Award Number DE-
+petitive energetically and should be present as well in          SC0022289. D.D. acknowledges funding by the Conseil
+silicon samples.                                                 de l’action international (CAI) through a doctorate grant
+                                                                 “Coopération au Développement”. This research used re-
+                                                                 sources of the National Energy Research Scientific Com-
+                                                                 puting Center, a DOE Office of Science User Facility sup-
+                 IV.    CONCLUSIONS
+                                                                 ported by the Office of Science of the U.S. Department
+                                                                 of Energy under Contract No. DE-AC02-05CH11231 us-
+  We have reported on a first principles analysis of the         ing NERSC award BES-ERCAP0020966. G.H. thanks P.
+T-center in silicon. The defect is stable in the neutral         Pochet for useful discussions.
+
+
+
+
+ [1] M. Pompili, S. L. N. Hermans, S. Baier, H. K. C. Beukers,    [5] M. Atatüre, D. Englund, N. Vamivakas, S.-Y. Lee, and
+     P. C. Humphreys, R. N. Schouten, R. F. L. Vermeulen,             J. Wrachtrup, Material platforms for spin-based photonic
+     M. J. Tiggelman, L. dos Santos Martins, B. Dirkse,               quantum technologies, Nature Reviews Materials 3, 38
+     S. Wehner, and R. Hanson, Realization of a multinode             (2018).
+     quantum network of remote solid-state qubits, Science        [6] G. Wolfowicz, F. J. Heremans, C. P. Anderson, S. Kanai,
+     372, 259 (2021).                                                 H. Seo, A. Gali, G. Galli, and D. D. Awschalom, Quan-
+ [2] S. Hsieh, P. Bhattacharyya, C. Zu, T. Mittiga, T. J.             tum guidelines for solid-state spin defects, Nature Re-
+     Smart, F. Machado, B. Kobrin, T. O. Höhn, N. Z. Rui,            views Materials 6, 906 (2021).
+     M. Kamrani, S. Chatterjee, S. Choi, M. Zaletel, V. V.        [7] A. Durand, Y. Baron, W. Redjem, T. Herzig, A. Benali,
+     Struzhkin, J. E. Moore, V. I. Levitas, R. Jeanloz, and           S. Pezzagna, J. Meijer, A. Y. Kuznetsov, J.-M. Gérard,
+     N. Y. Yao, Imaging stress and magnetism at high pres-            I. Robert-Philip, M. Abbarchi, V. Jacques, G. Cassabois,
+     sures using a nanoscale quantum sensor, Science 366,             and A. Dréau, Broad diversity of near-infrared single-
+     1349 (2019).                                                     photon emitters in silicon, Phys. Rev. Lett. 126, 083602
+ [3] C. Bradley, J. Randall, M. Abobeih, R. Berrevoets,               (2021).
+     M. Degen, M. Bakker, M. Markham, D. Twitchen, and            [8] K. Saeedi, S. Simmons, J. Z. Salvail, P. Dluhy, H. Rie-
+     T. Taminiau, A ten-qubit solid-state spin register with          mann, N. V. Abrosimov, P. Becker, H.-J. Pohl, J. J. L.
+     quantum memory up to one minute, Physical Review X               Morton, and M. L. W. Thewalt, Room-temperature
+     9, 10.1103/physrevx.9.031045 (2019).                             quantum bit storage exceeding 39 minutes using
+ [4] X. Yan, S. Gitt, B. Lin, D. Witt, M. Abdolahi,                   ionized donors in silicon-28, Science 342, 830 (2013),
+     A. Afifi, A. Azem, A. Darcie, J. Wu, K. Awan,                    https://www.science.org/doi/pdf/10.1126/science.1239584.
+     M. Mitchell, A. Pfenning, L. Chrostowski, and                [9] G. Davies, The optical properties of luminescence centres
+     J. F. Young, Silicon photonic quantum computing                  in silicon, Physics Reports 176, 83 (1989).
+     with spin qubits, APL Photonics 6, 070901 (2021),           [10] N. S. Minaev and A. Mudryi, Thermally-induced defects
+     https://doi.org/10.1063/5.0049372.                               in silicon containing oxygen and carbon, Physica Status
+                                                                                                                                  7
+
+     Solidi (a) 68, 561 (1981).                                     [28] P. E. Blöchl, First-principles calculations of defects in
+[11] L. Bergeron, C. Chartrand, A. T. K. Kurkjian, K. J.                 oxygen-deficient silica exposed to hydrogen, Phys. Rev.
+     Morse, H. Riemann, N. V. Abrosimov, P. Becker,                      B 62, 6158 (2000).
+     H.-J. Pohl, M. L. W. Thewalt, and S. Simmons,                  [29] Q. Zheng, Vasp band unfolding, https://github.com/
+     Silicon-integrated telecommunications photon-spin inter-            QijingZheng/VaspBandUnfolding (2018).
+     face, PRX Quantum 1, 020301 (2020).                            [30] Á. Gali, Ab initio theory of the nitrogen-vacancy center
+[12] E. R. MacQuarrie, C. Chartrand, D. B. Higginbottom,                 in diamond, Nanophotonics 8, 1907 (2019).
+     K. J. Morse, V. A. Karasyuk, S. Roorda, and S. Simmons,        [31] A. Alkauskas, C. E. Dreyer, J. L. Lyons, and C. G. Van de
+     Generating t centres in photonic silicon-on-insulator ma-           Walle, Role of excited states in shockley-read-hall recom-
+     terial by ion implantation, New Journal of Physics 23,              bination in wide-band-gap semiconductors, Phys. Rev. B
+     103008 (2021).                                                      93, 201304 (2016).
+[13] V. Ivády, I. A. Abrikosov, and A. Gali, First princi-         [32] J. Davidsson, Theoretical polarization of zero phonon
+     ples calculation of spin-related quantities for point de-           lines in point defects, Journal of Physics: Condensed
+     fect qubit research, npj Computational Materials 4, 76              Matter 32, 385502 (2020).
+     (2018).                                                        [33] M. W. Chase Jr, Nist-janaf thermochemical tables, J.
+[14] L. C. Bassett, A. Alkauskas, A. L. Exarhos, and K.-M. C.            Phys. Chem. Ref. Data, Monograph 9 (1998).
+     Fu, Quantum defects by design, Nanophotonics 8, 1867           [34] A. Safonov and E. C. Lightowlers, Photoluminescence
+     (2019).                                                             characterisation of hydrogen-related centres in silicon,
+[15] C. E. Dreyer, A. Alkauskas, J. L. Lyons, A. Jan-                    Materials Science and Engineering B-advanced Func-
+     otti, and C. G. Van de Walle, First-principles cal-                 tional Solid-state Materials 58, 39 (1999).
+     culations of point defects for quantum technologies,           [35] C. Stampfl, C. G. Van de Walle, D. Vogel, P. Krüger, and
+     Annual Review of Materials Research 48, 1 (2018),                   J. Pollmann, Native defects and impurities in inn: First-
+     https://doi.org/10.1146/annurev-matsci-070317-124453.               principles studies using the local-density approximation
+[16] P. Leary, R. Jones, and S. Öberg, Interaction of hydro-            and self-interaction and relaxation-corrected pseudopo-
+     gen with substitutional and interstitial carbon defects in          tentials, Phys. Rev. B 61, R7846 (2000).
+     silicon, Phys. Rev. B 57, 3887 (1998).                         [36] D. S. Levine and M. Head-Gordon, Clarifying the quan-
+[17] A. N. Safonov, E. C. Lightowlers, G. Davies, P. Leary,              tum mechanical origin of the covalent chemical bond, Na-
+     R. Jones, and S. Öberg, Interstitial-carbon hydrogen in-           ture Communications 11, 4893 (2020).
+     teraction in silicon, Phys. Rev. Lett. 77, 4812 (1996).        [37] J. Pacansky, W. Koch, and M. D. Miller, Analysis of
+[18] G. Kresse and J. Furthmüller, Efficient iterative schemes          the structures, infrared spectra, and raman spectra for
+     for ab initio total-energy calculations using a plane-wave          methyl, ethyl, isopropyl, and tert-butyl radicals, Journal
+     basis set, Phys. Rev. B 54, 11169 (1996).                           of the American Chemical Society, Journal of the Amer-
+[19] G. Kresse and J. Furthmüller, Efficiency of ab-initio total        ican Chemical Society 113, 317 (1991).
+     energy calculations for metals and semiconductors using        [38] T. Häber, A. C. Blair, D. J. Nesbitt, and M. D. Schuder,
+     a plane-wave basis set, Computational Materials Science             Ch stretch/internal rotor dynamics in ethyl radical:
+     6, 15 (1996).                                                       High-resolution spectroscopy in the ch3-stretch manifold,
+[20] P. E. Blöchl, Projector augmented-wave method, Phys.               The Journal of Chemical Physics 124, 054316 (2006),
+     Rev. B 50, 17953 (1994).                                            https://doi.org/10.1063/1.2140740.
+[21] J. Heyd, G. E. Scuseria, and M. Ernzerhof, Hybrid              [39] L. Patrick, Isoelectronic donors and acceptors, Phys. Rev.
+     functionals based on a screened coulomb potential,                  Lett. 18, 45 (1967).
+     The Journal of Chemical Physics 118, 8207 (2003),              [40] E. Irion, N. Bürger, K. Thonke, and R. Sauer, The de-
+     https://doi.org/10.1063/1.1564060.                                  fect luminescence spectrum at 0.9351 ev in carbon-doped
+[22] J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized               heat-treated or irradiated silicon, Journal of Physics C:
+     gradient approximation made simple, Phys. Rev. Lett.                Solid State Physics 18, 5069 (1985).
+     77, 3865 (1996).                                               [41] Y. Jin, M. Govoni, G. Wolfowicz, S. E. Sullivan, F. J.
+[23] D. Broberg, B. Medasani, N. E. Zimmermann, G. Yu,                   Heremans, D. D. Awschalom, and G. Galli, Photolumi-
+     A. Canning, M. Haranczyk, M. Asta, and G. Hautier,                  nescence spectra of point defects in semiconductors: Val-
+     Pycdt: A python toolkit for modeling point defects in               idation of first-principles calculations, Phys. Rev. Mate-
+     semiconductors and insulators, Computer Physics Com-                rials 5, 084603 (2021).
+     munications 226, 165 (2018).                                   [42] A. Batalov, C. Zierl, T. Gaebel, P. Neumann, I.-Y. Chan,
+[24] S. B. Zhang and J. E. Northrup, Chemical potential de-              G. Balasubramanian, P. R. Hemmer, F. Jelezko, and
+     pendence of defect formation energies in gaas: Applica-             J. Wrachtrup, Temporal coherence of photons emitted
+     tion to ga self-diffusion, Phys. Rev. Lett. 67, 2339 (1991).        by single nitrogen-vacancy defect centers in diamond us-
+[25] H.-P. Komsa, T. T. Rantala, and A. Pasquarello, Finite-             ing optical rabi-oscillations, Phys. Rev. Lett. 100, 077401
+     size supercell correction schemes for charged defect cal-           (2008).
+     culations, Phys. Rev. B 86, 045112 (2012).                     [43] P. Siyushev, H. Pinto, M. Vörös, A. Gali, F. Jelezko,
+[26] C. Freysoldt, J. Neugebauer, and C. G. Van de Walle,                and J. Wrachtrup, Optically controlled switching of the
+     Fully ab initio finite-size corrections for charged-defect          charge state of a single nitrogen-vacancy center in dia-
+     supercell calculations, Phys. Rev. Lett. 102, 016402                mond at cryogenic temperatures, Phys. Rev. Lett. 110,
+     (2009).                                                             167402 (2013).
+[27] Y. Kumagai and F. Oba, Electrostatics-based finite-size        [44] Z.-H. Zhang, P. Stevenson, G. m. H. Thiering, B. C. Rose,
+     corrections for first-principles point defect calculations,         D. Huang, A. M. Edmonds, M. L. Markham, S. A. Lyon,
+     Phys. Rev. B 89, 195205 (2014).                                     A. Gali, and N. P. de Leon, Optically detected magnetic
+                                                                                                                             8
+
+     resonance in neutral silicon vacancy centers in diamond         Technology 9, 1370 (1994).
+     via bound exciton states, Phys. Rev. Lett. 125, 237402     [47] D. Timerkaeva, C. Attaccalite, G. Brenet, D. Caliste,
+     (2020).                                                         and P. Pochet, Structural, electronic, and optical prop-
+[45] P. Marshall, Thermochemistry of the ethyl radical and           erties of the c-c complex in bulk silicon from first prin-
+     the C-H bond strength in ethane, The Journal of Physical        ciples, Journal of Applied Physics 123, 161421 (2018),
+     Chemistry A, The Journal of Physical Chemistry A 103,           https://doi.org/10.1063/1.5010269.
+     4560 (1999).                                               [48] M. W. Doherty, N. B. Manson, P. Delaney, F. Jelezko,
+[46] E. C. Lightowlers, R. C. Newman, and J. H. Tucker,              J. Wrachtrup, and L. C. Hollenberg, The nitrogen-
+     Hydrogen-related luminescence centres in thermally              vacancy colour centre in diamond, Physics Reports 528,
+     treated czochralski silicon, Semiconductor Science and          1 (2013).
+                                                            Supplemental Information: First principles study of the T-center in Silicon∗
+
+                                                                                                             Diana Dhaliah
+                                                                   Institute of Condensed Matter and Nanosciences (IMCN), Université Catholique de Louvain,
+                                                                                    Chemin des Étoiles 8, B-1348 Louvain-la-Neuve, Belgium
+
+                                                                                                             Yihuang Xiong
+                                                                Thayer School of Engineering, Dartmouth College, 14 Engineering Dr, Hanover, NH 03755, USA
+
+                                                                                                             Alp Sipahigil
+                                                                                  Department of Electrical Engineering and Computer Sciences,
+arXiv:2202.04149v2 [cond-mat.mtrl-sci] 30 Mar 2022
+
+
+
+
+                                                                              University of California, Berkeley, Berkeley, California 94720, USA
+                                                                                        Department of Physics, University of California,
+                                                                                        Berkeley, Berkeley, California 94720, USA and
+                                                              Materials Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, California 94720, USA
+
+                                                                                                         Sinéad M. Griffin
+                                                            Materials Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, California 94720, USA and
+                                                                  Molecular Foundry, Lawrence Berkeley National Laboratory, Berkeley, California 94720, USA
+
+                                                                                                         Geoffroy Hautier
+                                                                                       Thayer School of Engineering, Dartmouth College,
+                                                                                      14 Engineering Dr, Hanover, NH 03755, USA and
+                                                                   Institute of Condensed Matter and Nanosciences (IMCN), Université Catholique de Louvain,
+                                                                                    Chemin des Étoiles 8, B-1348 Louvain-la-Neuve, Belgium
+                                                                                                      (Dated: April 1, 2022)
+
+
+
+
+                                                     ∗ To   whom correspondence    should   be   addressed    geof-
+                                                      froy.hautier@dartmouth.edu
+                                                                                                                         2
+
+
+
+
+FIG. S1. The formation energy of all the studied defects with respect to hydrogen chemical potential µH . Various levels of
+hydrogenation and dehydrogenation are incoporated to the defect centers, as labeled in the figure.
+

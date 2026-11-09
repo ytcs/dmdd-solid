@@ -1,0 +1,14 @@
+# Chapter 21 (part 2) batch review: derivation check (isolated)
+You are the derivation verifier (long-form-writing SKILL.md §5). Under review: /home/user/dmdd-solid/book/tex/ch21/ch21.tex, s21-4.tex, s21-5.tex, s21-6.tex, s21-7.tex, s21-summary.tex, /home/user/dmdd-solid/book/tex/appD/D-47.tex. Also read /home/user/dmdd-solid/book/NOTATION.md and /home/user/dmdd-solid/book/STYLE.md, and the public sources that are cited; fetch them with /home/user/dmdd-solid/skills/breakthrough-maths/scripts/lit.py into /home/user/dmdd-solid/book/sources/review-ch21/ and delete the PDFs afterwards.
+Check the following.
+- Redo every step that is not a definition from the previous line, using sympy for the algebra.
+- Do dimensional analysis on every displayed result, and check every limiting case the text claims.
+- Recompute every number in the text and the worked examples.
+- Check each cited value or equation against its source.
+- Report factor-of-2, π, sign or convention drift against NOTATION.
+EXCLUDE: nothing; QE outputs are cached in figscripts/ch21 (npz, gaas_cache) — recompute numbers from them, do not run QE.
+Known items: everything in /home/user/dmdd-solid/book/ledgers/REVIEWS/ch21/editor-notes.md that concerns your files.
+Output /home/user/dmdd-solid/book/ledgers/REVIEWS/ch21/derivation-2.md, ≤ 250 lines: location → CHECKED / WRONG / GAP, with the correction. Run nothing heavy: no QE runs (the machine's compute is busy). Do not edit the tex. Do not commit. Final message ≤ 10 lines.
+- PRIORITY: every item in ledgers/REVIEWS/ch21/editor-notes.md and ledgers/REVIEWS/partII/editor-notes.md for your sections; verify each independently and state the verdict. Cached data: figscripts/ch21 (all .log files), ch10, ch05 npz. PRIORITY: D.47 and the 21.4 band/profiled limit (WE 9.23e-42 → 1.30e-41; band 8.8e-42–1.93e-41; profiled 1.53e-41), the dominant-nuisance switches; the three statistical constructions across 21.4/21.5 (k² coefficients 2.30/1.15/0.65) — recommend one chapter-wide; Yellin max gap numbers, the combination WE (×1.109 vs ×1.051), the recast rule/bracket and 0.9ⁿ coverage, the Dirac recast factors (×1600; ZrTe₅ 5200–6400, 820 near threshold); the boosted-flux R^{-1/2}; the library WE (L 0.1442, S 4.38e7 eV²; ×0.864 EPM vs tables); the 21.7 guide table numbers against rank17_6/guide21_7 logs and accepted Ch17/Ch18/Ch20 values, the radioactivity budget (689 /kg/day/keV per Bq/kg; 1.45 mBq/kg), tritium (Ge 7.31 vs research 6.7); the summary and nuisance table against the final sections.
+- Any number traceable to campaign returns: check it against state/CORRECTIONS.md and SOTA.md, and flag any use of a superseded value.
+- A parallel compute effort is posting results in state/DC-RESULTS.md and returns/R18/. If any of those bear on a number in your sections, compare them and report the difference; respect any quoting restriction stated in DC-RESULTS.md.

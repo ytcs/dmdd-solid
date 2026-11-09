@@ -1,0 +1,956 @@
+                                                       First-Principles Calculations of the Electron-Hole-Pair Creation Energy in Semiconductors and
+                                                                                                   Dielectrics
+                                                                                                 Dallin O. Nielsen and Massimo V. Fischetti
+                                                                               Department of Materials Science and Engineering, The University of Texas at Dallas,
+                                                                                             800 W. Campbell Rd., Richardson, Texas 75080, USA
+                                                                                                          (*dallin.nielsen@utdallas.edu)
+                                                                                                            (Dated: October 14, 2026)
+                                                                      We present first-principles calculations of the electron-hole-pair creation energy in semiconductors and di-
+                                                                   electrics, focusing in particular on AlN, 3C-SiC, 4H-SiC, Si, and SiO2 . We have employed density functional
+                                                                   theory (DFT) to calculate the band structure, density-functional perturbation theory to obtain the phonon dis-
+arXiv:2610.16949v1 [cond-mat.mtrl-sci] 12 Oct 2026
+
+
+
+
+                                                                   persion, and time-dependent DFT (TDDFT) to calculate the electron energy loss function (via the dielectric
+                                                                   function). We performed full-band Monte Carlo simulations of electron thermalization for energies up to
+                                                                   ∼ 100 eV and calculated the average energy required to excite an electron-hole pair. We calculated pair-creation
+                                                                   energies of approximately 12.2, 6.5, 7.3, 3.10, and 16.7 eV/pair for AlN, 3C-SiC, 4H-SiC, Si, and SiO2 , re-
+                                                                   spectively. These values are in good agreement with measured data, with the largest discrepancy being that
+                                                                   of Si (about 14.9% lower than the accepted experimental value of ∼ 3.6 eV/pair). To improve the agreement
+                                                                   for Si, we used the GW approach and the Bethe-Salpeter equation (BSE) to calculate the quasiparticle shifts
+                                                                   of the electronic band structure and the dielectric function, respectively. Finally, using the GW/BSE data, we
+                                                                   calculated a creation energy of ∼ 3.50 eV/pair. We find that the marked improvement in the accuracy of the
+                                                                   calculated creation energy, when using the GW/BSE approach, is primarily attributable to the slight decrease
+                                                                   in the magnitude of the electron energy-loss function when using the GW/BSE approach for energies below
+                                                                   ∼ 10-15 eV. Overall, it is clear that the competition between phonon emission and ionization near the intersection
+                                                                   of the phonon scattering and ionization rates is largely responsible for determining the value of the creation
+                                                                   energy, with the other major factor being the location and shape of the plasmon peak in the energy-loss function.
+
+
+                                                                          I.   INTRODUCTION                                   focusing now on the pair creation energy rather than on the
+                                                                                                                              dynamics of carrier thermalization. The listed materials have
+                                                                                                                              band gaps of 6.2, 2.36, 3.2, 1.12, and 9.0 eV, respectively.
+                                                        When ionizing radiation interacts with a semiconductor or             This relatively wide range of band gap widths allows for a
+                                                     dielectric, it deposits energy mainly by generating electron-            comprehensive assessment of the predictive power of the first-
+                                                     hole pairs (EHPs) and, in the case of ions, interacting with the         principles approach in calculating 𝜖 and its dependence on 𝐸 𝑔
+                                                     material nuclei. Knowledge of the average energy required to             – a relationship that has been studied since the 1940s, due to
+                                                     excite or generate an EHP is important for the study of the              its importance in radiation detection and radiation damage.
+                                                     stopping power and understanding the radiation resistance of a
+                                                     given material and/or device, as well as accurately simulating              Bethe developed early analytic approximations of the stop-
+                                                     radiation effects. It is also important in the study of radiation        ping power of ions in matter that included 𝜖 as a parame-
+                                                     detection [1–4], photovoltaics [5], radioisotope microbatter-            ter [33], leading to an increased demand for accurate creation
+                                                     ies [6, 7], and optoelectronics [8]. This quantity is commonly           energy data to improve radiation damage predictions. Mea-
+                                                     referred to as the EHP creation energy or radiation-ionization           surements of 𝜖 began in the 1940s and 1950s with the works
+                                                     energy [9], typically denoted in the literature by the symbols 𝜖         of Ahearn [34], McKay [10], and McKay and McAfee [35].
+                                                     or 𝑊. In this paper, we will use the symbol 𝜖 to represent the           Lappe was the first to note that the reported values of 𝜖 were
+                                                     creation energy, following the notation used by McKay [10]               approximately equal to three times the bandgap energy[36],
+                                                     and Alig, et al. [11].                                                   𝐸 g , a simplification commonly still assumed today. Baldinger
+                                                                                                                              and Czaja suggested that the relationship between 𝜖 and 𝐸 g
+                                                        In 2023, we published two papers [12, 13], in which we
+                                                                                                                              is of the form 𝜖 = 𝑘 1 𝐸 g + 𝑘 2 , a correlation similar to that
+                                                     studied, using density functional theory (DFT), the physics of
+                                                                                                                              for gases [37], leading to many attempts to develop such a
+                                                     electronic transport in the energy regime of 10-100 eV, an area
+                                                                                                                              linear relationship. Some notable examples include those of
+                                                     of study that was previously poorly understood. Following
+                                                                                                                              Shockley [38], Klein [32], and Alig and Bloom [11].
+                                                     the work of Pines [14] and others [15–17], we incorporated
+                                                     plasmon emission, impact ionization, and phonon scattering                  In Fig. 1, the analytic expressions of Klein [32] and Alig et
+                                                     into a full-band Monte Carlo (FBMC) code to simulate carrier             al. [11] are shown along with the measured values of 𝜖 (red
+                                                     thermalization from ∼ 100 eV. Though these papers were pri-              circles) for various materials and values that we calculated
+                                                     marily focused on developing the physics and understanding               in past publications [12, 13] (blue triangles), which we men-
+                                                     the thermalization process, a key result was the calculation of          tioned above. It is clear from the figure that both analytic ex-
+                                                     𝜖. For GaN, diamond, and 𝛽-Ga2 O3 , we calculated values of              pressions agree well with the measured data for materials with
+                                                     8.9, 12.87, and 11.24 eV [12, 13], respectively. In the present          E𝑔 ≲ 3 eV. For larger bandgaps, the measured creation ener-
+                                                     work, we have extended the techniques used in our past works             gies diverge from these analytical predictions as the measured
+                                                     to AlN, 3C-SiC, 4H-SiC, Si and SiO2 , using not only DFT but             values consistently fall below the two lines. This deviation for
+                                                     also the GW approach and the Bethe-Salpeter equation (BSE),              wide bandgap materials has led to more recent developments
+                                                                                                                                                                                        2
+
+                                                                                                                                II.   AN ANALYSIS OF PAST THEORETICAL
+                                                                    ( [ S 
+                                                                                                                                              APPROACHES
+
+                                                                      7 K L V  Z R U N                        6 L 22      As mentioned above, a common and longstanding approach
+                                                                      . O H L Q
+   ( + 3  & U H D W L R Q  ( Q H U J \   H 9 
+
+                                                                                                                        to predicting the creation energy has been to develop a linear
+                                                                    $ O L J                                           relationship between 𝜖 and the bandgap energy, 𝐸 g . Early on,
+                                                                                                                        in the 1950s, this was done simply by fitting a line to experi-
+                                                                                                    &                   mentally measured data points without a physical explanation
+                                                                                                  * D2  23
+                                                                                                                      for the fit. Below, we will first discuss in some detail the work
+                                                                                 * D 1                                  done by Shockley in 1961 [38] to attempt to provide such a
+                                                                                 +  6 L &                             physical explanation. Afterward, we will discuss the work of
+                                                                  * D 3   &  6 L &                                    Alig, Bloom, and Struck in 1980 [41], who finally moved be-
+                                                                                                                       yond the assumption of a simple linear relationship. Lastly,
+                                                                      * D $ V                                           we will touch on the more modern MC simulations and why
+                                                                    6 L                                                 the present work is necessary in the advancement of the state
+                                                                                                                        of the art. We will present some questions that remain from
+                                                                                                                       the past, which we will attempt to answer in the remaining
+                                                                                                                   sections of this paper.
+                                                                            ( Q H U J \  * D S   H 9                   In Shockley’s work, he emphasized the importance of the
+                                                                                                                        “competition” between impact ionization and phonon emis-
+                                                                                                                        sion during the energy-loss process in determining the value
+FIG. 1. Measured EHP creation energies (red circles) for several                                                        of 𝜖. When a particle or electromagnetic wave excites an
+materials, including Si [18, 19], GaAs [20], GaP [21], 3C-SiC [22,                                                      EHP, the excited carriers, if given sufficient energy, will dis-
+23], 4H-SiC [24, 25], GaN [26], and diamond (C) [27–31], compared                                                       sipate their energy by causing additional ionization and/or by
+to the analytic expressions of Klein [32] and Alig et al. [11].                                                         emitting phonons. After dropping below a certain threshold
+                                                                                                                        energy (i.e., below about 𝐸 g ), ionization is no longer possible,
+                                                                                                                        and phonon emission becomes the dominant energy-loss pro-
+                                                                                                                        cess. Shockley, therefore, described 𝜖 in terms of the threshold
+of a new analytic expression [39, 40] with a smaller slope,                                                             energy, 𝐸 𝑖 , the phonon energy, 𝐸 𝑅 , the ratio, 𝑟, of the phonon
+capturing the data for larger 𝐸 g better at the expense of the                                                          scattering rate to the ionization rate for carriers with 𝐸 > 𝐸 𝑖 ,
+fit for small values of 𝐸 g . However, it is clear that the slope                                                       and the average carrier energy, 𝐸 𝑓 , after falling below 𝐸 𝑖 .
+of the measured data is not consistent over the entire domain                                                           Following this approach, the general equation for 𝜖 that he
+of bandgap energies shown in Fig. 1. Indeed, the divergence                                                             obtained is [38]
+seems to increase with increasing bandgap, indicating that,
+while the qualitative trend is clear, the quantitative relation-                                                                             𝜖 = 2𝐸 𝑓 + 𝐸 𝑖 + 𝑟 𝐸 𝑅 .                 (1)
+ship between 𝜖 and 𝐸 g is not exactly linear. The agreement
+between our calculated results and the measured data for GaN
+                                                                                                                           If one employs free-electron bands and assumes that the
+and diamond, shown in Fig. 1, suggests that by employing a
+                                                                                                                        states below 𝐸 𝑖 are ultimately uniformly populated (the “uni-
+first-principles approach with a FBMC simulation, one may
+                                                                                                                        form population” assumption [41]), one obtains a value of
+accurately predict this deviation from the linear behavior.
+                                                                                                                        𝐸 𝑓 = 0.6𝐸 𝑖 . The equation for the creation energy then be-
+   The present paper is outlined as follows: In Sec. II, we                                                             comes 𝜖 = 2.2𝐸 𝑖 +𝑟 𝐸 𝑅 . The common approach is to substitute
+will discuss in more detail the methods used in past works,                                                             the longitudinal optical (LO) phonon energy for 𝐸 𝑅 , assum-
+especially those of Shockley [38] and Alig, Bloom, and                                                                  ing that scattering with other vibrational modes is negligible
+Struck[11, 41], along with some lingering questions from their                                                          at energies above 𝐸 𝑖 [43]. The parameter 𝑟 then becomes
+works, which we seek to answer here. We will also discuss why                                                           a fitting parameter, assumed to be constant in energy. Us-
+the common linear approximations fail and why a physically                                                              ing similar approaches, Klein [32] and Alig and Bloom [11]
+more accurate calculation is necessary. In Sec. III, we will                                                            developed the following equations, 𝜖 = (14/5)𝐸 g + 0.5 and
+show the calculations/simulations for the above-mentioned                                                               𝜖 = 2.73𝐸 g +0.55, respectively (shown in Fig. 1). As measure-
+materials, employing a standard DFT approach, utilizing                                                                 ments of 𝜖 have improved over the years, especially for wide
+PBE [42] exchange-correlation functionals. In Sec. IV, to                                                               bandgap materials, more recent work [39, 40] has yielded the
+improve the predicted 𝜖 of Si, we will show an alternative cal-                                                         following equation 𝜖 = 1.54𝐸 g + 1.89. In this newer expres-
+culation of the band structure and the dielectric function, em-                                                         sion, we see a significant reduction in the slope of the line,
+ploying the GW approach to calculate the quasi-particle energy                                                          due mainly to the divergence shown above in Fig. 1 of 𝜖 from
+shifts in the band structure and the Bethe-Salpeter equation                                                            published analytic expressions, as 𝐸 g increases. The issue, as
+(BSE), which captures the effect of electron-hole interactions,                                                         described in the Introduction, is that the relationship between
+to calculate the dielectric function (the “GW/BSE approach”).                                                           𝜖 and 𝐸 𝑔 is not linear, and attempting to fit a linear curve to
+Lastly, in Sec. V, we will discuss the results and answer a few                                                         the data on one end of the domain of bandgap widths leads to
+questions posed by Alig ert al..                                                                                        a poor fit on the other end.
+                                                                                                                                     3
+
+   While Shockley’s approach cannot account for the measured         random-k approximation, Alig et al. obtained the following:
+nonlinear behaviour of 𝜖 as a function of 𝐸 g , it did provide
+valuable insights. Firstly, it emphasized the importance of                         𝑟 (ph) (𝐸)     105 (𝐸 − ℏ𝜔0 ) 1/2
+                                                                                               = 𝐴                    ,            (5)
+the ratio of the phonon emission rate to the ionization rate,                       𝑟 (ii) (𝐸)     2𝜋 (𝐸 − 𝐸 g ) 7/2
+which directly led to the work of Alig, Bloom, and Struck
+(discussed below), whose approach centered on calculating 𝜖          where the parameter A is defined as
+by determining the probability of generating an EHP via the                                      2
+                                                                                         𝑀 ( 𝑝ℎ) 32𝜋 4 ℏ2 3
+                                                                                                          
+rate ratio. Secondly, it introduced the parameter 𝐸 𝑓 to the
+discussion and raised the question of how the states below 𝐸 𝑖                        𝐴=        2 Ω3
+                                                                                                             ,                     (6)
+                                                                                         𝑀 (𝑖𝑖)    𝑐    2𝑚
+are ultimately populated.
+   Alig et al. sought to shed some light on the subject by uti-      and Ω𝑐 is the unit cell volume and ℏ𝜔0 is the longitudinal opti-
+lizing a new approach which they called the “scattering-rate”        cal phonon energy. In practice, 𝐴 is treated as the single fitting
+assumption [41, 44–46] with what they called the “probabil-          parameter employed in the calculation. Again, we emphasize
+ity method”. Instead of assuming that ultimately the states          that according to the “scattering-rate” assumption, the matrix
+below 𝐸 𝑖 are uniformly populated, the scattering rate assump-       elements are constant, and so, 𝐴 is constant.
+tion states that in each scattering event all possible sets of          Alig et al. fit 𝐴 to a value of 5.2 so that the method re-
+the product particles are created with equal probability. In         produced the experimentally measured value of 𝜖 for Si. As-
+other words, all nonzero matrix elements for each scattering         tonishingly, using the same value of 𝐴, they also accurately
+mechanism (i.e., phonon scattering and impact ionization) are        calculated 𝜖 for several other materials such as Ge, AgBr, and
+identical and energy-independent. In practice, this means that,      3C-SiC. For others such as SiO2 , C, PbO, and CdS, the method
+when using Fermi’s golden rule to calculate the scattering           was less accurate. The reasons why Alig’s approach was suc-
+rates, one may move the matrix elements outside the summa-           cessful (or not) will be made evident in later sections of this
+tion over final states. As an example, Alig approximated the         paper. In analyzing their results, Alig et al. raised a couple
+equation for the electron-phonon scattering rates, 𝑟 (ph) (𝐸) as     of important questions that we will attempt to answer in this
+follows:                                                             work: Is the parameter 𝐴 constant, or nearly so, for most if not
+                     2𝜋 ∑︁ (ph) 2                                    all semiconductors and dielectrics? Is it important to account
+         𝑟 (ph) (𝐸) =      |𝑀 𝑗 | 𝛿(𝐸 − 𝐸 𝑗 ± ℏ𝜔)                    for plasmon emission, or can it be ignored?
+                      ℏ 𝑗
+                                                                        During the 1980s and 1990s, significant advancements were
+                     2𝜋 (ph) 2 ∑︁                                    made in simulating electronic transport in semiconductors
+                   ≈    |𝑀    |   𝛿(𝐸 − 𝐸 𝑗 ± ℏ𝜔).            (2)    and solving the semiclassical Boltzmann transport equation
+                      ℏ         𝑗
+                                                                     (BTE) [47–51]. These approaches allow one to move beyond
+                                                 (ph)
+                                                                     the scattering-rate assumption and account for the unequal
+Here, 𝐸 is the energy of the carrier, 𝑀 𝑗       is the matrix el-    probability of final-state selection in the scattering process
+ement for scattering to a state 𝑗 of energy 𝐸 𝑗 , and ℏ𝜔 is the      (i.e., unequal and energy-dependent matrix elements). In the
+phonon energy absorbed (+) or emitted (−) in the process. The        following section, we will show the calculations we performed
+summation over the delta function simply becomes the total           of 𝜖, using a first-principles approach with MC techniques to
+density of states. Alig et al. assumed parabolic, isotropic          solve the BTE.
+bands within the free electron model.
+   The “probability method” involves calculating the proba-
+bilities, 𝑝 𝑛 (𝐸), of a primary particle of energy 𝐸 generating         III.   CALCULATING THE EHP CREATION ENERGY
+exactly 𝑛 EHPs during the thermalization process. Having
+calculated 𝑝 𝑛 (𝐸), one may then calculate the average number                  A.   DFT and Scattering Rate Calculations
+of generated pairs using the following equation,
+                                 ∞                                      We utilized the DFT package Quantum ESPRESSO [52]
+                                                                     (QE) for all ab initio calculations shown in this section, em-
+                                ∑︁
+                        ⟨𝑛⟩ =        𝑛𝑝 𝑛 (𝐸),                (3)
+                                0
+                                                                     ploying norm-conserving pseudopotentials [53] and PBE [42]
+                                                                     exchange-correlation functionals. We began by performing a
+and, finally, the creation energy can be calculated as               relaxation of the unit cells of each material, using the vc-relax
+                                                                     function in QE. The unit cells of AlN and 4H-SiC are hexago-
+                           𝜖 = 𝐸/⟨𝑛⟩.                         (4)    nal, belonging to the P63 mc space group, while that of 3C-SiC
+                                                                     is zinc-blende with a space group of F-43m, and that of Si
+We will not include all of the details of the calculation of         is diamond-structured with a space group of Fd3̄m. Finally,
+𝑝 𝑛 (𝐸) here, but we direct the interested reader to the paper by    for SiO2 , we used the 𝛼-quartz structure with space group
+Alig et al. [41].                                                    P32 21. The resulting lattice constants, following relaxation,
+   A key piece of information needed in the calculation of           are presented in Table I.
+𝑝 𝑛 (𝐸) is the ratio of the phonon emission rate to the ionization      Using the relaxed structures, we performed self-consistent
+rate (Shockley’s “r”). By dividing the equation for the phonon       field calculations to converge the Kohn-Sham potential, using
+scattering rates (Eq. 2) by that for impact ionization via the       a uniform 8×8×8 Monkhorst-Pack grid. We then performed
+                                                                                                                                         4
+
+                                                                      all VBs of each material and the first 10, 20, 12, 32, and 36
+TABLE I. Lattice constants obtained from relaxations of the crystal
+                                                                      CBs for Si, AlN, 3C-SiC, 4H-SiC, and SiO2 , respectively. As
+structures of AlN, 3C-SiC, 4H-SiC, and Si, using QE.
+                                                                      discussed in Ref. [12], the number of necessary CBs is deter-
+                 Material      a0 (Å)       c0 (Å)                    mined by comparing the total phonon scattering rates with the
+                                                                      so-called energy-loss rates (which will be discussed below) to
+                   AlN          3.11        4.98
+                                                                      find an energy above which phonon scattering becomes negli-
+                  3C-SiC        4.37          -
+                                                                      gible.
+                  4H-SiC        3.09        10.13                        For electrons and holes possessing kinetic energies greater
+                    Si          5.48          -                       than the band gap, impact ionization must be considered along
+                   SiO2         5.03        5.52                      with phonon scattering. Additionally, for kinetic energies near
+                                                                      and exceeding the bulk plasmon energy, valence-electron plas-
+                                                                      mon emission must also be taken into account. The plas-
+non-self-consistent field calculations of the electronic band         mon energy of a material can be approximated using the free-
+structures for uniform 40×40×40 meshes of k points, spanning          electron gas model,
+the first Brillouin Zone (BZ). Using the symmetry operations
+of each material, these meshes were reduced to irreducible sets                                         𝑒2 𝑛
+                                                                                                𝜔2𝑝 =        .                       (9)
+of k points spanning the irreducible wedge of each BZ (3234                                             𝜖0 𝑚
+k points for AlN and 4H-SiC, 1661 for 3C-SiC and Si, and
+16422 for SiO2 ). We calculated and stored the band structure         Equation (9) yields results of 22.99, 22.99, 22.93, 16.39, and
+data at these irreducible points for all of the valence bands         23.40 eV for AlN, 3C-SiC, 4H-SiC, Si, and SiO2 , respectively.
+(VBs) and a sufficient number of conduction bands (CBs) to            These calculations were carried out using the lattice constants
+reach kinetic energies exceeding ∼ 100 eV. The number of              obtained from DFT (see Table I). As mentioned in the intro-
+necessary CBs varied depending on the material. For Si, we            duction, we calculated the creation energy by simulating the
+used 136 CBs, while for AlN, 3C-SiC, 4H-SiC, and SiO2 , we            thermalization of electrons with energies up to ∼ 100 eV, and
+used 192, 68, 284, 326, respectively. These data were then            as each of these plasmon energies is well below 100 eV, it was
+used for interpolation of the band structure at any arbitrary k       necessary to incorporate plasmon emission as an energy-loss
+and band, 𝑛, in the full-band MC simulations described below.         mechanism in the MC simulation. In fact, Pines showed that
+   To incorporate carrier-phonon interactions in our simula-          losses to plasmons are the dominant process in the 10-100 eV
+tions, we employed density functional perturbation theory             energy range [14].
+(DFPT) to calculate the phonon dispersion for the same set               To calculate the total rate of impact ionization and plasmon
+of irreducible (q) points as above and all vibrational modes (𝜂)      emission, we utilized the energy-loss function, or the imagi-
+(12 modes for AlN, 6 for 3C-SiC, 24 for 4H-SiC, 6 for Si, and         nary part of the inverse dielectric function, Im[−1/𝜖 (q, 𝜔)],
+27 for SiO2 ). As was done for the band structure, these data         as in Ref. [12]. The loss function is essentially a spectrum
+were stored in tables for interpolation in the MC simulations.        that indicates which energies are most likely to be lost when a
+   The carrier-phonon scattering rate between a carrier of wave       charged particle interacts with the valence electrons in a ma-
+vector k in band 𝑛 and a phonon of wave vector q and branch           terial, either via single-particle excitations (impact ionization)
+𝜂 was calculated using first-order time-dependent perturbation        or collective excitations (plasmon emission). Using Fermi’s
+theory (Fermi’s golden rule) [9],                                     golden rule and the dissipation-fluctuation theorem, we ob-
+                                                                      tained an equation to calculate the total rate of both impact
+     1      2𝜋 ∑︁ 𝜂                                                   ionization and plasmon emission, which we call the energy-
+                    |𝑔𝑛𝑛′ (k, k′ )| 2 𝑁q + 1/2 ∓ 1/2
+                                                      
+          ≈                                                           loss rate (ELR),
+   𝜏𝑛 (k)    ℏ 𝑛′ q
+                           × 𝛿 𝐸 𝑛 (k) − 𝐸 𝑛′ (k′ ) ± ℏ𝜔q ,                                         dq 𝑒 2 ℏ
+                                                                                             ∫                 ∫                  
+                                                               (7)           1         2𝜋 ∑︁                         d𝜔        −1
+                                                                                     =                                  Im
+                                                                         𝜏𝑛(ELR) (k)    ℏ 𝑛′       (2𝜋) 3 𝑞 2        2𝜋      𝜀(q, 𝜔)
+with
+                                                                                             × 𝛿 [𝐸 𝑛 (k) − 𝐸 𝑛′ (k + q) ± ℏ𝜔] .    (10)
+                                    1
+                     𝑁q =                        .             (8)       To calculate the loss function, we utilized the time-
+                            𝑒 (ℏ𝜔q /𝑘𝐵 𝑇 ) − 1
+                                                                      dependent DFT (TDDFT) code turboEELS [57], which is
+Here, 𝑔𝑛𝑛′ (k, k′ ) represents the electron-phonon matrix ele-
+        𝜂
+                                                                      included in the QE package. To begin, we performed a stan-
+ment, k′ = k ± q is the “final” wave vector of the scattered          dard self-consistent DFT calculation utilizing a 12 × 12 × 12
+carrier, and 𝑛′ is the final band. The upper sign of the plus-        Monkhorst-Pack grid. The output files of this calculation
+minus signs is chosen for absorption, while the lower is chosen       were read by turboEELS, which then calculated the dielec-
+for emission. We used Blöchl’s tetrahedron method [54] to             tric function for a given wavevector, q. Additionally, we used
+evaluate the BZ integration of the delta function. The ma-            1000 Lanczos iterations with a bi-constant extrapolation of the
+trix elements, 𝑔𝑛𝑛′ (k, k′ ), were calculated using the EPW
+                   𝜂
+                                                                      Lanczos coefficients up to 20000 and a Lorentzian broadening
+(Electron-Phonon coupling using Wannier functions) code,              of 0.02 eV [12, 13, 58]. As in Ref. [12], we assumed a spheri-
+which is included in the QE package [55, 56]. The matrix              cally isotropic loss function in reciprocal space, allowing us to
+elements were calculated on uniform k and q point grids for           calculate the dielectric function only along a single reciprocal
+                                                                                                                                                                                                5
+
+
+                   
+                           $ O 1
+                            &  6 L &                                                                                        
+                           +  6 L &
+
+
+
+
+                                                                           ( Q H U J \  O R V V  5 D W H V   V 1  
+                           6 L
+                           6 L 22
+                                                                                                                              
+  , P  > 1/  @
+
+
+
+
+                   
+                                                                                                                                                                       $ O 1
+                                                                                                                                                                            &  6 L &
+                                                                                                                                                                           +  6 L &
+                                                                                                                                                                           6 L
+                                                                                                                                                                       6 L 22
+                                                                                                                                                                        
+                                    ( Q H U J \   H 9                                                                                          ( Q H U J \   H 9 
+
+FIG. 2. The loss functions of AlN, 3C-SiC, 4H-SiC, and Si calculated    FIG. 3. The electron ELRs for AlN, 3C-SiC, 4H-SiC, Si, and SiO2 .
+using the tuboEELS code, a time-dependent DFT code included in
+the QE package.
+                                                                        the ELRs. In Fig. 2, up to approximately 28 eV, the magnitude
+                                                                        of the loss functions of AlN, 3C-SiC, and 4H-SiC exceed that
+lattice vector for several q points. This approach significantly        of SiO2 , and it is clear that the areas under the curves, for these
+reduces computational cost, in comparison to a calculation for          three materials, are also larger. One may therefore expect
+many q in the irreducible wedge, without appreciably affecting          the ELRs of AlN, 3C-SiC, and 4H-SiC to also exceed those of
+the accuracy of the result [12].                                        SiO2 over this energy range. The similarities, discussed above,
+   The loss functions of each material are shown in Fig. 2. The         between the loss functions of 3C-SiC and 4H-SiC indicate that
+primary peaks, which represent the primary bulk plasmons of             the ELRs will likewise be similar.
+each material, occur at energies of ∼ 22.95, 22.7, 22.7, 17.9,             With the loss functions calculated, we evaluated Eq. 10
+and 25.9 eV for AlN, 3C-SiC, 4H-SiC, Si, and SiO2 , respec-             for each material. The resulting electron ELRs are shown in
+tively. As the calculations of the plasmon energy using the             Fig. 3. For each material, the ELRs increase rapidly above the
+free-electron gas model showed, the peaks of AlN, 3C-SiC,               bandgap energy and eventually level off near ∼ 1017 s−1 . As
+and 4H-SiC are at nearly equivalent locations. Additionally,            one might expect, based on the analysis of Fig. 2, the ELRs
+the shape and magnitude of the curves for 3C-SiC and 4H-SiC             of silicon reach this point of leveling off near about 20 eV,
+are strikingly similar. One may also observe that the plasmon           just above the plasmon peak energy. These rates level off
+peak of SiO2 is significantly broader and smaller in magnitude          rather sharply, due to the narrow nature of the loss function
+than those of the other materials shown in Fig. 2. This indi-           peak of Si. For SiO2 , the ELRs climb more gradually, which
+cates that the uncertainty in the energy of the valence-electron        is caused by the much flatter loss function. As is the case
+plasmons of SiO2 is higher, and, by Heisenberg’s uncertainty            for the loss functions, the ELRs of the two polymorphs of
+principle, the lifetime (or coherence time) is shorter. The life-       SiC are very similar, nearly lying on top of one another over
+time is controlled by Landau damping, by which a plasmon                the entire energy range. We also show, in Fig. 4, the total
+decays into an electron-hole pair. The relatively flat and broad        phonon scattering rates (black solid line) with the ELRs for
+nature of the SiO2 peak indicates that the plasmons decay more          each material (red dashed line). This figure includes the rates
+quickly, relative to those in the other materials. Additionally,        for both holes and electrons (separated by the gray shaded
+the broadness of the peak affects the calculated creation en-           region, which indicates the energy gap). As mentioned above,
+ergy. While for a narrow peak, electrons with energies above            the phonon scattering rates are calculated up to kinetic energies
+the peak energy will tend to generate pairs with relatively dis-        above which the ELRs dominate, rendering phonon scattering
+crete energies, corresponding to the location of the peak, for          negligible.
+broad peaks, the pair energy distribution is more continuous.              As discussed in Refs. [12, 13], we note that the relatively
+This makes the energy cascade less predictable, requiring more          large ELRs shown in Fig. 4 may raise questions about the valid-
+simulations/samples for better statistics.                              ity of first-order time-dependent perturbation theory (Fermi’s
+   Looking at Eq. 10, one may also observe that the magnitude           golden rule). This concern has been addressed by Quinn and
+of and the area under the loss function curve give a good               Ferrell [59, 60], Penn [61], and Pines [14], who found that
+indication of the trends one may expect to see in the plots of          the electron kinetic energies at which the ELRs are high are
+                                                                                                                                                                                                                                    6
+
+
+                                                             $ O 1                                                                                                                &  6 L &
+
+
+
+
+                                                                                                                     6 F D W W H U L Q J  5 D W H V   V 1  
+                                                                                                                                                                         
+                                                                                                                                                                  
+
+                                                                                                                                                                  
+
+                                                                                                                                                                  
+
+                                                                                                                                                                                                       
+                                                              +  6 L &                                                                                                         6 L
+
+
+
+
+                                                                                                                     6 F D W W H U L Q J  5 D W H V   V 1  
+                                                                                                                                                                         
+                                                                                                                                                                  
+
+                                                                                                                                                                  
+
+                                                                                                                                                                  
+
+                                                                                                                                                                                                       
+                                                              6 L 22
+ 6 F D W W H U L Q J  5 D W H V   V 1  
+
+
+
+
+                                                       
+                                                
+
+                                                  
+
+                                                                                                                                                                                                               3 K R Q R Q
+                                                                                                                                                                                                                   ( / 5
+                                                                                                        Eg
+                                                                                                                                                                                                                    
+                                                                                                                ( Q H U J \   H 9 
+      FIG. 4. The total phonon scattering rates (black, solid lines) and the ELRs (red dashed lines) for each material (indicated by the label in the
+      upper left corner of each frame). The gray shaded regions represent the direct energy gaps. This is included to help the reader distinguish
+      between hole (left of shaded region) and electron (right of shaded region) scattering rates.
+
+
+      large enough to render the broadening of the states acceptably                                                                   a Gaussian distribution centered at 100 eV (above the CB
+      small, justifying the use of first-order perturbation theory.                                                                    minimum). Their initial k points and bands (𝑛) were chosen
+                                                                                                                                       by discretizing the BZ and randomly selecting a cell on the
+                                                                                                                                       BZ mesh, for a given band, that contained the kinetic energy
+                                                                 B.    Monte Carlo Simulations                                         of the electron. A k-point inside the chosen cell was selected
+                                                                                                                                       from a set of k-points on a submesh within the cell, such that
+         With the material properties and scattering rates calculated,                                                                 the difference between the electron energy and the energy at
+      we were ready to simulate the thermalization of hot electrons                                                                    the k-point was minimized.
+      by solving the semi-classical Boltzmann transport equation                                                                          With no applied field, we then simply allowed the electrons
+      via full-band MC techniques. Here, we will give only a short                                                                     to diffuse and scatter via phonon scattering, impact ionization,
+      overview of the MC simulation, and we direct the interested                                                                      and plasmon emission. We note that, as in Refs. [12, 13],
+      reader to our previous work [12], which contains the numerical                                                                   we assumed immediate decay of emitted plasmons via Landau
+      details.                                                                                                                         damping, leading to the creation of an EHP. We justified this
+         In each material, we initialized a set of electrons (between                                                                  assumption in Ref. [12] by showing that the plasmon lifetimes
+      1000 and 10000 particles) with kinetic energies chosen under                                                                     are extremely short, being on the order of ∼ 10−16 s. This
+                                                                                                                                                                                                                                                                   7
+
+
+                                                     
+                                                                                                                           
+                                                     
+                                                                                                                           
+
+
+
+
+                                                                                               ( Q H U J \   H 9 
+          $ Y H U D J H  ( Q H U J \   H 9 
+
+
+                                                                                                                         
+
+                                                                    $ O 1                                                
+                                                                       &  6 L &                                                                                                                                        
+                                                                     +  6 L &                                                                                                                        W L P H   S V 
+                                                                      6 L
+                                                                      6 L 22
+                                                      
+                                                                                                                                                                                                                                       
+                                                                                                                          W L P H   S V 
+FIG. 5. The average electron kinetic energy as a function of time for a simulation of the relaxation of 100-eV electrons. The larger figure
+shows the entire simulation with the time axis on a log scale. The inset shows the same curves but with the energy axis on a log scale so that
+the reader may better see the later stages of the thermalization process.
+
+
+reduces the complexity of the MC simulation, allowing one
+to treat impact ionization and plasmon emission as effectively                                                                                                                                             ( [ S 
+identical processes.
+   As described in Refs. [12, 13], while the electrons pos-
+                                                                                                                                                                                                             7 K L V  Z R U N                            6 L 22
+                                                                                                                                                                                                             . O H L Q
+                                                                                                                                    ( + 3  & U H D W L R Q  ( Q H U J \   H 9 
+
+
+
+
+sess kinetic energies above ∼ 10 eV, the dominant energy-loss
+mechanisms are impact ionization and plasmon emission. As                                                                                                                                                  $ O L J
+shown in Fig. 4, the ELRs are significantly higher than the                                                                                                                                                                                   &  $ O 1
+phonon scattering rates in the energy range of approximately
+                                                                                                                                                                                                                                            * D2  23
+10-100 eV, about two orders of magnitude higher across much
+                                                                                                                                                                                        
+of the range. These relatively high ELRs lead to rapid ther-                                                                                                                                                                 * D 1
+malization, and the electrons lose ∼ 90% of their kinetic en-                                                                                                                                                                +  6 L &
+ergy within tenths of a femtosecond. For a visualization of                                                                                                                                                            &  6 L &
+this process, see Fig. 5. After this rapid loss of energy, the                                                                                                                           
+thermalization rates slow down markedly, as phonon emission
+begins to compete with impact ionization. Eventually, the                                                                                                                                                  6 L
+electron energy falls below the threshold for ionization, and
+the electron energy slowly decays to thermal levels via phonon                                                                                                                           
+emission, hindered only by phonon absorption.                                                                                                                                                                                                           
+   As the simulation progressed, we tracked the number of                                                                                                                                                             ( Q H U J \  * D S   H 9 
+pairs generated in the system by each initially “hot” electron.
+Using Eq. 4, we then calculated the creation energies of each
+material. These are shown in Table II and plotted in Fig. 6.                                                                     FIG. 6.    Measured (red circles) and calculated (blue triangles)
+We note that the magnitude of the creation energy is energy-                                                                     EHP creation energies for Si [18, 19], 3C-SiC [22, 23], 4H-SiC [24,
+                                                                                                                                 25], GaN [26], diamond (C) [27–31], SiO2 [16], 𝛽-Ga2 O3 , and AlN
+dependent, as shown by Alig et al. [41], and that the values
+                                                                                                                                 compared to the analytic expressions of Klein [32] and Alig et al. [11].
+shown in Table II were taken for electron kinetic energies at
+which 𝜖 saturates. We will discuss this further, below.
+   We observe remarkably good agreement across the board
+between the measured data available in the literature and our                                                                    was performed in 1975 by Ausman and McClean [16]. By fit-
+calculated values. One of the largest discrepancies occurs for                                                                   ting a recombination model to current vs. electric field data
+SiO2 (a difference of ∼ 7.6%). The measurement of 𝜖 for SiO2                                                                     obtained by Curtis et al. [62], Ausman and McClean extracted
+                                                                                                                                                                                              8
+
+
+      TABLE II. Calculated and measured creation energies.
+                                                                                                                  
+         Material     This work             Expt.
+                                                                                                                  
+          AlN            12.2                  -
+         3C-SiC           6.6           6.90 [22, 23]                                                             
+
+
+
+
+                                                                      & U H D W L R Q  ( Q H U J \   H 9 
+         4H-SiC          7.3         7.83 [25], 7.82 [24]
+           Si
+          SiO2
+                         3.1
+                         16.7
+                                           3.6 [18]
+                                          18.0 [16]
+                                                                                                                                                                         $ O 1
+                                                                                                                                                                            &  6 L &
+                                                                                                                                                                          6 L
+values of 𝜖 for various samples, yielding an average magnitude
+of ∼ 18.0 eV. However, for at least one of the samples, they ex-                                                   
+tracted a magnitude as low as 16.4 eV, which is in much better
+agreement with our calculated value of 16.7 eV. Additionally,
+we note that these measurements were performed in 1975 and,                                                        
+as Alig et al. [41] remarked, the general trend is that the mea-
+sured value of 𝜖 tends to decrease as new measurements are                                                         
+performed using improved instruments with a higher collec-                                                                                                                         
+tion efficiency. The fit, therefore, may improve with modern                                                                        . L Q H W L F  ( Q H U J \   H 9 
+measurements. That said, there does appear to be a tendency
+for the calculated value to be slightly lower than its measured        FIG. 7. Calculated creation energies of AlN, 3C-SiC, and Si as a
+counterpart. Most notably, this is the case for Si, for which the      function of electron kinetic energy.
+magnitude of the creation energy is well established. We will
+discuss why we think this occurs and our attempt to address it
+in Sec. IV.                                                            the measured values. For example, as shown in Table II, our
+   Returning to the energy dependence of the creation energy,          predicted value of 𝜖 for Si was ∼ 3.10 eV, which is about 14.9%
+we have simulated the thermalization of electrons with kinetic         lower than the well-known measured value of ∼ 3.6 eV [18].
+energies ranging from 0 to 100 eV in Si, 3C-SiC, and AlN and           Given the success of the GW approach combined with the
+plotted the results in Fig. 7. From the figure, it is clear that 𝜖     BSE in reproducing the experimentally measured dielectric
+varies significantly for energies below the plasmon peak and           function of Si [65], we tested its effect on the calculation of
+then eventually converges to a constant value. As mentioned            the creation energy.
+above, the magnitudes we reported in Table II were calcu-                 We utilized the Vienna Ab initio Simulation Package [66–
+lated for kinetic energies of ∼ 100 eV, in the energy range in         68] (VASP) to perform the GW calculation of the quasi-particle
+which 𝜖 is constant. The creation energy becomes approxi-              energy shifts and the dielectric function via the BSE. This be-
+mately energy-independent as the phonon emission rates be-             gan with a standard ground-state DFT calculation, including a
+come negligible relative to the ELRs (ionization plus plasmon          relaxation of the crystal structure and a self-consistent solution
+emission) and the ELRs level off to a nearly constant value.           of the Kohn-Sham equations using a 12 × 12 × 12 uniform grid
+Because the saturation of 𝜖 occurs at relatively high energies,        of k-points to converge the Kohn-Sham potential. The relaxed
+above the plasmon peak, we conclude that it is important to            lattice parameter from this step was ∼ 5.47 Å. With the poten-
+account for plasmon emission in the simulations. In Sec. V,            tial converged, we performed a non-self-consistent calculation
+we will discuss further the importance of plasmon emission in          of the band structure with 512 unoccupied states (conduction
+calculating 𝜖 and why Alig et al. obtained reasonable results          bands).
+while ignoring it.                                                        The primary difference between the standard Kohn-Sham
+                                                                       equations and the GW equations is that the exchange-
+                                                                       correlation term is replaced by the so-called self-energy Σ.
+              IV.   THE "GW/BSE APPROACH"                              In the GW approach, the self-energy is approximated as a
+                                                                       Green’s function “G” multiplied by the screened Coulomb
+   The GW approach has been shown to improve the calculated            potential “W”. Each term depends on the wavefunctions, so
+ab initio bandgap for many materials [63, 64], and the BSE             one should, in principle, employ a self-consistent technique
+has been used to successfully reproduce the experimentally             to solve the equations and converge both “G” and “W”. The
+measured dielectric function of Si [65]. In this section, we           primary calculation variants or flavors include G0 W0 , a single-
+will show that in using the GW/BSE approach, we were able              shot variant in which the quasiparticle energies are calculated
+to improve the agreement between the predicted and measured            in a single iteration; GW0 , in which the “W” is held fixed to the
+values of 𝜖 for Si.                                                    initial DFT value while the “G” alone is iterated a user-defined
+   In Sec. III B, we showed the results of our calculations of         number of times; and GW, in which both terms are iterated. In
+the creation energy for various materials, and we observed that        most cases, GW0 provides the optimal balance of speed and
+the calculated data tended to consistently fall slightly below         accuracy, and we employ it here.
+                                                                                                                                                                                                   9
+
+
+                                  7 ' ' ) 7                                                                                              
+                                   * :  % 6 (
+
+
+
+
+                                                                                         6 F D W W H U L Q J  5 D W H V   V 1  
+                                                                                                                                          
+                       
+      , P  > 1/  @
+
+
+
+                                                                                                                                          
+                                                                                                                                                                      ( O  3 K R Q R Q
+                                                                                                                                            
+                                                                                                                                                                      ( / 5   7 ' ' ) 7 
+                                                                                                                                                                      ( / 5   * :  % 6 ( 
+                                                                                                                                                                                       
+                                                                          
+                                                                                                                                                       ( Q H U J \   H 9 
+                                   7 ' ' ) 7
+                                * :  % 6 (                                                  FIG. 9.  The electron ELRs of Si calculated using the TDDFT
+                                                                                                and GW/BSE approaches, shown with the electron-phonon scattering
+                                                                                                rates.
+
+                    
+ , P  > 1/  @
+
+
+
+
+                    
+                                                                                                Firstly, we note that the plasmon peak in the GW result is nar-
+                                                                                             rower and has a larger magnitude. It decays more quickly than
+                                                                                                the TDDFT curve as the electron energy increases above the
+                                                                                                plasmon peak, while below the peak, the two curves lie nearly
+                                                                         
+                                                                                                on top of one another. To better observe the differences over
+                                                                                                the energy range below the plasmon peak, we have included an
+                                               ( Q H U J \   H 9                             inset figure for electron energies up to 12 eV. It shows that the
+                                                                                                GW loss function is slightly lower in magnitude for the ma-
+  FIG. 8. The loss function of silicon for 𝑞 = 0.165 Å−1 calculated                             jority of the range. Although the extent to which it is lower in
+  using both the TDDFT and GW/BSE approaches. The bottom frame                                  magnitude is seemingly small, it visibly affects the ELRs near
+  shows the same plot but only from 0 to 12 eV.                                                 the intersection with the phonon scattering rates, as shown in
+                                                                                                Fig. 9.
+
+      Finally, we performed a BSE calculation of the dielectric                                    Following the calculation of the loss function and the ELRs,
+  function. The BSE is an equation within the many-body per-                                    we resimulated the relaxation of electrons in Si and obtained a
+  turbation theory framework used to calculate the excited-state                                value of 𝜖 of ∼ 3.50 eV. This result is a significant improvement
+  response of materials. Whereas standard DFT calculations                                      in agreement with the measured value of ∼ 3.6 eV. We also
+  employ an independent-particle picture, the BSE accounts for                                  calculated the quantum yield and the dependence of 𝜖 on the
+  the interaction between the excited electron and hole, known                                  incident electron kinetic energy. These are shown in Fig. 10
+  as excitonic effects. As before, we carried out this calcula-                                 with those calculated by Alig et al. and those measured by
+  tion for several q-points along the first reciprocal lattice vector                           Bauer and Ludeke [69]. In all cases, the use of the GW/BSE
+  of Si, again assuming spherical isotropy as in the TDDFT                                      loss function markedly improved the accuracy of the predicted
+  calculations of the loss functions described in Sec. III A. The                               results. We also note the relatively large effect of seemingly
+  computational cost of each calculation for each q-point renders                               minute changes in the loss function in Fig. 8. From this, it is
+  it challenging to obtain the loss function on a fine mesh. How-                               clear that the rate ratio near the intersection of the ELRs and
+  ever, the loss functions of the materials studied in this work                                phonon scattering rates is largely responsible for determining
+  tend to change relatively little for q-points near Γ, and due to                              the value of 𝜖. It can be expected then that further improve-
+  the 1/𝑞 2 term in Eq. 10, these points carry the most weight                                  ments in the prediction will likely come from relatively small
+  in the calculation of the ELRs and the determination of final                                 changes in the way the phonon scattering rates and ELRs are
+  states in the MC simulation. Therefore, relatively few points                                 calculated (i.e., denser k and q Brillouin zone meshes in the
+  near Γ are required to adequately represent the q-dependence                                  calculations of the band structure, phonon dispersion, electron-
+  of the loss function with little loss in accuracy.                                            phonon matrix elements, and dielectric function, variations in
+      In Fig. 8, we show the loss function of Si calculated using                               the pseudopotentials used, the method employed in handling
+  both the TDDFT and GW/BSE approaches for 𝑞 = 0.165 Å−1 .                                      the exchange-correlation term, etc.).
+                                                                                                                                                                                                                             10
+
+                                                                                                                                                   
+                                                                                                   7 ' ' ) 7                                                   6 L
+                                                                                                   * :  % 6 (                                       
+                                                                                                  $ O L J  et al.
+ & U H D W L R Q  ( Q H U J \   H 9 
+
+                                                                                                                                                     
+                                                                                                   % D X H U  D Q G  / X G H N H
+
+
+
+
+                                                                                                                                              A
+                                                                                                                                                    
+                                                                                                                                                     
+                                            
+                                                                                                                                                     
+                                                                                                                                                                                                         
+                                                                                                                               D                 
+                                                                                                                                                               $ O 1
+                                                                                                                               
+                                                                  7 ' ' ) 7
+                                                                   * :  % 6 (                                                                      
+
+
+
+                                                                                                                                              A
+                                                                   $ O L J  et al.
+ 4 X D Q W X P  < L H O G
+
+
+
+
+                                                                   % D X H U  D Q G  / X G H N H                                                   
+                                            
+                                                                                                                                                     
+                                                                                                                                                                                                       
+                                                                                                                                                                              . L Q H W L F  ( Q H U J \   H 9 
+                                                                                                                                              FIG. 11. The parameter 𝐴 of Si and AlN, calculated using Eq. 11.
+                                                                                                                                E           For Si, the GW/BSE ELRs were used. The dashed horizontal lines
+                                                                                                                        
+                                                                                                                                              indicate possible constant values of 𝐴 that could be used in the meth-
+                                                                                                                                              ods of Alig et al. [41].
+                                                                            . L Q H W L F  ( Q H U J \   H 9 
+     FIG. 10. (a) The creation energy as a function of the kinetic energy
+     of the incident electron. Here, we compare the TDDFT and GW/BSE                                                                          (0.063 eV for Si), for 𝑟 (ph) (𝐸), we used the carrier-phonon
+     results with the work of Alig et al. [41] and the measurements of                                                                        scattering rates averaged over equi-energy shells (shown in
+     Bauer and Ludeke [69]. (b) The quantum yield as a function of                                                                            Fig. 4), and similarly for 𝑟 (ii) (𝐸), we used the ELRs averaged
+     kinetic energy.                                                                                                                          over equi-energy shells.
+                                                                                                                                                In Fig. 11, we show 𝐴 as a function of energy for Si and
+                                                                           V.      DISCUSSION                                                 AlN. For Si, we used the ELRs calculated with the GW/BSE
+                                                                                                                                              approach to calculate 𝐴. Below ∼ 5 eV, for Si, 𝐴 is highly
+                                                A.       Is it accurate to approximate 𝐴 as a constant?                                       variable, while between ∼ 5-13 eV, the magnitude of 𝐴 flattens
+                                                                                                                                              considerably, hovering around ∼ 4. This is relatively close to
+        Given the success of the methods utilized by Alig et                                                                                  the value of 5.2 used by Alig et al.. One can therefore say that
+     al. [41, 70], for many materials, it is perhaps appropriate to                                                                           near the intersection (at ∼ 5.24 eV) of the phonon scattering
+     wonder whether there is something fundamental about the                                                                                  and ionization rates (where the competition between these
+     assumption that 𝐴 is constant. Indeed, a constant value of                                                                               processes is most important), 𝐴 is approximately constant.
+     𝐴 suggests that the ratio of the phonon scattering matrix el-                                                                            This fact partly explains why this method works so well for Si.
+     ements to those of ionization is constant, meaning that the                                                                              Similarly, for AlN, we observe a flattening of the parameter 𝐴
+     details of the momentum- and energy-dependence of the ma-                                                                                near the intersection of the rates, with a magnitude hovering
+     trix elements and those of the band structure are negligible for                                                                         around a constant value of ∼ 5.
+     this calculation.                                                                                                                           Conversely, in Fig. 12, we also show that for both poly-
+        To begin to answer this question, we first rearranged Eq. 5                                                                           morphs of SiC and for SiO2 , 𝐴 is not remotely constant over
+     as follows:                                                                                                                              the relevant energy range (near the rate intersection). We can
+                                                                      𝑟 (ph) (𝐸) 2𝜋 (𝐸 − 𝐸 g ) 7/2                                            therefore conclude that, while 𝐴 may be approximated as con-
+                                                            𝐴=                                      .                                  (11)   stant for some materials, the assumption that it is constant
+                                                                      𝑟 (ii) (𝐸) 105 (𝐸 − ℏ𝜔0 ) 1/2
+                                                                                                                                              and indeed identical for all semiconductors and dielectrics is
+     For ℏ𝜔0 , we substituted the longitudinal optical phonon energy                                                                          unfounded.
+                                                                                                                                                                                                                      11
+
+
+                     &  6 L &                                                                                                                
+                                                                                                                                                
+ $   H 9 
+
+
+                                                                                                                                                  
+
+
+
+
+                                                                                                   , R Q L ] D W L R Q  5 D W H   V 1  
+                  
+                                                                                                                                                
+                   
+                                                                                                                                           
+                                                                                                                                                
+                         +  6 L &                                                                                                                                 ( / 5   * :  % 6 ( 
+                                                                                                                                                               5 D Q G R P  N   I U H H  H O   E D Q G V 
+                                                                                                                                                                    5 D Q G R P  N   I X O O  E D Q G V 
+                                                                                                                                                  
+  A
+
+
+
+
+                                                                                                                                                                                                                 
+                                                                                                                                                              . L Q H W L F  ( Q H U J \   H 9 
+                                                                                                         FIG. 13. A plot of the ionization rates for free-electron bands within
+                                                                                                        the random-k approximation for Si. Also included are random-k
+                                                                                                    ionization rates calculated using the full DFT band structure and the
+                                                                                                       ELRs calculated using the GW/BSE dielectric function.
+                        6 L 22
+                  
+                                                                                                          Part of the answer lies in the fact that the parameter 𝐴
+  A
+
+
+
+
+                                                                                                         was specifically fitted to 5.2 so that the method excluding
+                                                                                                       plasmon emission would succeed. Likely, fitting 𝐴 separately
+                                                                                                         with plasmon emission included would yield better agreement
+                                                                                                        than simply using the same value of 5.2 (fitted for the case
+                                                                                                         without it). The other part of the answer lies in the ionization
+                                                                                                        rate. Alig et al. calculated the ionization rate using Kane’s
+                                                                                     random-k approximation. In their approach, however, they
+                                            . L Q H W L F  ( Q H U J \   H 9                         employed free-electron bands, while we have employed the
+                                                                                                         full band structure calculated using DFT. The density of states
+  FIG. 12. The parameter 𝐴 of 3C-SiC, 4H-SiC and SiO2 , calculated                                       for free electrons is different, and the ionization rates via the
+  using Eq. 11.                                                                                          random-k approximation are strongly dependent on the density
+                                                                                                         of states, so one may expect significant differences between the
+                                                                                                         ionization rates calculated using free-electron bands and those
+                        B.     Can plasmon emission be ignored?                                          calculated using full bands.
+
+                                                                                                            In Fig. 13, we show the random-k ionization rates calcu-
+     One of the conclusions of the paper by Alig et al. is that                                          lated using free-electron bands and those calculated using the
+  plasmon emission can be ignored when calculating the cre-                                              full band structure of Si. Additionally, we show the ELRs of
+  ation energy. Given that Alig et al. showed that the creation                                          Si, calculated using the GW/BSE dielectric function. Inter-
+  energy varies with energy and eventually converges to a con-                                           estingly, the free-electron ionization rates resemble the ELRs
+  stant value well above the plasmon energy, this conclusion                                             closely but are markedly different from the full-band random-k
+  seems to contradict Pine’s [14] claim that plasmon emission                                            rates, especially as the kinetic energy increases. This suggests
+  is the dominant energy-loss process in the 10-100 eV range.                                            that by employing free-electron bands, one, perhaps by acci-
+  And the success of the present work (which accounts for plas-                                          dent, nearly exactly accounts for both impact ionization and
+  mon emission) in predicting accurate values of 𝜖 also suggests                                         plasmon emission without additional effort. Therefore, the
+  that plasmon emission is an important part of the calculation.                                         work of Alig et al. essentially includes plasmon emission by
+  Why then were Alig et al. successful in calculating 𝜖 without                                          default, which helps to explain why it is so successful in pre-
+  plasmon emission, and why, when they included it, did their                                            dicting the energy dependence of the quantum yield and 𝜖 for
+  predictions worsen?                                                                                    Si.
+                                                                                                                                                                              12
+
+                                                                                                            of approximately 4-5 eV, as nearly all carriers excite exactly
+                                                                                                        1 pair. As the energy decreases, the average number of pairs
+                                         p0 (E)                                                             generated goes below one, as 𝑝 0 (𝐸) increases.
+                                                                                                              Above ∼ 5.5 eV, the quantum yield curve is smooth, result-
+                                              p1 (E)                                                    ing from the fact that each successive 𝑝 𝑛 (𝐸) curve is broader
+ 3 U R E D E L O L W \
+
+
+                                                                      p2 (E)                p3 (E)
+                                                                                                            and overlaps more with the previous one.
+                                                                                                                              VI.   CONCLUSIONS
+
+                                                                                                               Employing a first-principles approach, we have calculated
+                                                                                                        the band structure, phonon dispersion, dielectric function, and
+                                                                                                            electron-phonon matrix elements for AlN, 3C-SiC, 4H-SiC, Si,
+                                                                                                        and SiO2 . Using these material properties, we have evaluated
+                                                                                                      the carrier-phonon scattering rates and the energy-loss rates,
+                                                    . L Q H W L F  ( Q H U J \   H 9                    which we have incorporated into a full-band MC simulation
+                                                                                                            of the relaxation and transport of electrons and holes. By
+                                                                                                            simulating the thermalization of electrons with kinetic energies
+FIG. 14.     Curves representing 𝑝 𝑛 (𝐸) for a few values of 𝑛 as                                           as high as 100 eV, we have calculated the creation energies of
+calculated by Alig et al. [41].                                                                             the listed materials (AlN: 12.2 eV, 3C-SiC: 6.5 eV, 4H-SiC:
+                                                                                                            7.3 eV, Si: 3.1 eV, and SiO2 : 16.7 eV) as well as their energy
+                                                                                                            dependence and that of the quantum yield.
+                                                                                                               We have shown that this approach yields results that are in
+                                             C.   The quantum yield of Si                                   good agreement with measured data. We have also shown that
+                                                                                                            improvements in the agreement, in the case of Si, can be made
+                                                                                                            by employing the GW approach to calculate the band structure
+   Lastly, in this section, we briefly discuss the shape of the
+                                                                                                            and the BSE to calculate the dielectric function. Whereas
+quantum yield curve of Si, as shown in Fig. 10(b). Specifically,
+                                                                                                            the TDDFT approach yielded a value of 𝜖 ∼ 3.10 eV, the
+of interest is the “bump” that occurs near ∼ 4 eV, which appears
+                                                                                                            GW/BSE approach yielded a value of ∼ 3.5 eV, which is in
+in the calculated results of this work and that of Alig et al. [41]
+                                                                                                            much better accord with the experimental value of ∼ 3.6 eV.
+as well as the measured data of Bauer and Ludeke [69]. Above
+                                                                                                            Similar improvements have also been shown in the energy
+∼ 5.5 eV, the curve becomes approximately linear and no
+                                                                                                            dependence of the quantum yield.
+further “bumps” are observed. Here, we will explain the origin
+                                                                                                               We have also discussed the parameter 𝐴 from the work of
+of this feature and why the curve becomes smooth as the kinetic
+                                                                                                            Alig et al. [41] and shown that while it may be approximated
+energy increases.
+                                                                                                            as constant for Si and AlN over a relatively wide energy range
+   The fact that we observe this “bump” in the results of Alig et                                           near the intersection of the phonon-scattering and ionization
+al. suggests that its origin is not related to the band structure                                           rates, this is not the case for 3C-SiC, 4H-SiC, or SiO2 . Addi-
+or the (joint) density of states of the material, as Alig et al.                                            tionally, we showed that plasmon emission must be considered
+employed free-electron bands. Additionally, one may imme-                                                   in the calculation of the creation energy, as the creation energy
+diately reject the idea that the scattering matrix elements play                                            reaches a constant value well above the plasmon peak energy.
+a role, due to the use of the “scattering-rate” assumption. In-                                             And finally, we discussed the origin of the “bump” in the quan-
+stead, one must consider the “probability method” of Alig et                                                tum yield of Si that occurs near a kinetic energy of ∼ 4 eV,
+al. as a possible origin.                                                                                   and we found that it is related to the probability of generating
+   As described above, the “probability method” involves cal-                                               exactly one EHP.
+culating the probabilities 𝑝 𝑛 (𝐸) that a carrier of kinetic energy
+𝐸 generates exactly 𝑛 pairs. In Fig. 14, we show the results of
+this calculation as published by Alig et al. [41]. Between 4 and                                                           VII.    ACKNOWLEDGEMENTS
+5 eV, 𝑝 1 (𝐸) peaks at a magnitude of ∼ 0.95, meaning nearly
+all carriers with kinetic energies in this range generate exactly                                             We would like to acknowledge the the computational sup-
+1 pair. In Fig. 10(b), the “bump” in the quantum yield occurs                                               port of the Texas Advanced Computing Center (TACC) at the
+in this same energy range and the magnitude if the quantum                                                  University of Texas at Austin for providing high-performance
+yield at this “bump” is ∼ 1. Therefore, the correct interpreta-                                             computing. This work has been supported by the Air Force
+tion is that the quantum yield flattens at ∼ 1 in the energy range                                          Office of Scientific Research: Award No. FA9550-23-1-0549.
+
+
+
+
+  [1] S. Shrestha, R. Fischer, G. J. Matt, P. Feldner, T. Michel, A. Os-                                         ton, and C. J. Brabec, High-performance direct conversion X-
+      vet, I. Levchuk, B. Merle, S. Golkar, H. Chen, S. F. Tedde,                                                ray detectors based on sintered hybrid lead triiodide perovskite
+      O. Schmidt, R. Hock, M. Rührig, M. Göken, W. Heiss, G. An-                                                 wafers, Nat. Photonics 6, 436 (2017).
+                                                                                                                                              13
+
+ [2] J. Liu, F. Xia, D. Xiao, G. de Abajo, F. J., and D. Sun, Semimet-         particle detectors, Appl. Phys. Lett. 103, 152108 (2013).
+     als for high-performance photodetection, Nat. Mater. 19, 830         [25] A. Gsponer, M. Knopf, P. Gaggl, J. Burin, S. Waid, and
+     (2020).                                                                   T. Bergauer, Measurement of the electron–hole pair creation
+ [3] U. Fano, Ionization yield of radiations. II. The fluctuations of          energy in a 4H-SiC p-n diode, Nuc. Instrum. Methods Phys.
+     the number of ions, Phys. Rev. 72, 26 (1947).                             Res. A 1064, 169412 (2024).
+ [4] J. David, The staircase photodiode, Nat. Photonics 10, 364           [26] P. Sellin and J. Vaitkus, New materials for radiation hard semi-
+     (2016).                                                                   conductor dectectors, Nucl. Instrum. Methods Phys. Res. A 557,
+ [5] A. Polman, M. Knight, E. C. Garnett, B. Ehrler, and W. C.                 479 (2006).
+     Sinke, Photovoltaic materials: Present efficiencies and future       [27] S. F. Kozlov, R. Stuck, M. Hage-Ali, and P. Siffert, Preparation
+     challenges, Science 352, aad4424 (2016).                                  and characteristics of natural diamond nuclear radiation detec-
+ [6] J. Dixon, A. Rajan, S. Bohlemann, D. Coso, A. D. Upadhyaya,               tors, IEEE Trans. Nucl. Sci. 22, 160 (1975).
+     A. Rohatgi, S. Chu, A. Majumdar, and S. Yee, Evaluation of a         [28] C. Canali, E. Gatti, S. F. Kozlov, P. F. Manfredi, C. Manfredotti,
+     silicon 9 0Sr betavoltaic power source, Sci. Rep. 6, 38182 (2016).        F. Nava, and A. Quirini, Electrical properties and performances
+ [7] L. C. Olsen, P. Cabauy, and B. J. Elkind, Betavoltaic power               of natural diamond nuclear radiation detectors, Nucl. Instrum.
+     sources, Phys. Today 65, 35 (2012).                                       Methods 160, 73 (1979).
+ [8] T. B. Arp, D. Pleskot, V. Aji, and N. M. Gabor, Electron–hole        [29] J. W. Keister and J. Smedley, Single crystal diamond photodiode
+     liquid in a van der Waals heterostructure photocell at room               for soft X-ray radiometry, Nucl. Instrum. Methods Phys. Res. A
+     temperature, Nat. Photonics 13, 245 (2019).                               606, 774 (2009).
+ [9] J. Fang, M. V. Fischetti, R. D. Schrimpf, R. A. Reed, E. Bel-        [30] J. Morse, M. Salomé, E. Berdermann, M. Pomorski, J. Grant,
+     lotti, and S. T. Pantelides, Electron transport properties of             V. O’Shea, and P. Ilinski, Single crystal CVD diamond detec-
+     al 𝑥 ga1−𝑥 N/GaN transistors based on first-principles calcula-           tors: Position and temporal response measurements using a syn-
+     tions and Boltzmann-equation Monte Carlo simulations, Phys.               chrotron microbeam probe, MRS OPL 1039, 1039–P06 (2007).
+     Rev. Appl. 11, 044045 (2019).                                        [31] J. W. Keister, L. Cibik, S. Schreiber, and M. Krumrey, Char-
+[10] K. G. McKay, Electron-hole production in germanium by alpha-              acterization of a quadrant diamond transmission X-ray detector
+     particles, Phys. Rev. 84, 829 (1951).                                     including a precise determination of the mean electron–hole pair
+[11] R. C. Alig and S. Bloom, Electron-hole-pair creation energies             creation energy, J. Synchrotron Radiat. 25, 407 (2018).
+     in semiconductors, Phys. Rev. Lett. 35, 1522 (1975).                 [32] C. A. Klein, Bandgap dependence and related features of radi-
+[12] D. O. Nielsen, C. G. Van de Walle, S. T. Pantelides, R. D.                ation ionization energies in semiconductors, J. Appl. Phys. 39,
+     Schrimpf, D. M. Fleetwood, and M. V. Fischetti, First-principles          2029 (1968).
+     approach to closing the 10-100 eV gap for charge-carrier ther-       [33] H. Bethe, Zur theorie des durchgangs schneller korpusku-
+     malization in semiconductors, Phys. Rev. B 108, 155203 (2023).            larstrahlen durch materie, Annalen der Physik 397, 325 (1930).
+[13] D. O. Nielsen and M. V. Fischetti, Thermalization of radiation-      [34] A. J. Ahearn, Conductivity induced in diamond by alpha-particle
+     induced electrons in wide-bandgap materials: A first-principles           bombardment and its variation among specimens, Phys. Rev. 73,
+     approach, Appl. Phys. Lett. 123, 252107 (2023).                           1113 (1948).
+[14] D. Pines, Collective energy losses in solids, Rev. Mod. Phys. 28,    [35] K. G. McKay and K. B. McAfee, Electron multiplication in
+     184 (1956).                                                               silicon and germanium, Phys. Rev. 91, 1079 (1953).
+[15] A. Rothwarf, Plasmon theory of electron-hole pair production:        [36] F. Lappe, The energy of electron-hole pair formation by X-rays
+     efficiency of cathode ray phosphors, J. Appl. Phys. 44, 752               in PbO, J. Phys. Chem. Solids 20, 173 (1961).
+     (1973).                                                              [37] E. Baldinger and W. Czaja, On the energy expended per electron-
+[16] G. A. Ausman, Jr. and F. B. McLean, Electron-hole pair creation           hole-pair produced in p-n-junction-detectors, Nucl. Instrum.
+     energy in SiO2 , Appl. Phys. Lett. 26, 173 (1975).                        Methods 10, 237 (1961).
+[17] J. D. Kingsley and G. W. Ludwig, The efficiency of cathode-          [38] W. Shockley, Problems related to p-n junctions in silicon, Solid-
+     ray phosphors: II . Correlation with other properties, J. Elec-           State Electron. 2, 35 (1961).
+     trochem. Soc. 117, 353 (1970).                                       [39] M. D. C. Whitaker, G. Lioliou, A. B. Krysa, and A. M. Bar-
+[18] F. Scholze, H. Henneken, P. Kuschnerus, H. Rabus, M. Richter,             nett, Al0.6 ga0.4 as x-ray avalanche photodiodes for spectroscopy,
+     and G. Ulm, Determination of the electron–hole pair creation              Semiconductor Science and Technology 35, 095026 (2020).
+     energy for semiconductors from the spectral responsivity of          [40] G. Lioliou and A. M. Barnett, Electron-hole pair creation and
+     photodiodes, Nucl. Instrum. Methods Phys. Res. A 439, 208                 conversion efficiency in radioisotope microbatteries, Appl. Ra-
+     (2000).                                                                   diat. Isot. 180, 110042 (2022).
+[19] B. Lowe and R. Sareen, A measurement of the electron–hole            [41] R. C. Alig, S. Bloom, and C. W. Struck, Scattering by ionization
+     pair creation energy and the Fano factor in silicon for 5.9 keV           and phonon emission in semiconductors, Phys. Rev. B 22, 5565
+     X-rays and their temperature dependence in the range 80-270 k,            (1980).
+     Nucl. Instrum. Methods Phys. Res. A 576, 367 (2007).                 [42] J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized gradient
+[20] G. Bertuccio and D. Maiocchi, Electron-hole pair generation               approximation made simple, Phys. Rev. Lett. 77, 3865 (1996).
+     energy in gallium arsenide by 𝑥 and 𝛾 photons, J. Appl. Phys.        [43] M. V. Fischetti, P. D. Yoder, M. M. Khatami, G. Gaddemane,
+     92, 1248 (2002).                                                          and M. L. Van de Put, “Hot electrons in Si lose energy mostly
+[21] T. Kobayashi, Average energy to form electron-hole pairs in GaP           to optical phonons”: Truth or myth?, Appl. Phys. Lett. 114,
+     diodes with alpha particles, Appl. Phys. Lett. 21, 150 (1972).            222104 (2019).
+[22] V. V. Makarov, Energy of electron-hole pair formation along          [44] W. van Roosbroeck, Theory of the yield and Fano factor of
+     tracks of light particles, Sov. Phys. - Semicond. 9, 526 (1975).          electron-hole pairs generated in semiconductors by high-energy
+[23] V. V. Makarov, Spatial distribution of the deceleration of elec-          particles, Phys. Rev. 139, A1702 (1965).
+     trons in solids, Sov. Phys. - Semicond. 9, 722 (1975).               [45] E. Antoncik, On the theory of quantum efficiency in germanium,
+[24] T. R. Garcia, A. Kumar, B. Reinke, T. E. Blue, and W. Windl,              Czech. J. Phys. B 18, 157 (1968).
+     Electron-hole pair generation in SiC high-temperature alpha
+                                                                                                                                             14
+
+[46] W. E. Drummond and J. L. Moll, Hot carriers in Si and Ge                 X-ray scattering spectra using the Liouville-Lanczos approach
+     radiation detectors, J. Appl. Phys. 42, 5556 (1971).                     to time-dependent density-functional perturbation theory, Com-
+[47] C. Jacoboni and L. Reggiani, The Monte Carlo method for the              put. Phys. Commun. 196, 460 (2015).
+     solution of charge transport in semiconductors with applications    [58] D. O. Nielsen, S. T. Pantelides, R. D. Schrimpf, D. M. Fleet-
+     to covalent materials, Rev. Mod. Phys. 55, 645 (1983).                   wood, and M. V. Fischetti, First-principles study of radiation-
+[48] H. Shichijo and K. Hess, Band-structure-dependent transport              induced electron-hole pair generation and transport in GaN and
+     and impact ionization in GaAs, Phys. Rev. B 23, 4197 (1981).             Al0.25 Ga0.75 N/GaN HEMTs, IEEE Trans. Nucl. Sci. 73, 1355
+[49] J. Y. Tang and K. Hess, Impact ionization of electrons in silicon        (2026).
+     (steady state), J. Appl. Phys. 54, 5139 (1983).                     [59] J. J. Quinn and R. A. Ferrell, Electron self-energy approach to
+[50] M. V. Fischetti and S. E. Laux, Monte Carlo analysis of elec-            correlation in a degenerate electron gas, Phys. Rev. 112, 812
+     tron transport in small semiconductor devices including band-            (1958).
+     structure and space-charge effects, Phys. Rev. B 38, 9721 (1988).   [60] J. J. Quinn, Range of excited electrons in metals, Phys. Rev. 126,
+[51] M. V. Fischetti, S. E. Laux, and E. Crabbé, Understanding hot-           1453 (1962).
+     electron transport in silicon devices: Is there a shortcut?, J.     [61] D. R. Penn, Electron mean-free-path calculations using a model
+     Appl. Phys. 78, 1058 (1995).                                             dielectric function, Phys. Rev. B 35, 482 (1987).
+[52] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car,            [62] J. Curtis, O. L., J. R. Srour, and K. Y. Chiu, Hole and electron
+     C. Cavazzoni, D. Ceresoli, G. L. Chiarotti, M. Cococ-                    transport in SiO2 films, J. Appl. Phys. 45, 4506 (1974).
+     cioni, I. Dabo, A. Dal Corso, S. de Gironcoli, S. Fabris,           [63] M. Shishkin and G. Kresse, Self-consistent GW calculations for
+     G. Fratesi, R. Gebauer, U. Gerstmann, C. Gougoussis, A. Kokalj,          semiconductors and insulators, Phys. Rev. B 75, 235102 (2007).
+     M. Lazzeri, L. Martin-Samos, N. Marzari, F. Mauri, R. Maz-          [64] W. Chen and A. Pasquarello, Accurate band gaps of extended
+     zarello, S. Paolini, A. Pasquarello, L. Paulatto, C. Sbraccia,           systems via efficient vertex corrections in 𝑔𝑤, Phys. Rev. B 92,
+     S. Scandolo, G. Sclauzero, A. P. Seitsonen, A. Smogunov,                 041115(R) (2015).
+     P. Umari, and R. M. Wentzcovitch, QUANTUM ESPRESSO: a               [65] D. Sangalli, S. Dal Conte, C. Manzoni, G. Cerullo, and
+     modular and open-source software project for quantum simula-             A. Marini, Nonequilibrium optical properties in semiconductors
+     tions of materials, J. Phys.: Cond. Matt. 21, 395502 (2009).             from first principles: A combined theoretical and experimental
+[53] M. Schlipf and F. Gygi, Optimization algorithm for the genera-           study of bulk silicon, Phys. Rev. B 93, 195205 (2016).
+     tion of ONCV pseudopotentials, Comput. Phys. Commun. 196,           [66] G. Kresse and J. Hafner, Ab initio molecular dynamics for liquid
+     36 (2015).                                                               metals, Phys. Rev. B 47, 558 (1993).
+[54] P. E. Blöchl, O. Jepsen, and O. K. Andersen, Improved tetra-        [67] G. Kresse and J. Furthmüller, Efficiency of ab-initio total energy
+     hedron method for Brillouin-zone integrations, Phys. Rev. B 49           calculations for metals and semiconductors using a plane-wave
+     23, 16223 (1994).                                                        basis set, Comput. Mat. Sci. 6, 15 (1996).
+[55] F. Giustino, M. L. Cohen, and S. G. Louie, Electron-phonon          [68] G. Kresse and J. Furthmüller, Efficient iterative schemes for
+     interaction using Wannier functions, Phys. Rev. B 76, 165108             ab initio total-energy calculations using a plane-wave basis set,
+     (2007).                                                                  Phys. Rev. B 54, 11169 (1996).
+[56] S. Poncé, E. R. Margine, C. Verdi, and F. Giustino, EPW:            [69] A. Bauer and R. Ledeke, Direct determination of impact ion-
+     Electron-phonon coupling, transport and superconducting prop-            ization quantum yield in Si by ballistic-electron-emission mi-
+     erties using maximally localized Wannier functions, Comput.              croscopy, Phys. Rev. Lett. 72, 928 (1994).
+     Phys. Commun. 209, 116 (2016).                                      [70] R. C. Alig, Scattering by ionization and phonon emission in
+[57] I. Timrov, N. Vast, R. Gebauer, and S. Baroni, turboEELS - A             semiconductors. II. Monte Carlo calculations, Phys. Rev. B 27,
+     code for the simulation of the electron energy loss and inelastic        968 (1983).
+

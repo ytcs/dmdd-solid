@@ -1,0 +1,6 @@
+# Ch7 editor notes
+- Dirac matrices ruling: α_D and β_D book-wide (as in C.15). Sweep D.22 and 7.3 at the Ch7 revision; bare β stays inverse temperature.
+- 7.3: Pauli matrices for doublet states clash with the electron spin 𝛔 of 1.4. Write them as σ^{d}_i (superscript d for doublet) at revision, unless the context is unambiguous.
+- 7.1: fine; see the partII notes for NiO parameters.
+- 7.4: ruling: keep Si ε = 11.7 book-wide (as in 4.9, D.23 and E.6). 7.4 mentions once that the donor p-level fits use the liquid-helium value 11.4 (Faulkner, Smith et al.), which is accepted as written. No book-wide sweep. The T-center S_HR = −ln 0.23 = 1.47 is inferred; the text must say so, and it does. Bergeron is an arXiv-only citation; check it at the audit. Resolve the ω₀ and E_d reuse clashes at the Ch7 revision.
+- 7.2: Al T_c = 1.18 K (Savrasov) in Ch7/E.9. 1.5's "1.2 K" quotes its source and is consistent to rounding: keep it. Dressed vertices: rename the italic \varGamma to \mathsf{V} in 7.2 and D.21 at the Ch7 revision (\varGamma is reserved for rates). WE 7.3's BCS cutoff = 40 meV is a labelled modelling choice, which is accepted. 15.1/15.2 must state how the conserving correction and screening modify the bare-bubble density jump (bounded here by Δ/(v_F q) ≤ 0.20); see the partII notes.

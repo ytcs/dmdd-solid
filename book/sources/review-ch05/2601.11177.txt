@@ -1,0 +1,1104 @@
+                                                     Lattice dynamics and structural phase stability of group-IV elemental solids with the
+                                                                                     r2 SCAN functional
+                                                                                 Adonis Haxhijaj ,∗ Stefan Riemelmoser , and Alfredo Pasquarello
+                                                                                            Chaire de Simulation à l’Echelle Atomique (CSEA),
+                                                                            Ecole Polytechnique Fédérale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland
+                                                                                                            (Dated: March 18, 2026)
+                                                                    The strongly constrained and appropriately normed (SCAN) meta-generalized gradient approxi-
+                                                                  mation (meta-GGA) functional is a milestone achievement of electronic structure theory. Recently,
+                                                                  a revised and restored form (r2 SCAN) has been suggested as a replacement for SCAN in high-
+                                                                  throughput applications. Here, we assess the accuracy and reliability of the r2 SCAN meta-GGA
+arXiv:2601.11177v2 [cond-mat.mtrl-sci] 16 Mar 2026
+
+
+
+
+                                                                  functional for the group-IV elemental solids carbon (C), silicon (Si), germanium (Ge), and tin (Sn).
+                                                                  We show that the r2 SCAN functional agrees closely with its parent functional SCAN for elastic
+                                                                  constants, bulk moduli, and phonon dispersions, but the numerical stability of r2 SCAN is superior.
+                                                                  Both meta-GGA functionals outperform standard GGA (Perdew-Burke-Ernzerhof) in terms of ac-
+                                                                  curacy and approach the level of common hybrid functionals (Heyd-Scuseria-Ernzerhof). However,
+                                                                  we find that r2 SCAN performs much worse than SCAN for the α ↔ β phase transition of both Ge
+                                                                  and Sn, yielding larger phase energy differences and transition pressures.
+
+
+                                                     This is a postprint of an article published by the American Physical Society in Phys. Rev. B 113, 104105 (2026). The final
+                                                     version of record is available at DOI: 10.1103/znkf-3g37. This article may be downloaded for personal use only. Any other use
+                                                     requires prior permission of the author and the American Physical Society. Copyright © 2026 American Physical Society.
+
+
+                                                                       I.     INTRODUCTION                            chemical accuracy, with LDA presenting the first rung,
+                                                                                                                      and GGA presenting the second rung. The third rung
+                                                        The quest for an ever-improving exchange-correlation          consists of meta-GGA functionals, while hybrid func-
+                                                     functional of density functional theory (DFT) has been a         tionals make up the fourth rung. The strongly con-
+                                                     major challenge for generations of researchers in theoret-       strained and appropriately normed (SCAN) meta-GGA
+                                                     ical physics and chemistry [1–3]. With the development           functional of Sun et al. [19, 20] is a milestone achieve-
+                                                     of DFT in the 1960s [4, 5], Kohn and Sham also proposed          ment of theoretical development. SCAN largely corrects
+                                                     the local density approximation (LDA) [5]. In the 1990s,         the PBE underbinding error and takes a large step to-
+                                                     the generalized gradient approximation (GGA) revolu-             ward chemical accuracy [12, 21–23]. However, SCAN has
+                                                     tionized DFT applications. In particular, the Perdew-            been plagued by numerical issues [24–27] such as poor ba-
+                                                     Burke-Ernzerhof functional (PBE) [6] has become the              sis set convergence. This is particularly problematic for
+                                                     default choice for many first-principles materials stud-         applications that require high numerical accuracy; for in-
+                                                     ies. PBE combines an elegant functional form, numerical          stance phonon calculations [28]. To fix SCAN’s numerical
+                                                     stability, and is well balanced for different types of chem-     problems, Bartók and Yates proposed a revised version
+                                                     ical bonding. However, it was quickly realized that PBE          of SCAN (rSCAN), which however sacrifices some func-
+                                                     suffers from systematic underbinding [7]. That is, PBE           tional accuracy [25]. Furness et al. (partially) restored
+                                                     overestimates bond lengths [8], and underestimates bulk          exact constraints that are violated by rSCAN, and pro-
+                                                     moduli as well as elastic constants [9]. Moreover, PBE           posed the r2 SCAN functional [26, 27]. r2 SCAN promises
+                                                     underestimates phonon frequencies [7, 10, 11] and forma-         to combine the accuracy of SCAN with the numerical sta-
+                                                     tion energies of solids [8, 12]. The wish to cure this under-    bility of rSCAN, and has already been employed in sev-
+                                                     binding has led to the development of other GGA func-            eral high-throughput studies [29, 30]. Still, the r2 SCAN
+                                                     tionals that are optimized for solid state applications [13–     and SCAN functionals are not completely equivalent, but
+                                                     15]. However, these improvements come with some loss             it is generally difficult to disentangle real physical differ-
+                                                     of accuracy for other properties. Broadly speaking, these        ences due to the numerical noise inherent to SCAN calcu-
+                                                     “GGA functionals for solids” perform worse than PBE              lations. One difference that has been established is that
+                                                     for atoms and molecules. More surprisingly, the GGAs             r2 SCAN, on average, yields slightly larger bond lengths
+                                                     for solids can also be less accurate than PBE for solid-         than SCAN [29, 30]. However, it is not entirely clear yet
+                                                     solid phase transitions [16, 17]. For a universal increase       if this is beneficial or not.
+                                                     in accuracy, one has to step outside the GGA.                    In this study, we assess the SCAN and r2 SCAN meta-
+                                                     Jacob’s Ladder of DFT [18] characterizes the path toward         GGA functionals for elastic properties of group-IV el-
+                                                                                                                      emental solids (C, Si, Ge, and Sn). We put emphasis
+                                                                                                                      on high numerical accuracy, which is necessary to work
+                                                                                                                      out physical distinctions between the otherwise similar
+                                                     ∗Contact author: adonis.haxhijaj@epfl.ch                         SCAN and r2 SCAN functionals. There are two reasons
+                                                                                                                         2
+
+why the group-IV elemental solids are ideal for this pur-      For a uniform dilation, the strain is the same in all direc-
+pose: (i) it is actually feasible to obtain converged SCAN     tions: exx = eyy = ezz ≡ δ, and all shear strains are zero.
+results for these nonpolar materials and (ii) accurate ref-    Substituting these equal strains into the energy density
+erences from experiments and higher-level theories are         gives
+available, which makes it possible to assess which meta-
+                                                                   U = 21 3C11 δ 2 + 6C12 δ 2 = 32 δ 2 (C11 + 2C12 ) .
+                                                                                            
+GGA functional yields better results.                                                                                   (9)
+The rest of this study is structured as follows: In Sec. II,
+we recall some relevant fundamentals of elastic theory.        For a small uniform dilation, the fractional change in
+Our computational setup and treatment of zero-point ex-        volume is
+pansion (ZPE) is detailed in Sec. III. The results for elas-                  ∆V
+tic constants, phonon frequencies, and transition pres-                          = exx + eyy + ezz = 3δ.              (10)
+                                                                               V
+sures are given in Secs. IV, V, and VI. In Sec. VII, we
+discuss the results and present an outlook. Convergence        Combining this expression with Eqs. (7) and (9), we ob-
+tests are given in the Supplemental Material (SM) [31].        tain the important identity
+
+                                                                            B0 ≡ B0elastic = 13 (C11 + 2C12 ) .       (11)
+                       II.   THEORY
+
+                                                                           B.    Phonon supercell method
+                 A.     Elastic constants
+
+   In what follows, we consider small elastic deforma-           To compute the lattice dynamics within the harmonic
+tions of a homogeneous cubic crystal, described by the         approximation, we start with the interatomic force con-
+linearized strain tensor [32]                                  stants. That is, the Hessian matrix defined by [11, 33]
+
+                         1  ∂ui   ∂uj                                               ∂FRmj β        ∂2E
+                 eij =           +       ,         (1)           ΦRni α, Rmj β = −            =                 ,     (12)
+                         2 ∂xj     ∂xi                                                ∂uRni α   ∂uRni α ∂uRmj β
+
+where u is the displacement field and (x1 , x2 , x3 ) ≡        where FRmj β is the Hellmann-Feynman force on atom j
+(x, y, z) are Cartesian coordinates aligned with the crys-     in the cell located at Rm due to a small displacement
+tal axes. The elastic stiffness tensor Cijkl relates the       uRni α of atom i in the cell at Rn . Cartesian indices are
+stress σij to the strain via                                   denoted by α and β. Owing to translational invariance of
+                                                               the crystal, the force constants depend only on the differ-
+                       σij = Cijkl ekl .                (2)    ence Rm − Rn . Next, a Bloch wave ansatz is introduced
+                                                               for the atomic displacements:
+By cubic symmetry, there are only three independent
+elastic constants: one diagonal constant,                                             (q)
+                                                                                    ũiα = uiα eiq·Rn ,               (13)
+              C11 = C1111 = C2222 = C3333 ,             (3)
+                                                               where q denotes the wave vector. This directly leads to
+one off-diagonal constant,                                     the reciprocal-space representation of the force constant
+                                                               matrix (we drop Cartesian indices for simplicity)
+              C12 = C1122 = C1133 = C2233 ,             (4)                    X
+                                                                   Φ̃ij (q) =       eiq·(Rm −Rn ) Φij (Rm − Rn ) .  (14)
+and the shear constant,
+                                                                             Rm −Rn
+              C44 = C2323 = C3131 = C1212 .             (5)
+                                                               From here, we define the dynamical matrix D by normal-
+We define the elastic energy density U by                      izing the force constants with the atomic masses Mi ,
+
+                      U = 21 Cijkl eij ekl ,            (6)                                 1
+                                                                                Dij (q) = p      Φ̃ij (q).            (15)
+                                                                                           Mi Mj
+and the (isothermal) bulk modulus B0 by
+                                                               Finally, the lattice vibrational frequencies are determined
+                   dP            d2 U
+      B0 ≡ − V              =                  ,        (7)    by solving the eigenvalue problem
+                   dV V =V0   d(∆V /V )2 V =V0
+                                                                                D(q) · u(q) = ω 2 (q)u(q) ,           (16)
+where ∆V /V = exx + eyy + ezz . It can be shown that
+the elastic energy density of the cubic crystal can be ex-     so that the phonon frequencies are obtained as the square
+pressed as [32]                                                roots of the eigenvalues ω 2 (q).
+                                                               In practical terms, using a supercell with finite displace-
+       U = 12 C11 e2xx + e2yy + e2zz
+                                    
+                                                      (8)     ments (“direct” approach), one calculates the real-space
+               + 2C12 (exx eyy + eyy ezz + ezz exx ) .         force constant matrix [11, 33]. A Fourier transform yields
+                                                                                                                                         3
+
+                                                                             occurs, and tin degrades to a brittle, gray semimetal (α-
+                                                                             Sn, Strukturberich A4, diamond structure). This phe-
+                                                                             nomenon is commonly known as “tin pest” [17, 38]. The
+                                                                             β → α phase transition is anomalous, as the low tem-
+c=a 2
+
+                                                                             perature α phase is about 20% larger in volume than the
+   √
+
+
+
+                                                                             high-temperature β phase (negative thermal expansion).
+                                                                             At low temperatures, one can also induce the α → β
+
+
+
+
+                                    c<a 2
+                                       √
+                                                                             phase transition by applying pressure [39]. Experimen-
+                                                                             tal transition pressures have not been measured directly,
+                                                                             but the phase energy difference at T = 0 K has been esti-
+                                a                                            mated to be 15 meV [40]. Elemental silicon (Si) and ger-
+               a                                  a               a          manium (Ge) are semiconductors at ambient conditions
+                                                                             and crystallize in the diamond structure. A pressure-
+  FIG. 1. Comparison of the (left) α-Sn and (right) β-Sn crystal
+  structures [34]. The β-Sn structure can be obtained from
+                                                                             driven phase transition to metallic β phases is known
+  the α-Sn structure (diamond, shown here in a body-centered                 to occur at 11.7 GPa for Si and 10.6 GPa for Ge, re-
+  tetragonal unit cell) by applying a tetragonal compression                 spectively [39]. Since the pioneering studies of Cohen
+  along
+  √     (001) [17, 35, 36]. The two phases coincide at c/a =                 and coworkers [35, 40–42], the α ↔ β phase transitions
+    2 ≈ 1.414, while thepideal β phase corresponds to sixfold                of Si, Ge, and Sn have been the subject of numerous
+  coordination at c/a = 4/15 ≈ 0.516 [37].                                   first-principles studies [16, 36, 37, 43–45]. Early calcula-
+                                                                             tions and experimental data have been reviewed by Mu-
+                                                                             jica et al. [39], while recent studies also investigated the
+  the dynamical matrix, which is then diagonalized to find                   SCAN functional [17, 20, 23, 24, 46]. A primary objective
+  the phonon dispersion. The phonon frequencies are ex-                      of this study is to assess whether the r2 SCAN meta-GGA
+  plicitly calculated at specific wave vectors q that are                    functional can accurately describe this structural phase
+  commensurate with the supercell. Phonon frequencies                        transition. For the sake of completeness, we note that
+  at other wave vectors are interpolated, and convergence                    elemental carbon (C) does not exhibit a β phase in the
+  of the full phonon dispersion is achieved in the limit of                  experimentally accessible pressure range [39]. For the ap-
+  large supercells.                                                          plication of r2 SCAN to graphite, we refer to the recent
+  Finally, the speeds of acoustic waves along high-                          study of Ning et al. [47].
+  symmetry directions are related to the elastic constants.                  For the α phase, we perform a series of static total-energy
+  For longitudinal acoustic (LA) and transverse acoustic                     calculations over a range of volumes around the expected
+  (TA) waves propagating along the [100] direction, one                      equilibrium. The resulting energy-volume data are fit-
+  can show that [32]                                                         ted to the third-order Birch-Murnaghan equation of state
+                      s                               s                      (EOS) [48]
+                          C11                             C44                                      9V0,α B0,α n                  3 ′
+        vLA,[100] =
+                           ρ
+                                and     vTA,[100] =
+                                                           ρ
+                                                              ,       (17)      Eα (V ) = E0,α +                 (V0,α /V )2/3 − 1 B0,α
+                                                                                                       16
+                                                                                                            2                   o
+                                                                                        + (V0,α /V )2/3 − 1 6 − 4(V0,α /V )2/3 .
+                                                                                           
+  Furthermore, for LA waves along the [110] direction, the
+  longitudinal speed is given by [32]                                                                                                  (19)
+                                                                             The β phase depends on two lattice parameters, a and c,
+                                s                                            or equivalently V and c/a. For a set of volumes V , we op-
+                                    C11 + C12 + 2C44                         timize the c/a ratio by relaxing the cell shape at fixed vol-
+                 vLA,[110] =                         .                (18)
+                                           2ρ                                ume. Then, we fit these points E(V ) = minc/a E(V, c/a)
+                                                                             to the same third-order Birch-Murnaghan equation of
+  We will use this approach as an alternative method for                                                                         ′
+                                                                             state [Eq. (19)] to extract (E0,β , V0,β , B0,β , B0,β ). The
+  computing the elastic constants. This will allow us to                     transition pressure is obtained from the common-tangent
+  compare the results and evaluate whether it provides a                     construction on the E(V ) curves. The pressure-volume
+  more efficient or accurate means of determining the elas-                  curves P (V ) can be obtained analytically by taking the
+  tic properties without the need to apply external strain.                  derivative of Eq. (19),
+                                                                                           ∂E      3B0 h                           i
+                                                                                P (V ) = −      =        (V0 /V )7/3 − (V0 /V )5/3
+                      C.    Transition pressures                                           ∂V       2                                  (20)
+                                                                                           n     3 ′                 2/3
+                                                                                                                              o
+                                                                                         × 1 + (B0 − 4) (V0 /V ) − 1 ,
+    Elemental tin (Sn) is known to exhibit two allotropes,                                       4
+  which are illustrated in Fig. 1. The thermodynamically                     and the transition pressure Pt satisfies
+  stable phase at ambient conditions is a white, ductile
+                                                                                            Pt = Pα Vαt = Pβ Vβt ,
+                                                                                                                     
+  metal (β-Sn, Strukturberich A5). At temperatures be-                                                                                (21)
+  low 13 ◦ C (286 K), an entropy-driven phase transition                                         Hα Vαt = Hβ Vβt .
+                                                                                                                     
+                                                                                                                         4
+
+Here, H = E + P V is the enthalpy per atom, and Vαt ,         within an accuracy of 0.1 THz.
+Vβt are the volumes at which the two pressure curves co-
+incide.
+                                                                      A.    Zero-point expansion corrections
+
+               III.   METHODOLOGY                                Throughout this work, we account for the effect of
+                                                              ZPE. We do so by adding ZPE corrections to the ex-
+   All calculations are performed with the Vienna ab          perimental measurements. In principle, this approach
+initio Simulation Package (vasp) [49, 50]. We employ          assumes that the ZPE corrections do not depend on the
+the projector augmented-wave (PAW) method [51] and            density functional. This is a reasonable approximation
+consider three semilocal exchange-correlation function-       given that the ZPE corrections considered here are con-
+als: the PBE generalized gradient approximation [6],          sistently smaller than the DFT errors themselves. The
+the SCAN meta-GGA [19], and its regularized-restored          ZPE corrections for the lattice constants and bulk mod-
+form r2 SCAN [26]. For comparison, we also consider the       uli are taken from Ref. [8]. The corrections in their study
+Heyd-Scuseria-Ernzerhof (HSE) hybrid functional [52–          were obtained in the harmonic approximation, combin-
+54]. Throughout, we use highly accurate PBE PAW pseu-         ing the PBE functional and phonon supercell calculations
+dopotentials [50] as distributed with vasp.6.4.2. For Si,     (16 atoms).
+Ge, and Sn, the semicore shell is fully treated as valence;   To correct the elastic constants Cij for zero-point expan-
+further details are given in the SM [31]. We note that pre-   sion (Table III), we adopt the following protocol. Using
+vious studies [24, 36] have emphasized the importance of      the r2 SCAN meta-GGA functional, we calculate the elas-
+accurate pseudopotentials for transition pressures in par-    tic constants twice. A first calculation is done at the equi-
+ticular.                                                      librium lattice parameter a0 obtained from our Birch-
+Following Hummer et al. [11], we employ 24×24×24 Γ-           Murnaghan EOS fit, and a second calculation is done at
+centered k-points for diamond structures in primitive         the slightly expanded cell a0 +∆aZPE0   (with ∆aZPE
+                                                                                                                0    taken
+two-atom cells. For β-Sn structures, we use 24 k-points       from Ref. [8]). The ZPE correction for each independent
+along x and y, with denser sampling along the z direc-        elastic constant is then calculated as the difference
+tion, accounting for the smaller c/a ratio. For HSE calcu-               ZPE
+                                                                       ∆Cij  = Cij (a0 + ∆aZPE
+                                                                                           0   ) − Cij (a0 ),         (22)
+lations, we employ a fourfold downsampling of the Fock
+operator [53]. Thus, Fock exchange is sampled on a re-        and the corrected experimental elastic constants are sim-
+duced k-point mesh (6×6×6 for the diamond structures).        ply
+Our tests indicate that the k-point error for elastic con-
+stants and phonon frequencies is below that of the basis                    Expt.−ZPE
+                                                                           Cij           Expt.
+                                                                                      = Cij        ZPE
+                                                                                               − ∆Cij  .              (23)
+set error (not shown). Unless specified otherwise, we raise
+the default energy cutoff (ENCUT in vasp) by a factor 1.8     We can also use Eq. (11) and compare the quantity
+to ensure tight basis set convergence of our results. The     (∆C11ZPE
+                                                                        + 2∆C12 ZPE
+                                                                                    )/3, calculated here with r2 SCAN,
+energy differences between α and β phases are converged       with the results for ∆B0ZPE obtained with PBE in Ref. [8].
+to 1 meV/atom or better, see also Refs. [17, 23, 46].         The differences are small: 2.6 GPa for C, 0.1 GPa for Si,
+Our phonon calculations employ the direct method im-          0.2 GPa for Ge, and 0.1 GPa for Sn. Considering our nu-
+plemented in vasp, details of the implementations are         merical errors as well as uncertainties in the experimental
+given in Refs. [11, 33, 55]. For phonon calculations, we      results, this confirms our assumption that the ZPE de-
+reduce the k-point mesh, commensurate with the super-         pendence on the DFT functional can be safely neglected.
+cell size (for instance, 12×12×12 k-points and 3×3×3          In the same manner, we correct the experimental phonon
+Fock k-points for a 16-atom supercell). Similar to Ning       frequencies ν. For each point q in the Brillouin zone and
+et al. [28], we consider two numerical setups for phonon      for each phonon branch b, we calculate the ZPE correc-
+calculations; details are discussed in the SM [31]. In        tions
+agreement with Ning et al. [28], we find that a single-grid
+strategy (PREC=Accurate in vasp) cannot yield reliable                  ∆νq,b = νq,b a0 + ∆aZPE
+                                                                                                   
+                                                                                               0     − νq,b (a0 ),   (24)
+SCAN phonon dispersions at reasonable plane-wave cut-
+offs. Following Ref. [28], we fix this by employing a         and subtract them from the experimental measurements,
+double-grid technique (PREC=High in vasp), which uses
+                                                                            Expt.−ZPE    Expt.
+a higher plane-wave cutoff for the PAW augmentation                        νq,b       = νq,b   − ∆νq,b .              (25)
+charges. Furthermore, calculations of phonons and elas-
+tic constants use a fourth-order finite difference stencil    The corrections ∆νq,b are calculated by combining
+with a step size of 0.060 Å. In the SM [31], we show that    r2 SCAN and 16 atom supercells at the high-symmetry
+this double-grid strategy achieves a numerical accuracy       points Γ, X, and L. These points are commensurate with
+of 1 GPa for bulk moduli, while elastic constants have        both the 16-atom and 128-atom supercells, and thus the
+residual basis set errors of ≈ 2 to 3 GPa due to residual     finite size error is negligible here (see also the SM [31]).
+Pulay stress [56, 57]. Phonon frequencies are converged       Finally, ZPE corrections for the transition pressures of Si
+                                                                                                                            5
+
+and Ge are taken from the work of Sengupta et al. [46].
+                                                                TABLE I. Equilibrium lattice constants a0,α (in angstrom)
+Their study employed the quasi-harmonic approximation
+                                                                for group-IV elemental solids in the diamond phase. Cal-
+and also accounted for temperature effects at T = 300 K.        culated lattice constants are obtained by fitting the energy-
+Their phonon spectra were calculated with density func-         volume curves to a third-order Birch-Murnaghan equation
+tional perturbation theory using the PBE functional,            of state [see Eq. (19)]. Experimental references are taken
+and the corresponding vibrational contributions to the          from Ref. [58], and corrected for zero-point expansion (ZPE;
+enthalpy were added to their calculated equations of            see Ref. [8]). Uncorrected experimental lattice constants are
+state for different DFT functionals. Here, we choose            given in the last column.
+∆PtZPE calculated using the random-phase approxima-                   PBE     r2 SCAN    SCAN     HSE     Expt.-ZPE    Expt.
+tion (1.0 GPa for Si, 1.0 GPa for Ge), which predicts tran-
+                                                                C     3.571     3.558    3.551    3.545     3.553      3.567
+sition pressures in close agreement with experiment, but
+other functionals yield similar corrections. For instance,      Si    5.472     5.447    5.438    5.442     5.421      5.430
+PBE yields 0.8 GPa for Si and 1.0 GPa for Ge, and SCAN          Ge    5.765     5.689    5.678    5.686     5.644      5.652
+yields 0.7 GPa for Si and 0.9 GPa for Ge [46]. Similarly,       Sn    6.654     6.568    6.548    6.556     6.474      6.482
+Ref. [17] reported weak DFT dependence of the zero-
+point correction to the energy difference ∆E0 between
+α-Sn and β-Sn. Here, we use the value of 7 meV/atom             is slightly more accurate than r2 SCAN. This is in line
+reported for SCAN (PBE also yields 7 meV/atom, see              with the general trend found for a larger set of materi-
+Ref. [17]).                                                     als [26, 29, 30].
+                                                                Finally, we note that the PBE underbinding error is es-
+                                                                pecially severe for Ge and Sn. This can be connected to
+       IV.   ELASTIC PROPERTIES OF THE                          qualitative failures of the electronic band structure [11].
+             DIAMOND STRUCTURES                                 Namely, PBE falsely predicts the diamond phases of Ge
+                                                                and Sn to be metals, whereas in reality Ge is a semi-
+                 A.    Lattice constants                        conductor, and Sn is a semimetal. The false metallic
+                                                                ground state is accompanied by a spurious band inversion
+   Table I lists the lattice constants of the diamond phases    of the valence and conduction bands. Broadly speaking,
+of C, Si, Ge, and Sn, obtained by Birch-Murnaghan fits          electronic binding is weaker in metals than in semicon-
+[see Eq. (19)]. Relative to experiment [58], PBE system-        ductors. Thus, the false metallic ground state leads to
+atically overestimates the equilibrium lattice parameter        strongly overestimated lattice constants in PBE. Refer-
+a0 , reflecting the well-known PBE underbinding. Both           ences [59, 60] have discussed that SCAN and r2 SCAN
+r2 SCAN and SCAN reduce this error, yielding smaller a0 ,       can open a band gap for challenging narrow-gap semi-
+in better agreement with experimental lattice constants.        conductors such as Ge. In turn, the meta-GGA lattice
+The HSE functional also yields similar improvements. In-        constants of Ge and Sn are significantly more accurate.
+clusion of ZPE [8] slightly increases the first-principles a0   The same argument also applies to HSE.
+(corresponding to a negative correction to aexpt 0 ). ZPE is
+most significant for the lightest element C and diminishes
+toward α-Sn. We note that the lattice constants obtained                B.    Bulk moduli and elastic constants
+here with PBE and HSE are in good agreement with
+earlier studies [8, 9, 11, 17, 23] (differences ≲ 0.005 Å).       Table II lists the bulk moduli of the diamond phases
+Larger deviations are found with respect to the SCAN            of C, Si, Ge, and Sn. First, we discuss the estimated
+and r2 SCAN lattice constants reported in previous stud-        accuracy of our calculations before commenting on the
+ies. In particular, our SCAN lattice constants for Si,          performance of the various DFT functionals. On the one
+Ge, and Sn are 0.01-0.02 Å larger than the correspond-         hand, we obtain bulk moduli as a fit parameter from the
+ing results in the literature (5.428 Å [46], 5.428 Å [23],    Birch-Murnaghan equation of state [B0EOS ; see Eq. (19)].
+and 5.426 Å [26] for Si; 5.658 Å [46], 5.660 Å [23], and     On the other hand, the bulk moduli can be calculated
+5.673 Å [26] for Ge; 6.540 Å for Sn [17]). Most of these      from the elastic constants [B0elastic ; see Eq. (11)]. Agree-
+differences can be traced back to the use of more ac-           ment between these two values is a powerful consistency
+curate pseudopotentials in the present work. That is,           check for our calculations [61]. That is, the difference
+by repeating the calculations with the pseudopotentials         ∆B0 =B0elastic −B0EOS should be exactly zero (in the limit
+used in these previous studies (this involves freezing of       of numerical convergence and assuming exact equation-
+semicore electrons with respect to our setup), we obtain        of-state fits). It is satisfying that our calculations achieve
+smaller lattice constants in better agreement with the val-     close agreement (∆B0 ≈ 1 GPa) for most functionals and
+ues in the literature (not shown). Given the accuracy of        materials. Residual differences are mostly due to basis set
+the present calculations, we confidently confirm that the       errors of the elastic constants, see the SM [31]. We also
+r2 SCAN lattice constants are slightly larger than those of     find good agreement when comparing our PBE and HSE
+its parent functional SCAN [26, 29, 30].Comparing with          results for B0EOS with those of previous studies [8, 11]
+experimental lattice constants, Table I shows that SCAN         (differences ≲ 1 GPa). Further, the SCAN calculations
+                                                                                                                           6
+
+of Ref. [24] yielded 99.3 GPa for Si, and 73.4 GPa for
+                                                               TABLE II. Bulk moduli B0 (GPa) for group-IV elemental
+Ge, which differ by 2 to 3 GPa from our calculated B0EOS .
+                                                               solids in the diamond phase. The first column reports bulk
+Their PBE bulk moduli are 88.0 GPa for Si and 58.7 GPa         moduli obtained by equation-of-state fits [Eq. (19)]. The sec-
+for Ge, in good agreement with our results (differences        ond column reports bulk moduli computed from the elas-
+≤ 0.5 GPa). Finally, we note that zero-point corrections       tic constants [see Eq. (11)]. The third column reports the
+are significant only for C [8].                                difference ∆B0 = B0elastic − B0EOS . Experimental references
+Turning now to the comparison of calculated bulk moduli        for B0elastic are taken from Refs. [62–65], while experimental
+and experimental data, we first note that the PBE bulk         data for B0EOS and zero-point expansion (ZPE) corrections
+moduli are too small, especially for Ge and Sn. This           are taken from Ref. [8].
+reflects the underbinding problem of PBE, in line with                               B0EOS           B0elastic         ∆B0
+the overestimated lattice constants. In agreement with
+                                                               C
+previous studies, we find that larger bulk moduli are ob-
+tained by SCAN and HSE [8, 9, 12]. More generally,             PBE                   433.2             433.5           +0.3
+Tran et al. have established a broader inverse trend [12].     r2 SCAN               451.2             450.8           −0.4
+That is, DFT functionals that yield larger a0 also yield       SCAN                  459.7             459.0           −0.7
+smaller B0 , and vice versa. Next, the bulk moduli of C,       HSE                   469.4             469.3            -0.1
+Si, and Ge obtained by r2 SCAN are slightly smaller than       Expt.-ZPE             454.7             455.3           +0.6
+the corresponding SCAN bulk moduli, in line with the           Expt.                 443.0             443.6           +0.6
+slightly larger lattice constants obtained by r2 SCAN. At
+                                                               Si
+variance with the general trend, the r2 SCAN bulk mod-
+ulus of Sn is larger than the corresponding SCAN value,        PBE                    88.5              88.5           +0.0
+despite the fact that the lattice constant of r2 SCAN is       r2 SCAN                97.8              97.8           +0.0
+larger for Sn.                                                 SCAN                  102.4             100.5           −1.9
+Good agreement of calculated bulk moduli with experi-          HSE                    97.6             100.1           +2.5
+mental data is unambiguous for C, Si, and Ge. For Sn,          Expt.-ZPE             100.8             100.8            0.0
+however, the experimental data for B0elastic and B0EOS         Expt.                  99.2              99.2            0.0
+differ significantly. Table II shows that the relative dis-
+                                                               Ge
+crepancy ∆B0 /B0 amounts to ≈ 25%. The calculated
+bulk moduli are in better agreement with the experimen-        PBE                    58.5              59.0           +0.5
+tal B0elastic , while the experimental B0EOS is much larger.   r2 SCAN                69.6              73.9           +4.3
+Such an observation was already made by Ihm and Co-            SCAN                   71.4              74.1           +2.7
+hen [40]. At the time, the experimental B0EOS was even         HSE                    71.2              73.3           +2.1
+larger (111 GPa), while their LDA calculations predicted       Expt.-ZPE              77.3              78.0           +0.7
+a bulk modulus of 45.6 GPa, closer to the experimental         Expt.                  75.8              76.5           +0.7
+B0elastic . Here, we reconduct their argument and recom-
+                                                               Sn
+mend B0 = 42.5 GPa as the experimental reference for
+the bulk modulus of α-Sn [40, 62]. Further measurements        PBE                    35.8              36.5           +0.7
+are required to completely resolve this discrepancy in the     r2 SCAN                42.9              44.3           +1.4
+experimental data, but we find it noteworthy that the          SCAN                   41.7              42.7           +1.0
+current value of B0EOS for α-Sn is very close to that of       HSE                    43.6              44.8           +1.2
+β-Sn (55-58 GPa; see Ref. [37]). Given the small energy        Expt.-ZPE              55.5              43.4          −12.1
+difference between the α and β phases (the experimen-          Expt.                  54.6              42.5          −12.1
+tal estimate is 15 meV [40]), it seems plausible that the
+experimental measurements of B0EOS could be influenced
+by the coexistence of structural phases.
+  We proceed by discussing the elastic constants in the        ation of 2 GPa), but the agreement for the SCAN elastic
+diamond phase. Table III lists the calculated elastic con-     constants is slightly worse (mean absolute deviation of
+stants C11 , C12 , and C44 . Given the relation between        3 GPa). We note that both Refs. [9] and [66] studied
+bulk moduli and elastic constants, it is not surprising        C, Si, and Ge, but not Sn. Here, we also find that the
+that PBE underestimates the experimental elastic con-          r2 SCAN elastic constants are slightly smaller than the re-
+stants, especially for Ge and Sn, while SCAN and HSE           spective SCAN elastic constants for C and Si, very close
+yield larger elastic constants, in better agreement with       for Ge, and slightly larger for Sn. This mirrors the results
+experiment. Our PBE and HSE elastic constants are in           for the bulk moduli. In summary, the GGA functional
+good agreement with the reference results from Råsander       PBE shows the largest deviations with respect to experi-
+and Moram [9] (mean absolute deviation of 2 GPa). More         mental data, with a mean absolute relative error (MARE)
+recently, Xing et al. performed a high throughput study        of 13% and a root-mean-square relative error (RMSRE)
+of elastic constants [66]. We find again good agree-           of 15%. The meta-GGA functionals SCAN (MARE =
+ment for the PBE elastic constants (mean absolute devi-        6%, RMSRE = 7%) and r2 SCAN (MARE = 4%, RM-
+                                                               SRE = 6%) perform significantly better than PBE. HSE
+                                                                                                                        7
+
+                                                               V.   LATTICE DYNAMICS IN THE DIAMOND
+TABLE III. Elastic constants C11 , C12 , and C44 (in GPa)                      PHASE
+of group-IV elemental solids in the diamond phase. Exper-
+imental elastic constants are taken from Refs. [62–65], and
+corrected for zero-point expansion [ZPE; see Eq. (23)]. See      To illustrate the phonon dispersion relations obtained
+also Fig. S5(a) in the SM for data visualization [31].        from our calculations, we focus on the 128-atom super-
+                        C11            C12             C44    cell, with supercell convergence being discussed in the
+C                                                             SM [31]. Figure 2 shows the calculated phonon dispersion
+                                                              curves compared to experimental data. Before comment-
+PBE                    1051            124             559
+                                                              ing on particular results, we first discuss general trends.
+r2 SCAN                1115            119             589
+                                                              Overall, the phonon dispersions of the group-IV elemen-
+SCAN                   1130            124             598    tal solids are very similar and exhibit the same qualita-
+HSE                    1137            135             609    tive shapes. The frequencies show an inverse trend with
+Expt.-ZPE              1104            135             595    atomic number [see Eq. (15)]. Specifically, the LO/TO
+Expt.a                 1081            125             579    frequency for C is approximately 40 THz at the Γ point,
+Si                                                            while for Si, Ge, and Sn, the respective frequencies are ap-
+PBE                     158             58              76
+                                                              proximately 15, 9, and 6 THz. It is noteworthy that the
+                                                              phonon dispersion for C exhibits distinct maxima along
+r2 SCAN                 170             62              82
+                                                              Γ-X. Such maxima also appear along Γ-L and along Γ-K
+SCAN                    174             64              85    but in a less distinct fashion. Furthermore, the order of
+HSE                     173             64              82    the optical branches at the X and L points is reversed,
+Expt.-ZPE               169             67              81    and there is a near degeneracy at the K point. These
+Expt.b                  168             65              80    anomalies for C have been discussed in detail in Refs. [73]
+Ge                                                            and [11].
+PBE                     108             37              56
+                                                              Now, we proceed with the comparison of different density
+                                                              functionals. PBE generally underestimates the experi-
+r2 SCAN                 132             45              69
+                                                              mental frequencies, a manifestation of the underbinding
+SCAN                    130             46              67    error. While PBE phonons are still fairly close to ex-
+HSE                     131             45              69    periment for C and Si, the underestimation for Ge and
+Expt.-ZPE               133             50              69    Sn is more severe. Hummer et al. have explicitly con-
+Expt.c                  131             49              68    nected this to the qualitative failures of the PBE elec-
+Sn                                                            tronic band structure [11]. The SCAN and r2 SCAN func-
+PBE                      58             27              27
+                                                              tionals reduce the underbinding error, and yield system-
+                                                              atically larger phonon frequencies. This generally im-
+r2 SCAN                  70             32              33
+                                                              proves the agreement with the experimental data, espe-
+SCAN                     66             31              29    cially for Ge and Sn. Concerning the differences between
+HSE                      72             31              35    the meta-GGA functionals, we note that SCAN yields
+Expt.-ZPE                70             30              36    slightly larger phonon frequencies for C, and somewhat
+Expt.d                   69             29              36    smaller phonon frequencies for Sn. However, we note
+a                                                             that the differences for Sn are only slightly larger than
+  Reference [63].
+b
+  Reference [64].                                             our numerical accuracy of 0.1 THz. For Si and Ge, SCAN
+c
+  Reference [65].                                             and r2 SCAN yield essentially identical results (Ref. [28]
+d
+  Reference [62].                                             reported this previously for Si).
+                                                              For a more quantitative comparison, Table IV provides
+                                                              frequencies at the high-symmetry points Γ, X, and L.
+                                                              These results can be compared with HSE results and
+                                                              experimental data. HSE phonon frequencies are cal-
+                                                              culated in a 16-atom supercell, which is commensurate
+                                                              with these high-symmetry points. We note that our HSE
+                                                              phonon frequencies are in excellent agreement with those
+yields the lowest errors (MARE = 3%, RMSRE = 4%).             reported by Hummer et al. [11] (mean absolute deviation
+Finally, we note that the elastic constants can also be ob-   0.1 THz). ZPE corrections increase the optical phonon
+tained from fitting the acoustic modes of the phonon dis-     frequencies, in particular for C. The ZPE corrections have
+persions [Eqs. (17) and (18)]. In the SM, we discuss that     the opposite sign for some of the acoustic modes of Si and
+very large supercells are needed to converge the elastic      Ge, corresponding to negative Grüneisen parameters for
+constants [31]. The disadvantage due to the slow super-       these modes [7]. The trends of the relative errors are the
+cell convergence outweighs potential benefits in terms of     same as those for the elastic constants. PBE exhibits
+basis set convergence. Therefore, the supercell approach      the largest error, with a MARE of 7% and a RMSRE of
+is recommended only as an additional consistency check.       8%. The meta-GGA functionals reduce these deviations.
+                                                                                                                           8
+        (a)                                                       (b)
+
+
+
+
+        (c)                                                       (d)
+
+
+
+
+FIG. 2. Phonon dispersion relations for 128-atom supercells of group-IV elemental solids in the diamond phase: (a) C, (b) Si,
+(c) Ge, and (d) Sn. Phonon dispersions calculated with the PBE, r2 SCAN, and SCAN functionals are given as lines, whereas
+symbols indicate experimental data [62, 67–72]. For Sn, experimental phonon data are not available for all branches along the
+Σ direction (X-U,K-Γ) [62].
+
+
+r2 SCAN yields a MARE of 3% and a RMSRE of 4%,                  ∆E0 = E0,β − E0,α to be read directly; numerical values
+very similar to the performance of SCAN (MARE = 5%              are presented in Table V. All functionals tested here cor-
+and RMSRE = 6%). HSE delivers the best overall agree-           rectly predict positive values for ∆E0 , but we note that
+ment, with a MARE of only 2% and a RMSRE of 3%. For             other functionals such as LDA give the reverse order for
+a meaningful comparison with experimental frequencies,          Sn [17]. Table V shows that PBE yields the smallest tran-
+it is important to note that the experimental uncertain-        sition pressures, underestimating the experimental values
+ties reported for Si, Ge, and Sn are ≲ 0.1 THz [62, 69–         for Si and Ge by ≈ 25%. In agreement with previous
+72], and the LO frequencies for C are also very accurate        studies [23, 46], we find that SCAN yields larger transi-
+(< 0.1 THz) [67, 68]. However, the rest of the C data           tion pressures, improving the agreement with the experi-
+has larger experimental uncertainties (∼ 2%-3%) [67].           mental values. The relative errors for SCAN are +8% for
+                                                                Si and −7% for Ge. Furthermore, SCAN transition pres-
+                                                                sures for Si and Ge are in close agreement with the RPA
+  VI.         STRUCTURAL PHASE TRANSITIONS                      results from Sengupta et al. [46] (RPA, a functional from
+                                                                the fifth and highest rung of Jacob’s Ladder). No exper-
+                                                                imental transition pressure has been reported so far for
+   Figure 3 presents the α ↔ β phase transitions for
+                                                                Sn. However, SCAN strongly overestimates the exper-
+Si, Ge, and Sn. Curves on the left represent the high-
+                                                                imental estimate for ∆E0 (relative error of 260%; PBE
+pressure β phase, curves on the right the low-pressure
+                                                                yields 90%), confirming a previous result from Mehl et al.
+α phase, and the negative transition pressure is indi-
+                                                                [17]. Their study also showed that this results in SCAN
+cated by the common tangent lines [see Eq. 20]. All
+                                                                overestimating the α ↔ β transition temperature within
+energies have been offset so that the minimum of the
+                                                                the quasiharmonic approximation. Next, we find that
+α-phase curve lies at zero, allowing the energy difference
+                                                                                                                           9
+
+
+TABLE IV. Phonon frequencies (THz) at high-symmetry points calculated using PBE, r2 SCAN, SCAN, and HSE functionals.
+Experimental values are taken from Ref. [11], and corrected for zero-point expansion [ZPE; see Eq. (25)]. See also Fig. S5(b)
+in the SM for data visualization [31].
+                    ΓLO/TO          XTA           XLA/LO           XTO          LTA          LLA           LLO          LTO
+C
+PBE                   38.7           23.4           35.7           31.7         16.4         31.2          37.4         35.8
+r2 SCAN               39.7           24.1           36.7           32.3         16.8         31.8          38.5         36.6
+SCAN                  40.2           24.2           37.0           32.6         16.9         32.0          38.8         37.0
+HSE                   41.1           24.2           37.3           33.6         16.9         32.7          38.9         38.0
+Expt.-ZPE             40.8           24.3           36.5           33.2         16.5         31.6          37.5         36.8
+Expt.                 40.3           24.2           36.1           32.6         16.4         31.0          37.2         36.3
+Si
+PBE                   15.1           4.4            12.0           13.4          3.3         11.1          12.0         14.3
+r2 SCAN               15.5           4.8            12.5           13.8          3.6         11.5          12.4         14.7
+SCAN                  15.6           4.9            12.6           13.9          3.6         11.7          12.5         14.8
+HSE                   15.8           4.7            12.6           14.1          3.5         11.6          12.6         15.0
+Expt.-ZPE             15.6           4.5            12.4           14.0          3.4         11.4          12.7         14.8
+Expt.                 15.5           4.5            12.3           13.9          3.4         11.4          12.6         14.7
+Ge
+PBE                   8.2            2.2            6.6            7.4           1.8          6.2          6.6          7.9
+r2 SCAN               8.8            2.5            7.1            7.9           1.9          6.6          7.1          8.4
+SCAN                  8.8            2.2            7.0            7.9           1.7          6.5          7.0          8.4
+HSE                   9.0            2.5            7.2            8.1           1.9          6.7          7.2          8.6
+Expt.-ZPE             9.1            2.4            7.2            8.4           1.9          6.7          7.4          8.7
+Expt.                 9.1            2.4            7.2            8.3           1.9          6.7          7.3          8.7
+Sn
+PBE                   5.3            1.1            4.2            5.0           0.9          3.8          4.4          5.2
+r2 SCAN               5.7            1.2            4.5            5.3           1.0          4.1          4.7          5.6
+SCAN                  5.5            1.1            4.4            5.2           0.9          3.9          4.6          5.4
+HSE                   5.8            1.3            4.6            5.4           1.1          4.1          4.8          5.7
+Expt.-ZPE             6.0            1.3            4.7            5.5           1.0          4.2          4.9          5.7
+Expt.                 6.0            1.3            4.7            5.5           1.0          4.2          4.9          5.7
+
+
+
+r2 SCAN yields consistently larger transition pressures         the 2s and 2p semi-core electrons in the Si pseudopoten-
+than SCAN. HSE also yields larger transition pressures          tial, we obtain a larger transition of 14.3 GPa, closer to
+than SCAN for Ge and Sn, but a slightly smaller value           the value of 14.5 GPa reported in Refs. [23] and [46]. It is
+for Si. While differences are minor for Si, both r2 SCAN        noteworthy that our present SCAN result (13.7 GPa) is in
+and HSE yield considerably worse transition pressures for       better agreement with the experimental transition pres-
+Ge, and phase energy differences for Sn.                        sure (12.7 GPa including ZPE corrections). We also note
+Concerning the accuracy of our calculations, we note            that Yao and Kanai commented on the sensitivity of ∆E0
+that some of our PBE and SCAN transition pressures              to the Si pseudopotential [24]. However, their ∆E0 , cal-
+differ up to 1 GPa from previous calculations [23, 46].         culated with a SCAN pseudopotential, is 0.480 eV/atom,
+In particular, Ref. 23 reported 7.9 GPa for PBE transi-         noticeably larger than our result (0.402 eV/atom) and
+tion pressure for Ge, compared to 8.7 GPa in the present        also larger than the phase energy difference in Refs. [23]
+work. However, this seems to be a typographical error,          and [46] (both 0.417 eV/atom). This might relate to dif-
+as the equation-of-state parameters given in their SM           ficulties with the generation of SCAN pseudopotential,
+are consistent with a transition pressure of 8.9 GPa, in        as discussed by Bartók and Yates [25]. Finally, our HSE
+good agreement with our result (8.7 GPa). Furthermore,          transition pressure for Si (13.2 GPa) is in excellent agree-
+Refs. [23] and [46] reported 14.5 GPa for the SCAN tran-        ment with the corresponding reference from Xiao et al.
+sition pressure of Si, compared to 13.7 GPa in the present      (13.3 GPa) [16].
+work. We have traced this difference back to our use of         Next, we return to discuss the poor performance of the
+a more accurate Si pseudopotential. That is, by freezing        r2 SCAN and HSE functionals for the transition pres-
+                                                                                                                         10
+
+                                                                is applied to materials that do not resemble those stan-
+TABLE V. Structural α ↔ β phase transition for Si, Ge,
+                                                                dard semiconductors (here the metallic β phases of Ge
+and Sn. The first and the second columns show the equilib-
+rium lattice parameters a0,β (in Å) and the tetragonal ratio   and Sn). The HSE transition pressure for Ge is clearly
+(c/a)β of the β phases (see Table I for the α phases), re-      much larger than references from the RPA and exper-
+spectively. The third and the fourth columns show the vol-      iment, see Table V. An experimental transition pres-
+ume differences ∆V0 = V0,β − V0,α (in Å3 ), and the energy     sure for Sn is presently not available, but the overly
+differences ∆E0 = E0,β − E0,α (in eV/atom), respectively.       large phase energy difference indicates that HSE per-
+The final column shows the transition pressure Pt (in GPa),     forms poorly also for Sn. To the best of our knowledge,
+see Eq. (21). Reference transition pressures for Si and Ge      no precise theoretical estimate is yet available. High-level
+obtained using the random-phase approximation (RPA) are         calculations using the RPA and/or quantum Monte Carlo
+taken from Ref. [46]. The zero-point expansion (ZPE) correc-    are desirable to resolve this issue completely.
+tions to the experimental transition pressures for Si and Ge
+                                                                The fact that the r2 SCAN functional also yields consis-
+also account for temperature effects at T = 300 K [46].
+                                                                tently larger transition pressures than SCAN is rather
+               a0,β     (c/a)β   ∆V0        ∆E0      Pt         unexpected. We remind the reader that r2 SCAN was
+Si                                                              proposed as a reliable estimate of SCAN [26], and we
+PBE            4.839    0.551    −5.10      0.288     9.7       have explicitly demonstrated that r2 SCAN closely ap-
+r2 SCAN        4.802    0.549    −4.97      0.423    14.9       proximates SCAN for the elastic properties of these ma-
+                                                                terials. r2 SCAN yields slightly larger equilibrium vol-
+SCAN           4.776    0.554    −5.11      0.402    13.7
+                                                                umes for both α and β-phases, and Table V shows that
+HSE            4.794    0.549    −5.03      0.380    13.2       the differences ∆V0 = V0,β −V0,α are very close for SCAN
+RPA                              −4.86a     0.384a   13.8a      and r2 SCAN. Given that the transition pressure can be
+Expt.-ZPE                                            12.7a,b    approximated as Pt ≈ −∆E0 /∆V0 [see Eq. (20)], we
+Expt.                   0.552c                       11.7b      conclude that r2 SCAN deteriorates Pt by overestimating
+Ge                                                              ∆E0 . This is also visually apparent in Fig. 3. We further
+PBE            5.192    0.552    −4.62      0.228     8.7       investigate the disagreement between these meta-GGA
+                                                                functionals by analyzing the charge density differences
+r2 SCAN        5.133    0.553    −4.26      0.357    14.9
+                                                                ∆n(r) = nr2 SCAN (r)−nSCAN (r). Figure 4 shows that the
+SCAN           5.149    0.545    −4.27      0.266    10.8
+                                                                r2 SCAN density is generally enhanced along the atomic
+HSE            5.132    0.550    −4.39      0.329    13.2       bonds (darker regions), generally indicating higher sta-
+RPA                              −4.28a     0.276a   11.2a      bility. On the contrary, the r2 SCAN density diminishes
+Expt.-ZPE                                            11.6a,b    around the atomic nuclei (lighter regions), which gen-
+Expt.                   0.551c                       10.6b      erally indicates lower stability. By comparing the rela-
+Sn                                                              tive strengths of these opposing effects for the α and β
+                                                                phases, we can get a rough, qualitative understanding
+PBE            5.939    0.542    −8.41      0.042     0.8
+                                                                of the phase energy differences ∆E0 . Panels (c) and (f)
+r2 SCAN        5.879    0.543    −7.81      0.125     2.7
+                                                                show that the tighter electronic bond in α-Sn seems to
+SCAN           5.879    0.539    −7.69      0.080     1.7       be the dominant effect for tin. Thus, r2 SCAN overes-
+HSE            5.863    0.542    −7.91      0.110     2.3       timates ∆E0 by stabilizing the α phase with respect to
+Expt.-ZPE                                   0.022d              SCAN. Further support for the overstabilization of the α-
+Expt.          5.812e   0.543e   −7.39e,f   0.015g              Sn phase by r2 SCAN is provided by the fact that r2 SCAN
+a                                                               atypically yields larger phonon frequencies and a larger
+  Reference [46].
+b
+  Reference [39].
+                                                                bulk modulus for this phase (see Fig. 2 and Table II).
+c
+  Reference [36].                                               Next, panels (b) and (e) in Fig. 4 indicate that the domi-
+d
+  Reference [17].                                               nant effect for germanium seems to be the contraction of
+e
+  Reference [74].                                               electronic density around the nuclei in β-Ge. Therefore,
+f
+  Reference [58].                                               r2 SCAN overestimates ∆E0 by destabilizing the β phase
+g
+  Reference [40].                                               with respect to SCAN. Finally, panels (a) and (d) demon-
+                                                                strate that the charge density differences are marginal for
+                                                                silicon. Thus, the small phase energy difference is due to
+sures of Ge and Sn. We note that the reliability of             r2 SCAN closely approximating SCAN for both the α-Si
+HSE for transition pressures has not been established           and β-Si phases.
+in a systematic fashion. Rather, Xiao et al. have shown
+that HSE also seriously overestimates the transition pres-
+sure for a metal-metal phase transition in zirconium [16].             VII.    DISCUSSION AND OUTLOOK
+Furthermore, HSE includes a semiempirical parameter
+              −1
+(µ = 0.208 Å ) that was adjusted to optimize perfor-             We have benchmarked the lattice dynamics of the
+mance for standard semiconductors [52, 54]. It is perhaps       group-IV elemental solids C, Si, Ge, and Sn. To start, we
+not surprising that the accuracy of HSE declines when it        have confirmed the underbinding error of PBE. Namely,
+                                                                                                                             11
+
+       (a)                                       (b)                                        (c)
+
+
+
+
+FIG. 3. Energy-volume curves for the α and β phases of (a) Si, (b) Ge, and (c) Sn, calculated with PBE, r2 SCAN, and
+SCAN. Energies are referenced to the minimum of the α-phase curve for each element and functional. The solid lines are
+Birch-Murnaghan fits to the data. The dash-dotted lines show the common tangent to each pair of E(V ) curves; its negative
+slope equals the transition pressure Pt reported in Table V.
+
+(a)                                        (b)                                        (c)
+
+
+
+
+(d)                                        (e)                                        (f)
+
+
+
+
+FIG. 4. Charge density differences ∆n(r) = nr2 SCAN (r) − nSCAN (r) for the α phase of (a) Si, (b) Ge, and (c) Sn; and for
+the β phase of (d) Si, (e) Ge, and (f) Sn. Top panels show the α phases in the (01̄1) plane, and bottom panels show the β
+phases in the (110) plane. Experimental geometries are used where available (see Tables I and V), while SCAN geometries are
+used for β-Si and β-Ge. Blue circles indicate the positions of the atomic nuclei, and the nearest-neighbor bonds are indicated
+by blue lines. Dark areas indicate positive charge density differences (nr2 SCAN > nSCAN ), and light areas indicate negative
+charge density differences (nr2 SCAN < nSCAN ). Contour lines are drawn in steps of 0.5 electrons per cell volume [34]. Negative
+contours lines are indicated in white.
+
+
+PBE overestimates lattice constants, while it underes-            repulsion [21, 59]. The underbinding error is particu-
+timates bulk moduli, elastic constants, and phonon fre-           larly severe for Ge and Sn, as PBE falsely predicts Ge
+quencies. This underbinding can be understood as a con-           and Sn to be metals in the diamond phase [11, 59, 60].
+sequence of the self-interaction error. That is, semilocal        The electronic structure improvements lead to improved
+exchange insufficiently counteracts the Hartree electronic        lattice dynamics for meta-GGA functionals. Improved
+                                                                                                                                   12
+
+band structures are also provided by hybrid function-               recovers the exchange gradient expansion only in leading
+als such as HSE, but at a much higher computational                 order (GE0X). The relevance of GE4X has not yet been
+cost. Overall, our results demonstrate that r2 SCAN and             established for real systems [26, 27], but the transition
+SCAN yield very similar lattice dynamics for group-IV               pressures of Ge and Sn seemingly present a rare situ-
+elemental solids, but r2 SCAN does not exhibit the se-              ation where GE4X actually matters. At this point, it
+vere numerical problems of SCAN (see the SM [31]). We               is not clear whether the overestimated transition pres-
+conclude that the lattice dynamics obtained by r2 SCAN              sures represent a general weakness of r2 SCAN, or rather
+offer a compelling level of accuracy —nearly matching               represent singular shortcomings for the group-IV elemen-
+HSE— while retaining the computational efficiency of a              tal solids studied here. Thus, it is important for future
+semilocal DFT functional. This conclusion is in line with           work to compare SCAN and r2 SCAN across a larger set
+recent findings in the literature [28, 59, 75]. Putting these       of transition pressures, as done in Ref. [23]. Given that
+results in a broader context, we find a wider, emerging             the r2 SCAN functional is on its way of becoming the new
+picture of r2 SCAN improving upon PBE in terms of lin-              DFT workhorse, assessing its the reliability for structural
+ear response properties, which has been attributed to the           phase transitions is essential. We caution against relying
+reduction of self-interaction error [28, 59, 60, 75, 76].           on the HSE functional to assess the performance of the
+   The fact that the PBE transition pressures are under-            meta-GGA transition pressures, and advocate the use of
+estimated can also be related to underbinding and self-             experimental data or higher-level theories instead.
+interaction errors. Namely, PBE underbinds the fourfold
+coordinated α phases more than the sixfold coordinated
+β phases, and consequently, PBE underestimates ∆E0                                  ACKNOWLEDGEMENTS
+and Pt [16, 23, 45, 46]. Larger transition pressures are
+found with the meta-GGA functionals and HSE, due to
+                                                                      The authors thank A. Bongiorno, M. Engel, and E.
+a reduction of the self-interaction error. Surprisingly, we
+                                                                    Kioupakis for fruitful discussions. The calculations were
+have found that r2 SCAN predicts overly large phase en-
+                                                                    performed at the Swiss National Supercomputing Cen-
+ergy differences ∆E0 , and drastically overestimates the
+                                                                    ter (CSCS) under Project ID No. lp60 and at SCITAS-
+transition pressures of Ge and Sn. As we have carefully
+                                                                    EPFL.
+converged our calculations, this difference between SCAN
+and r2 SCAN should be interpreted as a shortcoming of
+the r2 SCAN meta-GGA functional itself. While the func-
+tional forms of SCAN and r2 SCAN are very similar, they                               DATA AVAILABILITY
+are obviously not identical. Importantly, SCAN fulfills
+the exact constraint for the exchange gradient expansion              Example input files and raw phonon data correspond-
+up to fourth order (GE4X), while r2 SCAN fulfills this              ing to Fig. 2 are freely available on the Materials Cloud
+constraint only up to second order (GE2X) [26, 27]. PBE             platform, see Ref. [77].
+
+
+
+
+ [1] K. Burke, Perspective on density functional theory, J.          [9] M. Råsander and M. A. Moram, On the accuracy of com-
+     Chem. Phys. 136, 150901 (2012).                                     monly used density functional approximations in deter-
+ [2] R. O. Jones, Density functional theory: Its origins, rise to        mining the elastic constants of insulators and semicon-
+     prominence, and future, Rev. Mod. Phys. 87, 897 (2015).             ductors, J. Chem. Phys. 143, 144104 (2015).
+ [3] M. G. Medvedev, I. S. Bushmarinov, J. Sun, J. P.               [10] B. Grabowski, T. Hickel, and J. Neugebauer, Ab initio
+     Perdew, and K. A. Lyssenko, Density functional theory               study of the thermodynamic properties of nonmagnetic
+     is straying from the path toward the exact functional,              elementary fcc metals: Exchange-correlation-related er-
+     Science 355, 49 (2017).                                             ror bars and chemical trends, Phys. Rev. B 76, 024309
+ [4] P. Hohenberg and W. Kohn, Inhomogeneous electron gas,               (2007).
+     Phys. Rev. 136, B864 (1964).                                   [11] K. Hummer, J. Harl, and G. Kresse, Heyd-Scuseria-
+ [5] W. Kohn and L. J. Sham, Self-consistent equations in-               Ernzerhof hybrid functional for calculating the lattice
+     cluding exchange and correlation effects, Phys. Rev. 140,           dynamics of semiconductors, Phys. Rev. B 80, 115205
+     A1133 (1965).                                                       (2009).
+ [6] J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized          [12] F. Tran, J. Stelzl, and P. Blaha, Rungs 1 to 4 of DFT
+     gradient approximation made simple, Phys. Rev. Lett.                Jacob’s ladder: Extensive test on the lattice constant,
+     77, 3865 (1996).                                                    bulk modulus, and cohesive energy of solids, J. Chem.
+ [7] F. Favot and A. Dal Corso, Phonon dispersions: Perfor-              Phys. 144, 204120 (2016).
+     mance of the generalized gradient approximation, Phys.         [13] R. Armiento and A. E. Mattsson, Functional designed to
+     Rev. B 60, 11427 (1999).                                            include surface effects in self-consistent density functional
+ [8] L. Schimka, J. Harl, and G. Kresse, Improved hybrid                 theory, Phys. Rev. B 72, 085108 (2005).
+     functional for solids: The HSEsol functional, J. Chem.         [14] Z. Wu and R. E. Cohen, More accurate generalized gra-
+     Phys. 134, 024116 (2011).                                           dient approximation for solids, Phys. Rev. B 73, 235116
+                                                                                                                                  13
+
+     (2006).                                                             J. Sun, Testing the r2 SCAN density functional for the
+[15] J. P. Perdew, A. Ruzsinszky, G. I. Csonka, O. A. Vydrov,            thermodynamic stability of solids with and without a van
+     G. E. Scuseria, L. A. Constantin, X. Zhou, and K. Burke,            der Waals correction, ACS Mater. Au 3, 102 (2022).
+     Restoring the density-gradient expansion for exchange in       [31] See Supplemental Material at [URL will be inserted
+     solids and surfaces, Phys. Rev. Lett. 100, 136406 (2008).           by publisher] for detailed numerical setup, convergence
+[16] B. Xiao, J. Sun, A. Ruzsinszky, J. Feng, R. Haunschild,             tests, and additional data visualization.
+     G. E. Scuseria, and J. P. Perdew, Testing density func-        [32] C. Kittel, Introduction to Solid State Physics, 8th ed.
+     tionals for structural phase transitions of solids under            (Wiley, New York, 2005).
+     pressure: Si, SiO2 , and Zr, Phys. Rev. B 88, 184103           [33] G. Kresse, J. Furthmüller, and J. Hafner, Ab initio force
+     (2013).                                                             constant approach to phonon dispersion relations of dia-
+[17] M. J. Mehl, M. Ronquillo, D. Hicks, M. Esters, C. Oses,             mond and graphite, Europhys Lett 32, 729–734 (1995).
+     R. Friedrich, A. Smolyanyuk, E. Gossett, D. Finken-            [34] K. Momma and F. Izumi, VESTA 3 for three-dimensional
+     stadt, and S. Curtarolo, Tin-pest problem as a test of              visualization of crystal, volumetric and morphology data,
+     density functionals using high-throughput calculations,             J. Appl. Crystallogr. 44, 1272 (2011).
+     Phys. Rev. Mater. 5, 083608 (2021).                            [35] M. T. Yin and M. L. Cohen, Theory of static structural
+[18] J. P. Perdew and K. Schmidt, Jacob’s ladder of density              properties, crystal stability, and phase transformations:
+     functional approximations for the exchange-correlation              Application to Si and Ge, Phys. Rev. B 26, 5668 (1982).
+     energy, AIP Conf. Proc. 577, 1 (2001).                         [36] N. Moll, M. Bockstedte, M. Fuchs, E. Pehlke, and
+[19] J. Sun, A. Ruzsinszky, and J. P. Perdew, Strongly con-              M. Scheffler, Application of generalized gradient approx-
+     strained and appropriately normed semilocal density                 imations: The diamond–β-tin phase transition in Si and
+     functional, Phys. Rev. Lett. 115, 036402 (2015).                    Ge, Phys. Rev. B 52, 2550 (1995).
+[20] J. Sun, R. C. Remsing, Y. Zhang, Z. Sun, A. Ruzsinszky,        [37] N. E. Christensen and M. Methfessel, Density-functional
+     H. Peng, Z. Yang, A. Paul, U. Waghmare, X. Wu, M. L.                calculations of the structural properties of tin under pres-
+     Klein, and J. P. Perdew, Accurate first-principles struc-           sure, Phys. Rev. B 48, 5797 (1993).
+     tures and energies of diversely bonded systems from an         [38] B. Cornelius, S. Treivish, Y. Rosenthal, and M. Pecht,
+     efficient density functional, Nat. Chem. 8, 831 (2016).             The phenomenon of tin pest: A review, Microelectron.
+[21] Y. Zhang, J. Sun, J. P. Perdew, and X. Wu, Comparative              Reliab. 79, 175 (2017).
+     first-principles studies of prototypical ferroelectric mate-   [39] A. Mujica, A. Rubio, A. Muñoz, and R. J. Needs,
+     rials by LDA, GGA, and SCAN meta-GGA, Phys. Rev.                    High-pressure phases of group-IV, III–V, and II–VI com-
+     B 96, 035143 (2017).                                                pounds, Rev. Mod. Phys. 75, 863 (2003).
+[22] Y. Zhang, D. A. Kitchaev, J. Yang, T. Chen, S. T. Dacek,       [40] J. Ihm and M. L. Cohen, Equilibrium properties and the
+     R. A. Sarmiento-Pérez, M. A. L. Marques, H. Peng,                  phase transition of grey and white tin, Phys. Rev. B 23,
+     G. Ceder, J. P. Perdew, and J. Sun, Efficient first-                1576 (1981).
+     principles prediction of solid stability: Towards chemical     [41] M. T. Yin and M. L. Cohen, Microscopic theory of the
+     accuracy, npj Comput. Mater. 4, 9 (2018).                           phase transformation and lattice dynamics of Si, Phys.
+[23] C. Shahi, J. Sun, and J. P. Perdew, Accurate critical pres-         Rev. Lett. 45, 1004 (1980).
+     sures for structural phase transitions of group IV, III-V,     [42] M. T. Yin and M. L. Cohen, Theory of lattice-dynamical
+     and II-VI compounds from the SCAN density functional,               properties of solids: Application to Si and Ge, Phys. Rev.
+     Phys. Rev. B 97, 094111 (2018).                                     B 26, 3259 (1982).
+[24] Y. Yao and Y. Kanai, Plane-wave pseudopotential im-            [43] A. Dal Corso, A. Pasquarello, A. Baldereschi, and
+     plementation and performance of SCAN meta-GGA                       R. Car, Generalized-gradient approximations to density-
+     exchange-correlation functional for extended systems, J.            functional theory: A comparative study for atoms and
+     Chem. Phys. 146, 224105 (2017).                                     solids, Phys. Rev. B 53, 1180 (1996).
+[25] A. P. Bartók and J. R. Yates, Regularized SCAN func-          [44] K. Gaál-Nagy, A. Bauer, M. Schmitt, K. Karch,
+     tional, J. Chem. Phys. 150, 161101 (2019).                          P. Pavone, and D. Strauch, Temperature and dynami-
+[26] J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and             cal effects on the high-pressure cubic-diamond ↔ β-tin
+     J. Sun, Accurate and numerically efficient r2 SCAN meta-            phase transition in Si and Ge, Phys. Status Solidi B 211,
+     generalized gradient approximation, J. Phys. Chem. Lett.            275 (1999).
+     11, 8208 (2020).                                               [45] R. G. Hennig, A. Wadehra, K. P. Driver, W. D. Parker,
+[27] J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and             C. J. Umrigar, and J. W. Wilkins, Phase transforma-
+     J. Sun, Construction of meta-GGA functionals through                tion in Si from semiconducting diamond to metallic
+     restoration of exact constraint adherence to regularized            β-Sn phase in QMC and DFT under hydrostatic and
+     SCAN functionals, J. Chem. Phys. 156, 034109 (2022).                anisotropic stress, Phys. Rev. B 82, 014101 (2010).
+[28] J. Ning, J. W. Furness, and J. Sun, Reliable lattice dy-       [46] N. Sengupta, J. E. Bates, and A. Ruzsinszky, From
+     namics from an efficient density functional approxima-              semilocal density functionals to random phase approx-
+     tion, Chem. Mater. 34, 2562 (2022).                                 imation renormalized perturbation theory: A method-
+[29] R. Kingsbury, A. S. Gupta, C. J. Bartel, J. M. Munro,               ological assessment of structural phase transitions, Phys.
+     S. Dwaraknath, M. Horton, and K. A. Persson, Perfor-                Rev. B 97, 235136 (2018).
+     mance comparison of r2 SCAN and SCAN metaGGA den-              [47] J. Ning, M. Kothakonda, J. W. Furness, A. D. Kaplan,
+     sity functionals for solid materials via an automated,              S. Ehlert, J. G. Brandenburg, J. P. Perdew, and J. Sun,
+     high-throughput computational workflow, Phys. Rev.                  Workhorse minimally empirical dispersion-corrected den-
+     Mater. 6, 013801 (2022).                                            sity functional with tests for weakly bound systems:
+[30] M. Kothakonda, A. D. Kaplan, E. B. Isaacs, C. J. Bartel,            r2 SCAN+rVV10, Phys. Rev. B 106, 075422 (2022).
+     J. W. Furness, J. Ning, C. Wolverton, J. P. Perdew, and
+                                                                                                                                 14
+
+[48] J.-P. Poirier, Equations of state, in Introduction to the    [63] H. J. McSkimin and P. Andreatch, Elastic moduli of dia-
+     Physics of the Earth’s Interior (Cambridge University             mond as a function of pressure and temperature, J. Appl.
+     Press, Cambridge, 2000) Chap. 4, p. 63–109.                       Phys. 43, 2944 (1972).
+[49] G. Kresse and J. Furthmüller, Efficient iterative schemes   [64] H. J. McSkimin and P. Andreatch, Elastic moduli of sil-
+     for ab initio total-energy calculations using a plane-wave        icon vs hydrostatic pressure at 25.0°C and −195.8°C, J.
+     basis set, Phys. Rev. B 54, 11169 (1996).                         Appl. Phys. 35, 2161 (1964).
+[50] G. Kresse and D. Joubert, From ultrasoft pseudopoten-        [65] H. J. McSkimin and P. Andreatch, Elastic moduli of
+     tials to the projector augmented-wave method, Phys.               germanium versus hydrostatic pressure at 25.0°C and
+     Rev. B 59, 1758 (1999).                                           −195.8°C, J. Appl. Phys. 34, 651 (1963).
+[51] P. E. Blöchl, Projector augmented-wave method, Phys.        [66] W. Xing, F. Meng, J. Ning, J. Sun, and R. Yu, Compar-
+     Rev. B 50, 17953 (1994).                                          ative first-principles study of elastic constants of covalent
+[52] J. Heyd, G. E. Scuseria, and M. Ernzerhof, Hybrid func-           and ionic materials with LDA, GGA, and meta-GGA
+     tionals based on a screened Coulomb potential, J. Chem.           functionals and the prediction of mechanical hardness,
+     Phys. 118, 8207 (2003); Erratum: “Hybrid functionals              Sci. China Technol. Sci. 64, 2755 (2021).
+     based on a screened coulomb potential” [J. Chem. Phys.       [67] J. L. Warren, J. L. Yarnell, G. Dolling, and R. A. Cow-
+     118, 8207 (2003)], J. Chem. Phys. 124, 219906 (2006).             ley, Lattice dynamics of diamond, Phys. Rev. 158, 805
+[53] J. Paier, M. Marsman, K. Hummer, G. Kresse, I. C. Ger-            (1967).
+     ber, and J. G. Ángyán, Screened hybrid density function-   [68] J. Kulda, H. Kainzmaier, D. Strauch, B. Dorner,
+     als applied to solids, J. Chem. Phys. 124, 154709 (2006);         M. Lorenzen, and M. Krisch, Overbending of the longi-
+     Erratum: “Screened hybrid density functionals applied             tudinal optical phonon branch in diamond as evidenced
+     to solids” [J. Chem. Phys. 124, 154709 (2006)], J. Chem.          by inelastic neutron and x-ray scattering, Phys. Rev. B
+     Phys. 125, 249901 (2006).                                         66, 241202 (2002).
+[54] A. V. Krukau, O. A. Vydrov, A. F. Izmaylov, and G. E.        [69] J. Kulda, D. Strauch, P. Pavone, and Y. Ishii, Inelastic-
+     Scuseria, Influence of the exchange screening parame-             neutron-scattering study of phonon eigenvectors and fre-
+     ter on the performance of screened hybrid functionals,            quencies in Si, Phys. Rev. B 50, 13347 (1994).
+     J. Chem. Phys. 125, 224106 (2006).                           [70] G. Nilsson and G. Nelin, Phonon dispersion relations in
+[55] M. Engel, M. Marsman, C. Franchini, and G. Kresse,                Ge at 80 °K, Phys. Rev. B 3, 364 (1971).
+     Electron-phonon interactions using the projector             [71] G. Nilsson and G. Nelin, Study of the homology between
+     augmented-wave method and Wannier functions, Phys.                silicon and germanium by thermal-neutron spectrometry,
+     Rev. B 101, 184302 (2020).                                        Phys. Rev. B 6, 3777 (1972).
+[56] P. G. Dacosta, O. H. Nielsen, and K. Kunc, Stress the-       [72] G. Dolling, Lattice vibrations in crystals with the di-
+     orem in the determination of static equilibrium by the            amond structure, in Inelastic scattering of neutrons in
+     density functional method, J. Phys. C: Solid State Phys.          solids and liquids, Vol. 2 (IAEA, Vienna, 1963) pp. 37–
+     19, 3163 (1986).                                                  48.
+[57] G. P. Francis and M. C. Payne, Finite basis set cor-         [73] M. Aouissi, I. Hamdi, N. Meskini, and A. Qteish, Phonon
+     rections to total energy pseudopotential calculations, J.         spectra of diamond, Si, Ge, and α-Sn: Calculations with
+     Phys.: Condens. Matter 2, 4395 (1990).                            real-space interatomic force constants, Phys. Rev. B 74,
+[58] O. Madelung, Semiconductors: Data Handbook , 3rd ed.              054302 (2006).
+     (Springer-Verlag, Berlin Heidelberg, 2004).                  [74] J. A. Rayne and B. S. Chandrasekhar, Elastic constants
+[59] Y. Zhang, A. Ramasamy, K. Pokharel, M. Kothakonda,                of β tin from 4.2°K to 300°K, Phys. Rev. 120, 1658
+     B. Xiao, J. W. Furness, J. Ning, R. Zhang, and J. Sun,            (1960).
+     Advances and challenges of SCAN and r2 SCAN density          [75] Y. Wang, M. Engel, C. Lane, Y. Zhang, H. Miranda,
+     functionals in transition-metal compounds, WIREs Com-             L. Hou, B. Barbiellini, R. S. Markiewicz, J.-X. Zhu,
+     put. Mol. Sci. 15, e70007 (2025).                                 G. Kresse, A. Bansil, J. Sun, and R. Zhang, Accurate
+[60] S. Riemelmoser, X. Xu, and A. Pasquarello, Climbing Ja-           electron-phonon interactions from advanced density func-
+     cob’s Ladder for the Coulomb hole: Dielectric-dependent           tional theory, PRX Energy 5, 013002 (2026).
+     hybrid functional based on meta-GGA, (unpublished).          [76] J. R. Yates and A. P. Bartók, Accurate predictions of
+[61] S. Shang, A. Saengdeejing, Z. Mei, D. Kim, H. Zhang,              chemical shifts with the rSCAN and r2 SCAN mGGA
+     S. Ganeshan, Y. Wang, and Z. Liu, First-principles cal-           exchange–correlation functionals, Faraday Discuss. 255,
+     culations of pure elements: Equations of state and elastic        192 (2025).
+     stiffness constants, Comput. Mater. Sci. 48, 813 (2010).     [77] See Supplementary Data at https://doi.org/10.
+[62] D. L. Price, J. M. Rowe, and R. M. Nicklow, Lattice               24435/materialscloud:dp-1f for raw phonon data and
+     dynamics of grey tin and indium antimonide, Phys. Rev.            VASP input files.
+     B 3, 1268 (1971).
+                                                                                                                             1
+
+                      Supplemental Material for
+ Lattice dynamics and structural phase stability of group-IV elemental
+                  solids with the r2 SCAN functional
+                      Adonis Haxhijaj,∗ Stefan Riemelmoser, and Alfredo Pasquarello
+                                 Chaire de Simulation à l’Echelle Atomique (CSEA),
+                 Ecole Polytechnique Fédérale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland
+                                                (Dated: March 18, 2026)
+                                         ∗
+                                             Electronic mail: adonis.haxhijaj@epfl.ch
+
+
+                          I.   NUMERICAL SETUP AND BASIS-SET CONVERGENCE
+
+   Table S1 lists the PBE PAW pseudopotentials employed in this work. By construction, these pseudopotentials
+ensure broad transferability, which is particularly important when PBE pseudopotentials are used in combination
+with meta-GGA functionals. The shorthands GW and h indicate accurate treatment of high-energy states. The
+shorthand sv indicates that the semicore shell is explicitly treated as valence.
+As discussed in Sec. III in the main text, we compare two different numerical setups. Setup A in Table S2 represents
+a straightforward way to reach basis-set convergence in vasp. Specifically, setup A uses a single-grid strategy
+(PREC=Accurate), where the plane-wave basis-set cutoff is determined by a single plane-wave cutoff (ENCUT).
+Further, calculations of phonons and elastic constants use the default step size for the final displacements (POTIM
+= 0.015 Å). In the following, we demonstrate that setup A is disadvantageous, in particular, for the meta-GGA func-
+tional SCAN. In contrast, satisfactory numerical accuracy can be achieved with setup B given in Table S2. Following
+Ning et al. [28], we employ a double-grid strategy (PREC=High in vasp), which uses a higher plane-wave cutoff for the
+PAW augmentation charges (ENAUG in vasp). Further, the finite displacement step (POTIM) is increased to 0.060 Å.
+Finally, for both setups, a stringent energy criterion of 10−8 eV is used as a break condition for the electronic self-
+consistency cycle (EDIFF in vasp). This ensures high numerical accuracy for the forces in finite difference calculations.
+
+
+
+TABLE S1. Specification of pseudopotentials used. We employ PBE PAW pseudopotentials [50] as distributed with vasp.6.4.2.
+The first column lists the pseudopotentials, the second column the valence electron configuration. The default plane-wave
+basis-set cutoff (ENMAX in vasp) is given in the third column, while the fourth column lists the plane-wave cutoff used for the
+calculations in the main text (ENMAX in vasp). All cutoff energies are given in eV.
+                               PAW potential         valence                  ENMAX        ENCUT
+                               C h GW                2s2 2p2                    741.7       1335.1
+                               Si sv GW              2s2 2p6 3s2 3p2            547.6        985.7
+                               Ge sv GW              3s2 3p6 3d10 4s2 4p2       410.4        738.7
+                               Sn sv GW              4s2 4p6 4d10 5s2 5p2       368.8        663.8
+
+
+
+
+TABLE S2. Numerical setups for the phonon calculations in vasp. Setup A uses a single-grid (PREC=Accurate), with energy
+cutoff ENCUT chosen to be 1.8× the default cutoff (ENMAX). Setup B uses a double-grid strategy (PREC=High), which
+employs a different energy cutoff for the augmentation charges (ENAUG). The step size for the finite difference is increased in
+setup B, in both cases we use a fourth-order finite difference stencil (NFREE=4). Both setups use a stringent energy criterion
+as the break condition for electronic self-consistency (EDIFF).
+                                                        setup A                 setup B
+                                     PREC              Accurate                   High
+                                     ENCUT          1.8 × ENMAX             1.8 × ENMAX
+                                     ENAUG                                      4000 eV
+                                     POTIM              0.015 Å                0.060 Å
+                                     NFREE                 4                       4
+                                     EDIFF              10−8 eV                 10−8 eV
+                                                                                                                                2
+      (a)
+
+
+
+
+      (b)
+
+
+
+
+      (c)
+
+
+
+
+FIG. S1. Convergence with respect to the plane-wave energy cutoff, varied from 1.2× ENMAX to 2.0×ENMAX, where ENMAX
+is the default cutoff of the respective pseudopotentials. All convergence curves are shown for the three functionals PBE, r2 SCAN,
+and SCAN, and the labels A and B in the legend refer to the numerical setups A and B listed in Table S2. Panel (a) shows
+the bulk modulus B0EOS obtained from Birch-Murnaghan equation-of-state fits [Eq. (19)]. Panel (b) shows the bulk modulus
+B0elastic evaluated from the elastic constants using Eq. (11) of the main text. B0ref in panels (a) and (b) denotes a reference
+bulk modulus obtained from an equation-of-state fit at a very high cutoff (4×ENMAX). Panel (c) shows the convergence of the
+Γ-point phonon frequency. In all panels, the black vertical line marks the cutoff 1.8× ENMAX, which is the value adopted for
+the final elastic-constant calculations (Tables II and III in the main text) and phonon-frequency calculations (Table IV in the
+main text).
+
+
+
+   Next, we compare the plane-wave basis-set convergence for the two setups. We note that setup B is used throughout
+for the calculations in the main text. Figure S1(a) shows the basis-set convergence of the bulk moduli B0EOS obtained
+by Birch-Murnaghan equation-of-state fits [Eq. (19)]. Using setup A, SCAN exhibits slow basis-set convergence,
+especially for Si and Sn (see green dashed lines). The convergence behavior is significantly improved with the double-
+grid technique (see full green lines). In contrast, both setups yield rapid convergence of B0EOS for PBE (blue lines)
+and r2 SCAN (red lines). Figure S1(b) shows the convergence of the bulk moduli B0elastic calculated via Eq. (11). For
+large cutoffs, we observe that the identity B0elastic = B0EOS holds very well, as it should [see Eq. (11)]. However, at
+lower cutoff energies, the basis-set incompleteness induces Pulay stress [56, 57], which artificially alters the calculated
+pressure and leads to a systematic violation of the identity in Eq. (11) of the main text. Furthermore, numerical setup
+A shows again poor basis-set convergence for the SCAN elastic constants of Si and Sn, which does not occur with
+setup B. In contrast, setups A and B yield almost identical results for the PBE and r2 SCAN functionals. Figure S1(c)
+illustrates the basis-set convergence for the phonon frequencies at the Γ point. Since these calculations do not involve
+volume changes, basis-set convergence can be more rapid than for B0 . The Γ-point frequencies obtained using PBE
+                                                                                                                            3
+
+       (a)                                     (b)                                      (c)
+
+
+
+
+FIG. S2. Demonstrations of numerical instabilities observed for phonon dispersions in the cases of (a) Si with r2 SCAN, (b)
+Ge with SCAN, and (c) Sn with SCAN. Dotted lines correspond to setup A in Table S2, solid lines correspond to setup B in
+Table S2. All phonon dispersions are calculated with 128-atom supercells and the plane-wave cutoffs indicated by the black
+vertical lines in Fig. S1. The phonon dispersions obtained by setup B are equivalent to those used in Fig. 2 of the main text.
+
+
+and r2 SCAN are indeed already converged at very low cutoffs. Furthermore, the full and dashed lines representing
+numerical setups A and B differ slightly even in the limit of large cutoffs. This is due to the different step sizes (0.015 Å
+for setup A, and 0.060 Å for setup B, see Table S2). In principle, the frequencies obtained with setup A are more
+accurate, since we want to simulate the linear response regime. Still, the differences between setups A and B are below
+0.1 THz, within our desired numerical accuracy. We have also confirmed that PBE Γ-point frequencies obtained with
+setup A are in excellent agreement with density functional perturbation theory (not shown). The phonon frequencies
+obtained with SCAN are numerically stable only with setup B, while SCAN frequencies calculated with setup A
+exhibit poor basis-set convergence, particularly for Sn. These numerical instabilities are demonstrated in Fig. S2,
+where we use the same plane-wave cutoff as in the main text. We note that the phonon dispersion obtained with
+setup A is generally less stable. A drastic example is the SCAN phonon dispersion of Sn, where setup A produces
+large, unphysical imaginary frequencies [see panel (c) in Fig. S2]. Smaller instabilities for the acoustic modes are
+present for the SCAN phonon dispersions of Si and Ge, the r2 SCAN phonon dispersion of Si, and the PBE phonon
+dispersion of Sn. In contrast, numerical setup B manages to stabilize the phonon dispersions in all cases, see also
+Fig. S3. In summation, we find that for the group-IV elemental solids, the r2 SCAN functional offers stable phonon
+frequencies, and favorable plane-wave basis-set convergence. In this regard, r2 SCAN performs comparably to the
+PBE functional, while SCAN exhibits poor numerical stability and slow basis-set convergence. This agrees with the
+findings of Ning et al. [28]. These authors have correctly pointed out that it might be close to impossible to obtain
+converged SCAN results for numerically challenging materials. Given that r2 SCAN closely approximates the lattice
+dynamics of SCAN, but avoids the numerical problems, we agree with Ning et al. [28] that r2 SCAN should be used
+instead of SCAN for high-throughput studies of lattice dynamics.
+
+
+                                         II.   SUPERCELL CONVERGENCE
+
+   As discussed in Sec. II B of the main text, the phonon frequencies obtained by the direct method are explicitly
+calculated only at wave vectors q that are commensurate with the supercell, whereas phonons at other wave vectors
+are interpolated. It is therefore important to check the convergence of the phonon dispersion with respect to the
+supercell size. Figure S3 demonstrates that the changes from the 54-atom supercell to the 128-atom supercell are
+only significant near the X point. Note that phonon frequencies at the X point are explicitly calculated for both the
+16-atom supercell and the 128-atom supercell (negligible finite-size error, same for the Γ and L points). Stringent
+agreement for the 16-atom and 128-atom supercells at these high-symmetry points is thus an important sanity check,
+demonstrating good numerical accuracy. In contrast, the 54-atom and 250-atom supercells are not commensurate with
+phonons at the X and L points, and phonon frequencies at these high-symmetry points are subject to larger finite-size
+errors. We explicitly demonstrate that the phonon dispersions for C and Si obtained with 250-atom supercells barely
+differ from the phonon dispersions obtained with 128-atom supercells. We note, however, that very large supercells
+(∼1000 atoms) are required to completely converge the phonon dispersions [73]. For instance, 1024 atoms are needed
+to obtain a supercell that is commensurate with the K point. As an example, we compute the elastic constants by
+fitting to the acoustic phonon modes [see Eqs. (17) and (18)].
+                                                                                                                            4
+      (a)                                                         (b)
+
+
+
+
+      (c)                                                         (d)
+
+
+
+
+FIG. S3. Supercell size convergence of phonon dispersions for group-IV elemental solids in the diamond phase with the PBE
+functional: (a) C, (b) Si, (c) Ge, and (d) Sn. The 128-atom supercell used in Fig. 2 of the main text is indicated in bold.
+
+
+
+
+FIG. S4. Elastic constants obtained from linear fits to the acoustic modes of the phonon dispersions [see Eqs. (17) and (18)].
+All calculations are done with the PBE functional, full phonon dispersions are shown in Fig. S3. Reference elastic constants
+obtained by the finite difference strain-stress method are listed in Table III of the main text.
+
+
+
+   Figure S4 demonstrates the slow supercell convergence of the Cij . We remark that this approach has, in principle,
+some advantage over the finite difference method. Namely, it avoids slow basis-set convergence due to Pulay stress
+(see Fig. S1). However, this advantage is, in practice, outweighed by the slow supercell convergence. To conclude, we
+choose the 128-atom supercells as a good compromise between accuracy and computational cost. This supercell size
+is also commensurate with phonons at the high-symmetry points Γ, X, and L. Similar supercell sizes were also used in
+previous studies (64-atom supercells for group-IV elemental solids in Ref. [11], 128-atom supercell for C in Ref. [60],
+                                                                                                                           5
+
+and 128-atom supercell for Sn in Ref. [17]).
+
+
+                                            III.   DATA VISUALIZATION
+
+  Figure S5(a) shows the relative errors of the calculated elastic constants with respect to the ZPE-corrected experi-
+mental values (as in Table III of the main text). Furthermore, Fig. S5(b) shows the relative errors of the calculated
+phonon frequencies at high-symmetry points in the Brillouin zone (as in Table IV of the main text). In both cases,
+the PBE underbinding error and the improvements with meta-GGA and hybrid functionals are clearly apparent.
+
+       (a)                                                          (b)
+
+
+
+
+FIG. S5. Relative error of calculated properties for group-IV elemental solids in the diamond phase compared to ZPE-corrected
+experimental references. (a) Elastic constants (C11 , C12 , and C44 ). (b) Phonon frequencies at high-symmetry points (Γ, X,
+and L). Results are shown for the PBE, r2 SCAN, SCAN, and HSE functionals. Note that a logarithmic scale is used for the
+abscissae. Numerical data are provided in Tables III and IV of the main text.
+

@@ -1,0 +1,11 @@
+# Editor task: ledger merge for Chapter 9 and its App. D rows
+Follow the procedure of briefs/ledger-merge-ch01-02.md.
+- Merge the proposed rows of ledgers/SEAMS/9.1.md … 9.4.md, including their revision blocks and any App. D rows inside them, into NOTATION.md, GLOSSARY.md, ledgers/CONCEPTS.md, ledgers/CLAIMS.md and INDEX.md. ledgers/REVIEWS/ch09/revision.md lists the new NOTATION rows (clash entry 95; m_min^ch, E_ch(q), q̄, c_ch; the ○ mark) and the changes owed. Key values: atlas 57 filled / 8 ○ / 79 empty, dark photon 37; Table 9.2 edges incl. Al 8.6 keV ([111] 6.67 km/s), ZrTe₅ 7.1 keV, free Si nucleus 46.8 MeV, Si 2p 28.6 MeV, plasmon 2.24 keV; Limit Checks 75 boxes / 80 formulas, 25 on 𝔗 / 50 off. ALSO update the Ch22 rows (SPINE key results, CLAIMS II-435–452 as needed): tab:22-gaps now 74 rows, 39 unsized, 56 calculation, 71 involve a number, with a Chap. 9 grouped row. Correct NOTATION NiO magnon edge to 7.3 keV and SEAMS/14.1 likewise. Ch9 has no App. D or F rows of its own; record the 23 F-row column-1 Limit Check names as done. Keep every row consistent with the revised tex: grep it.
+- Apply every ruling in ledgers/REVIEWS/ch09/editor-notes.md (R1–R8), revision.md (including its post-check section) and postrev-check.md to the rows.
+- SPINE.md:
+  - Set 9.1–9.4 to ACCEPTED, and add a Chapter 9 sentence (all chapters now drafted and accepted) to the status paragraph at the top.
+  - Apply the line → new text list at the end of ledgers/REVIEWS/ch09/revision.md ("SPINE fixes for the coordinator"), matching by text, not by line number.
+- Mark the CONCEPTS/CLAIMS rows of 9.1–9.4 WRITTEN.
+- Run ledgers/check_notation.py on tex/ch09 and fill the gaps. Run ledgers/check_concepts.py until it reports 0 violations.
+- Then add \input{ch09/ch09} after ch08 (before ch10) in tex/gate.tex. Check that tex/gate.tex inputs appB after appA (the App B writer added it) and keep it. Build the gate with latexmk -pdf -interaction=nonstopmode -outdir=/tmp/claude-0/build-gate09 gate.tex. Copy the PDF to releases/book-gate-ch09.pdf and delete releases/book-gate-ch22.pdf (keep one gate PDF). Report the page count and any undefined references.
+Use exact, small Edit replacements and re-read before each. Do not commit. Final message ≤ 8 lines.

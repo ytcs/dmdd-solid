@@ -1,0 +1,1085 @@
+                                                                 Predictive GW calculations using plane waves and pseudopotentials
+                                                                                             J. Klimeš,1 M. Kaltak,1 and G. Kresse1
+                                                                             1
+                                                                                 University of Vienna, Faculty of Physics and Center for Computational
+                                                                                     Materials Science, Sensengasse 8/12, A-1090 Vienna, Austria
+                                                                    We show that quasiparticle (QP) energies as calculated in the GW approximation converge to the
+                                                                 wrong value using the projector augmented wave (PAW) method, since the overlap integrals between
+                                                                 occupied orbitals and high energy, plane wave like orbitals, are incorrectly described. The error is
+                                                                 shown to be related to the incompleteness of the partial wave basis set inside the atomic spheres.
+arXiv:1404.3101v1 [cond-mat.mtrl-sci] 11 Apr 2014
+
+
+
+
+                                                                 It can be avoided by adopting norm-conserving partial waves, as shown by analytic expressions for
+                                                                 the contribution from unoccupied orbitals with high kinetic energy. Furthermore, G0 W0 results
+                                                                 based on norm-conserving PAW potentials are presented for a large set of semiconductors and
+                                                                 insulators. Accurate extrapolation procedures to the infinite basis set limit and infinite k-point
+                                                                 limit are discussed in detail.
+
+
+                                                                     I.   INTRODUCTION                               fied plasmon-pole model10 —the calculations still mark
+                                                                                                                     a turning point: whenever highly accurate results are re-
+                                                                                                                     quired for the QP energies, huge basis sets are needed to
+                                                      Density functional theory (DFT) does not allow                 obtain them.
+                                                    to calculate accurate quasiparticle (QP) energies as                The situation is very similar to quantum chemistry
+                                                    measured experimentally in X-ray photoelectron spec-             (QC) calculations, where convergence of the total en-
+                                                    troscopy (XPS) or ultraviolet photoelectron spectroscopy         ergies (and excitation energies) is also exceedingly slow
+                                                    (UPS), although the Kohn-Sham eigenvalues often show             with the basis set size. In the QC community, it is well es-
+                                                    at least qualitative agreement with the corresponding            tablished that the inter-electron cusp— the dependence
+                                                    measurements. In solid state physics, the standard ap-           of the many electron wave function on the distance of
+                                                    proach to determine QP energies is currently the GW ap-          two electrons —causes slow convergence.11–14 As a conse-
+                                                    proximation often combined with orbitals from a Kohn-            quence of a wavefunction kink at zero distance, absolute
+                                                    Sham DFT calculation, for instance the local density             correlation energies show convergence proportional to the
+                                                    approximation (LDA). The GW method was originally                inverse of the number of basis functions.15 A similar slow
+                                                    proposed by Hedin1 and later extensively applied by the          convergence was observed for the correlation energy in
+                                                    group of Louie,2 following a procedure first adopted by          the random phase approximation (RPA). Based on calcu-
+                                                    Sham and Schlüter for tight binding models.3 For re-            lations using the Lindhard dielectric function but without
+                                                    cent reviews we refer to Refs. 4–7, and for a recent re-         explicit derivations, Harl and Kresse suggested that the
+                                                    derivation we refer to Ref. 8. With the advances in com-         RPA correlation energy converges like 1/N , where N is
+                                                    pute power over the last two decades, the GW method              the plane wave basis set size.16 For MP2 total energies, a
+                                                    can now be routinely applied to systems containing hun-          similar convergence behavior was derived by Shepherd et
+                                                    dred atoms, and with some approximations, calculations           al., closely paralleling the finding for quantum chemistry
+                                                    for several hundred atoms are possible or will be possible       basis sets.17 Gulans explicitly derived the same conver-
+                                                    in the near future.                                              gence behavior for the RPA correlation energy relying on
+                                                       Remarkably, even after several decades of research,           the jellium model and showed that a similar 1/N conver-
+                                                    publications with technically converged QP energies are          gence must be expected for the QP energies in solids.18,19
+                                                    still rare and seem to pose a significant challenge to mod-      Although his derivation suggests that the origin of the
+                                                    elers. In part, this is related to the slow convergence with     slow convergence of QP energies and total correlation en-
+                                                    respect to the number of k-points used to sample the Bril-       ergies is related, how exactly the cusp-condition appears
+                                                    louin zone. However, more severe is the slow convergence         in methods based on one-electron Green’s functions is
+                                                    of the QP energies with respect to the basis set size. This      somewhat “clouded”. In fact, in one-electron Green’s
+                                                    problem has gone unnoticed for some time, with most              functions approaches, the self-energy needs to account
+                                                    researchers using a few hundred unoccupied orbitals per          for the correlation hole or, equivalently, the screening
+                                                    atom in the calculation of the Green’s function. How-            charge, which relates at short distances to the cusp con-
+                                                    ever, the recent work of Shih et al. on ZnO suggests that        dition. Another way to understand this is that QP ener-
+                                                    convergence can be exceedingly slow requiring thousands          gies essentially represent the difference between two total
+                                                    of orbitals.9 Furthermore, care must be taken to reach           energy calculations, each with a 1/N convergence.
+                                                    convergence with respect to both the plane wave basis               In this work, we derive a closed expression for the
+                                                    set for the orbitals and the plane wave basis set for the        MP2 energy and self-energy in the limit of high energy
+                                                    response function.9 Although the ZnO results were some-          states (long plane wave vectors). The derivation does
+                                                    what exaggerating the dependence on the number of or-            not rely on an explicit form for the dielectric function for
+                                                    bitals and the final values for the band gap of ZnO were         the jellium electron gas. We only assume that for high
+                                                    not very accurate— partly because of the use of a simpli-        energies, well above the vacuum level, the one electron
+                                                                                                                              2
+
+states become essentially plane waves. The correction                 A.   Correlation energy in second order
+turns out to depend on the charge density distribution                      perturbation theory (MP2)
+alone. Interestingly, the present derivation also shows
+that the Coulomb-hole plus screened-exchange (COH-               The direct contribution to the MP2 correlation energy
+SEX) approximation overestimates the high energy con-          can be written as
+tributions to the QP energies by a factor two, as observed                    occ unocc
+recently by Kang and Hybertsen.20 Furthermore, in or-
+                                                                              X    X X                         4πe2
+                                                                 E dMP2 = −2               hi|G|aiha| − G′ |ii      ×
+der to obtain converged values, one needs to increase both                     ij
+                                                                                                               ΩG′2
+                                                                                   ab GG′
+                                                                                                                      (1)
+the basis set for the orbitals, as well as the basis set for
+                                                                            ′             4πe2         1
+the response function. Increasing only one of them leads               hj|G |bihb| − G|ji                         .
+to a incorrect limiting behavior.                                                         ΩG2 εa + εb − εi − εj
+   Unfortunately, the present derivation also highlights a     Here, G and G′ are three dimensional vectors, and the
+severe problem for ultrasoft pseudopotentials and the re-      spin coordinates have been summed over so that the sum-
+lated projector augmented wave potentials that fail to         mation over orbitals is over spatial orbitals only. The
+conserve the norm in the plane wave representation. For        integers i, j and a, b are indices for occupied and unoccu-
+groundstate properties, violation of the norm is usually       pied orbitals respectively, and
+                                                                                      Z
+eliminated by adding appropriate augmentation or com-
+pensation charges centered at each atomic site. How-                   hb| − G|ji =       ψb∗ (r)ψj (r) exp(−iGr) dr   (2)
+                                                                                        Ω
+ever, such a correction is missing for plane wave like
+orbitals at very high kinetic energies. As a result, the       is the overlap (transition) density of the orbitals hr|bi =
+overlap integrals between ground state orbitals and un-        ψb (r) and hr|ji = ψj (r) in a basis of plane waves, with r
+occupied orbitals at very high kinetic energies are not        being a three dimensional vector.
+properly described. A simple solution to this problem is          Our derivation is for the direct MP2 (dMP2) energy,
+to construct potentials that are norm-conserving. In the       however, in the limit of long wave vectors, the RPA cor-
+present work, this is achieved by determining projector        relation energy also reduces to this form, since screening
+augmented wave potentials with norm-conserving partial         is rather ineffective at long wave vectors. Thus the RPA
+waves. We present tests for ZnO, GaAs, and AlAs that           correlation (here χ0 and v are the independent particle
+indicate that QP energies extrapolated to the infinite ba-     polarizability and the Coulomb operator respectively)
+sis set limit are then independent of the detailed con-                         1           1               1
+struction of the potential. The final gaps agree very well          E RPA = T r[ (χ0 v)2 + (χ0 v)3 + ...] ≈ (χ0 v)2
+                                                                                2           3               2
+with previous calculations of Friedrich et al. for ZnO.21
+                                                               reduces to the direct MP2 form, since χ0 becomes small
+Motivated by this result, we apply the present procedure
+                                                               for large G vectors. The relation between the direct MP2
+to 24 semiconductors and insulators and present G0 W0
+                                                               and RPA energy has also been discussed in Ref. 23.
+as well as GW0 calculations based on LDA and PBE
+                                                                 We now determine the contribution E dMP2 (G′ , G) to
+(Perdew Burke Ernzerhof)22 orbitals. We believe that
+                                                               the direct MP2 energy from plane wave vectors G and G′
+these results are technically converged and can serve as
+                                                               that have no overlap with occupied ground state orbitals.
+a stringent benchmark for future GW calculations and
+                                                               For brevity, the superscript dMP2 will be dropped from
+validation of different implementations.
+                                                               now on. Specifically, we want to calculate the approxi-
+                                                               mate correlation energy from plane waves G and G′ that
+                                                               observe
+                                                                                        hi| − G|ji ≈ 0                       (3)
+                     II.   THEORY
+                                                               for all occupied orbitals i, j. Later for QP calculations,
+                                                               we will extend this condition to few unoccupied states of
+   In the following sections we will derive the contribu-      interest. These plane wave components are obviously not
+tions to the total many electron correlation energy and        relevant for the description of the occupied Kohn-Sham
+self-energy from wave vectors at very high kinetic en-         orbitals (or their overlap density), but as we show below
+ergies. The important assumption is that the orbitals          they still contribute to the many body correlation energy
+at sufficiently high energies are well approximated by         and self-energy.
+plane waves. This is, however, a good approximation,              In a first step, we allow the indices a and b to run
+since at sufficiently high energies, the kinetic energy term   over all states instead of the unoccupied states in Eq. (1)
+−~2 ∆/(2m) will be the dominant part of the Hamilto-           (Eq. (3) allows for this “simplification”):
+nian so that the orbitals become ultimately plane waves.
+                                                                                   occ X
+                                                                                       all
+Our derivation first concentrates on the total correlation                         X                                4πe2
+energies in the second order approximation (direct term           E(G′ , G) = −2              hi|G|aiha| − G′ |ii        ×
+                                                                                   ij
+                                                                                                                    ΩG′2
+                                                                                         ab                                  (4)
+in MP2) since the essential results are easy to grasp for
+this case. Then we discuss the shortcomings of the PAW                 ′             4πe2        1
+                                                                  hj|G |bihb| − G|ji                       .
+method, and finally move on to the self-energy.                                      ΩG2 εa + εb − εi − εj
+                                                                                                                                     3
+
+Second, we assume that high energy unoccupied states               This can be also written using the number of plane waves
+a are essentially plane waves of the form ψa (r) =                 Npw in the cut-off sphere with radius Gcut
+√1 exp(iGa r) with the eigen energies εa = (~Ga )2 /(2m).
+  Ω
+In this case, the quantities hi|G|aiha| − G′ |ii and                                     2me4 ρ2 Ω2  2me4 N 2
+                                                                                ∆E ≈       2 2
+                                                                                                    = 2 2 el ,                    (11)
+hj|G′ |bihb| − G|ji are only sizable if Ga ≈ −G and                                      9π ~ Npw    9π ~ Npw
+Gb ≈ −G′ , or Ga ≈ G′ and Gb ≈ G since the oc-
+cupied states have predominantly components at small               where Nel is the total number of electrons in the cell (in-
+wave vectors. Therefore, we can approximate εa + εb ≈              cluding spin). Therefore, the error decays asymptotically
+~2 (G2 + G′2 )/(2m). Moreover, we can neglect the de-              with the inverse of Npw . The expression can be obtained
+pendence on the energies of occupied states compared to            for a non-uniform electron     P distribution     as well in which
+those of the unoccupied states, so that                            case is ρ2 replaced by            g |ρ(g)| 2
+                                                                                                                , where g = G − G′ .
+                                                                   To derive this we assumed that the groundstate density
+        εa + εb − εi − εj ≈ ~2 (G2 + G′2 )/(2m) .                  has only contributions at wave vectors g that are much
+                                                                   smaller than wave vectors G and G′ . The same depen-
+This approximation is also correct for the important di-           dence of the error on Npw was also derived in Ref. 17. It is
+agonal components G = G′ . Once rid of theP eigenvalues            important to note that the slow convergence of the MP2
+ε, the resolution of identity can be used a |aiha| = 1             energies is well established for quantum chemistry basis
+leading to a much simpler expression                               sets (Gaussian type orbitals) with exactly the same one
+                        2m X
+                               occ
+                                           4πe2                    over basis set convergence.15 Furthermore, it has been
+        E(G, G′ ) = −    2
+                             hi|G − G′ |ii      ×                  shown that the slow convergence is related to the de-
+                        ~ ij               ΩG′2                    scription of the two electron cusp condition.11–14,18 This
+                                                             (5)
+                                   4πe2   2                        condition leads to a kink in the many electron wave func-
+                      hj|G′ − G|ji              .                  tion Ψ(r1 , r2 , r3 , ...): when any two coordinates ri and rj
+                                   ΩG2 G2 + G′2
+                                                                   coincide, the many electron wavefunction exhibits a dis-
+We note again that this is an approximation, but it be-            continuity in the slope, which leads exactly to the basis
+comes exact, if the plane waves G and G′ are limited to            set convergence determined above.
+sufficiently long wave vectors. We can also write this as             Interestingly, the convergence of the correlation en-
+                                   occ                             ergy is entirely unrelated to the basis set size required
+                         2m X             4πe2                     to calculate the groundstate one electron orbitals (com-
+         E(G, G′ ) = −    2
+                              ρi (G − G′ ) ′2 ×
+                         ~ ij              G                       pare Eq. 8). Instead, the slow convergence originates
+                                                             (6)   from the fact that in the correlation energy the density
+                               ′ 4πe2 2                            enters at wave vectors g = G − G′ . This implies that
+                       ρj (G − G) 2 2       ,
+                                  G G + G′2                        long wave vectors are folded back to wave vectors around
+where the Fourier transformed density of the orbital i is          g = 0. Hence, even very long wave vectors not relevant
+defined as:                                                        for groundstate calculations will contribute to the final
+                    Z                                              many electron correlation energy. Since the correlation
+                  1                                                energy contribution is determined by the charge density,
+         ρi (G) =      ψ ∗ (r)ψi (r) exp(iGr) dr .   (7)
+                  Ω Ω i                                            one can also not simply claim that this energy contri-
+                                                                   butions will cause a trivial shift of the total correlation
+Since
+ P the total density can be calculated as ρ(G) =                   energy. Obviously, when the density changes, the con-
+2 i ρi (G), we obtain the final expression
+                                                                   vergence rate will be altered as well.
+                  m                   2
+                              ′ 2 4πe 4πe
+                                          2
+                                              2                       Looking back at the derivation a second related issue
+ E(G, G′ ) = −      2
+                      |ρ(G − G )|   ′2
+                                                  . (8)            becomes obvious. We expect to see the slow convergence
+                 2~                G    G G + G′2
+                                         2  2
+                                                                   only, if sufficiently long wave vectors are included in both
+For the jellium electron gas with ρ(G − G′ ) = δ(G −               basis sets, for the orbitals ψa (r) = √1Ω exp(iGa r), with
+G′ )ρ(0) this simplifies to                                        Ga ≈ G, as well as for the overlap densities hi|G|ai.
+                     m                 4πe2 4πe2 1                 If the basis for the orbitals is truncated at Gpw           cut , or
+    E(G, G′ ) = −      2
+                         δ(G, G′ )ρ(0)2 2          .         (9)   if the basis for the overlap densities is truncated at
+                    2~                  G G2 G2                    Gχcut , an error proportional to 1/G3cut is introduced with
+where ρ(0) is the electron density. From this derivation,          Gcut = min(Gpw            χ
+                                                                                     cut , Gcut ). It is therefore not meaningful to
+it is clear that, in principle, the groundstate density dis-       improve only the one-electron basis set or the basis set
+tribution and its Fourier transform alone determine the            for the overlap densities alone as this leads to a “false”
+asymptotic contribution to the correlation energy. Sum-            limiting behavior.
+ming over all plane waves for |G|, |G′ | > Gcut is trivial            We also note that Eq. (11) gives the leading order of
+and yields                                                         the error which behaves like 1/Npw . As discussed by Gu-
+                                                                                                                         −5/3
+                                                                   lans, the next order correction falls off like Npw .18 This
+            X         X                      4me4 ρ2
+  ∆E =                         E(G, G′ ) ≈              .   (10)   order would be recovered if the energies of the occupied
+                                              3~2 G3cut            states were taken into account or, in the general case, by
+         |G|>Gcut |G′ |>Gcut
+                                                                                                                                         4
+
+not assuming that G2 = G′2 in the Coulomb and energy                hĩ|G|ãihã| − G′ |ĩi. In this case, the correlation energy in
+                                            −7/3
+terms of Eq. (8). The next order follows Npw and such               the limit of long wave vectors G and G′ becomes
+dependence of MP2 energy was found by Grüneis et al.
+after applying F12 corrections.24 Presumably, the F12                                   me4               4π 4π   1
+                                                                      E(G, G′ ) = −         |ρ̃(G − G′ )|2 ′2 2 2     , (14)
+                                          −5/3
+corrections treat the error of the order Npw exactly by                                 ~2                G G G + G′2
+including both the energies and basis set representation            where ρ̃(G − G′ ) is the groundstate density neglecting
+of the occupied states. Another contribution of the or-             any charge augmentation. This can result in a sizable
+       −7/3
+der Npw comes from the third order interaction, see                 error, since for d elements the norm violation is often
+Ref. 18, this appears in the RPA calculations but not in            significant, up to 80 % for late 3d elements such as Zn,
+the dMP2 correlation energies. In principle, one can im-            Ga, or Cu. While one still observes an error decreasing
+prove the accuracy of the scheme by keeping the energies            as 1/Npw , the limiting value is incorrect.
+of the occupied states in the formulae, we leave, however,
+the explicit derivation for future work.
+                                                                    C.   Second order self-energy contribution at large G
+                                                                                           vectors
+        B.   Shortcomings of the PAW method:
+                  Completeness issues                                 The usual definition for the self-energy in the GW ap-
+                                                                    proximation is
+   In the PAW method the all electron orbitals |ii are                                 Z
+related to the pseudo part |ĩi by a linear relation                         ′       i
+                                                                      Σ(G, G , ω) =       dω ′ exp(−iδω ′ )G(ω − ω ′ )W (ω ′ ) ,
+                          X                                                         2π
+             |ii = |ĩi +   (|αi − |α̃i)hpα |ĩi ,   (12)                                                                   (15)
+                                α                                   with the Green’s function
+                            |        {z        }
+                                    |iaug i                                                           all
+                                                                                                      X   hG|nihn|G′ i
+                                                                                     G(G, G′ , ω) =                           ,        (16)
+where hpα | is an atom centered projector onto an atomic                                               n
+                                                                                                                ω − εn ∓ iη
+orbital α with corresponding all-electron and pseudo par-
+tial waves hr|αi = φα (r) and hr|α̃i = φ̃α (r), respec-             where η is a positive infinitesimal, and the minus sign ap-
+tively. The crucial approximation in the PAW method is              plies to occupied states and the plus sign to the unoccu-
+that the set of partial waves is complete. This allows to           pied ones. As before, we use the second order approxima-
+simplify one electron quantities such as the overlap den-           tion, which gives for the screened interaction W = vχ0 v
+sity significantly: obviously, any one electron expectation         (the exchange contribution is not considered here). This
+value such as ha|r|ii would in principle involve a term             yields for W (G, G′ , ω) (from now on we will drop the
+hã|r|ĩi, one with the augmentation terms haaug |r|iaug i,         functional parameters G, G′ , and ω)
+and mixed terms. Completeness allows to drop the mixed                                          occ unocc
+terms as discussed in Ref. 25. This simplifies the overlap                     2 4πe2 4πe2 X X  hi| − G|aiha|G′ |ii
+                                                                         W =
+density to                                                                     Ω G2 G′2 i          a
+                                                                                                          ω + εi − εa + iη
+                                                                                                                                       (17)
+                         X                                                        ha| − G|iihi|G′ |ai 
+   ha|r|ii ≈ hã|r|ĩi +   hã|pα i(hα|r|βi − hα̃|r|β̃i)hpβ |ĩi,              −                        .
+                       αβ
+                                                                                   ω + εa − εi − iη
+                                                        (13)        Inserting these expressions into Eq. (15) one obtains
+which is crucial for the efficiency of the PAW method.
+It is easy, within the PAW method, to achieve complete-                      i
+                                                                                 Z                       X         hG|nihn|G′ i
+ness for ground state orbitals, however, it is in practice            Σ=             dω ′ exp(−iδω ′ )                             ×
+                                                                            2π                                   ω − ω ′ − εn ∓ iη
+impossible to achieve completeness for states at very high                               
+                                                                                                            n
+                                                                                                                                              
+energies. This is the source of an important error.                 2 4πe2 4πe2 X            hi| − G|aiha|G′ |ii ha| − G|iihi|G′ |ai
+   Returning to Eq. (4), the problem of the PAW method                                                          − ′                               .
+                                                                    Ω G2 G′2 i,a             ω ′ + εi − εa + iη  ω + εa − εi − iη
+is easy to understand. If a is a plane wave with high
+kinetic energy ψa (r) = √1Ω exp(iGa r), the projection                                                                                        (18)
+ha|pα i becomes very small, since the projectors |pα i span         The self-energy integral can now be calculated analyti-
+only the groundstate orbitals and are limited in Fourier            cally via contour integration considering the poles of the
+space (hGa |pα i ≈ 0). The completeness relation is then            integrand. As we choose to close the contour in the lower
+violated, and, in principle, the mixed terms discussed              half, only the poles with a negative imaginary part will
+above should be reintroduced to alleviate the issue. As             contribute. There are two distinct contributions, the first
+long as the mixed terms are not included, the augmen-               originates from the poles in the Green’s function at the
+tation terms are effectively zero between groundstate or-           energies of the occupied states
+bitals and unoccupied plane wave like orbitals at high
+energies, so that hi|G|aiha| − G′ |ii becomes identical to                                    ω ′ = ω − εn − iη                        (19)
+                                                                                                                                    5
+
+that give the screened exchange contribution (we drop η                  This is the final result, and the formal equivalence to the
+from the expressions after integration)                                  MP2 total energy contribution is obvious. In fact, one
+                                                                         could have derived this equation by applying Koopmans’
+                                       occ
+                2 4πe2 4πe2 X                                            theorem to the total energy expression Eq. (8). After
+  ΣSEX(2) = −                 hG|nihn|G′ i×
+                Ω G2 G′2 n                                               performing the summation over the omitted G vectors
+   X  hi| − G|aiha|G′ |ii                                              the correction can be written in the same manner as in
+                              ha| − G|iihi|G′ |ai                        the MP2 case
+                            −                                   . (20)
+    i,a
+           ω − εn + εi − εa    ω − εn + εa − εi
+                                                                                                      2me4 2Nel
+                                                                                           ∆εm = −                .              (25)
+The second contribution comes from the poles of W lo-                                                 9π 2 ~2 Npw
+cated at the excitation energies of the non-interacting
+response function                                                        Again, Npw can be either the number of basis set func-
+                       ′                                                 tions in the response function or the number of included
+                   ω = −(εi − εa + iη) .                          (21)   bands. In thePcase of a non-uniform density, 2Nel is
+This gives the Coulomb hole contribution to the self-                    replaced by 4 g ρm (g)ρ(−g)Ω2 , where the summation
+energy                                                                   over the reciprocal lattice vectors g is performed.
+                                                                            It is interesting to relate the second order quasiparticle
+                                  all                                    equation to the commonly employed static COHSEX in
+               2 4πe2 4πe2 X
+  ΣCOH(2) =                  hG|nihn|G′ i×                               second order. The static COH contribution is obtained
+               Ω G2 G′2 n
+                                                                         by assuming ω − εn = 0 (or εm − εn = 0), i.e., assum-
+                           X hi| − G|aiha|G′ |ii                         ing that the largest contributions to the self-energy come
+                                                                . (22)
+                                             ω + εi − εa − εn            from states close in energy to the state m. In second
+                                       i,a
+                                                                         order, this yields the following static COH contribution:
+These expressions are equivalent to the ones derived by
+Grüneis et al.26 However, we have kept the terms with                                            2me4 4π 4π
+zero imaginary energy in the COH and SEX parts, (i.e.,                     hm|Σstat−COH(2) |mi =               ×
+                                                                                                   ~2 Ω G2 G′2
+the first term in the SEX and the part where b ∈ occ in                     all
+                                                                            X                       X hi| − G|aiha|G′ |ii
+the COH). These are identical differing only in the sign                        hm| − G|nihn|G′ |mi                       .      (26)
+and will subtract to zero in the COHSEX approximation.                      n                         ia
+                                                                                                             εi − εa
+  We now consider the contribution of the long wave vec-
+tors G and G′ . When the SEX term is evaluated for an                    For large G and G′ a sizable contribution is only ex-
+orbital m with eigen energy εm , hm|ΣSEX(2) |mi, the first               pected to arise if the orbital a corresponds to a plane
+term on the r.h.s. of Eq. (20) contains                                  wave Ga = −G. Neglecting the energy of the occupied
+                 occ                                                     state εi , one obtains εi − εa ≈ ~2 G2 /(2m), exactly twice
+                 X
+                           hm|G|nihn| − G′ |mi.                          the proper value in the full second order equation. Hence,
+                   n                                                     the static COHSEX overestimates the high G contribu-
+                                                                         tions by a factor 2, as has been recently observed in actual
+Here, n corresponds to an occupied state, and m corre-                   calculations (without proof) by Kang and Hybertsen.20
+sponds to an occupied state or one just above the Fermi-                 We note, that the factor 12 can be also derived using the
+level. According to our assumption Eq. (3), at large G                   plasmon pole approximation as shown by Deslippe et al.
+and G′ the corresponding contribution is zero. The SEX                   following a route similar to our current derivation.27 The
+term, therefore, does converge rapidly with respect to the               present derivation, however, is exact in second order and
+basis set size.                                                          does not involve any specific model (except the assump-
+   The COH contribution, however, involves a summa-                      tion that at high energy, plane waves do not contribute
+tion over all states, and the matrix element of self-energy              to the expansion of the groundstate orbitals).
+reads
+                                               2 4πe2 4πe2
+            hm|ΣCOH(2) (εm )|mi =                          ×                    D.   Shortcomings of the PAW method:
+                                               Ω G2 G′2
+    all                                                           (23)                 Completeness issues again
+    X                           X hi| − G|aiha|G′ |ii
+          hm|G|nihn|G′ |mi                                  .
+     n                           i,a
+                                        εm + εi − εa − εn                  There is very little to add compared to the previous dis-
+                                                                         cussion on the correlation energy. For long wave vectors,
+For large G vectors we can modify this expression in the
+                                                                         G and G′ , the exact contribution to the QP correction for
+same way as in the MP2 total energy case, so that for
+                                                                         the state m is given by Eq. (24). However, in the PAW
+orbital m, the approximate contribution to the QP cor-
+                                                                         method we will observe only the pseudised contribution
+rection can be written as
+             me4              4π           4π   2                                    me4               4π            4π   2
+ ∆εm = −        2
+                  ρm (G − G′ ) ′2 ρ(G′ − G) 2 2      .                    ∆ε̃m = −        ρ̃m (G − G′ ) ′2 ρ̃(G′ − G) 2 2      .
+             2~               G            G G + G′2                                 2~ 2              G             G G + G′2
+                                                  (24)                                                                      (27)
+                                                                                                                              6
+
+                                                                    very long wave vectors, corresponding to rapid variations
+TABLE I: PAW potentials used in the present work. The
+                                                                    in space. To construct these “approximately” norm-
+columns rs,p,d,f specify the core radii for each angular quan-
+tum number in a.u. The “default” plane wave cut-off energy          conserving partial waves the following strategies were
+   pw
+Ecut  for the orbitals is specified in eV. Column “local” speci-    adopted. (i) First, non-norm-conserving pseudo partial
+fies the chosen local potential. This is usually the all-electron   waves were used, and it was attempted to set the core
+potential replaced by a soft approximation inside the specified     radius such that the pseudo partial wave φ̃α (r) possesses
+core radius or the f potential.                                     the same norm as the all-electron partial wave φα (r)
+                                                        pw
+                                                                    within a sphere around the atom (see Eq. 12). (ii) If
+         rs        rp       rd       rf       local    Ecut         this yielded too hard potentials or too large core radii,
+B       1.10      1.10     1.10       -         d      700          a norm-conserving pseudo partial wave φ̃α (r) was cho-
+C       1.00      1.10     1.10       -        0.8     740          sen. Table I reports the final core radii for all considered
+N       0.90      1.10     1.10       -        0.9     755          elements. Generally small core radii (below 1.6 a.u.) in-
+O       1.00      1.10     1.10       -        0.9     765          dicate that option (i) was chosen, whereas larger core
+Mg      1.15      1.65     1.65       -        1.2     821          radii indicate that option (ii) was used. The same po-
+Al      1.75      2.00     1.80     2.00       1.4     571          tentials have been also applied in our recent work using
+                                                                    vertex corrected GW calculations.28
+Si      1.70      1.95     1.70     2.00       1.4     609
+P       1.70      1.95     1.70     2.00       1.4     616
+                                                                       The most shallow core states were treated as valence
+                                                                    for all elements, except for boron, carbon, nitrogen, oxy-
+S       1.23      1.35     1.70     1.80        f      486
+                                                                    gen, fluorine, and sulfur. In these cases, the core states
+Zn      1.27      1.70     1.90     1.90       1.2     802          are well below 10 Ry, and they are very well localized.
+Ga      1.23      1.70     1.90     1.90       1.3     801          Unfreezing them yielded very small changes in test calcu-
+Ge      1.18      1.70     1.90     1.90       1.3     807          lations. For 3d elements, as well as Ga, Ge, As, and Se,
+As      1.14      1.54     2.20     1.90       1.3     613          the 3s, 3p, and 3d states were treated as valence and for
+Se      1.10      1.40     2.30     1.90       1.3     571          4d elements, as well as In, Sb, and Te, the 4s, 4p, and 4d
+Cd      1.70      1.90     2.10     1.90       1.3     657          states were treated as valence. Usually, 3 partial waves
+In      1.66      2.10     2.30     1.90       1.3     582          were used for each angular quantum number l. One par-
+                                                                    tial wave was placed at the uppermost core state, one at
+Sb      1.56      1.90     2.30     1.90       1.2     561
+                                                                    the binding energy of the valence state in the atom, and
+Te      1.51      1.82     2.40     1.90       1.4     617
+                                                                    a third projector about 20 Ry above the vacuum level.
+                                                                    This guarantees excellent high energy scattering proper-
+                                                                    ties up to about 30 Ry. Beyond 30 Ry, however, no pro-
+Contributions from the augmentation charges are again               jectors and partial waves are available so that plane waves
+missing since states at large plane waves are not picked            beyond 30 Ry are not properly picked up by the projec-
+up by the projectors. In principle, it is possible to correct       tors pα . These are the energies where norm-conservation
+for this error a posteriori, by calculating the exact term          should help.
+(24) and subtracting the one effectively used in the PAW               The plane wave cut-off was chosen to be the maximum
+approximation. In the present case this correction has                pw
+                                                                    Ecut  of all elements in the considered material. To de-
+not been applied.                                                   termine basis set converged GW values, the plane wave
+   Instead, Eq. (24) suggests a simple alternative pro-                        pw
+                                                                    cut-off Ecut  was systematically increased by a factor of
+cedure. If the pseudized density ρ̃(g) has the correct              1.25 and 1.587, corresponding to an increase of the num-
+norm, both ρ(g) and ρ̃(g) will exactly agree at g = 0,              ber of plane waves Npw by a factor 1.5 and 2, respectively.
+and approximately at larger wave vectors. Hence, norm-              The results were then extrapolated to the infinite basis
+conservation should help to get a reasonable approxima-             set limit, assuming that the QP energies converge like
+tion for the self-energy. In other words, if the norm of                  pw 3/2
+                                                                    (1/Ecut  )    = 1/Npw . For sufficiently large plane wave
+the pseudized partial waves and all-electron partial waves          cut-offs, this behavior was strictly observed for all mate-
+are identical, we expect smaller error than if the norm is          rials. However, as shown below for the example of ZnO,
+not conserved. This conjecture will be validated by the             this behavior sets in only at very high plane wave cut-
+tests shown in Sec. IV A.                                           offs for 3d states. This implies that the 3d states might
+                                                                    have an error of about 100 meV (errors are smaller for 4d
+                                                                    and also for the somewhat problematic 2p states). The
+         III.   COMPUTATIONAL DETAILS                               cut-off for the response function was set to half the plane
+                                                                    wave cut-off for the orbitals. Correct asymptotic conver-
+   For the GW calculations presented here, all PAW po-              gence was only observed if both, the plane wave cut-offs
+tentials apply “approximately” norm-conserving partial              for the orbitals and the response function, were increased
+waves (a small norm violation of up to 10–20% was al-               simultaneously.
+lowed for some cases). As discussed in the previous sec-               To reduce the computational cost, corrections due to
+tion, such potentials should yield an accurate descrip-             the basis set errors were determined using 3 × 3 × 3 k-
+tion of the correlation energy and self-energy even at              points, and added to the values calculated using 4 × 4 × 4
+                                                                                                                                                    7
+
+and 6 × 6 × 6 k-points.
+                                                                                           1
+   The GW calculations presented here have been per-
+formed using the fully frequency dependent version as                                                          CBM
+described in Refs. 29 and 30. For the G0 W0 results pre-
+sented here, the QP energies were determined by lin-
+
+
+
+
+                                                                     QP correction (eV)
+earization of the self-energy around the original LDA                                                        VB-max
+             0                                                                            0
+eigenvalue Enk                                                                                                                      VB-min
+   QP    0
+  Enk = Enk + Znk ×
+                                   0             0
+       Re[hψnk |T + Vn−e + VH + Σ(Enk )|ψnk i − Enk ],
+                                                                                          -1                               NC PAW rd=1.7 a.u.
+                                                   (28)
+                                                                                                                           US PAW rd=1.7 a.u.
+                                                                                                       3d                  US PAW rd=1.4 a.u.
+where the renormalization factor Znk is calculated as
+                                                                                                                           US PAW rd=1.0 a.u.
+                              ∂               −1                                                                           NC PAW rd=1.2 a.u.
+     Znk = (1 − Rehψnk |        Σ(ω) 0 |ψnk i) .            (29)
+                             ∂ω     Enk                                                   -2
+                                                                                               0            0.005      0.01      0.015       0.02
+For the GW0 case, the independent particle screening χ0                                                         1/ number of bands
+that is used to determine W0 = v + vχ0 v + ... is kept fixed
+at the level of DFT, but the eigenvalues in the Green’s
+                                                                   FIG. 1: (color online) QP corrections to Kohn-Sham eigen-
+function are updated until convergence is reached. In
+                                                                   values for ZnO G0 W0 calculations. The number of bands
+practice, good self-consistency is reached after 4 itera-          varies between 50 (right most point) and 2400 (left most
+tions. Note, that we also update the occupancies and               point). To improve the presentation, an upward shift of 1 eV
+Hartree potential in the course of the iterations, which           was added to the VB and 3d QP corrections (i.e. the true
+changes the results slightly for those materials where the         corrections can be obtained by subtracting 1 eV, moving the
+band gap is originally inverted in the DFT calculations            lines down by 1 eV).
+(see below).
+   The final technical detail concerns the treatment of
+the augmentation term on the r.h.s. of Eq. (13). It is ap-                                     1            CBM (Γ)
+proximated by pseudized augmentation functions leading
+to31
+                 ha|r|ii = ψa∗ (r)ψi (r) ≈                                                0.5                             CBM (X)
+                                                                     QP correction (eV)
+
+
+
+
+                            X
+          ψ̃a∗ (r)ψ̃i (r) +    hã|pα iQ̃αβ (r)hpβ |j̃i .   (30)
+                            αβ
+                                                                                               0                          VBM(Γ)
+The pseudized augmentation density Q̃αβ (r) is evalu-
+ated in real space and constructed to closely reproduce                                                                             Ga 3d
+the exact all electron quantity. This is achieved by                                      -0.5
+imposing two constrains: (i) Q̃αβ (r) must reproduce                                                                                US PAW
+the multipoles of the exact augmentation charge density                                                                             NC PAW
+Qαβ (r) = φ∗α (r)φβ (r) − φ̃∗α (r)φ̃β (r), and (ii) the Fourier                                -1
+transform of Qαβ and Q̃αβ have to match up to a chosen
+plane wave component. The second condition (ii) is not                                             0         0.005      0.01      0.015      0.02
+                                                                                                                 1/ number of bands
+usually used in groundstate calculations, but employed in
+the Vienna ab initio simulation package (VASP) in QP
+or any other correlated calculation.                               FIG. 2: (color online) QP corrections to Kohn-Sham eigen-
+                                                                   values for GaAs G0 W0 calculations. The number of bands
+                                                                   varies between 50 (right most point) and 1600 (left most
+                      IV.     RESULTS                              point). To the 3d QP corrections, 1.5 eV has been added.
+
+     A.    The example of ZnO, GaAs, and AlAs
+                                                                   to a kinetic energy of 1000 eV, corresponding to a basis
+   As an illustrative example, we consider ZnO in the              set of about 1750 plane waves for the response function.
+zinc-blende structure. In this section, the k-point set            We now focus on the convergence of the results with re-
+is set to 4 × 4 × 4 points to simplify the computation-            spect to the number of orbitals included in the calculation
+ally rather expensive convergence tests. Furthermore,              of the Green’s function G and the response function χ0 .
+the plane wave cut-off for the response function was set           Fig. 1 shows the QP corrections of the Kohn-Sham eigen-
+                                                                                                                                    8
+
+                          1                                               (see crosses in Fig. 1). Hence, the remaining Zn calcula-
+                                                                          tions were performed for a softer NC potential with the
+                                  CBM (Γ)                 US PAW          core radius increased to 1.9 a.u. (compare Tab. I).
+                                                          NC PAW
+                                                                             The errors in the QP corrections are most pronounced
+                       0.5                     CBM (X)                    for the 3d states. However, the valence band maximum
+  QP correction (eV)
+
+
+
+
+                                                                          (VBM), which is dominated by oxygen 2p states follows
+                                                                          the 3d states partially. This is of course related to the
+                                               VBM(Γ)                     strong covalent Zn-3d O-2p interaction: at the Γ point
+                         0                                                the Zn-3d states hybridize with the O-2p states form-
+                                                                          ing Zn-3d O-2p bonding and antibonding linear combi-
+                                                                          nations. Since the antibonding linear combination, which
+                                                         As 3d
+                                                                          forms the threefold degenerated valence band maximum
+                       -0.5                                               at Γ, has a strong Zn-3d character, the states partly fol-
+                                                                          low the behavior of the 3d states. As a consequence, when
+                                                                          the number of orbitals increases the band gap opens.
+                              0   0.005      0.01      0.015       0.02      This is however not always the case, as exemplified for
+                                      1/ number of bands                  GaAs and AlAs (Fig. 2 and Fig. 3). For these materials,
+                                                                          there is no (AlAs) or little hybridization between the 3d
+                                                                          states and the valence and conduction band states. Nev-
+FIG. 3: (color online) QP corrections to Kohn-Sham eigen-                 ertheless, the 3d states still influence the valence band
+values for AlAs G0 W0 calculations. The number of bands                   and conduction band states, as can be understood from
+varies between 50 (right most point) and 1600 (left most                  Eq. (24). The d electrons will result in a spherically sym-
+point). To the VB and 3d QP corrections, 0.5 eV and 3 eV                  metric density at the As and Ga atom, and this causes
+has been added, respectively.
+                                                                          an attractive Coulomb hole at the atomic sites. The lo-
+                                                                          calized d states themselves and the s like states are most
+                                                                          strongly affected by this local potential and pulled down
+values versus the inverse of the total number of bands.                   to lower energies.
+   We first concentrate on the results for the norm-                         For GaAs, the first thing to note is that the Ga 3d
+conserving (NC) and ultra-soft (US) PAW potentials                        states first shift slightly upwards in energy and then sud-
+with a core radius of 1.7 a.u. It is clear, that the re-                  denly drop in energy. This is a result of the strong spatial
+sults are indistinguishable for up to 150–200 bands, but                  localization of the 3d electrons in Ga. The effect is even
+beyond that the QP correction of the 3d orbitals devi-                    more pronounced for the As 3d states as shown in Fig. 3.
+ates significantly for both calculations, with a sharp drop               The more important observation, however, is that the va-
+being visible for the NC PAW potential around 200 or-                     lence band states at the Γ point and the s like conduction
+bitals. The final converged d band correction differs by                  band minimum CBM(Γ) follow this drop. The CBM at
+almost 1 eV between the potentials, although both po-                     the X point exhibits almost no slope, much smaller than
+tentials are practically indistinguishable for groundstate                that of the valence band maximum VBM(Γ). This be-
+calculations and GW calculations with few hundreds of                     havior reduces the Γ − Γ transition, but increases the
+orbitals. The error is related to the lack of projectors                  Γ−X transition. Obviously increasing the basis set can
+at high energies, as confirmed by inspection of hpα |ai for               have quite a substantial impact on the relative position
+high energy states a, compare Eq. (12). A standard way                    of the conduction band states and thus the direct and
+to reduce the error of US PAWs is to decrease the core                    indirect gaps.
+radius used upon creation of the PAW potential. Re-                          Remarkably, similar effects are observed even for AlAs
+ducing the core radius for the d electrons rd to 1.4 a.u.                 as shown in Fig. 3. The QP corrections are about a
+improves the results, but only slightly, and reasonable                   factor of two smaller, since the coupling to the strongly
+agreement with the NC PAW results is only obtained at                     localized As 3d states is now rather small (note the dif-
+a much smaller core radius of rd =1.0 a.u., where the vio-                ferent y scale in Fig. 3). Again the QP correction of the
+lation of the norm is only about 20 %. At this point, the                 CBM(Γ) state exhibits the largest slope, the CBM(X)
+groundstate calculations with the US PAW rd =1.0 a.u.                     the smallest one, and the VBM(Γ) is in between. Con-
+potential, however, require already a larger basis set than               sequently the indirect gap of AlAs increases, when the
+the calculations with the NC PAW rd =1.7 a.u. poten-                      basis set size is increased. Clearly, whenever accurate di-
+tial. Specifically, the required plane wave energy cut-offs               rect and indirect gaps are needed the d electrons must be
+for accurate groundstate calculations are 1150 eV for the                 taken into account, and this applies to both the anion as
+NC PAW rd =1.7 a.u., and 500, 700, and 1400 eV for the                    well as the cation (As, Se, Te). Furthermore, PAW po-
+US PAW potentials with core radii of rd =1.7, 1.4, and                    tentials without norm-conserving partial waves yield too
+1.0 a.u. respectively. Furthermore, within the line thick-                small QP corrections at Γ, in particular, for the CBM(Γ)
+ness, the results for NC PAW potentials are independent                   state, as indicated by the thin lines in Fig. 2 and 3, and
+of the core radius for radii between 1.9 a.u. and 1.2 a.u.                consequently too large direct gaps and too small indirect
+                                                                                                                                                        9
+
+gaps.                                                                                        1 (a)
+
+
+
+
+                                                                       QP correction (eV)
+                                                                                                                                             CBM
+   We performed extensive tests for ZnO, AlAs, CdS,                                         0
+GaN, and InP, all confirming these observations. Al-
+though up to about 100–200 orbitals per atom, the re-                                       -1                                               VBM
+sults are independent of the choice of the potential, once                                  -2
+the number of orbitals is increased to several 1000, sig-                                                                                     3d
+nificant deviations between the QP corrections become                                       -3
+discernible. US PAW potentials always yield too small                                       -4
+QP corrections for the d states and the results converge                                         (b)
+
+
+
+
+                                                                  QP gap (eV)
+                                                                                   2.8                                                      Corrected
+only slowly with decreasing core radii to a limiting value.
+In contrast, the results are almost independent of the                             2.7
+specific choice of the core radius for NC PAW potentials.
+   A final word of caution is in place here. In the present                        2.6                                                      Standard
+implementation, the code restores an approximation of                              2.5
+the exact all electron density on the plane wave grid. As                             0                  0.0005      0.001      0.0015     0.002
+briefly hinted at after Eq. (30), this is achieved by per-                                             1/basis set size for the response function
+forming a Fourier transformation of the exact augmen-
+tation charge density Qαβ (r) = φ∗α (r)φβ (r) − φ̃∗α (r)φ̃β (r)
+to reciprocal space Qαβ (G) and then expanding the aug-           FIG. 4: Dependence of (a) the unscaled QP correction (with-
+mentation density in a set of orthogonal functions local-         out Z) and (b) of the quasi-particle band gap of wurzite ZnO
+                                                                  on the basis set used for the response function. Bare data
+ized at each atomic site. In the present calculations, three
+                                                                  (+ sign) and data corrected for the leading error according
+functions for each quantum number l are used to expand            to Eq. (25), marked with × sign, are shown. Horizontal lines
+the density difference between the all electron and pseudo        are extrapolated values. In (a) the data for the 3d and VBM
+partial waves (NMAXFOCKAE = 2 in VASP). They are used             states were shifted to a higher energy by 1.5 eV.
+to restore the proper norm (l = 0), dipoles (l = 1), and
+quadrupoles (l = 2) and higher multipoles (l > 2). The
+first function serves to restore the exact Qαβ (G) around         states at energies below bound states or in the conduc-
+G = 0 and is not required if the potentials are norm-             tion band need to be avoided and sufficient number of
+conserving. The other two functions are chosen to re-             projectors at high energies need to be included.
+store the density at larger plane wave vectors G. Since
+the method guarantees that the density on the plane wave
+grid is almost exactly equivalent to the exact all electron                                      B.    Basis set incompleteness correction
+density up to plane waves corresponding to a kinetic en-
+ergy of 400 eV, the fairly complicated one-center terms              Converging GW results with respect to the basis set
+in the screening matrix χ0 and W do not need to be im-            size can become computationally prohibitively expensive
+plemented. We believe that the present procedure and              and can require tedious extrapolation procedures, as per-
+implementation is very accurate, since it yields identi-          formed here or in other work.21,32 An alternative to the
+cal QP corrections for all potentials, if the number of           extrapolation is to use the simple basis set incomplete-
+unoccupied orbitals is not too large (right hand side in          ness correction for the QP energies, Eq. (25), and here we
+Figs. 1, 2, and 3). With norm-conserving partial waves            test how accurate this is. For GW calculations, it is most
+the results become even robust and stable for very large          efficient to correct for the incompleteness of the response
+basis sets. Restoring just the norm of Qαβ (r) was found          function basis set (limited number of Npw χ
+                                                                                                              ). In this case,
+to be insufficient for GW calculations. If only the norm          it is important to converge the response function with
+is restored in our code, differences in the QP correction         respect to the number of bands, by using a sufficiently
+for different potentials can be around 1 eV for localized                          pw
+                                                                  large cut-off Ecut  for the orbitals and using all available
+d states, even when only a small number of unoccupied             bands.
+orbitals is included in the GW calculations.                         To test the correction, we again consider the well in-
+   Finally, the interaction between the core and valence          vestigated ZnO here in the wurzite structure (see, e.g.,
+electrons is always evaluated exactly at the level of HF          Refs. 9 and 21). Figure 4 (a) shows the dependence of the
+without any shape approximation, which is not always              QP corrections on the number of basis functions in the
+the case for codes using standard norm-conserving po-             response function both without and with the correction
+tentials. Based on our experience, we would not expect            according to Eq. (25). The thin dashed lines show val-
+that such standard potentials without the PAW informa-            ues extrapolated from the last three (non-corrected) data
+tion (all-electron orbitals) can yield similar accuracy.          points assuming a linear convergence with the inverse of
+                                                                                                 χ                   χ
+   Technically, we believe that the procedures adopted            the basis set size, i.e. ε(Npw   ) = ε(∞) + A/Npw    . The
+here allow to get accurate and converged results for vir-         renormalization factor Z was not applied, and the plane
+tually any material, although the construction of PAW             wave cut-off for orbitals was taken to be three times the
+potentials can be tedious at times. For instance ghost-           cut-off for the response properties, which was between
+                                                                                                                                10
+
+250 and 750 eV. Clearly the QP corrections of the VB
+                                                                  TABLE II: Position of valence band (VB) maximum at X,
+maximum and the CB minimum converge much faster
+                                                                  L (with respect to Γ), and conduction band (CB) minimum
+when the correction is applied. The correction is larger          at Γ, X, and L with respect to VB maximum at Γ for the
+for the VB maximum, which contains a contribution of              local density approximation. For materials with an inverted
+the 3d states of Zn. The corrected shifts of the 3d states        gap, the VB maximum is set to the triple degenerated state
+deviate initially more from the extrapolated value, and           that normally corresponds to the VB maximum. All materials
+the difference is still pronounced even for the largest ba-       were considered in the diamond or zinc blende structure, ex-
+sis set used. However, the extrapolated value for the 3d          cept for GaN and ZnO where the lines “wz” report the results
+states might still posses some error because of the very          for the wurzite structures.
+                            χ
+slow convergence with Npw     . Importantly, the coefficient              ΓVBmin       Γc      Lv      Lc     Xv     Xc        d
+for the correction calculated using Eq. (25) can be di-
+                                                                  C        -21.32    5.54   -2.79    8.38   -6.29   4.70
+rectly compared to the value of the coefficient A obtained
+from the fit. For the VB maximum and CB minimum                   SiC      -15.33    6.28   -1.06    5.38   -3.20   1.30
+the agreement is excellent, the fit yields A = 317 eV and         Si       -11.96    2.52   -1.20    1.42   -2.85   0.60
+89 eV for the VB maximum and CB minimum, respec-                  Ge       -12.81   -0.15   -1.41    0.06   -3.08   0.66
+tively, while Eq. (25) gives A = 315 eV and 93 eV. For            BN       -20.07    8.68   -1.94   10.19   -4.91   4.34
+the 3d state, we obtain 502 eV from the fit and 842 eV            AlP      -11.50    3.10   -0.77    2.66   -2.12   1.44
+from Eq. (25). Clearly even larger cut-offs would have to         AlAs     -11.90    1.86   -0.82    2.02   -2.17   1.35
+                              χ
+be used to observe the 1/Npw      behavior. However, this is      AlSb     -10.77    1.46   -0.91    1.26   -2.19   1.15
+hardly possible, not least because the largest calculation
+                                                                  GaN      -15.64    1.63   -0.95    4.42   -2.66   3.24   -13.50
+we performed used over 12000 unoccupied bands.
+                                                                  wz                 1.94                                  -13.30
+   The faster convergence of the QP corrections leads to
+a much faster convergence of the band gap, shown in Fig-          GaP      -12.51    1.63   -1.13    1.51   -2.71   1.49   -14.68
+ure 4 (b). When the correction is used, a rather small cut-       GaAs     -12.76    0.32   -1.15    0.86   -2.69   1.34   -14.91
+         χ                                                        GaSb     -11.59   -0.06   -1.17    0.32   -2.61   0.83   -15.14
+off of Ecut = 300 eV (corresponding to about 600 plane
+waves in the response function) is sufficient to obtain           InP      -11.52    0.48   -0.98    1.31   -2.35   1.60   -14.13
+a band gap converged to within 50 meV. For the same               InAs     -11.88   -0.43   -0.99    0.79   -2.33   1.43   -14.30
+settings the uncorrected band gap is underestimated by            InSb     -10.77   -0.38   -1.01    0.42   -2.27   1.25   -14.51
+more than 200 meV. Even in the largest calculation we             MgO      -17.00    4.68   -0.67    7.75   -1.37   8.89
+                      χ
+performed, using Ecut     = 750 eV, the gap is still under-
+                                                                  ZnO      -17.68    0.62   -0.80    5.32   -2.21   5.13    -5.30
+estimated by ≈70 meV. To obtain similar error from the
+                                                                  wz                 0.75                                   -5.24
+corrected calculation, it is sufficient to set the cut-off to a
+much smaller value, Ecut χ
+                            = 250 eV. With similar errors,        ZnS      -13.08    1.87   -0.87    3.10   -2.23   3.19    -6.31
+the corrected calculations are about 30 times cheaper.            ZnSe     -13.28    1.05   -0.87    2.36   -2.20   2.81    -6.55
+Clearly, the correction is a promising tool to improve the        ZnTe     -11.82    1.06   -0.90    1.65   -2.18   2.17    -6.94
+convergence of the QP energies in GW calculations. We             CdO      -15.73    0.92    1.42    5.68   -0.98   5.10    -5.14
+also note that this correction is complementary to con-           CdS      -12.40    0.90   -0.78    2.79   -1.95   3.30    -7.60
+vergence accelerations with respect to the number of in-          CdSe     -12.65    0.36   -0.77    2.19   -1.89   2.94    -7.80
+cluded orbitals.33,34 Here, we correct for the error caused       CdTe     -11.23    0.55   -0.79    1.66   -1.89   2.45    -8.18
+by the finite basis set used for the response function,
+whereas those address errors incurred by truncating the
+virtual orbital set.
+                                                                  see that the band inversion is already abolished in the
+                                                                  first G0 W0 iteration, but unfortunately the band inver-
+    C.    G0 W0 band gaps for semiconductors and                  sion causes sometimes convergence problems in the GW0
+                      insulators                                  iteration, specifically this happened for CdO, where sub-
+                                                                  sequent iterations did not converge. In these cases, a fur-
+   Tables II, III, and V collect the band gaps for the            ther technical problem is that both in the GW0 , as well as
+materials considered in the present work for LDA,                 G0 W0 calculations, the screening of the system is prac-
+G0 W0 @LDA, and GW0 @LDA calculations starting from               tically metallic. Hence we expect that these results are
+LDA orbitals. The results for G0 W0 starting from PBE             possibly not well converged with respect to the k-point
+orbitals are shown in Tab. IV.                                    mesh, and the final reported numbers should be consid-
+   The first important issue to note is that some of the          ered with some caution. Another reason for errors is the
+materials show band inversion in LDA and PBE, namely              frequency integration. We present the polarizability on a
+Ge, GaSb, InAs, and InSb: for these materials the three-          discretized frequency grid,29 with 200 frequency points,
+fold degenerated (cation) p orbitals are incorrectly above        and double checked whether a reduction of the frequency
+the anion s orbital at the Γ point. In Tab. II, the gap           points from 200 to 100 points changes the results. For
+is then given as a negative value. From Table III, we             all systems, except ZnO, the changes in the QP energies
+                                                                                                                       11
+
+
+TABLE III: G0 W0 @LDA results for absolute shift of the        TABLE IV: Same as Table III but for G0 W0 @PBE. The IPs
+valence band (VB) at Γ compared to LDA calculations (∆         are generally 0.15 eV more negative than for G0 W0 @LDA.
+IP), position of the VB minimum (ΓVBmin ), position of VB
+maximum at X, L (with respect to Γ), and conduction band             ∆IP ΓVBmin     Γc    Lv    Lc   Xv   Xc       d
+(CB) minimum at Γ, X, and L. For Ga, In, Zn, and Cd,           C    -1.22 -22.12 7.43 -2.93 10.38 -6.58 6.23
+the position of the d band (average at the Γ point) is also    SiC  -1.05 -15.69 7.35 -1.10 6.62 -3.30 2.42
+indicated. Calculations are for 6 × 6 × 6 k-points.
+                                                               Si   -0.72 -11.83 3.25 -1.21 2.14 -2.86 1.28
+      ∆IP ΓVBmin     Γc    Lv    Lc   Xv   Xc       d          Ge   -0.82 -12.70 0.63 -1.43 0.67 -3.08 1.16
+C    -1.07 -22.06 7.43 -2.92 10.37 -6.55 6.21                  BN   -1.53 -21.05 11.33 -2.06 12.29 -5.18 6.40
+SiC  -0.92 -15.61 7.30 -1.09 6.58 -3.27 2.43                   AlP -0.96 -11.37 4.23 -0.77 3.79 -2.13 2.48
+Si   -0.60 -11.82 3.21 -1.21 2.06 -2.86 1.22                   AlAs -1.01 -11.82 2.99 -0.82 3.08 -2.17 2.31
+Ge   -0.54 -12.69 0.43 -1.42 0.56 -3.09 1.10                   AlSb -0.84 -10.67 2.40 -0.91 2.07 -2.20 1.87
+BN   -1.35 -21.09 11.29 -2.08 12.25 -5.19 6.37                 GaN -1.20 -15.93 2.85 -0.98 5.93 -2.70 4.50 -15.82
+AlP -0.83 -11.36 4.11 -0.78 3.70 -2.13 2.42                    wz   -1.23         3.20                        -15.61
+AlAs -0.82 -11.81 2.82 -0.83 2.96 -2.17 2.23                   GaP -0.86 -12.34 2.62 -1.14 2.45 -2.71 2.30 -16.77
+AlSb -0.65 -10.65 2.27 -0.91 1.99 -2.20 1.82                   GaAs -0.91 -12.56 1.23 -1.14 1.68 -2.66 2.04 -16.97
+GaN -1.04 -15.86 2.88 -0.97 5.95 -2.68 4.59 -15.87             GaSb -0.77 -11.41 0.68 -1.17 0.92 -2.60 1.34 -17.22
+wz   -1.08         3.23                        -15.66          InP -0.78 -11.29 1.23 -0.99 2.10 -2.35 2.28 -15.66
+GaP -0.70 -12.34 2.50 -1.14 2.36 -2.71 2.25 -16.86             InAs -0.83 -11.65 0.23 -1.00 1.48 -2.32 2.04 -15.73
+GaAs -0.63 -12.59 1.08 -1.15 1.57 -2.68 1.96 -17.10            InSb -0.75 -10.57 0.25 -1.03 0.99 -2.28 1.76 -15.94
+GaSb -0.54 -11.45 0.54 -1.17 0.84 -2.61 1.29 -17.32            MgO -2.16 -17.61 7.55 -0.73 10.80 -1.45 11.82
+InP -0.61 -11.32 1.13 -0.99 2.00 -2.35 2.21 -15.73             ZnO -1.73 -17.84 2.42 -0.79 7.41 -2.17 6.93 -6.16
+InAs -0.60 -11.69 0.13 -1.00 1.43 -2.33 2.02 -15.84            wz   -1.87         2.76                         -5.98
+InSb -0.54 -10.61 0.13 -1.03 0.93 -2.28 1.72 -16.06            ZnS -1.33 -12.64 3.46 -0.87 4.79 -2.19 4.68 -7.45
+MgO -2.01 -17.47 7.55 -0.71 10.86 -1.44 11.91                  ZnSe -1.34 -12.95 2.55 -0.85 3.88 -2.13 4.15 -7.64
+ZnO -1.53 -17.75 2.46 -0.79 7.43 -2.15 7.00 -6.22              ZnTe -1.07 -11.56 2.27 -0.89 2.78 -2.14 3.21 -8.10
+wz   -1.78         2.83                         -6.09          CdO -0.95 -16.29 1.50 1.29 6.74 -0.99 6.45 -6.20
+ZnS -1.15 -12.62 3.36 -0.86 4.70 -2.18 4.62 -7.55              CdS -1.11 -11.97 2.15 -0.78 4.19 -1.93 4.55 -8.62
+ZnSe -1.09 -12.97 2.38 -0.85 3.75 -2.12 4.06 -7.82             CdSe -1.15 -12.34 1.52 -0.75 3.44 -1.84 4.06 -8.71
+ZnTe -0.84 -11.59 2.17 -0.88 2.71 -2.13 3.15 -8.31             CdTe -0.99 -10.96 1.57 -0.79 2.67 -1.86 3.35 -9.19
+CdO -0.81 -16.16 1.57 1.14 6.83 -0.98 6.46 -6.78
+CdS -0.96 -11.98 2.05 -0.77 4.09 -1.91 4.48 -8.67
+CdSe -0.90 -12.37 1.33 -0.75 3.27 -1.83 3.93 -8.84             for systems with d electrons. Although the PBE starting
+CdTe -0.75 -10.99 1.46 -0.78 2.58 -1.85 3.28 -9.34             point seems better suited, since the final gaps are larger
+                                                               and always in better agreement with experiment, we will
+                                                               mainly concentrate on the G0 W0 @LDA calculations in
+                                                               the following discussion, since it is still common practice
+and gap are well below 50 meV, with most changes being         to start from LDA orbitals.
+only 10–20 meV. For ZnO the gap increases by 100 meV,             Let us start with a discussion of those materials that
+when the number of frequency points is reduced to 100.         have been most widely discussed in literature, Si and
+The origin for this change is the one single sharp s-p tran-   ZnO. For Si, Friedrich et al.35 reported valence band and
+sition occurring at the Γ point, which is not accurately       conduction band positions of 3.2 eV (Γ − Γ), −1.22, 2.12
+represented with the coarser frequency grid. Error bars        (Γ−L), −2.92, 1.19 (Γ−X) compared to our values of 3.22
+for ZnO are, therefore, possibly somewhat larger than for      (Γ − Γ), −1.21, 2.06 (Γ−L) −2.87, 1.23 (Γ−X). However,
+other systems.                                                 Friedrich’s calculations were performed using only 250
+   The effect of the starting functional (LDA versus PBE,      bands, and they also note that “the results are lowered
+Tab. III versus IV) is small for all materials without d       by 0.02 eV if the k-point mesh is fully converged, and by
+electrons (see, for example Si). However, if d electrons are   another 0.02 eV if screening due to the 2p electrons is in-
+present, the d electrons shift slightly towards the Fermi-     cluded in the correlation self-energy”. This will improve
+level by 0.1 eV in the G0 W0 , as well as in the preceding     agreement with our results even further, since we have
+PBE calculations. More notable is the increase of the          included the 2p electrons in the valence.
+band gap by about 0.2 eV, in particular, for the Γ − Γ            ZnO is certainly the most controversial material, with
+transition for both PBE (not shown) and G0 W0 @PBE.            reported band gaps varying between 2.1 eV and 3.4 eV
+This implies that G0 W0 @LDA calculations can not be           for G0 W0 calculations.9,30 The larger value of 3.4 has
+straightforwardly compared to G0 W0 @PBE calculations          been shown to be related to the plasmon pole model,10
+                                                                                                                                         12
+
+whereas the smaller value of 2.1 eV has been reported for
+                                                                                               4
+VASP, albeit for zinc blende and PBE orbitals.30 This de-
+                                                                                                                          GaN     ZnS
+creases the gap by 0.2 eV and 0.1 eV, respectively; the
+
+
+
+
+                                                                     Theoretical QP gap (eV)
+G0 W0 @LDA band gap for wurzite ZnO is 2.4 eV with a                                                                           ZnO
+similar setup and potential as in Ref. 30 . In the present                                     3
+                                                                                                                    SiC AlP
+calculations, we predict a basis set converged band gap                                                            GaP      ZnSe
+                                                                                                   CdO
+of 2.83 eV using 6 × 6 × 6 k-points. Increasing the grid to                                                      AlAs
+                                                                                                                         CdS
+8 × 8 × 8 k-points, the value increases to 2.87 eV. These                                      2              AlSb    ZnTe
+values are only slightly larger then the value of 2.83 eV                                                CdTe
+reported by Friedrich et al.21 for 8 × 8 × 8 k-points. Due                                               Si       CdSe
+to the very slow convergence with the number of orbitals                                       1            InP GaAs              GW0
+and exceedingly slow k-point convergence, we, however,                                             InAs Ge
+want to emphasize that our ZnO values are possibly less                                                   GaSb
+accurate than for other materials: errors below ±0.05 eV                                       0
+                                                                                                   InSb
+are technically very difficult to achieve for this material.
+The important point, however, is that our present val-                                             0       1      2       3          4
+ues are significantly larger than the values we and many                                                  Experimental gap (eV)
+other groups have reported before.9,30,34 The main rea-
+son is certainly insufficient convergence with respect to
+the basis sets for the orbitals or response function, or       FIG. 5: Band gaps predicted using GW0 @LDA compared
+the use of an incomplete basis set for the atom-centered       to experimental values. The theoretical band gaps have been
+basis functions in full potential methods or projector aug-    corrected for spin orbital coupling given in the supplementary
+mented wave methods.                                           material of Ref. 28. Experimental data are also collected in
+   Concerning the d levels and the other materials consid-     Ref. 28.
+ered in the present work, we will start with a comparison
+with the most recent full potential linearized augmented-
+plane-wave (FLAPW) values by Li et al.36 For the d             agreement with our values 1.10 (Si), GaAs (1.07), CdS
+states, they report values of −6.84, −7.12, −7.55 (ZnS,        (2.10), GaN (2.90), 5.61 (C), BN (6.37), MgO (7.54).
+ZnSe, ZnTe) and −8.16, −8.45, −8.74 (CdS, CdSe,                As to why our band gaps are generally larger for oxides
+CdTe), typically 0.5–0.7 eV higher than our present val-       and nitrides compared to the FLAPW calculations and
+ues. This is certainly a result of insufficient basis set      our previous calculations in Ref. 30, we note that the
+convergence, since in the FLAPW calculations the num-          2p levels need to be treated with similar care as the d
+ber of bands is nowhere close to the values required to see    states, and we suspect that the one-center basis sets for
+the drop in the d level energies (compare Fig. 1). Com-        those materials were not fully converged in the FLAPW
+pared to our own previous values reported in Ref. 30 we        calculations. For GaAs, our present band gap is smaller
+note that these early calculations were neither basis set      than the two FLAPW values (both around 1.30). We be-
+converged, nor did we very accurately restore the all elec-    lieve that the origin of this behavior is insufficient basis
+tron density distribution on the plane wave grid. Both         set convergence in both FLAPW calculations, as already
+errors might or might not accidentally cancel; certainly       discussed above and shown in Fig. 2. When the basis
+the present values are more accurate and reliable and          set size is increased for GaAs, the direct gap decreases,
+supersede the previous values.                                 since the s like conduction band states at Γ experience
+   For the band gaps, we note that the FLAPW calcula-          the attractive Coulomb hole of the d electrons. If the
+tions reported in Ref. 37 are generally smaller than our       basis set is not sufficiently large a too large gap will be
+G0 W0 band gaps: 1.00 (Si), 5.42 (C), BN (6.03), AlP           predicted. It, however, also goes without saying that it is
+(2.18), GaAs (1.29), compared to the present values of         possible that one or the other value in our tables might
+1.10 (Si), 5.61 (C), BN (6.37), AlP (2.43), GaAs( 1.07).       need revision, when we have more codes and values to
+We suspect that this is also a result of insufficient con-     compare to. At present, we have done everything to con-
+vergence with respect to the FLAPW basis set inside the        verge our results carefully and have checked every single
+atomic spheres. Too small one center basis sets will yield     PAW potential painstakingly, typically comparing them
+seemingly converged results with respect to the plane          to two other PAW potentials with even smaller core radii.
+wave basis set, although the true band gaps are possibly          Fig. 5 compares the calculated GW0 @LDA tabulated
+much larger. More accurate values have been published          in Tab. V with experimental values collected in Ref. 28.
+by Friedrich et al. who reported carefully converged band      We observe that the band gaps for the “metallic” LDA-
+gaps for several semiconductors and insulators also using      systems (InSb, InAs, GaSb, and Ge) are noticeably too
+the FLAPW method.38 In this case, the one-center basis         small. For sp bonded systems the agreement is seemingly
+sets were improved using local orbitals (LO). They find        rather good, although it should be noted that electron-
+band gaps of 1.11 (Si), GaAs (1.29), CdS (2.18), GaN           phonon coupling can significantly reduce the experimen-
+(2.83), 5.62 (C), BN (6.20), MgO (7.17), most in good          tally measured gap with the effect being about 0.4 eV
+                                                                                                                      13
+
+                                                             ergies, given by Eq. (8). That both errors are related
+TABLE V: Same as Table III for GW0 @LDA. GW0 @LDA
+                                                             is fairly obvious, since QP removal and addition ener-
+calculations did not converged for CdO because of the in-
+correct band order for the LDA starting orbitals. The        gies can be regarded as the energy difference between a
+GW0 @PBE are reported in the supplementary material of       system with N and N − 1 and N + 1 electrons, respec-
+Ref. 28                                                      tively. The important observation is that in both cases,
+                                                             plane wave like orbitals G and G′ , that are not relevant
+      ∆IP ΓVBmin     Γc    Lv    Lc   Xv   Xc       d        for groundstate calculations, contribute to the correla-
+C    -1.21 -22.38 7.57 -3.02 10.60 -6.71 6.36                tion energy, since the density at a wave vector G − G′ is
+SiC  -1.10 -15.80 7.50 -1.10 6.79 -3.32 2.61                 involved. Due to this folding, even plane waves at very
+Si   -0.72 -11.93 3.32 -1.22 2.15 -2.90 1.31                 high kinetic energies contribute to the correlation energy.
+Ge   -0.56 -12.78 0.53 -1.44 0.62 -3.12 1.15                 We have discussed briefly that the origin of this problem
+BN   -1.56 -21.30 11.66 -2.10 12.58 -5.25 6.65               is related to the so called cusp condition. The addition
+AlP -0.99 -11.50 4.27 -0.79 3.86 -2.17 2.58
+                                                             of an electron at position r induces a charge depletion
+                                                             around r, which is essentially described by the exchange-
+AlAs -1.00 -11.96 2.96 -0.83 3.12 -2.20 2.39
+                                                             correlation hole hxc (r, r′ ). The correlation contribution
+AlSb -0.78 -10.79 2.38 -0.93 2.10 -2.23 1.93                 to the hole is related to the screening charge density, and
+GaN -1.30 -16.41 3.11 -0.98 6.25 -2.71 4.88 -16.82           these quantities have a cusp for r′ → r which is correctly
+wz   -1.33         3.48                        -16.57        accounted for only when an infinitely large basis set is
+GaP -0.85 -12.51 2.63 -1.15 2.50 -2.74 2.39 -17.98           used.
+GaAs -0.78 -12.75 1.19 -1.16 1.68 -2.71 2.07 -18.30             The present correction is complementary to resolution
+GaSb -0.66 -11.57 0.62 -1.18 0.92 -2.63 1.37 -18.66          of identity methods33 or effective energy denominator
+InP -0.76 -11.47 1.23 -1.01 2.12 -2.38 2.34 -16.48           techniques.34 These techniques allow to obtain converged
+InAs -0.86 -11.72 0.32 -0.91 1.65 -2.24 2.24 -16.47          results for a specific plane wave basis set using only a
+InSb -0.68 -10.71 0.26 -1.02 1.03 -2.29 1.82 -16.87          small number of orbitals. They, however, do not allow to
+                                                             determine the error incurred by disregarding plane wave
+MgO -2.42 -18.21 8.04 -0.73 11.42 -1.49 12.48
+                                                             components in the basis set. Our present correction does
+ZnO -2.17 -18.11 3.10 -0.81 8.20 -2.21 7.71 -6.68            exactly this. Specifically, it allows to estimate the resid-
+wz   -2.30         3.41                         -6.47        ual error resulting from the neglect of high energy plane
+ZnS -1.43 -12.82 3.66 -0.86 5.01 -2.21 4.92 -8.27            wave components in the response function. As observed
+ZnSe -1.37 -13.13 2.64 -0.85 4.03 -2.14 4.34 -8.62           before (and rederived here) this error is proportional to
+ZnTe -1.03 -11.75 2.35 -0.89 2.89 -2.16 3.32 -9.14           the inverse of the number of basis functions included in
+CdS -1.22 -12.16 2.30 -0.79 4.37 -1.94 4.77 -9.18            the response function. The correction has been tested
+CdSe -1.16 -12.53 1.55 -0.76 3.52 -1.85 4.19 -9.39           for the case of ZnO and seems to be quite promising, al-
+                                                             though, further refinements will be required for d states.
+CdTe -0.95 -11.17 1.62 -0.79 2.76 -1.88 3.46 -9.87
+                                                                Alternatively, one can extrapolate to the infinite basis
+                                                             set limit by performing a series of calculations with an in-
+                                                             creasing basis set for the orbitals and the response func-
+for C and 0.1 eV for Si.39–41 We expect similar contri-      tion. According to the derived asymptotic behaviour,
+butions of the order of 0.4 eV for other oxides, nitrides,   the error should fall off like one over the number of basis
+and carbides, and of the order of 0.1–0.2 for sulfides and   functions. This procedure has already been applied by
+materials containing aluminium. If these corrections are     Garcia and Marini in RPA calculations.42 To avoid any
+considered the comparison with experiment would be less      bias, this procedure was adopted in the present work to
+favorable. A final answer, however, requires one to per-     predict QP energies for 24 materials.
+form the actual calculations with the phononic contribu-
+                                                                Unfortunately, the derivation of Eq. (24) indicates that
+tions accounted for.
+                                                             standard PAW potentials with non norm-conserving “ul-
+                                                             trasoft” partial waves will not describe QP levels accu-
+                                                             rately, since the norm is not correctly restored when high
+      V.   DISCUSSION AND CONCLUSION                         energy plane wave like orbitals are involved. We ob-
+                                                             serve that the resulting error can be substantial. For
+  One central result of the present work is a simple         instance, for ZnO using US PAW potentials, the d levels
+asymptotic estimate of the self-energy contribution from     are almost 1 eV too high in energy compared to accurate
+high energy plane wave like orbitals, see. Eq. (24). Re-     reference calculations, and the band gap error is about
+markably, this estimate allows to determine the error in     400 meV. Although ZnO is an extreme example, since
+QP corrections using only the total charge density and       the d levels are rather shallow (7 eV below the Fermi
+the charge density of the QP state in question. The esti-    level) and the violation of the norm is particularly large
+mate is exceedingly easy to calculate and can be readily     for 3d elements, we found that similar errors are observed
+implemented in any plane wave or all-electron code. A        for all materials containing elements with 3d, as well as
+similar error estimate is obtained for the correlation en-   4d and 5d electrons. Even for AlAs and GaAs, the in-
+                                                                                                                          14
+
+clusion of the As 3d levels changes the indirect gap by        consistent procedures of Kotani and Schilfgaarde43,44 or
+up to 200 meV. Eq. (24) suggests two strategies to re-         hybrid functionals if efficiency is important.45,46 More-
+duce the error: (i) either more projectors at higher ener-     over, we recently performed GW calculations based on
+gies need to be included, or alternatively (ii) the partial    RPA optimized effective potential calculations or hybrid
+waves are made norm-conserving. Although, we have              functionals where the extrapolation procedures were ap-
+not discussed option (i) in detail, we found that it is,       plied as well.28,32
+in practice, difficult to increase the number of projectors       We believe that our reported values are as accurate
+beyond three for a given quantum number l. Solution            as we can possibly make them within the limits of the
+(ii), however, works reliably and yields PAW potentials        GW @DFT approximation, and we hope that they can
+that are robust and accurate. Furthermore, the specific        serve as a benchmark for other GW codes. It is in fact
+choice for the core/pseudization radius seems to influence     uttermost time for the ab initio community to establish
+the QP energies only very little for NC PAW potentials,        such benchmarks to make G0 W0 a truly validated tool (as
+as demonstrated for ZnO (and observed for all materials        DFT already is). After all, validation has made quantum
+considered here). The disadvantage of NC PAW poten-            chemistry approaches using Gaussian type orbitals and
+tials is that they require about a factor of 2 larger plane    DFT so successful. Unfortunately, GW results with that
+wave cut-off energies than standard ultrasoft PAW po-          kind of reference quality are still rare. Specifically, we are
+tentials. Although this makes the potentials impractical       only aware of accurate calculations for Si and ZnO, for
+for groundstate calculations, fairly large plane wave cut-     which we have made a comparison and found very good
+offs are anyway required to obtain converged QP ener-          agreement.21,35 We also want to emphasize that meth-
+gies, so that the increased cut-off has, in practice, little   ods employing compact basis sets, such as the linearized
+consequences for GW calculations.                              muffin tin orbital methods and even the standard full po-
+   In this work, we calculated G0 W0 and GW0 band gaps         tential linearized plane wave method will experience sim-
+for prototypical semiconductors and insulators using the       ilar problems to the ones we experience with non norm-
+newly constructed NC PAW potentials. Overall, we ob-           conserving PAW potentials: to obtain highly accurate
+serve what has been known for quite some time. The             QP corrections and many electron correlation energies,
+QP gaps for medium gap materials are very accurate us-         plane waves and local basis functions that do not con-
+ing the G0 W0 approximation, slightly outperformed by          tribute to the groundstate orbitals need to be included
+the GW0 approximation. Errors are even acceptable for          in the excited state calculations. This fact was known
+ZnO, that has long been considered to be problematic.          in the quantum chemistry community for some time and
+Indeed the main issue with ZnO was insufficient basis          certainly imposes a computational challenge that needs
+set convergence as already noted in Refs. 9 and 21. For        to be overcome when reference quality data are sought.
+small gap systems, however, our results are clearly unsat-
+isfactory, and this concerns, in particular, materials that
+show incorrect band order at the Γ point in the local den-
+sity approximation: in Ge, GaSb, InAs, InSb, and CdO,
+                                                                                   Acknowledgments
+the anion p states are above the Fermi-level, whereas the
+cation s state is below the Fermi-level for LDA. This re-
+sults in sizable errors in the standard perturbative GW           This work was supported by the Austrian Science Fund
+approach. Clearly better starting points than DFT or-          (FWF) within the SFB ViCoM (Grant F 41). Super-
+bitals and DFT screening are required in these cases.          computing time on the Vienna Scientific cluster (VSC)
+Presently the most successful approaches are the self-         is gratefully acknowledged.
+
+
+
+
+1                                                              9
+  L. Hedin, Phys. Rev. 139, A796 (1965).                          B.-C. Shih, Y. Xue, P. Zhang, M. L. Cohen, and S. G.
+2
+  M. S. Hybertsen and S. G. Louie, Phys. Rev. B 34, 5390          Louie, Phys. Rev. Lett. 105, 146401 (2010).
+                                                               10
+  (1986).                                                         M. Stankovski, G. Antonius, D. Waroquiers, A. Miglio,
+3
+  M. Lannoo, M. Schlüter, and L. J. Sham, Phys. Rev. B           H. Dixit, K. Sankaran, M. Giantomassi, X. Gonze,
+  32, 3890 (1985).                                                M. Côté, and G.-M. Rignanese, Phys. Rev. B 84, 241201
+4
+  F. Aryasetiawan and O. Gunnarsson, Rep. Prog. Phys. 61,         (2011).
+                                                               11
+  237 (1998).                                                     T. Kato, Commun. Pure Appl. Math. 10, 151 (1957).
+5                                                              12
+  G. Onida, L. Reining, and A. Rubio, Rev. Mod. Phys. 74,         C. Schwartz, Phys. Rev. 126, 1015 (1962).
+                                                               13
+  601 (2002).                                                     W. Kutzelnigg and J. D. Morgan, J. Chem. Phys. 96, 4484
+6
+  G.         Giuliani       and         G.        Vignale,        (1992).
+                                                               14
+  Quantum Theory of the Electron Liquid (CUP, Cam-                R. A. Kendall, T. H. Dunning, and R. J. Harrison, J.
+  bridge, 2005).                                                  Chem. Phys. 96, 6796 (1992).
+7                                                              15
+  F. Bechstedt, F. Fuchs, and G. Kresse, Phys. Stat. Sol. B       A. Halkier, T. Helgaker, T. Jorgensen, W. Klopper,
+  246, 1877 (2009).                                               H. Koch, J. Olsen, and A. K. Wilson, Chem. Phys. Lett.
+8
+  R. Starke and G. Kresse, Phys. Rev. B 85, 075119 (2012).        286, 243 (1998).
+                                                                                                                              15
+
+16                                                               33
+   J. Harl and G. Kresse, Phys. Rev. B 77, 045136 (2008).           F. Bruneval and X. Gonze, Phys. Rev. B 78, 085125
+17
+   J. J. Shepherd, A. Grüneis, G. H. Booth, G. Kresse, and         (2008).
+                                                                 34
+   A. Alavi, Phys. Rev. B 86, 035111 (2012).                        J. A. Berger, L. Reining, and F. Sottile, Phys. Rev. B 85,
+18
+   A. Gulans, unpublished.                                          085126 (2012).
+19                                                               35
+   T. Björkman, A. Gulans, A. V. Krasheninnikov, and R. M.         C. Friedrich, A. Schindlmayr, S. Blügel, and T. Kotani,
+   Nieminen, Phys. Rev. Lett. 108, 235502 (2012).                   Phys. Rev. B 74, 045104 (2006).
+20                                                               36
+   W. Kang and M. S. Hybertsen, Phys. Rev. B 82, 195108             X.-Z. Li, R. Gomez-Abal, H. Jiang, C. Ambrosch-Draxl,
+   (2010).                                                          and M. Scheffler, New J. Phys. 14, 023006 (2012).
+21                                                               37
+   C. Friedrich, M. C. Müller, and S. Blügel, Phys. Rev. B        R. Gómez-Abal, X. Li, M. Scheffler, and C. Ambrosch-
+   83, 081101 (2011).                                               Draxl, Phys. Rev. Lett. 101, 106404 (2008).
+22                                                               38
+   J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev.             C. Friedrich, S. Blügel, and A. Schindlmayr, Phys. Rev. B
+   Lett. 77, 3865 (1996), ibid, 78, 1396 (1997).                    81, 125102 (2010).
+23                                                               39
+   M. Marsman, A. Grüneis, J. Paier, and G. Kresse, J.             F. Giustino, S. G. Louie, and M. L. Cohen, Phys. Rev.
+   Chem. Phys. 130, 184103 (2009).                                  Lett. 105, 265501 (2010).
+24                                                               40
+   A. Grüneis, J. J. Shepherd, A. Alavi, D. P. Tew, and G. H.      E. Cannuccia and A. Marini, Phys. Rev. Lett. 107, 255501
+   Booth, J. Chem. Phys. 139, 084112 (2013).                        (2011).
+25                                                               41
+   P. Blöchl, Phys. Rev. B 50, 17953 (1994).                       S. Poncé, G. Antonius, P. Boulanger, E. Cannuccia,
+26
+   A. Grüneis, M. Marsman, and G. Kresse, J. Chem. Phys.           A. Marini, M. Côté, and X. Gonze, Comp. Mat. Sci. 83,
+   133, 074107 (2010).                                              341 (2014).
+27                                                               42
+   J. Deslippe, G. Samsonidze, M. Jain, M. L. Cohen, and            P. Garcı́a-González, J. J. Fernández, A. Marini, and A. Ru-
+   S. G. Louie, Phys. Rev. B 87, 165124 (2013).                     bio, J. Phys. Chem. A 111, 12458 (2007).
+28                                                               43
+   A. Grüneis, G. Kresse, Y. Hinuma, and F. Oba, Phys. Rev.        S. V. Faleev, M. van Schilfgaarde, and T. Kotani, Phys.
+   Lett. 112, 096401 (2014).                                        Rev. Lett. 93, 126406 (2004).
+29                                                               44
+   M. Shishkin and G. Kresse, Phys. Rev. B 74, 035101               M. van Schilfgaarde, T. Kotani, and S. Faleev, Phys. Rev.
+   (2006).                                                          Lett. 96, 226402 (2006).
+30                                                               45
+   M. Shishkin and G. Kresse, Phys. Rev. B 75, 235102               F. Fuchs, J. Furthmüller, F. Bechstedt, M. Shishkin, and
+   (2007).                                                          G. Kresse, Phys. Rev. B 76, 115109 (2007).
+31                                                               46
+   G. Kresse and D. Joubert, Phys. Rev. B 59, 1758 (1999).          J. Paier, M. Marsman, and G. Kresse, Phys. Rev. B 78,
+32
+   J. Klimeš and G. Kresse, J. Chem. Phys. 104, 054516             121201 (2008).
+   (2014).
+

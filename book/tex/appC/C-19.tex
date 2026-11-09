@@ -1,0 +1,56 @@
+\section{Magnetic neutron scattering}\label{app:C.19}
+
+A neutron carries a magnetic moment of $-1.913$ nuclear magnetons, and in a magnetic crystal it scatters off the unpaired electron spins about as strongly as off the nuclei. Its spin couples to the same spin density $\vect{s}_e(\vect{q})$ as a dark-matter particle with a spin-dependent coupling to electrons, which is why \cref{sec:14.4} can turn measured neutron spectra into dark-matter spin responses. The translation needs the cross-section written with the response matrix $S_{ab}$ of \cref{sec:4.2}, the projection that removes the component of the spin density along the momentum transfer, and the magnetic form factor of an ion. Polarized beams then separate the two components that remain.
+
+\subsection{The magnetic cross-section}
+
+A neutron of mass $m_n$ enters with momentum $\vect{p}_n$ and leaves with $\vect{p}'_n$. As for dark matter, $\vect{q} = \vect{p}_n - \vect{p}'_n$ is the momentum given to the target and $\omega = (p_n^2 - p_n'^2)/2m_n$ the energy. The neutron moment is $\vect{\mu}_n = \gamma_n\mu_N\vect{\sigma}_n$, with $\gamma_n = -1.913$, the nuclear magneton $\mu_N = e/2m_p$ and the Pauli matrices $\vect{\sigma}_n$ of the neutron spin~\cite[Chap.~7]{squires2012introduction}. Its interaction with the magnetic field of the electrons is $-\vect{\mu}_n\cdot\vect{B}_e(\vect{r}_n)$.
+
+The spins of the electrons, with $g_e = 2$, form the magnetization $\vect{M}_e(\vect{r}) = -2\mu_B\,\vect{s}_e(\vect{r})$, where $\vect{s}_e(\vect{r})$ is the spin density whose Fourier transform is $\vect{s}_e(\vect{q}) = \sum_i\ee^{\ii\vect{q}\cdot\vect{r}_i}\vect{\sigma}_i/2$ (\cref{sec:7.1}). Without free currents, magnetostatics in Heaviside--Lorentz units reads $\nabla\cdot\vect{B}_e = 0$ and $\nabla\times\vect{B}_e = \nabla\times\vect{M}_e$. In Fourier space, at $\vect{q} \neq 0$, these are $\vect{q}\cdot\vect{B}_e(\vect{q}) = 0$ and $\vect{q}\times[\vect{B}_e(\vect{q}) - \vect{M}_e(\vect{q})] = 0$. The second makes $\vect{B}_e - \vect{M}_e$ parallel to $\vect{q}$, and the first then fixes it:
+\begin{equation}
+  B_{e,a}(\vect{q}) = \sum_b(P_T)_{ab}\,M_{e,b}(\vect{q}), \qquad (P_T)_{ab} = \delta_{ab} - \hat q_a\hat q_b .
+  \label{eq:C.19-field}
+\end{equation}
+Only the component of the magnetization perpendicular to $\vect{q}$ produces a field at wavevector $\vect{q}$. A magnetization that is modulated along its own direction, $\vect{M}_e \parallel \vect{q}$, is a pattern of magnetic poles whose demagnetizing field cancels it exactly, and a neutron passing through sees nothing.
+
+To first order in the interaction (the Born approximation, \cref{sec:2.2}), the amplitude for scattering a neutron is $-(m_n/2\pi)$ times the Fourier transform of its potential, here the operator $-\vect{\mu}_n\cdot\vect{B}_e(\vect{q}) = 2\gamma_n\mu_N\mu_B\,\vect{\sigma}_n\cdot P_T\vect{s}_e(\vect{q})$, with $P_T$ acting on the vector index. With $m_n = m_p$, which holds to \SI{0.14}{\percent}, the constants combine as $(m_n/2\pi)\cdot2\gamma_n(e/2m_p)(e/2m_e) = \gamma_n\,e^2/(4\pi m_e)$. This is $\gamma_n r_{\mathrm{cl}}$, with the classical electron radius $r_{\mathrm{cl}} = e^2/(4\pi m_e) = \alpha/m_e = \SI{2.818}{fm}$. The magnetic amplitude operator is therefore
+\begin{equation}
+  \hat f_{\mathrm{mag}} = -\gamma_n r_{\mathrm{cl}}\;\vect{\sigma}_n\cdot\vect{s}_{\perp}(\vect{q}), \qquad \vect{s}_{\perp}(\vect{q}) = P_T\,\vect{s}_e(\vect{q}) .
+  \label{eq:C.19-amplitude}
+\end{equation}
+The double-differential cross-section is the flux factor $p'_n/p_n$ times $|\hat f_{\mathrm{mag}}|^2$, summed over target final states $f$ with the energy delta function and averaged over the thermal initial states $i$, with the weights $p_i$ of \cref{eq:2.5-gibbs}. For an unpolarized beam the average over the neutron spin is $\tfrac12\Tr(\sigma_{n,a}\sigma_{n,b}) = \delta_{ab}$. Then $\sum_a s_{\perp,a}^\dagger s_{\perp,a} = \sum_{ab}s_{e,a}^\dagger(P_T)_{ab}s_{e,b}$, since $P_T$ is real, symmetric and equal to its square. Comparing with the definition of $S_{ab}$ in \cref{sec:4.2}, with the operators $O_a = s_{e,a}(\vect{q})$, we obtain
+\begin{equation}
+  \frac{\dd^2\sigma}{\dd\Omega\,\dd E'} = (\gamma_nr_{\mathrm{cl}})^2\,\frac{p'_n}{p_n}\,\frac{\Vol}{2\pi}\sum_{a,b}(P_T)_{ab}\,S_{ab}(\vect{q},\omega) ,
+  \label{eq:C.19-cross}
+\end{equation}
+for the whole sample of volume $\Vol$; the factor $\Vol/2\pi$ undoes the normalization of $S_{ab}$, which is intensive. The scale is $(\gamma_nr_{\mathrm{cl}})^2 = \SI{0.2906}{b}$, to be compared with squared nuclear scattering lengths of 0.1 to \SI{1}{b}, which is the sense in which the two kinds of scattering are equally strong. This is the standard result of magnetic neutron scattering~\cite[Chap.~7]{squires2012introduction}, \cite{lovesey1984theory}. The sum $\sum_{ab}(P_T)_{ab}S_{ab}$ is the combination that Berlin et al.\ extract from neutron data~\cite[Eq.~(26)]{berlin2025determining}. Their normalization is per formula unit, their spin operator is $\vect{\sigma}$ in place of $\vect{\sigma}/2$, and their susceptibility $\chi''_{ab} = 2(1 - \ee^{-\beta\omega})S_{ab}$ carries $\pi/\Vol$ where $S_{ab}$ carries $2\pi/\Vol$~\cite[Eq.~(B4)]{berlin2025determining}. Since the spin density sits on the ions, which vibrate, the sum over ions carries the Debye--Waller factor $\ee^{-2W_\kappa(\vect{q})}$ of \cref{sec:5.6}, which we absorb into $S_{ab}$.
+
+\subsection{Ions and the dipole form factor}
+
+In the magnetic insulators of \cref{sec:14.1} the unpaired electrons sit in an open shell of each magnetic ion $j$ at $\vect{R}_j$. If the shell has a spin $\vect{S}_j$ and no orbital moment, as in a 3d ion whose orbital moment is quenched by the crystal field, its spin density is $\vect{S}_j$ times a normalized density $\varrho_{\mathrm{s}}(\vect{r} - \vect{R}_j)$ of the unpaired electrons. Then
+\begin{equation}
+  \vect{s}_e(\vect{q}) = F^{\mathrm{mag}}(q)\sum_j\ee^{\ii\vect{q}\cdot\vect{R}_j}\,\vect{S}_j, \qquad
+  F^{\mathrm{mag}}(q) = \int\dd^3r\,\ee^{\ii\vect{q}\cdot\vect{r}}\,\varrho_{\mathrm{s}}(\vect{r}) = \langle j_0(q)\rangle ,
+  \label{eq:C.19-spinonly}
+\end{equation}
+with $F^{\mathrm{mag}}(0) = 1$. For a spherical shell with radial function $R_{\mathrm{sh}}(r)$, the plane-wave expansion \cref{eq:C.3-planewave} keeps only $l = 0$, and $\langle j_l(q)\rangle = \int_0^\infty\dd r\,r^2R_{\mathrm{sh}}(r)^2j_l(qr)$ are the radial integrals that tables give for each ion. The form factor falls off when $q$ exceeds the inverse radius of the shell, at a few \si{\angstrom^{-1}} for a 3d shell, so magnetic scattering is strongest in the first few Brillouin zones.
+
+If the shell has an orbital moment, as in most rare-earth ions, the orbital currents add to $\vect{M}_e$. For a $J$ multiplet in the dipole approximation, $qr \lesssim 1$ across the shell, the spin part of the magnetization carries $\langle j_0\rangle$ and the orbital part $\langle j_0\rangle + \langle j_2\rangle$~\cite[Chap.~7]{squires2012introduction}. Within the multiplet $\vect{S} = (g_J - 1)\vect{J}$ and $\vect{L} = (2 - g_J)\vect{J}$, with $g_J$ the Landé factor of \cref{sec:14.3} and $\vect{J}_j$ the total angular momentum of ion $j$. The moment $2\vect{S}\langle j_0\rangle + \vect{L}(\langle j_0\rangle + \langle j_2\rangle)$ then equals $g_J[\langle j_0\rangle + (2/g_J - 1)\langle j_2\rangle]\vect{J}$, and the neutron couples to
+\begin{equation}
+  \vect{s}_e(\vect{q}) \to \frac{g_J}{2}\,F^{\mathrm{mag}}(q)\sum_j\ee^{\ii\vect{q}\cdot\vect{R}_j}\,\vect{J}_j, \qquad
+  F^{\mathrm{mag}}(q) = \langle j_0(q)\rangle + \Bigl(\frac{2}{g_J} - 1\Bigr)\langle j_2(q)\rangle ,
+  \label{eq:C.19-dipole}
+\end{equation}
+the dipole form factor. For $g_J = 2$ it reduces to \cref{eq:C.19-spinonly}. The neutron sees the moment $(g_J/2)\vect{J} = \vect{S} + \vect{L}/2$, while a probe that couples to spin alone sees $\vect{S} = (g_J - 1)\vect{J}$. The ratio of the two is the conversion factor that \cref{sec:14.4} applies to neutron data.
+
+\subsection{Polarization analysis}
+
+A polarized beam resolves $\vect{s}_\perp$ into components. We add the nuclear amplitude, an operator $\hat f_{\mathrm{nuc}}$ on the target that does not act on the neutron spin, so that the full amplitude is $\hat f_{\mathrm{nuc}} - \gamma_nr_{\mathrm{cl}}\,\vect{\sigma}_n\cdot\vect{s}_\perp$. We take the neutron spin quantized along the polarization direction $\hat{\vect{P}}$, with the two other axes labeled 1 and 2. The Pauli matrices then give the four spin matrix elements
+\begin{equation}
+  \langle\pm|\hat f|\pm\rangle = \hat f_{\mathrm{nuc}} \mp \gamma_nr_{\mathrm{cl}}\,s_{\perp,\hat P}, \qquad
+  \langle\mp|\hat f|\pm\rangle = -\gamma_nr_{\mathrm{cl}}\,\bigl(s_{\perp,1} \pm \ii\,s_{\perp,2}\bigr) .
+  \label{eq:C.19-polar}
+\end{equation}
+Scattering without spin flip sees the nuclear amplitude and the component of $\vect{s}_\perp$ along $\hat{\vect{P}}$. Scattering with spin flip sees only the magnetic components perpendicular to $\hat{\vect{P}}$, and the difference between the two spin-flip channels measures the chiral combination $\ii(s_{\perp,1}^\dagger s_{\perp,2} - s_{\perp,2}^\dagger s_{\perp,1})$~\cite{blume1963polarization,moon1969polarization}.
+
+The standard frame has $x$ along $\hat{\vect{q}}$, $y$ perpendicular to it in the scattering plane and $z$ vertical. Since $\vect{s}_\perp$ has no $x$ component, the spin-flip cross-sections, averaged over the two incident spin states, are proportional to $S_{yy} + S_{zz}$ for $\hat{\vect{P}} \parallel x$, to $S_{zz}$ for $\hat{\vect{P}} \parallel y$, and to $S_{yy}$ for $\hat{\vect{P}} \parallel z$. The first channel contains all the magnetic scattering and no coherent nuclear scattering, and the other two separate the two transverse components~\cite{moon1969polarization}. The longitudinal element $S_{xx} = \sum_{ab}\hat q_a\hat q_bS_{ab}$ appears in none of the channels, polarized or not, because every amplitude in \cref{eq:C.19-polar} contains $\vect{s}_e$ only through $\vect{s}_\perp$. A dark-matter response that needs $S_{xx}$, such as the contact spin coupling or the absorption of an axion-like particle, therefore cannot be taken from neutron data alone; \cref{sec:14.4} bounds it by positivity and fixes it under spin isotropy.

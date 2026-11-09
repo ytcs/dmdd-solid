@@ -1,0 +1,110 @@
+\section{Classical fields and static propagators}\label{app:C.9}
+
+\Cref{sec:1.4} needs two results from classical field theory: the potential that a massive mediator produces around a static source, and the field redefinition that removes kinetic mixing between two vector fields. Both follow from Lagrangian densities and their Euler--Lagrange equations, without quantization. We use natural units, Heaviside--Lorentz charge units (\cref{app:A.2}) and the metric signature $(+,-,-,-)$, with $x^\mu = (t, \vect{x})$, $\partial_\mu = (\partial_t, \nabla)$ and $\partial^\mu\partial_\mu = \partial_t^2 - \nabla^2$.
+
+\subsection{Scalar and vector fields with sources}
+
+We start with a real scalar field $\phi_V(x)$ of mass $m_V$. Coupled to a source density $\rho_{\mathrm{s}}(x)$, it has the Lagrangian density
+\begin{equation}
+  \mathcal{L}_{\mathrm{s}} = \tfrac12\,\partial_\mu\phi_V\,\partial^\mu\phi_V - \tfrac12\,m_V^2\phi_V^2 - \phi_V\,\rho_{\mathrm{s}} .
+  \label{eq:C.9-Ls}
+\end{equation}
+Its Euler--Lagrange equation is $\partial_\mu\bigl[\partial\mathcal{L}/\partial(\partial_\mu\phi_V)\bigr] = \partial\mathcal{L}/\partial\phi_V$. Here it reads $\partial_\mu\partial^\mu\phi_V = -m_V^2\phi_V - \rho_{\mathrm{s}}$, the Klein--Gordon equation with a source,
+\begin{equation}
+  \bigl(\partial_\mu\partial^\mu + m_V^2\bigr)\phi_V = -\rho_{\mathrm{s}} .
+  \label{eq:C.9-KG}
+\end{equation}
+
+The vector mediator is a massive (Proca) field $A'_\mu(x)$ with field strength $F'_{\mu\nu} = \partial_\mu A'_\nu - \partial_\nu A'_\mu$. Coupled to a current $J^\mu(x)$, it has
+\begin{equation}
+  \mathcal{L}_{\mathrm{v}} = -\tfrac14\,F'_{\mu\nu}F'^{\mu\nu} + \tfrac12\,m_V^2 A'_\mu A'^\mu - A'_\mu J^\mu .
+  \label{eq:C.9-Lv}
+\end{equation}
+Here $\partial\mathcal{L}_{\mathrm{v}}/\partial(\partial_\mu A'_\nu) = -F'^{\mu\nu}$, since $\partial(F'_{\alpha\beta}F'^{\alpha\beta})/\partial(\partial_\mu A'_\nu) = 4F'^{\mu\nu}$ (each of $F'_{\mu\nu}$ and $F'_{\nu\mu} = -F'_{\mu\nu}$ contributes $2F'^{\mu\nu}$), and $\partial\mathcal{L}_{\mathrm{v}}/\partial A'_\nu = m_V^2A'^\nu - J^\nu$. The field equation is then
+\begin{equation}
+  \partial_\mu F'^{\mu\nu} + m_V^2 A'^\nu = J^\nu .
+  \label{eq:C.9-Proca}
+\end{equation}
+Since $F'^{\mu\nu}$ is antisymmetric, $\partial_\nu\partial_\mu F'^{\mu\nu} = 0$, and the divergence of \cref{eq:C.9-Proca} leaves $m_V^2\,\partial_\nu A'^\nu = \partial_\nu J^\nu$. For a conserved current and $m_V \neq 0$ the field obeys $\partial_\nu A'^\nu = 0$; then $\partial_\mu F'^{\mu\nu} = \partial_\mu\partial^\mu A'^\nu$, and every component satisfies $(\partial_\mu\partial^\mu + m_V^2)A'^\nu = J^\nu$. At $m_V = 0$, \cref{eq:C.9-Proca} is Maxwell's equation in Heaviside--Lorentz units: its $\nu = 0$ component is $\nabla\cdot\vect{E} = J^0$, with $\vect{E} = -\nabla A^0 - \partial_t\vect{A}$.
+
+For non-relativistic point particles the sources are number densities and number currents. A particle at $\vect{x}_i(t)$ contributes $\delta^3(\vect{x} - \vect{x}_i)$ to $J^0$ and $\dot{\vect{x}}_i\,\delta^3(\vect{x} - \vect{x}_i)$ to $\vect{J}$; a particle that couples with strength $y$ contributes these terms multiplied by $y$. For the scalar, $\rho_{\mathrm{s}}$ is the coupling-weighted number density, which is the non-relativistic limit of the scalar density $\bar\psi\psi$~\cite[Eq.~(7)]{knapen2021dark}.
+
+\subsection{The static Green's function}
+
+For time-independent sources $\partial_t$ drops out and $\partial_\mu\partial^\mu \to -\nabla^2$. A static source has $\vect{J} = 0$, so only $A'^0$ is sourced. \Cref{eq:C.9-KG,eq:C.9-Proca} become
+\begin{equation}
+  \bigl(-\nabla^2 + m_V^2\bigr)\phi_V = -\rho_{\mathrm{s}}, \qquad
+  \bigl(-\nabla^2 + m_V^2\bigr)A'^0 = J^0 .
+  \label{eq:C.9-static}
+\end{equation}
+Both are solved by the Green's function $G_{\mathrm{Y}}(\vect{x})$, defined by $(-\nabla^2 + m_V^2)\,G_{\mathrm{Y}}(\vect{x}) = \delta^3(\vect{x})$. With the Fourier convention of \cref{app:A.3}, $\tilde G_{\mathrm{Y}}(\vect{q}) = \int\dd^3x\,\ee^{+\ii\vect{q}\cdot\vect{x}}G_{\mathrm{Y}}(\vect{x})$, the operator $-\nabla^2$ becomes $q^2$ and the delta function becomes 1:
+\begin{equation}
+  \tilde G_{\mathrm{Y}}(\vect{q}) = \frac{1}{q^2 + m_V^2} .
+  \label{eq:C.9-Gq}
+\end{equation}
+The inverse transform is $G_{\mathrm{Y}}(\vect{x}) = \int\dd^3q\,(2\pi)^{-3}\,\ee^{-\ii\vect{q}\cdot\vect{x}}/(q^2 + m_V^2)$. We take the polar axis along $\vect{x}$ and write $r = |\vect{x}|$. The angular integral is $\int\dd\Omega\,\ee^{-\ii qr\cos\theta} = 2\pi\int_{-1}^{1}\dd u\,\ee^{-\ii qru} = 4\pi\sin(qr)/(qr)$, which leaves
+\begin{equation*}
+  G_{\mathrm{Y}}(\vect{x}) = \frac{1}{2\pi^2 r}\int_0^\infty \dd q\,\frac{q\sin(qr)}{q^2 + m_V^2}
+  = \frac{1}{4\pi^2 r}\,\Imag\int_{-\infty}^{\infty}\dd q\,\frac{q\,\ee^{\ii qr}}{(q - \ii m_V)(q + \ii m_V)} .
+\end{equation*}
+The second form holds because the integrand of the first is even in $q$, which makes the half line half the full line, and because $\sin(qr) = \Imag\,\ee^{\ii qr}$ for real $q$. Since for $r > 0$ the factor $\ee^{\ii qr}$ decays in the upper half plane, by Jordan's lemma the integral equals the integral over a contour closed there. The contour encloses the pole at $q = \ii m_V$, with residue $\ii m_V\,\ee^{-m_V r}/(2\ii m_V) = \ee^{-m_V r}/2$. The full-line integral is $2\pi\ii \times \ee^{-m_V r}/2 = \ii\pi\,\ee^{-m_V r}$, its imaginary part is $\pi\,\ee^{-m_V r}$, and
+\begin{equation}
+  G_{\mathrm{Y}}(\vect{x}) = \frac{\ee^{-m_V r}}{4\pi r} .
+  \label{eq:C.9-Gx}
+\end{equation}
+A direct check confirms it: for $r > 0$, $\nabla^2 G_{\mathrm{Y}} = r^{-1}\,\dd^2(rG_{\mathrm{Y}})/\dd r^2 = m_V^2 G_{\mathrm{Y}}$, and $(-\nabla^2 + m_V^2)G_{\mathrm{Y}}$ vanishes away from the origin. Near the origin $G_{\mathrm{Y}} \to 1/(4\pi r)$, and $-\nabla^2(1/4\pi r) = \delta^3(\vect{x})$ supplies the source. \Cref{eq:C.9-Gx} is the Yukawa form: the field falls off over the range $1/m_V$ and becomes the Coulomb potential $1/(4\pi r)$ as $m_V \to 0$. As a check of the units, a proton and an electron, with sources $\pm e$, then have the interaction energy $-e^2/(4\pi r) = -\alpha/r$ (\cref{eq:C.9-U} below, vector sign), the hydrogen potential in Heaviside--Lorentz units.
+
+By superposition the static fields are $A'^0(\vect{x}) = \int\dd^3x'\,G_{\mathrm{Y}}(\vect{x} - \vect{x}')J^0(\vect{x}')$ and $\phi_V(\vect{x}) = -\int\dd^3x'\,G_{\mathrm{Y}}(\vect{x} - \vect{x}')\rho_{\mathrm{s}}(\vect{x}')$. A point particle with coupling $y_\chi$ at the origin produces
+\begin{equation}
+  A'^0(\vect{x}) = y_\chi\,\frac{\ee^{-m_V r}}{4\pi r}, \qquad \phi_V(\vect{x}) = -y_\chi\,\frac{\ee^{-m_V r}}{4\pi r} .
+  \label{eq:C.9-point}
+\end{equation}
+
+\subsection{Validity of the static limit}
+
+Dark matter that scatters moves, and so does the electron it scatters on; the sources are not strictly static. With the time convention $f(\omega) = \int\dd t\,\ee^{+\ii\omega t}f(t)$ of \cref{app:A.3}, $\partial_t^2$ becomes $-\omega^2$, and the operator $\partial_\mu\partial^\mu + m_V^2$ of \cref{eq:C.9-KG} becomes $q^2 - \omega^2 + m_V^2$ for a field component of momentum $\vect{q}$ and energy $\omega$. The full Green's function in momentum space is then $1/(q^2 - \omega^2 + m_V^2)$, which reduces to \cref{eq:C.9-Gq} when $\omega^2 \ll q^2 + m_V^2$. In a scattering event the mediator carries the energy $\omega$ and momentum $\vect{q}$ given to the target, and kinematics bounds them by $\omega \le q\,v_{\mathrm{max}}$ (\cref{sec:1.3}), with $v_{\mathrm{max}} = 2.65\times10^{-3}$. The neglected term is then smaller than $v_{\mathrm{max}}^2 = 7\times10^{-6}$ relative to $q^2$, and the static potential is accurate to better than a part in $10^{5}$ for every purpose of this book.
+
+Absorption, however, has no static limit at all. There the boson is the dark matter itself, and its field obeys the source-free equation $(\partial_\mu\partial^\mu + m_\phi^2)\phi = 0$ with $\omega^2 = |\vect{p}_\phi|^2 + m_\phi^2$: an oscillating, on-shell field, not a static potential. \Cref{sec:1.4} treats the two processes separately for this reason.
+
+\subsection{Interaction energy of two sources}
+
+Since a static configuration has no time derivatives, its energy is $-\int\dd^3x\,\mathcal{L}$, written $H_{\mathrm{s}}$ for the scalar and $H_{\mathrm{v}}$ for the vector. For the scalar, \cref{eq:C.9-Ls} with $\partial_t\phi_V = 0$ reads $\mathcal{L}_{\mathrm{s}} = -\tfrac12(\nabla\phi_V)^2 - \tfrac12 m_V^2\phi_V^2 - \phi_V\rho_{\mathrm{s}}$. Integrating $(\nabla\phi_V)^2$ by parts and using \cref{eq:C.9-static},
+\begin{equation*}
+  \int\dd^3x\,\bigl[\tfrac12(\nabla\phi_V)^2 + \tfrac12 m_V^2\phi_V^2\bigr]
+  = \tfrac12\int\dd^3x\,\phi_V\bigl(-\nabla^2 + m_V^2\bigr)\phi_V
+  = -\tfrac12\int\dd^3x\,\phi_V\,\rho_{\mathrm{s}},
+\end{equation*}
+so $H_{\mathrm{s}} = \tfrac12\int\dd^3x\,\phi_V\rho_{\mathrm{s}} = -\tfrac12\int\dd^3x\,\dd^3x'\,\rho_{\mathrm{s}}(\vect{x})\,G_{\mathrm{Y}}(\vect{x} - \vect{x}')\,\rho_{\mathrm{s}}(\vect{x}')$.
+For the vector with only $A'^0$ nonzero, $F'_{0i} = -\partial_i A'^0$ and $-\tfrac14 F'_{\mu\nu}F'^{\mu\nu} = -\tfrac12 F'_{0i}F'^{0i} = +\tfrac12(\nabla A'^0)^2$, and $\mathcal{L}_{\mathrm{v}} = \tfrac12(\nabla A'^0)^2 + \tfrac12 m_V^2 (A'^0)^2 - A'^0 J^0$. The same steps lead to $H_{\mathrm{v}} = +\tfrac12\int\dd^3x\,\dd^3x'\,J^0(\vect{x})\,G_{\mathrm{Y}}(\vect{x} - \vect{x}')\,J^0(\vect{x}')$. At $m_V = 0$ this is $\tfrac12\int\dd^3x\,\vect{E}^2$, the positive electrostatic energy, which fixes the overall sign.
+
+Now take two point particles, one with coupling $y_\chi$ at $\vect{x}_\chi$ and one with $y_e$ at $\vect{x}_e$. Each double integral contains two self-energy terms, independent of the separation, and two equal cross terms. The cross terms give the interaction energy
+\begin{equation}
+  U(\vect{x}_e - \vect{x}_\chi) = \pm\, y_\chi y_e\, G_{\mathrm{Y}}(\vect{x}_e - \vect{x}_\chi)
+  = \pm\, y_\chi y_e\,\frac{\ee^{-m_V|\vect{x}_e - \vect{x}_\chi|}}{4\pi\,|\vect{x}_e - \vect{x}_\chi|},
+  \label{eq:C.9-U}
+\end{equation}
+with the upper sign for the vector and the lower for the scalar. Vector exchange repels sources whose couplings have the same sign, as like electric charges repel; scalar exchange attracts them. The same result follows from treating the second particle as a test particle: its term $-y_e A'^0(\vect{x}_e)$ or $-y_e\phi_V(\vect{x}_e)$ in the Lagrangian is a potential energy $+y_e A'^0$ or $+y_e\phi_V$, evaluated with the fields of \cref{eq:C.9-point}. The Fourier transform of \cref{eq:C.9-U} is $\pm\,y_\chi y_e/(q^2 + m_V^2)$ by \cref{eq:C.9-Gq}. The sign drops out of every rate, which depends on its square.
+
+\subsection{Kinetic mixing}
+
+Let the photon $A_\mu$, with field strength $F_{\mu\nu}$, couple to the electromagnetic current $eJ^\mu_{\mathrm{em}}$, where $J^\mu_{\mathrm{em}}$ counts each particle with its charge in units of $e$ (an electron counts $-1$). Let a second vector $A'_\mu$ of mass $m_V$ couple to the dark-matter number current $J^\mu_\chi$ with strength $y_\chi$. Gauge invariance allows a term that mixes the two field strengths, with a dimensionless coefficient $\zeta$:
+\begin{equation}
+  \mathcal{L} = -\tfrac14 F_{\mu\nu}F^{\mu\nu} - \tfrac14 F'_{\mu\nu}F'^{\mu\nu} + \tfrac{\zeta}{2}F_{\mu\nu}F'^{\mu\nu} + \tfrac12 m_V^2 A'_\mu A'^\mu - eA_\mu J^\mu_{\mathrm{em}} - y_\chi A'_\mu J^\mu_\chi .
+  \label{eq:C.9-mix}
+\end{equation}
+The sign of the mixing term follows Ref.~\cite[Eq.~(70)]{lin2019tasi}; other papers use the opposite sign or write $\epsilon$, $\kappa$ or $\chi$ for $\zeta$ (\cref{app:B.2}). Only $\zeta^2$ enters a rate.
+
+The kinetic terms are not diagonal, so $A_\mu$ and $A'_\mu$ are not independent propagating fields. We shift the photon, $A_\mu = \tilde A_\mu + \zeta A'_\mu$, so that $F_{\mu\nu} = \bar F_{\mu\nu} + \zeta F'_{\mu\nu}$, with $\bar F_{\mu\nu} = \partial_\mu\tilde A_\nu - \partial_\nu\tilde A_\mu$. The photon kinetic term becomes $-\tfrac14\bar F^2 - \tfrac{\zeta}{2}\bar F F' - \tfrac{\zeta^2}{4}F'^2$, with $\bar F F' \equiv \bar F_{\mu\nu}F'^{\mu\nu}$. The mixing term becomes $\tfrac{\zeta}{2}\bar F F' + \tfrac{\zeta^2}{2}F'^2$. The cross terms cancel, and
+\begin{equation}
+  \mathcal{L} = -\tfrac14\bar F_{\mu\nu}\bar F^{\mu\nu} - \tfrac14(1 - \zeta^2)F'_{\mu\nu}F'^{\mu\nu} + \tfrac12 m_V^2 A'_\mu A'^\mu - e\tilde A_\mu J^\mu_{\mathrm{em}} - \zeta e\, A'_\mu J^\mu_{\mathrm{em}} - y_\chi A'_\mu J^\mu_\chi ,
+  \label{eq:C.9-mixed}
+\end{equation}
+which differs from Ref.~\cite[Eq.~(72)]{lin2019tasi} only in the sign convention for the current. Shifting the photon, and not $A'_\mu$, leaves the mass term untouched: $\tilde A_\mu$ stays massless and the mass matrix stays diagonal. Rescaling $A'_\mu$ by $(1 - \zeta^2)^{-1/2}$ restores its canonical normalization and changes $m_V$ and the couplings at order $\zeta^2$, which we drop.
+
+For $m_V = 0$ the alternative shift $A'_\mu \to A'_\mu + \zeta A_\mu$ also removes the mixing; the photon then couples to dark matter with strength $\zeta y_\chi$, and dark matter appears millicharged~\cite[Eq.~(71)]{lin2019tasi}. For $m_V \neq 0$, however, that shift would mix the mass term, and the photon shift is the one to use. In the new basis the photon couples only to charged particles, and the massive vector couples to dark matter with strength $y_\chi$ and to the electromagnetic current with strength $\zeta e$. For electrons, $J^\mu_{\mathrm{em}}$ contains $-J^\mu_e$, with $J^\mu_e$ the electron number current, which makes the electron coupling in the form $-y_e A'_\mu J^\mu_e$ equal to $y_e = -\zeta e$; protons have $+\zeta e$.
+
+The redefinition is exact in vacuum. In a medium the photon acquires a self-energy from the charges it polarizes, the two kinetic terms are no longer the whole quadratic Lagrangian, and mixing reappears at the level of the in-medium propagators (\cref{sec:1.4,sec:4.4}).
+
+\subsection{From the potential to a cross-section}
+
+Once the mediator is eliminated, dark matter and an electron interact through the potential energy $V(\vect{x}) = U(\vect{x})$ of \cref{eq:C.9-U}, a function of their separation. Ordinary quantum mechanics then applies. To first order in $V(\vect{x})$ (the first Born approximation), the amplitude for scattering with momentum transfer $\vect{q}$ is $-(\mu_{\chi e}/2\pi)\tilde V(\vect{q})$, with $\tilde V(\vect{q})$ the Fourier transform of $V(\vect{x})$ and $\mu_{\chi e}$ the reduced mass, and the differential cross-section is its square. If $\tilde V$ depends on $q$, the differential cross-section carries $|\tilde V(\vect{q})|^2$, which is how the form factor of \cref{sec:1.4} enters. If $\tilde V$ does not depend on $\vect{q}$, the angular integral yields $\sigma = \mu_{\chi e}^2|\tilde V|^2/\pi$. \Cref{sec:2.2} derives this from the golden rule, with the normalization used in the rest of the book.

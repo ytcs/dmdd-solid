@@ -1,0 +1,37 @@
+From 623ceeb1c13d371f9d6c77cb0df3a46230380a76 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 1 Nov 2026 10:28:47 +0000
+Subject: [PATCH 6/9] Herring-Vogt valleys follow the crystal orientation
+
+build_charge_tensors built the valley rotation matrices from the crystal-frame
+valley_dirs, while all charge vectors (p, E, v) are in the detector frame, so
+with a non-identity CrystalConfig::orient (e.g. set_miller_orientation) the
+valleys were misplaced (velocity error up to 15x |v| in tests/test_charge_misc).
+Valley axes are now rotated by orient, as G4LatticePhysical does for the
+lattice-to-local transform (Herring & Vogt 1956 / Leman 1109.1193 Eq. (23)
+[FT] define T in the valley frame). Test: tests/test_charge_misc.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01BcNoovRae5kkbL36KL3sYy
+---
+ include/cmpmc/lattice.hpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/include/cmpmc/lattice.hpp b/include/cmpmc/lattice.hpp
+index 69a3de6..7d47d9a 100644
+--- a/include/cmpmc/lattice.hpp
++++ b/include/cmpmc/lattice.hpp
+@@ -404,7 +404,9 @@ private:
+ 
+         valley_rot_.clear();
+         for (const Vec3& raw_dir : cfg_.valley_dirs) {
+-            const Vec3 vdir = raw_dir.unit();
++            // valley_dirs are crystal-frame axes; all charge vectors (p, E, v) live in
++            // the detector frame, so rotate the axis with the crystal orientation.
++            const Vec3 vdir = (cfg_.orient * raw_dir.unit()).unit();
+             const double vx = vdir.x;
+             const double vy = vdir.y;
+             const double vz = vdir.z;
+-- 
+2.43.0
+

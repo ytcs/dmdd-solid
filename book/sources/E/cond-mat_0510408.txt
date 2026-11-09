@@ -1,0 +1,438 @@
+                                                                             Quasiparticle Self-Consistent GW Theory
+
+                                                                               M. van Schilfgaarde,1 Takao Kotani,1 and S. Faleev2
+arXiv:cond-mat/0510408v2 [cond-mat.mtrl-sci] 20 Mar 2006
+
+
+
+
+                                                                                    1
+                                                                                        Arizona State University, Tempe, AZ, 85287
+                                                                              2
+                                                                                  Sandia National Laboratories, Livermore, CA 94551
+
+                                                                                                       Abstract
+                                                             In past decades the scientific community has been looking for a reliable first-principles method
+                                                           to predict the electronic structure of solids with high accuracy. Here we present an approach which
+                                                           we call the quasiparticle self-consistent GW approximation (QPscGW ). It is based on a kind of
+                                                           self-consistent perturbation theory, where the self-consistency is constructed to minimize the per-
+                                                           turbation. We apply it to selections from different classes of materials, including alkali metals,
+                                                           semiconductors, wide band gap insulators, transition metals, transition metal oxides, magnetic
+                                                           insulators, and rare earth compounds. Apart some mild exceptions, the properties are very well
+                                                           described, particularly in weakly correlated cases. Self-consistency dramatically improves agree-
+                                                           ment with experiment, and is sometimes essential. Discrepancies with experiment are systematic,
+                                                           and can be explained in terms of approximations made.
+
+
+
+
+                                                                                                           1
+   The Schrödinger equation is the fundamental equation of condensed matter, and the im-
+portance of being able to solve it reliably can hardly be overestimated. The most widely
+used theory in solids, and now in quantum chemistry, is the celebrated local density approx-
+imation (LDA)[1]. In spite of its successes, it is well known that the LDA suffers from many
+deficiencies, even in weakly correlated materials (see Figs. 1 and 2). This has stimulated
+the development of flavors of extensions to the LDA to redress one or another of its failures,
+such as the LDA+U method. Each of these methods improves one failing or another in the
+LDA, but they often bear a semi-empirical character, and none can be considered universal
+and parameter-free. Thus we are far from a precise and universally applicable theory for
+solids, with attendant limits their ability to predict materials properties.
+   The random phase approximation (RPA) or GW approximation (GW A, G=Green’s func-
+tion, W=screened coulomb interaction) of Hedin[2] is almost as old as the LDA. A major
+advance was put forward by Hybertsen and Louie[3] when they employed LDA eigenfunc-
+tions to generate the GW self-energy Σ = iGW , and showed that fundamental gaps in sp3
+bonded materials were considerably improved over the LDA. Since that seminal work, many
+papers and some reviews[4, 5, 6] have been published on GW theory and extensions to
+it. One problem that has plagued the GW community has been that calculated results of
+the same quantities tend to vary between different groups, much as what occurred in the
+early days of the LDA. This is because further approximations are usually employed which
+significantly affect results. Almost ubiquitous is the 1-shot approximation where (following
+Hybertsen) Σ ≈ iGLDA W LDA : i.e., Σ is computed from LDA eigenfunctions. However, there
+is an emerging consensus[7, 8, 9, 10, 11, 12] that, when cores are treated adequately[11],
+GLDA W LDA bandgaps are underestimated even in (weakly correlated) semiconductors. (see
+top panel of Fig. 1; note especially CuBr).
+   In general, one-shot GW approaches are rather unsatisfactory.          The quality of the
+GLDA W LDA approximation is closely tied to the quality of LDA starting point[11], and
+is adequate to construct G and W only under limited circumstances[11]. It can fail even
+qualitatively in transition-metal and rare earth compounds such as CoO and ErAs[11]. Some
+kind of self-consistency is essential: the QP levels should not be an artifact of the starting
+conditions. The full self-consistent GW method (full scGW ) determines G self-consistently
+from Σ = iGW , which in turn generates G. Here W = v(1 − vP )−1 where P = −iG × G
+and v are respectively the irreducible polarization function and (bare) Coulomb interaction.
+
+                                              2
+                                                 8
+
+
+
+
+                                                                  AlAs,GaP,SiC,AlP,CdS
+
+
+
+
+                                                                                          diamond
+                                                                                             AlN
+                                                                                            SrO
+                                                                       ZnO,GaN,ZnS
+                                                              InP,GaAs,CdTe,AlSb
+                                                 6
+
+
+
+
+                                                                    ZnSe,CuBr
+                                                         InN,Ge,GaSb,CdO
+                           calculated gap (eV)
+
+
+
+
+                                                                Se,Cu2O
+                                                 4
+
+
+
+
+                                                                                                          MgO
+                                                       InSb,P,InAs
+
+
+
+
+                                                                                                    CaO
+                                                 2
+
+
+
+
+                                                           Si
+                                                     HgTe
+                                                 0                                             :LDA
+                                                                                               :GW(LDA)
+
+
+
+                                                 8                                              MgO
+                                                                                         AlN
+                                                                      ZnO,GaN
+                                                                   ZnSe,CuBr
+                                                                                                     CaO
+                                                              InP,GaAs,CdTe
+
+
+
+
+                                                 6
+                                                                  ZnTe,CdS
+
+                                                                      ZnS                           SrO
+                                                                                                 diamond
+                           QPscGW gap (eV)
+
+
+
+
+                                                               Cu2O
+                                                          InN,GaSb
+
+
+
+
+                                                 4
+                                                        InSb,InAs
+
+
+
+
+                                                                                   AlAs,GaP,SiC,AlP
+                                                 2
+                                                     HgTe
+
+
+
+
+                                                                                AlSb,Se
+                                                                       Si
+                                                                     Ge,CdO
+                                                 0                  P,Te
+
+
+
+                                                        0           2       4        6                    8
+                                                                 experimental gap (eV)
+
+
+FIG. 1: Fundamental gaps of sp compounds from LDA (squares) and GLDA W LDA (circles) in top
+panel, and from QPscGW , Eqn. (2), in bottom panel. The spin-orbit coupling was subtracted by
+hand from the calculations. The GLDA W LDA gaps improve on the LDA, but are still systematically
+underestimated. For QPscGW data, zincblende compounds with direct Γ−Γ transitions are shown
+as green circles; All other gaps are shown as blue squares. Errors are small and highly systematic,
+and would be smaller than the figure shows if the electron-phonon renormalization were included,
+
+
+In the few cases where it has been applied, some difficulties were found: in particular the
+valence bandwidth of the homogeneous electron gas[15] is ∼15% wider than the noninteract-
+ing case, whereas the GLDA W LDA width is ∼15% narrower, in agreement with experiment
+for Na (see Fig. 2). A recent (nearly) full scGW study of Ge and Si also overestimates the
+
+
+                                                                            3
+                               8                            6
+                               4
+                                                            4
+                               0
+
+                            −4                              2
+
+                            −8                              0
+
+                          −12
+                                                           −2
+                          −16
+                                                           −4Γ
+                                L         Γ            X                N
+
+FIG. 2: Comparison of LDA (blue dashes), GLDA W LDA (red dots) and QPscGW (green lines)
+energy bands in GaAs (left) and Na (right). Circles are experimental data, with spin-orbit cou-
+pling subtracted by hand. The QPscGW fundamental gap and conduction-band effective mass
+(Eg = 1.77 eV and m∗c = 0.077 m0 ) are slightly overestimated, and the optical dielectric con-
+stant underestimated (ǫ∞ = 8.4): Egexpt (0K) = 1.52 eV, mc∗,expt = 0.065 m0 , and ǫexpt
+                                                                                   ∞    = 10.8.
+                    LDA WLDA                       LDA WLDA
+For comparison, EgG            =1.29 eV and mc∗,G             ≈ 0.059m0 , while EgLDA = 0.21 eV and
+m∗,LDA
+ c     = 0.020 m0 . The correspondence between QPscGW and experiment at other known levels
+at Γ, L, and X, the Ga 3d level near −18 eV is representative of nearly all available data for sp
+systems. For Na, the QPscGW occupied bandwidth is 15% smaller than the LDA. Circles taken
+from photoemission data [13]; square from momentum electron spectroscopy [14].
+
+
+valence bandwidth[7], though the fundamental gaps are well described.
+   In Ref. [16] we proposed an ansatz for a different kind of scGW , and demonstrated
+that it radically improves the quasiparticle (QP) levels in the oxides MnO and NiO. In
+this Letter, we ground the idea on an underlying principle—namely optimization of the
+effective one-body hamiltonian H 0 by minimizing the perturbation to it—and propose it
+as a universal approach to the reliable prediction of the electronic structure. We show
+that this approach, which we call the quasiparticle self-consistent GW (QPscGW ) method,
+results in accurate predictions of excited-state properties for a large number of weakly and
+moderately correlated materials. QP levels are uniformly good for all materials studied: not
+just fundamental gaps in semiconductors but for nearly all levels where reliable experimental
+
+                                               4
+data are available. Even in strongly correlated d and f electron systems we studied, errors
+are somewhat larger but still systematic.
+   The GW A is usually formulated as a perturbation theory starting from a non-interacting
+                                                                     2
+Green’s function G0 for given one-body hamiltonian H 0 = −∇
+                                                         2m
+                                                            + V eff . H 0 is noninteracting,
+so V eff is static and hermitian but it can be nonlocal. Because the GW A is an approximation
+                                                                                 2
+to the exact theory, the one-body effective hamiltonian H(ω) = −∇
+                                                               2m
+                                                                  + V ext + V H + Σ(ω)
+depends on V eff and is a functional of it: the Hartree potential V H is generated through
+G0 = 1/ (ω − H 0 ± iǫ), and the GW A generates Σ(ω). H(ω) determines the time-evolution
+of the one-body amplitude for the many-body system.
+   QPscGW is a prescription to determine the optimum H 0 : we choose V eff based on a
+self-consistent perturbation theory so that the time-evolution determined by H 0 is as close
+as possible to that determined by H(ω), within the RPA. This idea means that we have to
+introduce a norm M to measure the difference ∆V (ω) = H(ω) − H 0 ; the optimum V eff is
+then that potential which minimizes M. A physically sensible choice of norm is
+                                             h                           i
+                           M[V eff ] = Tr ∆V δ(ω − H 0 ){∆V }†
+                                             h                           i
+                                      + Tr {∆V }† δ(ω − H 0 )∆V                                        (1)
+
+where the trace is taken over r and ω. Exact minimization M is apparently not tractable,
+but an approximate solution can be found. Note that M is positive definite. If we neglect the
+second term and ignore the restriction that V eff is hermitian, we have the trivial minimum
+M[V eff ] = 0 at V eff = V ext + V H + V xc where V xc =         ij |ψi iΣ(εj )ij hψj |.   Here Σ(εi )ij =
+                                                               P
+
+hψi |Σ(εi )|ψj i, and {ψi , ǫi } are eigenfunctions and eigenvalues of H 0. The second term is
+similarly minimum with Σ(εi ) → Σ(εj ). An average of the hermitian parts of these solutions
+results in
+                              1X
+                     V xc =        |ψi i {Re[Σ(εi )]ij + Re[Σ(εj )]ij } hψj |.                         (2)
+                              2 ij
+
+Re signifies the hermitian part. This result is the same as Eq. (2) in Ref. 16.
+   We identify solutions to H 0 as “bare QP”, which interact via the (bare) v. The dressed
+QP consists of the central bare QP plus induced polarized clouds of the other bare QPs’—
+this is nothing but the physical picture in RPA to calculate poles of G from G0 . In the
+charged Fermi liquid theory [17] of Landau and Silin, the QP interact via v in addition
+to the short-range Landau interaction (fpp′ in Ref. 17; see Eq. (3.41)). We can virtually
+
+                                                 5
+construct the Landau-Silin QP from G0 by the calculation of the non-RPA contributions to
+Σ. Or we can identify our bare QP as the Landau-Silin QP if we assume they are minimally
+affected by such contributions.
+   Our QPscGW is conceptually very different from the full scGW . In the latter case the
+electron-hole mediated state making P = −iG × G is suppressed by the square of the
+renormalization factor Z × Z, and includes physically unclear contributions such as: QP ×
+(incoherent parts) [16, 18]. P loses its physical meaning as the density response function,
+P = δn/δV , but is merely an intermediate construction in the self-consistency cycle. Such
+a construction does not give reasonable W even in the electron gas [15, 19], resulting in a
+poor G.
+   We now turn to QPscGW results, focusing on the QP energies given by H 0 . Fig 2
+shows that the QPscGW valence band in Na properly narrows relative to the LDA by 15%.
+Indeed, for nearly all the sp semiconductors studied, calculated QP levels generally agree
+very closely with available experimental data. The best known are the fundamental gaps,
+shown in Fig. 1. QPscGW data is divided into circles for materials whose gap is a Γ − Γ
+transition and squares for all other kinds. Roughly, Γ − Γ transitions are overestimated by
+0.2 eV, while the remaining gaps are overestimated by 0.1 eV. Errors appear to be larger for
+wide-gap, light-mass compounds (bearing elements C, N, and especially O); however, the
+calculations omit reduction in the gaps by the nuclear zero-point motion. This effect has
+been studied through varying isotopic mass in some tetrahedral semiconductors[20]. It is
+largest for light compounds: T =0 the gap is reduced by ∼0.3 eV in diamond and ∼0.2 eV
+in AlN, but ∼ <0.1 eV for heavier compounds. Because the renormalization been measured
+
+only for a few cases, we do not include it here.
+   Apart from some mild exceptions, QPscGW generates a consistently precise description of
+the electronic structure in sp systems, including other known excitations. This is illustrated
+in Fig. 2, where GaAs was chosen because of the abundance of available experimental data.
+It is notable that the errors are not only small, but unlike the GLDA W LDA or LDA, they are
+highly systematic: compare, for example, the fundamental gaps (Fig. 1). We may expect that
+the bandgaps should be overestimated, because the RPA dielectric function omits electron-
+hole correlation effects. Thus ǫRP A should be too small and under-screen W . Indeed, the
+optical dielectric constant ǫ∞ is systematically underestimated slightly (Fig. 2). Similar
+                                                                                 ∗,QPscGW
+consistencies are found in the effective masses. The conduction-band mass at Γ, mcΓ
+
+                                             6
+consistently falls within a few percent of experimental data for wide-gap materials, but as
+                                                       ∗,QPscGW   ∗,expt
+the gap becomes smaller (induced by, e.g. scaling Σ), mcΓ       /mcΓ     scales essentially
+as the ratio of the QPscGW gap to the experimental one, as expected when the gap become
+small. Taking data for GaAs from Fig. 2 for example, we obtain EgQPscGW /Egexpt = 1.16, and
+m∗,QPscGW
+ cΓ       /m∗,expt
+            cΓ     = 1.18.
+
+TABLE I: Valence d bandwidths Wd (calculated at Γ for Ti,Cr, and Co, and at N for Fe, and
+at X for Ni), relative position of s and d band bottoms ǫsd , splittings ∆Ex between majority and
+minority d (or f ) states, and magnetic moments in 3d compounds and Gd.
+                                      Wd (eV)               ǫsd (eV)
+                              LDA QPscGW Expt LDA QPscGW Expt
+                       Ti     6.0    5.7              3.5   4.3
+                       Cr     6.6    6.2              3.5   4.3
+                       Fe     5.2    4.6        4.6   3.6   4.4        4.6
+                       Co     4.1    3.8        3.7   4.6   5.3        4.9±1
+                       Ni     4.4    4.0        4.0   4.4   5.0        5.5
+
+                                    moment (µB )            ∆Ex (eV)
+                              LDA QPscGW Expt LDA QPscGW Expt
+                       Fe     2.2    2.2        2.2   1.95 1.67        1.75
+                       Co     1.6    1.7        1.6   1.70 1.21        1.08
+                       Ni     0.6    0.7        0.6   0.6   0.5        0.3
+                       MnO 4.5       4.8        4.6
+                       NiO    1.3    1.7        1.9
+                       MnAs 3.0      3.5        3.4
+                       Gd     7.7    7.8        7.6   4.9   16.1   ∼12.1
+
+
+   Table I shows that the 3d bandwidth, the relative position of s band, exchange split-
+tings ∆Ex , are systematically improved relative to the LDA in elemental 3d metals, and
+Gd. QPscGW magnetic moments are systematically overestimated slightly. ∆Ex is over-
+estimated in Ni, presumably owing to the neglect of spin fluctuations[21]. QPscGW also
+predicts with reasonable accuracy the QP levels of all magnetic 3d compounds studied, in
+particular correlated oxides such as MnO and NiO where the LDA fails dramatically. As
+
+                                                7
+might be expected, the accuracy deteriorates somewhat relative to sp systems. For example,
+the QPscGW optical gap in NiO (4.8 eV) was found to be larger than experiment (∼4.3 eV).
+Table I compares the magnetic moments, and Ref. [16] shows in detail the QP levels are
+consistently well described. However, for Gd, (and for GdP and GdAs) QPscGW overesti-
+mates the position of the (empty) minority Gd f shell by ∼4 eV, and hence the exchange
+splitting ∆Ex .
+
+
+                          100                                 LDA
+                           80                                 GW (ε)
+                                                              QPscGW
+                           60                                 Expt
+                           40
+                           20
+                            0
+                                −4    0     4       8    12     16
+
+
+FIG. 3: DOS in CeO2 . Black dots are PES+BIS data[[22]]. Calculated DOS were broadened with
+Gaussian of width 0.35 eV. GLDA W LDA +eigenvalue-only self-consistency (dotted red line) severely
+overestimates the position of the Ce f level, while it is slightly overestimated by QPscGW (green
+line). Broadening of the valence bands relative to LDA is found in all oxides studied, e.g. MgO
+and TiO2 , and has important consequences, e.g. in determining valence-band offsets.
+
+
+   Nonmagnetic oxides SrTiO3 , TiO2 , and CeO2 , with conduction bands of d or f character,
+overestimate fundamental gaps slightly more than their sp counterparts. The QPscGW
+gaps were found to be 4.19 eV and 3.78 eV in SrTiO3 and TiO2 , ∼0.8 eV larger than the
+experimental gaps (∼3.3 eV and ∼3.1 eV). Fig. 3 compares the QPscGW DOS of CeO2
+with spectroscopic data: the Ce f band is similarly overestimated by QPscGW . This
+is reasonable, because electron-hole correlation effects are stronger in the narrow d (f )
+conduction bands. Fig. 3 also shows DOS computed by GLDA W LDA , but with eigenvalue-
+only self-consistency, where only the diagonal part in Eq. (2) is kept. This constrains the
+eigenfunctions to the starting (LDA) eigenfunctions; thus the charge and spin densities
+do not change. While the off-diagonal parts of Σ add a small effect in, e.g. GaAs, their
+contribution is essential in CeO2 , even though the occupied states contain only a small
+amount of Ce f character.
+   To summarize, the QPscGW theory (apart from some mild exceptions) appears to be
+an excellent predictor of QP levels for a variety materials selected from the entire periodic
+
+                                                8
+table. Self-consistency is an essential part of the theory. From the results obtained so far, this
+approach shows promise to be universally applicable scheme, sufficient in its own right for QP
+levels in many materials. In contrast to the LDA or any other popular theory of electronic
+structure of solids in the literature today, the method is truly ab initio with errors that are
+generally small and highly systematic across many different materials classes. The errors can
+be attributed missing electron-hole correlation contributions to ǫ. When better calculations
+are necessary (usually where the physics lies completely outside the domain of a one-particle
+picture, such as the description of excitons, multiplets, or Mott transitions), QPscGW can
+be taken as an optimum starting point where the relevant many-body contributions to the
+hamiltonian are (nearly) as small as possible. The systematic character of the error suggests
+that the dominant terms left out can be described by a few diagrams, in particular the
+ladder diagrams coupling electrons and holes; the smallness of the error suggests that the
+additional terms can be added as a perturbation around the QPscGW H 0 , without the need
+for further self-consistency.
+   This work was supported by ONR contract N00014-02-1-1025 and BES Contract No.
+DE-AC04-94AL85000.
+
+
+
+
+ [1] W. Kohn and L. J. Sham, Phys. Rev. 140, A1133 (1965).
+ [2] L. Hedin, Phys. Rev. 139, A796 (1965).
+ [3] M. S. Hybertsen and S. Louie, Phys. Rev. B 34, 5390 (1986).
+ [4] F. Aryasetiawan and O. Gunnarsson, Rep. Prog. Phys 61, 237 (1998).
+ [5] W. G. Aulbur, L. Jönsson, and J. Wilkins, in Solid State Physics, vol. 54, edited by H. Ehren-
+    reich and F. Saepen (2000), p. 1.
+ [6] G. Onida, L. Reining, and A. Rubio, Rev. Mod. Phys 74, 601 (2002).
+ [7] W. Ku and A. G. Eguiluz, Phys. Rev. Lett. 89, 126401 (2002).
+ [8] S. Lebegue et al., Phys. Rev. B 67, 155208 (2003).
+ [9] M. L. Tiago, S. Ismail-Beigi, and S. G. Louie, Phys. Rev. B 69, 125212 (2004).
+[10] A. Fleszar and W. Hanke, Phys. Rev. B 71, 045207 (2005).
+[11] M. van Schilfgaarde, T. Kotani, and S. Faleev, submitted. Preprint http://arxiv.org/abs/cond-
+    mat/0508295.
+
+
+                                                9
+[12] T. Kotani and M. van Schilfgaarde, Sol. State Commun. 121, 461 (2002).
+[13] I.-W. Lyo and E. W. Plummer, Phys. Rev. Lett. 60, 1558 (1988).
+[14] M. Vos et. al., Phys. Rev. B 66, 155414 (2002).
+[15] B. Holm and U. von Barth, Phys. Rev. B 57, 2108 (1998).
+[16] S. V. Faleev, M. van Schilfgaarde, and T. Kotani, Phys. Rev. Lett. 93, 126406 (2004).
+[17] D. Pines and P. Nozieres, The Theory of Quantum Liquid. Vol I (W.A.Benjamin Inc., New
+    York, 1966).
+[18] F. Bechstedt, K. Tenelsen, B. Adolph, and R. D. Sole, Phys. Rev. Lett. 78, 1528 (1997).
+[19] D. Tamme, R. Schepe, and K. Henneberger, Phys. Rev. Lett. 83, 241 (1999).
+[20] F. J. Manjon et al., Eur. Phys. J. B 00211, 1 (2004).
+[21] F. Aryasetiawan, Phys. Rev. B 46, 13501 (1992).
+[22] E. Wuilloud, B. Delley, W. D. Schneider, and Y. Baer, Phys. Rev. Lett. 53, 202 (1984).
+
+
+
+
+                                              10
+

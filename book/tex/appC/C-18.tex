@@ -1,0 +1,113 @@
+\section{Continuum elasticity}\label{app:C.18}
+
+A longitudinal sound wave in silicon travels at \SI{8.43}{km.s^{-1}} along a cube edge and at \SI{9.35}{km.s^{-1}} along a cube diagonal. Both numbers follow from three elastic constants and the density, and so do the speeds of the two transverse waves in every direction. \Cref{sec:11.1} needs the longitudinal speed averaged over directions and a lower bound on it from the bulk modulus. \Cref{sec:17.5} needs a polarization-weighted average of the inverse speeds, and \cref{sec:20.3} the acoustic impedances that decide how much of a phonon flux crosses from a crystal into a metal film. All of them are long-wavelength properties of the acoustic branches of \cref{sec:5.2}: for $Q$ well inside the Brillouin zone, $\omega_{\vect{Q}\nu} = c_\nu(\hat{\vect{Q}})\,Q$, and the crystal responds like an elastic continuum.
+
+\subsection{Strain, stress and the elastic tensor}
+
+At long wavelength all atoms of a cell move together in an acoustic wave, and the displacements $\vect{u}_{\vect{R}\kappa}$ of \cref{eq:A.6-u} become a smooth field $\vect{u}(\vect{r},t)$. A uniform $\vect{u}$ is a translation and costs no energy. Neither does a rigid rotation, whose gradient $\partial_iu_j$ is antisymmetric. The energy therefore depends on the symmetric part of the gradient, the \emph{strain}
+\begin{equation}
+  u_{ij} = \tfrac12\bigl(\partial_iu_j + \partial_ju_i\bigr) ,
+  \label{eq:C.18-strain}
+\end{equation}
+which measures changes of length: a segment $\dd\vect{r}$ changes its squared length by $2u_{ij}\,\dd r_i\,\dd r_j$ to first order. To second order in the strain the energy per unit volume is
+\begin{equation}
+  w_{\mathrm{el}} = \tfrac12\,C_{ijkl}\,u_{ij}\,u_{kl} ,
+  \label{eq:C.18-energy}
+\end{equation}
+with summation over repeated Cartesian indices. Since $u_{ij}$ is symmetric, only the parts of $C_{ijkl}$ symmetric in $ij$ and in $kl$ contribute, and we take $C_{ijkl} = C_{jikl} = C_{ijlk}$. Since $C_{ijkl}$ is a second derivative of $w_{\mathrm{el}}$, also $C_{ijkl} = C_{klij}$. These symmetries leave 21 independent constants. The \emph{stress} is the derivative $\sigma_{ij} = \partial w_{\mathrm{el}}/\partial u_{ij} = C_{ijkl}u_{kl}$ (Hooke's law); it is the force per unit area, in direction $i$, that the material on the far side of a surface with normal along $j$ exerts across it. The net force on a volume element is $\partial_j\sigma_{ij}$ per unit volume, and Newton's law for a medium of mass density $\rho_T$ is
+\begin{equation}
+  \rho_T\,\ddot u_i = \partial_j\sigma_{ij} = C_{ijkl}\,\partial_j\partial_l u_k ,
+  \label{eq:C.18-eom}
+\end{equation}
+where the second form uses $C_{ijkl}u_{kl} = C_{ijkl}\partial_lu_k$, by the symmetry in $kl$~\cite{landau1986theory}.
+
+Tables and codes store $C_{ijkl}$ as a symmetric $6\times6$ matrix $C_{IJ}$ in \emph{Voigt notation}. Each symmetric pair of indices becomes one index, $11 \to 1$, $22 \to 2$, $33 \to 3$, $23 \to 4$, $13 \to 5$, $12 \to 6$. The strain components are collected as $\epsilon_I = (u_{11}, u_{22}, u_{33}, 2u_{23}, 2u_{13}, 2u_{12})$. The factor 2 on the shear components is needed because $u_{23}$ and $u_{32}$ both occur in the double sum of \cref{eq:C.18-energy}; with it, $w_{\mathrm{el}} = \tfrac12 C_{IJ}\epsilon_I\epsilon_J$ and the stress components $\sigma_I$, without factors of 2, are $\sigma_I = C_{IJ}\epsilon_J$. The ordering of the shear rows is a common source of error in practice, discussed in \cref{app:E.4}, where the computation of the constants by density-functional perturbation theory or finite strains is described.
+
+A cubic crystal has three constants: $C_{11} = C_{xxxx}$, $C_{12} = C_{xxyy}$ and $C_{44} = C_{yzyz}$, with all others related to them by the cube's symmetry or zero. The Voigt matrix $C_{IJ}$ then has three distinct eigenvalues: $C_{11} + 2C_{12}$ for a uniform dilation, $C_{11} - C_{12}$ (twice) for the two volume-conserving stretches along the cube axes, and $C_{44}$ (three times) for the shears. A crystal is stable when every strain costs energy, which requires
+\begin{equation}
+  C_{11} > |C_{12}|, \qquad C_{11} + 2C_{12} > 0, \qquad C_{44} > 0 ,
+  \label{eq:C.18-born}
+\end{equation}
+the Born stability conditions of a cubic crystal. For silicon at room temperature, $C_{11} = 165.6$, $C_{12} = 63.9$ and $C_{44} = \SI{79.5}{GPa}$, with $\rho_T = \SI{2.33}{g.cm^{-3}}$~\cite[Table~I]{martinez2019measurements}.
+
+The \emph{bulk modulus} $B$ is the response to a uniform compression. A strain $u_{ij} = \tfrac13\delta\,\delta_{ij}$ changes the volume by the fraction $\delta = \Delta \Vol/\Vol$, and in a cubic crystal it produces the stress $\sigma_{ij} = \tfrac13(C_{11} + 2C_{12})\,\delta\,\delta_{ij}$, a pressure $P = -\tfrac13\sigma_{ii}$. Hence
+\begin{equation}
+  B = -\Vol\frac{\dd P}{\dd \Vol} = \tfrac13\bigl(C_{11} + 2C_{12}\bigr) ,
+  \label{eq:C.18-bulk}
+\end{equation}
+which is \SI{97.8}{GPa} for silicon. In a crystal of lower symmetry a uniform strain and a uniform pressure do not correspond, and the two give different averages, $C_{iijj}/9$ (Voigt) and the inverse of the compliance sum (Reuss); for cubic crystals they coincide with \cref{eq:C.18-bulk}.
+
+An isotropic medium, such as a polycrystal with random grain orientations or a glass, has $C_{11} = C_{12} + 2C_{44}$ and only two independent constants. The literature writes them as the Lamé constants, $\lambda = C_{12}$ and the shear modulus $\mu = C_{44}$, and then $B = C_{11} - \tfrac43C_{44}$. Phonon-transport simulations often give silicon such a tensor, with $C_{12} = 52.4$ and $C_{44} = \SI{68.0}{GPa}$~\cite[Table~I]{martinez2019measurements}, so that $C_{11} = \SI{188.4}{GPa}$ and the speeds in every direction are 9.0 and \SI{5.4}{km.s^{-1}}, the values used in \cref{app:E.12}. This is a parameter set of the codes, not a property of silicon: the measured tensor violates the isotropy relation by a factor $2C_{44}/(C_{11} - C_{12}) = 1.56$.
+
+\subsection{The Christoffel problem}
+
+A plane wave $\vect{u} = \hat{\vect{e}}\,\ee^{\ii(\vect{Q}\cdot\vect{r} - \omega t)}$ solves \cref{eq:C.18-eom} if
+\begin{equation}
+  \rho_T\,c^2\,\hat e_i = \mathsf{M}_{ik}(\hat{\vect{Q}})\,\hat e_k, \qquad
+  \mathsf{M}_{ik}(\hat{\vect{Q}}) = C_{ijkl}\,\hat Q_j\,\hat Q_l, \qquad \omega = cQ .
+  \label{eq:C.18-christoffel}
+\end{equation}
+This is the Christoffel equation, and $\mathsf{M}$ is the Christoffel matrix~\cite{landau1986theory}. By the symmetry of $C_{ijkl}$ in $kl$, $C_{ijkl}\hat Q_j\hat Q_l\hat e_k = C_{ijkl}\hat Q_j\hat Q_k\hat e_l$. Since $C_{ijkl} = C_{klij}$, $\mathsf{M}$ is real and symmetric, and since $\hat e_i\mathsf{M}_{ik}\hat e_k = C_{ijkl}(\hat e_i\hat Q_j)(\hat e_k\hat Q_l)$ is the elastic energy of the strain $\tfrac12(\hat e_i\hat Q_j + \hat e_j\hat Q_i)$, it is positive definite in a stable crystal. Each direction $\hat{\vect{Q}}$ therefore has three positive eigenvalues $\rho_Tc_\nu(\hat{\vect{Q}})^2$ with orthonormal polarizations $\hat{\vect{e}}_\nu(\hat{\vect{Q}})$. These are the sound speeds $c_\nu$ of \cref{sec:5.2} and the unit polarizations $\hat{\vect{e}}_\nu$ of \cref{app:A.6}: \cref{eq:C.18-christoffel} is the acoustic block of the dynamical matrix of \cref{eq:A.6-Ddyn} at small $Q$, to order $Q^2$, with $\rho_T = M_{\mathrm{cell}}/\Omega$. In general no polarization is exactly parallel or perpendicular to $\hat{\vect{Q}}$. The fastest branch, the quasi-longitudinal one, is the branch this book calls LA, with speed $c_{\mathrm{LA}}(\hat{\vect{Q}})$; the other two are quasi-transverse. The group velocity $\partial\omega/\partial\vect{Q}$ of each branch is not parallel to $\hat{\vect{Q}}$ either, which is the origin of the phonon focusing of \cref{app:E.12}.
+
+Along the three symmetry directions of a cubic crystal the polarizations are fixed by symmetry and the eigenvalues are
+\begin{equation}
+  \begin{aligned}
+    [100]:&\quad \rho_Tc_{\mathrm{LA}}^2 = C_{11}, &\quad \rho_Tc_{\mathrm{TA}}^2 &= C_{44}\ (\text{twice}), \\
+    [110]:&\quad \rho_Tc_{\mathrm{LA}}^2 = \tfrac12(C_{11} + C_{12} + 2C_{44}), &\quad \rho_Tc_{\mathrm{TA}}^2 &= C_{44}\ (\hat{\vect{e}} \parallel [001]), \\
+    &&\quad \rho_Tc_{\mathrm{TA}}^2 &= \tfrac12(C_{11} - C_{12})\ (\hat{\vect{e}} \parallel [1\bar10]), \\
+    [111]:&\quad \rho_Tc_{\mathrm{LA}}^2 = \tfrac13(C_{11} + 2C_{12} + 4C_{44}), &\quad \rho_Tc_{\mathrm{TA}}^2 &= \tfrac13(C_{11} - C_{12} + C_{44})\ (\text{twice}).
+  \end{aligned}
+  \label{eq:C.18-cubic}
+\end{equation}
+Each follows from $\mathsf{M}_{ik}$ written out for that $\hat{\vect{Q}}$. Along $[100]$, for example, $\mathsf{M}_{ik} = C_{i1k1}$, which is $\mathrm{diag}(C_{11}, C_{44}, C_{44})$. For silicon the longitudinal speeds are 8.43, 9.13 and \SI{9.35}{km.s^{-1}} along $[100]$, $[110]$ and $[111]$, and the transverse speeds are 5.84 (twice), 5.84 and 4.67, and 5.09 (twice), in \si{km.s^{-1}}. The simplest approximation keeps the measured constants but ignores the anisotropy. This \emph{isotropic $[100]$ model} gives every direction the $[100]$ speeds, $\rho_Tc_{\mathrm{LA}}^2 = C_{11}$ and $\rho_Tc_{\mathrm{TA}}^2 = C_{44}$, which for silicon are 8.43 and \SI{5.84}{km.s^{-1}}. Its Debye speed follows from \cref{eq:5.2-cbar} with direction-independent speeds, $3/\bar c^3 = 1/c_{\mathrm{LA}}^3 + 2/c_{\mathrm{TA}}^3$, which gives $\bar c = \SI{6.35}{km.s^{-1}}$, and its Debye temperature \SI{696}{K}, \SI{8}{\percent} above the \SI{645}{K} of the full angular average (\cref{we:5-debye}), because it misses the slow transverse wave along $[110]$.
+
+The longitudinal speed in any direction is bounded from below by the bulk modulus. The largest eigenvalue of a symmetric matrix is at least its expectation value in any unit vector, and with the trial vector $\hat{\vect{Q}}$ itself, $\rho_Tc_{\mathrm{LA}}^2 \ge \hat Q_i\mathsf{M}_{ik}\hat Q_k = C_{ijkl}\hat Q_i\hat Q_j\hat Q_k\hat Q_l$, the Rayleigh quotient. For cubic symmetry the quartic form collects $C_{11}$ from the four equal indices. For each pair of axes it collects $2C_{12}$ from $xxyy$ and $yyxx$, and $4C_{44}$ from $xyxy$, $xyyx$, $yxxy$ and $yxyx$:
+\begin{equation*}
+  C_{ijkl}\hat Q_i\hat Q_j\hat Q_k\hat Q_l = C_{11}\sum_i\hat Q_i^4 + (2C_{12} + 4C_{44})\,s_Q = C_{11} - 2\bigl(C_{11} - C_{12} - 2C_{44}\bigr)\,s_Q ,
+\end{equation*}
+with $s_Q = \hat Q_x^2\hat Q_y^2 + \hat Q_y^2\hat Q_z^2 + \hat Q_z^2\hat Q_x^2$, where the second form uses $\sum_i\hat Q_i^4 = 1 - 2s_Q$. Since $s_Q$ ranges from 0 along $[100]$ to $\tfrac13$ along $[111]$, and the form is linear in $s_Q$, it lies between its values in those two directions. They exceed $B$ by $\tfrac23(C_{11} - C_{12})$ and $\tfrac43C_{44}$, both positive by \cref{eq:C.18-born}.
+\begin{keyresult}[Bulk-modulus bound on the longitudinal speed]
+In a cubic crystal that satisfies \cref{eq:C.18-born}, in every direction,
+\begin{equation}
+  c_{\mathrm{LA}}(\hat{\vect{Q}}) \ge \sqrt{B/\rho_T} .
+  \label{eq:C.18-rayleigh}
+\end{equation}
+\end{keyresult}
+For silicon the bound is \SI{6.48}{km.s^{-1}}, \SI{23}{\percent} below the slowest longitudinal speed. Physically, a longitudinal wave compresses the medium as a uniform compression does, plus a shear, and the shear only adds stiffness. A tabulated sound speed that violates \cref{eq:C.18-rayleigh} for a measured $B$ is wrong, which is one of the tests applied to tabulated speeds in \cref{sec:17.5}.
+
+\subsection{Sphere averages}
+
+Rates that sum over directions of $\vect{Q}$ contain averages of a function $f(\hat{\vect{Q}})$ over the unit sphere,
+\begin{equation}
+  \langle f\rangle = \frac{1}{4\pi}\int\dd\Omega_{\hat{\vect{Q}}}\,f(\hat{\vect{Q}}) = \frac{1}{4\pi}\int_{-1}^{1}\dd(\cos\theta)\int_0^{2\pi}\dd\phi\,f(\theta,\phi) .
+  \label{eq:C.18-average}
+\end{equation}
+Which function is averaged depends on the rate. \Cref{sec:11.1} uses $\langle c_{\mathrm{LA}}\rangle$, written $\bar c_{\mathrm{LA}}$, and \cref{sec:17.5} uses $\langle\sum_\nu(\hat{\vect{Q}}\cdot\hat{\vect{e}}_\nu)^2/c_\nu\rangle$, in which each branch is weighted by the square of its longitudinal component; Debye-type counts of states use $\langle c_\nu^{-3}\rangle$. For an isotropic medium the averages reduce to single values. For a crystal they differ from one another, and they are computed numerically. At each node of a quadrature grid we diagonalize the $3\times3$ matrix $\mathsf{M}(\hat{\vect{Q}})$ and evaluates $f$. Gauss--Legendre nodes in $\cos\theta$ and equally spaced nodes in $\phi$, where the trapezoidal rule is exact for trigonometric polynomials, converge quickly for smooth $f$. The longitudinal speed is smooth, since the largest eigenvalue never meets the others. The transverse speeds touch along $[100]$ and $[111]$, where they are degenerate, so a function of one transverse branch alone has kinks there; a sum over both transverse branches, as in the polarization-weighted average, is smooth. For a cubic crystal the 48 operations of the point group (\cref{app:C.17}) map the sphere onto itself and leave every eigenvalue unchanged, so the average over $\tfrac1{48}$ of the sphere, bounded by the $[100]$, $[110]$ and $[111]$ directions, equals the full average. \Cref{sec:11.1} evaluates $\bar c_{\mathrm{LA}}$ for silicon in a worked example.
+
+\subsection{Acoustic impedance and reflection}
+
+When a sound wave meets the interface between two media, part of its energy is reflected. Take two media, labeled 1 for $z < 0$ and 2 for $z > 0$, with densities $\rho_1$, $\rho_2$, and a longitudinal wave of frequency $\omega$ incident along $z$, at normal incidence. In medium 1 the displacement is $u_z = A\,[\ee^{\ii(Q_1z - \omega t)} + r_{12}\,\ee^{\ii(-Q_1z - \omega t)}]$ and in medium 2 it is $u_z = A\,t^{\mathrm{amp}}_{12}\,\ee^{\ii(Q_2z - \omega t)}$, with $Q_i = \omega/c_i$ and $c_i$ the longitudinal speed of medium $i$ along $z$. A welded interface transmits displacement and force, so $u_z$ and $\sigma_{zz} = \rho_ic_i^2\,\partial_zu_z$ are continuous at $z = 0$:
+\begin{equation*}
+  1 + r_{12} = t^{\mathrm{amp}}_{12}, \qquad
+  \ii Q_1\rho_1c_1^2\,(1 - r_{12}) = \ii Q_2\rho_2c_2^2\,t^{\mathrm{amp}}_{12} .
+\end{equation*}
+Since $Q_i\rho_ic_i^2 = \omega\rho_ic_i$, the second condition contains each medium only through its \emph{acoustic impedance}
+\begin{equation}
+  Z_{\mathrm{ac},i} = \rho_i\,c_i .
+  \label{eq:C.18-impedance}
+\end{equation}
+The two conditions give $r_{12} = (Z_{\mathrm{ac},1} - Z_{\mathrm{ac},2})/(Z_{\mathrm{ac},1} + Z_{\mathrm{ac},2})$ and $t^{\mathrm{amp}}_{12} = 2Z_{\mathrm{ac},1}/(Z_{\mathrm{ac},1} + Z_{\mathrm{ac},2})$. The energy flux of a wave is the power per unit area $-\sigma_{zz}\dot u_z$; for a real wave $u_z = A\cos(Qz - \omega t)$ its time average is $\tfrac12Z_{\mathrm{ac}}\,\omega^2A^2$. The fraction of the incident flux that crosses the interface is therefore $Z_{\mathrm{ac},2}|t^{\mathrm{amp}}_{12}|^2/Z_{\mathrm{ac},1}$:
+\begin{equation}
+  t_{12}(0) = \frac{4Z_{\mathrm{ac},1}Z_{\mathrm{ac},2}}{(Z_{\mathrm{ac},1} + Z_{\mathrm{ac},2})^2} = 1 - r_{12}^2 .
+  \label{eq:C.18-transmission}
+\end{equation}
+The argument $0$ is the angle of incidence. The result is symmetric in the two media, $t_{12}(0) = t_{21}(0)$, and equals one when the impedances match, whatever the densities and speeds separately are~\cite{swartz1989thermal}.
+
+Silicon and aluminum are almost matched. Along $[100]$, silicon has $Z_{\mathrm{ac}} = \SI{19.6e6}{kg.m^{-2}.s^{-1}}$. Aluminum, with $\rho = \SI{2.70}{g.cm^{-3}}$ and the elastic constants extrapolated to zero temperature, $C_{11} = 114.3$, $C_{12} = 61.9$ and $C_{44} = \SI{31.6}{GPa}$~\cite[Table~2]{malica2020quasi}, has $c_{\mathrm{LA}} = \SI{6.51}{km.s^{-1}}$ along $[100]$ and $Z_{\mathrm{ac}} = \SI{17.6e6}{kg.m^{-2}.s^{-1}}$. Aluminum is nearly isotropic, with $2C_{44}/(C_{11} - C_{12}) = 1.21$. The texture of a film therefore changes its longitudinal speed by at most \SI{3}{\percent} above the $[100]$ value, and the isotropic average is \SI{6.63}{km.s^{-1}} (\cref{sec:20.3}). \Cref{eq:C.18-transmission} then gives $t_{12}(0) = 0.997$: at normal incidence only a third of a percent of a longitudinal flux is reflected.
+
+At oblique incidence the wavevector component along the interface is the same for every wave that the incident one generates, since the boundary conditions must hold at every point of the plane and at every time. For incidence at angle $\theta_1$ on a wave of speed $c_1$, a reflected or transmitted wave of speed $c'$ leaves at the angle $\theta'$ with
+\begin{equation}
+  \frac{\sin\theta_1}{c_1} = \frac{\sin\theta'}{c'} ,
+  \label{eq:C.18-snell}
+\end{equation}
+the acoustic Snell law. In general an incident longitudinal wave generates reflected and transmitted waves of both longitudinal and transverse polarization (mode conversion), with amplitudes fixed by the continuity of all three displacement components and of the three stresses $\sigma_{iz}$. When $c' > c_1$ the wave $c'$ exists only for $\sin\theta_1 < c_1/c'$; beyond that critical angle it is evanescent and carries no flux. Since all sound speeds of aluminum lie below the longitudinal speed of silicon, the critical angle matters for phonons leaving the film: a longitudinal phonon from aluminum along $[100]$ reaches longitudinal states in silicon only within $\arcsin(6.51/8.43) = 51^\circ$ of the normal. \Cref{sec:20.3} solves the oblique problem and averages it over angles.

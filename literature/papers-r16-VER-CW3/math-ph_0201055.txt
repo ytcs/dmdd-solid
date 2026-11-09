@@ -1,0 +1,3018 @@
+                                      c 2003 International Press
+                                      Adv. Theor. Math. Phys. 7 (2003) 145–204
+arXiv:math-ph/0201055v3 24 Dec 2003
+
+
+
+
+                                           Space-Adiabatic Perturbation
+                                                                      Theory
+
+
+                                               Gianluca Panati∗ , Herbert Spohn, Stefan Teufel
+
+
+
+                                                   Zentrum Mathematik and Physik Department,
+                                                         Technische Universität München,
+                                                      85747 Garching bei München, Germany
+                                          (*) also Mathematical Physics Sector, SISSA-ISAS, Trieste, Italy
+                                              panati@ma.tum.de, spohn@ma.tum.de, teufel@ma.tum.de
+
+
+                                                                         Abstract
+
+                                               We study approximate solutions to the time-dependent Schrödinger
+                                           equation iε∂t ψt (x)/∂t = H(x, −iε∇x ) ψt (x) with the Hamiltonian given
+                                           as the Weyl quantization of the symbol H(q, p) taking values in the
+                                           space of bounded operators on the Hilbert space Hf of fast “inter-
+                                           nal” degrees of freedom. By assumption H(q, p) has an isolated energy
+                                           band. Using a method of Nenciu and Sordoni [NeSo] we prove that in-
+                                           terband transitions are suppressed to any order in ε. As a consequence,
+                                           associated to that energy band there exists a subspace of L2 (Rd , Hf )
+                                           almost invariant under the unitary time evolution. We develop a sys-
+                                           tematic perturbation scheme for the computation of effective Hamil-
+                                           tonians which govern approximately the intraband time evolution. As
+                                           examples for the general perturbation scheme we discuss the Dirac and
+                                           Born-Oppenheimer type Hamiltonians and we reconsider also the time-
+                                           adiabatic theory.
+
+                                         e-print archive: http://lanl.arXiv.org/abs/math-ph/0201055
+146                                       Space-Adiabatic Perturbation Theory
+
+
+1     Introduction
+
+Quantum theory has the remarkable feature that certain dynamical degrees
+of freedom may become “slaved” and thus lose their autonomous status.
+The origin of this phenomenon is a separation, both in space and time, into
+slow and fast degrees of freedom. The fast modes quickly adapt to the slow
+modes which in turn are governed by a suitable effective Hamiltonian. This
+mechanism is called adiabatic decoupling.
+
+    As paradigm we mention the motion of nuclei. The electronic degrees
+of freedom rapidly adjust to the state of lowest energy at given positions
+of the nuclei and the electronic energy band serves as effective potential in
+the Hamiltonian for the nuclei. This Born-Oppenheimer approximation is
+the basis for the dynamics of molecules and, as a consequence, also for the
+microscopic theory of classical fluids. There are many other examples of a
+similar structure. A very widely studied case are electrons moving in the
+periodic crystal potential, which defines the short scale. The envelope of the
+electronic wave function is governed by an effective Hamiltonian obtained
+from the Peierls substitution, in which the band energy is taken as effective
+kinetic energy. For an electron coupled to the quantized radiation field the
+photons are the fast degrees of freedom and the dynamics of the electron is
+governed by an effective Hamiltonian accounting for spin precession. These
+and other systems have been studied extensively by model specific approx-
+imate methods without realizing that they share a common structure. In
+fact, all the examples given can be molded into the generic form
+                           ∂
+                      iε      ψt (x) = H(x, −iε∇x )ψt (x) .               (1)
+                           ∂t
+Here H(q, p) is an operator-valued function on the classical phase space
+Γ = R2d of the slow degrees of freedom with q a position like and p a
+momentum like variable. H(q, p) is self-adjoint and acts on the Hilbert space
+Hf of “internal” fast degrees of freedom. After quantization H(x, −iε∇x )
+becomes the Hamiltonian of our system. To properly define it one has to
+specify an ordering of the operators x, −iε∇x , for which we will adopt the
+Weyl quantization rule as to be explained in full detail in the Appendix. ψt
+is a wave function on Rd with values in Hf . Thus the quantum mechanical
+Hilbert space of states is H = L2 (Rd , Hf ) = L2 (Rd ) ⊗ Hf . Finally ε is a
+dimensionless parameter which controls the scale separation, ε ≪ 1.
+
+    Examples will be given in due course and we only remark that, in general,
+(1) is already the result of a proper identification of the slow degrees of
+freedom. For example, in nonrelativistic QED q stands for the position of
+the electron, whereas p is the total momentum of the electron and photons.
+G. Panati, H. Spohn, S. Teufel                                            147
+
+
+For an electron in a periodic potential (1) is the Hamiltonian in the crystal
+momentum basis with x standing for the Bloch momentum k in the first
+Brillouin zone, see [PST2 ].
+
+    Our goal is to construct approximate solutions to (1), a task which we
+divide into four steps.
+
+(i) Almost invariant subspace. The adiabatic decoupling can be traced
+to a spectral property of H(q, p). It is assumed, and it can be proved in
+many particular cases, that for each q, p the spectrum, σ(q, p), of H(q, p)
+can be decomposed into a “relevant” part σr (q, p) and a remainder in such
+a way that the relevant energy band {(q, p, λ) ∈ R2d+1 : λ ∈ σr (q, p)} is
+separated from the remainder {(q, p, λ) ∈ R2d+1 : λ ∈ σr (q, p)c } by a gap,
+i.e. by a corridor of finite width. In many cases of interest the relevant
+part of the spectrum consists of a single, possibly degenerate eigenvalue and
+the relevant energy band is the graph of a smooth function. Of course, a
+given H(q, p) could have several such relevant energy bands and we suppose
+one of them to be singled out, e.g., through the initial condition. To the
+relevant energy band of H one associates a subspace ΠH of H with the
+property that if ψ0 ∈ ΠH, then ψt ∈ ΠH up to an error which is smaller
+than any power of ε. For this reason ΠH is called an almost invariant
+subspace. If Hb denotes the Weyl quantization of H, then [H,  b Π] = O(ε∞ ),
+where Π is the orthogonal projector onto the closed subspace ΠH. Of course,
+in practice, approximations to Π are constructed, for which at order n the
+error is O(εn+1 ).
+
+(ii) Reference Hilbert space. Clearly, on ΠH the dynamics is generated
+by the diagonal Hamiltonian ΠHΠ,   b    up to O(ε∞ ). While properly defined,
+for a further analysis of the effective dynamics inside ΠH a representation in
+terms of adapted coordinates for the slow degrees of freedom is more pow-
+erful. We call the corresponding Hilbert space K = L2 (Rd , Kf ) the reference
+space. By definition K is independent of ε. The next task is thus to construct
+a linear map U : ΠH → K, which is unitary in the sense that U ∗ U = Π and
+U U ∗ = 1K .
+
+(iii) Effective Hamiltonian. The effective Hamiltonian is defined through
+h = U ΠHΠUb    ∗ as operator on K. It is unitarily equivalent to the diagonal
+
+Hamiltonian, but acts on a simpler space. While h is still a rather abstract
+object, it can be expanded in powers of ε, which is the adiabatic perturbation
+theory of the title. Already the lowest order approximations provide a wealth
+of information on the motion of the slow degrees of freedom.
+
+(iv) Semiclassical limit. In many applications of interest the effective
+Hamiltonian is of a form which allows for a semiclassical analysis. The
+148                                      Space-Adiabatic Perturbation Theory
+
+
+simplest situation is a relevant band which consist only of a single, possibly
+degenerate, eigenvalue. Then the effective Hamiltonian has a scalar principle
+symbol and the semiclassical analysis is straightforward.
+
+    We are certainly not the first ones to investigate approximate solutions to
+(1) and we have to explain which parts of the program outlined above have
+been achieved before and which parts are our novel contribution. In addition
+there have been other approaches to (1) on which we briefly comment below.
+
+    To our knowledge, the notion “almost invariant subspace” was first coined
+by Nenciu [Ne2 ] in the context of gauge invariant perturbation theory. In
+the context of space-adiabatic problems Brummelhuis and Nourrigat [BrNo]
+construct Π for the particular case of the Dirac equation and Martinez and
+Sordoni [MaSo] based on [So] consider Born-Oppenheimer type Hamiltoni-
+ans. The general scheme for the construction of Π is sketched in Nenciu and
+Sordoni [NeSo] and applied to the matrix-valued Klein-Gordon equation.
+Our construction is based on the one in [NeSo], but differs in a few technical
+details.
+
+    As in the case of Π we construct the unitary U in several steps. First
+we compute order by order the formal symbol of U , which, after quantiza-
+tion, gives rise to an “almost unitary” operator. Finally the almost unitary is
+modified to yield a true unitary exactly intertwining ΠH and K. Our method
+is specifically designed to deal also with problems as the Dirac equation and
+the Bloch electron with external magnetic fields, where the projector Π has
+no limit for ε → 0, see Remark 3.2. While the specific application and the
+proof are new, the general idea to construct a pseudodifferential operator
+which is almost unitary and diagonalizes a given pseudodifferential opera-
+tor has a long tradition, [Ni] Section 7 and references therein, [Ta],[HeSj].
+The method of successive diagonalization is also prominent in the physics
+literature, for example [FoWo] in the derivation of the Pauli equation and
+its corrections, [Bl1 ] for periodic Schrödinger operators, [Bl2 ] for the Dirac
+equation, [LiFl, LiWe] for Born-Oppenheimer type Hamiltonians.
+
+   Our central result is the expansion of the effective Hamiltonian h. We
+provide a scheme which is applicable in general and work out explicitly the
+expansion as h = h0 + εh1 + ε2 h2 + O(ε3 ). In particular, for a relevant
+band consisting of a single eigenvalue, h0 is the Peierls substitution and h1
+contains among other things the information on geometric phases.
+
+    Since h has, in general, a matrix-valued symbol, we discuss and apply
+some results on the semiclassical limit for matrix-pseudodifferential opera-
+tors with scalar principal symbol. We include this part to make the paper
+self-contained and to demonstrate that in many cases of interest the motion
+G. Panati, H. Spohn, S. Teufel                                            149
+
+
+of the slow degrees of freedom can be approximately described through the
+appropriate classical Hamiltonian flow.
+
+    Surely the reader will have noticed that our program makes no mention
+of the initial conditions for (1). The reason is simply that our estimates
+are uniform on ΠH, respectively on K. Physically this partial independence
+from the initial conditions is most welcome, because in general they cannot
+be controlled so easily. On the other hand, in the approach of Hagedorn and
+Joye [HaJo2 ] one constructs for a specific ε-dependent ψ0ε the wave packet
+t 7→ ψtε ∈ H, which solves (1) up to O(ε∞ ) or even O(e−c/ε ). Hagedorn
+and Joye study Born-Oppenheimer Hamiltonians. Periodic Schrödinger op-
+erators are considered in [GRT, DGR], who employ a related multi-scale
+analysis. Whereas in the other approaches the adiabatic and the semiclas-
+sical limit are taken simultaneously, both limits are clearly separated in our
+results. We consider this an important conceptual advantage.
+
+    To give a brief outline of our paper. In Section 2 we explain the pre-
+cise assumptions on the Hamiltonian H and construct the almost invariant
+subspace ΠH. The reference space K and the unitary intertwining it with
+ΠH are explained Section 3. The central part of our paper is the expansion
+of the effective Hamiltonian in Section 4. In particular, we work out the
+expansion for Born-Oppenheimer Hamiltonians including order ε2 . We also
+show that by the Howland trick the standard time-adiabatic theory can be
+subsumed under (1). The semiclassical analysis for the effective Hamilto-
+nian is summarized in Section 5. Last but not least, in Section 6 we discuss
+the Dirac equation with slowly varying external vector potentials, since it
+is the simplest Hamiltonian for which the full generality of our approach is
+needed and yields interesting physical results. In this case Hf = C4 and
+the classical symbol has two two-fold degenerate energy bands, one for the
+electron and one for the positron. Thus the reference Hilbert space e.g. for
+the electron band is L2 (R3 , C2 ). The effective Hamiltonian is determined
+including order ε. The principal part h0 describes the translational motion
+through the Peierls substitution and the subprincipal part h1 yields the spin
+precession as governed by the BMT equation. Since the external vector
+potential appears through minimal coupling, the projection P (q, p) on the
+electron subspace depends nontrivially on both coordinates, in contrast to
+Born-Oppenheimer and time-adiabatic theory, where the relevant projection
+P (q, p) depends only on one of the canonical coordinates. We end the paper
+with some concluding remarks in Section 7 and with an Appendix reviewing
+some results on pseudodifferential calculus with operator-valued symbols.
+
+Acknowledgments: We are grateful to André Martinez and Gheorghe
+Nenciu for helpful discussions, which in part initiated our work. We thank
+150                                      Space-Adiabatic Perturbation Theory
+
+
+Berndt Thaller for his remarks on the problem of observables for the Dirac
+equation and Patrick Gérard for pointing out to us reference [Ni]. S.T.
+also thanks Raymond Brummelhuis, George Hagedorn, and Alain Joye for
+valuable comments and their interest in this work. G.P. is grateful to Fabio
+Pioli for a useful remark about fiber bundles.
+
+
+2     General setting and construction of the almost-
+      invariant subspace
+
+Space-adiabatic perturbation theory deals with quantum systems in which it
+is possible to distinguish between fast and slow degrees of freedom. In par-
+ticular we assume that the Hilbert space H admits a natural decomposition
+as H = L2 (Rd )⊗ Hf , where L2 (Rd ) is the state space for the slow degrees of
+freedom and Hf is the state space for the fast degrees of freedom.
+
+    As the second structural ingredient we require that the Hamiltonian is
+given as the quantization of a B(Hf )-valued function on the classical phase
+space R2d of the slow degrees of freedom. Hence we need to consider the
+generalization of the usual quantization rules to the case of B(Hf )-valued
+functions on R2d . This theory is well covered in the literature, see for example
+[Hö, Fo, Iv, GMS]. Still, for the convenience of the reader, we provide a
+self-contained review of the basic results in the Appendix, where we also
+introduce the relevant notation.
+
+    We now state the general assumptions on which the adiabatic perturba-
+tion theory will be based in the following. Let Hf be a separable Hilbert
+space, the state space for the fast degrees of freedom, and H = L2 (Rd ) ⊗ Hf .
+The Hamiltonian H   b of the full system is given as the Weyl quantization
+of a semiclassical symbol H ∈ Sρm (ε). We assume that H       b is essentially
+                                                             2d
+self-adjoint on S. A point in the classical phase space R is denoted by
+z = (q, p) ∈ R2d .
+
+    The adiabatic decoupling relies on a gap condition for the principal sym-
+bol H0 of H.
+
+Condition (Gap)σ . For any z ∈ R2d the spectrum σ(z) of H0 (z) ∈ B(Hf )
+contains a relevant subset σr (z) which is uniformly separated from its com-
+plement σ(z) \ σr (z) by a gap. More precisely there are two continuous
+functions γj : R2d → R (j = ±) (with γ− ≤ γ+ ) such that:
+
+(G1) for every z ∈ R2d the spectral component σr (z) is entirely contained in
+G. Panati, H. Spohn, S. Teufel                                             151
+
+
+     the interval I(z) := [γ− (z), γ+ (z)];
+(G2) the distance between σ(z) \ σr (z) and the interval I(z) is uniformly
+     bounded away from zero and increasing for large momenta, i.e.
+                         dist(σ(z) \ σr (z), I(z)) ≥ Cg hpiσ ;             (2)
+
+(G3) the width of the interval I(z) is uniformly bounded, i.e.
+                           sup |γ+ (z) − γ− (z)| ≤ C < ∞ .
+                          z∈R2d
+
+
+    We denote the spectral projector corresponding to σr (z) by π0 (z). As
+explained in the Introduction, one expects interband transitions to be sup-
+pressed for small ε. To prove such a property we need either one of the
+following assumptions to be satisfied.
+
+Condition of increasing gap (IG)m.
+Let H be an hermitian symbol in Sρm (ε, B(Hf )) (with ρ > 0 and m ≥ 0)
+such that the principal symbol H0 satisfies condition (Gap)σ with σ = m.
+
+Condition of constant gap (CG).
+Let H be an hermitian symbol in S00 (ε, B(Hf )) such that the principal symbol
+H0 satisfies condition (Gap)σ with σ = 0.
+
+                                                                b – the Weyl
+   Note that for the case H ∈ S11 (ε, B(Hf )) one can show that H
+quantization of H – is essentially self-adjoint on the domain S(Rd , Hf ) ⊆ H.
+The proof is postponed to an appendix to the space-adiabatic theorem.
+
+    In analogy with the usual time-adiabatic theorem of quantum mechanics,
+see Section 4.4, we baptize the following result as space-adiabatic theorem. It
+establishes that there are almost invariant subspaces associated with isolated
+energy bands. In spirit the result is not new. However, to our knowledge
+it appears in this explicit form only recently in the literature. Brummel-
+huis and Nourrigat [BrNo] gave a proof for the Dirac equation, Martinez
+and Sordoni [MaSo] considered Born-Oppenheimer type Hamiltonians (cf.
+Section 4.3) based on results from [So], and Nenciu and Sordoni [NeSo]
+sketched the general scheme and applied it to a matrix-valued Klein-Gordon
+type problem.
+Theorem 2.1 (Space-adiabatic theorem). Assume either (IG)m or (CG).
+Let Hb be the Weyl quantization of H. Then there exists an orthogonal pro-
+jector Π ∈ B(H) such that
+                                  
+                              b Π = O0 (ε∞ )
+                              H,                                       (3)
+152                                       Space-Adiabatic Perturbation Theory
+
+
+        b + O0 (ε∞ ), where π
+and Π = π                   b is the Weyl quantization of a semiclassical
+symbol                      X
+                       π≍      εj πj   in Sρ0 (ε)
+                                j≥0
+
+whose principal part π0 (z) is the spectral projector of H0 (z) corresponding
+to σr (z).
+
+    The subspace RanΠ ⊆ H is thus an almost invariant subspace for the
+                                                     b
+                                          b i.e. [e−iHt
+dynamics generated by the Hamiltonian H,                , Π] = O0 (ε∞ |t|), and it
+is associated with the spectral band σr (z). The terminology was introduced
+in [Ne2 ]. Note, however, that RanΠ is, in general, not an almost invariant
+subspace in the sense of [Ne2 ], since Π need not have a limit as ε → 0.
+
+Remark 2.2. Note that the growth condition on the gap in (IG)m is stronger
+than one would expect from the analysis in [NeSo] or [Te1 ]. Indeed, in both
+examples a gap which is bounded globally over phase space suffices to prove
+uniform adiabatic decoupling also in the presence of a Hamiltonian with
+principal symbol increasing linearly in momentum. More general, uniform
+adiabatic decoupling should hold whenever (IG)m is satisfied with γ = m−ρ.
+Indeed (3) follows from the following proof with slight modifications under
+this weaker condition on the growth of the gap. However, this modified
+proof does not give π ∈ Sρ0 (ε), a fact we will make use of in the following.
+To avoid further complications in the presentation, we decided to state only
+the stronger result for the stronger growth condition.
+
+Proof. We decompose the proof into two steps.
+
+Step I. Construction of the Moyal projector
+
+In general π0 is not a projector in the Moyal algebra, i.e. π0 # π0 6= π0 .
+The following lemma shows that π0 can be corrected, order by order in
+ε, so to obtain a true Moyal projector π which Moyal commutes with H.
+Similar constructions appeared in the context of the Schrödinger equation
+several times in the literature [NeSo, BrNo, EmWe]. Our proof was strongly
+influenced by the one in [NeSo], but differs in relevant details, since we
+consider different symbol classes. It relies on the construction of the local
+Moyal resolvent of H0 (z). The construction of the global inverse of an elliptic
+symbol, often called the parametrix, is well known [DiSj, Fo, Ni].
+Lemma 2.3. Assume either (IG)m or (CG). Then there exists a unique
+formal symbol      X
+               π=      εj πj  πj ∈ Sρ−jρ (B(Hf )) ,
+                          j≥0
+G. Panati, H. Spohn, S. Teufel                                                153
+
+
+such that π0 (z) is the spectral projector of H0 (z) corresponding to σr (z), with
+the following properties:
+
+
+  (i) π # π = π,
+
+ (ii) π ∗ = π,
+
+(iii) [ H, π ]# := H # π − π # H = 0.
+
+
+
+Proof. We give the proof under the assumption (IG)m . The proof under
+assumption (CG) is simpler, since all the symbols which appear belong to
+S00 (ε).
+
+   We first provide a constructive scheme for the special case where σr (z) =
+{Er (z)} is an eigenvalue, which, at the same time, proves uniqueness of π in
+the general case. It follows basically the construction as given in [EmWe].
+The reason for including this scheme is that the aim of adiabatic perturbation
+theory is, in particular, to give an as simple as possible recipe for explicitly
+computing the relevant quantities. The inductive scheme for constructing
+π in the special case σr (z) = {Er (z)} is much better suited for explicit
+computations than the general construction which will follow later on.
+
+   Note that π0 # π0 − π0 = O(ε) and [HP 0 , π0 ]# = O(ε) and proceed by
+induction. Assume that we found π (n) = nj=0 πj such that
+
+                   π (n) # π (n) − π (n) = εn+1 Gn+1 + O(εn+2 ) ,             (4)
+
+where, in particular, (4) defines Gn+1 . Thus the next order term in the
+expansion πn+1 must satisfy
+
+                      πn+1 π0 + π0 πn+1 − πn+1 = −Gn+1 ,
+
+which uniquely determines the diagonal part of πn+1 to be
+                  D
+                 πn+1 = −π0 Gn+1 π0 + (1 − π0 ) Gn+1 (1 − π0 ) .              (5)
+
+Since Gn+1 = π0 Gn+1 π0 + (1 − π0 ) Gn+1 (1 − π0 ) follows from the fact that
+Gn+1 is the principal symbol of ε−n−1 (π (n) # π (n) − π (n) ), ω (n) := π (n) +
+εn+1 πn+1
+      D   indeed satisfies (i) up to an error of order O(εn+2 ).
+
+   By induction assumption we also have that [H, π (n) ]# = O(εn+1 ) and
+thus
+                   [H, ω (n) ]# = εn+1 Fn+1 + O(εn+2 ) .              (6)
+154                                         Space-Adiabatic Perturbation Theory
+
+
+Hence, the diagonal part of πn+1 being fixed already, the off-diagonal part
+                            OD ] = −F
+of πn+1 must satisfy [H0 , πn+1      n+1 . In particular,
+
+      H0 (z) (π0 (z)πn+1 (z)(1 − π0 (z))) − (π0 (z)πn+1 (z)(1 − π0 (z))) H0 (z)
+                               = − π0 (z) Fn+1 (z) (1 − π0 (z))                   (7)
+
+for all z ∈ R2d . We first show that if (7) has a solution π0 (z)πn+1 (z)(1 −
+              OD1 (z), it is unique, i.e. that the kernel of the map π OD1 (z) 7→
+π0 (z)) =: πn+1                                                         n+1
+            OD1
+[H0 (z), πn+1 (z)] restricted to Ran(1 − π0 (z)) contains only zero. To see this
+let σ r (z) := (sup σr (z)− inf σr (z))/2 and note that, due to the gap condition,
+H0 (z) − σ r (z) is invertible on Ran(1 − π0 (z)) with k(H0 (z) − σ r (z))−1 (1 −
+π0 (z))k < 2/diam(σr (z)). Hence
+                    OD1                                OD1
+          [H0 (z), πn+1 (z)] = 0 ⇔ [H0 (z) − σ r (z), πn+1 (z)] = 0
+                OD1                          OD1
+             ⇔ πn+1 (z) = (H0 (z) − σ r (z))πn+1 (z)(H0 (z) − σ r (z))−1
+
+and therefore
+    OD1
+  kπn+1 (z)k
+                                     OD1
+      ≤ k(H0 (z) − σ r (z))π0 (z)k kπn+1 (z)k k(H0 (z) − σ r (z))−1 (1 − π0 (z))k
+            OD1
+      = C kπn+1 (z)k
+                   OD1 (z) = 0 and we conclude that π
+with C < 1. Hence πn+1                                n+1 is unique when
+it exists.
+
+      In the special case that σr (z) = {Er (z)}, (7) can be solved, and one finds
+
+                 π0 πn+1 (1 − π0 ) = π0 Fn+1 (H0 − Er )−1 (1 − π0 ) .             (8)
+
+Using that Fn+1 is the principal symbol of ε−n−1 [H, ω (n) ]# , that π0 is the
+principal symbol of ω (n) and that ω (n) satisfies (i) up to O(εn+2 ), one finds
+that π0 Fn+1 π0 = (1 − π0 )Fn+1 (1 − π0 ) = 0 and thus that π (n+1) defined
+through (5) and (8) satisfies (i) and (iii) up to O(εn+2 ).
+
+    We conclude that by induction we have uniqueness of π in the general
+case, and an explicit construction for π when σr (z) = {Er (z)}. The latter
+one involves four steps at each order: [a] Evaluation of Gn+1 as in (4), [b]
+                  D
+computation of πn+1   as in (5), [c] evaluation of Fn+1 as in (6), [d] computa-
+         OD
+tion of πn+1 as in (8).
+
+   We now turn to the construction of π in the general case. Since the Moyal
+product is a local operation (it depends only on the pointwise value of the
+symbols and their derivatives) it suffices to construct π locally in phase space
+and then uniqueness will liberate us from gluing the local results together.
+G. Panati, H. Spohn, S. Teufel                                                  155
+
+
+    Let us fix a point z0 ∈ R2d . From the continuity of the map z 7→ H0 (z)
+and the gap condition it follows that there exists a neighborhood Uz0 of z0
+such that for every z ∈ Uz0 the set σr (z) can be enclosed in a positively-
+oriented complex circle Γ(z0 ) (independent of z) in such a way that Γ(z0 ) is
+symmetric with respect to the real axis,
+                                      1
+               dist(Γ(z0 ), σ(z)) ≥     Cg hpiσ           for all z ∈ Uz0        (9)
+                                      4
+and
+                       Radius(Γ(z0 )) ≤ Cr sup hpiσ ,                           (10)
+                                                  z∈Uz0
+
+where Radius (Γ(z0 )) is the radius of the complex circle Γ = Γ(z0 ). The
+constant Cg in (9) is the same as in (2) and the existence of a constant Cr
+independent of z0 such that (10) is satisfied follows from assumption (G3).
+We keep σ in the notation as a bookkeeping device, in order to distinguish
+the contributions related to the gap, although σ = m.
+
+    Let us choose any ζ ∈ Γ and restrict all the following expressions to
+z ∈ Uz0 . There exist a formal symbol R(ζ) – the local Moyal resolvent of H
+– such that
+           R(ζ) # (H − ζ1) = 1 = (H − ζ1) # R(ζ)                     on Uz0 .   (11)
+The symbol R(ζ) can be explicitly constructed. We abbreviate
+                            R0 (ζ) = (H0 − ζ1)−1
+where the inverse is understood in the B(HfP)-sense and exists according to
+(9). By induction, suppose that R(n) (ζ) = nj=0 εj Rj (ζ) satisfies the first
+equality in (11) up to O(εn+1 )-terms, i.e.
+            R(n) (ζ) # (H − ζ1) = 1 + εn+1 En+1 (ζ) + O(εn+2 ).
+By choosing Rn+1 = −En+1 (H0 − ζ1)−1 , we obtain that R(n+1) = R(n) +
+εn+1 Rn+1 satisfies
+                 P the same equality up to O(εn+2 )-terms. Then the formal
+symbol R(ζ) = j≥0 εj Rj (ζ) satisfies the first equality in (11) which – by
+the associativity of the Moyal product – implies the second one.
+
+   Equation (11) implies that R(ζ) satisfies the resolvent equation
+             R(ζ) − R(ζ ′ ) = (ζ − ζ ′ ) R(ζ) # R(ζ ′ )           on Uz0 .      (12)
+
+From the resolvent equation it follows – by using an argument P similar to
+the standard one in operator theory [Ka1 ] – that the symbol π = j≥0 εj πj
+defined by                    Z
+                            i
+                 πj (z) :=      Rj (ζ, z) dζ,     z ∈ Uz0 ,           (13)
+                           2π Γ
+156                                        Space-Adiabatic Perturbation Theory
+
+
+is a Moyal projector such that [H, π]# = 0 on Uz0 . Indeed, for every fixed
+z ∈ Uz0 and j ∈ N, the map ζ 7→ Rj (ζ, z) is holomorphic in a neighborhood
+of the circle Γ(z0 ). Then Γ(z0 ) can be expanded to a slightly larger circle Γ′
+without changing the left hand side of (13) and we obtain
+                         2 Z            Z
+                            i           ′
+                                                                
+        (π # π)j =                   dζ      dζ R(ζ ′ ) # R(ζ) j               (14)
+                           2π     Γ′       Γ
+                         2 Z            Z
+                            i           ′
+                                                        −1                
+                     =               dζ      dζ ζ ′ − ζ       R(ζ ′ ) − R(ζ) j
+                           2π     Γ′       Γ
+                             Z
+                         i
+                     =         Rj (ζ) dζ = πj
+                        2π Γ
+where (12) has been used. The first equality in (14) follows by noticing that
+for every γ ∈ N2d
+                                Z
+                              i
+                ∂zγ πj (z) =      ∂ γ Rj (ζ, z) dζ  z ∈ Uz0 ,
+                             2π Γ z
+and by expanding the Moyal product order by order in ε.
+
+    Since the circle Γ is symmetric with respect to the real axis one imme-
+diately concludes that π ∗ = π, since R(ζ)∗ = R(ζ̄) as a consequence of (11).
+From (13) it follows that π Moyal-commutes with R(λ) for any λ ∈ Γ. Then,
+by multiplying π # R(λ) = R(λ) # π by (H − λ1) on both sides, one obtains
+that H # π = π # H.
+
+   Finally we have to show that πj ∈ Sρ−jρ for every j ∈ N. From the Riesz
+formula (13) it follows that for every γ ∈ N2d one has
+      k(∂zγ πj ) (z)kB(Hf ) ≤ 2π Radius (Γ(z0 )) sup k(∂zγ Rj ) (ζ, z)kB(Hf ) .
+                                                ζ∈Γ(z0 )
+
+According to (10) we are left to prove that
+                  
+  sup    ∂qα ∂pβ Rj (ζ, z)      ≤ Cαβj hpi−σ−jρ−|β|ρ ,        α, β ∈ Nd , j ∈ N ,
+ ζ∈Γ(z0 )                    B(Hf )
+                                                                      (15)
+where Cαβj must not depend on z0 . As for R0 , we notice that according to
+(9) one has
+                                            1           4
+           (H0 (z) − ζ1)−1 B(H ) ≤                    ≤    hpi−σ ,    (16)
+                              f    dist(ζ, σ(H0 (z)))   Cg
+and moreover,
+             k∇p R0 (z)kB(Hf ) = k−(R0 ∇p H0 R0 )(z)kB(Hf )
+                                  2
+                                   4
+                               ≤        hpi−2σ k∇p H0 (z)kB(Hf )
+                                  Cg
+                                 ≤ C hpi−2σ+m−ρ = C hpi−σ−ρ ,
+G. Panati, H. Spohn, S. Teufel                                                       157
+
+
+where the last bound follows from the fact that H0 ∈ Sρm (recall that σ = m).
+By induction one controls higher order derivatives and (15) follows for j = 0.
+
+Again by induction, assume that R0 , . . . , Rn satisfy the bound (15). Then,
+by writing out                                         
+                  En+1 = R(n) (ζ) # (H − ζ1) − 1 n+1
+and using (82), one concludes that Rn+1 = −En+1 R0 satisfies (15) with
+σ = m.
+
+
+Step II. Quantization
+
+First of all, by resummation (Prop. A.8) we obtain a semiclassical
+                                                               P symbol
+π : R ×[0, ε0 ) → B(Hf ) whose asymptotic expansion is given by j≥0 εj πj .
+     2d
+
+Then, by Weyl quantization, one gets a bounded operator π   b ∈ B(H) (see
+Prop. A.3) which is an almost-projector, in the sense that
+
+      b2 = π
+  (i) π    b + O−∞ (ε∞ )
+      b∗ = π
+ (ii) π    b
+       b π
+(iii) [H, b] = O−∞ (ε∞ )
+
+Notice that the assumption ρ > 0 is crucial in order to obtain (iii) for an
+unbounded H.b
+
+   In order to get a true projector we follow the idea of [NeSo] and notice
+      π2 − π
+that kb    bk = O(ε∞ ) and the spectral mapping theorem for self-adjoint
+operators imply that for each n ∈ N there is a Cn < ∞ such that
+             π ) ⊂ [−Cn εn , Cn εn ] ∪ [1 − Cn εn , 1 + Cn εn ] =: σ0ε ∪ σ1ε .
+           σ(b
+Hence one can define for ε ≤ 1/(4C1 )
+                               Z
+                             i
+                      Π :=               π − ζ)−1 dζ .
+                                        (b
+                            2π |ζ−1|= 1
+                                                    2
+
+Then Π2 = Π follows and we claim that Π = π
+                                          b + O0 (ε∞ ). Indeed,
+     Z                                  Z
+π
+b=                λE(dλ) = O0 (εn ) +             E(dλ) = Π + O0 (εn )   for all n ∈ N ,
+      σ0ε ∪ σ1ε                             σ1ε
+
+where E(·) is the projection valued measure of π  b. Finally notice that
+                          Z
+           b Π] = i
+         [H,                        b (b
+                                   [H,  π − ζ)−1 ]dζ
+                       2π |ζ−1|= 1
+                                 2
+                            Z
+                          i                      b π
+                  = −                 π − ζ)−1 [ H,
+                                     (b                  π − ζ)−1 dζ ,
+                                                     b ](b
+                         2π |ζ−1|= 1
+                                             2
+158                                      Space-Adiabatic Perturbation Theory
+
+
+which implies that
+                   b Π]
+                  [H,             b π
+                             ≤ C [H, b] B(H) = O0 (ε∞ ) .
+                        B(H)
+
+This concludes the proof of the theorem.
+
+                              b
+Essential self-adjointness of H.
+
+Since H is an hermitian symbol its Weyl quantization H  b is symmetric on
+                                                                      b is a
+the invariant domain S(Rd , B(Hf )) ⊆ H. If H belongs to S 0 (ε) then H
+bounded operator, and there is nothing to prove.
+
+   In order to prove essential self-adjointness in the case H ∈ S11 (ε), we use
+an argument of [Ro]. The proof does not exploit the smallness of ε and we
+therefore consider any ε > 0. For s > 0 let
+
+                       B±s (q, p) = (H0 (q, p) ± is1)−1 ,
+
+which, according to Proposition A.5, belongs to S10 (B(Hf )). Moreover
+
+                       (H ± is1) #̃ B±s = 1 + εS±s ,
+
+where S±s ∈ S10 (ε), since H ∈ S11 (ε) and B±s ∈ S10 (ε). After Weyl quantiza-
+tion we obtain that
+
+            b ± is1) B
+                     b±s = 1 + εSb±s                            C
+           (H                               with    Sb±s B(H) <     ,
+                                                                |s|
+
+the latter bound following (for s large enough) from Proposition A.3 and
+from estimating the Fréchet semi-norms of S±s . Essential self-adjointness of
+Hb on the domain S follows, if we can show that Ker(Hb ∗ ± is) = {0} for some
+s > 0. For this let ϕ ∈ Ker(Hb ± is) and ψ ∈ S. Using B
+                               ∗                         b± S ⊂ S, we obtain
+
+            b ∗ ∓ is)ϕ, B
+      0 = h(H           b± ψi = hϕ, (H
+                                     b ± is)B
+                                            b± ψi = hϕ, (1 + εSb±s )ψi .
+
+Since kεSb±s k < 1 for s large enough, (1 + εSb±s )S is dense in H and hence
+ϕ = 0 follows.
+
+
+3     Reference subspace and intertwining unitaries
+
+The fact that the subspace associated with an isolated energy band decouples
+from its orthogonal complement up to small errors in ε leads immediately to
+the following question. Is there a natural way to describe the dynamics of the
+system inside the almost invariant subspace RanΠ? The main obstruction
+G. Panati, H. Spohn, S. Teufel                                              159
+
+
+for such a simple description is the fact that the subspace RanΠ depends on
+ε and is not easily accessible. Even worse, in general the limit limε→0 Π does
+not exist, meaning that RanΠ is not even close to an ε-independent subspace.
+In order to obtain a useful description of the effective intraband dynamics we
+thus need to map RanΠ to an easily accessible and ε-independent reference
+subspace.
+
+    ¿From the continuity of z 7→ H0 (z) and the gap condition it follows that
+there is a subspace Kf ⊂ Hf independent of (q, p) such that the subspaces
+Ranπ0 (q, p) are all isomorphic to Kf . Let πr be the projection on Kf , then
+Πr := 1⊗ πr (= π br ) will serve as the projector on the reference subspace K :=
+RanΠr . Of course Kf is highly non-unique and a convenient choice must be
+made in concrete applications.
+
+    Once the reference Hilbert space is fixed we next chose a unitary operator
+valued smooth function u0 (z) which pointwise in phase space intertwines
+π0 (z) and πr , i.e.
+                          u0 (z) π0 (z) u0 (z)∗ = πr .                    (17)
+The existence of such a smooth map follows from a bundle-theoretic argu-
+ment given at the end of this section. Again u0 (z) is not unique and must
+be chosen conveniently. We will see in Section 6 that there is an optimal
+choice for u0 (z), which reflects the physics of the problem.
+
+    We cannot prove that it is possible to choose u0 in Sρ0 (B(Hf )). Indeed,
+relation (17) does not imply any bound at infinity on the derivatives of u0 ,
+as can be seen by multiplying u0 with a highly oscillating phase. Hence we
+assume that u0 is in Sρ0 (B(Hf )), as will be the case in the physical examples.
+
+   In the following U (H) will denote the group of unitary operators over H.
+Theorem 3.1. Assume either (IG)m or (CG) and that there exists a U (Hf )-
+valued map u0 ∈ Sρ0 (B(Hf )) which satisfies (17). Then there exist a unitary
+operator U ∈ B(H) such that
+
+                              U Π U ∗ = Πr                            (18)
+                                P
+        b + O0 (ε∞ ), where u ≍ j≥0 εj uj in Sρ0 (ε) with principal symbol
+and U = u
+u0 .
+Remark 3.2. In [NeSo] the Nagy transformation (22) is used in order to
+map RanΠ to the ε-independent subspace Ranb       π0 . This is possible because
+in their application the symbol π0 depends only on q and, as a consequence,
+π
+b0 is a projector satisfying kΠ− π
+                                 b0 k = O(ε). However, in general π0 depends
+on q and p, see Section 6 and [PST2 ] for relevant examples, and the mapping
+to the reference space becomes more subtle.
+160                                      Space-Adiabatic Perturbation Theory
+
+
+Proof. Step I. Construction of the Moyal unitaries.
+
+Again u0 fails to be a Moyal unitary (i.e. u∗0 # u0 6= 1) and to intertwine π
+and πr . However, the following lemma shows that u0 can be corrected order
+by order to reach this goal. The idea of constructing a pseudodifferential
+operator which is almost unitary and diagonalizes a given pseudodifferential
+operator has a long tradition, cf. [Ni] Section 7 and references therein, and
+was applied in different settings many times, e.g. [Ta, HeSj].
+Lemma 3.3. Assume either (IG)m or (CG) and that there exists a U (Hf )-
+valued map u0 ∈ Sρ0 (B(Hf )) which satisfies (17). Then there is a formal
+          P
+symbol u = j≥0 εj uj , with uj ∈ Sρ−jρ (B(Hf )), such that
+
+  (i) u∗ # u = 1       and      u # u∗ = 1 ,
+ (ii) u # π # u∗ = πr ,
+
+where π is the Moyal projector constructed in Lemma 2.3.
+
+Remark 3.4. We emphasize that – as opposed to the Moyal projector π
+appearing in Lemma 2.3 – the Moyal unitary u is highly non-unique even
+for fixed u0 . As it will follow from the proof, all the possible choices of
+Moyal unitaries intertwining π and πr with prescribed principal symbol u0
+are parametrized by the antihermitian Moyal symbols which are diagonal in
+the πr -splitting.
+
+
+Proof of Lemma 3.3. Observe that u0 satisfies (i) and (ii) on the principal
+symbol
+Pn       level. We proceed by induction and assume that we found u(n) =
+       j                                     n+1 ). We will construct u
+  j=0 ε uj satisfying (i) and (ii) up to O(ε                            n+1 such
+that u(n+1)      (n)
+             = u +ε     n+1 un+1 satisfies (i) and (ii) up to O(ε n+2 ). To this
+end we write without restriction
+
+                           un+1 =: (an+1 + bn+1 ) u0 ,
+
+with an+1 hermitian and bn+1 anti-hermitian. By induction assumption we
+have
+               u(n) # u(n)∗ − 1 = εn+1 An+1 + O(εn+2 )
+                   u(n)∗ # u(n) − 1 = εn+1 Ãn+1 + O(εn+2 ) .
+Thus un+1 has to solve
+                        u0 u∗n+1 + un+1 u∗0 = −An+1 ,
+                                                                           (19)
+                        u∗n+1 u0 + u∗0 un+1 = −Ãn+1 .
+G. Panati, H. Spohn, S. Teufel                                              161
+
+
+The first equation in (19) fixes an+1 = − 21 An+1 , since An+1 is hermitian as
+it is the principal symbol of ε−n−1 (u(n) # u(n)∗ − 1). The second equation
+in (19) is then also satisfied, since the compatibility equation u0 An+1 =
+Ãn+1 u0 follows from
+          1 (n)                        1
+             u # (u(n)∗ # u(n) − 1) = n+1 (u(n) # u(n)∗ − 1) # u(n)
+        εn+1                         ε
+by noticing that u0 Ãn+1 (resp. An+1 u0 ) is the principal symbol of the l.h.s
+(resp. r.h.s).
+
+    Note that (19) puts no constraint on bn+1 and we are left to determine
+it using (ii). Let w(n) = u(n) + εn+1 an+1 u0 , then by induction assumption
+                w(n) # π # w(n)∗ − πr = εn+1 Bn+1 + O(εn+2 )
+and thus
+      u(n+1) # π # u(n+1)∗ − πr = εn+1 (Bn+1 + [bn+1 , πr ]) + O(εn+2 ) .
+Hence we need to find an anti-hermitian bn+1 satisfying
+                           Bn+1 + [bn+1 , πr ] = 0 ,
+which is given by
+                             bn+1 = [πr , Bn+1 ] ,                          (20)
+provided that Bn+1 is hermitian and off-diagonal in the πr -splitting, i.e.
+πr Bn+1 πr and (1 − πr ) Bn+1 (1 − πr ) vanish. This follows by noticing
+                                                                        that
+Bn+1 is the principal symbol of ε−(n+1) w(n) # π # w(n)∗ − πr and then
+                                1                                 
+                          ε→0                  (n)        (n)∗
+   (1 − πr )Bn+1 (1 − πr ) ∼ n+1 (1 − πr ) w # π # w           − πr (1 − πr )
+                              ε
+            1                            
+     = n+1 (1 − πr ) w(n) # π # w(n)∗ (1 − πr )
+         ε
+            1                                                   
+                                                                     ε→0
+     = n+1 ε2(n+1) Bn+1 w(n) # π # w(n)∗ Bn+1 + O(εn+2 ) ∼ 0,
+         ε
+where for the last equality we inserted 1 − πr = w(n) # (1 − π) # w(n)∗ +
+εn+1 Bn+1 + O(εn+2 ) and used that w(n) solves (i) up to O(εn+2 ) and that
+π is a Moyal projector. A similar argument shows that πr Bn+1 πr vanishes
+too. Note also that (20) fixes only the off-diagonal part of bn+1 and one
+is free to choose the diagonal part of bn+1 arbitrarily, which is exactly the
+non-uniqueness mentioned in Remark 3.4.
+
+    It remains to show that the assumption u0 ∈ Sρ0 implies that uj belongs
+to Sρ−jρ . Assume by induction that u(n) ∈ Mρ0 (ε). Then the formula
+                         1           1                 
+                an+1 = − An+1 = − u(n) # u(n)∗ − 1
+                         2           2                   n+1
+162                                      Space-Adiabatic Perturbation Theory
+
+                               −(n+1)ρ
+shows that an+1 belongs to Sρ      as it is the (n + 1)-th term of an el-
+           0                                      −(n+1)ρ
+ement of Mρ (ε). By Proposition A.4, an+1 u0 ∈ Sρ         as well. Anal-
+                                   −(n+1)ρ
+ogously we have that Bn+1 ∈ Sρ          by induction assumption, there-
+               −(n+1)ρ                      −(n+1)ρ
+fore bn+1 ∈ Sρ         and thus bn+1 u0 ∈ Sρ        , which finally gives
+         −(n+1)ρ
+un+1 ∈ Sρ        .
+
+
+Step II. Quantization
+                                                                 P
+Now let u denote a resummation of the formal power series u = j≥0 εj uj
+in Sρ0 (ε) (see Prop. A.8). Then, by Weyl quantization, one gets a bounded
+operator u b ∈ B(H) (see Prop. A.3) such that:
+
+      b ∗u
+  (i) u  b = 1 + O−∞ (ε∞ )       and     u
+                                         bub ∗ = 1 + O−∞ (ε∞ )
+ (ii) u
+      bπ b ∗ = Πr + O−∞ (ε∞ ).
+        bu
+
+                          b by an O0 (ε∞ )-term in order to get a true unitary
+As a first step we modify u
+operator U e ∈ U (H) (which, in general, does not correspond to the Weyl
+quantization of any semiclassical symbol). Let
+                                             1
+                              e =u
+                              U  b (b  b)− 2 .
+                                    u∗ u                                  (21)
+Notice that u b∗ u
+                 b is a self-adjoint positive operator which is O0 (ε∞ )-close
+                                          1
+to the identity operator. Then (b     b)− 2 is well-defined and again O0 (ε∞ )-
+                                   u∗ u
+close to the identity operator. Hence (21) defines a unitary operator which
+moreover is O0 (ε∞ )-close to ub.
+
+   Finally we modify U e in order to obtain a unitary which exactly inter-
+twines Πr and Π. Since kUe ΠUe ∗ − Πr k < 1 for ε sufficiently small, the Nagy
+formula as used in [NeSo]
+                        2 − 12 h                                      i
+              e   e ∗
+  W := 1 − U Π U − Πr                e ΠU
+                                     U  e ∗ Πr + (1 − Ue ΠU e ∗ )(1 − Πr ) (22)
+
+                                                 e ΠU
+defines a unitary operator W ∈ U (H) such that W U    e ∗ W ∗ = Πr and
+W = 1 + O0 (ε∞ ). Thus by defining U = W U e one obtains (18), with the
+desired properties.
+
+
+Remark 3.5. We sketch how to prove the existence of a smooth map u0
+satisfying (17). Given
+                       n                               o
+                  E = (z, ψ) ∈ R2d × Hf : ψ ∈ Ranπ0 (z)
+G. Panati, H. Spohn, S. Teufel                                                   163
+
+
+the map ΠE : E → R2d , (z, ψ) 7→ z defines a fibration of Hilbert spaces over
+the base space R2d .
+
+    The fibration is locally trivial. Indeed for any z0 ∈ R2d there exists a
+neighborhood Uz0 such that kπ0 (z) − π0 (z0 )k < 1 for any z ∈ Uz0 , so that
+the Nagy formula
+       h                         i− 1
+ w(z) = 1 − (π0 (z) − π0 (z0 ))2
+                                    2
+                                      [π0 (z)π0 (z0 ) + (1 − π0 (z))(1 − π0 (z0 ))]
+
+locally defines a unitary operator w(z) such that w(z)∗ π0 (z)w(z) = π0 (z0 ).
+A local trivialization of the fibration is then explicitly given by
+
+         Θ : Π−1
+              E (Uz0 ) → Uz0 × Ranπ(z0 ) →      Uz0 × Kf
+              (z, ψ)   7→  (z, w(z)ψ)    7→ (z, φ(z0 )w(z)ψ)
+
+where we use the fact that there exists a unitary operator φ(z0 ) : Ranπ(z0 ) →
+Kf . The existence of φ(z0 ) follows from the fact that the dimension of
+Ranπ(z0 ) is independent of z0 , but the map z0 7→ φ(z0 ) may be a priori
+even discontinuous.
+
+   Moreover one can check that any two such trivializations are U (Kf )-
+compatible, and the previous data define a linear U (Kf )-bundle.
+
+    Since the base space is contractible, the bundle is trivial and the asso-
+ciated principal U (Kf )-bundle (i.e. the bundle of the orthonormal frames)
+admits a global smooth section. This implies the existence of a smooth map
+u0 : R2d → U (Hf ) such that (17) holds true.
+
+
+
+4     Adiabatic perturbation theory
+
+4.1   The effective Hamiltonian
+
+In the previous section we constructed a unitary U on H which exactly
+intertwines the almost invariant subspace RanΠ and the reference subspace
+K = RanΠr . U and Π are O0 (ε∞ )-close to pseudodifferential operators with
+symbols u and π both in Sρ0 (ε).
+
+    We define the effective Hamiltonian b
+                                        h as the quantization of a resumma-
+tion h of the formal symbol
+
+                                h = u # H # u∗ .                                (23)
+164                                               Space-Adiabatic Perturbation Theory
+
+
+Recall that we do not distinguish semiclassical symbols and formal symbols
+in the notation. The following theorem is the basis for the adiabatic per-
+turbation theory, as it relates the unitary time-evolution generated by the
+original Hamiltonian Hb to the one generated by the effective Hamiltonian b
+                                                                          h.
+Theorem 4.1. Under the assumptions of Theorem 3.1, one has that h ∈
+Sρm (ε) and b
+            h is essentially self-adjoint on S. Furthermore
+
+                                         [b
+                                          h, Πr ] = 0 ,                          (24)
+                              b               b
+                          e−iHt − u
+                                  b ∗ e−iht u
+                                            b = O0 (ε∞ |t|)                      (25)
+and
+                         b                b
+                      e−iHt − U ∗ e−iht U = O0 (ε∞ (1 + |t|)) .                  (26)
+
+Proof. Since u ∈ Sρ0 (ε) and H ∈ Sρm (ε), the composition rule for semiclas-
+sical operators (see Prop. A.6) yields h ∈ Sρm (ε) and thus hj ∈ Sρm−jρ .
+
+    Let eh := u
+              bH bub∗ . Since ub ∗ is bounded with bounded inverse, one finds, by
+                             e
+checking definitions, that h is self-adjoint on u           b and that e
+                                                   b ∗ −1 D(H)           h is essen-
+tially self-adjoint on ub ∗ −1 S. According to Equation (8.10) in [DiSj], which
+generalizes to B(Hf )-valued symbols, u   b ∗ −1 ∈ OP S 0 (ε) and thus u
+                                                                       b ∗ −1 S = S.
+Hence S is a core for e  h and, since b h−e h ∈ B(H), the same conclusions hold
+    b
+for h.
+
+     Next observe that, by construction, [hj , πr ] = 0 for all j ∈ N and thus
+                                                         2d         b
+          e = 0 because πr does not depend on (q, p) ∈ R . Hence [hj , Πr ] = 0
+[hj , πr ]#
+and thus (24) follows.
+
+      For (25) observe that
+                                    Z t                      
+   b       ∗ −ib               b               b                 b
+e−iHt
+        −b
+         u e   ht
+                    u
+                    b = −ie  −iHt
+                                          ds eiHs Hbu    b∗ b
+                                                    b∗ − u  h e−ihs u
+                                                                    b = O0 (ε∞ |t|) ,
+                                     0
+
+                         bu
+since, by construction, (H     b∗ b
+                           b∗ −u  h) = O−∞ (ε∞ ). Finally (26) follows from
+(25) using U − ub = O0 (ε∞ ).
+Remark 4.2. It might seem more natural to define the effective Hamiltonian
+as
+              Heff = U Π Hb Π U ∗ + U (1 − Π) H
+                                              b (1 − Π) U ∗ .
+Clearly one should have Heff − b h = O(ε∞ ) in some sense. However, if
+b is unbounded, this closeness does not follow in the norm of bounded
+H
+operators from our results, since U need not be a semiclassical operator.
+As a consequence no asymptotic expansion of Heff in the norm of bounded
+operators would be available.
+G. Panati, H. Spohn, S. Teufel                                                        165
+
+
+   In the remainder of this section we will study the finite order asymptotic
+approximations
+                                     X n
+                              b (n)
+                              h :=        εj b
+                                             hj
+                                              j=0
+
+to the effective Hamiltonian b  h. By virtue of (24), we can, whenever ap-
+propriate, restrict our attention
+                                P to the reduced Hilbert space K = RanΠr .
+Furthermore we define u b(n) = nj=0 εj u
+                                       bj and obtain a finite order expansion
+of the unitary U as k U − u b kB(H) = O(εn+1 ).
+                             (n)
+
+
+   Our main interest are approximations to the solution of the time-depen-
+dent Schrödinger equation
+                                ∂ψt   b ψt
+                              i     =H
+                                 ∂t
+over times of order ε−k τ , where τ does not depend on ε and k ∈ N is
+arbitrary. Starting with (25) on the almost invariant subspace we obtain
+      b                  b
+  e−iHt Π = u
+            b ∗ e−iht Πr u
+                         b + O0 (ε∞ |t|)
+                             b (n+k)
+                b (n)∗ e−ith
+              = u                         b (n) + (1 + |τ |)O0 (εn+1 ) ,
+                                       Πr u                                |t| ≤ ε−k τ(27)
+                                                                                       ,
+
+where ρ(n + k + 1) ≥ m is assumed in order to have b       h−b h(n+k) ∈ B(H).
+Hence, given the level of precision εn and the time scale ε−k , the expansion
+of b
+   h must be computed up to order b   hn+k and the expansion of U up to order
+u
+bn . Put differently, in order to improve the error, a better approximation
+to the unitary transformation is necessary. On the other hand, in order to
+enlarge the time-scale of validity for the space-adiabatic approximation, only
+the effective Hamiltonian bh must be computed to higher orders.
+
+    Specializing (27) to n = 0 and k = 1, one obtains the leading order
+solution of the Schrödinger equation as
+          b              b      b
+     e−iHt Π = u
+               b∗0 e−i(h0 +εh1 )t Πr u
+                                     b0 + (1 + |τ |)O0 (ε) ,       |t| ≤ ε−1 τ ,     (28)
+
+where m ≤ 2ρ. Here the choice of k = 1 corresponds to the macroscopic
+or semiclassical time-scale t/ε. On this time-scale the effective dynamics
+   b
+e−iht/ε Πr on the reference subspace is expected to have a nice semiclassical
+limit, under suitable conditions on b
+                                    h.
+
+   Note that one can replace in (27) and analogously in (28) τ by ε−δ τ and
+obtains
+     b                b (n+k)
+  e−iHt Π = u
+            b(n)∗ e−ih             b(n) + (1 + |τ |)O0 (εn+1−δ ) ,
+                                Πr u                                   |t| ≤ ε−(k+δ) τ .
+                                                                                     (29)
+166                                        Space-Adiabatic Perturbation Theory
+
+
+Thus one can enlarge the time-span for which the approximation holds with-
+out the need to compute further terms in the expansion. The price to be
+paid is a larger error, of course.
+
+    We emphasize that (27) and (28) are purely space-adiabatic expansions
+with no semiclassical approximation invoked yet. As a consequence one ob-
+tains uniform results and a simple bound on the growth of the error with
+time. Note in particular that the space-adiabatic approximation holds on
+time-scales far beyond the Ehrenfest time-scale, the maximal time-scale for
+which semiclassical approximations are expected to hold. For some partic-
+                                                                 b
+ular cases semiclassical expansions of the full propagator e−iHt/ε have been
+derived directly, e.g. in the context of the Dirac equation [Ya, BoKe2 ]. These
+expansions hold, in general, only for short times, in the sense that they must
+be modified each time a caustic in the corresponding classical flow is en-
+countered. More important, the clear separation of the space-adiabatic and
+the semiclassical expansion is not maintained, which is a severe drawback,
+since in many physical situations the space-adiabatic approximation is valid
+to high accuracy, while the semiclassical approximation is not, cf. Section 6.
+On the other hand, a semiclassical expansion of the right hand side of (28) is
+straightforward in many interesting cases, as will be discussed in Section 5.
+
+    In parentheses we remark that the space-adiabatic approximation can be
+used also in the time-independent setting, i.e. to estimate spectral properties
+   b If one is able to compute eigenvalues of b
+of H.                                          h(n) up to errors of order o(εn ),
+
+                        b
+                        h(n) ψ (n) = E (n) ψ (n) + o(εn ) ,
+
+it follows that
+                      bu
+                      H b ∗ ψ (n) = E (n) u
+                                          b ∗ ψ (n) + o(εn ) .
+
+If, in addition, one knows from some a priori arguments that H    b has pure
+                                            b
+point spectrum near E , it follows that H has an eigenvalue o(εn )-close
+                        (n)
+
+to E (n) . Otherwise one can at least conclude that there is a “resonance”
+in the sense of a quasi bound state o(εn )-close to E (n) . We stress that no
+explicit knowledge of U is needed as long as the interest is in approximate
+eigenvalues only. For example, the scheme just described can be applied to
+the time-independent Born-Oppenheimer theory, where one is interested in
+the low lying spectrum of a molecule. The standard approaches to the time-
+independent Born-Oppenheimer approximation [CDS, Ha1 , KMSW] yield in
+some respects mathematically stronger results. However, our scheme suffices
+for estimating asymptotic expansions of eigenvalues and is simpler to handle,
+in general.
+G. Panati, H. Spohn, S. Teufel                                              167
+
+
+4.2   Leading order terms in the expansion of the effective
+      Hamiltonian
+
+We turn to the explicit determination of the leading order terms hj in the
+expansion of b h using (23). Of course, in concrete applications only H and
+u0 are given explicitly, while the higher order terms in the expansion of u
+must be calculated using the construction from Section 3. For a general
+Hamiltonian H  b such a program is feasible only for the terms h0 , h1 and
+possibly h2 , which will be our concern in the following.
+
+   The principal symbol of h is given by
+
+                               h0 = u0 H0 u∗0 .
+
+Higher order terms can be obtained using (23). The double Moyal product
+becomes rather awkward to handle, and alternatively we proceed inductively
+by observing that
+
+           u # H − h0 # u = ε h1 # u + O(ε2 ) = ε h1 u0 + O(ε2 ) ,          (30)
+
+with the subprincipal symbol on the left hand side being
+
+ (u # H − h0 # u)1 = u1 H0 + u0 H1 − h0 u1 + (u0 # H0 )1 − (h0 # u0 )1 . (31)
+                           P
+Recall the notation a # b = ∞      j
+                             j=0 ε (a # b)j for the expansion of the Moyal
+product, see the Appendix. Combining (30) and (31) one obtains
+                                                               
+         h1 = u1 H0 + u0 H1 − h0 u1 + (u0 # H0 )1 − (h0 # u0 )1 u∗0 .    (32)
+
+The expression (32) further simplifies if one specializes to the case where
+σr (q, p) = {Er (q, p)} consists of a single eigenvalue of H0 (q, p) and one
+projects on the relevant subspace,
+                                                                     
+          πr h1 πr = πr u0 H1 u∗0 + (u0 # H0 )1 u∗0 − (E∗ # u0 )1 u∗0 πr . (33)
+
+The right hand side has the nice property to be independent of u1 and thus
+to depend only on known quantities.
+
+   Along the same lines and under the same condition on σr (q, p), one com-
+putes
+                   
+      πr h2 πr = πr u0 H2 + u1 H1 − h1 u1                               (34)
+                  + (u1 # H0 )1 + (u0 # H1 )1 − (E∗ # u1 )1 − (h1 # u0 )1
+                                             
+                  + (u0 # H0 )2 − (E∗ # u0 )2 u∗0 πr .
+168                                         Space-Adiabatic Perturbation Theory
+
+
+Again, (34) does not depend on u2 for the special case under consideration,
+but it does depend on u1 , which must now be computed using the construc-
+tion from Section 3.
+
+    Although (34) looks still rather innocent, in general, it requires some
+work to compute it explicitly. This is partly because the second order expan-
+sion of the Moyal product in (34) tends to become rather tedious to obtain.
+But, in general, also the determination of u1 is nontrivial. To convince the
+reader, we state without details that the construction from Sections 2 and 3
+yields
+          i                              i                                  
+u∗1 = u∗0 − {u0 , u∗0 } + u0 π1OD u∗0 , πr +     {u0 , π0 }u∗0 + u0 {π0 , u∗0 } , πr ,
+            4                                4
+                                                                                   (35)
+with
+                    π1OD := π0 π1 (1 − π0 ) + (1 − π0 )π1 π0 ,
+where we used that (a # b)1 = − 2i {a, b}. Recall the definition (83) of the
+Poisson bracket {·, ·}.
+
+   To compute π1 from the given quantities one has to use the construction
+explained in Section 2. One finds
+                    i
+         π1OD =       R0 (E∗ )(1 − π0 ){H0 + E∗ , π0 }π0
+                    2                                     
+                   + π0 {π0 , H0 + E∗ } R0 (E∗ ) (1 − π0 )
+                      + π0 H1 R0 (E∗ )(1 − π0 ) + R0 (E∗ )(1 − π0 )H1 π0 ,
+where R0 (Er )(1 − π0 ) = (H0 − Er )−1 (1 − π0 ) is uniformly bounded because
+of the gap condition. For sake of completeness we mention that π1 = π1OD +
+i
+2 {π0 , π0 } in this case.
+
+   For the higher orders in the expansion of h we only remark that, in
+general, hn depends on u(n) , H (n) and h(n−1) . In the special, but interesting
+case of an isolated eigenvalue Er (q, p), hn depends only on u(n−1) , H (n) and
+h(n−1) and is thus considerably easier to obtain.
+Remark 4.3. Note that in the case of σr (q, p) = {Er (q, p)}, not only the
+principal symbol h0 (q, p) = Er (q, p)1Hf , but also the subprincipal symbol
+h1 (q, p) as given by (33) is well defined regardless of the gap condition,
+provided that the spectral projection π0 (q, p) is sufficiently regular. Indeed,
+it can be shown, at least in some special cases, that there is still adiabatic
+decoupling to leading order and an effective dynamics generated by b    h0 + ε b
+                                                                               h1
+without a gap condition [Te1 ], [Te2 ].
+
+   To get even more explicit formulas for h1 and h2 , note that in most
+applications one has no naturally given transformation u0 . Instead one
+G. Panati, H. Spohn, S. Teufel                                                 169
+
+
+chooses
+P         a suitable basis {ψα (q, p)}α∈I of Ranπ0 (q, p) and defines u0 (q, p) =
+   α∈I |χ α ihψα (q, p)| + r(q, p), where the vectors χα form a basis for Ranπr
+and r(q, p) is some arbitrary unitary intertwining Ranπ0 (q, p)⊥ and Ranπr⊥ .
+πr hj (q, p) πr is independent of the choice of the unitary r(q, p) for all j ∈ N.
+
+    We remark that such a basis {ψα (q, p)}α∈I of global smooth sections of
+the bundle over R2d defined by π0 (q, p) always exists, since R2d is contractible
+(see Remark 3.5). However, we are not aware of a proof which insures
+u0 ∈ Sρ0 . The situation changes completely, once one considers local domains
+in the base space which are not contractible. Then it might become necessary
+to chose as reference space the space of sections of a globally nontrivial
+bundle.
+
+    Assuming that σr (q, p) = {Er (q, p)} consists of a single eigenvalue of
+H0 (q, p) of multiplicity ℓ (including ℓ = ∞), we obtain the ℓ × ℓ-matrix
+πr h(1) (q, p) πr as
+                       (1)
+                      hαβ = hχα , h(1) χβ i = Er δαβ + ε h1 αβ ,              (36)
+
+with
+                                                i
+       h1 αβ = hχα , h1 χβ i = hψα , H1 ψβ i − hψα , {(H0 + Er ), ψβ }i
+                                                2
+                                                   i
+             = hψα , H1 ψβ i − ihψα , {Er , ψβ }i − hψα , {(H0 − Er ), ψβ }i . (37)
+                                                   2
+The indices α and β are matrix-indices, both running from 1 to ℓ. Equations
+(36) and (37) are one of our central results. They are still of a simple form
+and mostly suffice to compute the basic physics. The first term in (36)
+is referred to as Peierls substitution and the first order correction carries
+information on the intraband spinor evolution. E.g., as will be discussed
+in Section 6, for the Dirac equation h1 governs the spin precession. The
+reason for the particular splitting of the terms in (37) will be discussed in
+Section 5. Here we only remark that the second term in (37) is related to
+a “generalized” Berry connection. We omit the analogous formula for h2 αβ ,
+since it is too complicated to be helpful.
+
+
+4.3     Born-Oppenheimer type Hamiltonians
+
+An instructive example to which formula (37) applies are Born-Oppenheimer
+type Hamiltonians of the form
+
+                                            1 2
+                             HBO (q, p) =     p 1Hf + V (q) ,                 (38)
+                                            2
+170                                         Space-Adiabatic Perturbation Theory
+
+
+V ∈ S 0 (B(Hf )), with an electronic energy band er (q) of constant multiplicity
+ℓ, i.e. V (q)π0 (q) = er (q)π0 (q). Adiabatic decoupling for Born-Oppenheimer
+type Hamiltonians is established with exponentially small errors by Martinez
+and Sordoni [MaSo], see also [So]. Their result partly triggered our interest to
+develop a general theory. Exponentially accurate coherent state solutions for
+Born-Oppenheimer type Hamiltonians have been constructed by Hagedorn
+and Joye in [HaJo2 ].
+
+   Note that the quadratic growth of HBO (q, p) as a function of p prevents
+from applying the general results directly. As to be discussed in Section 4.5,
+energy cutoffs need to be introduced. For the moment we ignore this problem
+and proceed by working out the perturbative scheme formally.
+
+    We fix arbitrarily an orthonormal basis {ψα (q)}ℓα=1 of Ranπ0 (q) depend-
+ing smoothly on q which then satisfies HBO (q, p)ψα (q) = Er (q, p)ψα (q) with
+Er (q, p) = 12 p2 + er (q) for 1 ≤ α ≤ ℓ. Only the second term of our formula
+(37) contributes and yields
+
+            h1 αβ (q, p) = −i p · hψα (q), ∇q ψβ (q)i =: − p · Aαβ (q) ,
+
+which is well known in the case of a nondegenerate eigenvalue, [ShWi, LiWe,
+TeSp]. Aαβ (q) has the geometrical meaning of a gauge potential, i.e. coef-
+ficients of a connection on the trivial bundle Rd × Cℓ , the so called Berry
+connection. As mentioned already, a more detailed discussion of the origin
+of the Berry connection will be given in Section 5.
+
+    For the Born-Oppenheimer Hamiltonian the calculation of h2 αβ is still
+feasible without much effort and the result is
+                           ℓ
+                       1X            1
+           h2 αβ   =      Aαµ · Aµβ + h∇q ψα , (1 − π0 ) · ∇q ψβ i
+                       2             2
+                         µ=1
+                       − h p · ∇q ψα , R0 (Er ) p · ∇q ψβ i .              (39)
+
+Recall the definition of R0 (Er ) = (H0 − Er )−1 (1 − π0 ), which reduces to
+R0 (Er )(q) = (V (q) − er (q))−1 (1 − π0 (q)) in the present case. Although we
+omit the details of the computation leading to (39), we shortly describe how
+(34) relates to (39). Since H1 = 0 and H2 = 0 the corresponding terms in
+(34) do not contribute. Since u0 and π0 are functions of q only, the second
+term in (35) is the only one contributing to u1 , and thus the third term in
+(34) also vanishes after projecting with the πr ’s from outside the brackets.
+The last two terms in (34) cancel each other. The seventh term in (34) yields
+the first term in (39) and the fourth and sixth term in (34) combine to the
+second and third term in (39). In particular the calculation yields for the
+G. Panati, H. Spohn, S. Teufel                                                  171
+
+
+symbol of the unitary
+                    ℓ 
+                    X                                            
+  u∗BO (q, p)πr =      |ψα (q)i + iε R0 (Er )(q) | p · ∇q ψα (q)i hχα | + O(ε2 ) .
+                    α=1
+Thus the symbol of the second order effective Born-Oppenheimer Hamilto-
+nian reads
+                    1             2
+   hBO αβ (q, p) =     p − ε A(q)       + er (q)δαβ
+                    2                αβ
+                      ε2
+                    + h∇q ψα (q), (1 − π0 (q)) · ∇q ψβ (q)i                   (40)
+                      2
+                    − ε2 h p · ∇q ψα (q), R0 (Er )(q) p · ∇q ψβ (q)i + O(ε3 ) ,
+where the first term from (39) nicely completes the square to the first term
+in (40). Note that the third term on the right side of (40) depends on q only
+and was interpreted in [ShWi] as a geometric electric potential in analogy to
+the geometric vector potential A(q).
+
+    In the special case of a nondegenerate eigenvalue er and a matrix-valued
+Hamiltonian H, (40) reduces to the expression obtained by Littlejohn and
+Weigert [LiWe]. They also remark that the previous studies [ShWi, AhSt]
+of the expansion of the effective Born-Oppenheimer Hamiltonian missed the
+last term in (40). This strengthens our point of the usefulness of a general
+and systematic space-adiabatic perturbation theory.
+
+    The full power of our scheme is in force in cases where Ranπ0 is de-
+generate and depends both on q and p, since then the known techniques
+[LiFl, LiWe, NeSo, MaSo] cannot be applied. The simplest example of this
+kind is the one-particle Dirac equation with slowly varying electric and mag-
+netic potentials, which will be discussed in Section 6.
+
+
+4.4   The time-adiabatic theory revisited
+
+With little additional effort our scheme can be applied even to the time-
+adiabatic setup. As for notation, we replace the phase space Rdq × Rdp by
+Rt × Rη in the following. Given a Hilbert space H and family H ε (t), t ∈ R
+of self-adjoint operators such that H ε (t) =: H(t, η, ε) ∈ S 0 (ε, B(H)), the
+solutions of the equations
+                     iε∂t U ε (t, s) = H ε (t)U ε (t, s) ,    s ∈ R,            (41)
+define a unitary propagator. A unitary propagator is a unitary operator-
+valued map U (t, s) strongly continuous in t and s jointly, such that
+               U (t, t) = 1H         and        U (t, r)U (r, s) = U (t, s)
+172                                           Space-Adiabatic Perturbation Theory
+
+
+for any r, s, t ∈ R. In particular we have that U ε (t, 0)ψ0 solves the time-
+dependent Schrödinger equation
+                                   ∂
+                              iε      ψ(t) = H ε (t)ψ(t) .                             (42)
+                                   ∂t
+for any ψ0 ∈ H.
+
+    It is assumed in addition that H0 (t), the principal symbol of H ε (t), has
+a relevant part σr (t) of its spectrum, which is separated by a gap from the
+remainder uniformly for t ∈ R. As before we denote the spectral projection
+on σr (t) by π0 (t).
+
+    The following theorem is a variant of the time-adiabatic theorem of quan-
+tum mechanics [Ka2 , ASY, JoPf, Ne1 ], however formulated in the language
+of adiabatic perturbation theory. Sjöstrand first recognized the usefulness
+of pseudodifferential calculus in this context [Sj] and we are grateful to G.
+Nenciu for pointing this out to us. We remark that the proof below can
+be adapted to the case of a time-dependent operator-valued classical sym-
+bol H(q, p, t), as – for example – the Dirac Hamiltonian or the Pauli-Fierz
+Hamiltonian with slowly varying time-dependent external potentials.
+
+Theorem 4.4 (Time-adiabatic theorem). Let H(t) and σr (t) be as above.
+
+  (i) Decoupled subspace. There exists a family of orthogonal projectors
+      Π(t) such that Π(·) ∈ S 0 (ε, B(H)), Π(t) − π0 (t) = O0 (ε) and
+
+                     U (t, s)∗ Π(t) U (t, s) = Π(s) + O0 (ε∞ |t − s|)                  (43)
+
+      uniformly for s, t ∈ R. Whenever ∂tα H(t) = 0 for some t ∈ R and all
+      α ∈ N, then Π(t) = π0 (t).
+
+ (ii) Intertwining unitaries.       There exists a family of unitaries u0 (·) ∈
+      Cb∞ (R, B(H)) with u0 (t) π0 (t) u∗0 (t) = π0 (0) =: πr and a family of uni-
+      taries U (·) ∈ S 0 (ε, B(H)) such that
+
+                  U (t) Π(t) U ∗ (t) = πr     and     U (t) − u0 (t) = O0 (ε) .
+
+(iii) Effective dynamics. There exists a family of self-adjoint operators h(t),
+      h(·) ∈ S 0 (ε, B(H)), such that
+
+                           [ h(t), πr ] = 0         for all     t∈R                    (44)
+
+      and the solution of the initial value problem
+
+           iε∂t Ueff (t, s) = h(t)Ueff (t, s) ,        s ∈ R,       Ueff (t, t) = 1H
+G. Panati, H. Spohn, S. Teufel                                                              173
+
+
+      satisfies
+
+                     U (t, s) = U ∗ (t) Ueff (t, s) U (s) + O0 (ε∞ |t − s|) .               (45)
+
+      The asymptotic expansion of h(t) in B(H) reads
+                            
+                      ∞
+                      X         X
+            h(t) ≍       εn          uj (t) Hk (t) u∗l (t)                                 (46)
+                           n=0       j+k+l=n
+                                                                                    
+                                     i     X
+                                 +                 (uj (t) u̇∗k (t) − u̇j (t) u∗k (t)) ,
+                                     2
+                                         j+k+1=n
+            P n
+      where
+      P n n ε Hn (t) is the asymptotic expansion of H(t) in B(H) and
+        n ε un is the asymptotic expansion of U (t) in B(H).
+
+
+   Before we turn to the proof we remark that, for σr (t) = {er (t)} and
+{ϕα (t)}ℓα=1 an orthonormal basis of Ranπ0 (t), the effective Hamiltonian in-
+cluding second order reads
+
+                                                     ε2
+ hαβ (t) = er (t)δαβ − i ε hϕα (t), ϕ̇β (t)i +          hϕ̇α (t), R0 (er ) ϕ̇β (t)i + O(ε3 ) ,
+                                                     2
+where R0 (er ) = (H(t) − er (t))−1 (1 − π0 (t)). For the unitary U (t) one finds
+                     ℓ 
+                     X                                     
+       U ∗ (t)πr =      |ϕα (t)i + iε R0 (er )(t) |ϕ̇α (t)i hϕα (0)| + O(ε2 ) .
+                     α=1
+
+
+ Proof. In order to apply the general scheme developed in the previous
+ sections it is convenient – in analogy with the extended configuration space
+                                                                   2
+Rin⊕classical mechanics – to introduce the extended space K = L (R, H) =
+   R H dt and to define the extended Hamiltonian
+
+                                  b = −iε∂t + H(t)
+                                  K
+
+which is self-adjoint on the domain D(K)  b = H 1 (R, H) ⊆ K. By following
+                                                       b
+Howland [Ho], we notice that the unitary group e−iKσ , σ ∈ R, is related to
+the unitary propagator (41) through
+                             
+                          b
+                       e−iKσ ψ (t) = U (t, t − σ)ψ(t − σ) .            (47)
+
+                                          b
+Moreover, the unitary group e−iKσ can now be studied by means of the
+                                                     b is nothing but the
+techniques developed in the previous sections, since K
+174                                              Space-Adiabatic Perturbation Theory
+
+
+Weyl quantization of the operator-valued function K(t, η) = η + H(t), and
+K belongs to S11 (B(H)).
+
+   By assumption K ∈ S11 satisfies assumption (Gap)σ with σ = 0. How-
+ever, because of the simple dependence of K(t, η) on η, the conclusion of
+Theorem 2.1 and 3.1 hold still true in a sense to be made precise.
+
+Indeed, by following the proof of Lemma 2.3 one obtains a semiclassical
+symbol π ∈ S00 (ε, B(H)), depending on t only, such that [K, π]#̃ ≍ 0 in
+S01 (ε). On the other hand,
+
+                [K, π]#̃ = [H, π]#̃ + [η, π]#̃ = [H, π]#̃ − iε (∂t π)
+
+where the last equality follows from the fact that [η, π]#̃ is the symbol of
+[−iε∂t , π(t)] = −iε (∂t π) (t). Since both [H, π]#̃ and ∂t π belong to S00 (ε), one
+concludes that the asymptotic expansion [K, π]#̃ ≍ 0 holds true in S00 (ε),
+and hence [K, b πb] = O0 (ε∞ ). Finally one defines
+                                      Z
+                                i
+                        Π(t) =                        (π(t) − ζ)−1 dζ
+                               2π         |ζ−1|= 21
+
+                                                                              b
+and finds Π(·) ∈ S 0 (ε, B(H)), Π(t) − π(t) = O0 (ε∞ ) and [e−iKσ , Π] =
+O0 (ε∞ |σ|) as in Section 2. Together with (47) this implies
+
+      ess sup kU (t, t − σ)∗ Π(t) U (t, t − σ) − Π(t − σ)kB(H) = O0 (ε∞ |σ|) .
+        t∈R
+
+However, since Π(t) and U (t, s) are continuous functions of t, the pointwise
+statement (43) follows.
+
+    For u0 (t) one can use for example Kato’s construction [Ka2 ] and define
+u0 (t) as the solution of the initial value problem
+                   d ∗
+                     u (t) = [π̇0 (t), π0 (t)] u∗0 (t) ,      u∗0 (0) = 1 .
+                   dt 0
+Clearly u0 (t) belongs to S 0 (B(H)). Notice that the same construction does
+not work in the multidimensional case, since the evolutions in different di-
+rections do not commute. U can be obtained as in Section 3, where the
+fact that π(t) and u0 (t) both depend on t only and not on η simplifies the
+construction considerably and yields, in particular, a fibered unitary U (t).
+
+    As in the general setting let the effective Hamiltonian be defined as a
+resummation of
+                                      
+               k(η, t, ε) = u # K # u∗ (η, t, ε) =: η + h(t, ε) ,
+G. Panati, H. Spohn, S. Teufel                                                         175
+
+
+with the explicit expansion (46). According to Theorem 4.1 we then have
+
+                              b            b
+                          e−iKσ − U ∗ e−ikσ U = O(ε∞ |σ|) ,
+
+which implies according to (47) that
+
+      ess sup kU (t, t − σ) − U ∗ (t) Ueff (t, t − σ) U (t − σ)kB(H) = O0 (ε∞ |σ|) .
+        t∈R
+
+
+The pointwise statement (45) follows again from the continuous dependence
+on t of all involved expressions.
+
+
+4.5     Energy cutoff
+
+The Born-Oppenheimer type Hamiltonians as well as many other physically
+relevant Hamiltonians do not satisfy the general assumptions we imposed in
+Sections 2 and 3. This is so for two reasons. First of all they are quantizations
+of symbols taking values in the unbounded operators. Secondly, the gap does
+not increase as fast as the Hamiltonian for large momenta, e.g. quadratically
+in the Born-Oppenheimer setting. The first problem is purely technical and
+the domain questions which arise have to be dealt with case by case. The
+second problem causes a qualitative change in the sense that the adiabatic
+decoupling is no longer uniform, as can be seen from the construction of the
+almost invariant subspace in Section 2. To deal with the second problem
+one therefore needs a cutoff for large momenta. There are basically two
+ways to implement such a cutoff. One possibility is to directly cut off large
+momenta as was done in [TeSp, SpTe], but then one needs to control the
+times for which no momenta exceeding the cutoff are produced under the
+dynamics. However, for a large class of Hamiltonians including the Born-
+Oppenheimer type Hamiltonian (38), cutting off high energies is equivalent
+to cutting high momenta. Then conservation of energy immediately ensures
+that no momenta exceeding the cutoff are produced over time. This idea
+was developped in [So] and also used in [MaSo]. We will briefly indicate an
+alternative way on how to implement such an energy cutoff in order to fit
+the Born-Oppenheimer and similar settings into our general assumptions.
+
+   Let H0 ∈ S0m be elliptic and positive, i.e. there is a constant C > 0 such
+that H0 (q, p) ≥ C hpim . For example the Born-Oppenheimer Hamiltonian
+as defined in (38) satisfies H0 ∈ S02 and it is elliptic provided that V is
+positive (otherwise just add a constant to H0 since V ∈ S 0 ). Then we can
+prove adiabatic decoupling uniformly for energies below any λ ∈ R, i.e. on
+Ran1l(−∞,λ] (Hb 0 ).
+176                                           Space-Adiabatic Perturbation Theory
+
+
+     Let Λ = {(q, p) : H0 (q, p) < λ}, then bounding the total energy by λ
+essentially corresponds to confining the slow degrees of freedom to the region
+Λ in phase space. More precisely, let χλ ∈ C0∞ (R) such that χλ |[0,λ] = 1 and
+χλ |[λ+δ,∞) = 0 for some δ > 0, then χλ (H  b 0 ) ∈ OPS −∞ is a semiclassical
+                                                         0
+operator. Furthermore, its symbol χ := Symb(χλ (H     b 0 )) has an asymptotic
+expansion which is identically equal to 1 on Λ, i.e. χ|Λ ≍ 1 and identically
+equal to 0 on the set where H0 (q, p) ≥ λ + δ. The statements about χλ (H  b0 )
+and its symbol follow from the functional calculus for semiclassical operators
+as developped e.g. in [DiSj], Theorem 8.7.
+
+    Next we assume that one can define an auxiliary Hamiltonian Haux (q, p) ∈
+S00 such that
+
+  (i) Haux (q, p) = H0 (q, p) for all (q, p) ∈ Λ+δ := {(q, p) : H0 (q, p) < λ+δ},
+
+ (ii) Haux (q, p) > H0 (q ′ , p′ ) for all (q, p) 6∈ Λ + δ and (q ′ , p′ ) ∈ Λ + δ
+
+ (iii) and Haux (q, p) satisfies the global gap condition (Gap)0 .
+
+This can be easily achieved e.g. in the Born-Oppenheimer setting by replac-
+ing p2 by an appropriate bounded function.
+
+  It follows from the previous discussion that ( H     b0 − Hb aux ) χλ (H
+                                                                         b0) =
+                       b 0 ) − χλ (H
+O−∞ (ε∞ ) and that χλ (H           b aux ) = O−∞ (ε∞ ). Using
+
+                            b 0 )1l(−∞,λ] (H
+                        χλ (H              b 0 ) = 1l(−∞,λ] (H
+                                                             b0) ,
+
+one finds, in particular, that
+                                 
+                      Hb0 − H                b 0 ) = O0 (ε∞ )
+                             b aux 1l(−∞,λ] (H                                       (48)
+
+in the norm of bounded operators and thus also
+                    
+     b           b                b0 )
+  e−iHaux t − e−iH0 t 1l(−∞,λ] (H                                                   (49)
+                  Z t                          
+             b              b                b 0 e−iHb 0 s 1l(−∞,λ] (H
+                                     b aux − H                       b 0 ) = O0 (ε∞ |t|) .
+   = − ie−iHaux t      ds eiHaux s H
+                    0
+
+
+    Now the scheme of Sections 2, 3 and 4 can be applied to Haux and by
+virtue of (48) and (49) all results are valid for H0 up to O(ε∞ ) if one restricts
+to energies below λ. In particular one finds that for (q, p) ∈ Λ the leading
+order symbols of haux = U ∗ H   b aux U are given by the formulas obtained in
+Section 4.2 using the symbol H0 (q, p).
+G. Panati, H. Spohn, S. Teufel                                              177
+
+
+5     Semiclassical analysis for effective Hamiltonians
+
+
+
+The results of the previous sections are genuine quantum mechanical: semi-
+classical symbols have been used only as a tool in order to construct (and,
+eventually, to approximate) Π and U , but no semiclassical limit has been
+performed. Indeed, the adiabatic decoupling of energy bands is a purely
+quantum phenomenon, which is, in general, independent from the semiclas-
+sical limit.
+
+    However, under the assumption that σr (q, p) = {Er (q, p)} consists of
+a single eigenvalue of H0 (q, p) of necessarily constant multiplicity ℓ, the
+principal symbol of b h is a scalar multiple of the identity, i.e. h0 (q, p)πr =
+Er (q, p)1Kf , and a semiclassical analysis of bh can be done in a standard
+way. In particular, the dynamics of quantum observables can be approxi-
+mated by quantities constructed using only the classical flow Φt generated
+by the (classical, scalar) Hamiltonian Er (q, p). This results in a generalized
+Egorov’s theorem, see Theorem 5.1. We emphasize that for more general
+energy bands σr (q, p) one cannot expect a simple semiclassical limit, at least
+not in the usual sense.
+
+
+
+
+5.1   Semiclassical analysis for matrix-valued symbols
+
+
+Egorov’s Theorem. For the moment, we identify Kf with Cℓ and h with
+πr h πr , an ℓ × ℓ-matrix-valued formal symbol. At least formally, Egorov’s
+theorem is obtained through an expansion of the Heisenberg equations of
+motion for semiclassical observables: Let a(q, p, ε) ∈ S10 (ε, B(Cℓ )), then the
+quantum mechanical time evolution of b  a is given by
+
+
+                                      b         b
+                             a(t) = eiht/ε b
+                             b             a e−iht/ε
+
+
+
+and satisfies
+
+                             db
+                              a(t)  i
+                                   = [b
+                                      h, b
+                                         a(t)] .                           (50)
+                              dt    ε
+178                                              Space-Adiabatic Perturbation Theory
+
+
+Expanding both sides of (50) on the level of symbols and using [Er 1, an (t)] ≡
+0, 1 = 1Cℓ , one obtains the following hierarchy of equations:
+      d a0 (t)
+                 = {Er 1, a0 (t)} + i[h1 , a0 (t)]                                     (51)
+         dt
+      d a1 (t)                                          1                              
+                 = {Er 1, a1 (t)} + i[h1 , a1 (t)] −      {h1 , a0 (t)} − {a0 (t), h1 }
+         dt                                             2
+                     + i[h2 , a0 (t)]                                                   (52)
+      d a2 (t)
+                 = {Er 1, a2 (t)} + i[h1 , a2 (t)] + . . . .                           (53)
+         dt
+Since dan (t)/dt does not depend on higher orders, the equations can be
+solved iteratively. The solution of (51) with initial condition a0 (q, p, 0) =
+a0 (q, p) is given through
+                    a0 (q, p, t) = D ∗ (q, p, t) a0 (Φt (q, p)) D(q, p, t) ,           (54)
+where Φt : R2d → R2d is the solution flow corresponding to the scalar Hamil-
+tonian Er (q, p). More precisely, Φt (q0 , p0 ) = (q(t), p(t)), where (q(t), p(t)) is
+the solution of the classical equations of motion
+                              q̇ = ∇p Er ,        ṗ = −∇q Er
+with initial condition (q0 , p0 ). D(q, p, t) is the solution of
+                       ∂
+                          D(q, p, t) = − i h1 (Φt (q, p)) D(q, p, t) .                 (55)
+                       ∂t
+with initial condition D(q, p, 0) = 1. One can think of (55) for fixed (q, p) ∈
+R2d as an equation for the Schrödinger-like unitary evolution induced by
+the time-dependent Hamiltonian h1 (Φt (q, p)) on the Hilbert space Cℓ . Since
+h1 (q, p) is self-adjoint for all (q, p) ∈ R2d , the solution D(q, p, t) of (55) is
+unitary for all (q, p, t) ∈ R2d × R.
+
+      To see that (54) is indeed the solution of (51), note that the mappings
+                       U (t) : Cb (R2d , B(Cℓ )) → Cb (R2d , B(Cℓ ))
+defined through (54) for t ∈ R, i.e.
+                      
+              U (t) a0 (q, p) = D ∗ (q, p, t) a0 (Φt (q, p)) D(q, p, t) ,              (56)
+form a one-parameter group of linear automorphisms on the Banach space
+Cb (R2d , B(Cℓ )), since
+               
+ U (s) U (t) a0 (q, p) =
+       = D ∗ (q, p, s) D ∗ (Φs (q, p), t) a0 (Φs ◦ Φt (q, p)) D(Φs (q, p), t) D(q, p, s)
+       = D ∗ (q, p, t + s) a0 (Φt+s (q, p)) D(q, p, t + s)
+                       
+       = U (t + s)a0 (q, p) .
+G. Panati, H. Spohn, S. Teufel                                                       179
+
+
+Here the group structures of Φt and of the solutions of (55) are used. Hence
+U (t) is a group and it suffices to check that (54) solves (51) at time t = 0,
+which is easy to see.
+
+    The physical interpretation becomes simpler when translated to states:
+a “classical” particle which started at time 0 at the phase space point (q, p)
+with spinor ϕ0 ∈ Cℓ , is at time t located at the phase space point Φt (q, p)
+with spinor ϕt = D(q, p, t)ϕ0 . Hence (55) implies that
+                             dϕt
+                                 = − i h1 (Φt (q, p)) ϕt .                           (57)
+                              dt
+One can also think of U (t) as being the action on observables of a “classical”
+flow Φtℓ on phase space R2d × SU(ℓ) defined as
+
+                      Φtℓ (q, p, U ) = (Φt (q, p), D(q, p, t) U ) .
+
+   Turning to the higher order corrections (52), (53) etc., they are of the
+form
+        d an (t)
+                 = {Er 1, an (t)} + i[h1 , an (t)] + In (a0 (t), . . . , an−1 (t))
+           dt
+with an inhomogeneity In (t) depending only on the known functions a0 (t),
+. . . , an−1 (t). Thus, assuming an (0) = 0, one finds
+                                     Z t
+                            an (t) =     ds U (t − s) In (s) .      (58)
+                                      0
+
+
+    In order to solve Equation (52) for the subprincipal symbol one needs to
+know h2 . However, if one is interested in semiclassical observables with a
+principal symbol which is a scalar multiple of the identity, e.g. in the position
+a0 (0) = q 1, the last term in ( 52) vanishes at all times, since, according to
+(54), a0 (t) is a scalar multiple of the identity for all times. In Section 6 the
+back reaction of the spin of an electron on its translational motion will be
+discussed on the basis of (52).
+
+   We summarize the preceding discussion on Egorov’s theorem.
+
+Theorem 5.1 (Egorov). Let H satisfy either (IG)m for m ≤ 1 and ρ = 1
+or (CG) with ρ = 0. Let σr (q, p) = {Er (q, p)} be an eigenvalue of H0 (q, p)
+of finite multiplicity ℓ.
+
+Then the classical flow Φt generated by Er (q, p) and the solution of (55) with
+initial condition D(q, p, 0) = 1 exist globally in time. For a0 ∈ Sρ0 (B(Cℓ )),
+a0 (t) given by (54) is a solution of (51) and a0 (t) ∈ Sρ0 (B(Cℓ )) for all t.
+180                                            Space-Adiabatic Perturbation Theory
+
+
+For each T < ∞ there is a constant CT < ∞ such that for all t ∈ [−T, T ]
+
+                             ka(t) − Wε (a0 (t))k ≤ ε CT ,                         (59)
+                  b           b
+where a(t) = eiht/ε b
+                    a0 e−iht/ε .
+
+Proof. Up to the modifications discussed before, the proof follows easily
+along the lines of Egorov’s theorem for scalar valued observables (cf. [Ro,
+BoRo]): To make the expansion of the Heisenberg equation (50) rigorous,
+note that Er = πr h0 πr ∈ Sρm (R) with m ≤ 1 and thus the corresponding
+Hamiltonian vector field is smooth and bounded. It follows by standard ODE
+techniques [Ro] that ∂t a0 (Φt ) ∈ S10 and hence also ∂t a0 (t) ∈ S10 , where a0 (t)
+is given by (54). Thus one can interchange quantization and differentiation
+with respect to time and obtains
+                        Z t
+                                 d  ibhs/ε                       b
+                                                                       
+   a(t) − Wε (a0 (t)) =     ds        e      Wε (a0 (t − s)) e−ihs/ε
+                                 ds
+         Z t            0h                      i                       
+                  ib
+                   hs/ε  i b                                  da0               b
+     =       ds e            h, Wε (a0 (t − s)) − Wε              (t − s)    e−ihs/ε .
+          0              ε                                     dt
+                            h              i                      
+Now, by construction, εi b    h, a0\(t − s) − Wε da    dt
+                                                         0
+                                                           (t −  s)   is a semiclassical
+operator in OPS11 (ε) with vanishing principal symbol. Hence the integrand
+is really O(ε) as a bounded operator and (59) follows.
+
+
+    This matrix-valued version of Egorov’s theorem has been discussed sev-
+eral times in the literature [Iv, BrNo].
+
+
+Berry connection. With this preparation we explain the motivation be-
+hind the particular splitting of the terms in (37). It is of geometrical origin
+and related to the Berry connection. Recall that in the Born-Oppenheimer
+setting h1 αβ (q, p) = −p · Aαβ (q) and thus Aαβ (q) acts as a gauge potential of
+a connection on the trivial bundle Rd × Cℓ . Its origin is purely geometrical,
+since it comes from the connection which the trivial connection on the trivial
+bundle Rd × Hf induces on the subbundle defined by π0 (q). If one assumes
+that Ranπ0 (q) is 1-dimensional, the internal rotations along classical trajec-
+tories are just phase changes, the so called Berry phases, and are due to
+parallel transport with respect to the Berry connection [Be, ShWi, Si].
+
+      In the general case the second term of h1 αβ (q, p) in (37), which we denote
+by
+                      hBe αβ (q, p) = −ihψα (q, p), {Er , ψβ }(q, p)i,
+G. Panati, H. Spohn, S. Teufel                                                 181
+
+
+corresponds exactly to this parallel transport along the generalized Berry
+connection. More precisely, the trivial connection on the trivial bundle R2d ×
+Hf induces a U (ℓ)-connection on the subbundle defined by π0 (q, p). After
+unitary rotation u0 (q, p) the coefficients of this connection on the bundle
+R2d × Cℓ are
+                                                           
+                                  hψα (q, p), ∇q ψβ (q, p)i
+                Aαβ (q, p) = i                                ,
+                                  hψα (q, p), ∇p ψβ (q, p)i
+
+in the sense that a section s(q, p) is parallel if (∇ − iA)s = 0. It is parallel
+along some curve c(τ ) = q(τ ), p(τ ) in R2d if
+                                                          
+                 ∂τ − ċ(τ ) · iA q(τ ), p(τ ) s q(τ ), p(τ ) = 0 .
+
+For classical trajectories, where ċ(t) = (∇p Er , −∇q Er )T , this condition be-
+comes                                               
+                     ∂t + i hBe q(t), p(t) s q(t), p(t) = 0 .                (60)
+
+If h1 = hBe, (60) is exactly
+                              Equation (57) for the rotation of the spinor
+ϕt q(t), p(t) = D q, p, t ϕ0 along the trajectory of the particle. This means
+if h1 = hBe , the spin dynamics corresponds to parallel transport with respect
+to the Berry connection along classical trajectories.
+
+   Emmrich and Weinstein [EmWe] give a geometric meaning also to the
+remaining terms in their analog of h1 . While this is a natural venture in the
+context of geometric WKB approximation, it seems to be less natural in our
+approach, since we work in a fixed basis in order to obtain simple analytic
+expressions.
+
+
+Wigner function approach. The previous results on the time-evolution
+of semiclassical observables translate, by the duality expressed through
+                           Z                           
+               hψ, b
+                   a0 ψi =      TrCℓ a0 (q, p)W ψ (q, p) dq dp ,
+                             R2d
+
+to the time-evolution of the Wigner transform
+                                      Z
+   ψ                              −d
+W (q, p) := Symb(Pψ )(q, p) = (2π)        dξ eiξ·p ψ(q + εξ/2) ⊗ ψ ∗ (q − εξ/2)
+                                           Rd
+
+as
+
+hψ, b
+    a0 (t) ψi =
+    Z                                                              
+ =        TrCℓ a0 (q, p) D ∗ (q, p, −t) W ψ (Φ−t (q, p)) D(q, p, −t) dq dp + O(ε) .
+      R2d
+182                                           Space-Adiabatic Perturbation Theory
+
+
+Transport equations for matrix-valued Wigner measures were derived in
+[GMMP] and applied to the Dirac equation in [Sp].
+
+Semiclassical propagator. Often one is not only interested in the semi-
+classical propagation of observables, but more directly in a semiclassical
+expansion of the kernel K(x, y, t) of the unitary group
+                                   Z
+                    −ib
+                      ht/ε
+                            
+                   e       ψ (x) =      dy K ε (x, y, t) ψ(y) .      (61)
+                                         Rd
+As in the case of Egorov’s theorem, generalizing the known results for
+Hamiltonians with scalar symbols to the case of operator-valued symbols
+is straightforward, whenever the principal symbol h0 of h is a scalar multi-
+ple of the identity. As in the scalar case, see [Ro], one makes an ansatz of
+the form
+                             Z                        X
+                                                        ∞                 
+          ε             1             i
+                                        S(x,p,t)−y·p       j
+        K (x, y, t) =            dp e ε                   ε  a j (x, p, t)  ,
+                      (2πε)d Rd
+                                                          j=0
+
+where S(x, p, t) is real valued and the aj ’s take values in the bounded linear
+operators on Cℓ . Demanding (61) at time t = 0, i.e. K ε (x, y, 0) = δ(x − y),
+imposes the following initial conditions on S and {aj }j≥0 :
+   S(x, p, 0) = x · p ,     a0 (x, p, 0) = 1 and      aj (x, p, 0) = 0 for j ≥ 1 .
+For later times the coefficients are determined by formally expanding the
+Schrödinger equation for K ε (x, y, t)
+                            ∂ ε
+                          iε   K (·, y, t) = b
+                                             h K ε (·, y, t)
+                           ∂t
+in orders of ε. At leading order only b   h0 = Eb0 contributes and one obtains
+as in the scalar case
+                                                          
+                    ∂t S(x, p, t) + Er x, ∇x S(x, p, t) = 0 ,             (62)
+the Hamilton-Jacobi equation for the symbol h0 . The next to leading order
+equation is the so called transport equation for a0 :
+                                                                   
+   i∂t a0 (x, p, t) = L(x, p, t) a0 (x, p, t) + h1 x, ∇x S(x, p, t) a0 (x, p, t) . (63)
+The differential operator L(x, p, t) is the same as in the scalar case, see [Ro]
+for an explicit formula. Here we just want to point out that the known
+techniques from the scalar case apply with one modification: as in (51), also
+in (63) h1 contributes as an additional rotation in the transport equation
+for the leading order term. Since the solution of (62) exists only until a
+caustic is reached, the approximation (62), (63) to the propagator is a short
+time result only. The extension to arbitrary times is a complicated task, in
+general [MaFe].
+G. Panati, H. Spohn, S. Teufel                                                 183
+
+
+5.2    An Egorov theorem
+
+Ultimately the goal is to approximate expectation values of observables in
+in the original Hilbert space H = L2 (Rd , Hf ) rather than in H = L2 (Rd , Kf ).
+Before stating a theorem an obvious, but important observation should be
+made, which seems to have been overlooked, or at least not stressed suffi-
+ciently, in related discussions, e.g., [LiFl, LiWe, BoKe2 , MaSo]: We proved
+that in the case σr (q, p) = {Er (q, p)} the effective Hamiltonian b
+                                                                   h projected on
+the subspace K = RanΠr has a semiclassical limit in the sense of a general-
+ized Egorov theorem, in principle, to any order in ε. However, the variables q
+and p in the rotated representation are not the canonical variables of the slow
+degrees of freedom in the original problem. More precisely, let qbH = x ⊗ 1Hf
+and pbH = −iε∇x ⊗ 1Hf be the position and momentum operators of the slow
+degrees of freedom acting on H and let qbK = x ⊗ 1Kf and pbK = −iε∇x ⊗ 1Kf
+be the same operators acting on K. Then qbK = Πr U qbH U ∗ Πr + O(ε) and
+pbK = Πr U pbH U ∗ Πr + O(ε), with a, in general, nonvanishing ε-correction.
+Physically this means that the quantities which behave like position and
+momentum in the semiclassical limit are only close to the position and mo-
+mentum of the slow degrees of freedom, but not equal. This phenomenon
+is well known in the case of the nonrelativistic limit of the Dirac equation.
+The Newton-Wigner position operator and not the standard position oper-
+ator goes over to the position operator in the Pauli equation. The standard
+position operator has neither a nice nonrelativistic limit nor, as we will see,
+a nice semiclassical limit, because of the Zitterbewegung. Switching to the
+Newton-Wigner position operator corresponds to averaging over the Zitter-
+bewegung, or, in our language, to use the position operator qbK in the rotated
+representation. We remark that in the Born-Oppenheimer case, and more
+generally whenever π0 depends on q only, one has qbK = Πr U qbH U ∗ Πr +O(ε2 ).
+
+    With this warning we exploit that semiclassical observables do not change
+after unitary rotation in leading order and state the Egorov theorem for the
+observables in the original representation.
+Corollary 5.2. Let H satisfy either (IG)m with m ≤ 1 and ρ = 1 or (CG)
+with ρ = 0 and let σr (q, p) = {Er (q, p)} consist of a single eigenvalue of
+H0 (q, p) of finite multiplicity ℓ. Let b0 ∈ S10 (B(Hf )) such that [b0 , π0 ] = 0
+                 b         b
+and B(t) := eiHt/ε bb0 e−iHt/ε . Let a0 := πr u0 b0 u∗0 πr and define a0 (t) is in
+(54). Then for each T < ∞ there is a constant CT < ∞ such that for all
+t ∈ [−T, T ]                                    
+                      B(t) − Wε (u∗0 a0 (t) u0 ) Π ≤ ε CT .                    (64)
+For b0 = f 1Hf , with f ∈ S10 (R), one obtains as a special case of (64) that
+                                          
+                          B(t) − b\     t
+                                    0 (Φ ) Π ≤ ε CT .
+184                                         Space-Adiabatic Perturbation Theory
+
+
+    Corollary 5.2 follows from Theorem 5.1 and a straightforward expansion
+in ε of the terms to be estimated after rotation with U .
+
+
+
+6      The Dirac equation
+
+6.1     Adiabatic decoupling of electrons and positrons
+
+We apply the adiabatic perturbation theory to the one-particle Dirac equa-
+tion with slowly varying external potentials, i.e. to
+                                          
+              e D = cα · −i~∇y − e A(εy) + βmc2 + eφ(εy)
+              H
+                                   c
+
+acting on L2 (R3 , C4 ). Here A : R3 → R3 is the vector potential of an external
+magnetic field B = ∇∧A and φ : R3 → R the potential of an external electric
+field E = −∇φ. For the Dirac matrices α, β we make the standard choice
+                                                        
+                          0 σ                  1C2     0
+                  α=               ,   β=                     ,
+                          σ 0                   0 −1C2
+
+where σ = (σ1 , σ2 , σ3 ) denotes the vector of the Pauli spin matrices. The
+small parameter ε > 0 controls the variation of the external potentials. To
+keep track of the size of the error terms, in this section all physical constants,
+including ~, are displayed.
+
+   Transforming to the macroscopic space-scale x = εy one obtains the
+Dirac Hamiltonian
+                                      
+             b D = cα · −iε~∇x − e A(x) + βmc2 + eφ(x)
+             H                                                   (65)
+                                 c
+and we are interested in the solution of the time-dependent Dirac equation
+for times of order ε−1 , i.e. in solutions of
+
+                                      ∂       b D ψt
+                               i ε~      ψt = H                              (66)
+                                      ∂t
+for |t| = O(1). The solutions of (66) for small ε approximately describe the
+dynamics of electrons, resp. positrons, in weak fields, as in storage rings,
+accelerators, or cloud chambers, for example.
+      b D is the Weyl quantization of the matrix-valued function
+      H
+                                      e    
+                  HD (q, p) = cα · p − A(q) + βmc2 + eφ(q)
+                                       c
+G. Panati, H. Spohn, S. Teufel                                                  185
+
+
+on phase space R6 , where now Weyl quantization is in the sense of p 7→
+−iε~∇x , i.e. on the right hand side of (78) ε must be replaced by ε~. ~
+appears here for dimensional reasons and is a fixed physical constant. The
+small parameter of the space-adiabatic expansion is ε. HD (q, p) has two
+two-fold degenerate eigenvalues
+
+                            E± (q, p) = ±cp0 (q, p) + eφ(q)
+
+with the corresponding eigenprojections
+                                                      
+                      1          1              e
+          P± (q, p) =     1±            α · p − A(q) + βmc   ,
+                      2      p0 (q, p)          c
+                  p
+where p0 (q, p) = m2 c2 + (p − ec A(q))2 . Obviously
+
+                    E+ (q, p) − E− (q, p) = 2cp0 (q, p) ≥ Chpi > 0 ,
+
+whenever A is uniformly bounded. Therefore the corresponding subspaces
+are adiabatically decoupled and the effective dynamics on each of them can
+be computed using our general scheme. Assuming A ∈ Cb∞ (R3 , R3 ) and φ ∈
+Cb∞ (R3 , R), one finds that H0 ∈ S11 and thus the assumptions from Section 2
+are satisfied. In particular, Hb D is essentially self-adjoint on S(R4 , C4 ) and
+b
+E± on S(R ). 4
+
+
+    To be consistent with the notation from the previous sections, let π0 (q, p)
+= P+ (q, p) be the projector on the electron band. The reference subspace
+for the electrons is K = L2 (R3 , C2 ) and it is convenient to define it as the
+range of                                       
+                                        1C2 0
+                             Πr :=
+                                         0 0
+in L2 (R3 , C4 ).
+
+    The only choice left is the one of u0 (q, p) or, equivalently, of a basis
+{ψα (q, p)}α=1,2 of Ranπ0 (q, p). Since the degeneracy of Ranπ0 (q, p) is related
+to the spin of the electron, a natural choice is the σz -representation with
+respect to the “mean”-spin S(q, p) which commutes with HD (q, p) [FoWo,
+Th]. The eigenvectors ψ± (q, p) of the operator e3 · S(q, p) in Ranπ0 (q, p) are
+                         (p0 +mc)                                          
+                                  p0
+                                                                            0
+             q                   0                       q            (p0p+mc) 
+ψ+ (q, p) = c 2(p0p+mc)
+                   0    
+                        
+                                           , ψ− (q, p) = c
+                                          
+                                                                 p0    
+                                                             2(p0 +mc)  v −iv
+                                                                              0   .
+                                                                                  
+                                  v3                                       1    2
+
+                                v1 +iv2                                   −v3
+
+We abbreviated v(q, p) := c (p− ec A(q))/p0 (q, p) for the velocity. The relevant
+part of u0 for the analysis of the electron band is thus given by u∗0 (q, p) =
+186                                          Space-Adiabatic Perturbation Theory
+
+                           
+ ψ+ (q, p), ψ− (q, p), ∗, ∗ with u0 ∈ S10 . Of course the positron part indicated
+by ∗’s would be given through charge conjugation. In our construction we
+want to emphasize, however, that no specification is needed in order to
+determine the expansion of the effective electron Hamiltonian b     he := Πr b
+                                                                             h Πr
+up to arbitrary order.
+
+   An alternative way to arrive at the same u0 (q, p) is to note that the Foldy-
+Wouthuysen transformation uFW (p), c.f. [FoWo], diagonalizes the free Dirac
+Hamiltonian H0 (p), i.e. HD with A, φ ≡ 0. Including the fields u0 (q, p) =
+uFW (p − ec A(q)) then diagonalizes HD (q, p).
+
+      For the principal symbol of he one finds of course
+
+                              he,0 (q, p) = E+ (q, p)1C2 .
+
+For the subprincipal symbol after a lengthy but straightforward calculation
+our basic formula (37) yields
+                                                                          
+                       ~e                          p0
+  he,1 (q, p) = −              σ · B(q) −                    v(q, p) ∧ E(q)
+                    2p0 (q, p)            c (p0 (q, p) + mc)
+                    ~
+              =: − σ · Ω(q, p) .                                            (67)
+                    2
+Note that the factor ~ comes from the fact that the nth term in the space-
+adiabatic expansion carries a prefactor ~n . Defining
+                           p
+               γ(q, p) = 1/ 1 − (v(q, p)/c)2 = p0 (q, p)/(mc)
+
+one concludes that
+                                                                      
+                 e          1                   1
+       Ω(q, p) =                  B(q) −                 v(q, p) ∧ E(q) .   (68)
+                 mc       γ(q, p)        c (1 + γ(q, p))
+We remark that the second term in (37), the “Berry term”, does not coin-
+cide with any of the terms in (68). Indeed, the compact expression (68) is
+obtained only through cancellations in more complicated expressions coming
+from both terms contributing in (37).
+
+   We summarize our results on the adiabatic decoupling and the effective
+dynamics for the Dirac equation in the following
+Theorem 6.1. Let A ∈ Cb∞ (R3 , R3 ) and φ ∈ Cb∞ (R3 , R). Then there exist
+orthogonal projectors Π± with Π+ + Π− = 1 such that [H b D , Π± ] = O0 (ε∞ ),
+and there exists a unitary U and b
+                                 h ∈ OPS11 with
+                                          !
+                                   b
+                                   h e 0
+                             b
+                             h=              ,                          (69)
+                                    0 bhp
+G. Panati, H. Spohn, S. Teufel                                                  187
+
+
+such that
+                           b            b
+                       e−iHD t − U ∗ e−iht U = O0 (ε∞ |t|) .                   (70)
+Here b
+     he and b
+            hp are semiclassical operators on L2 (R3 , C2 ) with
+                                                  ∞
+                                                  X
+                  he (q, p, ε) ≍ E+ (q, p)1C2 +         εj he,j (q, p)
+                                                  j=1
+
+
+and he,j = πr (u # HD # u∗ )j πr ∈ S11−j (B(C2 )) for all j ≥ 0, where u ∈ S10 (ε)
+is constructed as in Section 3. In particular, he,1 (q, p) is given by (67) and
+thus
+       r                     e                           ~
+b
+he = c m2 c2 + (−iε~∇ − A(x))2 + eφ(q) 1C2 − ε σ · Ω(q,         \  p) + O0 (ε2 ) .
+                              c                            2
+
+Analogous results hold for hp . The errors in (70) and (71) are in the norm
+of bounded operators on L2 (R3 , C4 ), resp. on L2 (R3 , C2 ).
+
+     According to the effective Hamiltonian (71) the g-factor of the electron
+equals 2. There would be no problem to add to the Dirac Hamiltonian the
+standard subprincipal symbol [Th], which accounts for the slightly larger
+g-factor of real electrons. Blount [Bl2 ] computes the second order effective
+Hamiltonian he,2 , which he finds to be proportional to 1C2 . he,2 is a sum of
+terms allowed by dimensional reasoning, i.e. proportional to ∇B, ∇E, B 2 ,
+E 2 , EB. Second order corrections seem to be of interest for the dynamics
+of electrons in storage rings. Ignoring the contribution [Bl2 ], nonrigorous
+expansions are [DeKo] and [HeBa].
+
+
+6.2    The semiclassical limit of the Dirac equation
+
+Equipped with he,0 and he,1 we can apply the general results of Section 5
+on the semiclassical limit to the Dirac equation. Let Φt± be the Hamiltonian
+                                                       b = bb 1, b ∈ S 0 (R), be
+flows generated by E± (q, p) on phase space R6 and let B              1
+a semiclassical observable in the unrotated Hilbert space which does not de-
+pend on spin. From Corollary 5.2 we conclude for each T < ∞ the existence
+of a constant CT such that for all t ∈ [−T, T ]
+                                                        
+    B(t) − Wε b(Φt+ ) 1 Π+ ≤ ε CT ,       B(t) − Wε b(Φt− ) 1 Π− ≤ ε CT ,
+
+                  b        b e−iHb D t/(ε~) . Hence, to leading order, states in the
+where B(t) = eiHD t/(ε~) B
+range of Π+ behave like classical relativistic electrons and states in the range
+of Π− like classical relativistic positrons. We emphasize that, in general, Π±
+188                                         Space-Adiabatic Perturbation Theory
+
+
+                                b D , since the variation of φ can be larger than
+are not spectral projections of H
+                  2
+the mass gap 2mc . Hence in the limit of slowly varying potentials a natural
+characterization of “electronic” and “positronic” subspaces is obtained which
+does not come from spectral projections of the free or full Dirac Hamiltonian.
+
+    Next we discuss the leading order spin dynamics, which in the first place
+requires to figure out which operator represents the spin of the electron.
+There has been a considerable discussion on this point, cf. [Th], with no
+general consensus reached. We suspect that the problem is void. The wave
+function is spinor valued and what is observed is the spatial splitting of
+different spinor components in inhomogeneous magnetic fields. Hence we
+should pick the “spin observable” Σ such that the splitting can nicely be
+attributed to it. E.g., in a magnetic field with gradient along the z-direction
+the eigenvectors of Σz should have the property that their spatial support
+goes either parallel to +z or to −z, but should not split. In view of (71) a
+natural choice is to take as spin operator the vector of Pauli-matrices σ in
+the rotated electronic subspace. In the original Hilbert space this amounts
+to                                    
+                                 σ 0           2
+                     Σ=U     ∗
+                                          U = Sb + O(ε) ,
+                                 0 σ           ~
+where S(q, p) is the “mean” spin defined before.
+
+      The leading order semiclassical approximation for
+                                     b              b
+                           σ(t) = eihe t/(ε~) σ e−ihe t/(ε~)
+
+follows from Theorem 5.1. For each T < ∞ there is a constant CT < ∞
+such that for t ∈ [−T, T ]
+
+                               σ(t) − σ[
+                                       0 (t) ≤ ε CT ,                        (71)
+
+where σ0k (q, p, t), k ∈ {1, 2, 3}, is obtained as the solution of
+
+               ∂ σ0k (q, p, t)    ih                                  i
+                               =−    σ · Ω(Φt+ (q, p)), σ0k (q, p, t)        (72)
+                    ∂t            2
+with initial condition σ0k (q, p, 0) = σk . This follows from the Equations (54)
+and (55) by setting σ0k (q, p, t) = D ∗ (q, p, t) σk D(q, p, t).
+
+    To solve Equation (72) one makes an ansatz σ0k (q, p, t) = sk (q, p, t) · σ
+with sk (q, p, 0) = ek . Using [σn , σm ] = 2 i εnmk σk , one finds that the spin-
+or “magnetization”-vector sk (q, p, t) is given as the solution of
+
+                   ∂ sk (q, p, t)
+                                  = − sk (q, p, t) ∧ Ω(Φt+ (q, p)) .         (73)
+                        ∂t
+G. Panati, H. Spohn, S. Teufel                                                189
+
+
+(73) is the BMT-equation [BMT, Ja] on the level of observables. It was
+derived by Bargmann, Michel and Telegdi in 1959 on purely classical grounds
+as the simplest Lorentz invariant equation for the spin dynamics of a classical
+relativistic particle.
+
+    The semiclassical limit of the Dirac equation has been discussed repeat-
+edly and we mention only some recent work. Yajima [Ya] considers time-
+dependent external fields and proves directly a semiclassical expansion for
+the corresponding propagator. As mentioned already at the end of Section 5,
+this program is mathematically rather involved, since one faces the problem
+of caustics in the classical flow, and different expansions have to be glued to-
+gether in order to obtain results valid for all macroscopic times. Based on the
+same approach Bolte and Keppeler [BoKe2 ] derive a Gutzwiller type trace
+formula. Since H b D and U ∗ H b D U are isospectral and since (70) holds, a trace
+formula for the eigenvalue statistics of H  b D could as well be derived from the
+semiclassical propagator of b  h=b  he ⊗ 1 + 1 ⊗ bhp . As argued in Section 5, the
+latter is somewhat easier to obtain. In [GMMP, Sp] the semiclassical limit
+of the Dirac equation is discussed using matrix-valued Wigner functions.
+Their results hold for an arbitrary macroscopic time interval, but fuse, as
+does the WKB approach, adiabatic and semiclassical limit. No higher order
+corrections seem to be accessible and the results are weaker than ours in the
+sense that the approximations do not hold uniformly in the states.
+
+     This leads us to the next natural question: What can be said about
+higher order corrections? While in general one would need he,2 , according
+to (52) the semiclassical limit of observables of the type bb = bb0 1C2 , b0 ∈
+S10 (R), can be determined without this explicit information. For such a scalar
+symbol the principal symbol b0 (t), i.e. the solution to (51), will remain scalar
+and thus its commutator with he,2 in (52) vanishes identically for all times.
+The solution b1 (t) of (52) with initial condition b1 (0) = 0, is not scalar, in
+general. Hence, at this order there is back reaction of the spin dynamics on
+the translational motion. We illustrate this point for the position operator
+x(q, p) = x0 (q, p) := q 1C2 and refer to [Te3 ] for a general analysis of the
+higher order effects in the  semiclassical dynamics of Dirac particles. Now
+x0 (q, p, t) = x0 Φt+ (q, p) and x1 (t) is obtained, according to Equation (52),
+as the solution of
+             d x1 (t)
+                      = {E+ 1, x1 (t)} + i[he,1 , x1 (t)] − {he,1 , x0 (t)}   (74)
+               dt
+with initial condition x1 (0) = 0. The homogeneous part of this equation is
+just the classical translational and spin motion and the inhomogeneity is
+                                          ~
+                       {he,1 , x0 (t)} = − σ · { Ω, x0 (t)} ,                 (75)
+                                          2
+190                                            Space-Adiabatic Perturbation Theory
+
+
+which is not scalar and thus responsible for the splitting of trajectories of
+electrons with distinct spin orientation. Hence, as in (58),
+                                  Z t
+                              ~
+                   x1 (t) = −           ds U (t − s) σ · { Ω, x0 (s)} ,
+                              2    0
+
+where U (t) is the “classical flow” defined through (56).
+
+   Without claim of rigor, we observe in (68) that for small velocities v(q, p)
+one has
+                                       e
+                            Ω(q, p) ≈     B(q) .
+                                      mc
+Let us further assume that B(q) = b qz ez , then
+                                                                           
+           ~                    ~e    ∂B ∂Φtq     ~e                 b 0
+             σ · {Ω, x0 (t)} =     σz         =t
+           2                   2mc ∂qz ∂pz       2m2 c               0 −b
+
+and thus according to (74), (75) the correction to the velocity is proportional
+to t, corresponding to a constant force with absolute value ~e/(2mc)|∇B|,
+as expected for a spin- 21 particle.
+
+
+
+7     Conclusions
+
+The basic formulae (33), (34) can be applied, in essence in a mechanical
+fashion, to any concrete quantum problem with two provisos. First of all
+the problem has to be cast into the general form (1) and secondly one must
+have sufficient information on the principal symbol H0 (q, p). Depending on
+H0 considerable simplifications of (33), (34) may be in force, one example
+being the effective Hamiltonian of the time-adiabatic theorem studied in
+Section 4.4. As a net result, if the conditions of the space-adiabatic Theorem
+2.1 are satisfied, the full Schrödinger equation is approximated by an effective
+Schrödinger equation referring to a specific relevant energy band. The errors
+are estimated and, in general, the time scale of validity is much larger than
+the one which can be reached within a semiclassical approximation.
+
+    We focused our interest on a single relevant energy band. No information
+on the complement is needed except for global quantities like the resolvent
+(H0 (q, p) − Er (q, p))−1 (1 − π0 (q, p)). In previous investigations [Bl1 , LiFl] all
+energy bands are treated simultaneously. An example which would not fall
+under such a scheme is nonrelativistic QED, which governs electrons coupled
+to the quantized radiation field. In this case the principal symbol has a two-
+fold degenerate eigenvalue at the bottom of the spectrum separated by a gap
+G. Panati, H. Spohn, S. Teufel                                              191
+
+
+from the continuous spectrum, provided |p| is sufficiently small and there is
+a suitable infrared cutoff [PST1 ].
+
+    The main restriction of our work is the gap condition of Section 2. There
+are two standard mechanisms of how this condition is violated. (1) There are
+two (or possibly more) locally isolated energy bands of constant multiplicity
+which cross on a lower dimensional submanifold. Away from the crossing
+region the wave function in one band is governed by the effective Hamiltonian
+discussed before. If the wave function comes close to the crossing manifold,
+there is a certain probability to make a transition to the other band. In rather
+specific model systems such transitions have been studied in considerable
+detail [Ha2 , HaJo1 , FeGe, FeLa]. (2) H0 has a smooth band of constant
+multiplicity bordering the continuous spectrum without gap. This is the rule
+in models from nonrelativistic QED with massless photons. Results for the
+massless Nelson model [Te1 ] indicate that smoothness of π0 (q, p) suffices also
+in general for adiabatic decoupling at leading order with intraband dynamics
+generated by h0 + εh1 as defined by (36). However, the expansion stops at
+this stage. Physically, the electron looses energy through radiation, which
+means that the next order correction must be dissipative.
+
+    ¿From the physics point of view the dynamics of molecules and the dy-
+namics of electrons in a solid are the two most prominent areas of application
+for the space-adiabatic perturbation theory. The former has been discussed
+already in Section 4.3. Bloch electrons do not quite fall into our scheme,
+since the classical phase space is Rd × Td , Td a flat d-dimensional torus.
+This requires substantial changes which are discussed in [PST2 ].
+
+
+
+
+A     Operator-valued Weyl calculus
+
+
+Pseudodifferential operators with operator-valued symbols have been widely
+discussed in the literature. The results presented in this Appendix can be
+found in [Hö, Fo, Iv, GMS]. We start with some notation. Let E be a Banach
+space, then C(Rd , E) denote the space of E-valued continuous functions on
+Rd . In the same spirit we will employ the notation S(Rd , E), Lp (Rd , E), with
+the obvious meaning. Note that, in the special case where E = Hf is an
+Hilbert space, one has L2 (Rd , Hf ) ∼
+                                     = L2 (Rd ) ⊗ Hf . The space of the bounded
+operators on E will be denoted as B(E).
+192                                            Space-Adiabatic Perturbation Theory
+
+
+A.1      Weyl quantization
+
+Let A be a B(Hf )-valued rapidly decreasing smooth function on R2d , i.e.
+A ∈ S(R2d , B(Hf )). If we denote by FA the Fourier transform of A then, by
+Fourier inversion formula,
+                               Z
+                            1
+               A(q, p) =           (FA)(η, ξ) ei(η·q+ξ·p) dηdξ ,
+                         (2π)d R2d
+where the integral is a Bochner integral for B(Hf )-valued functions. This
+suggest to define an operator A       b ∈ B(H), called the Weyl quantization of
+A, by substituting e      i(η·q+ξ·p) with ei(η·bq +ξ·bp) ⊗ 1Hf where qb is multiplication
+by x and pb = −iε∇x in L (Rd ). The exponential is defined by using the
+                                   2
+
+spectral theorem and it is explicitly given by
+                      
+       ei(η·bq +ξ·bp) ψ (x) = eiε(η·ξ)/2 eiη·x ψ(x + εξ)       for ψ ∈ L2 (Rd ).     (76)
+Thus                       Z                                       
+              b=    1
+              A                   (FA)(η, ξ)    ei(η·bq +ξ·bp) ⊗ 1Hf dηdξ ,         (77)
+                  (2π)d     R2d
+and, in particular,
+                                       Z
+                  b              1
+                  A B(H)
+                         ≤                   k(FA)(η, ξ)kB(Hf ) dηdξ ,
+                               (2π)d   R2d
+                   b belongs to B(H) provided the Fourier transform of A
+which implies that A
+            1   2d
+belongs to L (R , B(Hf )). We will also use the notation Wε (A) ≡ A b in
+order to emphasize the ε -dependence.
+
+      Substituting (76) in (77) one obtains that for every ψ ∈ S(Rd , Hf )
+                              Z
+                        1                         iξ·(x−y)/ε
+            b
+           Aψ (x) =               A  1
+                                       (x + y), ξ  e           ψ(y) dξdy,  (78)
+                      (2πε)d R2d     2
+
+     b is an integral operator with kernel
+i.e. A
+                                Z
+                            1          1
+                                                     iξ·(x−y)/ε
+             KA (x, y) =            A  2 (x + y), ξ  e           dξ .
+                         (2πε)d Rd
+
+  Taking (78) as a definition, the Weyl quantization can be extended to
+much larger classes of symbols A(q, p).
+Definition A.1. A function A ∈ C ∞ (R2d , B(Hf )) belongs to the symbol
+class Sρm (B(Hf )) (with m ∈ R and 0 ≤ ρ ≤ 1) if for every α, β ∈ Nd there
+exists a positive constant Cα,β such that
+
+                   sup (∂qα ∂pβ A)(q, p)              ≤ Cα,β hpim−ρ|β|
+                  q∈Rd                       B(Hf )
+
+for every p ∈ Rd , where hpi = (1 + |p|2 )1/2 .
+G. Panati, H. Spohn, S. Teufel                                                           193
+
+
+The space Sρm (B(Hf )) is a Fréchet space, whose topology can be defined by
+the (directed) family of semi-norms
+
+       (m)
+   kAkk      =     sup     sup hpi−m+ρ|β| (∂qα ∂pβ A)(q, p)                  ,    k ∈ N.
+                 |α|+|β|≤k q,p∈Rd                                   B(Hf )
+                                                                          (79)
+The following result is proved exactly as in the scalar case, cf. also [GMS].
+                                            b given trough (78) maps
+Proposition A.2. Let A ∈ Sρm (B(Hf )), then A
+S(Rd , Hf ) continuously into itself.
+
+
+    Since A ∈ Sρm (B(Hf )) implies A∗ ∈ Sρm (B(Hf )), the previous result allows
+to extend Ab to a continuous map on S ′ (Rd , Hf ).
+
+    It is convenient to introduce a special notation for such classes of opera-
+tors acting on S(Rd , Hf ), called pseudodifferential operators,
+                               
+                      OP Sρm := Wε (A) : A ∈ Sρm (B(Hf )) .
+
+In the following we will sometimes denote Sρm (B(Hf )) simply as Sρm and we
+will use the shorthand S m := S0m . Notice that Sρm ⊆ Sρm′ for any ρ ≥ ρ′ .
+
+    If A belongs to S 0 (B(Hf )) then the corresponding Weyl quantization is
+a bounded operator on H = L2 (Rd , Hf ). The following proposition sharpens
+this statement (see [Fo], Theorem 2.73).
+
+Notation. Denote by Cbk (Rd , E) the space of E-valued, k times continuously
+differentiable functions on Rd , such that all the derivatives up to the order
+k are bounded. Equipped with the norm
+
+                          kAkC k := sup sup k(∂xα A)(x)kE
+                                b
+                                      |α|≤k x∈Rd
+
+it is a Banach space.
+
+Proposition A.3. (Calderon-Vaillancourt) There exists a constant Cd < ∞
+such that for every A ∈ Cb2d+1 (R2d , B(Hf )) one has
+
+    b
+    A      ≤ Cd          sup         sup     (∂qα ∂pβ A)(q, p)            = Cd kAkC 2d+1 .
+      B(H)                                                       B(Hf )             b
+                     |α|+|β|≤2d+1   q,p∈Rd
+
+
+
+This implies, in particular, that the Weyl quantization, regarded as a map
+Wε : S 0 (B(Hf )) → B(H), is continuous with respect to the Fréchet topology
+on S 0 (B(Hf )).
+194                                        Space-Adiabatic Perturbation Theory
+
+
+A.2    The Weyl-Moyal product
+
+Next we consider the composition of symbols. The behavior of the symbol
+classes with respect to the pointwise product is very simple, as can be proved
+by using the Leibniz rule.
+Proposition A.4. If A ∈ Sρm1 (B(Hf )) and B ∈ Sρm2 (B(Hf )), then AB
+belongs to
+Sρm1 +m2 (B(Hf )) for every m1 , m2 ∈ R.
+
+The behavior under pointwise inversion is described in the following propo-
+sition. For every T ∈ B(Hf ) let the internal spectral radius be ρint (T ) :=
+inf {|λ| : λ ∈ σ(T )} .
+Proposition A.5. Assume that A ∈ Sρm (B(Hf )) is a normal symbol which
+is elliptic, in the sense that there exists a constant C0 such that
+
+                ρint (A(q, p)) ≥ C0 hpim       for any p ∈ Rd .
+
+Then the pointwise inverse A−1 exists and belongs to Sρ−m (B(Hf )).
+
+Proof. As a consequence of the spectral theorem (for bounded normal
+operators) one has
+
+                A−1 (q, p) B(H ) = ρint (A(q, p))−1 ≤ C hpi−m .
+                               f
+
+
+Similar bounds on derivatives can be obtained by noticing that
+
+          ∇p (A−1 ) B(H ) = −A−1 (∇p A) A−1 B(H ) ≤ C ′ hpi−m−ρ
+                        f                             f
+
+
+and applying the chain rule.
+
+
+    The crucial result for pseudodiferential calculus is the following. One
+can define an associative product in the space of classical symbols which
+corresponds to the composition of the operators. Given A ∈ Sρm1 (B(Hf ))
+and B ∈ Sρm2 (B(Hf )) we know that A   b and B  b map S(Rd , Hf ) into itself.
+Then A bBb is still an operator on S(Rd , Hf ) and one can show that there
+exists a unique ε-dependent symbol Symb(A   bB)
+                                              b =: A #̃ B ∈ S m1 +m2 (B(Hf ))
+                                                              ρ
+such that
+                        Wε (A)Wε (B) = Wε (A #̃ B).
+The symbol A #̃ B is called the Weyl product (or the twisted product)
+of the symbols A and B. For the proof of the following proposition in the
+operator valued case we refer again to [GMS].
+G. Panati, H. Spohn, S. Teufel                                                   195
+
+
+Proposition A.6. Let A ∈ Sρm1 (B(Hf )) and B ∈ Sρm2 (B(Hf )), then A  bBb=
+b with C ∈ Sρm1 +m2 (B(Hf )) given through
+C
+                                             
+                       iε                                     
+   C(q, p) = exp          (∇p · ∇x − ∇ξ · ∇q ) A(q, p) B(x, ξ)
+                       2                                        x=q,ξ=p
+                         
+            =: A #̃ B (q, p) .                                          (80)
+                                                       S
+In particular, Sρ0 (B(Hf )) and Sρ∞ (B(Hf )) :=               m
+                                                         m∈R Sρ (B(Hf )) are algebras
+with respect to the Weyl product #̃.
+
+    Since the product A #̃ B depends on ε by construction, one can expand
+(80) in orders of ε. To this end, it is convenient to define suitable classes
+of ε-dependent symbols, called semiclassical symbols, which – roughly
+speaking – are close to a power series in ε of classical symbols with nicer and
+nicer behavior at infinity. Our definition is a special case of the standard
+ones (see [DiSj, Ma, Fo, Hö]).
+Definition A.7. A map A : [0, ε0 ) → Sρm , ε 7→ Aε is called a semiclassical
+symbol of order m and weight ρ if there exists a sequence
+                                                             {Aj }j∈N with
+       m−jρ                                                    Pn−1 j 
+Aj ∈ Sρ      such that for every n ∈ N one has that Aε − j=0          ε Aj
+belongs to Sρm−nρ uniformly in ε, in the following sense: for any k ∈ N there
+exists a constant Cn,k such that for any ε ∈ [0, ε0 ) one has
+                                n−1
+                                X             (m−nρ)
+                         Aε −         εj Aj            ≤ Cn,k εn ,               (81)
+                                              k
+                                j=0
+
+            (m)
+where k. . .kk    is the k-th Fréchet semi-norm in Sρm , introduced in (79).
+
+One calls A0 and A1 the principal symbol and the subprincipal symbol
+of A. The space of semiclassical symbols of order m and weight ρ will be
+denoted as Sρm (ε). If condition (81) is fulfilled, one writes
+                               X
+                          A≍       εj Aj      in Sρm (ε)
+                                 j≥0
+                                                                  P
+and one says that A is asymptotically equivalent to the series j≥0 εj Aj
+in Sρm (ε). If A is asymptotically equivalent to the series in which Aj = 0
+for every j ∈ N, we write A = O(ε∞ ). To be precise, we should write
+A = O(ε∞ ) in Sρm (ε), but the latter specification is omitted whenever it is
+unambiguous from the context.
+                                     P
+    In general a formal power series j≥0 εj Aj is not convergent, but it is
+always the asymptotic expansion of a (non unique) semiclassical symbol (e.g.
+[Ma]).
+196                                                Space-Adiabatic Perturbation Theory
+
+
+Proposition A.8. Let be {Aj }j∈N an arbitrary sequence such that Aj ∈
+                                                      P
+Sρm−jρ . Then there exists A ∈ Sρm (ε) such that A ≍ j≥0 εj Aj in Sρm (ε) and
+A is unique up to O(ε∞ ), in the sense that the difference of two such symbols
+is O(ε∞ ) in Sρm (ε). The
+                      P semiclassical     symbol A is called a resummation
+                             j
+of the formal symbol j≥0 ε Aj .
+
+
+The Weyl product of two semiclassical symbols is again a semiclassical sym-
+bol with an explicit asymptotic expansion (see [Fo], Theorem 2.49).
+                              P       j       m1
+                                                               P      j
+Proposition A.9. If A ≍         j≥0 ε Aj in Sρ (ε) and B ≍       j≥0 ε Bj in
+Sρm2 (ε), then A #̃ B ∈ Sρm1 +m2 (ε) has an asymptotic expansion given by
+
+                                        X         (−1)|α|  α β                    
+     A #̃ B       (q, p) = (2i)−k                            (∂q ∂p Aj )(∂pα ∂qβ Bl ) (q, p)
+              k                                     |α|!|β|!
+                                    |α|+|β|+j+l=k
+                                                                                        (82)
+where it is understood that k, j, l ∈ N and α, β ∈ Nd .
+
+
+For example (A #̃ B)0 is simply given by the pointwise product A0 B0 and
+
+                                                  i
+                       (A #̃ B)1 = A0 B1 + A1 B0 − {A0 , B0 }
+                                                  2
+where {·, ·} denotes the Poisson bracket on Sρ∞ (B(Hf )), defined through
+
+                                          d
+                                          X ∂A ∂B             ∂A ∂B
+                           {A, B} =                       −           .                 (83)
+                                                ∂pj ∂qj       ∂qj ∂pj
+                                          j=1
+
+Notice that, in general, {A, B} =6 −{B, A} since operator-valued derivatives
+do not commute, in particular {A, A} =   6 0. The usual Poisson algebra is
+recovered in the special case in which one of the two arguments is a multiple
+of the identity, i.e. A(z) = a(z)1Hf .
+
+    As a consequence of the previous result, it is convenient to introduce the
+space of the formal power series with coefficients in Sρ∞ (B(Hf )). This space,
+equipped with the associative product given by (82) and with the involution
+defined by taking the adjoint of every coefficient, will be called the algebra
+of formal symbols over B(Hf ). In particular we will denote as Mρm (ε) the
+subspace of the formal power series with a resummation in Sρm (ε), i.e.
+                                                                     
+                                      X                              
+                        Mρm (ε) :=              εj Aj : Aj ∈ Sρm−jρ       .
+                                                                     
+                                          j≥0
+G. Panati, H. Spohn, S. Teufel                                                197
+
+
+In the context of formal power series, the product defined by (82) will be
+called the Moyal product and denoted simply as # . Notice that # defines
+a map from Mρm1 (ε) × Mρm2 (ε) to Mρm1 +m2 (ε). The Moyal product can also
+be regarded as a map from Mρm1 (ε, B(Hf )) × Mρm2 (ε, Hf ) to Mρm1 +m2 (Hf ),
+where in (82) the operator A and its derivatives act on the vector B and its
+derivatives.
+
+    To sum up the previous discussion, we wish to point out that one can
+prove statements on three levels: formal symbols (i.e. formal power series),
+semiclassical symbols, and operators on S(Rd , Hf ) ⊆ L2 (Rd , Hf ). A sim-
+ple example illustrates the interplay between these levels. Suppose that
+two formal symbols A ∈ Mρm1 (ε) and B ∈ Mρm2 (ε) Moyal commute, i.e.
+[A, B]# = A#B − B#A = 0. Let Aε ∈ Sρm1 (ε) and Bε ∈ Sρm2 (ε) be any two
+resummations of A and, respectively, B. Since we know a priori (by Prop.
+A.9) that the Weyl product Aε #̃ Bε belongs to Sρm1 +m2 (ε) it follows that
+the Weyl commutator [Aε , Bε ]#̃ is asymptotically close to zero in Sρm1 +m2 (ε),
+which can be rephrased in the following way: for any n, k ∈ N there exists a
+constant Cn,k such that for any ε ∈ [0, ε0 ) one has
+                                      (m1 +m2 −nρ)
+                       [Aε , Bε ]#̃                     ≤ Cn,k εn .
+                                      k
+
+If ρ > 0 we obtain that definitely m1 + m2 − nρ ≤ 0 for some n ∈ N and then
+Prop. A.3 assures that the operator commutator [A    bε , B
+                                                          bε ] can be bounded
+in the B(H)-norm. Moreover, for ρ > 0, we can conclude that [A          bε , B
+                                                                             bε ]
+is a smoothing operator (i.e. it belongs to OP Sρ   −∞                 m
+                                                        := ∩m∈R OP Sρ ) and
+in particular one can prove that it is a “small” bounded operator between
+the Sobolev spaces H q and H q+r for any q, r ∈ N. To be precise, for any
+q, r, n ∈ N there exist a constant Cn,q,r such that
+
+                          bε , B
+                         [A    bε ]                    ≤ Cn,q,r εn
+                                      B(H q ,H q+r )
+
+for any ε ∈ [0, ε0 ), where H q stands for H q (Rd , Hf ). Notice that for ρ = 0
+and m1 + m2 =: m > 0 it is not possible to conclude from [A, B]# = 0
+that [Abε , B
+            bε ] is a bounded operator, since it could happen – for example –
+                       1
+that [Aε , Bε ]#̃ = e− ε pm , which is asymptotically close to zero in Sρm (ε). In
+the following we will use the same symbol for an element in Sρm (ε) and its
+expansion in Mρm (ε). As suggested by the preceding discussion, we introduce
+the following synthetic notation.
+
+Notation. Let be A and B semiclassical symbols in Sρm (ε). We will say
+that B = A + O−∞ (ε∞ ) if B − A is asymptotically close to zero in Sρm (ε)
+for ρ > 0.
+198                                      Space-Adiabatic Perturbation Theory
+
+
+With a little abuse, we will employ the same notation for pseudodifferential
+operators too, i.e. we write B b=A  b + O−∞ (ε∞ ) if B = A + O−∞ (ε∞ ). As
+                                                                           b −A
+noticed above this is a strong concept of closeness, since it implies that B  b
+is a smoothing operator. Compare with the following weaker concept.
+
+
+Notation. Let be R and S two (ε-dependent) operators on H. We will say
+that R = S + O0 (ε∞ ) if for every n ∈ N there exists a constant Cn such that
+
+                             kR − SkB(H) ≤ Cn εn
+
+for every ε ∈ [0, ε0 ). In such a case we will say that R is O0 (ε∞ )-close to S.
+
+
+
+References
+
+[AhSt] Y. Aharanov and A. Stern. Origin of the geometric forces accom-
+    panying Berry’s geometric potentials, Phys. Rev. Lett. 69, 3593–3597
+    (1992).
+
+[ASY] J. Avron, R. Seiler and L. G. Yaffe. Adiabatic theorems and appli-
+    cations to the quantum Hall effect, Commun. Math. Phys. 110, 33–49
+    (1987).
+
+[BMT] V. Bargmann, L. Michel and V. L. Telegdi. Precession of the po-
+   larization of particles moving in a homogeneous electromagnetic field,
+   Phys. Rev. Lett. 2, 435–436 (1959).
+
+[Be] M. V. Berry. Quantal phase factors accompanying adiabatic changes,
+     Proc. Roy. Soc. Lond. A 392, 45 (1984).
+
+[Bl1 ] E. I. Blount. Formalisms of band theory, Solid State Physics 13, Aca-
+      demic Press, New York, 305–373 (1962).
+
+[Bl2 ] E. I. Blount. Extension of the Foldy-Wouthuysen Transformation,
+      Phys. Rev. 128, 2454–2458 (1962).
+
+[BoKe1 ] J. Bolte and S. Keppeler. Semiclassical time-evolution and trace
+    formula for relativistic spin-1/2 particles, Phys. Rev. Lett. 81, 1987–
+    1991 (1998).
+
+[BoKe2 ] J. Bolte and S. Keppeler. A semiclassical approach to the Dirac
+    equation, Annals of Physics 274, 125–162 (1999).
+
+[BoFo] M. Born and V. Fock. Beweis des Adiabatensatzes, Zeitschrift für
+    Physik 51, 165–169 (1928).
+G. Panati, H. Spohn, S. Teufel                                        199
+
+
+[BoOp] M. Born and R. Oppenheimer. Zur Quantentheorie der Molekeln,
+    Ann. Phys. (Leipzig) 84, 457–484 (1927).
+
+[BoRo] A. Bouzouina and D. Robert. Uniform semiclassical estimates for
+    the propagation of quantum observables, Duke Math. J. 111, 223–252
+    (2002).
+
+[BrNo] R. Brummelhuis and J. Nourrigat. Scattering amplitude for Dirac
+    operators, Commun. Part. Diff. Eqs. 24, 377–394 (1999).
+
+[ChNi] M. C. Chang and Q. Niu. Berry phase, hyperorbits and the Hof-
+    stadter spectrum: Semiclassical dynamics and magnetic Bloch bands,
+    Phys. Rev. B 53, 7010-7023 (1996).
+
+[CDS] J.-M. Combes, P. Duclos and R. Seiler. The Born-Oppenheimer ap-
+    proximation, in: Rigorous Atomic and Molecular Physics (eds. G. Velo,
+    A. Wightman), New York, Plenum, 185–212 (1981).
+
+[DeKo] Y. Derbenev and A. Kondratenko. Sov. Phys. JETP. 37, 968 (1973).
+
+[DGR] M. Dimassi, J.-C. Guillot and J. Ralston. Semiclassical asymptotics
+   in magnetic Bloch bands, J. Phys. A 35, 7597–7605 (2002).
+
+[DiSj] M. Dimassi and J. Sjöstrand. Spectral Asymptotics in the Semi-
+     Classical Limit, London Mathematical Society Lecture Note Series 268,
+     Cambridge University Press 1999.
+
+[EmWe] C. Emmrich and A. Weinstein. Geometry of the transport equation
+   in multicomponent WKB approximations, Commun. Math. Phys. 176,
+   701–711 (1996).
+
+[FeGe] C. Fermanian-Kammerer and P. Gérard. Mesures semi-classique et
+    croisement de modes, Bull. Soc. Math. France 130, 123–168 (2002).
+
+[FeLa] C. Fermanian-Kammerer and C. Lasser. Wigner measures and codi-
+    mension two crossings, to appear in J. Math. Phys. (2003).
+
+[Fo] G. B. Folland. Harmonic analysis in phase space, Princeton University
+     Press, Princeton 1989.
+
+[FoWo] L. Foldy and S. Wouthuysen. On the Dirac theory of spin 1/2 par-
+    ticles and its non-relativistic limit, Phys. Rev. 78, 29–36 (1950).
+
+[GMS] C. Gérard, A. Martinez and J. Sjöstrand. A mathematical approach
+   to the effective Hamiltonian in perturbed periodic problems, Commun.
+   Math. Phys. 142, 217–244 (1991).
+200                                     Space-Adiabatic Perturbation Theory
+
+
+[GMMP] P. Gérard, P. A. Markowich, N. J. Mauser and F. Poupaud.
+   Homogenization limits and Wigner transforms, Commun. Pure Appl.
+   Math. 50, 323–380 (1997).
+
+[GRT] J. C. Guillot, J. Ralston and E. Trubowitz. Semi-classical asymptotics
+   in solid state physics, Commun. Math. Phys. 116, 401–415 (1988).
+
+[Ha1 ] G. A. Hagedorn. High order corrections to the time-independent
+     Born-Oppenheimer approximation I: smooth potentials, Ann. Inst. H.
+     Poincaré Sect. A 47, 1–19 (1987).
+
+[Ha2 ] G. A. Hagedorn. Molecular propagation through electron energy level
+     crossings, Mem. Amer. Math. Soc. 111 (1994).
+
+[HaJo1 ] G. A. Hagedorn and A. Joye. Molecular propagation through small
+    avoided crossings of electron energy levels, Rev. Math. Phys. 11, 41–101
+    (1999).
+
+[HaJo2 ] G. A. Hagedorn and A. Joye. A Time-Dependent Born-Oppenheimer
+    Approximation with Exponentially Small Error Estimates, Commun.
+    Math. Phys. 223, 583–626 (2001).
+
+[HeBa] K. Heinemann and D. P. Barber. The semiclassical Foldy-
+    Wouthuysen transformation and the derivation of the Bloch equation
+    for spin- 21 polarized beams using Wigner functions, Preprint ArXiv.org
+    physics/9901044 (1999).
+
+[HeSj] B. Helffer and J. Sjöstrand. Analyse semiclassique pour l’équation de
+    Harper II, Mémoires de la S.M.F. 40, (1990).
+
+[Ho] J. S. Howland. Stationary scattering theory for time-dependent Hamil-
+     tonians, Math. Ann. 207, 315–335 (1974).
+
+[Hö] L. Hörmander. The analysis of linear partial differential operators II &
+      III, Springer Verlag, Berlin-Heidelberg, 1985.
+
+[HST] F. Hövermann, H. Spohn and S. Teufel. Semiclassical limit for the
+    Schrödinger equation with a short scale periodic potential, Commun.
+    Math. Phys. 215, 609–629 (2001).
+
+[Iv] V. Ivrii. Microlocal analysis and precise spectral asymptotics, Springer
+     Verlag, Berlin-Heidelberg, 1998.
+
+[Ja] J. D. Jackson. Classical Electrodynamics, 3rd edition, John Wiley &
+     Sons, 1998.
+G. Panati, H. Spohn, S. Teufel                                          201
+
+
+[JoPf] A. Joye and C.-E. Pfister. Quantum adiabatic evolution, in: On Three
+    Levels (eds. M. Fannes, C. Maes, A. Verbeure), Plenum, New York,
+    139–148 (1994).
+
+[Ka1 ] T. Kato. Perturbation theory for linear operators, Springer Verlag,
+     Berlin-Heidelberg, 1966 (2nd edition, 1995).
+
+[Ka2 ] T. Kato. On the adiabatic theorem of quantum mechanics, Phys. Soc.
+     Jap. 5, 435–439 (1958).
+
+[KMSW] M. Klein, A. Martinez, R. Seiler and X. P. Wang. On the Born-
+   Oppenheimer expansion for polyatomic molecules, Commun. Math.
+   Phys. 143, 607–639 (1992).
+
+[LiFl] R. G. Littlejohn and W. G. Flynn. Geometric phases in the asymptotic
+     theory of coupled wave equations, Phys. Rev. A 44, 5239–5255 (1991).
+
+[LiWe] R. G. Littlejohn and S. Weigert. Diagonalization of multicomponent
+    wave equations with a Born-Oppenheimer example, Phys. Rev. A 47,
+    3506–3512 (1993).
+
+[Ma] A. Martinez. An Introduction to Semiclassical and Microlocal Analysis,
+    Springer-Verlag, New-York, UTX Series, 2002.
+
+[MaSo] A. Martinez and V. Sordoni. On the time-dependent Born-
+    Oppenheimer approximation with smooth potential, Comptes Rendus
+    Acad. Sci. Paris 334, 185–188 (2002).
+
+[MaFe] V. P. Maslov and M. V. Fedoriuk. Semiclassical Approximation in
+    Quantum Mechanics, D. Reidel Publ. Co., Dordrecht, Holland (1981).
+
+[Ne1 ] G. Nenciu. Linear adiabatic theory. Exponential estimates, Commun.
+      Math. Phys. 152, 479–496 (1993).
+
+[Ne2 ] G. Nenciu. On asymptotic perturbation theory for quantum mechanics:
+      Almost invariant subspaces and gauge invariant magnetic perturbation
+      theory, J. Math. Phys. 43, 1273–1298 (2002).
+
+[NeSo] G. Nenciu and V. Sordoni. Semiclassical limit for multistate Klein-
+    Gordon systems: almost invariant subspaces and scattering theory,
+    Math. Phys. Preprint Archive mp arc 01-36 (2001).
+
+[Ni] L. Nirenberg. Lectures on linear partial differential equations, Amer.
+     Math. Soc., Providence, R.I. (1973).
+
+[PST1 ] G. Panati, H. Spohn and S. Teufel. Space-adiabatic perturbation the-
+    ory in quantum dynamics, Phys. Rev. Lett. 88, 250405 (2002).
+202                                      Space-Adiabatic Perturbation Theory
+
+
+[PST2 ] G. Panati, H. Spohn and S. Teufel. Effective dynamics for Bloch
+    electrons: Peierls substitution and beyond, math-ph/0212041 (2002).
+
+[Ro] D. Robert. Autour de l’Approximation Semi-Classique, Progress in
+     Mathematics, Volume 68, Birkhäuser (1987).
+
+[ShWi] A. Shapere and F. Wilczek (Eds.). Geometric Phases in Physics,
+    World Scientific, Singapore (1989).
+
+[Si] B. Simon. Holonomy, the quantum adiabatic theorem, and Berry’s
+     phase, Phys. Rev. Lett. 51, 2167–2170 (1983).
+
+[Sj] J. Sjöstrand. Projecteurs adiabatiques du point de vue pseudodifférentiel,
+     C. R. Acad. Sci. Paris Sér. I Math. 317, 217–220 (1993).
+
+[So] V. Sordoni. Reduction scheme for semiclassical operator-valued
+     Schrödinger type equation and application to scattering, to appear in
+     Commun. Part. Diff. Eq. (2002).
+
+[Sp] H. Spohn. Semiclassical limit of the Dirac equation and spin precession,
+     Annals of Physics 282, 420–431 (2000).
+
+[SpTe] H. Spohn and S. Teufel. Adiabatic decoupling and time-dependent
+    Born-Oppenheimer theory, Commun. Math. Phys. 224, 113–132 (2001).
+
+[SuNi] G. Sundaram and Q. Niu. Wave-packet dynamics in slowly perturbed
+    crystals: Gradient corrections and Berry-phase effects, Phys. Rev. B
+    59, 14915–14925 (1999).
+
+[Ta] M. E. Taylor. Reflection of singularities of solutions to systems of dif-
+     ferential equations, Comm. Pure Appl. Math. 28, 457–478 (1975).
+
+[TeSp] S. Teufel and H. Spohn. Semiclassical motion of dressed electrons,
+    Rev. Math. Phys. 4, 1–28 (2002).
+
+[Te1 ] S. Teufel. Effective N -body dynamics for the massless Nelson model
+      and adiabatic decoupling without spectral gap, Annales Henri Poincaré
+      3, 939-965 (2002).
+
+[Te2 ] S. Teufel. A note on the adiabatic theorem without gap condition, Lett.
+      Math. Phys. 58, 261–266 (2001).
+
+[Te3 ] S. Teufel. Adiabatic perturbation theory in quantum dynamics, to ap-
+      pear in Springer Lecture Notes in Mathematics (2003).
+
+[Th] B. Thaller. The Dirac equation, Springer Verlag, Berlin-Heidelberg,
+    1992.
+G. Panati, H. Spohn, S. Teufel                                        203
+
+
+[Ya] K. Yajima. The quasi-classical approximation to the Dirac equation I,
+     J. Fac. Sci. Univ. Tokyo Sect. IA Math. 29, 161–194 (1982).
+

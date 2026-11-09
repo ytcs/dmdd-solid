@@ -1,0 +1,83 @@
+\section{The f-sum rule}\label{app:D.6}
+
+This section carries out the commutator algebra behind the f-sum rule \cref{eq:4.3-fsum}, its species-resolved form \cref{eq:4.3-species}, and the corrections from nonlocal potentials, \cref{eq:4.3-fsumNL}, and from the mass--velocity term, \cref{eq:4.3-mv}. The results are stated and used in \cref{sec:4.3}; the treatment of the local case follows Refs.~\cite[Sect.~3.4]{giuliani2005quantum} and \cite[Chap.~2]{pines1966theory}.
+
+\subsection*{One particle and a plane wave}
+
+Write $A = \ee^{\ii\vect{q}\cdot\vect{r}}$ for one particle, with position $\vect{r}$ and momentum $\vect{p}$. Since $[p_\alpha, f(\vect{r})] = -\ii\,\partial_\alpha f$, we have $[p_\alpha, A] = q_\alpha A$, and therefore $A^\dagger p_\alpha A = p_\alpha + q_\alpha$. Conjugation by a unitary operator preserves products and sums, so for any function $F(\vect{p})$ that is a polynomial or a convergent power series,
+\begin{equation}
+  A^\dagger F(\vect{p})\,A = F(\vect{p} + \vect{q}), \qquad A\,F(\vect{p})\,A^\dagger = F(\vect{p} - \vect{q}) .
+  \label{eq:D.6-shift}
+\end{equation}
+The commutator with $A$ follows by factoring $A$ out on the left, $[F(\vect{p}), A] = A\,(A^\dagger FA - F) = A\,G(\vect{p})$ with $G(\vect{p}) = F(\vect{p} + \vect{q}) - F(\vect{p})$. Commuting once more with $A^\dagger$, and using $A^\dagger A = 1$ and \cref{eq:D.6-shift},
+\begin{equation*}
+  [A^\dagger, A\,G(\vect{p})] = G(\vect{p}) - A\,G(\vect{p})\,A^\dagger = G(\vect{p}) - G(\vect{p} - \vect{q}) .
+\end{equation*}
+Inserting $G$ gives the double commutator of any function of the momentum:
+\begin{equation}
+  \bigl[A^\dagger, [F(\vect{p}), A]\bigr] = F(\vect{p} + \vect{q}) + F(\vect{p} - \vect{q}) - 2F(\vect{p}) .
+  \label{eq:D.6-dc}
+\end{equation}
+It is a second difference of $F$, and for the kinetic energy $F = \vect{p}^2/2m$ it is the number $q^2/m$. A function of the position alone commutes with $A$ and contributes nothing.
+
+\subsection*{The current}
+
+For the kinetic energy the single commutator is $[\vect{p}^2/2m, A] = A\,(2\vect{q}\cdot\vect{p} + q^2)/2m$. The symmetrized current has the same form. With \cref{eq:D.6-shift}, $\tfrac12\{\vect{p}, A\} = \tfrac12(\vect{p}A + A\vect{p}) = \tfrac12A(\vect{p} + \vect{q} + \vect{p}) = A(\vect{p} + \vect{q}/2)$, so
+\begin{equation*}
+  \Bigl[\frac{\vect{p}^2}{2m}, A\Bigr] = \vect{q}\cdot\frac{1}{2}\Bigl\{\frac{\vect{p}}{m}, A\Bigr\} ,
+\end{equation*}
+with no remainder: the term $q^2/2m$ is part of the symmetrized current. Summed over the electrons, this is \cref{eq:4.3-continuity}.
+
+\subsection*{Many particles and several species}
+
+The densities are sums over particles, $n_s(\vect{q}) = \sum_{i\in s}A_i$ for each species $s$, electrons or the nuclei of species $\kappa$, with $A_i = \ee^{\ii\vect{q}\cdot\vect{r}_i}$ and $\vect{r}_i$ the position of particle $i$ ($\vect{X}_I$ for a nucleus). Take a Hamiltonian
+\begin{equation}
+  H = \sum_s\sum_{i\in s}F_s(\vect{p}_i) + U(\{\vect{r}_i\}) ,
+  \label{eq:D.6-H}
+\end{equation}
+where $F_s$ is a function of the momentum of one particle, $\vect{p}^2/2m_s$ in the nonrelativistic case, and $U$ is any function of all positions, and of spins, if it does not involve momenta. The Coulomb interactions of \cref{sec:2.3}, external static potentials, the Zeeman energy and the contact hyperfine interaction are of this kind. $U$ commutes with every $A_i$, and so does $F_s(\vect{p}_j)$ for $j \ne i$. Hence
+\begin{equation*}
+  [H, n_{s'}(\vect{q})] = \sum_{i\in s'}[F_{s'}(\vect{p}_i), A_i] ,
+\end{equation*}
+an operator built from the positions and momenta of species $s'$ alone. It commutes with $A_j^\dagger$ for every particle $j$ not of species $s'$, and within species $s'$ only the terms with $j = i$ survive. By \cref{eq:D.6-dc},
+\begin{equation}
+  \bigl[n_s(\vect{q})^\dagger, [H, n_{s'}(\vect{q})]\bigr] = \delta_{ss'}\sum_{i\in s}\bigl[F_s(\vect{p}_i + \vect{q}) + F_s(\vect{p}_i - \vect{q}) - 2F_s(\vect{p}_i)\bigr] .
+  \label{eq:D.6-species}
+\end{equation}
+For $F_s = \vect{p}^2/2m_s$ each particle contributes $q^2/m_s$, the commutator is the number $N_sq^2/m_s$ in every state, and dividing by $\Vol$ gives \cref{eq:4.3-species}. The derivation holds at any temperature, with the nuclei moving, and for any interactions in $U$.
+
+The total charge density of \cref{sec:2.3}, $n_Z = -n_e + \sum_\kappa Z_\kappa n_\kappa$, is a linear combination with real coefficients. The double commutator is bilinear and the mixed terms vanish, so
+\begin{equation}
+  \mathscr{M}^1_{ZZ}(\vect{q}) = q^2\Bigl[\frac{\nd_e}{m_e} + \sum_\kappa\frac{Z_\kappa^2\,\nd_\kappa}{M_\kappa}\Bigr] .
+  \label{eq:D.6-charge}
+\end{equation}
+In a neutral crystal $\nd_e = \sum_\kappa Z_\kappa\nd_\kappa$. The nuclear term relative to the electronic one is then $\sum_\kappa Z_\kappa^2\nd_\kappa m_e/M_\kappa$ divided by $\sum_\kappa Z_\kappa\nd_\kappa$, which for a single species is $Z_\kappa m_e/M_\kappa$, or $2.73\times10^{-4}$ for silicon.
+
+\subsection*{Nonlocal potentials}
+
+A one-body potential that is not a function of position, such as the separable pseudopotential \cref{eq:E.2-KB} or the Fock exchange operator, acts on each electron as an operator $V_{\mathrm{NL}}$ with matrix elements $\langle\vect{r}|V_{\mathrm{NL}}|\vect{r}'\rangle$ between different points. It does not commute with $A$, and since $A$ is unitary,
+\begin{equation}
+  \bigl[A^\dagger, [V_{\mathrm{NL}}, A]\bigr] = A^\dagger V_{\mathrm{NL}}A + AV_{\mathrm{NL}}A^\dagger - 2V_{\mathrm{NL}} .
+  \label{eq:D.6-NL}
+\end{equation}
+Summed over electrons and averaged, this is the extra term of \cref{eq:4.3-fsumNL}; its expectation value in one orbital is twice the $\delta_{\mathrm{NL}}$ of \cref{eq:E.2-fsumNL}. In the separable form, $A^\dagger V_{\mathrm{NL}}A$ is the same sum with the projector functions multiplied by $\ee^{-\ii\vect{q}\cdot\vect{r}}$, so the term is a sum of projections. At small $q$, expanding $A = 1 + \ii\vect{q}\cdot\vect{r} - (\vect{q}\cdot\vect{r})^2/2 + \dots$, the terms of first order cancel between $A^\dagger V_{\mathrm{NL}}A$ and $AV_{\mathrm{NL}}A^\dagger$, and
+\begin{equation*}
+  A^\dagger V_{\mathrm{NL}}A + AV_{\mathrm{NL}}A^\dagger - 2V_{\mathrm{NL}} = -\bigl[\vect{q}\cdot\vect{r}, [\vect{q}\cdot\vect{r}, V_{\mathrm{NL}}]\bigr] + O(q^4) .
+\end{equation*}
+The kinetic energy gives $-[\vect{q}\cdot\vect{r}, [\vect{q}\cdot\vect{r}, \vect{p}^2/2m_e]] = q^2/m_e$ by the same expansion, and the sum of the two is $-\ii\,[\vect{q}\cdot\vect{r}, \vect{q}\cdot\vect{v}]$ with the velocity $\vect{v} = \ii[H, \vect{r}] = \vect{p}/m_e + \ii[V_{\mathrm{NL}}, \vect{r}]$. The Thomas--Reiche--Kuhn rule of a nonlocal Hamiltonian is therefore a statement about the commutator of position and velocity, which equals $\ii\delta_{\alpha\beta}/m_e$ only when $V_{\mathrm{NL}}$ commutes with $\vect{r}$.
+
+\subsection*{Relativistic corrections}
+
+To order $1/m_e^2$, the one-body Hamiltonian of an electron in a potential $U_1(\vect{r})$ adds three terms to $\vect{p}^2/2m_e + U_1$ (\cref{sec:3.5}):
+\begin{equation*}
+  H_{\mathrm{mv}} = -\frac{\vect{p}^4}{8m_e^3}, \qquad H_{\mathrm{Dar}} = \frac{\nabla^2U_1}{8m_e^2}, \qquad H_{\mathrm{so}} = \frac{1}{4m_e^2}\,\vect{\sigma}\cdot(\nabla U_1\times\vect{p}) .
+\end{equation*}
+The Darwin term $H_{\mathrm{Dar}}$ is a function of position and drops out. The spin--orbit term is linear in the momentum, $H_{\mathrm{so}} = \sum_\alpha c_\alpha p_\alpha$, with coefficients $c_\alpha$ that depend on position and spin; the ordering of $c_\alpha$ and $p_\alpha$ does not matter, since $\varepsilon_{\gamma\alpha\beta}\partial_\alpha\partial_\beta U_1 = 0$. Its commutator with $A$ is $\sum_\alpha c_\alpha q_\alpha A$, a function of position and spin, which commutes with $A^\dagger$: the double commutator vanishes. The mass--velocity term is of the form \cref{eq:D.6-dc} with $F = -\vect{p}^4/8m_e^3$. Writing $\vect{p}^2 \pm 2\vect{p}\cdot\vect{q} + q^2$ for $(\vect{p} \pm \vect{q})^2$ and squaring,
+\begin{equation*}
+  (\vect{p} + \vect{q})^4 + (\vect{p} - \vect{q})^4 - 2\vect{p}^4 = 2(\vect{p}^2 + q^2)^2 + 8(\vect{p}\cdot\vect{q})^2 - 2\vect{p}^4 = 4p^2q^2 + 8(\vect{p}\cdot\vect{q})^2 + 2q^4 .
+\end{equation*}
+The expectation value of $(\vect{p}\cdot\vect{q})^2 = q_\alpha q_\beta\,p_\alpha p_\beta$ involves the tensor $\langle p_\alpha p_\beta\rangle$. In an atom, and in a crystal of cubic symmetry, a symmetric second-rank tensor is a multiple of the unit tensor, so $\langle p_\alpha p_\beta\rangle = \delta_{\alpha\beta}\langle p^2\rangle/3$ and $\langle(\vect{p}\cdot\vect{q})^2\rangle = q^2\langle p^2\rangle/3$. Per electron, the mass--velocity term then adds
+\begin{equation*}
+  -\frac{1}{8m_e^3}\Bigl[\Bigl(4 + \frac83\Bigr)q^2\langle p^2\rangle + 2q^4\Bigr] = -\frac{q^2}{m_e}\Bigl[\frac53\,\frac{\langle p^2\rangle/2m_e}{m_e} + \frac{q^2}{4m_e^2}\Bigr]
+\end{equation*}
+to the $q^2/m_e$ of the kinetic energy. Averaged over the electrons, $\langle p^2\rangle/2m_e$ is the mean kinetic energy $\bar K$, and dividing the sum over electrons by $\Vol$ gives \cref{eq:4.3-mv}. For a Coulomb Hamiltonian the virial theorem gives $2\langle T\rangle = -\langle U\rangle$ for the total kinetic and potential energies, so $\langle T\rangle = -E$ and $\bar K = -E/Z$ per electron of an atom. The relativistic corrections also change the current: the velocity acquires the term $-\vect{p}^2\vect{p}/2m_e^3$ from $H_{\mathrm{mv}}$ and a spin-dependent term from $H_{\mathrm{so}}$, and the continuity equation \cref{eq:4.3-continuity} holds with that current. The two-body Breit terms of the electron--electron interaction contain the momenta of pairs of electrons, contribute to the double commutator at the same order in $1/m_e^2$, and are not evaluated here.

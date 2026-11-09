@@ -1,0 +1,2802 @@
+Electronic excitation spectra of cerium oxides: from ab initio dielectric
+response functions to Monte Carlo charge transport simulations
+
+arXiv:2104.12242v1 [cond-mat.mtrl-sci] 25 Apr 2021
+
+Andrea Pedriellia,b , Pablo de Veraa , Paolo E. Trevisanuttoc , Nicola M. Pugnob,d , Rafael Garcia-Molinae , Isabel Abril f , Simone
+Taioli∗a,g , and Maurizio Dapor∗a
+Nanomaterials made of the cerium oxides CeO2 and Ce2 O3 have a broad range of applications, from catalysts in automotive, industrial
+or energy operations to promising materials to enhance hadrontherapy effectiveness in oncological treatments. To elucidate the physicochemical mechanisms involved in these processes, it is of paramount importance to know the electronic excitation spectra of these
+oxides, which are obtained here through high-accuracy linear-response time-dependent density functional theory calculations. In
+particular, the macroscopic dielectric response functions ε̄ of both bulk CeO2 and Ce2 O3 are derived, which compare remarkably well
+with the available experimental data. These results stress the importance of appropriately accounting for local field effects to model
+the dielectric function of metal oxides. Furthermore, we reckon the materials energy loss functions Im(−1/ε̄), including the accurate
+evaluation of the momentum transfer dispersion from first-principles. In this respect, by using a Mermin-type parametrization we
+are able to model the contribution of different electronic excitations to the dielectric loss function. Finally, from the knowledge of
+the electron inelastic mean free path, together with the elastic mean free path provided by the relativistic Mott theory, we carry out
+statistical Monte Carlo (MC) charge transport simulations to reproduce the major features of the reported experimental reflection
+electron energy loss (REEL) spectra of cerium oxides. The good agreement with REEL experimental data strongly supports our
+approach based on MC modelling informed by ab initio calculated electronic excitation spectra in a broad range of momentum and
+energy transfers.
+
+1
+
+Introduction
+
+Cerium oxides are inner transition metal oxides with promising
+applications ranging from fuel cells 1 to catalysis for hydrogen and
+water splitting 2,3 , coating technologies 4 , glass-polishing tools 5
+and electrocromic devices 6 , or locomotive industries 7 . Ceriabased materials have also received increasing attention owing to
+the higher abundance of cerium among the rare-earth family elements, their relative narrow band gap, which makes them active
+in the visible region of the light spectrum (near violet), and their
+stability under irradiation as well as their large adsorption capacity.
+Recently, cerium dioxide (CeO2 ) and dicerium trioxide
+(Ce2 O3 ) nanoparticles (NPs) have been proposed also as possible enhancers of the relative biological effectiveness (RBE) in
+hadrotherapy for cancer treatment 8,9 . In this technique, irradiation by protons or heavier ions is aimed to destroy human
+cells within well localized tumour regions. The use in radiation
+therapy of high-Z materials (such as gold, platinum, gadolinium,
+and iron nanoparticles) concentrated near the tumour region, has
+
+a
+
+European Centre for Theoretical Studies in Nuclear Physics and Related Areas (ECT*Bruno Kessler Foundation) and Trento Institute for Fundamental Physics and Applications (TIFPA-INFN), Trento, Italy
+b
+Laboratory of Bio-inspired, Bionic, Nano, Meta Materials & Mechanics, Department
+of Civil, Environmental and Mechanical Engineering, University of Trento, Italy
+c
+Bruno Kessler Foundation, Trento, Italy
+d
+School of Engineering and Materials Science, Queen Mary University of London, UK
+e
+Departamento de Física, Centro de Investigación en Óptica y Nanofísica, Universidad
+de Murcia, Spain
+f
+Departament de Física Aplicada, Universitat d’Alacant, Spain
+g
+Peter the Great St. Petersburg Polytechnic University, Russia
+* E-mail: taioli@ectstar.eu; dapor@ectstar.eu
+† Electronic Supplementary Information (ESI) available: Supplementary Information contains several figures cited in the text, including band structure, ELF, optical
+properties of cerium oxides, convergence tests, etc...
+
+been shown to enhance the RBE due to an increase in both direct
+and indirect damage 10–17 . However, while some of these NPs can
+be toxic for humans, high-Z ceramic oxides, such as CeO2 , might
+offer a viable biocompatible alternative to enhance localized dose
+and biodamage in radiotherapy 9 . Furthermore, ceria nanoparticles are also being investigated as possible radioprotectors in
+healthy cells 18 , thus making this material more promising during
+hadrontherapy.
+Besides these remarkable applications, the study of the ceriumbased oxides CeO2 and Ce2 O3 is of fundamental interest to understand the electronic and optical properties of materials that
+exhibit strong electron correlation affected by the presence of
+highly localized 4 f states. Indeed, while in experiments both oxides show insulator behaviours in their ground state 19–21 , Density Functional Theory (DFT) predicts correctly a non-magnetic
+insulator state only for CeO2 , while wrongly a metallic one for
+Ce2 O3 22,23 . The latter failure represents a known shortcoming of
+DFT to describe highly-localized orbitals 24 in antiferromagnetic
+materials that exhibit Mott insulating behaviour. To correct this
+deficiency and open the fundamental gap, typically one relies on
+the time-dependent extension of DFT 25 . A different approach
+that can be followed in order to better describe the localized f
+states relies on the use of hybrid functionals 23,26,27 . Finally, a
+more phenomenological way to correct DFT failure in this respect is based on the so-called DFT+U method 28 (or also on the
+GW+U approximation 29,30 , where the GW correction 25,31,32 is
+applied on top of LDA+U), in which the addition of an Hubbard
+correction increases the effective Coulomb repulsion Ueff = U − J
+by the sum of the strong on-site Coulomb interaction of localized electrons U and the strength of the exchange interaction J 33 .
+Within this framework, the localization of the 4 f states in CeO2
+and Ce2 O3 can be achieved, resulting in band gap opening. In
+this regard, several works can be found reporting first-principles
+
+1–21 | 1
+
+simulations of the structural, electronic and optical properties of
+cerium oxides 19,20,22,34 . However, to the best of our knowledge,
+significant differences between simulations and experimental results persist, particularly in the assessment of the optical properties.
+Here we focus our study on the ab initio calculation of the
+electronic band structure and of the dielectric response of bulk
+Ce(+IV)O2 and Ce(+III)2 O3 , which are characterised by the two
+known oxidation states of cerium in solids, using the timedependent Density Functional Theory method (TDDFT) 35 in linear response (LR) approximation 36 . We adopt an interacting allelectron approach not plagued by the presence of pseudopotentials (that deal implicitly with core and explicitly with chemically
+active valence states), the only approximation being the interaction potential among electrons. The macroscopic dielectric function ε̄(q,W ), or the closely related energy loss function ELF(q,W ),
+where q and W are the momentum and energy transfers, respectively, are used to describe the materials excitation spectrum and,
+thus, the inelastic interactions between charged particles and the
+medium constituents 37,38 . In particular, we show that the inclusion of local field effects (LFE) overcomes the discrepancy between simulations and experimental measurements.
+The ELF, conveniently weighted and integrated, provides the
+electron inelastic scattering cross section 38,39 , which is used,
+along with the elastic scattering cross section derived from the
+relativistic Mott theory 40 , as input to a Monte Carlo (MC) routine
+to model the transport of charged particles within these solids and
+predict the reflection electron energy loss (REEL) spectra in particular 41–48 . REEL spectroscopy is an analysis technique that uses
+an electron beam impinging with kinetic energy lower than 2 keV
+into thin films. Primary electrons penetrate a few nanometers
+into the material surface, lose their energy via inelastic collisions
+and are eventually backscattered to the spectrometer 49 , resulting
+in spectra that are typically characterised by a number of structures attributed to both collective (plasmons) and single-electron
+excitations and can be directly benchmarked against available experimental data. Here, the agreement of the simulated and the
+measured REELS is used to validate the TDDFT-calculated electronic excitation spectra of cerium oxides in a broad energy and
+momentum transfers region.
+This paper is organized as follows. In section 2 we summarize the theoretical methods used to perform the ab initio simulations of the dielectric function and the MC strategy. In section
+3 we discuss first the electronic and optical properties of cerium
+oxides, such as the ELF in momentum-energy space. Furthermore, a detailed analysis of the excitation spectra is carried out
+using the Mermin Energy Loss Function–Generalized Oscillator
+Strength (MELF–GOS) approach 50–53 . Finally, the REEL spectra
+are obtained by applying our MC method and compared with experimental measurements. Atomic units are used throughout this
+work except otherwise stated.
+
+2
+
+Theoretical and computational methods
+
+Here we provide the fundamentals of the methodology used to
+obtain the atomic structures and the excitation spectra of bulk
+CeO2 and Ce2 O3 . These properties are required to obtain reliable
+2|
+
+1–21
+
+cross sections needed to simulate the main interactions that affect
+the electron transport through these materials.
+2.1
+
+Materials structure
+
+The DFT+U method 28 has been employed to optimize both the
+cell volume and atomic positions of the cerium oxides. On the one
+hand, CeO2 is characterised by a face centered cubic fluorite-type
+structure, belonging to the Fm3m point group. The primitive cell
+of CeO2 (inset in Fig. 1) has a crystal basis defined by two oxygen
+atoms, which in lattice coordinates are positioned at (0.25, 0.25,
+0.25) and (0.75, 0.75, 0.75), respectively, and one cerium atom,
+centered in (0, 0, 0).
+On the other hand, Ce2 O3 has a trigonal geometry, belonging
+to the P3m1 point group. The primitive cell (inset in Fig. 2) includes three oxygen atoms at the crystallographic positions (0, 0,
+0), (1/3, 2/3, 0.642), and (2/3, 1/3, 0.3574) in lattice coordinates, respectively, and two cerium atoms centered at (1/3, 2/3,
+0.2459) and (1/3, 2/3, 0.754).
+We report in Table 1 the lattice constants of the optimized cells.
+The motivations to fix the value of Ueff = 5 eV, which delivers a
+good agreement with experimental data, will be discussed further
+below.
+Table 1 Calculated CeO2 and Ce2 O3 cell parameters in comparison with
+experimental results.
+
+2.2
+
+Method
+
+Ueff
+
+LSDA+U
+Experim.
+Experim.
+
+5
+
+CeO2
+a (Å)
+5.36
+5.411
+
+Ce2 O3
+a (Å)
+c (Å)
+3.83
+5.95
+
+Ref.
+This work
+54
+
+3.891
+
+6.059
+
+55
+
+Dielectric response
+
+The materials microscopic dielectric function depends on the
+bare Coulomb potential vC and the polarization function χ(q,W )
+through 56 :
+ε(q,W ) = 1 − vC (q)χ(q,W ) .
+(1)
+The polarization function can be obtained by solving the following Dyson-like equation:
+χ −1 (q,W ) = χ0−1 (q,W ) − vC (q) − fxc (q,W ) ,
+
+(2)
+
+where χ0−1 (q,W ) is the non-interacting (or independent-particle)
+polarization calculated from the Kohn-Sham wavefunctions and
+fxc (q,W ) is the TDDFT kernel. In this regard, we have used the
+adiabatic local density approximation (ALDA) kernel, which is related to the LDA exchange-correlation functional vxc [ρ] by:
+
+
+d
+fxc (r,t) =
+vxc [ρ]
+,
+(3)
+dρ
+ρ=ρ(r,t)
+where ρ is the DFT ground state density. This approach is supported by previous works on inelastic X-ray scattering (IXS) for
+finite momentum transfer calculations where the ALDA kernel
+showed a good agreement with the experimental findings due to
+correct inclusion of short range terms 57–60 .
+
+For periodic crystals one can exploit the translational symmetry, and the microscopic dielectric function can be conveniently
+written in reciprocal space, i.e. εG,G0 (q,W ) = ε(q + G, q + G0 ,W ),
+where G and G0 are reciprocal lattice vectors, and q is the transferred momentum vector in the first Brillouin zone (1BZ). Using
+this notation, εG,G0 (q,W ) is also often called the dielectric matrix.
+It can be shown 61,62 that the experimentally measurable macroscopic dielectric function ε̄ and the microscopic one ε are related
+by the following expression:
+h
+i−1
+−1
+ε̄(q,W ) = εG=0,G
+.
+0 =0 (q,W )
+
+(4)
+
+Local field effects (LFE), which are related to local density inhomogeneities, are included by inverting the full dielectric matrix
+and taking subsequently the head of the inverse matrix. The effects of local density inhomogeneities in the dielectric response of
+a material are indeed embedded in the wings of the microscopic
+dielectric matrix.
+The dielectric response function has been obtained using the
+LR-TDDFT implementation of the ELK code suite 63 on top of
+the ground state obtained by the DFT+U method. ELK uses an
+all-electron Full-Potential Linearized Augmented-Plane-Wave (FPLAPW) approach. The Hubbard correction has been treated in the
+fully localised limit (FLL). To deal with the antiferromagneticity of Ce2 O3 , we included both spin polarization and spin-orbit
+coupling. The local spin density approximation (LSDA) exchange
+correlation functional 64 has been used for the ground state calculations alongside the ALDA approximation for the time dependent exchange correlation functional. We also checked the convergence with respect to the number of k-points in the 1BZ, finding well converged results for a 10 × 10 × 10 k-point grid for
+CeO2 and for a 8 × 8 × 8 k-point grid for Ce2 O3 . A number of
+empty bands equal to 50 for each atom have been used to obtain
+converged results up to 120 eV.
+To perform the extension of the dielectric function in the optical limit (i.e. q = 0) to finite momenta the transferred momentum has been selected along the [111], [110], [211] directions
+in reciprocal space for CeO2 and along the [001], [110], [100]
+directions for Ce2 O3 , respectively, with modulus set to 6 Å−1 in
+the reciprocal space.
+2.3 Energy loss function
+To describe the propagation of charged particles through matter
+using the dielectric formalism 37–39 , one relies on the material energy loss function ELF, which is related to the macroscopic dielectric function as follows:
+
+
+−1
+.
+(5)
+ELF = Im
+ε̄(q,W )
+In principle, to determine the inelastic scattering cross section
+one needs to know the dependence of the ELF over the entire
+spectrum of meaningful excitation energies W and momentum
+transfer q 42,45,52,65 . However, typically one has access only to a
+limited range of energies, corresponding to those of the valence
+electrons (. 100 eV), owing to the prohibitive computational effort of including high-energy excitations as well as their momen-
+
+tum dispersion.
+Thus, to extend the excitation energy range beyond the valence regime, we propose to use the MELF–GOS model 50–53 ,
+which implements a numerically effective and accurate method
+to compute the ELF over the entire Bethe surface (i.e., the momentum and energy transfers plane) by including both valence
+and inner shell electronic excitations. In short, the derivation
+of the ELF within the MELF–GOS framework is based on a fitting procedure, whereby the optical-limit ab initio (or measured)
+energy-loss spectrum of the target material is equated to a zeromomentum-transfer functional form that for the valence (outer)
+contribution can be written as a sum of Mermin-type ELFs 66,67 :
+Im
+
+h
+
+i
+−1
+=
+ε̄(q = 0,W ) outer
+h
+
+−1
+
+i
+
+∑ F(W −Wth,i )Im εM (Ai ,Wi , γi ; q = 0,W ) ,
+
+(6)
+
+i
+Ai γiW
+−1
+=
+,
+2
+εM (Ai ,Wi , γi ; q = 0,W )
+(Wi −W 2 )2 + (γiW )2
+
+(7)
+
+i
+
+where:
+Im
+
+h
+
+and
+F(W −Wth,i ) =
+
+1
+1 + e−∆i (W −Wth,i )
+
+(8)
+
+is a smooth switching function characterised by steepness ∆i ,
+which is used as an additional fitting parameter to soften the onset of the outer-shell electronic excitations at the threshold energies Wth,i (F can also be represented by a Heaviside step function).
+The other fitting parameters in eqn ((6)), Ai , Wi , and γi , are related, respectively, to the relative weight, position, and width of
+the peaks observed in the optical ELF spectrum; they are determined so as to reproduce the main features of the ELF obtained
+from ab initio calculations. Within the MELF–GOS framework one
+then makes an interpolation of the TDDFT ab initio data to higher
+excitation energies, using an aW −b functional form, where a is a
+constant and b is a fit parameter obtained from the ab initio data.
+The contribution of inner-shell electrons is included by means of
+atomic generalized oscillator strengths (GOS) as follows 53 :
+h
+Im
+
+j
+
+i
+d f (q,W )
+2π 2 N
+−1
+j
+=
+α j ∑ nl
+Θ(W −Wth,nl ),
+ε̄(q = 0,W ) inner
+W ∑
+dW
+j
+nl
+(9)
+d f j (q,W )
+
+where nldW
+are the GOS of the hydrogenic wavefunctions that
+are obtained using an effective nuclear charge for each inner shell
+identified by the atomic quantum numbers (n, l) of the target j-th
+j
+constituent with stoichiometric weight α j . In eqn (9), Wth,nl is the
+ionization energy of the orbital, and N is the target atomic or
+molecular number density.
+2.4
+
+Monte Carlo simulations of electron transport
+
+In the MC approach the interaction between the incident electron beam and a cerium oxide target is simulated by treating
+the electrons as point particles that follow classical trajectories
+within the material. This is a viable representation at high
+enough energy 68 . Electron trajectories are determined by the
+
+1–21 | 3
+
+elastic and inelastic interactions, which are assessed using quantum mechanical methods. The occurrence of either an elastic
+or inelastic scattering event at kinetic energy T is assessed by
+comparing a random number uniformly distributed in the range
+[0, 1] with the relevant probabilities pel (T ) = Λel (T )/Λtot (T ) and
+pinel (T ) = Λinel (T )/Λtot (T ), where Λtot (T ) = Λinel (T ) + Λel (T ). 41
+−1
+Λel/inel = λel/inel
+(T ) is the inverse mean free path for the elastic or
+inelastic scattering.
+Once the type of collision has been chosen, the angular deviation of the electron trajectory after an elastic collision, given by
+the scattering angle θ , can be evaluated by equating the elastic
+scattering cumulative probability
+Pel (T, θ ) =
+
+2π
+Λel (T )
+
+Z θ
+0
+
+dΛel (T, θ 0 )
+sin θ 0 dθ 0 ,
+dΩ
+
+(10)
+
+to a uniformly-distributed random number generated in the range
+[0, 1]. No energy loss is assumed in an elastic collision.
+In a similar way, the energy loss W due to an inelastic scattering event of an electron with kinetic energy T can be reckoned by
+equating the inelastic scattering cumulative probability distribution:
+ZW
+dΛinel (T,W 0 )
+1
+dW 0
+(11)
+Pinel (T,W ) =
+Λinel (T ) 0
+dW 0
+to another uniformly-distributed random number in the range
+[0, 1]. The angular deviation due to inelastic scattering is evaluated according to the classical binary collision theory 41 .
+The main quantity to account for inelastic events that electrons
+with kinetic energy T undergo when moving through a medium
+characterised by an ELF is the differential inverse inelastic mean
+free path (DIIMFP):
+
+
+Z q+
+1
+1
+−1
+dΛinel (T,W )
+=
+Im
+dq,
+(12)
+dW
+πT q− q
+ε̄(q,W )
+p
+√
+where the integration limits q± = 2T ± 2(T −W ), result from
+energy and momentum conservation in the interaction process.
+From the knowledge of the DIIMFP one can reckon the IMFP
+to be used in the MC simulation of electron transport through
+the cerium oxides by calculating the following inelastic scattering
+cross section:
+Z Wmax
+
+Λinel (T ) =
+
+Wmin
+
+dΛinel (T,W )
+dW,
+dW
+
+(13)
+
+where the integration limit Wmin is set to Egap for semiconductors
+and insulating materials, while Wmax represents the minimum between T and (T +Wmin )/2. By inverting eqn (13) one can obtain
+the inelastic mean free path (IMFP), which represents the average distance between inelastic collisions. The effect on the IMFP
+of electron-polaron and electron-phonon scattering events will be
+neglected due to the high kinetic energy (T ≃ 1.6 keV) considered
+in this work.
+The elastic scattering is accounted for by means of the Mott
+theory 40 , which generalizes the screened Rutherford scattering
+model also at low kinetic energy of the colliders and for high-Z
+materials. This approach provides the differential elastic scattering cross-section (DESCS) for an electron being scattered at an
+
+4|
+
+1–21
+
+angle θ when impinging on a central potential as follows 41 :
+dΛel (T, θ )
+= N [| f (θ )|2 + |g(θ )|2 ],
+dΩ
+
+(14)
+
+where f (θ ) and g(θ ) are the direct and spin-flip scattering amplitudes, respectively, which can be obtained by solving the Dirac
+equation in a central field. This observable represents the probability per unit solid angle that an electron is scattered by the
+target centers.
+However, in condensed matter the central symmetry of atomic
+systems is lost, and thus we must generalize to some extent the
+Mott theory to take into account the presence of bonded interactions among neighbours in the periodic unit cell. Condensed
+phase effects can be achieved by allowing interference between
+the direct fm (θ ) and spin-flip gm (θ ) scattering amplitudes of the
+mth –atom and those of the neighbouring nth –atom. These interference terms account for multiple scattering events among the
+scattered waves modifying eqn (14) as follows:
+dΛel (T, θ )
+= N ∑ exp(iq · rmn ) [ fm (θ ) fn∗ (θ ) + gm (θ )g∗n (θ )] ,
+dΩ
+m,n
+(15)
+where rmn = rm − rn , and rm (rn ) identifies the position of the
+mth (nth ) atom in the periodic unit cell.
+Finally, by integrating over the solid angle one obtains the total
+elastic scattering cross section:
+Z
+
+Λel (T ) =
+Ω
+
+3
+
+dΛel (T, θ )
+dΩ.
+dΩ
+
+(16)
+
+Results and discussion
+
+In the following, the main features of the electronic excitation
+spectra of CeO2 and Ce2 O3 will be discussed. First, the band
+structure, the total and partial density of states (DOS) of electrons
+will be analyzed, which serves to set up the Hubbard parameter
+Ueff for the TDDFT calculations. These DOS will be then useful
+to interpret the dielectric properties of cerium oxides. Finally, the
+electron inelastic scattering cross sections will be obtained from
+the complex dielectric functions, and will be used to perform the
+MC simulations of REEL spectra.
+3.1
+
+Band structures and DOS of bulk CeO2 and Ce2 O3
+
+Ground state DFT calculations have been carried out, aiming particularly to check the dependence of the electronic band structure
+on different values of the Hubbard correction Ueff . After a number of tests carried out on the total density of states (DOS) (see
+Figs. S1 and S2 of the Supplementary Information) and on the
+ELF in the optical limit (see Fig. S5 of the Supplementary Information), Ueff was set to 5 eV. This value has been fixed so that
+i) the localized 4 f band blueshifts with respect to plane LDA and
+opens the fundamental gap, particularly in the case of Ce2 O3 for
+which LDA wrongly predicts a metallic character; ii) the optical
+ELF calculated with this value of Ueff is in fair agreement with the
+experimental data available for CeO2 .
+In CeO2 the fundamental gap occurs between the top of the valence band with O2p character and the bottom of the conduction
+
+150
+
+150
+
+f
+
+f
+
+PDOS (arb. units)
+
+Ce4
+
+p
+
+O2
+
+100
+
+p
+
+Ce5
+
+d
+
+Ce5
+
+50
+
+s
+
+TDOS (arb. units)
+
+p
+
+d
+
+Ce5
+
+50
+
+Ce5
+
+s
+
+Conduction band
+
+O2
+
+(others)
+
+E
+
+O2
+
+p-Ce4f
+
+=2.35 eV
+
+g
+
+E
+
+Ce5
+g
+
+p-Ce5d
+
+=16.8 eV
+
+(others)
+
+400
+
+E
+
+O2
+
+p-Ce5d
+
+=5.2 eV
+
+g
+
+E
+
+100
+
+O2
+g
+
+p-Other
+
+=14.12 eV
+
+50
+
+0
+-20
+
+p
+
+O2
+
+0
+
+0
+
+150
+
+100
+
+Conduction band
+
+O2
+
+-10
+
+0
+
+E (eV)
+
+10
+
+20
+
+TDOS (arb. units)
+
+PDOS (arb. units)
+
+Ce4
+
+E
+
+f
+
+Ce4 -Ce5
+
+g
+
+200
+
+E
+
+Ce5
+
+d4f
+
+=2.04 eV
+
+p-Ce5d4f
+
+g
+
+=15.10 eV
+
+E p
+O2
+
+-Ce5
+
+d4f
+
+=3.83 eV
+
+g
+
+E
+0
+-20
+
+-10
+
+0
+
+O2
+
+p-Cond
+
+g
+
+=13.06 eV
+
+10
+
+20
+
+E (eV)
+
+Fig. 1 Top panel: partial DOS of bulk CeO2 (Ueff = 5 eV) showing
+orbitals contributions for both cerium (dashed lines) and oxygen (continuous lines). Bottom panel: Total DOS. The Fermi level is set to the
+origin of the energy axis. Inset: CeO2 primitive cell, cerium and oxygen
+in blue and red color, respectively.
+
+Fig. 2 Top panel: partial DOS of bulk Ce2 O3 (Ueff = 5 eV) showing
+orbitals contributions for both cerium (dashed lines) and oxygen (continuous lines). Bottom panel: Total DOS. The Fermi level is set to the
+origin of the energy axis. Inset: Ce2 O3 primitive cell, cerium and oxygen
+in blue and red color, respectively.
+
+band formed by the localized Ce4 f orbitals. This can be observed
+in the bottom panel of Fig. 1, where we plot the total DOS of
+bulk CeO2 along with the relevant band gaps (the Fermi level is
+set to the origin of the energy axis). In particular, in the top panel
+of Fig. 1 we show the contribution to the total DOS of cerium
+(dashed lines in the top panel) and oxygen (continuous lines in
+the top panel), respectively, along with the projection on the relevant angular momenta (PDOS). This analysis shows clearly the
+hybridization between different symmetry orbitals of O and Ce.
+In particular, a deeper occupied band (below −10 eV in Fig. 1)
+is mainly formed by Ce5p mixed with O2s, while O2p and Ce4 f
+hybridize between −5 eV and 0 eV. Above the valence band, between 0 eV and 5 eV, there is a localized Ce4 f -O2p narrow band
+and beyond that we find a conduction band mainly of Ce5d nature with a mixture of several O and Ce levels at larger energies
+between 5 eV and 15 eV (see also Fig. S3 of the Supplementary
+Information).
+In Table 2 we also report, in comparison with other theoretical and experimental data, the gaps between the O2p valence
+band and the 4 f states and between the O2p valence band and
+the Ce5d conduction band with the exclusion of the 4 f states.
+The latter is more affected by the fine tuning of Ueff . Plain DFT
+values show the typical underestimation of the fundamental gap
+(2.05 eV) with respect to experimental measurements (ranging
+from 3.3 to 3.6 eV 72–74 ), slightly improved to 2.35 eV by adding
+the Hubbard correction Ueff .
+
+The full band structure of CeO2 calculated using DFT+U is
+given in Fig. S3 of the Supplementary Information for reference.
+Both conduction (above 4 eV) and valence (below −1 eV) bands
+show some significant dispersion, while the 4 f states between 0.8
+and 2 eV have smaller bandwidth. From the band plot analysis it
+turns out that CeO2 is an indirect gap insulator. Our results are
+in very good agreement with previous studies using hybrid functionals 19,23 .
+In the case of Ce2 O3 , the addition of the Hubbard correction is
+critical in the simulation of the electronic band structure and DOS
+as this material is wrongly predicted to be a metal by DFT-LDA. In
+fact, the Ce atom in Ce2 O3 displays a +3 oxidation state, where
+one electron is expected to populate the 4 f band leading to pos-
+
+Table 2 Band gap opening (eV) in bulk CeO2 using different exchangecorrelation functionals in DFT simulations.
+Method
+LSDA
+LSDA+U
+LSDA+U
+GGA
+PBE
+PBE
+PBE
+HSE
+Experim.
+
+Ueff
+3
+5
+
+Band gap
+O2p →Ce4 f
+2.05
+2.35
+2.35
+2.3
+1.7
+1.7, 1.9
+1.8
+3.5, 3.3
+3
+
+Band gap
+O2p →Ce5d
+5.8
+5.5
+5.3
+
+Ref.
+This work
+This work
+This work
+22
+69
+23
+
+5.7
+7.0
+6–8
+
+70
+23
+71
+
+1–21 | 5
+
+3.2 The excitation spectrum of bulk CeO2
+The excitation spectrum of bulk materials is determined by the
+real (ε̄1 ) and imaginary (ε̄2 ) parts of the complex macroscopic
+dielectric function (see eqn (4)). The former informs about the
+screening capacity of the material to electric fields, while the latter provides the spectrum of possible electronic transitions between occupied and empty states. They are directly connected
+to the optical refractive index and extinction coefficient (see Fig.
+S10 and eqn (S1) of the Supplementary Information), so they can
+be straightforwardly checked against experimental optical determinations for q → 0. Particularly, ε̄2 can be correlated with the
+PDOS obtained in subsection 3.1, which allows to identify the origin of the different excitations. The latter are in turn connected
+to the structure of the ELF, and this identification may be relevant
+for the assessment of the quality of the obtained spectra (see sections 3.2 and 3.3 below) and the calculation of the inelastic mean
+free path 67 .
+Fig. 3 shows the real (ε̄1 , top panel) and imaginary (ε̄2 , bottom
+panel) parts of the macroscopic dielectric function in the optical limit (q → 0), respectively, in comparison with experimental
+data 20,21,75,76 . We notice how the inclusion of LFE in the descrip-
+
+Table 3 Gaps between bands (eV) in bulk Ce2 O3 using different Ueff in
+DFT simulations.
+Method
+
+Ueff
+
+LSDA+U
+LSDA+U
+
+5
+6
+
+6|
+
+Band gap
+O2p →Ce4 f
+1.1
+1.7
+
+Band gap
+O2p →Ce5d
+3.95
+3.97
+
+1–21
+
+Band gap
+Ce4 f →Ce4 f , 5d
+2.04
+2.59
+
+10
+This work with LFE
+
+8
+
+This work w/o LFE
+Experiments:
+Marabelli et al. (1987)
+
+6
+
+1
+
+Niwano et al. (1988)
+Goubin et al. (2004)
+
+4
+
+Pauly et al. (2017)
+
+2
+0
+-2
+8
+
+6
+
+2
+
+sible ferromagnetic or antiferromagnetic ground state. By switching on the Hubbard correction we obtain the localization of the
+4 f states, with redshift of the latter bands by increasing Ueff from
+5 to 6 eV (see a plot of the DOS of bulk Ce2 O3 for Ueff = 5, 6 eV
+in Fig. S2 of the Supplementary Information) and with blueshift
+of the conduction bands at higher energies. The gaps between
+different bands are reported in Table 3.
+In Fig. 2 we show the total (TDOS, bottom panel) and projected (PDOS, top panel) DOS of Ce2 O3 . The full band structure
+calculated using DFT+U is given in Fig. S4 of the Supplementary Information for reference. From the analysis of the PDOS we
+notice that the Ce4 f band splits in two subbands, a very narrow
+occupied band, and a narrow and intense empty band that overlaps with the empty Ce5d band above the Fermi level (the origin
+of the energy axis), respectively. The DOS is also characterised
+by a valence band mainly of O2p nature, a deeper occupied band
+mainly of Ce5p origin, and an outer conduction band above 10 eV
+which is a mixture of high energy states from all constituents.
+The almost localized nature of the 4 f band can be seen in Fig.
+S4 of the Supplementary Information, where a flat band around
+−1 eV from the Fermi level appears. At variance, the other conduction bands show a large dispersion owing to the hybridization
+of the Ce4 f , 5d states with O2p orbitals. Finally, we notice that
+also Ce2 O3 is an indirect gap insulator, being found the top of
+the valence band at the Γ-point and the bottom of the conduction
+band at the K-point.
+
+4
+
+2
+
+0
+
+0
+
+10
+
+20
+
+30
+
+40
+
+Energy (eV)
+
+Fig. 3 Top panel: comparison between the real part (ε̄1 ) of the experimental dielectric function of bulk CeO2 20,21,75,76 and our calculation.
+Bottom panel: comparison between the imaginary part (ε̄2 ) of the experimental dielectric function of bulk CeO2 20,21,75,76 and our calculation.
+Both ε̄1 and ε̄2 are calculated along the [111] direction of the momentum transfer, taking afterwards the q → 0 limit. The inclusion of LFE
+improves the agreement with experimental data, flattening in particular
+the features in the range 15–30 eV.
+
+tion of the macroscopic dielectric function is critical to reproduce
+the experimental measurements, in particular in the flattening of
+the third major peak between 15–20 eV in ε̄1 and between 20–
+25 eV for ε̄2 .
+The features seen in Fig. 3 for ε̄2 can be understood on the
+basis of the PDOS shown in the top panel of Fig. 1. The first peak
+around 3 eV corresponds to the transition from the O2p valence
+band to the Ce4 f localized states, with the fundamental band gap
+of 2.35 eV. The second gap extracted from Fig. 1 is of 5.2 eV,
+above which three main structures can be seen in the ε̄2 spectrum
+of Fig. 3 below 15 eV. These peaks correspond to the superposition of the PDOS of the O2p occupied levels with that of the Ce5d
+empty levels. The next peaks above 15 eV correspond to a mix of
+transitions from the O2p band to the top part of the conduction
+band (being an hybridization of s, p, d and f states, labelled as
+“conduction band (others)” in Fig. 1) and from the Ce5p band
+to the conduction Ce5d band, as previously noted 19 . The former
+presents an approximate onset of 14.12 eV (a dip in the PDOS of
+the conduction band should be noted in Fig. 1 around 14 eV),
+while the latter has a gap of 16.8 eV (see Fig. 1), approximately
+corresponding with the structures observed in Fig. 3. This assignment is in agreement with previous studies 20,21,77,78 . Transitions
+
+3.0
+ALDA with LFE
+ALDA w/o LFE
+
+2.5
+
+RPA with LFE
+
+light of the f - and ps-sum rules 79 , which serve to check the accuracy of an optical ELF. The former gives the effective number of
+electrons per unit cell participating in the electronic excitations:
+
+RPA w/o LFE
+
+2.0
+
+Neff =
+
+1.5
+
+2
+πΩ2p
+
+Z W0
+0
+
+h
+W 0 Im
+
+−1 i 0
+dW ,
+ε̄(0,W 0 )
+
+(17)
+
+p
+where Ω p = 4πN e2 /m, which should converge to the atomic
+0
+number as Wmax
+→ ∞. The latter sum-rule states that the ELF
+should fulfill equation:
+
+1.0
+0.5
+
+ELF
+
+max
+
+2
+π
+
+0.0
+ALDA, LFE, broad.
+Experiments:
+Marabelli et al. (1987)
+
+1.5
+
+Niwano et al. (1988)
+Goubin et al. (2004)
+Pauly et al. (2017)
+
+1.0
+
+0.5
+
+0.0
+0
+
+20
+
+40
+
+60
+
+80
+
+Energy (eV)
+
+Fig. 4 Optical energy-loss function of CeO2 under different approximations. Top panel: calculations using ALDA and RPA approximations,
+with and without LFE. Bottom panel: optical ELF obtained within ALDA
+and LFE applying peak broadening, in comparison to different sets of experimental data 20,21,75,76 .
+
+with ∆l = ±1 are allowed, despite angular momentum selection
+rule, owing to the hybridization between p, d and f orbitals of O
+and Ce (see top panel of Fig. 1).
+The optical ELF of CeO2 is shown in Fig. 4. The top panel
+depicts the TDDFT results using the ALDA kernel or the Random
+Phase Approximation (RPA), including or not LFE. Both ALDA and
+RPA give similar results, while LFE play a crucial role in reducing
+the intensity of the optical ELF, bringing it closer to the experimental data 20,21,75,76 . The ALDA calculation including LFE is
+compared to recorded data in the bottom panel, where a broadening to the calculated ELF has been applied in order to account
+for the finite lifetime of the electronic excitations and the experimental resolution. To take into account the electron-electron and
+phonon dephasing, we have added an absolute Lorentzian width
+equal to 0.2 eV, a Lorentzian with quadratic energy dependence
+multiplied by a factor 6×10−4 and a Gaussian with σ =0.2 eV. The
+calculations agree well with the experimental data below 40 eV,
+except for intensities of the peaks for Ref. 76 . We notice that the
+agreement between our calculations and the experimental findings by Goubin et al. 20 is remarkable in the entire energy range.
+Above 40 eV, the calculations overestimate the experiments, although they reproduce very well their shape.
+The discrepancy found between our calculations and experiments at the larger energies in Fig. 4 can be rationalised in the
+
+Z ∞
+0
+
+h
+Im
+
+−1 i dW 0
+1
++ 2 = 1.
+ε̄(0,W 0 ) W 0
+n0
+
+(18)
+
+The f -sum rule fulfillment can be required also shell by shell,
+which allows a more in depth assessment of the optical ELF. 67
+The optical ELF can be fitted by means of the MELF–GOS model,
+see section 2.3. This fitting does not only provide an appropriate
+extension of the first-principles ELF to large energy and momentum transfers (needed to compute both the sum rules and the
+electronic cross sections), but can also help to assign the different
+features of the ELF to particular transitions if the individual Mermin and GOS functions are associated to particular transitions, as
+suggested in Ref. 67 .
+Note that, since we are dealing with all-electron simulations, in
+principle the inclusion of high-energy transitions above 120 eV is
+possible. However, the extension of the simulations in the energy
+axis well beyond the value of 120 eV cannot be typically achieved
+at an affordable computational cost from first-principles calculations. In this respect, this extension of the energy range (including the Ce and O core levels) has been performed by means of the
+atomic GOS within the MELF–GOS model, while at intermediate
+energies between valence and core excitations, a Mermin function fitting to the atomic X-ray data by Henke et al. 80 has been
+carried out.
+The structures observed in the ε̄2 spectrum can be translated
+to those seen in the optical ELF, where the peaks are generally
+shifted to larger energies as compared to ε̄2 , as ELF=Im(−1/ε̄) =
+ε̄2 /(ε̄12 + ε̄22 ) (see Figs. 3 and 4 for a comparison between energy peaks) and typically ε̄1 decreases with an increase in the
+energy transfer. Additionally, plasmon excitations can be found
+by searching for the conditions ε̄1 ≈ 0 and ε̄2  1. According to
+our calculations, only the excitations around 12-14 eV and 32 eV
+could have collective or plasmon-like character. While several authors 21,77,81 attribute the first peak to a plasmon excitation, this
+is not entirely evident from our simulations, even though the inclusion of LFE lowers the minimum of ε̄2 in correspondence of
+ε̄1 ≈ 0 (see Fig. 3), resulting in a maximum of the ELF.
+Following the trends in the band gaps and ε̄2 features obtained
+from the PDOS analysis, we fitted the first-principles optical ELF
+of CeO2 with 11 Mermin ELFs assigned to particular transitions,
+see Fig. 5. However, two of the Mermin functions (7 and 11,
+shown by a gray line) were intended to act as “baseline” to obtain
+a smooth crossover between valence and core levels and, thus,
+have not been assigned to any particular transition to fulfill the
+sum rules. Note that for the larger energies (Ce5s, O2s and larger
+energy excitations, including those described by GOS), threshold
+
+1–21 | 7
+
+Table 4 Assignment of Mermin functions and fulfillment of the individual
+f -sum rule of each interband transition for bulk CeO2 .
+
+Mermin
+1
+2
+3-4
+1-4
+5
+6
+7
+8-9
+10
+11
+GOS
+OK
+CeM
+CeL
+CeK
+Total
+
+Transition
+O2p →Ce4 f
+O2p →Ce5d
+(Plasmon-like)
+O2p →Cond. (others)
+O2p,Ce6s,5d, 4 f b
+Ce5p → 5d
+(Plasmon-like)
+Ce5s,O2s →Ce5d
+Not assigned
+Ce4d → 5d
+Ce4s, 4p → 5d
+Not assigned
+Atomic shells
+O1s
+Ce3s, 3p, 3d
+Ce2s, 2p, 4 f
+Ce1s
+
+Wth (eV)a
+2.35
+5.20
+
+Nexp
+
+Neff
+
+16.80
+
+12b
+6
+
+8.08
+6.13
+
+37.80c
+
+6
+
+100.68c
+206.53c
+
+10
+8
+
+5.91
+5.32
+10.87
+7.89
+6.39
+
+543.10c
+883.80c
+5723.00c
+40443.00c
+
+4
+18
+8
+2
+74
+
+14.12
+
+3.48
+14.23
+4.53
+1.07
+73.89
+
+a Threshold energies derived from the PDOS except otherwise stated
+b The Mermin functions 1-4 describe the excitations of the outermost valence electrons, located in a band of mainly O2p origin, but which also contains the valence
+electrons Ce6s, 5d, and 4 f , see Fig. 1
+c From Ref. 82
+
+energies have been taken from atomic binding energies from the
+X-Ray Data Booklet 82 , see Table 4. The individual contributions
+to the Mermin function fitting of the first-principles optical ELF
+are depicted by thin solid lines in Fig. 5 and the corresponding parameters are given in Table S1 in the Supplementary Information.
+Each Mermin function or group of functions has been assigned to
+particular transitions, as indicated in Table 4. The assignment
+has been made with the purpose of fulfilling the individual f -sum
+rules, i.e. that the effective number of electrons Neff coming from
+each interband transition is close to the number of electrons expected in such transition Nexp .
+To this respect, two further aspects should be taken into account. First, the Mermin functions 1 to 4 are associated with
+transitions from the occupied O2p band, as this is the main hybridization of the valence band. However, this being the outermost band, it also hosts the valence electrons from Ce6s, 5d, 4 f ,
+so the total expected number of electrons there should be 12.
+Second, the inner shells, described by hydrogenic GOS, systematically underestimate the number of inner-shell electrons (see Table 4). In CeO2 the number of core electrons in the OK, CeK, L, M
+shells is 32, while we find ≈ 23. Thus, the remaining electrons are
+relocated in the outer shells in order to fulfil the total f -sum rule.
+These missing electrons are located in the unassigned “baseline”
+Mermin functions (7 and 11), so they do not affect much the electron count in the other assigned contributions.
+Despite some underestimation in the number of electrons in a
+few shells (e.g. of the 12 O2p and Ce4 f , 5d and 6s electrons,
+only 8.08 electrons were found, see Table 4), the assignment of
+the levels is rather satisfactory for most of the transitions. The
+
+8|
+
+1–21
+
+∼ 4 electrons missing from the O2p and Ce6s, 5d, 4 f bands (Mermin functions 1 to 4) are contained in the seventh not assigned
+Mermin function (see Table 4), which possibly may represent a
+large energy tail of these transitions. The fulfilment of the total
+f - and ps-sum rules is remarkable, with errors of −0.15% and
++0.36%, respectively. Particularly, the effective number of electrons in our fitting corresponding to the Ce5p → 5d (dark green
+line in Fig. 6) and Ce5s,O2s →Ce5d transitions (red line) is very
+close to the expected number of electrons. This reveals an underestimation in the f -sum rule of the experimental ELFs 20,21,75,76
+in the range 30–70 eV, which may reveal some degree of experimental uncertainty. The Mermin functions corresponding to the
+Ce4d → 5d (orange line) and Ce4s, 4p → 5d transitions (purple
+line) also deliver effective number of electrons remarkably close
+to the expected ones.
+Finally, to determine the inelastic scattering cross sections
+within the dielectric approach 38,39,41 , we need to assess the dependence of the ELF in both the energy and momentum space
+(the so-called Bethe surface). We report in Fig. S6 of the Supplementary Information the energy and momentum dependent ELF
+of bulk CeO2 calculated according to eqns (4) and (5) in the range
+0 − 6 Å−1 along the [111] direction in reciprocal-space for energies up to 120 eV. We notice that the agreement between MELF–
+GOS and TDDFT results is reasonable at low energy and finite momentum, while the peak at 120 eV shows a momentum dispersion
+that does not increase in energy (see Fig. S6 of the Supplementary Information). We assessed the dependence on the direction
+of the momentum transfer of the ELF of bulk CeO2 , finding a small
+difference between the [111], [110], [211] orientations (see Fig.
+S7 of the SI showing this dependence). Therefore, we used the
+ELF in the [111] direction for the Monte Carlo simulations of the
+REEL spectrum.
+
+3.3
+
+The excitation spectrum of bulk Ce2 O3
+
+To identify the electronic transitions of bulk Ce2 O3 we followed
+an approach similar to that of CeO2 , based on the MELF–GOS
+fit. The first-principles real (ε̄1 ) and imaginary (ε̄2 ) parts of the
+macroscopic dielectric function, together with the resulting ELF
+in the [001] (solid lines) and the equivalent [110] and [100] directions (dashed lines) are shown in Fig. 6, taking the q → 0 limit.
+Although there is a small difference in the crystal direction, it will
+be seen that it is not as significant to affect the REEL Monte Carlo
+simulations.
+From the combined analysis of the PDOS (see Fig. 2) and
+of Fig. 6 we can argue that the first shoulder around 5 eV
+corresponds to the Ce4 f →Ce4 f , 5d transition, with a gap of
+2.04 eV. The next two peaks correspond to transitions from the
+O2p band to the narrow Ce4 f band, and from the O2p band to
+the wider Ce5d band, with threshold 3.83 eV. The first peak above
+13 eV corresponds to another O2p transition to conduction band,
+composed of a mixture of states, with approximated threshold
+13.06 eV (notice the dip in the TDOS at this energy in Fig. 2).
+The other peaks above 13 eV can be attributed to transitions from
+the Ce5p band to the Ce4 f , 5d band, with threshold of 15.10 eV.
+The O2s → Ce4 f , 5d transitions can be found at higher energies.
+
+p
+
+f
+
+O2
+
+O2
+
+Ce4
+
+p
+
+Cond. others
+
+Ce4
+
+d
+
+Ce5
+
+d
+
+-1
+
+10
+
+1.5
+
+p
+
+Ce5
+
+d
+
+s p
+
+Ce4 +4
+
+ELF(q=0,
+
+W
+
+)
+
+O2
+
+1.0
+
+Ce5
+
+p
+
+Ce5
+
+Ce5
+
+d
+
+d
+
+-2
+
+10
+
+-3
+
+10
+
+-4
+
+0.5
+
+Ce5
+O2
+
+s
+
+s
+
+Ce5
+Ce5
+
+10
+
+d
+d
+
+-5
+
+10
+
+-6
+
+0.0
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+
+W
+
+2
+
+10
+
+3
+
+10
+
+4
+
+10
+
+10
+
+(eV)
+
+Fig. 5 Optical ELF of bulk CeO2 at low (left panel) and high (right panel) energies obtained from ALDA with LFE and considering peak broadening
+(symbols), together with Mermin ELF fitting for different transitions indicated by labels (solid lines).
+
+8
+[110] [100]
+[001]
+
+2
+
+6
+
+4
+
+ELF
+
+1
+
+2
+
+0
+
+-2
+
+0
+
+0
+
+10
+
+20
+
+W
+
+30
+
+40
+
+50
+
+(eV)
+
+Fig. 6 Real (ε̄1 , blue lines) and imaginary (ε̄2 , red lines) part of the
+macroscopic dielectric function of bulk Ce2 O3 along with the optical
+ELFs. ε̄1 , ε̄2 and the optical ELF are presented along the [001] (solid
+lines) and the [110] and [100] directions (dashed lines) of the momentum
+transfer.
+
+The optical ELF of bulk Ce2 O3 is fitted using the MELF–GOS
+model following the above assignments and band gaps, and we
+report its low (< 70 eV) and high (up to 10 keV) energy structure
+in Fig. 7. As seen from Table 5, a number of 17.12 electrons
+are missing from the inner shells, which are relocated among
+the outer shells. The first Mermin function (cyan curve) represents the Ce4 f (occupied) → Ce4 f , 5d (empty) transition. The
+transitions from the O2p band (also containing the outermost
+Ce4 f , 5d, 4s electrons) can be separated in three distinguishable
+contributions. The green line corresponds to the transition from
+the O2p levels to the narrow empty band of Ce4 f character with
+threshold 3.83 eV, and possibly having a plasmon-like character,
+as suggested by the results of Fig. 6. The blue line represents the
+transition to the wider Ce5d band with threshold 3.83 eV, and fi-
+
+nally the magenta line identifies the transition to the upper part of
+the conduction band with an approximate threshold of 13.06 eV.
+A test of the f -sum rule by integrating all the 1-4 Mermin functions delivers 20.68 electrons, comparable to the expected value
+of 20.
+As in the case of CeO2 , the Ce5s,O2s → Ce4 f , 5d transition (red
+line) is located at higher energies with a threshold of 37.8 eV
+(from Ref. 82 ). The f -sum rule test delivers 10.10 electrons of the
+10 electrons expected. A seventh Mermin function (gray line) has
+not been assigned, and recovers a major part (11.81 of 17.12)
+of the electrons missing from the inner shells. Finally, we identify the transitions Ce4d →Ce5d lying above 10.6 eV (orange line,
+24.47 electrons of the 20 expected, containing also some of the
+electrons missing from the inner shells) and Ce4s, 4p →Ce5d (purple line, 15.98 electrons of the 16 expected). We notice the satisfactory fulfillment of the total f -sum rule with an error of 0.14%,
+and of the ps-sum rule with an error of 0.70%.
+The energy and momentum dependent ELF of bulk Ce2 O3
+along the [110] direction in reciprocal-space from 0 to 6 Å−1 is
+provided in the bottom panel of Fig. S6 of the Supplementary
+Information. As for CeO2 , we also checked the dependence on
+the direction of the momentum transfer of the ELF of bulk Ce2 O3 ,
+finding a difference between the [001], [110], [100] orientations
+(depicted in Fig. S8 of the Supplementary Information) without
+significant effects on MC simulations of REEL spectra. Thus, we
+used the ELF structure in the specific direction [110] for the momentum transfer in MC simulations.
+
+3.4
+
+Electron transport in the cerium oxides
+
+The description of the inelastic interactions of charged particles
+moving through bulk solids in terms of the DIIMFP (see eqn (12))
+and of the IMFP (see eqn (13)) is one of the input information to
+carry out charge transport MC simulations. We thus calculated
+1–21 | 9
+
+Ce4f
+
+Ce4f 5d
+Ce4d
+
+1.5
+
+O2p
+
+O2p
+
+-1
+
+Ce4f,5d
+
+10
+
+Ce4f,5d
+
+Ce4f,5d
+Ce4s,4p
+
+-2
+
+10
+
+Cond. others
+
+1.0
+
+ELF(q=0,
+
+W
+
+)
+
+O2p
+
+Ce4f,5d
+
+-3
+
+10
+Ce5p
+
+Ce4f,5d
+
+-4
+
+0.5
+
+Ce5s
+
+Ce4f,5d
+
+O2s
+
+Ce4f,5d
+
+10
+
+-5
+
+10
+0.0
+
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+2
+
+70
+
+3
+
+10
+
+4
+
+10
+
+10
+
+W (eV)
+
+Fig. 7 Optical ELF of bulk Ce2 O3 at low (left panel) and high (right panel) energies obtained from ALDA with LFE and considering peak broadening
+(symbols), together with Mermin ELF fitting for different transitions indicated by labels (solid lines).
+
+101
+
+Table 5 Assignment of Mermin functions and fulfillment of the individual
+f -sum rule of each interband transition for bulk Ce2 O3 .
+
+Present work:
+CeO2 ab initio ELF only
+
+3
+4
+1-4
+5
+6
+7
+8-9
+10
+GOS
+OK
+CeM
+CeL
+CeK
+Total
+
+Transition
+Ce4 f → 4 f , 5d
+O2p →Ce4 f , 5d
+(Plasmon-like?)
+O2p →Ce4 f , 5d
+O2p → Cond. (other)
+O2p, Ce6s, Ce5d, Ce4 f b
+Ce5p → 4 f , 5d
+(Plasmon-like?)
+Ce5s,O2s →Ce4 f , 5d
+Not assigned
+Ce4d → 4 f , 5d
+Ce4s, 4p → 4 f , 5d
+Atomic shells
+O1s
+Ce3s, 3p, 3d
+Ce2s, 2p
+Ce1s
+
+Wth
+2.04
+3.83
+
+Nexp
+
+CeO2
+
+3.83
+13.06
+15.10
+
+20b
+12
+
+20.68
+12.16
+
+37.8c
+
+10
+
+100.68c
+206.53c
+
+20
+16
+
+10.10
+11.81
+24.47
+15.98
+
+543.68c
+883.80c
+5723.00c
+40443.00c
+
+6
+36
+16
+4
+140
+
+5.22
+28.47
+9.06
+2.13
+140.19
+
+the latter observables for bulk CeO2 . We plot the IMFP in Fig.
+8, alongside the experimental data obtained on Ni (circles) and
+Au (squares) substrates 83 . While the agreement between calculations and experimental measurements is remarkable, we stress
+the crucial importance of including the semicore 4d → 5d transitions and deeper inner-shell excitations (those beyond 100 eV) in
+the assessment of the IMFP. Indeed, using only the ab initio data
+limited to 100 eV (the typical energy range affordable for TDDFT
+1–21
+
+Ce2O3 ab initio ELF + MELF-GOS extension
+TPP-2M formula:
+
+a Threshold energies derived from the PDOS except otherwise stated
+b The Mermin functions 1-4 describe the excitations of the outermost valence electrons, located in a band of mainly O2p origin, but which also contains the valence
+electrons Ce6s, 5d, and 4 f , see Fig. 1
+c From Ref. 82
+
+10 |
+
+CeO2 ab initio ELF + MELF-GOS extension
+
+Neff
+IMFP (nm)
+
+Mermin
+1
+2
+
+(eV)a
+
+Ce2O3
+
+100
+Experiments: Krawczyk et al. 2015
+Au reference
+Ni reference
+
+102
+
+103
+
+T (eV)
+
+104
+
+Fig. 8 Comparison of the ab initio IMFP of bulk CeO2 and Ce2 O3 calculated in this work with TPP–2M formula predictions and experimental
+data for CeO2 obtained with respect to Ni and Au substrates 83 .
+
+calculations) we notice a discrepancy up to 25% higher with respect to the experimental data (see the difference between the
+orange dot-dot-dashed and solid black curves around 120 eV in
+Fig. 8.)
+The IMFP of bulk Ce2 O3 is also reported as a blue dot-dashed
+line in Fig. 8, showing no significant differences with that of
+CeO2 . It should be noted that, despite of the resemblance of the
+IMFP of both oxides, they present some differences (not shown
+here explicitly) in their DIIMFP, eqn (12), arising from their diverse electronic excitation spectra (see Figs. 5, 7 and S6).
+Typically, elastic scattering occurs between electrons and the
+massive ionic constituents of the target, and results only in the deflection of electron trajectories. While in principle relativistic firstprinciples quantum mechanical calculations based on the formal
+
+0.05
+Ce O : Ce5p
+2
+
+CeO : O2p
+
+Ce5d
+
+3
+
+2
+
+Ce O : Ce4f
+
+Intentisity (arb. units)
+
+2
+
+0.04
+
+CeO : O2p
+2
+
+0.03
+
+CeO : Ce5p
+2
+
+0.02
+
+CeO : O2p
+2
+
+3
+
+Ce4f,5d
+
+Ce5d
+
+Ce5d
+
+Cond. others
+
+Ce O : O2p
+2
+
+0.01
+
+Ce4f
+
+3
+
+Ce4f,5d
+
+Experiment
+MC CeO
+
+2
+
+MC Ce O
+2
+
+3
+
+0.00
+1560
+
+1570
+
+1580
+
+1590
+
+1600
+
+T (eV)
+
+Fig. 9 Comparison between the REEL spectra of bulk CeO2 (red line) and
+Ce2 O3 (blue line) simulated by MC compared with the directly measured
+spectrum (black line) 21 . Spectra are normalized with respect to the area
+under the curves. Zero-loss peak is found at the extreme right of the
+spectrum. Primary beam impinges the material with an incident angle
+equal to 60◦ with respect to the surface’s normal.
+
+theory of scattering 46,48 can be used to calculate the DESCS 65 ,
+however the computational cost to include the large number of
+atoms required to carry out accurate relativistic simulations in a
+solid is prohibitive. Thus, we use the expression of the Mott’s
+cross section (see eqns (14) and (15)) within the cluster method,
+by which we carve out a portion of the material (which can be
+as small as one atom) and reckon the DESCS only dealing with
+a molecular cluster surrounded by empty space. This approximation, which can be made more accurate by increasing the cluster
+size until the DESCS ceases to vary, can be drastic at times but
+works in our case. However, the exclusion (inclusion) of multiple
+scattering effects in the calculation of the DESCS reckoned by using eqn (14) (15) leads to negligible discrepancies. Thus, using
+eqn (14) we have calculated the DESCSs of CeO2 and Ce2 O3 at
+different primary beam kinetic energies. In DESCS calculations
+the electrostatic potential in the Dirac equation was modelled by
+a screened Coulomb interaction. The latter is obtained by multiplying a bare Coulomb potential by a function expressed as a
+superposition of Yukawa functions, whose parameters were set
+according to a best fit of data from Hartree-Fock simulations 84 .
+Exchange effects were described by using the Furness and McCarthy formula 85 .
+The REEL spectra of the materials under investigation have
+been computed by our MC approach, where the electron trajectories ensemble is set to reach statistical significance and low noise
+of the simulated data (≈ 109 trajectories). We remind that the
+REEL spectrum probes the dielectric response of materials in the
+longitudinal direction (along the momentum transfer), being a
+purely longitudinal field a condition of propagation of the plasmon. Furthermore, the microscopic components of the transverse
+induced field are negligible in the optical limit.
+In Fig. 9 we report the REEL spectra of bulk CeO2 (red line)
+and Ce2 O3 (blue line), and we also compare our simulations with
+the available experimental data 21 , finding a good agreement by
+
+reproducing all the main features of the experimental spectrum.
+These simulated REEL spectra have been obtained using the ELF
+of CeO2 and Ce2 O3 along the [111] and [110] directions in the
+reciprocal space, respectively. However, we noticed a negligible
+dependence on the momentum transfer direction of the REEL
+spectra (see Figs. S7 and S8 of the SI, where we compare the
+calculated Bethe surfaces along different orientations of the momentum transfer). The REEL spectra are both normalized with
+respect to the area under the curves. We remind that surface effects, such as the presence of surface plasmons, are not included
+in our bulk simulations, while they may affect the measurements.
+This can explain e.g. the discrepancy of the brighter experimental
+peak intensity near the elastic peak with our simulations.
+The overall satisfactory agreement with the experimental data
+makes us confident that both the simulated dispersion law with
+the momentum transfer and the MELF–GOS extension to very
+high energy are indeed accurate. We stress again the need of
+including the Ce4d transitions and LFE in the calculation of the dielectric response to achieve a good accuracy of the REEL spectra.
+We notice that the experimental spectrum 21 shows features reproduced in both our simulated REEL spectra of CeO2 and Ce2 O3
+bulk structures, thus experimental determinations seem more
+consistent with polycrystalline samples possibly mixing these two
+stable allotropic forms of cerium oxide.
+The REEL spectra are characterised by a number of structured
+peaks, due to plasmon-like losses and single electron intraband
+and interband transitions. In particular, the REEL spectral lineshape of CeO2 in Fig. 9 (red line) shows three major structures
+below the elastic zero-energy loss peak of backscattered electrons
+(extreme right of the plot). According to our previous analysis
+of both the PDOS and ε̄2 , the first peak found at ≈ 3.7 eV from
+the elastic peak can be attributed to the interband transition from
+the O2p valence band to the localized Ce4 f narrow band, the second peak around 15 eV to a plasmon-like excitation from O2p →
+Ce5d reflecting the PDOS of Ce5d conduction band, and finally
+the third broader loss structure at 32.5 eV from the elastic peak
+can be attributed to the Ce5p → 5d interband transition.
+Analogously, the REEL spectrum of bulk Ce2 O3 reflects the previous analysis of the peaks found in the PDOS and in the ELF,
+showing a lineshape with orbital characters similar to CeO2 . Interestingly, the experimental REELS 21 shows three structures (a
+first peak around 1595 eV, a shoulder around 1598–1590 eV, and
+a second peak at 1575 eV), which are revealed to distinctly correspond to CeO2 (red dashed line) and Ce2 O3 (blue dotted line),
+respectively. Thus, the current approach demonstrates how first
+principle-based simulations may help to characterize and identify
+the features observed in experimental determinations. Finally, we
+notice that the REEL spectra are almost independent of the chosen direction of the momentum transfer.
+
+4
+
+Conclusions
+
+In this work, we have computed the dielectric response functions
+of cerium oxides, which are materials with potential applications
+ranging from radiotherapy to catalysis industry, using linear response TDDFT on the top of ground state calculations based on
+DFT+U, adding the Hubbard correction to deal with the presence
+
+1–21 | 11
+
+of 4 f localized states. We found excellent agreement with most
+of the experimental determinations, showing in particular that an
+accurate assessment of the optical properties must include LFE.
+We performed also the assignment of the different features of
+the spectra in terms of interband transitions, which allowed to
+further check the accuracy of the results by means of sum rules.
+The information collected via numerical simulations based on
+first-principles was extended to higher energies by the MELF–GOS
+model to include core-level excitations. We stress that the inclusion of the interband transitions from the 4d levels of Ce and of
+the innermost Ce and O shells, as well as of the LFE into the
+dielectric response of these oxides is of paramount importance
+for calculating accurately the IMFP of electrons in their motion
+through the medium.
+Furthermore, the ELF calculations of both bulk CeO2 and
+Ce2 O3 have also been performed by considering the full energymomentum dispersion at finite values of momentum transfer. The
+inelastic collision parameters, directly obtainable from the ELF,
+along with the elastic scattering ones, are essential ingredients to
+feed a MC routine and follow the trajectory of electrons within
+the solid. In this respect, we were able to reproduce (or predict)
+in remarkably good agreement with the available experimental
+data the major REEL spectral features of bulk CeO2 and Ce2 O3 .
+Our work, based on a statistical MC method informed by highaccuracy ab initio inputs, paves the way towards a thorough understanding of the electron transport and optical properties of
+cerium oxides, which can drive a proper design of materials, also
+in nanoparticle shape, with potential disruptive impact on enhancing local radiation damage in cancer cure treatments and
+catalysis applications.
+
+Acknowledgements
+The authors acknowledge Bruno Kessler Foundation (FBK) for
+providing unlimited access to the KORE computing facility. A.P.
+acknowledges Fondazione Caritro and DICAM (University of
+Trento) for the financial support under the CARITRO project
+High-Z ceramic oxide nanosystems for mediated proton cancer therapy. A.P. also acknowledges fruitful discussion with the ELK code
+developers. This project has received funding from the European
+Union’s Horizon 2020 Research and Innovation programme under the Marie Sklodowska-Curie grant agreement N. 840752 NanoEnHanCement of P.d.V., as well as from the Spanish Ministerio
+de Economía y Competitividad and the European Regional Development Fund (Project no. PGC2018- 096788-B-I00), from the
+Fundación Séneca (Project no. 19907/GERM/15) and from the
+Conselleria d’Educació, Investigació, Cultura i Esport de la Generalitat Valenciana (Project no. AICO/ 2019/070).
+
+Conflicts of interest
+There are no conflicts to declare.
+
+Notes and references
+1 C. Sun, R. Hui and J. Roller, Journal of Solid State Electrochemistry, 2010, 14, 1125–1144.
+2 G. H. Gunasekar, J. Shin, K.-D. Jung, K. Park and S. Yoon, ACS
+
+12 |
+
+1–21
+
+Catalysis, 2018, 8, 4346–4353.
+3 O. Matz and M. Calatayud, ACS Omega, 2018, 3, 16063–
+16073.
+4 J. Tang, Z. Han, Y. Zuo and Y. Tang, Applied Surface Science,
+2011, 257, 2806–2812.
+5 X. Feng, D. C. Sayle, Z. L. Wang, M. S. Paras, B. Santora, A. C.
+Sutorik, T. X. T. Sayle, Y. Yang, Y. Ding, X. Wang and Y.-S. Her,
+Science, 2006, 312, 1504–1508.
+6 N. Özer, Solar Energy Materials and Solar Cells, 2001, 68, 391–
+400.
+7 J. Kašpar, P. Fornasiero and M. Graziani, Catalysis Today,
+1999, 50, 285–298.
+8 S. McKinnon, S. Guatelli, S. Incerti, V. Ivanchenko, K. Konstantinov, S. Corde, M. Lerch, M. Tehei and A. Rosenfeld,
+Physica Medica, 2016, 32, 1584–1593.
+9 A. Briggs, S. Corde, S. Oktaria, R. Brown, A. Rosenfeld,
+M. Lerch, K. Konstantinov and M. Tehei, Nanomedicine: Nanotechnology, Biology and Medicine, 2013, 9, 1098–1105.
+10 S. Jain, D. Hirst and J. O’Sullivan, Br. J. Radiol., 2012, 85,
+101–113.
+11 E. Porcel, S. Liehn, H. Remita, N. Usami, K. Kobayashi, Y. Furusawa, C. L. Sech and S. Lacombe, Nanotechnology, 2010,
+21, 085103.
+12 L. Sancey, F. Lux, S. Kotb, S. Roux, S. Dufort, A. Bianchi,
+Y. Crémillieux, P. Fries, J.-L. Coll, C. Rodriguez-Lafrasse,
+M. Janier, M. Dutreix, M. Barberi-Heyob, F. Boschetti, F. Denat, C. Louis, E. Porcel, S. Lacombe, G. Le Duc, E. Deutsch,
+J.-L. Perfettini, A. Detappe, C. Verry, R. Berbeco, K. T. Butterworth, S. J. McMahon, K. M. Prise, P. Perriat and O. Tillement,
+The British Journal of Radiology, 2014, 87, 20140134.
+13 J. C. Polf, L. F. Bronk, W. H. P. Driessen, W. Arap, R. Pasqualini
+and M. Gillin, Applied Physics Letters, 2011, 98, 193702.
+14 J.-K. Kim, S.-J. Seo, H.-T. Kim, K.-H. Kim, M.-H. Chung, K.-R.
+Kim and S.-J. Ye, Physics in Medicine and Biology, 2012, 57,
+8309–8323.
+15 Z. Kuncic and S. Lacombe, Physics in Medicine and Biology,
+2018, 63, 02TR01.
+16 J. Schuemann, A. F. Bagley, R. Berbeco, K. Bromma, K. T. Butterworth, H. L. Byrne, B. D. Chithrani, S. H. Cho, J. R. Cook,
+V. Favaudon, Y. H. Gholami, E. Gargioni, J. F. Hainfeld, F. Hespeels, A.-C. Heuskin, U. M. Ibeh, Z. Kuncic, S. Kunjachan,
+S. Lacombe, S. Lucas, F. Lux, S. McMahon, D. Nevozhay,
+W. Ngwa, J. D. Payne, S. Penninckx, E. Porcel, K. M. Prise,
+H. Rabus, S. M. Ridwan, B. Rudek, L. Sanche, B. Singh, H. M.
+Smilowitz, K. V. Sokolov, S. Sridhar, Y. Stanishevskiy, W. Sung,
+O. Tillement, N. Virani, W. Yantasee and S. Krishnan, Physics
+in Medicine and Biology, 2020, 65, 21RM02.
+17 I. Kempson, WIREs Nanomedicine and Nanobiotechnology,
+2021, 13, e1656.
+18 B. W. Swartz, PhD thesis, Doctoral Dissertation, East Carolina
+University, 2015.
+19 M. El Khalifi, F. Picaud and M. Bizi, Anal. Methods, 2016, 8,
+5045–5052.
+20 F. Goubin, X. Rocquefelte, M.-H. Whangbo, Y. Montardi,
+
+R. Brec and S. Jobic, Chemistry of Materials, 2004, 16, 662–
+669.
+21 N. Pauly, F. Yubero, J. P. Espinós and S. Tougaard, Applied
+Optics, 2017, 56, 6611.
+22 N. V. Skorodumova, R. Ahuja, S. I. Simak, I. A. Abrikosov,
+B. Johansson and B. I. Lundqvist, Phys. Rev. B, 2001, 64,
+115108.
+23 P. J. Hay, R. L. Martin, J. Uddin and G. E. Scuseria, The Journal
+of Chemical Physics, 2006, 125, 034712.
+24 S. Fabris, S. de Gironcoli, S. Baroni, G. Vicario and G. Balducci, Physical Review B, 2005, 71, 041102.
+25 F. Aryasetiawan and O. Gunnarsson, Reports on Progress in
+Physics, 1998, 61, 237–312.
+26 J. Graciani, A. M. Márquez, J. J. Plata, Y. Ortega, N. C.
+Hernández, A. Meyer, C. M. Zicovich-Wilson and J. F. Sanz,
+Journal of Chemical Theory and Computation, 2011, 7, 56–65.
+27 L. Brugnoli, A. M. Ferrari, B. Civalleri, A. Pedone and M. C.
+Menziani, Journal of Chemical Theory and Computation, 2018,
+14, 4914–4927.
+28 V. I. Anisimov, F. Aryasetiawan and A. I. Lichtenstein, Journal
+of Physics: Condensed Matter, 1997, 9, 767–808.
+29 H. Jiang, R. I. Gomez-Abal, P. Rinke and M. Scheffler, Phys.
+Rev. Lett., 2009, 102, 126403.
+30 H. Jiang, P. Rinke and M. Scheffler, Phys. Rev. B, 2012, 86,
+125115.
+31 P. Umari, O. Petrenko, S. Taioli and M. M. De Souza, The Journal of Chemical Physics, 2012, 136, 181101.
+32 S. Taioli, P. Umari and M. De Souza, physica status solidi (b),
+2009, 246, 2572–2576.
+33 S. L. Dudarev, G. A. Botton, S. Y. Savrasov, C. J. Humphreys
+and A. P. Sutton, Phys. Rev. B, 1998, 57, 1505–1509.
+34 J. A. Aguiar, Q. M. Ramasse, M. Asta and N. D. Browning,
+Journal of Physics: Condensed Matter, 2012, 24, 295503.
+35 E. Runge and E. K. U. Gross, Phys. Rev. Lett., 1984, 52, 997–
+1000.
+36 S. Botti, A. Schindlmayr, R. D. Sole and L. Reining, Reports on
+Progress in Physics, 2007, 70, 357–407.
+37 J. Lindhard, Det Kongelige Danske Videnskabernes Selskab
+Matematisk-fysiske Meddelelser, 1954, 28(8), 1–57.
+38 R. H. Ritchie, Physical Review, 1959, 114, 644–654.
+39 R. H. Ritchie, Physical Review, 1957, 106, 874–881.
+40 N. F. Mott, Proceedings of the Royal Society of London Series A,
+1929, 124, 425–442.
+41 M. Dapor, Transport of Energetic Electrons in Solids. Computer
+Simulation with Applications to Materials Analysis and Characterization, 3rd ed., Springer Nature Switzerland AG, 2020.
+42 M. Azzolini, O. Y. Ridzel, P. S. Kaplya, V. Afanas’ev, N. M.
+Pugno, S. Taioli and M. Dapor, Computational Materials Science, 2020, 173, 109420.
+43 M. Azzolini, M. Angelucci, R. Cimino, R. Larciprete, N. M.
+Pugno, S. Taioli and M. Dapor, Journal of Physics: Condensed
+Matter, 2018, 31, 055901.
+44 M. Azzolini, T. Morresi, K. Abrams, R. Masters, N. Stehling,
+
+C. Rodenburg, N. M. Pugno, S. Taioli and M. Dapor, The Journal of Physical Chemistry C, 2018, 122, 10159–10166.
+45 M. Azzolini, T. Morresi, G. Garberoglio, L. Calliari, N. M.
+Pugno, S. Taioli and M. Dapor, Carbon, 2017, 118, 299.
+46 S. Taioli and S. Simonucci, Annual Reports in Computational
+Chemistry, Elsevier, 2015, vol. 11, pp. 191–310.
+47 S. Taioli, S. Simonucci, L. Calliari, M. Filippi and M. Dapor,
+Physical Review B, 2009, 79, 085432.
+48 S. Taioli, S. Simonucci, L. Calliari and M. Dapor, Physics reports, 2010, 493, 237–319.
+49 R. Egerton, Electron Energy-Loss Spectroscopy in the Electron
+Microscope, Springer, Boston, MA., 1996.
+50 I. Abril, R. Garcia-Molina, C. D. Denton, F. J. Pérez-Pérez and
+N. R. Arista, Phys. Rev. A, 1998, 58, 357–366.
+51 S. Heredia-Avalos, R. Garcia-Molina, J. M. Fernández-Varea
+and I. Abril, Phys. Rev. A, 2005, 72, 052902.
+52 R. Garcia-Molina, I. Abril, I. Kyriakou and D. Emfietzoglou, in
+Energy Loss of Swift Protons in Liquid Water: Role of Optical
+Data Input and Extension Algorithms, ed. G. García GómezTejedor and M. C. Fuss, Springer Netherlands, Dordrecht,
+2012, pp. 239–261.
+53 R. Garcia-Molina, I. Abril, I. Kyriakou and D. Emfietzoglou,
+Surface and Interface Analysis, 2017, 49, 11–17.
+54 L. Gerward, J. Staun Olsen, L. Petit, G. Vaitheeswaran, V. Kanchana and A. Svane, Journal of Alloys and Compounds, 2005,
+400, 56–61.
+55 H. Bärnighausen and G. Schiller, Journal of the Less Common
+Metals, 1985, 110, 385–390.
+56 G. Onida, L. Reining and A. Rubio, Rev. Mod. Phys., 2002, 74,
+601–659.
+57 A. A. Shukri, F. Bruneval and L. Reining, Phys. Rev. B, 2016,
+93, 035128.
+58 H.-C. Weissker, J. Serrano, S. Huotari, E. Luppi, M. Cazzaniga,
+F. Bruneval, F. Sottile, G. Monaco, V. Olevano and L. Reining,
+Phys. Rev. B, 2010, 81, 085104.
+59 A. Seidu, A. Marini and M. Gatti, Phys. Rev. B, 2018, 97,
+125144.
+60 O. A. Paredes-Mellone, J. Koskelo, S. A. Ceppi and G. E. Stutz,
+physica status solidi (b), 2020, 257, 1900780.
+61 S. L. Adler, Phys. Rev., 1962, 126, 413–420.
+62 N. Wiser, Phys. Rev., 1963, 129, 62–69.
+63 http://elk.sourceforge.net/.
+64 J. P. Perdew and Y. Wang, Physical Review B, 1992, 45, 13244–
+13249.
+65 S. Taioli, P. E. Trevisanutto, P. de Vera, S. Simonucci, I. Abril,
+R. Garcia-Molina and M. Dapor, The Journal of Physical Chemistry Letters, 2020, 12, 487–493.
+66 N. D. Mermin, Phys. Rev. B, 1970, 1, 2362–2363.
+67 P. de Vera and R. Garcia-Molina, The Journal of Physical Chemistry C, 2019, 123, 2075–2083.
+68 D. Liljequist and H. Nikjoo, Radiation Physics and Chemistry,
+2014, 99, 45–52.
+69 Y. Jiang, J. B. Adams and M. van Schilfgaarde, The Journal of
+Chemical Physics, 2005, 123, 064701.
+
+1–21 | 13
+
+70 Z. Yang, T. K. Woo, M. Baudin and K. Hermansson, The Journal of Chemical Physics, 2004, 120, 7741–7749.
+71 E. Wuilloud, B. Delley, W. D. Schneider and Y. Baer, Physical
+Review Letters, 1984, 53, 202–205.
+72 S. Guo, H. Arwin, S. N. Jacobsen, K. Järrendahl and
+U. Helmersson, Journal of Applied Physics, 1995, 77, 5369–
+5376.
+73 A. Pfau and K. Schierbaum, Surface Science, 1994, 321, 71–
+80.
+74 J.-F. Jerratsch, X. Shao, N. Nilius, H.-J. Freund, C. Popa, M. V.
+Ganduglia-Pirovano, A. M. Burow and J. Sauer, Phys. Rev.
+Lett., 2011, 106, 246801.
+75 F. Marabelli and P. Wachter, Phys. Rev. B, 1987, 36, 1238–
+1243.
+76 M. Niwano, S. Sato, T. Koide, T. Shidara, A. Fujimori,
+H. Fukutani, S. Shin and M. Ishigame, Journal of the Physical Society of Japan, 1988, 57, 1489–1496.
+77 G. Strasser, G. Rosina, E. Bertel and P. Netzer, Surface Science,
+1985, 152-153, 765–775.
+78 J. Pflüger, J. Fink, W. Weber, K. P. Bohnen and G. Crecelius,
+Phys. Rev. B, 1984, 30, 1155–1163.
+
+14 |
+
+1–21
+
+79 D. Y. Smith and E. Shiles, Physical Review B, 1978, 17, 4689–
+4694.
+80 B. Henke, E. Gullikson and J. Davis, Atomic Data and Nuclear
+Data Tables, 1993, 54, 181–342.
+81 J. Bloch, N. Shamir, M. H. Mintz and U. Atzmony, Phys. Rev.
+B, 1984, 30, 2462–2469.
+82 G. Williams, X-ray properties of the elements, , A.C. Thompson
+(ed.), X-ray data booklet (Lawrence Berkeley National Laboratory, University of California, Berkley, California), 2009,
+https://xdb.lbl.gov/.
+83 M. Krawczyk, M. Holdynski, W. Lisowski, J. Sobczak and
+A. Jablonski, Applied Surface Science, 2015, 341, 196 – 202.
+84 A. Jablonski, F. Salvat and C. J. Powell, Journal of Physical
+and Chemical Reference Data, 2004, 33, 409–451.
+85 J. B. Furness and I. E. McCarthy, Journal of Physics B: Atomic
+and Molecular Physics, 1973, 6, L204–L207.
+86 C. Loschen, J. Carrasco, K. M. Neyman and F. Illas, Phys. Rev.
+B, 2007, 75, 035115.
+87 S. Sharma, J. K. Dewhurst, A. Sanna and E. K. U. Gross, Phys.
+Rev. Lett., 2011, 107, 186401.
+
+SUPPORTING INFORMATION
+1
+
+DOS: tests of different Ueff values. Band structure of bulk CeO2 and Ce2 O3
+
+8
+TDOS [Arb. units]
+
+7
+6
+5
+
+Ueff =0 eV
+Ueff =3 eV
+Ueff =5 eV
+
+4
+3
+2
+1
+0
+
+-4
+
+-2
+
+0
+
+2
+4
+Energy [ev]
+
+6
+
+8
+
+10
+
+Fig. S1 Total DOS of bulk CeO2 . We show the effect of different Hubbard corrections (Ueff = 0, 3, 5 eV) to deal with the localized 4 f states (highest
+peak between 2 and 4 eV). The top of the valence band is set to 0 eV.
+
+Figure S1 shows the total density of states (TDOS) of bulk CeO2 obtained by tuning the Hubbard correction in the commonly used
+range Ueff = [0 : 5] eV. 86 Increasing Ueff results in a blueshift of the 4 f states localized in the energy region 2 to 4 eV (the top of the
+valence band is shifted to 0 eV), which further opens the O2p-Ce4 f gap by 0.3 eV with respect to the plain DFT-LSDA value. The broad
+band between −4 eV and 0 eV remains untouched by changing Ueff .
+
+8
+TDOS [Arb. units]
+
+7
+6
+
+Ueff =5 eV
+Ueff =6 eV
+
+5
+4
+3
+2
+1
+0
+
+-4
+
+-2
+
+0
+
+2
+4
+Energy [ev]
+
+6
+
+8
+
+10
+
+Fig. S2 Total DOS of Ce2 O3 bulk solid. We show the effect of different Hubbard corrections Ueff = 5, 6 eV to deal with the localized 4 f states (sharp
+peak near to 2 eV).
+
+In Figure S2 we report the TDOS of bulk Ce2 O3 obtained using an Hubbard correction in the range Ueff = [5 : 6] eV. In Figs. S3 and
+S4 we plot the band structure of CeO2 and Ce2 O3 , respectively, calculated using DFT+U.
+1–21 | 15
+
+10
+8
+
+Energy (eV)
+
+6
+4
+2
+0
+-2
+-4
+-6
+X
+
+Γ
+
+W K
+
+L
+
+Γ
+
+U W
+
+L
+
+K
+
+Fig. S3 Band structure of bulk CeO2 calculated using DFT+U. The Fermi level (dashed red line) is set to the origin of the energy axis.
+
+10
+8
+
+Energy (eV)
+
+6
+4
+2
+0
+-2
+-4
+-6
+M
+
+Γ
+
+K
+
+Γ
+
+A
+
+L
+
+H
+
+A
+
+Fig. S4 Band structure of bulk Ce2 O3 calculated using DFT+U. The Fermi level (dashed red line) is set to the origin of the energy axis.
+
+16 |
+
+1–21
+
+2
+
+ELF in the optical limit: tests of different Ueff values. Momentum dispersion of the ELF
+
+3
+
+Ueff =0 eV
+Ueff =3 eV
+Ueff =5 eV
+
+ELF [arb. units]
+
+2.5
+2
+1.5
+1
+0.5
+0
+
+0
+
+10
+
+20
+
+30
+
+40
+Energy [eV]
+
+50
+
+60
+
+70
+
+80
+
+Fig. S5 ELF of bulk CeO2 in the optical limit (q → 0), calculated within the LSDA-ALDA approximation, using different values of the Hubbard
+correction Ueff .
+
+In Fig. S5 we report the ELF of bulk CeO2 in the optical limit (q → 0) analysing the impact of different values of the Hubbard
+correction Ueff , concluding a negligible change.
+The impact of different approximations on the ELF to include many-body effects using either the random phase approximation (RPA)
+or the ALDA kernel, with and without Local Field Effects (LFE) is shown in Fig. 4 (top panel) of the main text.
+We notice that the key factor that mostly affects the accuracy is the introduction of LFE, since these effects are related to local density
+inhomogeneities and, thus, can be relevant in the assessment of the ELF as a function of the direction of the transferred momentum.
+Furthermore, we also tested the bootstrap kernel 87 , that gives results similar to RPA showing that excitonic effects are small for this
+system.
+The ab-initio Bethe surface of bulk CeO2 up to ∼170 eV, including thus the 4d transitions, is presented in Fig. S6 (top panel). It is
+interesting to notice that in the 100 − 120 eV range the transition peak shifts towards lower energies with increasing momentum transfer.
+The Bethe surface of Ce2 O3 is also shown in Fig. S6 (bottom panel).
+
+1–21 | 17
+
+0.0
+1.0
+2.0
+q(Å 3.04.0
+1)
+5.0
+
+0.0
+
+1.0
+2.0
+q(Å 3.0
+1) 4.0
+5.0
+
+1.50
+1.25
+1.00 ELF
+0.75
+0.50
+0.25
+0.00
+150
+
+6.0
+
+0
+
+100
+50 (eV)
+
+1.6
+1.4
+1.2
+1.0 ELF
+0.8
+0.6
+0.4
+0.2
+0.0
+
+6.0 0
+
+20
+
+80
+60 )
+40 (eV
+
+100
+
+Fig. S6 ELF of bulk CeO2 along the [111] direction (top panel) and of Ce2 O3 along the [110] direction (bottom panel) from TDDFT calculations
+including LFE within ALDA.
+
+18 |
+
+1–21
+
+Dependence on the direction of the momentum transfer of the ELF of bulk CeO2 and Ce2 O3 is reported in Figs. S7 and S8, respectively.
+
+Fig. S7 Dependence of the ELF of bulk CeO2 on different orientations of the momentum transfer vector. Left panel: [211]. Middle panel: [110].
+Right panel: [111].
+
+Fig. S8 Dependence of the ELF of bulk Ce2 O3 on different orientations of the momentum transfer vector. Left panel: [001]. Middle panel: [110].
+Right panel: [100].
+
+3
+
+Refractive index and extinction coefficient
+
+From the knowledge of the macroscopic dielectric function (ε 1 , ε 2 ) of a material, one can reckon also its optical properties, such as the
+refraction index n and the extinction coefficient κ, as follows:
+r q
+r q
+
+
+1
+1
+ε̄12 + ε̄22 + ε̄1 , κ =
+ε̄12 + ε̄22 − ε̄1 ,
+(19)
+n=
+2
+2
+where ε̄1,2 are the real and imaginary part of the macroscopic dielectric function, respectively.
+
+3.5
+2.5
+2
+1.5
+
+1.5
+1
+
+1
+
+0.5
+
+0.5
+0
+
+This work with LFE
+This work w/o LFE
+Calc. El Khalifi et al. (2016)
+Exp. El Khalifi et al. (2016)
+Exp. Goubin et al. (2004)
+Exp. Pauly et al. (2017)
+
+2
+
+κ
+
+3
+
+n
+
+2.5
+
+This work with LFE
+This work w/o LFE
+Calc. El Khalifi et al. (2016)
+Exp. El Khalifi et al. (2016)
+Exp. Goubin et al. (2004)
+Exp. Pauly et al. (2017)
+
+0
+
+10
+
+20
+
+30
+
+40
+50
+Energy [eV]
+
+60
+
+70
+
+80
+
+90
+
+0
+
+0
+
+10
+
+20
+
+30
+
+40
+50
+Energy [eV]
+
+60
+
+70
+
+80
+
+90
+
+Fig. S9 Left: comparison between the refractive index of bulk CeO2 calculated in this work and other experimental and computational studies 19–21 .
+Right: comparison between the extinction coefficient of bulk CeO2 calculated in this work and other experimental and computational studies 19–21 .
+
+Using Eqns. (19), and the macroscopic dielectric matrix of eqn (4) in the main text we also calculated the refractive index and the
+extinction coefficient of both cerium oxides. In particular, we report in Fig. S9 the refractive index (left panel) and the extinction coefficient (right panel) of bulk CeO2 , respectively, and their comparison with several other computational and experimental studies 19–21 .
+1–21 | 19
+
+We find an overall good agreement between our calculations and previous experimental and computational data when including LFE,
+with an appreciable difference emerging in the range 10 − 30 eV between the calculated and experimental refractive indexes and in the
+range 20 − 30 eV between the calculated and experimental extinction coefficients when switching-off LFE. In fact, LFE strongly suppress
+the intensity of the third major peak and lead to a better agreement of our simulations with the experimental data.
+Moreover, we report in Fig. S10 the refractive index (left panel) and the extinction coefficient (right panel) of bulk Ce2 O3 with and
+without LFE.
+
+3
+
+This work with LFE
+This work w/o LFE
+
+2.5
+
+1.5
+
+κ
+
+n
+
+2
+
+1
+0.5
+0
+
+0
+
+10
+
+20
+
+30
+
+40
+50
+Energy [eV]
+
+60
+
+70
+
+80
+
+90
+
+2
+1.8
+1.6
+1.4
+1.2
+1
+0.8
+0.6
+0.4
+0.2
+0
+
+This work with LFE
+This work w/o LFE
+
+0
+
+10
+
+20
+
+30
+
+40
+50
+Energy [eV]
+
+60
+
+70
+
+80
+
+90
+
+Fig. S10 Refractive index (left) and extinction coefficient (right) of bulk Ce2 O3 with and without LFE.
+
+4
+
+Parameters for the MELF-GOS fitting of the ab initio optical ELF
+
+Tables S1 and S2 report, respectively, the parameters used to fit the first principles optical ELF of CeO2 and Ce2 O3 , by means of Eqns.
+(6)-(8) in the main text. In the column corresponding to ∆i , when the word “Heaviside” appears instead of a value, it means that the
+function F is a Heaviside function for this function i. The criteria for the fitting, related to the fulfilment of the f -sum rules for individual
+transitions, are explained in the main text, sections 3.2 and 3.3.
+Table S1 Parameters used in the MELF-GOS fit of the optical ELF of bulk CeO2 (see Eqns. (6-8) of the main text).
+Mermin
+
+Wi (eV)
+
+γi (eV)
+
+Ai (eV2 )
+
+∆i (eV−1 )
+
+Wth,i (eV)
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+6.80
+15.10
+25.3
+33.20
+33.33
+42.18
+77.55
+113.34
+122.45
+326.54
+122.45
+
+6.80
+3.54
+11.43
+7.62
+6.26
+14.97
+54.42
+14.97
+23.13
+408.17
+108.85
+
+5.18
+44.13
+107.37
+125.88
+214.73
+259.16
+185.12
+303.59
+148.09
+296.18
+222.14
+
+Heaviside
+1.873
+1.873
+1.873
+1.873
+1.873
+Heaviside
+0.184
+0.184
+0.184
+Heaviside
+
+2.2
+5.2
+14.12
+14.12
+16.8
+37.80
+2.2
+100.68
+100.68
+206.53
+2.2
+
+20 |
+
+1–21
+
+Table S2 Parameters used in the MELF-GOS fit of the optical ELF of bulk Ce2 O3 (see Eqns. (6-8) of the main text).
+Mermin
+
+Wi (eV)
+
+γi (eV)
+
+Ai (eV2 )
+
+∆i (eV−1 )
+
+Wth,i (eV)
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+8.44
+13.88
+16.6
+31.97
+31.97
+38.10
+64.49
+129.93
+137.15
+326.54
+
+2.72
+2.18
+7.62
+10.34
+8.16
+14.69
+32.65
+15.24
+10.07
+408.17
+
+1.63
+19.25
+51.83
+251.76
+192.52
+255.46
+162.90
+266.57
+133.28
+296.18
+
+Heaviside
+Heaviside
+Heaviside
+0.735
+0.735
+0.735
+Heaviside
+0.184
+0.184
+0.184
+
+2.04
+3.83
+3.83
+13.06
+15.10
+37.80
+2.04
+100.68
+100.68
+206.53
+
+1–21 | 21
+
+

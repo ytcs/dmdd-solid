@@ -1,0 +1,905 @@
+                                                     Quasi-harmonic temperature dependent elastic
+                                                     constants: applications to silicon, aluminum, and
+                                                     silver
+arXiv:2109.13551v1 [cond-mat.mtrl-sci] 28 Sep 2021
+
+
+
+
+                                                               Cristiano Malica and Andrea Dal Corso
+                                                               International School for Advanced Studies (SISSA),
+                                                               Via Bonomea 265, 34136 Trieste (Italy).
+                                                               E-mail: cmalica@sissa.it
+
+                                                               December 2019
+
+
+                                                               Abstract. We present ab-initio calculations of the quasi-harmonic temperature
+                                                               dependent elastic constants. The isothermal elastic constants are calculated at
+                                                               each temperature as second derivatives of the Helmholtz free energy with respect
+                                                               to strain and corrected for finite pressure effects. This calculation is repeated for a
+                                                               grid of geometries and the results interpolated at the minimum of the Helmholtz
+                                                               free energy. The results are compared with the quasi-static elastic constants.
+                                                               Thermodynamic relationships are used to derive the adiabatic elastic constants
+                                                               that are compared with the experimental measurements. These approaches
+                                                               are implemented for cubic solids in the thermo pw code and are validated by
+                                                               applications to silicon, aluminum, and silver.
+                                                                                                                         2
+
+1. Introduction                                              metals rhenium, technetium, [22] ruthenium, and
+                                                             osmium [23] and recently to account for anharmonic
+Elastic constants (ECs) characterize the mechanical          contributions to the mean square atomic displacements
+and thermodynamic behaviors of materials. They               within the QHA [24] ‡. We implemented TDECs both
+determine the speed of sound, the crystal stability, and     within the QSA and the QHA. The latter can be
+allow the calculation of properties such as the thermal      calculated at a single reference geometry or for a set
+expansion (TE) or the thermal stresses. They have also       of reference geometries and further interpolated at the
+practical applications as, for instance, the prediction of   temperature dependent geometry.
+seismic properties of materials, a basic information to           We validate our implementation by studying the
+probe the interior of planets in geophysics [1].             TDECs of three elemental solids: silicon with the
+     First-principles calculations of the ECs [2] help       diamond structure and the face-centered cubic metals
+to interpret experiments and might be useful comple-         aluminum and silver §. Derivatives of the Helmholtz
+ments at extreme conditions of temperature and pres-         free energy give the isothermal ECs, while usually
+sure that are difficult or impossible to realize in lab-     experiments measure the adiabatic ECs. We calculate
+oratory. Density Functional Theory (DFT) has been            the latter through thermodynamic relationships and
+employed for several decades to estimate the ECs of          find good agreement with the available experiments.
+materials and usually provides values that are within        The low temperature ECs (T = 77 K for silicon,
+≈ 10% of the experiments [3, 4, 5, 6, 7, 8].                 T = 0 K for aluminum and silver) are within ≈ 10%
+     Temperature might have a not negligible effect on       from experimental values for both QSA and QHA.
+ECs, nevertheless DFT calculations are usually limited       Increasing temperature, the QHA gives almost the
+to zero temperature (T = 0 K) since a significant            same percentage change as the experiment while the
+computational effort is necessary to evaluate the ECs        QSA gives a somewhat smaller softening.
+including both temperature and quantum effects. In                Finally we tested the accuracy of our TDECs by
+the literature there are two main approaches based on        comparing the TE computed using mode-Grüneisen
+lattice dynamics and the computation of the phonon           parameters that depend on the TDECs through the
+dispersions of solids. In the quasi-static approximation     bulk modulus with the TE obtained by differentiation
+(QSA) temperature dependent ECs (TDECs) are                  of the temperature dependent lattice constant which
+computed assuming that temperature produces only             we take as a reference. We find that the two methods
+a TE. At each temperature the ECs are calculated             are in good agreement when using the QHA TDECs,
+at the geometry that minimizes the Helmholtz free            while some differences are introduced by the QSA. In
+energy but the ECs themselves are calculated as second       the literature the TE is usually evaluated from mode-
+derivatives of the DFT total energy with respect to          Grüneisen parameters, using temperature independent
+strain or from the derivative of the stress with respect     ECs (for instance the T = 0 K ECs) since this approach
+to strain (at T = 0 K). For instance, Y. Wang et al.         is numerically more efficient than the differentiation of
+computed the TDECs of seven cubic metals [9] and             the crystal parameters especially in anisotropic solids.
+S-L. Shang et al. [10] computed TDECs of α- and              We computed the TE also within this approximation
+θ-Al2 O3 within the QSA. K. Kádas et al. [11] used          finding reasonable agreement with the reference but
+the same approximation for the TDECs of α-beryllium          discrepancies larger than those obtained by the QHA
+deriving the temperature dependence of the volume            or the QSA TDECs.
+from the Debye model. Within the second approach,
+which is based on the quasi-harmonic approximation
+                                                             2. Theory
+(QHA), the ECs are calculated from second derivatives
+of the Helmholtz free energy with respect to strain          We consider a crystal deformed with a symmetric
+and can be calculated at the temperature dependent           strain ij , where i and j are Cartesian coordinate
+geometry. This approximation has been applied for            indices.     To maintain the solid in a strained
+instance to the TDECs of MgO [12, 13], hexagonal             configuration, forces have to be applied in order to
+close-packed (h.c.p.) beryllium and cubic and h.c.p.         balance those exerted by the solid. These forces per
+diamond [14], α-iron [15] and Fe3 Ga alloys [16].            unit area give the stress tensor which, for small strains,
+Recently, M. Destefanis et al. [17] computed TDECs
+for the Forsterite mineral using the QHA.                    ‡ Further tests are reported in the supplementary material: we
+                                                             show the computed T = 0 K ECs of indium, TiO2 rutile, α-
+     In this paper we present our implementation of          Al2 O3 .
+TDECs in the thermo pw code [18], a driver of Quantum        § Moreover in the supplementary material we check our method
+ESPRESSO [19, 20] routines for the calculation of the        by computing the TDECs of MgO within the QHA and by
+thermodynamic properties of solids. This code has            comparing our results with those of Refs. [12, 13].
+been used for the T = 0 K elastic constants of
+beryllium [21], the thermodynamic properties of h.c.p.
+                                                                                                                       3
+
+is proportional to the strain:                                       The strain A does not change the shape of the
+                         X                                      cubic cell, while E transforms it into a tetragonal cell
+                   σij =     Cijkl kl ,                  (1)   and F into a rhombohedral cell.
+                            kl                                       Since the C̃ij tensor has the form as in Eq. 5,
+where Cijkl are the components of the ECs tensor.               applying Eq. 6 we obtain for each strain the following
+Equivalently:                                                   relationships:
+                        
+                          ∂σij
+                                                                                 3Ω              
+                Cijkl =            .          (2)                            UA =      C̃11 + 2C̃12 1 2 ,
+                          ∂kl =0                                                 2
+                                                                                  Ω
+                                                                             UE = C̃11 3 2 ,                        (8)
+At T = 0 K the ECs can be written also as the second                              2
+derivatives of the energy with respect to strain:                                 3Ω
+                                                                             UF =    C̃44 4 2 .
+                                                                                 2
+                        1    ∂2U
+               C̃ijkl =                 ,         (3)
+                        Ω ∂ij ∂kl =0                         We compute the ECs C̃ij by fitting these equations
+                                                                with polynomials and taking the analytic second
+where Ω is the volume of the reference system and U             derivatives.
+is the DFT total energy. If the reference geometry                   In order to introduce zero-point quantum effects
+minimizes the energy (the equilibrium condition)                and temperature, we can use the same formulation
+C̃ijkl = Cijkl , while for a reference geometry in which        by replacing in Eq. 3 the total energy U with the
+a pressure p is acting on the solid (in this paper we do        Helmholtz free energy F :
+not consider the possibility of having a generic stress                                          
+on the solid) Cijkl and C̃ijkl differ and we have [25]:                         T      1    ∂2F
+                                                                              C̃ijkl =                 .          (9)
+                                                                                       Ω ∂ij ∂kl =0
+                   1
+   Cijkl = C̃ijkl + p (2δij δkl − δil δjk − δik δjl ) .   (4)
+                   2                                            The Helmholtz free energy is the sum of the total
+Eqs. 2 and 4 provide two equivalent ways to compute             energy U and the vibrational free energy (neglecting
+the stress-strain ECs Cijkl at T = 0 K.                         the electronic contribution): F = U + Fvib . The latter
+     In cubic solids and in Voigt notation (see for             is given by:
+instance chapter VIII of [26]) the ECs tensor has the                           1 X
+                                                                Fvib (, T ) =       ~ωη (q, )
+following form:                                                                2N qη
+                                                                                                           
+           C̃11 C̃12 C̃12      .    .     .                                    kB T X               ~ωη (q, )
+                                                                             +        ln 1 − exp −                , (10)
+         C̃12 C̃11 C̃12       .    .     .                                    N qη                  kB T
+                                            
+         C̃12 C̃12 C̃11       .    .     . 
+                                            ,   (5)           where the sums are over the phonon modes identified
+         .        .   .     C̃44   .     . 
+                                                              by wave-vectors q in the first Brillouin zone and mode
+         .        .   .       .  C̃44    . 
+                                                                indices η. ωη (q, ) indicates the phonon frequencies, Ω
+             .     .   .       .    .   C̃44                    the volume of the reference unit cell, kB the Boltzmann
+                                                                constant, ~ the Planck constant divided by 2π, T the
+with three independent ECs, C̃11 , C̃12 , and C̃44 (a dot
+                                                                absolute temperature and N the number of unit cells in
+indicates a zero entry).
+                                                                the solid. The first term on the right-hand side is the
+     From Eq. 3 the total energy (at T = 0 K) contains
+                                                                zero-point energy while the second is the vibrational
+a term quadratic in the strain:
+                                                                contribution at finite temperature.
+                          ΩX                                         Within the QHA the phonon frequencies depend
+                     U=        i C̃ij j .               (6)   on the applied strain . In the QHA calculation
+                          2 ij
+                                                                at fixed reference geometry the phonon dispersions
+     In order to derive the three independent ECs we            and free energies are computed at different strained
+use the following strains:                                      configurations. For each temperature the free energy-
+                                                                strain function is fitted with polynomials whose second
+                                                                                                       T
+                                                            derivatives at zero strain give the C̃ijkl ECs of Eq. 9.
+         1     0    0            0           0   0             In general the reference configuration is not at the
+  A =  0      1   0  , E =  0           0   0 ,          minimum of the Helmholtz free energy so there is a
+         0      0    1           0           0   3            pressure p = − dF                           T
+                                                        (7)                    dΩ and we correct the C̃ijkl with the
+         0      4   4                                         generalization of Eq. 4 at finite temperature in order
+                                                                                   T
+  F =  4     0    4  .                                     to obtain the Cijkl    . Finally we call QHA TDECs
+         4     4   0                                          those obtained by performing QHA calculations on a
+                                                                                                                   4
+
+few fixed reference geometries and interpolating the        The γη (q) are the mode-Grüneisen parameters:
+  T
+Cijkl   at each temperature T at the geometry that
+minimizes the Helmholtz free energy. In other works                                       Ω ∂ωη (q)
+                                                                           γη (q) = −               ,           (15)
+(see for instance [15]) the QHA ECs are evaluated                                       ωη (q) ∂Ω
+with a slightly different procedure. First for each
+type of strain the Helmholtz free energy is fitted by       and cη (q) are the mode contributions to the isochoric
+a polynomial in a grid of the lattice constants and         specific heat:
+strain values and then the ECs are calculated as second                                     ~ω (q)    −1
+                                                                               ~ωη (q) ∂       η
+derivatives of the Helmholtz free-energy with respect               cη (q) =                e kB T − 1     .    (16)
+to the strain at the temperature dependent lattice                               Ω ∂T
+constant. We have verified that the results obtained
+                                                            In order to apply Eq. 14 the phonon frequencies
+by this more conventional method are very similar to
+                                                            calculated at the selected geometries are interpolated
+those obtained by our procedure and both approaches
+                                                            with a polynomial as a function of the lattice constant.
+are available in thermo pw.
+                                                            Then, for each temperature T, we evaluate the
+     QSA TDECs are derived in a similar way using the
+                                                            interpolating polynomial (to obtain the frequencies)
+second derivatives of U instead of the derivatives of F ,
+                                                            and its first derivative (proportional to the mode-
+in this way avoiding to compute the phonon dispersions
+                                                            Grüneisen parameters) at the a(T ). The cη (q) are
+for all strained configurations. The phonon dispersions
+                                                            evaluated from the interpolated frequencies at that
+are instead computed at the reference geometries in
+                                                            temperature. B T is the isothermal bulk modulus
+order to obtain the temperature dependent crystal
+                                                            which for cubic solids can be written in terms of the
+parameters.
+                                                            isothermal ECs as:
+     These procedures give for each temperature the
+isothermal ECs CijklT
+                        . However, many experimental                               1            
+                                                                            BT =      T
+                                                                                     C11     T
+                                                                                         + 2C12   .             (17)
+setups using for instance ultrasonic pulse techniques,                             3
+                                 S
+measure the adiabatic ECs Cijkl    . The latter can be
+                                                            This bulk modulus can be compared also with the
+readily obtained using the thermal stresses bij and the
+                                                            bulk modulus derived at each temperature from the
+isochoric heat capacity CV [27]:
+                                                            fit of the free-energy as a function of the volume
+                                  T Ωbij bkl                with the Murnaghan equation. The calculation of
+                S       T
+               Cijkl = Cijkl +               .      (11)    the TE using Eq. 14 and TDECs is not very efficient
+                                     CV
+                                                            since it requires first the evaluation of the temperature
+bij is obtained from:                                       dependent crystal parameters (and hence implicitly
+                           X                                of the TE itself). This problem is usually solved in
+                                 T
+                 bij = −        Cijkl αkl ,         (12)    the literature neglecting the variation of the ECs with
+                           kl                               temperature. We verified also this approximation as
+                                                            discussed below.
+where αkl is the TE tensor that, in the cubic case is
+                                                                 Finally the isothermal bulk modulus can be
+isotropic: αkl = αδkl . We have:
+                                                            converted into the adiabatic one with the following
+                          1 da(T )                          formula:
+                   α=              ,                (13)                                      T Ωβ 2
+                        a(T ) dT                                                KT − KS =                        (18)
+                                                                                               CP
+where a(T ) is the temperature dependent cubic lattice      where K T = B T −1 is the isothermal compressibility,
+constant. The calculation of a(T ) as well as the           K S = B S−1 is the isobaric compressibility, β = 3α is
+calculation of CV are explained in Ref. [22] and            the volume thermal expansion and CP is the isobaric
+summarized in the supplementary material.                   heat capacity computed as in Ref. [22].
+     As a further check of the consistence of our                A flow-chart and further details on the computa-
+ECs we recalculate the TE using the mode-Grüneisen         tion of the TDECs with the thermo pw code are re-
+parameters. This formula requires the isothermal bulk       ported in the supplementary material.
+modulus that can be obtained either from the QSA
+or from the QHA TDECs. The resulting TE can be              3. Method
+compared with the TE given by Eq. 13. In cubic solids
+the TE written in terms of the Grüneisen parameters        The calculations presented in this work were carried
+is given by                                                 out using DFT as implemented in the Quantum
+                      1 X                                   Espresso package [19, 20].       The exchange and
+              α=−            γη (q)cη (q).          (14)    correlation functional is approximated by the local
+                     3B T qη
+                                                            density approximation (LDA) for silicon [38] and
+                                                                                                                              5
+
+Table 1. Theoretical lattice parameters (in Å) at different temperatures compared with experiment [28] at room temperature. ZPE
+indicates the zero point energy.
+                                                T=0 K        T=0 K+ZPE           T=300 K          Expt.
+                    Silicon (LDA)                5.40            5.41              5.41          5.4307
+                    Aluminum (PBEsol)            4.01            4.03              4.04          4.04958
+                    Silver (PBEsol)              4.06            4.07              4.08          4.0862
+
+
+Table 2. ECs at T = 0 K compared with the results available in the literature. The exchange and correlation functionals are
+indicated in the first column. In addition to PBEsol used by us, the GGA functionals PBE [29] and PW [30] were used in the
+references. The equilibrium lattice constants (a0 ) is in Å while the ECs are in kbar.
+                                                  a0     C11     C12      C44
+                                     Silicon
+                                     LDAa        5.40 1618        640     761
+                                     LDAb        5.41 1580        639     746
+                                     LDAc        5.40 1590        610     850
+                                     LDAd        5.38 1621        635     773
+                                     LDAe        5.40 1610        650     760
+                                     PBEe        5.47 1530        570     740
+                                     PBEsole     5.44 1560        620     740
+                                     Expt.l      5.43 1675        650     801
+                                     Aluminum
+                                     PBEsola     4.01 1192        643     365
+                                     PBEsolb     4.03 1146        632     353
+                                     LDAg        3.97 1222        608     374
+                                     LDAh        4.04 1104        545     313
+                                     PBEf        4.06 1093        575     301
+                                     PWi         4.05 1010        610     254
+                                     Expt.m      4.05 1143        619     316
+                                     Silver
+                                     PBEsola     4.06 1450 1067 540
+                                     PBEsolb     4.07 1425 1054 531
+                                     GGAh        4.02 1612 1191 581
+                                     PWi         4.16 1159        851     421
+                                     Expt.n      4.09 1315        973     511
+   a
+     This work at T = 0 K, b This work at T = 0 K + ZPE, c Reference [2], d Reference [4], e Reference [31]
+                      f
+                         Reference [5], g Reference [32], h Reference [3], i Reference [10],
+                             l
+                               a0 from Table 1 at T = 300 K. ECs at T = 77 K [33]
+                     m
+                        a0 from Table 1 at T = 300 K. ECs extrapolated at T = 0 K [34]
+                     n
+                        a0 from Table 1 at T = 300 K. ECs extrapolated at T = 0 K [35]
+
+
+the generalized gradient approximation of Perdew-                16.     For aluminum we used the pseudopotential
+Burke-Ernzerhoff modified for densely packed solids              Al.pbesol-n-kjpaw psl.1.0.0.UPF, the cutoff for
+(PBEsol) [39] for aluminum and silver. We took                   the wave functions was 30 Ry, the one for the
+the exchange and correlation functionals that, on the            charge density 120 Ry, and the k-points mesh was
+basis of previous theoretical calculations, give a better        48 × 48 × 48. For silver we used the pseudopo-
+agreement with the experiment for the TE and/or                  tential Ag.pbesol-n-kjpaw psl.1.0.0.UPF, the cut-
+phonon dispersion curves.                                        off for the wave functions was 70 Ry, the one for the
+      We employed the projector augmented wave                   charge density 300 Ry, and the k-points mesh was
+(PAW) method and a plane waves basis set with                    64 × 64 × 64. In the case of aluminum and silver, the
+pseudopotentials [40] from pslibrary         [41].   For         presence of the Fermi surface has been dealt with by
+silicon we used the pseudopotential Si.pz-nl-                    a smearing approach [42] with a smearing parameter
+kjpaw psl.1.0.0.UPF, the cutoff for the wave func-               σ = 0.02 Ry. Density functional perturbation theory
+tions was 60 Ry, the one for the charge density                  (DFPT) [43, 44] was used to calculate the dynamical
+640 Ry, and the k-points mesh was 16 × 16 ×                      matrices on a 8 × 8 × 8 q-points grid for silicon while
+                                                                                                                   6
+
+for the metals we employed a 4 × 4 × 4 q-points grid.        is no difference as expected for cubic solids with a di-
+These dynamical matrices have been Fourier interpo-          agonal TE tensor. In general the theoretical values are
+lated on a 200 × 200 × 200 q-points mesh to evaluate         slightly below the experimental data (see also Table 2):
+the free-energy.                                             in particular these differences are about 6 % for C11 ,
+     The calculation of the TDECs can be done                2 % for C12 , and 7 % for C44 at the lowest experimen-
+automatically by the thermo pw program. The user             tal temperature T = 77 K. Our T = 0 K EC agrees
+chooses the relevant parameters: the number of               with almost all LDA ECs reported in Table 2 with typ-
+strained configurations, the interval of strain values       ical differences of about 2 %. Only Ref. [2] has larger
+between two geometries, the degree of the fitting            discrepancies. The PBE and PBEsol values are lower
+polynomials used in the calculation (further details for     than LDA and hence more distant from experiment.
+the calculations are reported in the thermo pw user’s        The experimental ECs decreases by ≈ 1.1% for C11 ,
+guide and in the file thermo.pdf , released with the         ≈ 1.8% for C12 , and ≈ 0.7% for C44 from 77 K to 300
+package). For our three materials the grid of the            K. The theoretical softening in the same temperature
+reference geometries were centered at the T = 0 K            range are ≈ 1.6% (QHA) and ≈ 0.1% (QSA) for C11 ,
+lattice constants reported in Table 1. We used 9             ≈ 1.9% (QHA) and ≈ 0.3% (QSA) for C12 , ≈ 1.2%
+reference geometries for silicon with lattice constants      (QHA) and ≈ 0.1% (QSA) for C44 . The theoretical
+separated from each other by ∆a = 0.05 a.u., 7 for           QHA reproduces better the experimental trend than
+aluminum separated by ∆a = 0.07 a.u., and 7 for silver       the QSA.
+separated by ∆a = 0.085 a.u.. The same grid is used               Although in the experimental temperature range
+for the calculation of the a(T ) and the TE. For all         the decrease of the ECs is small, in the whole
+three materials we used 6 strained configurations for        temperature range 0 K - 800 K considered in the plot,
+each type of strain with a strain interval δ = 0.005.       the QHA ECs have a not negligible variation: C11
+In total we computed the phonon dispersions for 162          and C12 decrease of about 7 % and C44 of 5 %. In
+geometries for silicon and 126 geometries for aluminum       Figure 2 we show the bulk modulus obtained from
+and silver. In order to fit the energy (for the QSA) or      these TDECs. The comparison between theoretical
+the free-energy (for the QHA) as a function of strain        and experimental adiabatic bulk moduli obtained from
+we use a polynomial of degree two. To fit the ECs            the experimental ECs using Eq. 17 (left) reflects the
+computed at the various reference configurations at the      behavior of the ECs: the temperature dependence is
+temperature dependent geometry we use a polynomial           more in agreement with QHA (red curve) than QSA
+of degree four.                                              (blue curve). Moreover, the QHA is much more in
+                                                             agreement with the bulk modulus obtained from the
+4. Applications                                              Murnaghan equation (orange curve) and differs from
+                                                             the experiment (black line) by an almost constant
+In Table 1 we report the theoretical lattice constants       amount.
+for silicon, aluminum, and silver: the equilibrium                Finally we present the TE calculated by the
+values at T = 0 K with and without zero point energy         Grüneisen’s formula (Eq.14).        In order to gauge
+and the values at T = 300 K. The latter is in good           our TDECs we take as reference the TE coefficient
+agreement with the room temperature experimental             computed via Eq. 13. This curve is reported in the
+value [28]: for all three elements, the experimental         right side of Figure 2 (orange). The difference of the
+values being slightly larger (with differences of 0.03 Å    TEs with the reference is quantified by computing the
+in silicon, 0.01 Å in aluminum, and even less in silver).   area percentage error (APE) that is the percentage
+      In Table 2 we compare our ECs computed at              difference of the areas under the TE curves. The TE
+T = 0 K with those obtained considering the zero point       obtained with the isothermal bulk modulus derived
+energy given by QHA. We also report the comparison           from the Murnaghan equation (orange dashed line in
+with experiment and other works. In Figure 1 the             the inset) differs by less than 0.04%. The TE derived
+TDECs of silicon computed by means of the QSA (blue          from QHA almost overlaps with the previous one (it
+curves) and the QHA (red curves) are shown. The              is slightly lower) since the two corresponding bulk
+dashed lines indicate isothermal ECs, the continuous         moduli (orange and red dashed lines in the inset) are
+lines the adiabatic ECs obtained by Eq. 11. The              very close to each other: in this case the APE is
+experimental points (black line) are adiabatic ECs           about 1.7%. The isothermal QSA bulk modulus (blue
+obtained from ultrasonic experiments [33].                   dashed line in the inset) is larger so the corresponding
+      At the temperature corresponding to the exper-         TE is smaller at higher temperatures with an APE
+imental points the difference between isothermal and         ≈ 4.4%. The black line is the TE computed with fixed
+adiabatic ECs C11 and C12 is quite small and it re-          ECs (T = 0 K without zero point contributions). It
+mains small also at higher temperatures. For C44 there       gives the smallest TE with an APE of about 7.5%.
+                                                                                                                              7
+
+
+
+
+Figure 1. Temperature dependent elastic constants of silicon. QHA (red curves) is compared with QSA (blue curves). The
+isothermal (dashed lines) and adiabatic (continuous lines) elastic constants are reported. Experimental data are taken from
+McSkimin [33] (black lines).
+
+
+
+
+Figure 2. Left. Temperature dependent bulk modulus of silicon. QHA (red curves), QSA (blue curves) and experimental data
+(black line) [33]. The orange curve is the bulk modulus obtained from the Murnaghan equation. In the inset a comparison between
+the adiabatic (continuous lines) and the isothermal (dashed lines) bulk moduli. Right. Thermal expansion of silicon: computed as
+in Eq. 13 (orange curve). The other curves are computed by using Eq. 14 with a bulk modulus derived from ECs (Eq. 17): TDECs
+computed via QHA (red curve) or QSA (blue curve) and T = 0 ECs (black curve). The experimental points are taken from [36]
+and [37]. In the inset the isothermal bulk moduli are reported: QHA (red dashed line), QSA (blue dashed line) and obtained from
+Murnaghan equation (orange dashed line).
+                                                                                                                  8
+
+In general, in silicon the different methods give very      Similar results have been obtained in Reference [52]
+similar results, especially at temperature lower than ≈     with the PW functional.
+200 K for which an almost perfect overlap is found.               We report in Figure 4 (left) the bulk modulus
+Finally, the theoretical TEs are in good agreement          of aluminum computed with the different sets of ECs
+with experimental points [36, 37] as already found in       with the same meaning for the lines and colors as for
+previous literature [45].                                   silicon. The adiabatic bulk modulus derived from the
+     In Figure 3 we report TDECs of aluminum with           Murnaghan equation is also reported (orange curve): it
+the same meaning for the lines and colors as for silicon.   is in good agreement with the bulk modulus computed
+In aluminum there are several ultrasonic experiments        from QHA TDECs (red curve) while larger differences
+which do not totally agree with each other. We report       are present with the QSA (blue curve) which remains
+these experimental points in the same figure. Sutton        higher at larger temperatures. In order to check the
+data [46] are in the temperature range 63 K - 773 K         consistency of our ECs we calculate the TE by using
+(open triangles), Kamm and Alers [34] data are in           Grüneisen’s formula using the isothermal bulk modulus
+the range 4.2 K - 300 K (full triangles), Gerlich and       obtained from the TDECs (the comparison between
+Fisher [47] data are in the range 293 K - 925 K (full       adiabatic and isothermal bulk moduli is shown in
+circles), and Tallon and Wolfenden [48] data are in the     the inset). We take as reference the TE coefficient
+range 273 K - 913 K (full circles). All experimental        computed from finite differences and compute the APE
+ECs are adiabatic and must be compared with the             as done for silicon. The TE obtained from mode-
+continuous lines. The temperature dependence and            Grüneisen parameters (Eq. 14) with the bulk modulus
+also the actual values measured by Sutton are quite         derived from the Murnaghan equation (orange dashed
+distant from the other measurements for C11 and             line in the inset) gives an APE ≈ 0.01%. The result of
+C12 (while the agreement improves for C44 ). For            the TE derived from QHA TDECs (red curve) gives
+this reason we do not further discuss these data in         a remarkable agreement with the reference with an
+the rest of the paper. The QHA is in satisfactory           APE ≈ 0.2%, while an APE ≈ 2.4% is found using
+agreement with both the data of Kamm and Alers, and         QSA. Finally, the calculation of the TE with a fixed
+Gerlich and Fisher. The data of Tallon and Wolfenden        bulk modulus obtained from the T = 0 KECs has an
+indicate less softening in C11 than Gerlich and Fisher      APE ≈ 17.2%, even if the agreement remains good at
+and report a C12 which is approximately constant            temperature up to 100 K.
+within the experimental errors, very similar to the               In Figure 5 we report the TDECs of silver with the
+theory in this case. Moreover, recent measurements          same meaning for the lines and colors of previous plots.
+of resonant ultrasound spectroscopy [52] of Young’s         The points are taken from ultrasonic experiments that
+modulus and shear modulus found good agreement              provide adiabatic ECs and must be compared with
+with those derived from Gerlich and Fisher. On the          the continuous lines: reference [35] is in the range of
+other hand, the QSA shows a smaller softening in            temperatures 4.2 K - 300 K (full triangles), reference
+C11 and C44 than the QHA, while smaller differences         [50] is in the range 79 K - 298 K (open triangles)
+between the two approximations are present for C12 .        and reference [51] is in the range 300 K - 800 K
+     The percentage differences between theoretical         (circles). Since the two sets of data below room
+ECs (red continuous curves) and experimental points         temperature are very similar, in the following we limit
+at T = 0 K (Kamm data) are −0.2 % (QHA) and 0.3             the comparison with the first one. The percentage
+% (QSA) for C11 , −2 % (QHA) and 0.3 % (QSA) for            differences between QHA ECs (red continuous curves)
+C12 , −11 % (QHA) and −10 % (QSA) for C44 . The             and experimental points at T = 0 K are about 8 %
+T = 0 K ECs are also reported in Table 2 and compared       for C11 and C12 and 4 % for C44 . Almost the same
+with previous literature. In the temperature range 0        values are found for QSA ECs. Our values of the
+K - 800 K the experiment of Kamm and Alers, and             T = 0 K ECs are between the ECs of Refs. [9] and
+Gerlich and Fisher taken together show a softening of       Ref. [10] both using GGA functionals and are slightly
+≈ 25% for C11 , ≈ 11% for C12 and ≈ 36% for C44             closer to experiment (see Table 2). The experiments
+While taking together the experiments of Kamm and           show a softening of ≈ 19% for C11 , ≈ 13% for
+Alers, and Tallon and Wolfenden in the same range of        C12 , and ≈ 28% for C44 in the temperature range 0
+temperatures the percentage variations are: ≈ 20% for       K - 800 K. In the same range of temperatures the
+C11 , ≈ −0.3% for C12 and 36 % for C44 .                    theoretical softening of the adiabatic ECs is ≈ 21%
+     The theoretical softening in the same temperature      (QHA) and ≈ 11% (QSA) for C11 , ≈ 15% (QHA)
+range are ≈ 28% (QHA) and ≈ 13% (QSA) for C11 , ≈           and ≈ 9% (QSA) for C12 and ≈ 31% (QHA) and
+4% (QHA and QSA) for C12 , ≈ 35% (QHA) and ≈ 25%            ≈ 23% (QSA) for C44 . As for silicon and aluminum
+(QSA) for C44 . As for silicon, in aluminum the QHA         the QHA reproduces slightly better the experimental
+reproduces better the experimental trend than QSA.          trend. We report in Figure 6 (left) the adiabatic bulk
+                                                                                                                                      9
+
+
+
+
+Figure 3. Temperature dependent ECs of aluminum. QHA (red curves) is compared with QSA (blue curves). The isothermal
+(dashed lines) and adiabatic (continuous lines) ECs are reported. Experimental data are taken from: Sutton [46] (open triangles),
+Kamm and Alers [34] (full triangles), Gerlich and Fisher [47] (full circles), Tallon and Wolfenden [48] (open circles).
+
+
+
+
+Figure 4. Left. Temperature dependent bulk modulus of aluminum. QHA (red curves), QSA (blue curves) and experimental points:
+Kamm and Alers [34] (full triangles), Gerlich and Fisher [47] (full circles), Tallon and Wolfenden [48] (open circles). The orange curve
+is the bulk modulus obtained from the Murnaghan equation. In the inset a comparison between the adiabatic (continuous lines) and
+the isothermal(dashed lines) bulk moduli. Right. Thermal expansion of aluminum: computed as Eq. 13 (orange curve). The other
+curves are computed by using Eq. 14 with a bulk modulus derived from ECs (Eq. 17): temperature dependent ECs computed via
+QHA (red curve) or QSA (blue curve) and T = 0K ECs (black curve). The experimental points are taken from [49]. In the inset
+the isothermal bulk moduli are reported: QHA (red dashed lines), QSA (blue dashed line) and obtained from Murnaghan equation
+(orange dashed line).
+                                                                                                                               10
+
+
+
+
+Figure 5. Temperature dependent elastic constants of silver. Quasi-harmonic approximation (red curves) is compared with quasi-
+static approximation (blue curves). The adiabatic (continuous lines) and isothermal (dashed lines) elastic constants are reported.
+Experimental data are taken from Neighbours and Alers [35] (full triangles), Mohazzabi [50] (open triangles) and Chang and
+Himmel [51] (circles).
+
+
+
+
+Figure 6. Left. Temperature dependent adiabatic bulk modulus of silver. QHA (red curves), QSA (blue curves) and experimental
+points [35] (full triangles), [50] (open triangles) and [51] (circles). The orange curve is the bulk modulus obtained from the
+Murnaghan equation. In the inset we compare the adiabatic (continuous lines) and the isothermal (dashed lines) bulk moduli.
+Right. Thermal expansion of silver: computed as Eq. 13 (orange curve). The other curves are computed by using Eq. 14 with a
+bulk modulus derived from ECs (Eq. 17): temperature dependent ECs computed via QHA (red curve) or QSA (blue curve) and
+T=0 ECs (black curve). The experimental points are taken from [49]. In the inset the isothermal bulk moduli are reported: QHA
+(red dashed line), QSA (blue dashed line) and obtained from Murnaghan equation (orange dashed line).
+                                                                                                                         11
+
+modulus of silver computed with the different sets of      the TE given by differentiation of the temperature
+ECs and the one derived from the Murnaghan equation        dependent lattice constant.
+(orange curve). The QHA bulk modulus is the closest             The method is currently available and tested for
+to the orange curve, even if a small artificial descent    cubic solids. As in many theoretical calculations
+is present in the high temperature part of the red         of the TDECs presented so far, internal degrees of
+curve (> 600 K). This may be due to a not perfect          freedom are optimized only at T = 0 K negleting the
+convergence in the k-point sampling but since the          dependence of the free energy on them. The extension
+variation is small and the selected k-point grid was       of the method to anisotropic solids and to a complete
+already close to the largest one we could afford we        QHA treatment of the internal degrees of freedom will
+have not investigated further this issue. Finally we       be the subject of future investigations.
+check the consistency of our ECs by computing the TE
+using the Grüneisen’s formula and the isothermal bulk     Acknowledgments
+modulus obtained from the TDECs (the comparison
+between adiabatic and isothermal bulk moduli is shown      Computational facilities have been provided by SISSA
+in the inset). The APE is computed as for the previous     through its Linux Cluster and ITCS and by CINECA
+two materials. The TE computed using the isothermal        through the SISSA-CINECA 2018-2020 Agreement.
+bulk modulus derived from the Murnaghan equation
+(orange dashed curve in the inset) has an APE of           References
+the order of −0.01%, being practically identical to the
+finite differences method. Also QHA TDECs give a            [1] M. J. Gillan, D. Alfè, J. Brodholt, L. Vočadlo, and G. D.
+very good agreement, the associated APE is ≈ 1.4%,                 Price. Reports on Progress in Physics, 69:2365, 2006.
+                                                            [2] O. H. Nielsen and Richard M. Martin. Phys. Rev. B,
+while the QSA TE has slightly smaller values at                    32:3792, 1985.
+higher temperatures with an APE of ≈ 4.2%. Finally,         [3] Hao Wang and Mo Li. Phys. Rev. B, 79:224102, 2009.
+by using a temperature independent bulk modulus             [4] Jijun Zhao, J. M. Winey, and Y. M. Gupta. Phys. Rev. B,
+obtained from the T = 0 K ECs (black line) the TE is               75:094105, 2007.
+                                                            [5] R. Golesorkhtabar, P. Pavone, J. Spitaler, P. Puschnig, and
+more distant from the reference with an APE ≈ 18.4%.               C. Draxl. Comput. Phys. Commun., 184:1861, 2013.
+                                                            [6] W.F. Perger, J. Criswell, B. Civalleri, and R. Dovesi.
+                                                                   Comput. Phys. Commun., 180:1753, 2009.
+5. Conclusions                                              [7] M. Jamal, S. Jalali-Asadabadi, Iftikhar Ahmad, and
+                                                                   H. A. Rahnamaye Aliabad. Comput. Mater. Sci., 95:592,
+In this paper we presented our implementation of                   2014.
+the TDECs in the thermo pw code. Isothermal and             [8] M. Jamal, M. Bilal, Iftikhar Ahmad, and S. Jalali-
+adiabatic ECs can be computed within the framework                 Asadabadi. J. Alloys Compd., 735:569, 2018.
+                                                            [9] Y Wang, J J Wang, H Zhang, V R Manga, S L Shang,
+of DFT and DFPT within both the QSA and the                        L-Q Chen, and Z-K Liu. J. Phys.: Condens. Matter,
+QHA. The two approaches have been compared in                      22:225404, 2010.
+this paper. The first method is less computationally       [10] S-L. Shang, H. Zhang, Y. Wang, and Z-K. Liu. J. Phys.:
+demanding and takes into account only the TE effect.               Condens. Matter, 22:375403, 2010.
+                                                           [11] K. Kádas, L. Vitos, R. Ahuja, B. Johansson, and J. Kollár.
+The second method, more accurate, obtains the ECs                  Phys. Rev. B, 76:235109, 2007.
+from the derivatives of the Helmholtz free-energy with     [12] B. B. Karki, R. M. Wentzcovitch, S. de Gironcoli, and
+respect to the strain and requires the computation of              S. Baroni. Phys. Rev. B, 61:8793, 2000.
+                                                           [13] B. B. Karki, R. M. Wentzcovitch, S. de Gironcoli, and
+the phonon dispersions in all strained geometries. The
+                                                                   S. Baroni. Science, 286:1705, 1999.
+two methods were validated computing the TDECs             [14] T. Shao, B. Wen, R. Melnik, S. Yao, Y. Kawazoe, and
+of three cubic crystals: silicon, aluminum, and silver.            Y. Tian. J. Appl. Phys., 111:083525, 2012.
+The computed ECs were systematically compared with         [15] Daniele Dragoni, Davide Ceresoli, and Nicola Marzari.
+                                                                   Phys. Rev. B, 91:104105, 2015.
+experiment. It was found that the experimental             [16] X. Yan, Y. Lin, L. Li, and F. Sun. Phys. Status Solidi B,
+temperature dependence agrees very well with QHA                   253:2236, 2016.
+and also QSA gives often reasonable results. The           [17] Maurizio Destefanis, Corentin Ravoux, Alessandro Cossard,
+actual values of the ECs depend on the exchange and                and Alessandro Erba. Minerals, 9:16, 2019.
+                                                           [18] https://dalcorso.github.io/thermo pw.
+correlation functionals: with our choices the values are   [19] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra,
+usually within 10 % from experiment but for some                   R. Car, C. Cavazzoni, D. Ceresoli, G. L. Chiarotti,
+element and EC component the error can be even lower               M. Cococcioni, and I. Dabo et al. J. Phys.: Condens.
+(for instance it is ≈ 0.3 % for C11 in aluminum below              Matter, 21:395502, 2009.
+                                                           [20] P. Giannozzi, O. Andreussi, T. Brumme, O. Bunau,
+room temperature).                                                 M. Buongiorno Nardelli, M. Calandra, R. Car, C. Cavaz-
+     As a further check we use the TDECs to estimate               zoni, D. Ceresoli, and M. Cococcioni et al. J. Phys.:
+the TE using the mode Grüneisen parameters. The                   Condens. Matter, 29:465901, 2017.
+QHA ECs allow to reproduce with remarkable accuracy        [21] Andrea Dal Corso. Journal of Physics: Condensed Matter,
+                                                                   28(7):075401, jan 2016.
+                                                                    12
+
+[22] M. Palumbo and A. Dal Corso. J. Phys.: Condens. Matter,
+        29:395401, 2017.
+[23] M. Palumbo and A. Dal Corso. Phys. Status Solidi B,
+        254:1700101, 2017.
+[24] Cristiano Malica and Andrea Dal Corso. Acta Cryst.
+        Section A, 75:624, 2019.
+[25] T. H. K. Barron and M. L. Klein. Proc. Phys. Soc., 85:523,
+        1965.
+[26] J. F. Nye. Physical properties of crystals. New York:
+        Oxford science publications, 1985.
+[27] D. C. Wallace. Thermodynamics of Crystals. John Wiley
+        and Sons, 1972.
+[28] R. W. G. Wyckoff. Crystal structure 1. Interscience
+        Publishers New York, 1963.
+[29] J. P. Perdew, K. Burke, and M. Ernzerhof. Phys. Rev.
+        Lett., 77:3865, 1996.
+[30] J. P. Perdew and Y. Wang. Phys. Rev. B, 45:13244, 1992.
+[31] M. Rasander and M. A. Moram.               J. Chem. Phys.,
+        143:144104, 2015.
+[32] Weixue Li and Tzuchiang Wang. J. Phys.: Condens.
+        Matter, 10:9889, 1998.
+[33] H J. McSkimin. J. Appl. Phys., 24:988, 1953.
+[34] G. N. Kamm and G. A. Alers. J. App. Phys., 35:327, 1964.
+[35] J. R. Neighbours and G. A. Alers. Phys. Rev., 111:707,
+        1958.
+[36] K. G. Lyon, G. L. Salinger, C. A. Swenson, and G. K.
+        White. J. Appl. Phys., 48:865, 1977.
+[37] R. Hull. Properties of crystalline silicon. INSPEC London,
+        1999.
+[38] J. P. Perdew and A. Zunger. Phys. Rev. B, 23:5048–5079,
+        1981.
+[39] John P. Perdew, Adrienn Ruzsinszky, Gábor I. Csonka,
+        Oleg A. Vydrov, G E. Scuseria, L A Constantin, Xiaolan
+        Zhou, and Kieron Burke. Phys. Rev. Lett., 100:136406,
+        2008.
+[40] P. E. Blöchl. Phys. Rev. B, 50:17953, 1994.
+[41] https://github.com/dalcorso/pslibrary.
+[42] M. Methfessel and A. T. Paxton. Phys. Rev. B, 40:3616–
+        3621, 1989.
+[43] S. Baroni, S. de Gironcoli, A. Dal Corso, and P. Giannozzi.
+        Rev. Mod. Phys., 73:515, 2001.
+[44] A. Dal Corso. Phys. Rev. B, 82:075123, 2010.
+[45] G.-M. Rignanese, J.-P. Michenaud, and X. Gonze. Phys.
+        Rev. B, 53:4488, 1996.
+[46] P. M. Sutton. Phys. Rev., 91:816, 1953.
+[47] D. Gerlich and E. S. Fisher. J. Phys. Chem. Solids, 30:1197,
+        1969.
+[48] J. L. Tallon and A. Wolfenden. J. Phys. Chem. Solids,
+        40:831–837, 1979.
+[49] Y. S. Touloukian, R. K. Kirby, R. E. Taylor, and P. D.
+        Desai. Thermal expansion: Metallic elements and
+        alloys. IFI/Plenum, 1975.
+[50] P. Mohazzabi. J. Phys. Chem. Solids, 46:147, 1985.
+[51] Y. A. Chang and L. Himmel. J. Appl. Phys., 37:3567, 1966.
+[52] Hieu H. Pham, Michael E. Williams, Patrick Mahaffey,
+        Miladin Radovic, Raymundo Arroyave, and Tahir Cagin.
+        Phys. Rev. B, 84:064101, 2011.
+                                                     Supplementary material for Quasi-harmonic
+                                                     temperature dependent elastic constants:
+arXiv:2109.13551v1 [cond-mat.mtrl-sci] 28 Sep 2021
+
+
+
+
+                                                     applications to silicon, aluminum, and silver
+
+                                                                      C. Malica1 and A. Dal Corso1,2
+                                                                      1 International School for Advanced Studies (SISSA),
+
+                                                                      Via Bonomea 265, 34136 Trieste (Italy).
+                                                                      2 IOM-CNR 34136 Trieste (Italy).
+
+                                                                      E-mail: cmalica@sissa.it
+
+                                                                      February 2020
+
+
+                                                     1. Grüneisen parameters
+
+                                                     In Figure 1 we report the mode-Grüneisen parameters used for the thermal expansion
+                                                     (TE) (Eq. 14) calculation for silicon, aluminum, and silver, calculated along selected
+                                                     high symmetry lines in the Brillouin zone.
+
+                                                     2. Temperature dependent elastic constant flow-chart
+
+                                                     The calculation of the temperature dependent elastic constants (TDECs) within the
+                                                     QHA with the thermo pw code is divided in two parts illustrated in Figure 2.
+                                                                                                                       T
+                                                          The first part (a) corresponds to the calculation of the Cijkl    as a function of the
+                                                     temperature for the reference geometries given in input. For each reference geometry
+                                                     all the strained geometries required for an elastic constant calculation are generated
+                                                     and phonons are computed for each strained configuration. All these calculations can
+                                                     be ran sequentially or in parallel. The parallelism underlying each phonon-dispersion
+                                                     calculation (see for instance: ICTP lecture notes 24, 163 (2009) by R. di Meo et
+                                                     al.) is implemented in thermo pw using images parallelization. Having the phonon
+                                                     frequencies of each strained geometry it is possible to compute, within the harmonic
+                                                     approximation, the thermodynamic quantities that depend from them (in particular
+                                                     the vibrational free energy of Eq. 10). Then the second derivatives of the free-energy
+                                                                               T
+                                                     with respect to strain C̃ijkl are computed at each temperature (Eq. 9) and the results
+                                                                                                                                         T
+                                                     are corrected for finite pressure effects in order to get the stress-strain ECs Cijkl   (Eq.
+                                                                                                                           T
+                                                     4): this in shown in the last block in the figure. A file with the Cijkl (T ) is written for
+                                                     each reference geometry.
+                                                          The second part (b) is devoted to the computation of the anharmonic properties
+                                                                                                                                 T
+                                                     within the quasi-harmonic approximation. It needs the files of the Cijkl        (T ) at each
+                                                     reference geometry produced by the first part (a). The setup of the references
+                                                     geometries must be the same as in part (a). Phonons are computed at each reference
+                                                     geometry. This allows to compute the vibrational free-energy of each reference
+                                                     geometry. For each temperature T , the vibrational free-energy is added to the energy
+                                                                                        2
+
+
+
+
+                         (a)                                                   (b)
+
+
+
+
+                                           (c)
+
+    Figure 1: Mode-Grüneisen parameters for: a) silicon, b) aluminum, c) silver.
+
+
+to get the Helmholtz free energy of the solid at the reference geometries. The free-
+energies at the various geometries are interpolated by a polynomial (the order of the
+                                                                                    T
+polynomial can be varied) and minimized to obtain a(T ). The isothermal Cijkl         (T )
+at the various geometries are interpolated by a polynomial and, at each temperature
+T , the value corresponding to a(T ) is evaluated from the polynomial interpolation:
+in this way we obtain the final QHA TDECs. Then, starting from this isothermal
+QHA TDECs, the adiabatic QHA TDECs, elastic compliances and bulk modulus are
+derived. In this second part the parallellization is done as in the first part as shown in
+Figure 2 although the number of required phonon dispersions is much smaller than in
+the first part. In order to compute the free-energy as a function of the strain we used
+in the first part an even number (6 values) of strains centered around  = 0. However
+this point is not included. If the user select an odd number of strained configurations
+then the central geometry is considered. In this case the user can use the dynamical
+matrices already computed for the reference  = 0 geometry to run the second part of
+the calculation.
+     In order to compute the TDECs within the QSA, the ECs are computed at T = 0
+K at the different reference geometries by using the stress-strain relation (Eq. 2) or
+the second derivatives of the total energy (Eq. 3 and Eq. 4) and then they are saved
+on a different file for each geometry. Part (b) does not change provided that the files
+                                                                                  3
+
+
+
+
+                       (a)                                                       (b)
+
+Figure 2: Flow-chart of the calculation of the TDECs within the QHA with the
+thermo pw code.
+
+                                            T
+of the T = 0 K ECs are read instead of the Cijkl (T ).
+
+3. Some tests: elastic constants at T = 0 K
+
+Some tests of the ECs calculation by using the thermo pw code can be found in
+Ref. [21]. In this section we investigate a few other examples. As in Ref. [4] we
+considered In, TiO2 rutile, and Al2 O3 and computed the ECs at T = 0 K from the
+second derivatives of the total energy with respect to strain (Eq. 3 of the paper),
+after minimizing the total energy with respect to the crystal parameters and finding
+the equilibrium geometry. We also verified the result computing the ECs from the
+stress-strain relation (Eq. 2 of the paper). Both methods are available in the code.
+Moreover, we computed some properties of macroscopic elasticity as described in the
+tables captions. In these tables we compare our results with those obtained in Ref.
+[4] and with the experimental data reported in the same paper.
+
+3.1. Indium
+We used the Wu-Cohen (WC) exchange-correlation functional (Z. Wu, R.E.
+Cohen, Phys.   Rev.    B 73, 235116, 2006) and the pseudopotential
+                                                                                     4
+
+Table 1: Elastic properties of indium. Crystal parameters are in units of the Bohr
+radius. The elastic constants Cij are in kbar. Bulk modulus B (kbar), shear modulus
+S (kbar) and Young’s modulus Y (kbar) and Poisson’s ratio V are calculated within
+the Voigt (V) and Reuss (R) approximations. The average of the two according to
+the Voigt-Reuss-Hill (H) method is also reported. Transverse elastic wave velocity vt ,
+longitudinal elastic wave velocity vl and the average wave velocity vm are reported in
+m/s and the Debye temperature ΘD in K.
+
+                            This work      Other theoretical     Expt.
+              Method         PAW-PP           FP-LAPW
+              Functional        WC                WC
+              a0              6.0956            6.0491           6.1439
+              c0              9.3414            9.4324           9.3479
+              C11               617               589              525
+              C12               302               332              368
+              C13               424               374              371
+              C33               500               448              530
+              C44                70                58               78
+              C66                54                25              147
+              BV                448               421              422
+              BR                448               414              422
+              BH                448               418              422
+              SV                 78                65               92
+              SR                 62                50               86
+              SH                 70                57               89
+              YV                220               185              257
+              YR                178               143              242
+              YH                199               164              250
+              VV               0.418             0.426            0.398
+              VR               0.434             0.442            0.404
+              VH               0.425             0.434            0.401
+              vt                971              875.2           1105.2
+              vl               2702             2573.2           2723.6
+              vm              1103.1             995.4           1251.4
+              ΘD                109              100.6            125.5
+
+
+In.wc-dn-kjpaw psl.1.0.0.UPF from pslibrary. The cutoff for the wave functions
+was 70 Ry, the one for the charge density 500 Ry, the k-point mesh was 48 × 48 × 32.
+The presence of the Fermi surface has been dealt with by the MP [41] smearing tech-
+nique with a value of the smearing parameter σ = 0.02. The equilibrium configuration
+was obtained by interpolating the total energy computed in a 5 × 5 grid of a and c/a
+crystal parameters with a 2-dimensional fourth-degree polynomial and by minimizing
+it (∆a = 0.05 a.u., ∆(c/a) = 0.02). The results are reported in Table 1.
+
+3.2. Rutile T iO2
+We used the Perdew-Burke-Ernzerhof (PBE) exchange-correlation functional (J.
+P. Perdew et al.,, Phys. Rev. Lett. 77, 3865, 1996) and the pseudopoten-
+                                                                                      5
+
+Table 2: Elastic properties of rutile TiO2 . Crystal parameters are in units of the Bohr
+radius. The elastic constants Cij are in kbar. Bulk modulus B (kbar), shear modulus
+S (kbar) and Young’s modulus Y (kbar) and Poisson’s ratio V are calculated within
+the Voigt (V) and Reuss (R) approximations. The average of the two according to
+the Voigt-Reuss-Hill (H) method is also reported. Transverse elastic wave velocity vt ,
+longitudinal elastic wave velocity vl and the average wave velocity vm are reported in
+m/s and the Debye temperature ΘD in K.
+
+                             This work     Other theoretical      Expt.
+              Method          PAW-PP          FP-LAPW
+              Functional        PBE              PBE
+              a0               8.7860           8.6809            8.6806
+              c0               5.6138           5.5900            5.5911
+              C11               2566             2683              2690
+              C12               1677             1802              1770
+              C13               1465             1464              1460
+              C33               4693             4779              4800
+              C44               1148             1223              1240
+              C66               2111             2236              1920
+              BV                2116             2178              2173
+              BR                2012             2094              2086
+              BH                2064             2136              2130
+              SV                1229             1298              1246
+              SR                 947              978               986
+              SH                1088             1138              1116
+              YV                3090             3248              3138
+              YR                2456             2538              2556
+              YH                2773             2898              2851
+              VV                0.257            0.251             0.259
+              VR                0.297            0.298             0.295
+              VH                0.274            0.273             0.276
+              vt               5133.0           5174.2            5125.8
+              vl               9224.5           9272.1            9228.0
+              vm               5716.2           5760.8            5709.0
+              ΘD                754.7            785.6             778.5
+
+
+tials Ti.pbe-spn-kjpaw psl.1.0.0.UPF and O.pbe-nl-kjpaw psl.1.0.0.UPF from
+pslibrary. The cutoff for the wave functions was 50 Ry, the one for the charge
+density 350 Ry, the k-point mesh was 12 × 12 × 20. The equilibrium configuration
+was obtained by interpolating the total energy computed in a 5 × 5 grid of a and c/a
+crystal parameters with a 2-dimensional fourth-degree polynomial and by minimizing
+it (∆a = 0.05 a.u., ∆(c/a) = 0.02). The results are reported in Table 2.
+
+3.3. Rhombohedral Al2 O3
+We used the Perdew-Burke-Ernzerhof (PBE) exchange-correlation functional and the
+pseudopotentials Al.pbe-nl-kjpaw psl.1.0.0.UPF and O.pbe-n-kjpaw psl.1.0.0.UPF
+from pslibrary. The cutoff for the wave functions was 70 Ry, the one for the charge
+                                                                                      6
+
+Table 3: Elastic properties of rhombohedral Al2 O3 . Crystal parameters are in units of
+the Bohr radius. The elastic constants Cij are in kbar. Bulk modulus B (kbar), shear
+modulus S (kbar) and Young’s modulus Y (kbar) and Poisson’s ratio V are calculated
+within the Voigt (V) and Reuss (R) approximations. The average of the two according
+to the Voigt-Reuss-Hill (H) method is also reported. Transvers elastic wave velocity
+vt , longitudinal elastic wave velocity vl and the average wave velocity vm are reported
+in m/s and the Debye temperature ΘD in K.
+
+                            This work      Other theoretical      Expt.
+             Method          PAW-PP           FP-LAPW
+             Functional        PBE               PBE
+             a0               9.0924            9.0928            8.9916
+             c0               24.8081           24.8253          24.5498
+             C11               4516              4656              4974
+             C12               1510              1383              1640
+             C13               1091              1036              1122
+             C33               4537              4588              4991
+             C44               1319              1363              1474
+             C14               −200               −24              −236
+             BV                2328              2312              2523
+             BR                2325              2308              2518
+             BH                2326              2310              2521
+             SV                1487              1569              1660
+             SR                1443              1547              1606
+             SH                1465              1558              1633
+             YV                3677              3838              4084
+             YR                3587              3793              3974
+             YH                3632              3816              4029
+             VV                0.237             0.223            0.230
+             VR                0.242             0.226            0.236
+             VH                0.240             0.224            0.233
+             vt               6160.5            6355.4            6399.3
+             vl               10529.9           10665.7          10853.7
+             vm               6831.3            7035.3            7090.9
+             ΘD                979.4            1015.3            1034.8
+
+
+density 500 Ry, the k-point mesh was 12 × 12 × 12. The equilibrium configuration was
+obtained by interpolating the total energy computed in a 5 × 5 grid of the lattice con-
+stant a and angle α with a 2-dimensional fourth-degree polynomial and by minimizing
+it (∆a = 0.05 a.u., ∆α = 0.5). The results are reported in Table 3.
+                                                                                      7
+
+4. Thermoelasticity of MgO
+
+In this section we compare the results obtained by our approach with the QHA TDECs
+of MgO available in the literature in Refs. [12, 13] cited in the paper. This example is
+also useful to test a material with ionic bonds, since in the main paper we considered
+only covalent and metallic systems.
+     In order to minimize as much as possible the differences between our calculation
+and the literature, we used the LDA for the exchange-correlation energy and the norm-
+conserving pseudopotentials from the Quantum Espresso pseudopotentials library:
+Mg.pz-n-vbc.UPF and O.pz-mt.UPF. The cutoff for the wave functions was 90 Ry.
+The k-point mesh was 12 × 12 × 12. Density functional perturbation theory (DFPT)
+was used to calculate the dynamical matrices on a 4 × 4 × 4 q-point grid. These
+dynamical matrices have been Fourier interpolated on a 200 × 200 × 200 q-point mesh
+to evaluate the free-energy. We used 9 reference geometries with lattice constants
+separated from each other by ∆a = 0.05 a.u. and centered in the T = 0 K equilibrium
+lattice constant: 7.93 a.u.. In order to fit the free-energy as a function of strain we
+use a polynomial of degree two. To fit the ECs computed at the various reference
+configurations at the temperature dependent geometry we use a polynomial of degree
+three. In Fig. 3 we report the TDECs.
+
+
+
+
+Figure 3: Adiabatic QHA TDECs of MgO. This work (red curves) compared with
+the results of Refs. [12,13] (blue curve). The points are experimental data, the same
+shown in [12,13].
+

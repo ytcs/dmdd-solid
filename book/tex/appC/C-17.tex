@@ -1,0 +1,95 @@
+\section{Point and space groups}\label{app:C.17}
+
+Silicon is mapped onto itself by 48 rotations and reflections, half of them combined with a shift by a quarter of the cube diagonal. The second half is why its (200) X-ray reflection vanishes for any charge distribution in the cell, and why some of its electronic transitions are forbidden at the lowest order. \Cref{sec:13.9} uses the shifted operations, glides, to classify the zero-phonon transitions of silicon, and \cref{sec:14.5} uses point-group characters to decide which crystals allow a response odd in $\vect{q}$. Both start from the crystal structures of \cref{sec:3.1}.
+
+\subsection{Symmetry operations}
+
+A symmetry operation of a crystal is a map $\vect{r} \to \mathsf{R}\vect{r} + \vect{t}$, written $\{\mathsf{R}|\vect{t}\}$, with $\mathsf{R}$ an orthogonal $3\times3$ matrix and $\vect{t}$ a translation, that maps the crystal onto itself. Applying $\{\mathsf{R}'|\vect{t}'\}$ and then $\{\mathsf{R}|\vect{t}\}$ gives $\vect{r} \to \mathsf{R}(\mathsf{R}'\vect{r} + \vect{t}') + \vect{t}$, so
+\begin{equation}
+  \{\mathsf{R}|\vect{t}\}\{\mathsf{R}'|\vect{t}'\} = \{\mathsf{R}\mathsf{R}'\,|\,\mathsf{R}\vect{t}' + \vect{t}\}, \qquad
+  \{\mathsf{R}|\vect{t}\}^{-1} = \{\mathsf{R}^{-1}\,|\,-\mathsf{R}^{-1}\vect{t}\} .
+  \label{eq:C.17-compose}
+\end{equation}
+The operations form the \emph{space group}. It contains the lattice translations $\{1|\vect{R}\}$ of \cref{eq:3.1-R}, and each $\mathsf{R}$ that occurs comes with a translation $\vect{t}$ fixed up to a lattice vector. The set of the $\mathsf{R}$ is the \emph{point group} $\mathcal{P}$, of order $|\mathcal{P}|$. An orthogonal matrix has $\det\mathsf{R} = \pm1$. With $\det\mathsf{R} = +1$ it is a proper rotation by an angle $\theta_{\mathsf{R}}$ about an axis; with $\det\mathsf{R} = -1$ it is improper, the product of the inversion $-1$ and the proper rotation $-\mathsf{R}$, and we define $\theta_{\mathsf{R}}$ as the angle of $-\mathsf{R}$. A mirror reflection, for example, is the inversion times a rotation by $\pi$ about the normal of the mirror.
+
+If the origin can be chosen so that every $\mathsf{R}$ of the point group occurs with $\vect{t}$ a lattice vector, the space group is \emph{symmorphic}. Otherwise it is \emph{nonsymmorphic}, and some operations carry a translation that no change of origin removes: a \emph{glide}, a reflection followed by a translation parallel to the mirror, or a \emph{screw}, a rotation followed by a translation along its axis. Applied twice, a glide gives a pure translation, which must be a lattice vector. Crystals have 32 point groups, named in two systems. Silicon and germanium have $m\bar3m$ ($O_h$), the full symmetry of the cube. GaAs has $\bar43m$ ($T_d$), that of the regular tetrahedron. The 24 proper rotations of the cube form $432$ ($O$), and $\alpha$-quartz and tellurium have $32$ ($D_3$).
+
+\subsection{Representations and characters}
+
+A \emph{representation} of $\mathcal{P}$ assigns to each $\mathsf{R}$ a matrix $\mathsf{D}(\mathsf{R})$ with $\mathsf{D}(\mathsf{R})\mathsf{D}(\mathsf{R}') = \mathsf{D}(\mathsf{R}\mathsf{R}')$. Vectors, tensors and functions of direction each carry one: the matrices describe how their components mix under the operations. A representation is \emph{irreducible} if no basis change splits all its matrices into smaller blocks at once. Its \emph{character} $c(\mathsf{R}) = \operatorname{tr}\mathsf{D}(\mathsf{R})$ is unchanged by basis changes and takes one value on each class of conjugate elements, $\mathsf{S}\mathsf{R}\mathsf{S}^{-1}$ with $\mathsf{S} \in \mathcal{P}$. The irreducible characters $c^{(a)}$ are orthonormal,
+\begin{equation}
+  \frac{1}{|\mathcal{P}|}\sum_{\mathsf{R}\in\mathcal{P}}c^{(a)}(\mathsf{R})^*\,c^{(b)}(\mathsf{R}) = \delta_{ab} ,
+  \label{eq:C.17-orth}
+\end{equation}
+so a representation with character $c$ contains the irreducible representation $a$ exactly $n_a = |\mathcal{P}|^{-1}\sum_{\mathsf{R}}c^{(a)}(\mathsf{R})^*c(\mathsf{R})$ times~\cite[Chap.~3]{dresselhaus2008group}.
+
+The case $a$ = trivial representation, $c^{(a)} = 1$, counts invariants, and it can be proved in two lines. Let $\mathsf{Q} = |\mathcal{P}|^{-1}\sum_{\mathsf{R}}\mathsf{D}(\mathsf{R})$. Since multiplying all elements of a group by one element only reorders them, $\mathsf{D}(\mathsf{S})\mathsf{Q} = \mathsf{Q}$ for every $\mathsf{S}$; hence $\mathsf{Q}^2 = \mathsf{Q}$, and every vector in the range of $\mathsf{Q}$ is invariant. Conversely, an invariant vector $\mathbf{x}$ has $\mathsf{Q}\mathbf{x} = \mathbf{x}$. So $\mathsf{Q}$ is the projector onto the invariant subspace. Its trace is the dimension of that subspace:
+\begin{equation}
+  n_{\mathrm{inv}} = \frac{1}{|\mathcal{P}|}\sum_{\mathsf{R}\in\mathcal{P}}c(\mathsf{R}) .
+  \label{eq:C.17-ninv}
+\end{equation}
+
+For the point group $32$, the six elements fall into three classes: the identity $1$, the two rotations $C_3$ by $\pm2\pi/3$ about the threefold axis, and the three rotations $C_2'$ by $\pi$ about the twofold axes perpendicular to it. There are three irreducible representations, labeled $A_1$, $A_2$ and $E$ in the standard notation, with characters $(1, 1, 1)$, $(1, 1, -1)$ and $(2, -1, 0)$ on the classes $(1, C_3, C_2')$. With the class sizes 1, 2 and 3, \cref{eq:C.17-orth} checks: for the two-dimensional representation with itself, $(4 + 2\cdot1 + 0)/6 = 1$; for it with $A_2$, $(2 - 2 + 0)/6 = 0$.
+
+\subsection{Polar and axial tensors}
+
+A \emph{polar} vector, such as $\vect{q}$, a position or a current, transforms with $\mathsf{R}$ itself. Its character is $c_{\mathrm{V}}(\mathsf{R}) = \operatorname{tr}\mathsf{R}$. A proper rotation by $\theta$ has the eigenvalues $1$ and $\ee^{\pm\ii\theta}$, so $\operatorname{tr}\mathsf{R} = 1 + 2\cos\theta$; an improper one has the negatives. An \emph{axial} vector, such as an angular momentum, a spin or a magnetic field, is a cross product of two polar vectors and does not change sign under the inversion. It transforms with $(\det\mathsf{R})\mathsf{R}$. Hence
+\begin{equation}
+  c_{\mathrm{V}}(\mathsf{R}) = (\det\mathsf{R})\,(1 + 2\cos\theta_{\mathsf{R}}), \qquad
+  c_{\mathrm{A}}(\mathsf{R}) = 1 + 2\cos\theta_{\mathsf{R}} .
+  \label{eq:C.17-polar}
+\end{equation}
+A tensor transforms as the product of its indices, and its character is the product of theirs. A rank-three polar tensor has $c_{\mathrm{V}}^3$; a second-rank tensor with one polar and one axial index has $c_{\mathrm{V}}c_{\mathrm{A}} = (\det\mathsf{R})(1 + 2\cos\theta_{\mathsf{R}})^2$. For functions of direction, the $2l + 1$ spherical harmonics of order $l$ (\cref{app:C.3}) have the character $\sin[(l + \tfrac12)\theta]/\sin(\theta/2)$ for a proper rotation, multiplied by $(-1)^l$ for an improper one. A crystal property allowed by symmetry is an invariant tensor, and \cref{eq:C.17-ninv} counts how many independent ones exist.
+
+\subsection{Responses odd in q}
+
+Inversion maps $\vect{q}$ to $-\vect{q}$, so a centrosymmetric crystal, one whose point group contains $-1$, has no response odd in $\vect{q}$ of any kind. In the sum \cref{eq:C.17-ninv} for an odd-rank polar tensor, the elements $\mathsf{R}$ and $-\mathsf{R}$ then contribute with opposite signs and cancel. For a scalar response, such as the structure factor $S(\vect{q},\omega)$, time reversal removes the odd part as well (\cref{app:A.4}): a part odd in $\vect{q}$ needs a crystal with neither inversion nor time-reversal symmetry, a magnetically ordered one.
+
+A tensor response is different. Write the current response at small $q$ as $\chi_{ij}(\vect{q},\omega) = \chi_{ij}^{(0)}(\omega) + \ii\gamma_{ijl}(\omega)\,q_l + O(q^2)$. The coefficient $\gamma_{ijl}$ is a rank-three polar tensor. In a crystal with time-reversal symmetry, the argument of \cref{app:A.4}, applied to a product of two currents, gives the reciprocity relation $\chi_{ij}(\vect{q},\omega) = \chi_{ji}(-\vect{q},\omega)$. The sign that each current takes under time reversal cancels in the product, and the antiunitary conjugation exchanges the order of the two operators. The term linear in $\vect{q}$ then survives only if $\gamma_{ijl}$ is antisymmetric in $i, j$. An antisymmetric pair of indices is equivalent to one axial index, $\gamma_{ijl} = \epsilon_{ijm}g_{ml}$, and the \emph{gyration tensor} $g_{ml}$ has one axial and one polar index. It describes natural optical activity and circular dichroism. By \cref{eq:C.17-ninv,eq:C.17-polar}, the number of its independent components in point group $\mathcal{P}$ is
+\begin{keyresult}[Optical activity allowed by a point group]
+\begin{equation}
+  N_{\mathrm{gyr}} = \frac{1}{|\mathcal{P}|}\sum_{\mathsf{R}\in\mathcal{P}}(\det\mathsf{R})\,(1 + 2\cos\theta_{\mathsf{R}})^2 .
+  \label{eq:C.17-gyration}
+\end{equation}
+\end{keyresult}
+
+\begin{workedexample}{Gyration invariants of GaAs and of a chiral cubic crystal}\label{we:C-gyration}
+The group $\bar43m$ of GaAs has 24 elements in five classes: the identity; eight $C_3$ ($\theta = 2\pi/3$); three $C_2$ ($\theta = \pi$); six $S_4$, improper, with $-S_4$ a rotation by $\pi/2$; and six mirrors $\sigma_d$, improper, with $-\sigma_d$ a rotation by $\pi$. The values of $(\det\mathsf{R})(1 + 2\cos\theta)^2$ are $9$, $0$, $1$, $-1$ and $-1$. With the class sizes, \cref{eq:C.17-gyration} gives $N_{\mathrm{gyr}} = (9 + 0 + 3 - 6 - 6)/24 = 0$. GaAs has no optical activity, although it lacks inversion. It does have one invariant rank-three polar tensor: $c_{\mathrm{V}}^3$ takes the values $27$, $0$, $-1$, $-1$ and $1$ on the five classes, and $(27 + 0 - 3 - 6 + 6)/24 = 1$. That invariant is the totally symmetric tensor $|\epsilon_{ijl}|$, nonzero for $i, j, l$ all different. It is the one behind the piezoelectricity of GaAs and the cubic harmonic $xyz$ at $l = 3$. Reciprocity forbids it in the term linear in $\vect{q}$ of the current response, because it is symmetric in $i, j$. The group $432$ has the 24 proper rotations of the cube, with values $9$, $0$, $1$ on the identity, the eight $C_3$ and the three $C_2$, and $1$ on the six $C_4$ ($\theta = \pi/2$) and the six further $C_2'$. Then $N_{\mathrm{gyr}} = (9 + 0 + 3 + 6 + 6)/24 = 1$: a cubic crystal without mirrors or inversion has isotropic optical activity, $g_{ml} \propto \delta_{ml}$. A direct enumeration of the matrices of each group reproduces all three counts, together with $N_{\mathrm{gyr}} = 0$ for $m\bar3m$.
+\end{workedexample}
+
+\subsection{The diamond space group}
+
+The diamond structure of silicon and germanium has the space group $Fd\bar3m$ (number 227 in the international tables; $O_h^7$). Its point group is $m\bar3m$. With the origin on the atom at $\vect{\tau}_1 = 0$ of \cref{eq:3.1-basis}, the 24 operations of $\bar43m$, the site symmetry of each atom, occur with $\vect{t} = 0$. The other 24 occur with $\vect{t} = \vect{\tau}_2 = (a/4)(1,1,1)$, and they exchange the two atoms of the basis. The inversion $\{-1|\vect{\tau}_2\}$, for example, is the inversion through the bond center at $\vect{\tau}_2/2$. No choice of origin removes all these translations, and the group is nonsymmorphic. Zincblende GaAs, with different atoms on the two sites, keeps only the first 24 operations; its space group $F\bar43m$ is symmorphic.
+
+Take the mirror $\mathsf{m}_x$, $(x, y, z) \to (-x, y, z)$, which is not in $\bar43m$. It occurs as
+\begin{equation}
+  g = \{\mathsf{m}_x|\vect{\tau}_2\}: \quad (x, y, z) \to \bigl(-x + \tfrac a4,\ y + \tfrac a4,\ z + \tfrac a4\bigr) .
+  \label{eq:C.17-glide}
+\end{equation}
+Points with $x = a/8$ keep their $x$ coordinate, so this is a reflection in the plane $x = a/8$ followed by the translation $(0, a/4, a/4)$ within it: a glide, of the kind called a diamond glide. It maps the atom at $0$ to $\vect{\tau}_2$ and the atom at $\vect{\tau}_2$ to $(0, a/2, a/2) = \vect{a}_1$, a lattice point. Applied twice, by \cref{eq:C.17-compose}, it gives $\{1|\vect{w}\}$ with $\vect{w} = \vect{\tau}_2 + \mathsf{m}_x\vect{\tau}_2 = (a/2)(0, 1, 1) = \vect{a}_1$, a lattice translation, as required.
+
+\emph{Extinctions.} Let $f(\vect{r})$ be any function invariant under $g$, $f(\mathsf{m}_x\vect{r} + \vect{\tau}_2) = f(\vect{r})$, and lattice periodic, with components $f_{\vect{G}}$ (\cref{eq:A.3-periodic}). Substituting $\vect{r} = \mathsf{m}_x\vect{r}' + \vect{\tau}_2$ in $f_{\vect{G}} = \Omega^{-1}\int_\Omega\dd^3r\,\ee^{\ii\vect{G}\cdot\vect{r}}f(\vect{r})$ gives $f_{\vect{G}} = \ee^{\ii\vect{G}\cdot\vect{\tau}_2}f_{\mathsf{m}_x\vect{G}}$. For $\vect{G}$ in the mirror plane, $\vect{G} = (2\pi/a)(0, k, l)$ with $k$, $l$ even, $\mathsf{m}_x\vect{G} = \vect{G}$ and
+\begin{equation}
+  f_{\vect{G}} = \ee^{\ii\pi(k + l)/2}f_{\vect{G}}, \qquad\text{so}\qquad f_{\vect{G}} = 0 \quad\text{for } k + l \equiv 2 \pmod 4 .
+  \label{eq:C.17-extinct}
+\end{equation}
+The components (020) and (002) vanish, and by the glides with $\mathsf{m}_y$ and $\mathsf{m}_z$ so does (200). They vanish for every function with the symmetry of the crystal: the full crystal potential, the charge density with its bonds, any lattice-periodic response. This is stronger than the extinction of \cref{we:3-diamond}, which came from the sum of identical spherical atoms. The (222) component, whose vector lies in no glide plane of the form $\mathsf{m}_x$, $\mathsf{m}_y$, $\mathsf{m}_z$, vanishes only for spherical atoms, and the bond charge makes it nonzero.
+
+\emph{Glide parity of Bloch states.} Let $g$ act on wavefunctions by $(g\psi)(\vect{r}) = \psi(g^{-1}\vect{r})$, with $g^{-1}\vect{r} = \mathsf{m}_x(\vect{r} - \vect{\tau}_2)$. If $\psi$ is a Bloch state of crystal momentum $\vect{k}$, then $(g\psi)(\vect{r} + \vect{R}) = \ee^{\ii(\mathsf{m}_x\vect{k})\cdot\vect{R}}(g\psi)(\vect{r})$, so $g\psi$ has crystal momentum $\mathsf{m}_x\vect{k}$. For $\vect{k}$ in the mirror plane, $k_x = 0$, the operator $g$ maps the Bloch states at $\vect{k}$ among themselves and commutes with the Hamiltonian, so the states can be chosen as its eigenstates. Since $g^2 = \{1|\vect{w}\}$ acts as $\psi(\vect{r} - \vect{w}) = \ee^{-\ii\vect{k}\cdot\vect{w}}\psi(\vect{r})$, the eigenvalues are
+\begin{equation}
+  g\,\psi = \eta\,\ee^{-\ii\vect{k}\cdot\vect{w}/2}\,\psi, \qquad \eta = \pm1 ,
+  \label{eq:C.17-parity}
+\end{equation}
+and $\eta$ is the \emph{glide parity}. It depends on the label: the same state labeled by $\vect{k} - \vect{G}$, with $\vect{G}$ in the plane, has $\eta\,\ee^{-\ii\vect{G}\cdot\vect{w}/2} = \eta\,\ee^{-\ii\pi(k + l)/2}$.
+
+Consider now the vertex $\ee^{\ii\vect{q}\cdot\vect{r}}$ of \cref{sec:3.2} with $\vect{q}$ in the mirror plane. Conjugation by $g$ gives $g\,\ee^{\ii\vect{q}\cdot\vect{r}}g^{-1} = \ee^{\ii\vect{q}\cdot g^{-1}\vect{r}} = \ee^{-\ii\vect{q}\cdot\vect{\tau}_2}\ee^{\ii\vect{q}\cdot\vect{r}}$, using $\mathsf{m}_x\vect{q} = \vect{q}$. For eigenstates $|i\rangle$ at $\vect{k}$ and $|f\rangle$ labeled by the unreduced momentum $\vect{k} + \vect{q}$, unitarity of $g$ gives
+\begin{equation*}
+  \langle f|\ee^{\ii\vect{q}\cdot\vect{r}}|i\rangle = \langle gf|g\,\ee^{\ii\vect{q}\cdot\vect{r}}g^{-1}|gi\rangle
+  = \eta_f\eta_i\,\ee^{\ii\vect{q}\cdot(\vect{w}/2 - \vect{\tau}_2)}\,\langle f|\ee^{\ii\vect{q}\cdot\vect{r}}|i\rangle .
+\end{equation*}
+The vector $\vect{w}/2 - \vect{\tau}_2 = (a/4)(-1, 0, 0)$ is normal to the plane, so the phase is 1 for $\vect{q}$ in the plane, and the matrix element vanishes unless $\eta_f = \eta_i$. For the reduced momentum $\vect{k} + \vect{q} - \vect{G}$ of the final state, the rule reads
+\begin{equation}
+  \eta_f^{\mathrm{red}} = \eta_i\,\ee^{-\ii\vect{G}\cdot\vect{w}/2} ,
+  \label{eq:C.17-selection}
+\end{equation}
+so a momentum transfer whose Umklapp vector belongs to the (200) class flips the glide parity, and one with $k + l \equiv 0 \pmod 4$ preserves it. At $\vect{k} = 0$ and $\vect{q} = \vect{G} = (2\pi/a)(0, 2, 0)$, so that the reduced final momentum $\vect{k} + \vect{q} - \vect{G}$ is again 0, \cref{eq:C.17-selection} requires a state to have opposite parity to itself, and the diagonal matrix element vanishes: \cref{eq:C.17-extinct} again. \Cref{sec:13.9} applies the rule to the band edges of silicon. A further consequence of the nonsymmorphic operations is that every band of diamond is at least twofold degenerate at the zone-boundary points $\mathrm{X}$, without spin--orbit coupling, a degeneracy that no symmorphic group with the same point group would force~\cite{dresselhaus2008group}.

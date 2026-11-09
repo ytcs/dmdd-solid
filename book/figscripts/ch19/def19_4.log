@@ -1,0 +1,95 @@
+Thomas-Fermi phi'(0) = -1.588071; f(1e-3) = 0.1283 (lind19_3.log: 0.1283); c_L = 0.02435 keV^-1
+
+Part A. Displacement count N_FP(T_d), T_d in units of E_d
+  hard spheres (check against Kinchin-Pease T_d/2E_d):
+    T_d/E_d =     3: N_FP = 1.5000, Kinchin-Pease 1.5000
+    T_d/E_d =    10: N_FP = 5.0008, Kinchin-Pease 5.0000
+    T_d/E_d =   100: N_FP = 50.0075, Kinchin-Pease 50.0000
+    T_d/E_d =  1000: N_FP = 500.0731, Kinchin-Pease 500.0000
+  screened Thomas-Fermi cross-section (silicon), E_d = 36 eV; xi_eff = 2 N_FP E_d/T_d:
+    T_d/E_d   N_FP     N_FP(half grid)   xi_eff    NRT N_FP   NRT/computed
+       2.50   1.1001   1.1001          0.8801     1.0000    0.9090
+       3.00   1.2414   1.2414          0.8276     1.2000    0.9667
+       5.00   1.8881   1.8881          0.7552     2.0000    1.0593
+       7.36   2.6923   2.6923          0.7316     2.9440    1.0935
+      10.00   3.6049   3.6049          0.7210     4.0000    1.1096
+      20.00   7.0911   7.0909          0.7091     8.0000    1.1282
+      50.00  17.5882  17.5876          0.7035    20.0000    1.1371
+     100.00  35.0895  35.0884          0.7018    40.0000    1.1399
+     300.00  105.0516  105.0479          0.7003    120.0000    1.1423
+    1000.00  349.6372  349.1099          0.6993    400.0000    1.1440
+  ('tf', 12.5): xi_eff at T_d/E_d = 10, 100, 300, 1000: 0.7199, 0.7025, 0.7018, 0.7013
+  ('tf', 20.0): xi_eff at T_d/E_d = 10, 100, 300, 1000: 0.7201, 0.7025, 0.7015, 0.7008
+  ('pl', 36.0): xi_eff at T_d/E_d = 10, 100, 300, 1000: 0.7198, 0.7022, 0.7016, 0.7015
+  ('tf', 36.0): asymptotic slope 2 dN_FP/d(T_d/E_d) (300-1000 E_d) = 0.6988
+  ('tf', 12.5): asymptotic slope 2 dN_FP/d(T_d/E_d) (300-1000 E_d) = 0.7011
+  ('pl', 36.0): asymptotic slope 2 dN_FP/d(T_d/E_d) (300-1000 E_d) = 0.7015
+  Monte Carlo check (power law, 4000 cascades): T_d/E_d = 10: N_FP = 3.623 +/- 0.015; integral equation 3.599
+  Monte Carlo check (power law, 4000 cascades): T_d/E_d = 100: N_FP = 35.129 +/- 0.046; integral equation 35.108
+  NRT within 10 % of the screened solution on T_d/E_d in [1.000, 8.200] (fraction of the grid inside: 0.305)
+  NRT within 5 % of the screened solution on T_d/E_d in [1.000, 4.640] (fraction of the grid inside: 0.193)
+  NRT/computed - 1 below 2.5 E_d: max +0.000, min -0.091 (at T_d/E_d = 2.500)
+  NRT/computed over T_d >= 10 E_d: 1.1096 .. 1.1440
+  NRT/computed over T_d >= 30 E_d: 1.1333 .. 1.1440
+  NRT/computed over T_d >= 2.5 E_d: 0.9090 .. 1.1440
+  Kinchin-Pease/computed at T_d/E_d = 100, 1000: 1.4249, 1.4301
+
+Part B. Calibration data and stored-energy bounds (Table 19.1)
+  Si yields: y_C(10 keV) = 0.2692, y_C(100 keV) = 0.4969 -> T_d/E_R = 0.7308, 0.5031; Lindhard variant (k_L = 0.1458): 0.3022, 0.5071 -> 0.6978, 0.4929
+  Si: f_DF = 0.048; 95 % C.L. bound 1 - Y_lo = 0.055 (conditions (a)-(e)); with the book's eps_eh: 0.0491
+  Ge: f_DF = 0.0608 +/- 0.0018; one-sided 95 % (z = 1.645): 0.0638; at 2 sigma: 0.0644
+    detectors: weighted mean 6.074 +/- 0.084 %, difference 2.06 sigma; inflated 0.173 %
+    check Eq. (4): f = 5.52, f_sur = -0.75: f_DF = 6.223 %
+    check Eq. (4): f = 6.67, f_sur = 0.85: f_DF = 5.870 %
+  Ge Pb recoils: observed surface-event yield ~ 0.3 is a lower edge of the electronic share (surface events lose charge), so T_d/E_R <= 0.70
+  reading through eq:19.4-loss, p_surv E_FP/E_d <= 2 bound/(xi T_d/E_R):
+    Si  10 keV, NRT 0.8             : 0.188 (Lindhard damage fraction: 0.197; book-eps bound 0.0491: 0.168)
+    Si 100 keV, NRT 0.8             : 0.273 (Lindhard damage fraction: 0.279; book-eps bound 0.0491: 0.244)
+    Ge 103 keV, NRT 0.8             : >= 0.228 (central 0.217); at T_d/E_R = 0.6: 0.266
+    Si  10 keV, screened 0.70       : 0.215 (Lindhard damage fraction: 0.225; book-eps bound 0.0491: 0.192)
+    Si 100 keV, screened 0.70       : 0.312 (Lindhard damage fraction: 0.319; book-eps bound 0.0491: 0.279)
+    Ge 103 keV, screened 0.70       : >= 0.260 (central 0.248); at T_d/E_R = 0.6: 0.304
+    Si  10 keV, screened (1000 E_d) : 0.215 (Lindhard damage fraction: 0.225; book-eps bound 0.0491: 0.192)
+    Si 100 keV, screened (1000 E_d) : 0.313 (Lindhard damage fraction: 0.319; book-eps bound 0.0491: 0.279)
+    Ge 103 keV, screened (1000 E_d) : >= 0.261 (central 0.248); at T_d/E_R = 0.6: 0.304
+    Si  10 keV, Kinchin-Pease       : 0.151 (Lindhard damage fraction: 0.158; book-eps bound 0.0491: 0.134)
+    Si 100 keV, Kinchin-Pease       : 0.219 (Lindhard damage fraction: 0.223; book-eps bound 0.0491: 0.195)
+    Ge 103 keV, Kinchin-Pease       : >= 0.182 (central 0.174); at T_d/E_R = 0.6: 0.213
+    Si 10 keV, xi = 0.8, close pair 6.8-7.5 eV, E_d = 36 eV: p_surv <= 0.90 .. 1.00
+    Si 10 keV, xi = 0.7, close pair 6.8-7.5 eV, E_d = 36 eV: p_surv <= 1.03 .. 1.14
+    Si 100 keV, xi = 0.8, close pair 6.8-7.5 eV, E_d = 36 eV: p_surv <= 1.31 .. 1.45
+    Si 100 keV, xi = 0.7, close pair 6.8-7.5 eV, E_d = 36 eV: p_surv <= 1.50 .. 1.65
+    NRT <E_st>/E_R at p_surv = 1, close pair: 10 keV 0.0552-0.0609, 100 keV 0.0380-0.0419
+    Si 10 keV, xi = 0.8, separated pair 8.1-9.7 eV, E_d = 36 eV: p_surv <= 0.70 .. 0.84
+    Si 10 keV, xi = 0.7, separated pair 8.1-9.7 eV, E_d = 36 eV: p_surv <= 0.80 .. 0.96
+    Si 100 keV, xi = 0.8, separated pair 8.1-9.7 eV, E_d = 36 eV: p_surv <= 1.01 .. 1.21
+    Si 100 keV, xi = 0.7, separated pair 8.1-9.7 eV, E_d = 36 eV: p_surv <= 1.16 .. 1.39
+    NRT <E_st>/E_R at p_surv = 1, separated pair: 10 keV 0.0658-0.0788, 100 keV 0.0453-0.0542
+  Ge: E_d = 19.7 eV within NRT corresponds to p_surv E_FP = 2 f_DF E_d/(0.8 T_d/E_R) = 4.28 eV; E_d per eV of p_surv E_FP = 4.61 eV
+    p_surv E_FP = 3.0 eV -> E_d = 13.8 eV (NRT), 12.1 eV (screened xi), 17.3 eV (Kinchin-Pease)
+    p_surv E_FP = 6.0 eV -> E_d = 27.6 eV (NRT), 24.2 eV (screened xi), 34.5 eV (Kinchin-Pease)
+    p_surv E_FP = 9.0 eV -> E_d = 41.4 eV (NRT), 36.2 eV (screened xi), 51.8 eV (Kinchin-Pease)
+
+Part C. Worked example: 300 eV silicon recoil
+  Y_q(0.30 keV) log-interpolated = 0.1190; T_d = E_R(1 - Y_q) = 264.3 eV (Y_q E_R = 35.7 eV is an upper value of the electronic share, Sect. 19.2)
+  E_d = 36.0: T_d/E_d = 7.342; Kinchin-Pease 3.671, NRT 2.937, screened 2.686
+     stored (p_surv = 1, close 6.8-7.5 eV, screened count): 18.3-20.1 eV = 6.1-6.7 % of E_R
+     stored (p_surv = 1, separated 8.1-9.7 eV, screened count): 21.8-26.1 eV = 7.3-8.7 % of E_R
+     stored (p_surv = 1, bond defect 2.6-3.0 eV, screened count): 7.0-8.1 eV = 2.3-2.7 % of E_R
+     NRT count x 6.8-9.7 eV: 20.0-28.5 eV = 6.7-9.5 %
+  E_d = 24.0: T_d/E_d = 11.013; Kinchin-Pease 5.506, NRT 4.405, screened 3.953
+     stored (p_surv = 1, close 6.8-7.5 eV, screened count): 26.9-29.6 eV = 9.0-9.9 % of E_R
+     stored (p_surv = 1, separated 8.1-9.7 eV, screened count): 32.0-38.3 eV = 10.7-12.8 % of E_R
+     stored (p_surv = 1, bond defect 2.6-3.0 eV, screened count): 10.3-11.9 eV = 3.4-4.0 % of E_R
+     NRT count x 6.8-9.7 eV: 30.0-42.7 eV = 10.0-14.2 %
+  carrying p_surv E_FP/E_d <= 0.188 (10 keV, NRT) to 300 eV: <E_st>/E_R <= 0.4 (T_d/E_R) x 0.188 = 0.0663; with the screened count at T_d/E_d = 7.34: 0.0606
+  equivalently p_surv E_FP <= 6.77 eV at E_d = 36 eV
+  consistent screened reading: p_surv E_FP/E_d <= 0.215 at 10 keV -> at 300 eV <E_st>/E_R <= 0.0694
+  reduced mass needed for E_R = 300 eV in Si (eq:1.3-ERmax, M = 26.16 GeV, v_max = 2.650e-3): 7.4751e+08 eV
+  exact: m_chi >= 0.770 GeV
+  electron kinetic energy at which 2E(E + 2m_e)/M = 12.5 eV (Si): 0.141 MeV
+  electron kinetic energy at which 2E(E + 2m_e)/M = 36.0 eV (Si): 0.345 MeV
+  largest transfer from a 10 eV electron (non-relativistic 4 m_e E/M): 0.781 meV
+
+Limit Check 19.4a: shaded T_d/E_d >= 2.500 (the formula's linear range)
+wrote limit19_4a.pdf

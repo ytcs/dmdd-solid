@@ -1,0 +1,63 @@
+E_g(0) = 1.1692, E_g(77 K) = 1.1652, E_g(300 K) = 1.1230 eV; dE_g(77) = -3.97 meV, dE_g(300) = -46.18 meV
+T = 77 K, TA: w = 18.27 meV, n = 0.06806, (n+1)/n = exp(w/T) = 15.69, r = exp(-w/T) = 0.06372
+T = 77 K, TO: w = 57.73 meV, n = 0.0001664, (n+1)/n = exp(w/T) = 6011, r = exp(-w/T) = 0.0001664
+T = 300 K, TA: w = 18.27 meV, n = 0.9735, (n+1)/n = exp(w/T) = 2.027, r = exp(-w/T) = 0.4933
+T = 300 K, TO: w = 57.73 meV, n = 0.12, (n+1)/n = exp(w/T) = 9.331, r = exp(-w/T) = 0.1072
+cold free-pair TA emission threshold E_g(0) + w_TA = 1.1875 eV; excitonic 1.1728 eV; TO emission 1.2269 eV
+inverse transfer from 77 K reproduces the T = 0 model to 6.0e-16 (max abs error / max value, 1.15-1.6 eV, 60 terms)
+inverse transfer from 300 K reproduces the T = 0 model to 1.2e-15 (max abs error / max value, 1.15-1.6 eV, 60 terms)
+
+Untransferred 77 K data against the millikelvin spectrum, x = w - (E_g(0) + w_TA):
+  x =   5 meV: TA branch alone x9.074, both branches x9.109
+  x =  10 meV: TA branch alone x3.820, both branches x3.830
+  x =  15 meV: TA branch alone x2.640, both branches x2.645
+  x =  20 meV: TA branch alone x2.157, both branches x2.160
+  x =  25 meV: TA branch alone x1.901, both branches x1.903
+  x =  50 meV: TA branch alone x1.467, both branches x1.482
+  x = 100 meV: TA branch alone x1.289, both branches x1.257
+  factor > 2 for x < 22.8 meV
+  with the 77 K strength factor 0.877: x = 15 meV -> x2.32
+  with the 77 K strength factor 0.877: x = 20 meV -> x1.89
+  with the 77 K strength factor 0.877: x = 25 meV -> x1.67
+  with the 77 K strength factor 0.877: x = 50 meV -> x1.30
+  with the 77 K strength factor 0.877: x = 100 meV -> x1.10
+  with the strength factor, > 2 for x < 18.4 meV
+  300 K untransferred at x = 25 meV: x38.41
+  300 K untransferred at x = 50 meV: x15.74
+  300 K untransferred at x = 100 meV: x6.97
+
+Worked example (TA branch, 77 K -> 10 mK, x = 50 meV):
+  emission argument w - E_g(77) - w_TA = 53.97 meV, absorption argument w - E_g(77) + w_TA = 90.50 meV
+  gap shift (53.97/50)^2 = 1.1651; times n+1 = 1.0681 -> 1.2443; absorption replica n (ab/50)^2 = 0.2230; total 1.4673
+  series term k = 0: argument w + dE + 2k w_TA = 1.2335 eV, contribution +1.19087 (in units of the 10 mK value)
+  series term k = 1: argument w + dE + 2k w_TA = 1.2700 eV, contribution -0.21547 (in units of the 10 mK value)
+  series term k = 2: argument w + dE + 2k w_TA = 1.3066 eV, contribution +0.02724 (in units of the 10 mK value)
+  series term k = 3: argument w + dE + 2k w_TA = 1.3431 eV, contribution -0.00289 (in units of the 10 mK value)
+  series term k = 4: argument w + dE + 2k w_TA = 1.3796 eV, contribution +0.00028 (in units of the 10 mK value)
+  partial sums: 1.19087, 0.97540, 1.00264, 0.99975, 1.00002
+
+Without branch resolution: a triangular solve upward divides by the occupation of the highest-argument term,
+  n_TO(77 K) = 0.000166 -> error growth exp(w_TO/T) = 6011 per step of 2 w_TO; at 300 K exp(w_TO/T) = 9.33, exp(w_TA/T) = 2.03
+  T = 77 K, x = 15 meV: TA weight -25% / +25% gives the 10 mK value x1.002 / x0.999
+  T = 77 K, x = 50 meV: TA weight -25% / +25% gives the 10 mK value x1.009 / x0.994
+  T = 300 K, x = 15 meV: TA weight -25% / +25% gives the 10 mK value x0.709 / x1.182
+  T = 300 K, x = 50 meV: TA weight -25% / +25% gives the 10 mK value x0.985 / x1.012
+T-dependent branch strength (Stanford et al. Eqs. (6), (7)): A_1(77 K)/A_1(0) = exp(-1.7e-3 T) = 0.877
+T-dependent branch strength (Stanford et al. Eqs. (6), (7)): A_1(295 K)/A_1(0) = exp(-1.7e-3 T) = 0.606
+
+scale A fitted to Franta 300 K on 1.18-1.30 eV: A = 275.3 cm^-1 eV^-2 (A C_TA = 1514, A C_TO = 1101)
+  w = 1.151 eV: data 7.17, model 4.4 cm^-1
+  w = 1.200 eV: data 27.1, model 26.3 cm^-1
+  w = 1.250 eV: data 74.9, model 77.4 cm^-1
+  w = 1.300 eV: data 159, model 157 cm^-1
+  at the WE energy w = 1.2361 eV: data 300 K 58 cm^-1, model 300 K 59.9, model 77 K 5.49, model 10 mK 3.68; n_r = 3.575
+  transferred 300 K data at 1.1800 eV: 1.38 cm^-1 (model 10 mK 0)
+  transferred 300 K data at 1.1900 eV: 1.4 cm^-1 (model 10 mK 0.00971)
+  transferred 300 K data at 1.2000 eV: 1.59 cm^-1 (model 10 mK 0.238)
+  transferred 300 K data at 1.2375 eV: 4.81 cm^-1 (model 10 mK 3.91)
+  transferred 300 K data at 1.3000 eV: 23.5 cm^-1 (model 10 mK 25.1)
+  transferred 300 K data at 1.4000 eV: 108 cm^-1 (model 10 mK 101)
+  transferred data / cold model on 1.25-1.42 eV: 0.939 to 1.099
+  transferred data negative (< -0.05 cm^-1) at 1.050-1.089 eV
+  transferred data below the cold free-pair edge: max 1.45 cm^-1, at 1.1575 eV
+wrote /home/user/dmdd-solid/book/figscripts/ch13/../../tex/figures/ch13/fig13_5.pdf

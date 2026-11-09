@@ -1,0 +1,43 @@
+From 0ae1d9034f345ad2694bf3cc5a2fd44a394b3466 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 1 Nov 2026 10:21:58 +0000
+Subject: [PATCH 1/9] Fix L->TT daughter angle: momentum closure per Leman
+ 1109.1193 Eq. (13)
+
+decay_angle_TT used (1 + x^2 - (1-x)^2 - 1/m^2) m/(2x), which does not close
+k_L = k_T1 + k_T2 (at x = 0.5 it returns cos(theta) = 1 instead of 1/m; the
+momentum residual reached 64% (Ge) and 67% (Si) of k_L). Replaced by the
+isotropic-continuum closure cos(theta_T1) = (1 - m^2(1-x)^2 + m^2 x^2)/(2 m x),
+Leman arXiv:1109.1193 Eqs. (13)-(14) [FT], identical to
+G4CMPAnharmonicDecay::MakeTTDeviation. Test: tests/test_anharmonic_decay.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01BcNoovRae5kkbL36KL3sYy
+---
+ include/cmpmc/physics/phonon_physics.hpp | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/include/cmpmc/physics/phonon_physics.hpp b/include/cmpmc/physics/phonon_physics.hpp
+index 802b9c9..38b0499 100644
+--- a/include/cmpmc/physics/phonon_physics.hpp
++++ b/include/cmpmc/physics/phonon_physics.hpp
+@@ -82,10 +82,14 @@ inline double decay_angle_T_from_LT(double x, double v_L, double v_T) noexcept {
+     return std::acos(std::clamp(cos_th, -1.0, 1.0));
+ }
+ 
+-// Opening angle theta_T of outgoing T phonon with energy fraction x in L -> T + T decay
++// Opening angle theta_T of outgoing T phonon with energy fraction x in L -> T + T decay.
++// Momentum closure k_L = k_T1 + k_T2 with k_L = E/v_L, k_T1 = xE/v_T, k_T2 = (1-x)E/v_T gives
++//   cos(theta_T1) = (1 - m^2 (1-x)^2 + m^2 x^2) / (2 m x)
++// (Leman, arXiv:1109.1193 Eq. (13); G4CMPAnharmonicDecay::MakeTTDeviation). The second
++// daughter uses x -> 1 - x (Leman Eq. (14)).
+ inline double decay_angle_TT(double x, double v_L, double v_T) noexcept {
+     const double m = v_L / v_T;
+-    const double cos_th = (1.0 + x * x - (1.0 - x) * (1.0 - x) - 1.0 / (m * m)) / (2.0 * x / m);
++    const double cos_th = (1.0 - m * m * (1.0 - x) * (1.0 - x) + m * m * x * x) / (2.0 * m * x);
+     return std::acos(std::clamp(cos_th, -1.0, 1.0));
+ }
+ 
+-- 
+2.43.0
+

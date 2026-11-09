@@ -1,0 +1,1007 @@
+         Optimized norm-conserving Vanderbilt pseudopotentials
+                                      D. R. Hamann
+
+Department of Physics and Astronomy, Rutgers University, Piscataway, NJ 08854-8019
+and Mat-Sim Research LLC, P. O. Box 742, Murray Hill, NJ, 07974
+
+                                        ABSTRACT
+
+        Fully-nonlocal two-projector norm-conserving pseudopotentials are shown to be
+compatible with a systematic approach to the optimization of convergence with the size
+of the plane-wave basis. A new formulation of the optimization is developed, including
+the ability to apply it to positive-energy atomic scattering states, and to enforce greater
+continuity in the pseudopotential. The generalization of norm-conservation to multiple
+projectors is reviewed and recast for the present purposes. Comparisons among the
+results of all-electron and one- and two-projector norm-conserving pseudopotential
+calculations of lattice constants and bulk moduli are made for a group of solids chosen to
+represent a variety of types of bonding and a sampling of the periodic table.
+
+
+
+
+                                                                                          1
+I. Introduction
+
+         While the subject of pseudopotential generation is generally considered to be
+mature, recent concerns with inaccuracies of tabulated sets of potentials in the context of
+high-throughput material searches1,2 indicate that room remains for improvement. Since
+the introduction of norm-conserving pseudopotentials,3,4 which in combination with
+density functional theory5 paved the way for ab-initio calculations of many properties of
+solids, two main thrusts have driven their improvement. One of these is computational
+efficiency, and the other is accuracy. Both of these issues can be addressed in other
+ways. The ultrasoft-pseudopotential method6 and the related projector-augmented-wave
+method7 do so, but at the expense of creating more complex representations of the
+quantities involved in electronic structure calculations than the simple plane-wave
+representation of norm-conserving pseudopotentials (NCPPs). While both are routinely
+used for ground-state energy and structural-relaxation calculations, the implementation of
+more advanced calculations such as density-functional perturbation theory (DFPT)8 or
+many-body perturbation theory9 becomes vastly more complex than that required with
+NCPPs. Thus there remains ample motivation to seek further improvements of NCPPs.
+
+        Of the two areas for improvement, computational efficiency has received the
+greater share of attention. The original NCPPs were semi-local, that is, each angular
+momentum component of a wave function about an atom was acted upon by a different
+local radial potential. A large step forward in computational efficiency was the
+transformation of these NCPPs to a local radial potential and a set of separable non-local
+projectors, one for each of several angular momenta.10 This “Kleinman Bylander” (KB)
+approach greatly reduced the computational cost of the Hamiltonial matrix in the plane-
+wave representation and expedited efficient wave-function evolution methods11 that
+dominate electronic structure calculations today. The key properties of semi-local
+NCPPs were preserved, namely the reproduction of all-electron eigenvalues and
+integrated total charge inside the core radii rc and the related agreement of the first
+energy derivatives of the logarithmic derivatives of the outwardly-integrated radial
+Schrödinger equation at rc . At energies further removed from the eigenvalue, however,
+the log derivatives and hence scattering properties of the all-electron, semi-local, and KB
+potentials all differ.
+
+        The other aspect of computational efficiency which received attention was the
+rate at which electronic structure results for solids converged with respect to the size of
+the plane-wave basis. The general prescription for generating NCPPs consists of
+constructing a node-free pseudo wave function which matches the all-electron wave
+function to some desired degree of continuity at rc and inverting the radial Schrödinger
+equation. Several studies analyzed the convergence of the Fourier transform of the semi-
+local potentials and proposed particular functional forms for the pseudo wave functions
+that were found to optimize this convergence.12,13 These approaches gave “one size fits
+all” prescriptions. A more flexible approach was introduced by Rappe et al., who
+expanded each pseudo wave function as a linear combination of basis functions and
+minimized the error of the Fourier-space calculation of its kinetic energy caused by the
+
+
+
+                                                                                          2
+truncation of this calculation at a cutoff wave vector qc while satisfying the usual NCPP
+conditions. 14 Dubbed “optimized pseudopotentials,” this method is implemented in the
+                           15
+OPIUM open-source code. A portion of this study was motivated by the author’s desire
+to overcome some limitations of that code, and a reformulation of the underlying
+formalism which couples seamlessly to the accuracy issue to be discussed next is
+presented in Sec. II.
+
+        The accuracy with which ab-initio pseudopotentials can predict physical
+properties of solids is fundamentally limited by that of density functional theory. The
+ensuing discussion is confined to the ability of NCPPs to reproduce all-electron results.
+A number of different issues influence accuracy. One is the fact that the ground-state
+configuration of an atom, usually the best reference in the author’s experience, could not
+be used to generate NCPPs for all the desired angular momenta. A best compromise
+solution was to use ionized configurations and perhaps fractional occupation of some
+orbitals to obtain all the required bound states.4 This limitation was overcome when it
+was shown that positive-energy scattering states could be used to construct NCPPs.16
+Unfortunately, the Rappe et al. optimization procedure14 cannot be applied to scattering
+states because the kinetic energy truncation error cannot be defined. Sec. II also
+addresses this problem, introducing a soft “barrier” potential beyond rc to create a
+decaying tail for the reference all-electron function. The scattering properties of NCPPs
+created in this manner behave essentially identically to those calculated from scattering
+pseudo wave functions formed using other prescriptions.
+
+        A key accuracy issue is the energy range over which an NCPP can reproduce the
+scattering properties of the all-electron potential. It was observed early on that
+smaller rc s lead to improved agreement, but at the expense of poorer plane wave
+convergence.4 Extending the NCPP conditions to require the matching of higher energy
+derivatives of the radial log derivatives at rc was shown to yield improved agreement,17
+but this has not been widely pursued. It is widely recognized that the choice of local
+potential in the KB construction changes the scattering properties. A means for adjusting
+the local potential by adding step functions to one of the semi-local potentials18 is
+included in the OPIUM package,15 and while the steps cancel exactly with the KB
+projectors at the reference energies, the overall effects on plane-wave convergence may
+be a cause for concern. In general, there is no systematic prescription for improving the
+overall scattering properties of a KB NCPP by local-potential adjustment, although trial
+and error may yield improved results in some cases. A systematic means for improving
+the scattering properties of fully nonlocal NCPPs was introduced by Blöchl, and involved
+the introduction of additional separable projectors rather than adjustments of the local
+potential.19 He demonstrated that a second projector could greatly improve the
+agreement of the scattering properties of the semi-local and fully-nonlocal potentials over
+a range of energies, which is often useful but does not necessarily give significantly
+improved accuracy compared to all-electron results.
+
+       The accuracy focus of the present work is based on Ref. 6, in which Vanderbilt
+introduced the popular ultrasoft pseudopotentials. It has been widely overlooked that in
+
+
+                                                                                             3
+passing towards the ultrasoft potentials, he gave a prescription for a multiple-projector
+NCPP which could match scattering properties and norm-conservation to all-electron
+results at several energies. One proof-of-principal paper20 was published a few years
+after Ref. 6, but was not pursued.21 In Sec. III we review this formalism with revisions
+appropriate to an NCPP end product, and show how it may be incorporated into our
+formulation of residual kinetic energy convergence optimization. Combining the
+terminologies of Ref.14 and Ref.20, we denote these as “optimized norm-conserving
+Vanderbilt pseudopotentials,” (henceforth “OV”).
+
+        Sec. III also presents comparisons of the KB and OV potentials for the scattering
+properties of a representative atom. These improvements are found to be especially
+important in cases where shallow core states are treated explicitly. Convergence is
+compared for KB and OV, and the manner in which the residual kinetic energy correlates
+with the total energy convergence for solids14 is demonstrated. Sec. IV compares OV
+over KB in results to all-electron results for a selection of solids with ionic, covalent, and
+metallic bonding incorporating atoms from a variety of positions in the periodic table.
+
+II. Kinetic energy truncation error optimization revisited
+
+         The actual implementation of the optimization principle of Rappe et al. is very
+briefly sketched in the original publication.14 A careful study of the OPIUM source code15
+shows that that implementation, also undocumented, differs in a number of ways from the
+initial brief description.22 The independent approach followed in this work organizes the
+process in a more transparent manner, and allows for easy extension of optimization to a
+second Vanderbilt projector. Therefore, we will outline our approach in some detail.
+
+       We begin by introducing a generalization of the residual kinetic energy for
+angular momentum and an operator shorthand notation,
+                                ∞
+                        ,ij   c     ∫
+                    E r ( q ) = ϕ ( q)ϕ ( q )q 4 dq ≡ ϕ Eˆ r ( q ) ϕ
+                                     qc
+                                          i       j                i        c   j          (1)
+where the Fourier transform
+                                                  ∞
+                                  ϕ i ( q) = 4π ∫ j ( qr )ϕ i ( r ) r 2dr                  (2)
+                                                  0
+
+is that of a pseudo wave function or a component of a pseudo wave function ϕ i ( r ) . With
+the exception of references to spherical Bessel functions j , the angular momentum
+subscript will be omitted below, and it will be assumed that we are working with a
+single throughout. A diagonal element i = j of Eq.(1) is equivalent to the Rappe et al.
+definition.14
+
+       Our approach is organized as a hierarchy of radial basis functions which will be
+denoted as ξi and distinguished by various superscripts. The initial set is simply a set of N
+spherical Bessel functions
+                             ξiB = j ( qi r ) , r ≤ rc ; ξiB = 0, r > rc ,                (3)
+
+
+
+
+                                                                                             4
+and the choice of wave vectors qi will be discussed below. The next basis set is the
+orthonormalized version of ξiB ,
+                                             N
+                                ξiO = ∑ ( S −1 2 )ij ξ jB ; Sij = ξiB ξ jB .                 (4)
+                                             j =1
+
+        Next, we consider the constraints to be satisfied by the pseudo wave function. In
+both the original paper and the OPIUM code, continuity of value, slope, and second
+derivative were required at rc .14,15 This enforced continuity of value for the semi-local
+pseudpotential obtained by inverting the Schrödinger equation, but permitted slope
+discontinuities. These caused us some concern, especially for applications like the
+calculation of elastic constants via DFPT, where two derivatives of the pseudopotential
+must be computed. 23 Denoting the final pseudo wave function simply as ϕ and the
+reference all-electron wave function asψ , we have
+                                            N
+                                  ϕ = ∑ ziξiO , r ≤ rc ; ϕ = ψ , r > rc ,                    (5)
+                                            i =1
+
+Generalizing the number of continuity constraints at rc from 3 to M, ie.
+                               d nϕ d nψ
+                                    = n ≡ d n +1 , n = 0, M − 1,                             (6)
+                               dr n   dr
+sets the requirement that the coefficients zi satisfy the set of M linear equations
+                            N                                     d i −1ξ Oj
+                           ∑ C z = d , i = 1, M ; C = dr
+                           j =1
+                                   ij   j              i     ij        i −1
+                                                                                        .    (7)
+                                                                               r = rc
+
+Proceeding by the standard singular-value decomposition of the M × N C matrix,
+C = UΣVT , we are led to our next set of basis functions. Columns M + 1,… , N of
+V correspond to zero singular values of C , spanning its null space and yielding our set of
+null basis functions
+                                                   N
+                                  ξiN = ∑V j ,M +i ξ Oj , i = 1, N − M .                     (8)
+                                                 j =1
+
+The unique set of coefficients
+                                                M
+                                  z0i = ∑ Vij (Σ jj ) −1U Tjk d k , i = 1, N                 (9)
+                                             j ,k =1
+
+defines a component of the desired final pseudo wave function which satisfies all the
+matching conditions at rc ,
+                                            N
+                                ϕ 0 = ∑ z0iξiO r ≤ rc ; ϕ = ψ , r > rc .                    (10)
+                                            i =1
+
+        The previous step influenced the choice of wave vectors qi defining the ξiB basis
+set. Our initial choice was to emulate OPIUM, where they are all chosen to match the log
+derivative ofψ at rc .15 Since j are solutions of the spherical wave equation and this
+requirement imposes homogeneous Robin boundary conditions on [ 0, rc ] , these are
+eigenfunctions which form an orthogonal set. This choice led to only M-1 non-zero
+singular values of C, indicating an unanticipated linear dependency. In particular, we
+
+
+                                                                                              5
+could not satisfy the 3rd derivative constraint. It became clear that the spherical wave
+equation imposes relationships among the derivatives of the j . While several alternative
+choices were satisfactory, all at the expense of the orthonormalization step, the simple
+expedient of choosing q2 , q4 ,…, qN to match log derivatives and setting q1 = q2 / 2 and
+q3 = ( q2 + q4 ) / 2 proved very robust.
+
+       The members of the basis set ξiN are orthonormal, orthogonal to ϕ 0 , and have zero
+value and M-1 derivatives at rc . The residual energy to be minimized can now be
+expressed as
+                                      N −M                              N −M
+               E r = ϕ 0 Eˆ r ϕ 0 + 2 ∑ ξiN Eˆ r ϕ 0 yi + ∑ ξiN Eˆ r ξ jN yi y j        (11)
+                                      i =1                              i , j =1
+
+subject to the norm-conservation constraint
+                              N −M                               N
+
+                              ∑ yi2 = ψ ψ r − ∑ z02i ≡ Dnorm ,
+                               i =1
+                                                      c
+                                                                 i =1
+                                                                                        (12)
+
+where Dnorm is the “norm deficit” of ϕ 0 with respect to the ψ norm on [0, rc ] . While
+Eqs.(11) and (12) constitute a quadratic form to be minimized subject to quadratic
+constraints, a problem which can conventionally treated by Lagrange multipliers, this did
+not turn out to be a robust procedure.
+
+       Instead, we proceed to our final (promise!) set of “residual” basis functions, ξiR ,
+which are formed from linear combinations of the ξiN based on the eigenvectors of
+the Eijr matrix in Eq. (11). The corresponding eigenvalues ei span a very large dynamic
+range ~106-108, which both yields informative insights into the optimization process and
+suggests an ad hoc minimization procedure which has proven to be very robust. The final
+pseudo wave function is now
+                                                      N −M
+                                       ϕ = ϕ 0 + ∑ xiξiR ,                              (13)
+                                                          i =1
+and the residual energy is
+                                              N −M
+                                E r = E00r + ∑ ( 2 f i xi + ei xi2 ) ,                  (14)
+                                               i =1
+
+where the “force” terms f i are computed from the Eir0 in Eq. (11) using the Eijr
+eigenvectors. The norm constraint is Eq. (12) with yi replaced by xi .
+
+       The ad hoc procedure consists of solving the constraint equation for x1 where e1 is
+the smallest eigenvalue,
+                                                                        12
+                                        ⎡         N −M
+                                                        ⎤
+                                 x1 = s ⎢ Dnorm − ∑ xi ⎥ ,                              (15)
+                                        ⎣          i =2 ⎦
+and where the sign s = ±1 . The N − M − 1 dimensional hypersphere within which the
+argument of the square root is positive24 is then searched on a coarse x grid, and E r is
+
+
+
+                                                                                              6
+evaluated using Eq.(14), trying each choice for s. The location of the minimum on this
+grid is found, along with the corresponding value of s. The values of x2 ,..., xM are then
+refined iteratively by setting derivatives of Eq. (14) to zero,
+                                 xi = − f i ( ei + e1 − sf1 2 x1 ) ,                     (16)
+and recalculating x1 using Eq.(15). This iteration generally converges quickly. As the
+large dynamic range of the ei suggests, the law of diminishing returns sets in quite rapidly,
+with minimal improvements beyond N = M + 3 or N = M + 4 . As a result of this and the
+simple form of Eq. (14), the dimension of the hypersphere to be searched is small and the
+energy evaluation trivial.
+
+        The optimization procedure outlined above is based on a particular choice of the
+cutoff wave vector qc , implicit in Eq. (11). After obtaining the xi coefficients, however,
+one can transform back to the yi coefficients of the ξiN basis set and use Eq. (11) to
+evaluate the function E r ( q) for a range of qs. This provides a measure of truncation error
+per electron which we will see in Sec. III correlates quite well with the actual
+convergence behavior of the total energy in plane-wave calculations, as claimed in Ref.
+14. The optimum choice of qc is guided by experience, and is typically inversely
+proportional to rc . For too small a qc , the (typically exponential) convergence of
+E r ( q) will flatten off for qs larger than qc , while for too large a value, useful
+convergence is unnecessarily sacrificed.
+
+          The above formalism may be applied to effectively optimize positive-energy
+scattering states if the infinite-range oscillatory tail of these states is replaced by a
+smoothly decaying tail beyond rc . An effective method of achieving this is to add a
+smooth “barrier” potential to the all-electron potential so that a bound eigenfunction will
+exist at the desired energy. A satisfactory form is
+                      VAEB ( r ) = VAE ( r ) + v∞θ ( x ) x 3 /(1 + x 3 ) ; x = ( r − rc ) / rb , (17)
+where θ is the unit step function and the coefficients v∞ and rb determine the height and
+width of the barrier. Since the value and two derivatives of the barrier function vanish
+at rc , 4 derivatives of the all-electron eigenfunction are continuous. While this choice is
+ad hoc and the shape of the tail effects the values of the terms in Eq.(11), the optimized
+pseudo wave function is quite insensitive to the barrier parameters for sensible choices.
+The log derivative at rc is determined by the energy alone, and is identical to that which
+would have been obtained with the original scattering-state method.16 The barrier
+ψ should have one more node than the highest-lying core state with the same , or no
+nodes if there is none. In the next section, when an additional ψ is required at higher
+energy, another node should be added.
+
+      The barrier method might typically be employed to generate the d
+pseudopotentials for atoms with no valence d electrons. In Fig. 1, we illustrate the
+
+
+
+                                                                                                   7
+relations among the all-electron and pseudo wave functions for barrier-bound and
+scattering Ge d states, calculated at an energy of +0.25Ha.
+
+        It was remarked in Ref. 13 that while pseudopotentials calculated with the Rappe
+et al. method14 do show fast total energy convergence in the solid, they display “strong
+short-wavelength oscillations.” Those authors advanced transferability concerns as a
+motivation for pursuing their approach to improving convergence.13 Such oscillations
+appear for a number of the potentials produced using the sample input data distributed
+with the OPIUM code.15 This does not seem to be the case using the optimization
+algorithm described above. The set of smooth Ge pseudopotentials shown in Fig. 2 is
+typical of what we find. While we can only speculate on the differences, it is possible
+that the surprisingly large dynamic range of the Eijr eigenvalues plays a role. OPIUM
+appears to use a global conjugate-gradient minimization method, which may not treat
+what are in effect the xi coefficients of the less-important ξiR ( r ) in Eq.(13) as accurately
+as do Eqs.(15) and (16).
+
+         The effects of increasing the continuity of the optimized pseudopotentials at rc are
+less obvious. Ca d semi-local potentials, calculated for an unoccupied shallow bound 3d
+state, are shown in Fig. 3 with value-only, first-derivative, and second-derivative
+continuity. They are very similar, and it takes the magnification of the inset to really
+discern the continuity differences. It is apparent that the optimization procedure tends to
+suppress discontinuities even when they are not strictly eliminated.
+
+III. Optimizing Vanderbilt projectors
+
+        We will briefly review Vanderbilt’s derivation,6 pausing and introducing an
+appropriate simplification at the point where the norm-conserving and ultrasoft versions
+diverge. Several reference all-electron wave functions ψ i and corresponding pseudo
+wave functions ϕi at energies ε i will be considered, all at a given as usual. Let these
+actually be r times the radial wave functions so that the kinetic energy operator simplifies
+to T = [ − d 2 dr 2 + ( + 1) r 2 ]/ 2 in atomic units. Let us choose a local potential Vloc
+which joins smoothly to VAE at some r ≤ rc but is otherwise arbitrary. Following Ref. 6,
+we introduce the projectors
+                                      χ i = (ε i − T − Vloc ) ϕ i .                         (18)
+Note that χi are zero for r ≥ rc .
+
+        For a single projector χ1 , the non-local potential operator is
+                                               χ1 χ1
+                                       VNL =         ,                                     (19)
+                                               ϕ1 χ1
+Which is the usual KB result,10 although obtained without any reference to the semi-local
+potential. Vanderbilt’s generalized this to the case of more projectors, and we will revise
+his Eq. (7) for our purposes25 to
+
+
+                                                                                                  8
+                                      VNL = ∑ χ i ( B −1 )ij χ j ,                          (20)
+                                             i, j
+
+where
+                                            Bij = ϕi χ j .                                  (21)
+Now in general, Bij ≠ B ji , so VNL would be a non-Hermitian operator. However, after
+performing integration by parts on the integrals giving Bij ,
+                                 rc  ⎡      1 d2     ( + 1)        ⎤
+                         Bij = ∫ ϕ i ⎢ε j +      2
+                                                   −     2
+                                                            − Vloc ⎥ ϕ j ,            (22)
+                                0
+                                     ⎣      2 dr      2r           ⎦
+and subtracting corresponding expressions for the all-electron ψ i with VAE , he proved
+that Bij will be a symmetric matrix if the generalized norm-conservation condition
+                                         ϕi ϕ j r = ψ i ψ j r                               (23)
+                                                    c         c
+
+is satisfied, where the rc subscripts indicate that the overlap is to be computed on [0, rc ] .
+
+        Vanderbilt went on to show that for the ultrasoft case, ie. allowing Eq.(23) to be
+violated and compensating appropriately, the energy derivatives of the log derivatives of
+pseudo wave functions calculated from Vloc + VNL will match those of corresponding all-
+electron functions at each ε i .6 This also applies to the generalized norm-conserving case,
+where Eq.(23) is satisfied, extending this property of the original semi-local
+pseudopotentials3 to several energies.
+
+       For purposes of ease of integration with plane-wave codes, we have transformed
+Eq.(20) one step further, normalizing the χ i , rescaling Bij appropriately, diagonalizing it,
+and forming linear combinations of the χ i using the resulting eigenvectors. Our final
+form for the non-local operator is
+                                                 1
+                                   VNL = ∑ χ i      χi ,                               (24)
+                                          i     bi
+where bi are the eigenvalues of the rescaled Bij .
+
+        In general we prefer to use the scalar-relativistic radial Schrödinger equation26 for
+our all-electron calculations, since by including the mass-velocity, Darwin, and other
+higher-order terms it gives a better description of heavier atoms. Since the kinetic energy
+is no longer the simple second derivative, the integration-by-parts subtractions of Eq.(22)
+and its all-electron analogue no longer cancel, so the exact symmetry of Bij is not
+ensured. In practice, we find that the asymmetry is ~ 10−4 to 10−5 for both light and
+heavy atoms, so we simply symmetrize Bij and proceed. This manifests itself in
+disagreements of comparable magnitude in comparisons of quantities such as eigenvalues
+and norms computed with the final OV potentials, which are typically correct to
+~ 10−8 when non-relativistic all-electron calculations are employed. While they have not
+
+
+
+                                                                                                  9
+yet been implemented, we expect similar behavior for fully-relativistic calculations
+employing the Dirac equation.
+
+        Incorporating the norm-conserving Vanderbilt construction into the residual
+energy optimization framework,14 we will restrict our attention to two projectors. The
+reference ψ 1 and ψ 2 for a given might be chosen to be a shallow core and a valence
+wave function, a valence and a barrier function, or two barrier functions. Typically, we
+find a spread of ~1Ha between ε1 and ε 2 works well when the choice is not dictated by
+the use of two bound functions. It is appropriate for ψ 2 to have one more node than ψ 1
+inside rc . The procedures of Sec. II are followed to construct a nodeless norm-
+conserving ϕ1 .
+
+        The key observation in proceeding to the calculation of ϕ 2 is that while the
+diagonal terms in Eq.(23) are quadratic constraints, the off-diagonal term is a linear
+constraint. Since ψ 2 will in general have a different log derivative at rc thanψ 1 , we could
+go all the way back to the beginning of our basis set construction. However, the
+orthonormal ξiO basis calculated for ϕ1 has proven to be perfectly adequate for ϕ 2 . The
+off-diagonal norm constraint can now imposed simply by adding a row to the constraint
+matrix Cij in Eq.(7) and an element to the “derivatives” vector,
+                                CM +1,i = zi ; d M +1 = ψ 1 ψ 2 r                         (25)
+                                                                c
+
+
+where zi is the set of N ξiO coefficients in Eq.(5). They are formed as the sum of the z0i
+coefficients in Eq.(10) and the are the corresponding ξiO coefficients transformed back
+from the optimized xi in Eq.(13) using the Eijr eigenvectors and the null singular vectors
+of the original Cij . The optimization of ϕ 2 now proceeds as in Sec.II from Eq.(7) onward,
+with the quadratic 2,2 normalization constraint of Eq.(23) treated as in Eq.(12)
+
+       The new null basis set ξiN for ϕ 2 now has one fewer member than that for ϕ1 , so
+in principal E r cannot be as well optimized. In practice, ϕ 2 is either a pseudo valence
+state which despite its single node is intrinsically “softer” in q-space than the
+corresponding shallow-core ϕ1 , or is a scattering state sufficiently higher in energy that it
+does not enter into the occupied states in the solid with appreciable amplitude. An
+example of each case is shown in Fig. 4, where the convergence of the total energies of Si
+and Cu are plotted as functions of plane-wave cutoff energy for KB and OV calculations.
+Differences are basically negligible in the relevant range of cutoffs. This figure also
+confirms the manner in which E r ( q) correlates with the actual plane-wave behavior,
+where we have plotted it for the least-rapidly converging for each material. (We note in
+passing that the pseudo Cu 3s and 3p states converge more rapidly than the 3d, so there is
+no significant computational penalty in treating them as valence.)
+
+
+
+
+                                                                                             10
+        The improvement in reproducing all-electron (AE) scattering results with KB and
+OV pseudopotentials is illustrated in Fig. 5 for K. The 3s and 3p shallow core states are
+treated as valence, and the local potential is a smooth polynomial extrapolation of the AE
+potential from the minimum rc to zero. The arc tangents of the log derivatives at rc ,
+which are somewhat analogous to scattering phase shifts are plotted. These are much
+easier to compare visually than the log derivative themselves. The AE and OV results are
+identical within the linewidths, while the KB results deviate significantly for the s and d
+channels. This is consistent with the one example in Ref. 20, and representative of all the
+OV pseudopotentials used in the tests in the next section. While the log derivative error
+appears to be quite small at the -0.089 Ha binding energy of the K 4s state, the
+differences between the OV and KB pseudo wave functions shown in Fig. 6 are
+significant. The OV result reproduces the AE results perfectly outside rc by construction.
+
+        A problem that must be addressed with any Hamiltonian containing a separable
+non-local operator like Eq.(24) is the fact that its eigenstates are not necessarily ordered
+in energy by numbers of nodes. So-called “ghost states” at energies below the nodeless
+pseudo wave function from which the pseudopotential was generated can invalidate
+results. An analysis of the KB case gives a straightforward prescription to test for this
+possibility.27 This does not generalize to the multi-projector case, but we can test a
+potential by scanning the log derivative it produces outside rc over a sufficiently wide
+range of energies below the lowest desired eigenvalue. A spurious step in a plot such as
+Fig. 5 signals the occurrence of a ghost. In practice, the second projector of the OV
+method is very effective at suppressing ghosts compared to KB. In either case,
+adjustment of the local potential will fix the problem.
+
+IV. Results for solids
+
+         The appropriate tests are to compare all-electron density-functional calculations
+for solids with pseudopotential calculations. For our reference calculations, we used the
+open-source ELK code, which employs the full-potential linear-augmented-planc-wave
+plus local-orbital method.28 The default parameters appear to yield well-converged
+results, and are employed for all the calculations except for a few cases in which muffin-
+tin radii had to be decreased to accommodate short bond lengths. The calculations used
+here are effectively scalar-relativistic, based on weighted averages of Dirac equation
+solutions within the muffin tines. The local density approximation was used.29 Since
+ELK is not able to optimize lattice parameters directly, we chose cubic materials for all
+but one case, so that energy vs. volume curves fitted with the Burch-Murnaghan equation
+of state30 could easily yield the lattice constant a and the bulk modulus B0. While this
+equation of state was used throughout for consistency among the quoted results, five
+other functional forms available within ELK28 were tested for several cases. The spreads
+among the results were ±0.001a B for a and ±1 − 2% for B0, with Burch-Murnaghan
+typically falling at the center of the distribution.
+
+        Plane-wave calculations were carried out using the ABINIT code.31,32 Full
+structural optimization was carried out via force and stress minimization, and the bulk
+
+
+                                                                                           11
+modulus was determined from elastic constants calculated using DFPT.23 Well-
+converged Brillouin-zone samples, Fermi smoothing of band occupations for metals, etc.
+were kept consistent between the AE and pseudopotential calculations. Plane wave
+convergence was tested, and the lattice constants presented in Table I are all converged to
+~0.1% and the bulk moduli to ~1% or better at the stated cutoff energies.
+
+        The test cases were chosen to represent a variety of types of bonding and to
+involve atoms which give a representative, if coarse, sampling of the periodic table.
+Most atoms were used in two and sometimes three solids, always represented by the same
+pseudopotentials. All the cases we tested have been included, whether or not there was
+significant improvement in agreement using OV potentials. All pseudopotentials were
+based on the atomic ground-state configuration. All parameters for each element were
+identical for the KB and OV potentials. Projectors for s, p, and d were included for all
+but first-row atoms, with f projectors for two atoms. Vloc was a smooth polynomial
+extrapolation of VAE in all cases. Semi-core electrons mentioned explicitly were treated
+as valence in the calculations. The potentials and test solids are discussed in tabular order
+below.
+
+         The K calculations included 3s, 3p, and 4s. Two K potentials were used. The
+initial KB results for bcc K metal showed sufficient errors that the K* potential was tried
+using smaller rcs , which are generally found to improve results (if at the expense of
+convergence). The OV results are in excellent agreement with AE, and identical for both
+sets of parameters, while the KB results bracket AE, with somewhat better agreement for
+K*. Moving to the ionic insultor KCl, where Cl included only the outer 3s and 3p, the
+OV results are once again in excellent agreement with AE and identical for K and K*.
+The KB results for both K and K* are in qualitatively worse agreement than for K metal,
+with no apparent correlation between the lattice-constant and bulk-modulus errors.
+
+       To test a different structure and give K* another chance, we chose KBaN, a half-
+Heusler-structure insulator, not yet known experimentally but recently proposed as a
+promising piezoelectric.33 N 2s and 2p, and Ba 4d and 6s electrons are included. AE and
+OV results are in excellent agreement, while KB show substantial errors. Ba as an
+elemental bcc metal provides another test for its potentials. For OV, a is in excellent
+agreement and B0 off by +3%, while corresponding errors for KB are +5% and +9%.
+
+        Providing another test for N and introducing a 4d transition metal, we chose the
+metallic rock-salt compound ZrN. Zr 4s, 4p, 4d, and 5s electrons were included. In
+general, we found that transition-metal d electrons limited convergence, and that
+including semi-cores in the same shell added little computational effort. We found
+excellent agreement for OV, and substantial errors for KB.
+
+        La has a bound but unoccupied 4f state which should influence its bonding in a
+solid, so we added rock-salt LaN as a test. La 5s, 5p, 5d and 6s electrons were included.
+Although anticipated to be an insulator, it was semi-metallic within the local density
+approximation. The E r analysis of the optimized 4f pseudo wave function suggested a 30
+
+
+
+                                                                                           12
+Ha cutoff, which was apparently necessary. OV results were excellent, but once again
+KB showed substantial errors.
+
+        Moving to the center of the periodic table, Si showed excellent results for both
+OV and KB at a modest cutoff, providing another example of an old adage of the
+electronic-structure community: “Anything works for Si.” Only Si 3s and 3p electrons
+were included, along a non-linear core correction charge34 in polynomial form.35 To
+provide more of a challenge, we studied SiO2 in an artificial cubic Fd 3m structure once
+mistakenly thought to be that of β crystobalite. It is best described as an expanded
+diamond lattice of Si with O inserted midway between each Si neighbor pair, ie. with
+1800 Si-O-Si bond angles. Optimizing this structure gives the essentially standard Si-O
+bond length of 1.6Å, and so this hypothetical material should be reasonably
+representative of real SiO2 bonding. In this case, too, both OV and KB are in good
+agreement with AE. To push this case one step further, we took advantage of the O-
+required cutoff and introduced the Si* pseudopotential, with the rather deep 2s and 2p
+core states treated as valence. The optimization procedure was very effective, and the
+OV results remained extremely well converged at 30 Ha ( 4 × 10−5 aB and 0.1 GPa
+compared to 40Ha). Unfortunately, Si* with KB did not even bind the solid, the energy
+being a monotonically decreasing function of a for 11 ≤ a ≤ 20 aB. The corresponding
+Tab. I entries are labeled “Not Available” (NA).
+
+         A third Si-based material, the metallic compound CaSi2, was included because it
+has the unusual property of showing significant occupation of a Ca 3d state, which is
+weakly bound and unoccupied in the atom.36 Including the 3s, 3p, and 4s electrons for
+Ca, it is the 3d that controls convergence in the solid, and makes this system an
+interesting test for both convergence optimization and the effect of the second projector.
+Among several polymorphs, we used the trigonal rhombohedral “tr3” structure,37 space
+group R 3m , with one formula unit per primitive cell. Qualitatively, buckled Si double
+layers similar to (111) double layers in the Si diamond structure are separated by
+intercalated Ca atoms. Structural relaxation using ELK was accomplished using a mesh of
+~30 a and c lattice constants, relaxing the single internal coordinate, and fitting the
+resulting energies with a cubic polynomial in a and c. The B0 calculation using DFPT
+within ABINIT was supplemented by a relaxation correction using DFPT internal strain
+and interatomic force constants.23 For this system, the OV results are in excellent
+agreement with AE, but the KB results show substantial errors, with the differences
+presumably arising mainly from the Ca. (A second CaSi2 row has been added to Table I
+for the c lattice constant.)
+
+        The cubic perovskite structure of SrTiO3 was chosen to have more typical 3d
+hybridization in an insulator. Sr 4s, 4p, and 5s were included, with 3s, 3p, 3d, and 4s for
+Ti. Once again, the Sr and Ti semi-cores did not limit convergence. The OV results are
+in excellent agreement with AE. KB shows a moderate -4% error for a, and a
+significantly larger error for B0. Dropping the Ti, rock-salt SrO shows comparable levels
+of agreement and disagreement for OV and KB.
+
+
+
+
+                                                                                         13
+         The rock-salt metal BiSe was included to have a scattering-state f projector above
+the filled Bi 4f core level, with 5d, 6s, and 6p included as valence. Se included only 4s
+and 4p. For this compound, both OV and KB gave excellent agreement with AE.
+
+        Elemental fcc Cu was included primarily for historical reasons, its 3d potential
+being the first published optimized pseudopotential.14 The rather prominent slope
+discontinuity seen at rc in Fig. 2 of Ref. 14 initially motivated part of the present work.
+With the optimization approach described in Sec. II, however, the unconstrained slope
+discontinuity for Cu 3d was even less apparent that that shown in our Fig. 3 for Ca. The
+results for the solid, with 3s, 3p, 3d, and 4s show excellent AE-OV agreement, with
+substantial errors for KB. The 3d sets the convergence behavior, shown in Fig. 4.
+
+V. Discussion and conclusions
+
+         The main conclusion of the work described above is that the neglected Vanderbilt
+approach to norm-conserving multi-projector pseudopotentials6 can be used in the context
+of systematic convergence optimization,14 and can serve as a competitive choice for
+accuracy and computational efficiency compared to ultrasoft6 and projector-augmented-
+wave potentials.7 Some trends are discernable among the results for the 12 solids studied
+as test cases. The outermost core electrons were treated as valence for many of the atoms
+in these tests. This is widely known to be particularly important to obtain accurate results
+for group 1 and group 2 elements, and can also be important for transition-metal
+elements. The greatest differences between OV and KB results occurred in cases with
+these cores. With optimization, the plane-wave cutoff requirements with core states
+remained relatively modest.
+
+         The second observation to be drawn is that the use of the ground-state
+configurations of the atoms to generate the OV potentials gives comparably good results
+in elemental, covalent, and ionic solids. In fact, the test systems involving Si included
+strictly covalent diamond Si, cationic Si in SiO2, and at least in electronegativity terms,
+anionic Si in CaSi2.
+
+         A third comment is that the KB results for any given system can undoubtedly be
+improved by further adjustments of the local potential choice and core radii. While in the
+course of this research, some of these parameters were changed to eliminate ghost states
+or improve very bad KB results, the OV results and their agreement with AE were
+essentially unchanged. Examining the log derivative plots gives some guidance to
+improving KB, but there is no systematic approach. The OPIUM code15 provides the
+ability to compare all-electron and pseudopotential energy differences between the
+reference atomic configuration and other configurations. This capability is incorporated
+into the ONCVPSP code developed for this research, and all test configurations involved
+one- and two-electron ionized states since the neutral ground state was the reference. For
+the atoms used in the test cases, the rms excitation error was 0.012 Ha for KB vs. 0.003
+Ha for OV. However, atom-by-atom, the correlation between these results and results for
+solids was at best difficult to discern.
+
+
+
+                                                                                          14
+        A final point to be made is that in no case among the 14 atoms in the tests were
+the parameters used in constructing the OV potentials adjusted to “improve” agreement
+with the AE results. The agreement was nearly always within the range of the spread of
+the equation-of-state fits, and usually better. Some experimentation with the optimization
+parameters qc and N as well as the projector energies ε1 and ε 2 (where not fixed by bound
+states) was done to improve convergence and balance it among the s , but this was all
+evaluated within the confines of the pseudopotential generation code, with no reference
+to results for solids. With the exception of the “Si* experiment,” decisions on treating
+core states as valence were made in advance of any comparisons.
+
+        While all the calculations reported here were done using the local density
+approximation,29 ELK AE results and OV pseudopotential results were also compared
+using the PBE generalized-gradient functional38 for several of the test systems.
+Agreement was comparable. However, when a pseudopotential generated with PBE was
+(unintentionally) used to compare local-density AE and OV calculations, differences
+increased noticeably.
+
+        The overall conclusion of this research is that the accuracy of two-projector OV
+pseudopotentials in calculating the properties of materials is primarily limited by the
+accuracy of the underlying density functional approximations. The open-source ONCVPSP
+code is freely available.39
+
+Acknowledgements
+
+       The author would like to acknowledge valuable discussions with D. Vanderbilt,
+K. M. Rabe, and J. W. Bennett.
+
+
+
+
+                                                                                       15
+Table I. Comparisons of lattice constants and bulk moduli among all-electron, optimized
+Vanderbilt, and Kleinman-Bylander calculations for the test set of solids. K* and Si* are
+explained in the text. (a) NA (Not Available) is also explained in the text.
+
+System     Ecut(Ha)         Lattice constants (aB)             Bulk moduli (GPa)
+                        AE          OV          KB         AE        OV        KB
+K          20          9.58        9.58       10.56       4.14      4.13      3.00
+K*         20          9.58        9.58       9.33        4.14        4.13       3.83
+KCl        20         11.49       11.48      14.64        23.90      24.33       8.69
+K*Cl       20         11.49       11.48      11.14        23.90      24.36       31.53
+K*BaN      25         12.23       12.25      12.70        44.01      44.22       34.35
+Ba         20          9.11        9.09       9.57        9.22        9.47       10.01
+ZrN        25          8.55        8.57       9.49       280.98     280.50      154.48
+LaN        30          9.84        9.83       8.24       134.84     134.67      222.44
+Si         10         10.21       10.21      10.20        97.11      95.80       95.30
+SiO2       30         13.90       14.07      14.09       152.68     152.69      152.88
+Si*O2      30         13.90       13.92      NA(a)       152.68     155.32      NA(a)
+CaSi2      20          7.14        7.14       6.94        68.42      67.05       88.11
+CaSi2 c               29.30       29.19      26.71
+SrTiO3     30          7.27        7.31       6.95       198.85     201.51      269.03
+SrO        30          9.56        9.58       8.79       105.73     104.40      194.04
+BiSe       20         11.38       11.40      11.40        66.03      65.81       66.45
+Cu         30          6.57        6.58       7.27       172.47     174.17      106.95
+
+
+
+
+                                                                                         16
+                           0.6
+
+                                                                             Ge d
+                           0.4
+
+
+                           0.2                                                  ψ, ϕBarrier
+                                      ϕ
+          ψ, ϕ (aB )
+           -1/2
+
+
+
+
+                           0.0
+                                          ψ
+                           -0.2
+
+
+                           -0.4                                          ψ, ϕScattering
+
+
+                           -0.6
+                                  0               2                4              6             8
+                                                              r (aB)
+Fig. 1. All-electron (ψ ) and pseudo (ϕ ) wave functions for the Ge d scattering state at
+0.25 Ha, illustrating the use of a soft barrier to induce a bound-state-like tail which allows
+residual energy optimization.
+                            1.5
+                            1.0
+                                                                  Ge semi-local
+                            0.5                                   pseudopotentials
+                                              s
+                            0.0
+                           -0.5
+                           -1.0
+                  V (Ha)
+
+
+
+
+                           -1.5               p
+                           -2.0
+                           -2.5
+                           -3.0               d
+                           -3.5
+                           -4.0
+                               0.0        0.5         1.0   1.5        2.0     2.5        3.0   3.5
+                                                              r (aB)
+Fig. 2. Ge pseudopotentials illustrating the smooth behavior characteristic of the residual
+energy optimization approach introduced here.
+
+
+
+
+                                                                                                      17
+                                            -2
+                                                               Ca(d)
+                                            -4       Pseudopotential continuity
+                                                        for M ϕ constraints
+                                            -6
+                                                                                -3.8
+                                            -8
+                        V (Ha)
+
+
+
+
+                                                                                -4.0
+                                           -10
+                                                                                       M=3
+                                                                                -4.2
+                                           -12
+                                                                                             4
+                                                                                -4.4          5
+                                           -14
+                                                                                   2.2        2.3      2.4    2.5      2.6
+                                           -16
+                                                 0                   1                   2                        3
+                                                                                r (aB)
+Fig. 3. Illustration of the pseudopotential continuity results from requiring M=3, 4, or 5
+value plus derivative continuity constraints on the pseudo wave function, for the weakly-
+bound unoccupied Ca d state. rc =2.5 aB is indicated by the vertical bar.
+
+                                             1
+    Convergence error per electron (Ha)
+
+
+
+
+                                           0.1
+                                                                r                                 r
+                                                              E (s)                          E (d)
+                                          0.01
+
+                                          1E-3
+                                                                Si                                    Cu
+                                          1E-4
+
+                                          1E-5
+
+                                          1E-6
+                                                               KB            OV                       KB          OV
+
+
+                                          1E-7
+                                                 0             10          20                30              40              50
+                                                                         Cutoff energy (Ha)
+
+Fig. 4. Convergence of the total energy with plane-wave cutoff for Si and Cu solids,
+showing the minor effect of the second projector of the OV method compared to KB.
+The points are residual energies from the first-projector atomic calculations.
+
+
+                                                                                                                                  18
+                          2.5
+                                                                                AE
+                          2.0         K Scattering
+                                                                                OV
+                          1.5                                                   KB
+                                           s
+                          1.0
+
+                          0.5
+   atan[rc(dψ/dr)/ψ ]/π
+
+
+
+
+                          0.0
+
+                          -0.5
+                                           p
+                          -1.0
+
+                          -1.5
+
+                          -2.0
+                                           d
+                          -2.5
+
+                          -3.0
+
+                          -3.5
+                                 -2   -1        0          1             2             3
+                                               Energy (Ha)
+
+Fig. 5. K log derivatives vs. energy plotted as atan[ rc ( dψ / dr ) /ψ ] / π at rc . All-electron,
+OV, and KB are compared.
+
+
+
+
+                                                                                                 19
+                           0.5
+
+                           0.4
+                                          ϕOV
+                           0.3
+                                                ϕKB
+     Wavefunctions (aB )
+    -1/2
+
+
+
+
+                           0.2                                 K 4s
+
+                           0.1        ψ
+                           0.0
+
+                           -0.1
+
+                           -0.2
+
+                           -0.3
+                                  0        2            4             6      8
+                                                      r (aB)
+
+Fig 6. K 4s wave functions computed with the all-electron potential, and KB and OV
+pseudopotentials.
+
+
+
+
+                                                                                     20
+References
+1
+  J. W. Bennett, A. Roy, K. F. Garrity, D. Vanderbilt, and K. Rabe, private communications.
+2
+  K. F. Garrity, J. W. Bennett, K. M. Rabe, D. Vanderbilt, arXiv:1305.5973.
+3
+  D. R. Hamann, M. Schluter and C. Chiang, Phys. Rev. Lett. 43, 1494 (1979).
+4
+  G. B. Bachelet, D. R. Hamann, and M. Schluter, Phys. Rev. B 26, 4199 (1982).
+5
+  P. Hohenberg and W. Kohn, Phys. Rev. 136, B864 (1964); W. Kohn and L. J. Sham, ibid. 140, A1133
+(1965).
+6
+  D. Vanderbilt, Phys. Rev. B 41, 7892 (1990).
+7
+  P. E. Blöchl, Phys. Rev. B 50, 17 953 (1994).
+8
+  S. Baroni, S. de Gironcoli, A. Dal Corso, and P. Giannozzi, Rev. Mod. Phys. 73, 515 (2001).
+9
+  L. Hedin, Phys. Rev. 139, A796 (1965); M. S. Hybertsen and S. G. Louie, Phys. Rev. Lett. 55, 1418
+(1985).
+10
+   L. Kleinman and D. M. Bylander, Phys. Rev. Lett. 48, 1425 (1982).
+11
+   R. Car, and M. Parrinello, Phys. Rev. Lett. 55, 2471 (1985).
+12
+   D. Vanderbilt, Phys. Rev. B 32, 8412 (1985).
+13
+   N. Troullier and J. L. Martins, Phys. Rev. B 43, 1993 (1991).
+14
+   A. M. Rappe, K. M. Rabe, E. Kaxiras, and J. D. Joannopoulos, Phys. Rev. B 41, 1227 (1990).
+15
+   URL http://opium.sourceforge.net/
+16
+   D. R. Hamann, Phys. Rev. B 40, 2980 (1989).
+17
+   E. L. Shirley, D. C. Allan, R. M. Martin, and J. D. Joannopoulos, Phys. Rev. B 40, 3652 (1989).
+18
+   W. A. Al-Saidi, E. J. Walter and A. M. Rappe Phys. Rev. B 77, 075112 (2008).
+19
+   P. E. Blöchl, Phys. Rev. B 41, R5414 (1990).
+20
+   I. Morrison, D. M. Bylander, and L. Kleinman, Phys. Rev. B 47, 6728 (1993).
+21
+   Awareness of this reference resurfaced, T. Ohwaki et al., J. Chem. Phys. 136, 134101 (2012), indicating
+that the Vanderbilt scheme has recently been implemented in the ADPACK code, URLhttp://www.oprnmx-
+square.org, although apparently without optimization.
+22
+   A. Rappe, private communication.
+23
+   D. R. Hamann, X. Wu, K. M. Rabe, and D. Vanderbilt, Phys. Rev. B 71, 035117 (2005).
+24
+   In principle, Dnorm could be negative, but this never occurred in practice.
+25
+   We can omit the introduction of Vanderbilt’s β functions since we will be dealing strictly with real
+symmetric B matrices.
+26
+   D. D. Koelling and B. N. Harmon, J. Phys. C Solid State Phys. 10, 3107 (1977).
+27
+   X. Gonze, P. Käckell, and M. Scheffler, Phys. Rev. B 41, 12 264 (1996).
+28
+   URL http://elk.sourceforge.net/
+29
+   J. P. Perdew and A. Zunger, Phys. Rev. B 23, 5048 (1981).
+30
+   F. Birch, Phys. Rev. 71, 809 (1947).
+31
+   The ABINIT code is a common project of the Université Catholique de Louvain, Corning Incorporated,
+and other contributors (URL http://www.abinit.org).
+32
+   X. Gonze et al., Computer Phys. Commun. 180, 2582 (2009); Zeit. Kristallogr. 220, 558 (2005).
+33
+   A. Roy, J. W. Bennett, K. M. Rabe, and D. Vanderbilt, Phys. Rev. Lett. 109, 037602 (2012).
+34
+   S. G. Louie, S. Froyen, and M. L. Cohen, Phys. Rev. B 43,1993 (1991).
+35
+   M. Fuchs and M. Scheffler, Computer Phys. Commun. 119, 67 (1999)
+36
+   S. Fahy and D. R. Hamann, Phys. Rev. B 41, 7587 (1990).
+37
+   K. H. Janzon, H. Schafer, and A. Weiss, Z. Naturforsch. 23b, 1544 (1968).
+38
+   J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996).
+39
+   ONCVPSP is available at the URL http://www.mat-simresearch.com. The present pseudopotential format
+is compatible with ABINIT. Extension to include the UPF format (URL http://www.quantum-
+espresso.org/pseudopotentials/unified-pseudopotential-format) is anticipated.
+
+
+
+
+                                                                                                        21
+

@@ -1,0 +1,130 @@
+\section{Dissipative two-level systems and kinks}\label{app:C.20}
+
+A hydrogen atom trapped in a metal, or a group of atoms in a glass, can sit in either of two nearby minima and tunnel between them. In a metal the tunneling is dressed by the conduction electrons, which must rearrange every time the atom moves, and the result is a hopping rate that, for weak coupling ($\alpha_{\mathrm{ohm}} < \tfrac12$ in \cref{eq:C.20-ohmrate}), grows as the temperature falls. A second kind of mobile defect is an extra atom squeezed into a close-packed row of a crystal: it spreads over many neighbors and glides along the row over a barrier of micro-electronvolts. \Cref{sec:16.8} uses the first, through the spin--boson model, and \cref{sec:19.6} the second, through the Frenkel--Kontorova chain. Below we derive the hopping rate of a tunneling defect in a metal, and the shape, mass and migration barrier of the extra atom.
+
+\subsection{The spin--boson model}
+
+Let $|\mathrm{L}\rangle$ and $|\mathrm{R}\rangle$ be the two localized configurations, with Pauli matrices $\sigma_z = |\mathrm{L}\rangle\langle\mathrm{L}| - |\mathrm{R}\rangle\langle\mathrm{R}|$ and $\sigma_x = |\mathrm{L}\rangle\langle\mathrm{R}| + |\mathrm{R}\rangle\langle\mathrm{L}|$. Their energies differ by the asymmetry $\Delta_{\mathrm{as}}$, and the overlap of the two localized wavefunctions through the barrier gives the tunneling amplitude $\Delta_0$. The environment is a set of harmonic modes $d_k$ of energies $\omega_k$, each displaced in opposite directions by the two configurations:
+\begin{equation}
+  H = \tfrac12\Delta_{\mathrm{as}}\,\sigma_z - \tfrac12\Delta_0\,\sigma_x + \sum_k\omega_k\,d_k^\dagger d_k + \tfrac12\,\sigma_z\sum_k\lambda_k\bigl(d_k + d_k^\dagger\bigr) .
+  \label{eq:C.20-H}
+\end{equation}
+Without the modes, the eigenstates are split by $\Delta_{\mathrm{tl}} = (\Delta_{\mathrm{as}}^2 + \Delta_0^2)^{1/2}$, the two-level splitting of \cref{sec:2.5}. A bath of oscillators is less special than it looks: any environment whose response to the defect is linear has Gaussian fluctuations, and these are reproduced by a suitable set of oscillators~\cite{leggett1987dynamics}. Everything the bath does then enters through its spectral density
+\begin{equation}
+  J_{\mathrm{s}}(\omega) = \pi\sum_k\lambda_k^2\,\delta(\omega - \omega_k) .
+  \label{eq:C.20-J}
+\end{equation}
+Its power law at low $\omega$ fixes the long-time decay of the bath correlation, \cref{eq:C.20-Q} below. For acoustic phonons coupled through the strain, the coupling of a mode grows as $\lambda_k^2 \propto \omega_k$, since the strain amplitude of one phonon is $\propto Q(\rho_T\Vol\omega_{\vect{Q}\nu})^{-1/2}$, and the density of modes grows as $\omega^2$; then $J_{\mathrm{s}} \propto \omega^3$ (superohmic). For conduction electrons, the bath excitations are electron--hole pairs. If the two configurations scatter electrons differently near the Fermi level, the matrix elements are roughly constant. The number of pairs of energy $\omega$ grows as $\omega$, and $J_{\mathrm{s}}$ is linear (ohmic),
+\begin{equation}
+  J_{\mathrm{s}}(\omega) = 2\pi\,\alpha_{\mathrm{ohm}}\,\omega\,\ee^{-\omega/\omega_{\mathrm{cut}}} ,
+  \label{eq:C.20-ohmic}
+\end{equation}
+with a dimensionless coupling $\alpha_{\mathrm{ohm}}$ and a cutoff $\omega_{\mathrm{cut}}$ of the order of the Fermi energy. \Cref{sec:16.8} computes $\alpha_{\mathrm{ohm}}$ from the scattering phase shifts. Ref.~\cite{leggett1987dynamics} writes $\alpha$ for $\alpha_{\mathrm{ohm}}$ and Ref.~\cite{qureshi1995dynamics} writes $K$; the normalization of \cref{eq:C.20-ohmic} is theirs.
+
+\subsection{The bath correlation function}
+
+In configuration L the term $+\tfrac12\lambda_k(d_k + d_k^\dagger)$ shifts the equilibrium of mode $k$, and in R the shift is reversed. Completing the square, $H_{\mathrm{L}} = \sum_k\omega_k(d_k^\dagger + \lambda_k/2\omega_k)(d_k + \lambda_k/2\omega_k) + \text{const}$, and $H_{\mathrm{R}}$ is the same with $\lambda_k \to -\lambda_k$. The two equilibria differ by $\delta_k = \lambda_k/\omega_k$ in the ladder operators. With $b_k = d_k + \lambda_k/2\omega_k$ and the displacement operator $\op{D}_k = \op{D}(\delta_k)$ of \cref{eq:C.6-D} in $b_k$, which shifts $b_k$ by $\delta_k$, the two Hamiltonians are related by $H_{\mathrm{R}} = \op{D}H_{\mathrm{L}}\op{D}^\dagger$, with $\op{D} = \prod_k\op{D}_k$, up to constants that cancel.
+
+The quantity a transition needs is the correlation $C(t) = \langle\ee^{\ii H_{\mathrm{L}}t}\ee^{-\ii H_{\mathrm{R}}t}\rangle_{\mathrm{L}}$, the overlap at time $t$ between the bath evolving with the defect in L and in R, averaged over the equilibrium of L. Since $\ee^{-\ii H_{\mathrm{R}}t} = \op{D}\ee^{-\ii H_{\mathrm{L}}t}\op{D}^\dagger$, $C(t) = \langle\op{D}(t)\op{D}^\dagger\rangle_{\mathrm{L}}$, where $\op{D}(t) = \ee^{\ii H_{\mathrm{L}}t}\op{D}\ee^{-\ii H_{\mathrm{L}}t}$ has $b_k \to b_k\ee^{-\ii\omega_kt}$. For one mode, write $\op{D}(t) = \ee^{\op{X}}$ and $\op{D}^\dagger = \ee^{\op{Y}}$ with $\op{X} = \delta(b^\dagger\ee^{\ii\omega t} - b\,\ee^{-\ii\omega t})$ and $\op{Y} = -\delta(b^\dagger - b)$. Their commutator is the number $[\op{X},\op{Y}] = -2\ii\delta^2\sin\omega t$, so \cref{eq:C.6-BCH} gives $\ee^{\op{X}}\ee^{\op{Y}} = \ee^{\op{X} + \op{Y}}\ee^{-\ii\delta^2\sin\omega t}$. The operator $\op{X} + \op{Y} = \delta(b^\dagger u - b\,u^*)$, with $u = \ee^{\ii\omega t} - 1$, is linear, and Bloch's identity \cref{eq:C.6-bloch} gives $\langle\ee^{\op{X} + \op{Y}}\rangle = \exp[-\tfrac12\delta^2|u|^2(2n_{\mathrm{B}}(\omega) + 1)]$, with $|u|^2 = 2(1 - \cos\omega t)$ and $2n_{\mathrm{B}} + 1 = \coth(\omega/2T)$. Multiplying over modes and using \cref{eq:C.20-J},
+\begin{equation}
+  C(t) = \ee^{-\mathcal{Q}(t)}, \qquad
+  \mathcal{Q}(t) = \frac1\pi\int_0^\infty\dd\omega\,\frac{J_{\mathrm{s}}(\omega)}{\omega^2}\Bigl[\coth\frac{\omega}{2T}\,(1 - \cos\omega t) + \ii\sin\omega t\Bigr] .
+  \label{eq:C.20-Q}
+\end{equation}
+At $T = 0$ and for one mode, $C(t) = \exp[-\delta^2(1 - \ee^{-\ii\omega t})] = \ee^{-\delta^2}\sum_n(\delta^2)^n\ee^{-\ii n\omega t}/n!$: the Poisson distribution of the number of bath quanta emitted when the defect jumps, as in the Franck--Condon problem of \cref{sec:5.6}.
+
+For the ohmic bath at $T \ll \omega_{\mathrm{cut}}$ and $|t| \gg 1/\omega_{\mathrm{cut}}$ the integral has a closed form. The imaginary part is $2\alpha_{\mathrm{ohm}}\int_0^\infty\dd\omega\,\ee^{-\omega/\omega_{\mathrm{cut}}}\sin(\omega t)/\omega = 2\alpha_{\mathrm{ohm}}\arctan(\omega_{\mathrm{cut}}t) \to \pi\alpha_{\mathrm{ohm}}\,\mathrm{sgn}\,t$. For the real part we write $\coth(\omega/2T) = 1 + 2n_{\mathrm{B}}(\omega)$ and use one integral twice,
+\begin{equation*}
+  \int_0^\infty\frac{\dd\omega}{\omega}\,\ee^{-\omega/\Omega}\,(1 - \cos\omega t) = \tfrac12\ln\bigl(1 + \Omega^2t^2\bigr),
+\end{equation*}
+which follows by differentiating with respect to $t$, since $\int_0^\infty\dd\omega\,\ee^{-\omega/\Omega}\sin\omega t = \Omega^2t/(1 + \Omega^2t^2)$. With $\Omega = \omega_{\mathrm{cut}}$ it gives the zero-temperature part, $\alpha_{\mathrm{ohm}}\ln(1 + \omega_{\mathrm{cut}}^2t^2) \simeq 2\alpha_{\mathrm{ohm}}\ln(\omega_{\mathrm{cut}}|t|)$. The thermal part, where the cutoff can be dropped, has $n_{\mathrm{B}}(\omega) = \sum_{m\ge1}\ee^{-m\omega/T}$, and each term is the same integral with $\Omega = T/m$. Summing, $4\alpha_{\mathrm{ohm}}\cdot\tfrac12\sum_m\ln(1 + T^2t^2/m^2) = 2\alpha_{\mathrm{ohm}}\ln[\sinh(\pi T|t|)/(\pi T|t|)]$, by the product $\sinh x/x = \prod_{m\ge1}(1 + x^2/\pi^2m^2)$. Together,
+\begin{equation}
+  \mathcal{Q}(t) = 2\alpha_{\mathrm{ohm}}\ln\Bigl[\frac{\omega_{\mathrm{cut}}}{\pi T}\sinh(\pi T|t|)\Bigr] + \ii\pi\alpha_{\mathrm{ohm}}\,\mathrm{sgn}\,t .
+  \label{eq:C.20-Qohm}
+\end{equation}
+The real part grows without bound, linearly in $|t|$ at times beyond $1/T$, so the overlap decays and the bath forgets which configuration it was prepared in. At $T = 0$ it decays only as a power, $|C| = (\omega_{\mathrm{cut}}|t|)^{-2\alpha_{\mathrm{ohm}}}$. This slow decay is the orthogonality catastrophe of a Fermi sea~\cite{leggett1987dynamics}: the static overlap $\exp[-\tfrac12\sum_k\delta_k^2]$ of the two bath ground states vanishes, since $\sum_k\delta_k^2 = \pi^{-1}\int\dd\omega\,J_{\mathrm{s}}/\omega^2$ diverges logarithmically at small $\omega$.
+
+\subsection{Incoherent tunneling rate}
+
+When the bath relaxes faster than the defect tunnels, the defect hops between L and R at a rate that is second order in $\Delta_0$. The perturbation $O = -\tfrac12\Delta_0|\mathrm{R}\rangle\langle\mathrm{L}|$ moves the defect from L to R, and the thermal golden rule in the correlation form \cref{eq:2.5-corr}, at zero energy given to the external probe, gives $\varGamma_{\mathrm{LR}} = \int\dd t\,\langle O^\dagger(t)O(0)\rangle$. Its evolution under $H$ without the tunneling term contributes $\ee^{\ii(E_{\mathrm{L}} - E_{\mathrm{R}})t}$, with $E_{\mathrm{L}} - E_{\mathrm{R}} = \Delta_{\mathrm{as}}$, times $C(t)$:
+\begin{equation}
+  \varGamma_{\mathrm{LR}} = \frac{\Delta_0^2}{4}\int_{-\infty}^{\infty}\dd t\,\ee^{\ii\Delta_{\mathrm{as}}t}\,\ee^{-\mathcal{Q}(t)} .
+  \label{eq:C.20-rate}
+\end{equation}
+Expanding $C(t)$ in exponentials, as in the one-mode example, shows the content: each term is an energy-conserving jump in which the defect gives $\Delta_{\mathrm{as}}$ to the bath. Ref.~\cite{leggett1987dynamics} obtains the same rate from the path integral and calls the approximation the noninteracting-blip approximation.
+
+For the ohmic bath, \cref{eq:C.20-Qohm} makes the integrand of \cref{eq:C.20-rate}
+\begin{equation*}
+  \ee^{\ii\Delta_{\mathrm{as}}t}\,\ee^{-\mathcal{Q}(t)} = \ee^{\ii\Delta_{\mathrm{as}}t}\Bigl[\frac{\pi T}{\omega_{\mathrm{cut}}\,\ii\sinh\bigl(\pi T(t - \ii0)\bigr)}\Bigr]^{2\alpha_{\mathrm{ohm}}} .
+\end{equation*}
+For $t > 0$ the factor $\ii^{-2\alpha_{\mathrm{ohm}}}$ gives the phase $\ee^{-\ii\pi\alpha_{\mathrm{ohm}}}$, and for $t < 0$, where $\sinh(\pi T(t - \ii0)) = |\sinh|\,\ee^{-\ii\pi}$, the phase is $\ee^{+\ii\pi\alpha_{\mathrm{ohm}}}$. The integrand is analytic in the strip $-1/T < \Imag t < 0$, and we shift the contour to $t = x - \ii/2T$. There $\ii\sinh(\pi Tx - \ii\pi/2) = \cosh(\pi Tx)$ and $\ee^{\ii\Delta_{\mathrm{as}}t} = \ee^{\ii\Delta_{\mathrm{as}}x}\ee^{\Delta_{\mathrm{as}}/2T}$. The remaining Fourier transform follows from $y = (1 + \ee^{-2\xi})^{-1}$, which turns $\mathrm{sech}^{2\alpha}\xi\,\ee^{\ii\nu\xi}\,\dd\xi$ into $2^{2\alpha - 1}y^{\alpha + \ii\nu/2 - 1}(1 - y)^{\alpha - \ii\nu/2 - 1}\dd y$, a Beta-function integral:
+\begin{equation*}
+  \int_{-\infty}^{\infty}\dd\xi\,\frac{\ee^{\ii\nu\xi}}{\cosh^{2\alpha}\xi} = 2^{2\alpha - 1}\,\frac{|\Gamma(\alpha + \ii\nu/2)|^2}{\Gamma(2\alpha)} ,
+\end{equation*}
+with $\Gamma(z)$ Euler's gamma function. With $\xi = \pi Tx$ and $\nu = \Delta_{\mathrm{as}}/\pi T$,
+\begin{keyresult}[Incoherent rate in an ohmic bath]
+\begin{equation}
+  \varGamma_{\mathrm{LR}} = \frac{\Delta_0^2}{4\omega_{\mathrm{cut}}}\Bigl(\frac{2\pi T}{\omega_{\mathrm{cut}}}\Bigr)^{2\alpha_{\mathrm{ohm}} - 1}
+  \ee^{\Delta_{\mathrm{as}}/2T}\,\frac{|\Gamma(\alpha_{\mathrm{ohm}} + \ii\Delta_{\mathrm{as}}/2\pi T)|^2}{\Gamma(2\alpha_{\mathrm{ohm}})} ,
+  \qquad \varGamma_{\mathrm{RL}} = \ee^{-\Delta_{\mathrm{as}}/T}\,\varGamma_{\mathrm{LR}} .
+  \label{eq:C.20-ohmrate}
+\end{equation}
+\end{keyresult}
+The reverse rate follows from $\Delta_{\mathrm{as}} \to -\Delta_{\mathrm{as}}$, and since $|\Gamma|^2$ is even in $\Delta_{\mathrm{as}}$ the two satisfy detailed balance. For a symmetric defect, by the duplication formula of $\Gamma$, the rate is $\varGamma_{\mathrm{LR}} = (\Delta_0^2/4\omega_{\mathrm{cut}})\,\sqrt\pi\,\Gamma(\alpha_{\mathrm{ohm}})/\Gamma(\alpha_{\mathrm{ohm}} + \tfrac12)\,(\pi T/\omega_{\mathrm{cut}})^{2\alpha_{\mathrm{ohm}} - 1}$. It scales as $T^{2\alpha_{\mathrm{ohm}} - 1}$, and for $\alpha_{\mathrm{ohm}} < \tfrac12$ it grows as the temperature falls. Cooling shrinks the dressed amplitude and lengthens the dephasing time. As $T$ falls, fewer slow modes are thermally excited, the tunneling amplitude dressed by the bath shrinks as $\Delta_0(\pi T/\omega_{\mathrm{cut}})^{\alpha_{\mathrm{ohm}}}$, and its square falls as $T^{2\alpha_{\mathrm{ohm}}}$. At the same time the bath dephases the two configurations more slowly, over the time $1/T$ of \cref{eq:C.20-Qohm}, and the rate is roughly the squared amplitude times that time. At weak coupling the longer time wins. For $\alpha_{\mathrm{ohm}} \ll 1$ the relaxation rate $\varGamma_{\mathrm{LR}} + \varGamma_{\mathrm{RL}}$ of a symmetric defect reduces to $\Delta_0^2/(2\pi\alpha_{\mathrm{ohm}}T)$. This is, to leading order in $\alpha_{\mathrm{ohm}}$, the overdamped limit $\tilde\Delta_0^2/\gamma_0$ of the Lorentzian of \cite[Eq.~(10)]{qureshi1995dynamics}, with the dephasing rate $\gamma_0 = 2\pi\alpha_{\mathrm{ohm}}T$ and the dressed amplitude $\tilde\Delta_0^2 = \Gamma(1 - 2\alpha_{\mathrm{ohm}})\cos(\pi\alpha_{\mathrm{ohm}})\,\Delta_0^2(2\pi T/\omega_{\mathrm{cut}})^{2\alpha_{\mathrm{ohm}}}$ (\cref{sec:16.8}).
+
+The rate depends on $\Delta_0$ and $\omega_{\mathrm{cut}}$ only through the combination $\Delta_0^2\,\omega_{\mathrm{cut}}^{-2\alpha_{\mathrm{ohm}}}$. Defining, for $\alpha_{\mathrm{ohm}} < 1$, the renormalized tunneling amplitude $\Delta_{\mathrm{r}}$~\cite{leggett1987dynamics} by
+\begin{equation}
+  \Delta_{\mathrm{r}}^{2(1 - \alpha_{\mathrm{ohm}})} = \Gamma(1 - 2\alpha_{\mathrm{ohm}})\cos(\pi\alpha_{\mathrm{ohm}})\;\Delta_0^2\,\omega_{\mathrm{cut}}^{-2\alpha_{\mathrm{ohm}}} ,
+  \label{eq:C.20-Dr}
+\end{equation}
+the cutoff drops out of every low-energy quantity: for $\Delta_0, T \ll \omega_{\mathrm{cut}}$ at fixed $\alpha_{\mathrm{ohm}}$, the dynamics depends on $\Delta_{\mathrm{r}}$, $\alpha_{\mathrm{ohm}}$, $\Delta_{\mathrm{as}}$ and $T$ alone. This is the scaling limit. The form of $\Delta_{\mathrm{r}}$ can be understood by an adiabatic argument. Bath modes much faster than the tunneling follow the defect and dress the tunneling amplitude with their overlap, $\exp[-\tfrac12\sum_{\omega_k > p\Delta_{\mathrm{r}}}\delta_k^2] = (p\Delta_{\mathrm{r}}/\omega_{\mathrm{cut}})^{\alpha_{\mathrm{ohm}}}$ for an ohmic bath, with $p$ a number of order one. Requiring the dressed amplitude to be $\Delta_{\mathrm{r}}$ itself gives $\Delta_{\mathrm{r}} = \Delta_0(p\Delta_{\mathrm{r}}/\omega_{\mathrm{cut}})^{\alpha_{\mathrm{ohm}}}$, and therefore $\Delta_{\mathrm{r}} \propto \Delta_0(\Delta_0/\omega_{\mathrm{cut}})^{\alpha_{\mathrm{ohm}}/(1 - \alpha_{\mathrm{ohm}})}$, with the prefactor that \cref{eq:C.20-Dr} makes exact. Below $T \sim \Delta_{\mathrm{r}}$ the assumption of a fast bath fails, and for $\alpha_{\mathrm{ohm}} < \tfrac12$ a symmetric defect then oscillates coherently, with damping, at a frequency of order $\Delta_{\mathrm{r}}$. \Cref{eq:C.20-ohmrate} therefore holds for $\Delta_{\mathrm{r}} \ll T \ll \omega_{\mathrm{cut}}$, and the growth of the rate on cooling stops near $T \sim \Delta_{\mathrm{r}}$. For $\alpha_{\mathrm{ohm}} \ge 1$ the tunneling amplitude renormalizes to zero and the defect stays localized at $T = 0$~\cite{leggett1987dynamics}.
+
+\subsection{The Frenkel--Kontorova chain}
+
+The second model is a row of atoms of mass $M_\kappa$, at positions $z_n = na_{\mathrm{ch}} + u_n$, joined by springs of constant $K_{\mathrm{ch}}$. The row rests in the periodic potential $V_{\mathrm{s}}\sin^2(\pi z/a_{\mathrm{ch}})$ of the surrounding crystal, whose period equals the chain spacing $a_{\mathrm{ch}}$~\cite{braun2004frenkel}:
+\begin{equation}
+  H_{\mathrm{FK}} = \sum_n\Bigl[\frac{p_n^2}{2M_\kappa} + \frac{K_{\mathrm{ch}}}{2}\,(u_{n+1} - u_n)^2 + V_{\mathrm{s}}\sin^2\frac{\pi u_n}{a_{\mathrm{ch}}}\Bigr] .
+  \label{eq:C.20-FK}
+\end{equation}
+An extra atom in the row, a crowdion, corresponds to $u_n$ going from $a_{\mathrm{ch}}$ at $n \to -\infty$ to 0 at $n \to +\infty$: the atoms on the left are each pushed one period, so that the row holds one atom more than the potential has minima~\cite{fitzgerald2018structure}. The static equations, $\partial H_{\mathrm{FK}}/\partial u_n = 0$, are
+\begin{equation}
+  K_{\mathrm{ch}}\,(u_{n+1} - 2u_n + u_{n-1}) = \frac{\pi V_{\mathrm{s}}}{a_{\mathrm{ch}}}\sin\frac{2\pi u_n}{a_{\mathrm{ch}}} ,
+  \label{eq:C.20-discrete}
+\end{equation}
+and the discrete profile is found by minimizing $H_{\mathrm{FK}}$ numerically with those boundary values.
+
+When $u_n$ varies slowly from atom to atom, $u_n \to u(z)$ with $u_{n+1} - 2u_n + u_{n-1} \to a_{\mathrm{ch}}^2\,\partial_z^2u$, and the phase $\varphi = 2\pi u/a_{\mathrm{ch}}$ obeys the sine-Gordon equation
+\begin{equation}
+  \partial_t^2\varphi - c_{\mathrm{ch}}^2\,\partial_z^2\varphi + \omega_{\mathrm{s}}^2\sin\varphi = 0, \qquad
+  c_{\mathrm{ch}} = a_{\mathrm{ch}}\sqrt{K_{\mathrm{ch}}/M_\kappa}, \qquad \omega_{\mathrm{s}}^2 = \frac{2\pi^2V_{\mathrm{s}}}{M_\kappa a_{\mathrm{ch}}^2} ,
+  \label{eq:C.20-sG}
+\end{equation}
+where $c_{\mathrm{ch}}$ is the sound speed of the free chain and $\omega_{\mathrm{s}}$ the frequency of an atom oscillating alone in the potential. A static solution has the first integral $\tfrac12d_{\mathrm{kink}}^2(\partial_z\varphi)^2 = 1 - \cos\varphi$, with the kink width $d_{\mathrm{kink}} = c_{\mathrm{ch}}/\omega_{\mathrm{s}} = a_{\mathrm{ch}}^2[K_{\mathrm{ch}}/(2\pi^2V_{\mathrm{s}})]^{1/2}$. Since $1 - \cos\varphi = 2\sin^2(\varphi/2)$, it becomes $d_{\mathrm{kink}}\,\partial_z\varphi = \mp2\sin(\varphi/2)$, and integrating,
+\begin{equation}
+  u(z) = \frac{2a_{\mathrm{ch}}}{\pi}\arctan\ee^{-(z - z_0)/d_{\mathrm{kink}}} ,
+  \label{eq:C.20-kink}
+\end{equation}
+which falls from $a_{\mathrm{ch}}$ to 0 over a few $d_{\mathrm{kink}}$ around the center $z_0$, as in \cite[Eq.~(2)]{fitzgerald2018structure}. The first integral states that the spring energy and the substrate energy are equal at every point. Along the kink $\sin^2(\pi u/a_{\mathrm{ch}}) = \sin^2(2\arctan\ee^{-s}) = \mathrm{sech}^2s$, with $s = (z - z_0)/d_{\mathrm{kink}}$, and with $\sum_n \to \int\dd z/a_{\mathrm{ch}}$ the rest energy is
+\begin{equation}
+  E_{\mathrm{kink}} = \frac{2V_{\mathrm{s}}}{a_{\mathrm{ch}}}\int\dd z\,\mathrm{sech}^2\frac{z - z_0}{d_{\mathrm{kink}}} = \frac{4V_{\mathrm{s}}d_{\mathrm{kink}}}{a_{\mathrm{ch}}} = \frac{2a_{\mathrm{ch}}}{\pi}\sqrt{2V_{\mathrm{s}}K_{\mathrm{ch}}} ,
+  \label{eq:C.20-Ekink}
+\end{equation}
+which is \cite[Eq.~(3)]{fitzgerald2018structure}, with $\beta = K_{\mathrm{ch}}$ and $V_0 = V_{\mathrm{s}}$ there. The sine-Gordon equation is Lorentz invariant with $c_{\mathrm{ch}}$ in place of the speed of light. A kink moving at speed $v$ is therefore the static one with $z - z_0 \to (z - z_0 - vt)/(1 - v^2/c_{\mathrm{ch}}^2)^{1/2}$. Its energy is $E_{\mathrm{kink}}(1 - v^2/c_{\mathrm{ch}}^2)^{-1/2} \simeq E_{\mathrm{kink}} + \tfrac12M_{\mathrm{kink}}v^2$, with the kink mass
+\begin{equation}
+  M_{\mathrm{kink}} = \frac{E_{\mathrm{kink}}}{c_{\mathrm{ch}}^2} = \frac{2}{\pi^2}\,\frac{a_{\mathrm{ch}}}{d_{\mathrm{kink}}}\,M_\kappa .
+  \label{eq:C.20-mass}
+\end{equation}
+A wide kink is light: for $d_{\mathrm{kink}} = 3a_{\mathrm{ch}}$ it weighs \SI{7}{\percent} of an atom, because moving it by one spacing moves each of many atoms by a small fraction of a spacing.
+
+The continuum kink has the same energy wherever its center sits. The discrete chain does not, and the difference is the Peierls--Nabarro barrier that a kink must cross to move by one spacing. We keep the continuum profile and evaluate the energy on the atoms~\cite[Eq.~(4)]{fitzgerald2018structure}, using the equality of the two energies to write $E(z_0) \simeq 2V_{\mathrm{s}}\sum_n\mathrm{sech}^2[(na_{\mathrm{ch}} - z_0)/d_{\mathrm{kink}}]$. The Poisson summation formula of \cref{eq:C.2-poisson}, here $\sum_nf(na_{\mathrm{ch}}) = a_{\mathrm{ch}}^{-1}\sum_m\tilde f(2\pi m/a_{\mathrm{ch}})$ with $\tilde f(k) = \int\dd z\,\ee^{-\ii kz}f(z)$, and the transform $\int\dd z\,\ee^{-\ii kz}\,\mathrm{sech}^2(z/d_{\mathrm{kink}}) = \pi kd_{\mathrm{kink}}^2/\sinh(\pi kd_{\mathrm{kink}}/2)$ give
+\begin{equation}
+  E(z_0) = E_{\mathrm{kink}} + \frac{8\pi^2V_{\mathrm{s}}d_{\mathrm{kink}}^2}{a_{\mathrm{ch}}^2}\sum_{m\ge1}m\,\cos\frac{2\pi mz_0}{a_{\mathrm{ch}}}\;\mathrm{cosech}\frac{\pi^2md_{\mathrm{kink}}}{a_{\mathrm{ch}}} ,
+  \label{eq:C.20-PN}
+\end{equation}
+where the $m = 0$ term reproduces \cref{eq:C.20-Ekink}. The $m = 1$ term dominates, and the barrier, the difference between the largest and smallest $E(z_0)$, is
+\begin{equation}
+  E_{\mathrm{PN}} \simeq \frac{16\pi^2V_{\mathrm{s}}d_{\mathrm{kink}}^2}{a_{\mathrm{ch}}^2}\,\mathrm{cosech}\frac{\pi^2d_{\mathrm{kink}}}{a_{\mathrm{ch}}}
+  \simeq 32\pi^2\,\frac{d_{\mathrm{kink}}^2}{a_{\mathrm{ch}}^2}\,V_{\mathrm{s}}\,\ee^{-\pi^2d_{\mathrm{kink}}/a_{\mathrm{ch}}} .
+  \label{eq:C.20-EPN}
+\end{equation}
+The exponential makes wide kinks nearly free: for $d_{\mathrm{kink}} = 2a_{\mathrm{ch}}$ the barrier is $3\times10^{-6}V_{\mathrm{s}}$, a few \si{\micro eV} for a substrate potential of an electronvolt. The series of \cite[Eq.~(5)]{fitzgerald2018structure} is smaller than \cref{eq:C.20-PN} by a factor 4, and its barrier \cite[Eq.~(6)]{fitzgerald2018structure} smaller than \cref{eq:C.20-EPN} by a factor 2; a direct lattice sum of $E(z_0)$ confirms the forms given here. The minimum sits with the kink centered between two atoms, $z_0 = a_{\mathrm{ch}}/2$, and the maximum with an atom at its center. \Cref{eq:C.20-EPN} is the leading term for wide kinks. Relaxing the discrete chain of \cref{eq:C.20-discrete} at both centers gives a barrier \SI{22}{\percent} lower at $d_{\mathrm{kink}} = a_{\mathrm{ch}}$ and \SI{17}{\percent} lower at $d_{\mathrm{kink}} = 1.23a_{\mathrm{ch}}$, and the gap closes as the kink widens. Since the continuum profile and its mass rest on $d_{\mathrm{kink}} \gg a_{\mathrm{ch}}$ as well, the ratio $d_{\mathrm{kink}}/a_{\mathrm{ch}}$ is the parameter that controls the whole continuum description, and it is the one \cref{sec:19.6} uses to judge it.

@@ -1,0 +1,15 @@
+dfpt for the host relaxation field (method B, ERR-CW5): ONE q = Gamma run of the supercell; xq = G_sc is equivalent to Gamma, so all 
+supercell G components of drho_kappa come from this single response (read them from fildrho). scf.in must use K_POINTS automatic 1 1 1 0 0 0
+(ph.x does not support the Gamma-trick wavefunctions of K_POINTS gamma).
+&inputph
+  prefix = 'aSiO2_tls_L'
+  outdir = './'
+  fildyn = 'aSiO2.dyn'
+  fildvscf = 'dvscf'
+  fildrho = 'drho'
+  tr2_ph = 1.0d-16
+  nat_todo = @N_CORE@
+  reduce_io = .true.
+/
+ 0.0 0.0 0.0
+ @CORE_ATOM_INDICES@

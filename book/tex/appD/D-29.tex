@@ -1,0 +1,71 @@
+\section{The crystal form-factor rate}\label{app:D.29}
+
+The electron-recoil rate of a crystal at the base point $\mathfrak{T}_0$ follows from the master formula \cref{eq:8.2-spectrum} in three steps. We compute the structure factor of filled bands, average it over directions, and regroup the average into the crystal form factor of Ref.~\cite{essig2016direct}. The last subsection converts the rate to the normalizations in use.
+
+\subsection{The structure factor of filled bands}
+
+At $\mathfrak{T}_0$ the target is a Slater determinant $|0\rangle$ in which every valence state $v\vect{k}$ is filled with both spins and every conduction state is empty, and its excited states are again determinants of the same one-electron states. The one-electron energies are Kohn--Sham energies with the conduction bands raised by the scissor shift, \cref{eq:3.4-scissor}, which leaves the states unchanged. The temperature is zero, so only $|0\rangle$ enters the thermal sum of \cref{eq:4.2-Sab}.
+
+In the Bloch basis the density operator is \cref{eq:3.2-ne}. Acting on $|0\rangle$, a term $c^\dagger_{m,\vect{k}+\vect{q},s}c_{n\vect{k}s}$ vanishes if $n$ is a conduction band, since there is no electron to remove, and if $m$ is a valence band, since the state is already occupied, unless it is the state just emptied. That exception requires $\vect{k} + \vect{q} \equiv \vect{k}$, that is $\vect{q} = \vect{G}$, and it returns $|0\rangle$ itself with $\omega = 0$, the elastic Bragg term that no detector sees. For $\omega > 0$,
+\begin{equation}
+  n_e(\vect{q})|0\rangle = \sum_s\sum_{\vect{k}\in\mathrm{BZ}}\sum_{v,c}\rho_{cv}(\vect{k},\vect{q})\,|c,\vect{k}+\vect{q},s;\,v\vect{k}s\rangle ,
+  \label{eq:D.29-pairs}
+\end{equation}
+where the ket is $|0\rangle$ with the electron moved from $v\vect{k}s$ to $c,\vect{k}+\vect{q},s$. These pair states are orthonormal, and their energies above the ground state are $\varepsilon_{c,\vect{k}+\vect{q}} - \varepsilon_{v\vect{k}}$, with $\vect{k} + \vect{q}$ folded into the first zone by the Umklapp vector $\vect{G}_{\mathrm{U}}$ of \cref{eq:3.2-rho}. Each pair appears once in \cref{eq:D.29-pairs}: at fixed $\vect{q}$ the hole $v\vect{k}s$ fixes the crystal momentum of the electron. Inserting \cref{eq:D.29-pairs} into \cref{eq:4.2-Sab} with $a = b = n_e$, the two spins give equal terms, and
+\begin{equation*}
+  S^0(\vect{q},\omega) = \frac{2\pi}{\Vol}\,2\sum_{\vect{k}\in\mathrm{BZ}}\sum_{v,c}|\rho_{cv}(\vect{k},\vect{q})|^2\,\delta(\omega - \varepsilon_{c,\vect{k}+\vect{q}} + \varepsilon_{v\vect{k}}) .
+\end{equation*}
+The crystal has $N$ cells and $\Vol = N\Omega$, and the $N$ allowed crystal momenta fill the zone uniformly, one per volume $(2\pi)^3/\Vol$ (\cref{sec:3.1}), so that $\sum_{\vect{k}} = \Vol\int_{\mathrm{BZ}}\dd^3k/(2\pi)^3$. The volume cancels:
+\begin{equation}
+  S^0(\vect{q},\omega) = 4\pi\sum_{v,c}\int_{\mathrm{BZ}}\frac{\dd^3k}{(2\pi)^3}\,|\rho_{cv}(\vect{k},\vect{q})|^2\,\delta(\omega - \varepsilon_{c,\vect{k}+\vect{q}} + \varepsilon_{v\vect{k}}) .
+  \label{eq:D.29-S0}
+\end{equation}
+The factor $4\pi$ is $2\pi$ from the definition of $S$ times 2 for spin. The same expression is $-2\Imag R^0_{\vect{0}\vect{0}}(\vect{q},\omega)$ for the bubble \cref{eq:4.6-R0} at $T = 0$ and $\omega > 0$, where only the resonant term has an imaginary part, $-\pi\delta(\omega - \varepsilon_{c,\vect{k}+\vect{q}} + \varepsilon_{v\vect{k}})$, as the fluctuation--dissipation theorem \cref{eq:A.7-FDT} requires.
+
+Two checks fix the normalization. For a local one-electron potential, the double commutator of \cref{sec:4.3} taken for one electron gives $\sum_m(\varepsilon_{m,\vect{k}+\vect{q}} - \varepsilon_{n\vect{k}})|\rho_{mn}(\vect{k},\vect{q})|^2 = q^2/2m_e$ for every state $n\vect{k}$, the sum running over all bands $m$. The terms in which $m$ is another valence band are absent from \cref{eq:D.29-S0}, but summed over $\vect{k}$ they cancel: each transition at $-\vect{q}$ is the reverse of one at $\vect{q}$, so the valence--valence sum at $-\vect{q}$ is minus the sum at $\vect{q}$, while $S^0(\vect{q},\omega) = S^0(-\vect{q},\omega)$ in silicon makes the two sums equal, and a sum equal to its own negative vanishes. The first moment of \cref{eq:D.29-S0} is then $4\pi\cdot4\cdot\Omega^{-1}\cdot q^2/2m_e = \pi\nd_eq^2/m_e$ with $\nd_e = 8/\Omega$, the $f$-sum rule \cref{eq:4.3-fsum} for the valence electrons, since $\int_{\mathrm{BZ}}\dd^3k/(2\pi)^3 = 1/\Omega$. The zeroth moment, by the closure relation \cref{eq:3.2-closure}, is at most $4\pi\cdot4/\Omega$, four valence bands of unit weight, a bound reached only when every transition leads into a conduction band.
+
+\subsection{The rate per unit mass}
+
+For a target whose response is averaged over the directions of $\vect{q}$, the rate is \cref{eq:A.8-rateiso} with $\bar S^0(q,\omega) = \int\dd^2\hat{\vect{q}}\,S^0(q\hat{\vect{q}},\omega)/4\pi$. Substituting $\bar S^0 = 4\pi\alpha m_e^2|f_{\mathrm{crys}}|^2/q^3\Omega$ from \cref{eq:A.8-fcrys} and using $\rho_T\Omega = M_{\mathrm{cell}}$,
+\begin{equation}
+  \begin{aligned}
+  \frac{\dd\mathcal{R}}{\dd\omega} &= \frac{\rho_\chi\,\sigmae\,\alpha\,m_e^2}{\mchi\,M_{\mathrm{cell}}\,\mu_{\chi e}^2} \\
+  &\quad\times\int\frac{\dd q}{q^2}\,\eta\bigl(\vmin(q,\omega)\bigr)\,\FDM(q)^2\,|f_{\mathrm{crys}}(q,\omega)|^2 .
+  \end{aligned}
+  \label{eq:D.29-rate}
+\end{equation}
+Multiplying by $\omega$ turns $\dd q/q^2$ into $\dd\ln q\,(\omega/q)$ and the left side into $\dd\mathcal{R}/\dd\ln\omega$. Multiplying by the target mass $N_{\mathrm{cell}}M_{\mathrm{cell}}$ gives the rate of a whole target, which is Ref.~\cite[Eq.~(3.13)]{essig2016direct} term by term. The cell volume has dropped out: the rate per unit mass needs only the cell mass, because $|f_{\mathrm{crys}}|^2$ is defined per cell.
+
+\subsection{The crystal form factor}
+
+What remains is to show that $q^3\Omega\bar S^0/4\pi\alpha m_e^2$ is the crystal form factor as Ref.~\cite[Eq.~(3.17)]{essig2016direct} defines it, with the angle average written as an integral over a second crystal momentum. For any function $g(\vect{q})$,
+\begin{equation*}
+  \int\frac{\dd^2\hat{\vect{q}}}{4\pi}\,g(q\hat{\vect{q}}) = \frac{1}{4\pi q^2}\int\dd^3q'\,\delta(q - |\vect{q}'|)\,g(\vect{q}') ,
+\end{equation*}
+since $\dd^3q' = q'^2\dd q'\,\dd^2\hat{\vect{q}}'$. At fixed $\vect{k}$, every $\vect{q}'$ is reached exactly once as $\vect{q}' = \vect{k}' - \vect{k} + \vect{G}'$ with $\vect{k}'$ in the first zone and $\vect{G}'$ a reciprocal-lattice vector, because the zones translated by all $\vect{G}'$ tile space. Then $\int\dd^3q' = \sum_{\vect{G}'}\int_{\mathrm{BZ}}\dd^3k'$, the final crystal momentum is $\vect{k}'$, and $\vect{G}'$ is the Umklapp vector of the transition. Applied to \cref{eq:D.29-S0},
+\begin{equation*}
+  \begin{aligned}
+  \bar S^0(q,\omega) &= \frac{(2\pi)^3}{q^2}\sum_{v,c}\int_{\mathrm{BZ}}\frac{\dd^3k}{(2\pi)^3}\int_{\mathrm{BZ}}\frac{\dd^3k'}{(2\pi)^3}\sum_{\vect{G}'}\delta(q - |\vect{k}' - \vect{k} + \vect{G}'|) \\
+  &\quad\times|\rho_{cv}(\vect{k},\vect{k}'-\vect{k}+\vect{G}')|^2\,\delta(\omega - \varepsilon_{c\vect{k}'} + \varepsilon_{v\vect{k}}) .
+  \end{aligned}
+\end{equation*}
+Multiplying by $q^3\Omega/4\pi\alpha m_e^2$ and writing $(2\pi)^3/4\pi = 2\pi^2$,
+\begin{equation}
+  \begin{aligned}
+  |f_{\mathrm{crys}}(q,\omega)|^2 &= \frac{2\pi^2}{\alpha m_e^2\Omega}\sum_{v,c}\int_{\mathrm{BZ}}\frac{\Omega\,\dd^3k}{(2\pi)^3}\int_{\mathrm{BZ}}\frac{\Omega\,\dd^3k'}{(2\pi)^3}\sum_{\vect{G}'}q\,\delta(q - |\vect{k}' - \vect{k} + \vect{G}'|) \\
+  &\quad\times|\rho_{cv}(\vect{k},\vect{k}'-\vect{k}+\vect{G}')|^2\,\delta(\omega - \varepsilon_{c\vect{k}'} + \varepsilon_{v\vect{k}}) .
+  \end{aligned}
+  \label{eq:D.29-fcrys}
+\end{equation}
+This is Ref.~\cite[Eq.~(3.17)]{essig2016direct}: their prefactor $2\pi^2(\alpha m_e^2V_{\mathrm{cell}})^{-1}E_e^{-1}$ times their $E_e\,\delta(E_e - \cdots)$ is our $2\pi^2/\alpha m_e^2\Omega$ times the energy delta function, their $f_{[i\vect{k},i'\vect{k}',\vect{G}']}$ is $\rho_{cv}(\vect{k},\vect{k}'-\vect{k}+\vect{G}')$ in the plane-wave form \cref{eq:3.2-rhopw}, and the spin factor 2 sits in their $2\pi^2$ as it sits in our $4\pi$~\cite[Eq.~(A.29)]{essig2016direct}. The prefactor $2\pi^2/\alpha m_e^2\Omega$ is \SI{1.99}{eV} for silicon, with $\Omega = \SI{40.05}{\angstrom^3}$.
+
+\subsection{Conversions between normalizations}
+
+The literature states the same rate in several normalizations, and each converts to $\bar S^0$ in one line.
+\begin{itemize}
+\item \emph{Structure factor, form factor and dielectric function.} $\Omega\bar S^0 = 4\pi\alpha m_e^2|f_{\mathrm{crys}}|^2/q^3$ and $|f_{\mathrm{crys}}|^2 = q^5\Omega\,\varepsilon_2/8\pi^2\alpha^2m_e^2$, \cref{eq:A.8-fcrys}; the second uses the unscreened $\varepsilon_2 = 2\pi\alpha\bar S^0/q^2$ of \cref{eq:A.7-SL} at $T = 0$, and agrees with Ref.~\cite[Eq.~(16)]{knapen2021dark}.
+\item \emph{Per target or per unit mass.} A rate for a target of $N_{\mathrm{cell}}$ cells~\cites[Eq.~(3.13)]{essig2016direct}[Eq.~(36)]{catena2021crystal} is $N_{\mathrm{cell}}M_{\mathrm{cell}}$ times \cref{eq:D.29-rate}.
+\item \emph{Sums over states.} Ref.~\cite[Eqs.~(3.6) and (3.12)]{griffin2021extended} writes the rate with the transition form factor $f_{i\to f}(\vect{q}) = \langle f|\ee^{\ii\vect{q}\cdot\vect{r}}|i\rangle$ between unit-normalized spatial orbitals and a separate spin factor. Then $(2\pi/\Vol)\sum_{i,f}|f_{i\to f}|^2\delta(\omega - E_f + E_i) = S^0/2$. The transition matrix element of the density in Ref.~\cite[Eqs.~(11) and (17)]{trickle2023exceed} is the vertex $\rho_{cv}(\vect{k},\vect{q})$ of \cref{eq:3.2-rho}.
+\item \emph{Crystal-momentum weights.} Plane-wave codes replace $\int_{\mathrm{BZ}}\Omega\,\dd^3k/(2\pi)^3$ by $\frac12\sum_{\vect{k}}w_{\vect{k}}$ with weights that sum to 2~\cite[Eq.~(4.2)]{essig2016direct}. The 2 is the spin factor already present in the prefactor, and it must not be counted twice.
+\item \emph{Bins.} A tabulated form factor is an average over bins of width $\Delta q$ and $\Delta\omega$~\cite[Eq.~(4.1)]{essig2016direct}, and \cref{eq:D.29-rate} becomes a double sum with $\dd q\,\dd\omega \to \Delta q\,\Delta\omega$. A table that stores the sum over a bin rather than the average differs by the bin widths. The $f$-sum rule is the test that catches such a factor: at $q \approx q_0$, where the free recoil energy $q^2/2m_e = \SI{13.6}{eV}$ lies well inside the tabulated range, $\int\dd\omega\,\omega\,\bar S^0$ must come within some ten percent of $\pi\nd_eq^2/m_e$. A rigid scissor shift $\Delta_{\mathrm{scis}}$ raises it by $\Delta_{\mathrm{scis}}\int\dd\omega\,\bar S^0$, since it moves the weight without changing the vertices.
+\end{itemize}

@@ -1,0 +1,2657 @@
+                                                                                                                            CALT-TH-2020-037
+
+
+                                                  Effective Field Theory of Dark Matter Direct Detection
+                                                                      With Collective Excitations
+
+                                                       Tanner Trickle, Zhengkang Zhang, and Kathryn M. Zurek
+                                                                Walter Burke Institute for Theoretical Physics,
+                                                        California Institute of Technology, Pasadena, CA 91125, USA
+
+
+
+                                            We develop a framework for computing light dark matter direct detection rates through
+arXiv:2009.13534v2 [hep-ph] 19 Oct 2021
+
+
+
+
+                                          single phonon and magnon excitations via general effective operators. Our work generalizes
+                                          previous calculations focused on spin-independent interactions involving the total nucleon
+                                          and electron numbers N (the usual route to excite phonons) and spin-dependent interactions
+                                          involving the total electron spin S (the usual route to excite magnons), leading us to identify
+                                          new responses involving the orbital angular momenta L, as well as spin-orbit couplings
+                                          L ⊗ S in the target. All four types of responses can excite phonons, while couplings to
+                                          electron’s S and L can also excite magnons. We apply the effective field theory approach
+                                          to a set of well-motivated relativistic benchmark models, including (pseudo-)scalar mediated
+                                          interactions, and models where dark matter interacts via a multipole moment, such as a
+                                          dark electric dipole, magnetic dipole or anapole moment. We find that couplings to point-
+                                          like degrees of freedom N and S often dominate dark matter detection rates, implying that
+                                          exotic materials with orbital L order or large spin-orbit couplings L ⊗ S are not necessary
+                                          to have strong reach to a broad class of DM models. We highlight that phonon based crystal
+                                          experiments in active R&D (such as SPICE) will probe light dark matter models well beyond
+                                          those having a simple spin-independent interaction, including e.g. models with dipole and
+                                          anapole interactions. Lastly, we make publicly available a code, PhonoDark, which computes
+                                          single phonon production rates in a wide variety of materials with the effective field theory
+                                          framework.
+2
+
+
+                                           CONTENTS
+
+
+    I. Introduction                                                                     3
+
+II. Effective Field Theory Calculation of Dark Matter Induced Collective Excitations   5
+      A. From Dark Matter Models to Nonrelativistic Effective Operators                 6
+      B. Matching Effective Operators Onto Lattice Degrees of Freedom                  12
+      C. Quantization of Lattice Potential for Phonons and Magnons                     18
+
+III. Application to Benchmark Models                                                   22
+      A. Standard Spin-Dependent Interaction                                           25
+      B. Scalar Mediator Models                                                        27
+      C. Multipole Dark Matter Models                                                  30
+      D. (L · S)-Interacting Dark Matter                                               32
+
+IV. Conclusions                                                                        34
+
+A. Nonrelativistic Matching for a Fermion Field                                        36
+
+B. Projection of Angular Momentum Operators                                            37
+
+C. Velocity Integrals                                                                  39
+
+D. Estimation of Single Phonon Excitation Rate in YIG                                  41
+
+      References                                                                       43
+                                                                                                      3
+
+
+                                       I.   INTRODUCTION
+
+
+   Light dark matter (DM) with sub-GeV mass is theoretically well-motivated [1–11] but difficult
+to detect in traditional WIMP-focused experiments [12–16]. This can be understood from simple
+scattering kinematics: if the DM mass mχ . GeV, the amount of energy deposited in a nuclear
+                     q  2
+recoil process, ω = 2m N
+                         , is suppressed by the heavy target nucleus mass mN and limited by
+the possible momentum transfer q . 2mχ v. This, along with a steady improvement to the energy
+sensitivity of detectors [17–21], has motivated the study of excitation channels far outside the scope
+of standard nuclear recoil. Perhaps the most studied alternative is electronic excitations, in a variety
+of different targets, e.g. individual atoms [22–27], semiconductors and scintillators [22–25, 28–37],
+superconductors [38, 39], aromatic organic targets [40], graphene [41] and Dirac materials [42–44].
+The smallest DM mass that can be probed is limited by the band gap in these materials, typically
+O(eV) corresponding to DM masses & MeV (the exceptions being superconductors and Dirac
+materials which typically have O(meV) gaps and sensitivity to keV scale DM).
+   For sensitivity to smaller energy deposits, and optimal reach to light DM and mediating parti-
+cles, we look toward excitations at sub-eV energies. Such excitations exist and are derived from col-
+lective behaviors of atoms, ions or electrons in condensed matter systems. Phonons were proposed
+in Ref. [45] and further studied in Refs. [46–50] for direct detection in superfluid helium (where
+maxon and roton excitations also contribute), and were also discussed in the context of bosonic
+DM absorption in superconductors [51] and semiconductors [52], though ultimately, acoustic and
+optical phonons in (polar) crystals were advanced [53] and shown to have the best experimental
+prospects and sensitivity to light dark matter [33, 34, 54–56]. Magnons – quanta of collective spin
+excitations – were also proposed in Ref. [57]. Both phonons and magnons in crystal targets have
+typical energies up to O(100 meV). To date, the work in the literature has focused on demonstrat-
+ing the sensitivity of phonons and magnons to simple DM models. Only spin-independent (SI)
+interactions, via couplings to linear combinations of the proton, neutron and electron numbers,
+have been considered for phonon excitations, while a few benchmark models have been studied for
+magnon excitations.
+   The goal of this paper is to extend these results to general types of DM interactions. Effective
+field theory (EFT) is well-suited for this purpose: we can match a relativistic theory of DM onto
+a nonrelativistic (NR) EFT, and then compute the target response to the EFT operators. Within
+this framework, starting from a UV model consisting of relativistic operators coupling the DM
+to the proton, neutron, and/or electron, we can systematically compute direct detection rates via
+4
+
+
+single phonon and magnon excitations in various target materials. The idea is along the lines of
+previous works on EFT calculations of nuclear recoils [58–63] (which extend earlier studies focused
+on standard SI and spin-dependent (SD) DM-nucleon interactions), and, more recently, of electron
+excitations in atoms [27] and crystals [37] (which extends earlier studies focused on SI DM-electron
+interactions), but technically there are important differences. Specifically, our EFT approach to
+DM-induced single phonon and magnon excitations consists of the following steps:
+
+    1. Matching of a relativistic theory of DM interactions onto the NR EFT (DM model-specific).
+
+    2. Matching of NR operators onto DM couplings to lattice degrees of freedom (universal).
+
+    3. Calculation of phonon or magnon excitation matrix elements (target- and excitation-specific).
+
+    We explain each of these steps in the three subsections of Sec. II. The first step – matching
+relativistic DM theories to the NR EFT – follows a similar procedure as previous works [27, 37, 58–
+63], but involves a larger set of independent operators due to the absence of Galilean invariance
+in a medium. For nuclear recoils, one then derives the nuclear responses to the EFT operators.
+Analogously, the key quantities in the present case are crystal responses which determines how
+DM couples to the collective excitations. (We emphasize, however, that despite the similar choice
+of terminology, collective excitations are associated with a different kinematic regime and degrees
+of freedom than nuclear recoils and therefore require a distinct EFT calculation.) Technically,
+for both phonon and magnon excitations in crystal targets, the second step listed above involves
+matching the NR EFT of DM-nucleon and DM-electron interactions onto an effective scattering
+potential that involves ionic degrees of freedom in the crystal lattice — in the long wavelength (low
+momentum transfer) limit relevant for light DM scattering, these (as we will highlight throughout)
+are quantities that characterize an ion as a whole, including the total particle numbers hNψ i for the
+proton, neutron and electron (ψ = p, n, e), total spins hS ψ i, orbital angular momenta hLψ i, as well
+as spin-orbit couplings hLψ ⊗ S ψ i (a tensor with components hLiψ Sψk i summed over the constituent
+nucleons/electrons). Finally, in the third step, we quantize the scattering potential to obtain the
+phonon and magnon modes in a specific target material and compute the matrix elements for
+exciting them. All four types of crystal responses highlighted above can lead to phonon excitation
+in appropriately chosen targets, while hS e i and hLe i can also lead to magnon excitation.
+    Our new results significantly extend the searchable DM model space via phonon and magnon
+excitations, which we showcase in Sec. III with a variety of well-motivated benchmark models. We
+present full numerical calculations for several representative target materials, and apply simple
+                                                                                                   5
+
+
+analytic estimates to understand the results. We compare for which operators and interactions
+one expects phonon versus magnon excitations to dominate the rate, quantifying and generalizing
+the discussion in Ref. [57]. These calculations highlight the complementarity between phonon
+and magnon excitations, and between different targets, in probing the light DM theory space.
+Our code for computing single phonon excitation rates, PhonoDark, is publicly available [64] and
+will be explained in detail in a forthcoming publication; it integrates the open-source phonon
+eigensystem solver phonopy [65], and takes general NR EFT operator coefficients, together with
+density functional theory (DFT) calculations of material properties, as input. Our magnon code,
+based on the Toth-Lake algorithm [66] for solving the magnon eigensystem, is also available upon
+request.
+
+
+  II.   EFFECTIVE FIELD THEORY CALCULATION OF DARK MATTER INDUCED
+                                  COLLECTIVE EXCITATIONS
+
+
+   Our goal is to present a framework for computing direct detection rates for general DM models,
+for the process where a DM particle scatters off a crystal target and induces a quasiparticle exci-
+tation in the crystal. This quantum mechanical process follows Fermi’s golden rule which, when
+the incoming and outgoing DM particles are momentum eigenstates in free space, takes the form
+                              Z
+                          1        d3 q X      e           2                 
+                   Γ(v) =              3
+                                          hf | V(−q, v) |ii 2π δ Ef − Ei − ωq ,                  (1)
+                          V       (2π)
+                                        f
+
+where v is the incoming DM’s velocity, V is the total target volume, |ii and |f i are the initial and
+                                                                                            e is the
+final states of the target system (defined with NR normalization: hi|ii = hf |f i = 1), and V
+Fourier transform of the scattering potential. The momentum transfer from the DM to the target,
+q, is integrated over, while the energy deposition onto the target is constrained to be
+
+                                1         (mχ v − q)2        q2
+                            ωq = mχ v 2 −             =q·v−     .                                (2)
+                                2            2mχ            2mχ
+
+See Ref. [33] for a review of the general formalism.
+   We now need to specify the type of transitions |ii → |f i in the target system to calculate
+                        e
+the matrix element hf | V(−q, v) |ii. Here we focus on excitation of single phonon or magnon in
+a crystal target at zero temperature. We therefore take |ii to be the ground state |0i, and |f i
+to be the one-phonon or one-magnon states |ν, ki, labeled by branch ν and momentum k within
+the first Brillouin zone (1BZ). For a crystal target, we write the scattering potential as a sum of
+6
+
+
+contributions from individual ions:1
+                                                         X
+                                            V(x, v) =          Vlj (x − xlj , v) ,                         (3)
+                                                          lj
+
+where l = 1, . . . , N labels the primitive cells, j = 1, . . . , n labels the ions within each primitive cell,
+and xlj is the position of the ion labeled by l, j. Therefore,
+                                   Z                     X
+                       e
+                      V(−q, v) = d3 x eiq·x V(x, v) =                elj (−q, v) ,
+                                                             eiq·xlj V                                     (4)
+                                                                        l,j
+
+and we obtain
+                                Z
+                          1          d3 q X X         iq·xlj e
+                                                                            2               
+                   Γ(v) =                3
+                                              hν, k| e       Vlj (−q, v)|0i   2π δ ων,k − ωq .             (5)
+                          V         (2π)
+                                            ν,k   l,j
+
+                                                                                 elj which the DM
+     The central quantity for the rate calculation is then the lattice potential V
+senses. This will depend on both the specific DM model and on the lattice degrees of freedom
+(e.g. the nucleon/electron number or total electronic spin of the ions) available to scatter from.
+                                        elj in two steps previously mentioned in the introduction:
+We will determine the lattice potential V
+first, in Sec. II A, we review the procedure of matching relativistic DM models onto NR effective
+operators; next, in Sec. II B, we further reduce these effective operators to DM couplings to the
+lattice degrees of freedom. In the simplest case of SI interactions, there is only one effective
+                      elj is a linear combination of hNp ilj , hNn ilj and hNe ilj (proton, neutron and
+operator, O1 = 1, and V
+electron numbers of the ions, respectively) [33]. More generally, a DM model can generate a larger
+set of effective operators that involve the spins, momentum transfer, and velocities. The resulting
+                  elj depends on lattice degrees of freedom that include, in addition to the particle
+lattice potential V
+numbers hNψ ilj (ψ = p, n, e), also their spins hS ψ ilj , orbital angular momenta hLψ ilj , as well as
+spin-orbit couplings hLψ ⊗ S ψ ilj (a tensor with components hLiψ Sψk ilj , see Eq. (24) below). The
+                                                          elj in terms of phonon/magnon creation
+last step in computing the scattering rate is to quantize V
+and annihilation operators; we carry out this exercise in Sec. II C. The framework in this section
+will provide the basis for concrete calculations of direct detection rates via single phonon and
+magnon excitations, and will be applied to a set of benchmark models in Sec. III.
+
+
+                A.     From Dark Matter Models to Nonrelativistic Effective Operators
+
+
+     In this subsection, we take a top-down approach in deriving the EFT, focusing on how the
+effective operators arise from NR matching of well-motivated relativistic models. While one can also
+
+1
+    For simplicity, we will refer to either atoms or ions on lattice sites as ions.
+                                                                                                                  7
+
+
+take a bottom-up approach as in e.g. Ref. [58], and construct the EFT by enumerating operators
+consistent with rotation and translation invariance, we find it useful to have a set of benchmark
+UV models to develop intuition on how realistic theories of DM, which often predict correlations
+between EFT operators [61, 67], can be probed by experiment.
+     Let us start from a relativistic model of a DM particle χ interacting with the proton (p),
+neutron (n) and electron (e);2 we denote these Standard Model (SM) particles collectively by ψ
+in the following. To compute the NR EFT, we take the NR limit of the relativistic theory and
+map it on to the appropriate NR degrees of freedom. The EFT consists of the NR fields χ± , ψ ± ,
+generally defined by (using the SM fermion ψ for example):
+                                      X
+                         ψ + (x, t) ≡   e−iεI t ΨI (x) b̂I , ψ − ≡ (ψ + )† .                                    (6)
+                                             I
+Here the sum is over energy eigenstates, εI = EI − mψ are the energy eigenvalues minus the rest
+mass, ΨI (x) are the wavefunctions (which are two-component for spin- 21 fermions) and b̂I are the
+annihilation operators. In the familiar case of a fermion in free space, the energy eigenstates are
+                                                                          q
+                                                                                               k2
+labeled by momentum k and spin s = ±, with eigenvalues εk,s = εk = k2 + m2ψ − mψ ≃ 2m            ψ
+                                                                                                   ,
+and therefore3
+                                                    Z
+                                    +                    d3 k −iεk t ik·x
+                                   ψfree (x, t) =             e     e     ξs b̂k,s ,                            (7)
+                                                        (2π)3
+where ξ+ = ( 10 ), ξ− = ( 01 ).
+     For a spin- 21 fermion, the relation between the relativistic field ψ and NR field ψ + is (see
+Appendix A)
+                                                                            
+                                                            σ·k       + (x, t)
+                                                  1   1 − 2mψ +ε    ψ
+                               ψ(x, t) = e−imψ t √                          ,                               (8)
+                                                   2  1 + 2mσ·k     ψ + (x, t)
+                                                             ψ +ε
+
+
+at leading order in m−1                                      +
+                     ψ , where k, ε are operators acting on ψ . For a fermion in free space,
+
+we have k = −i∇, ε = i∂t , which become simply numbers in momentum space. In the presence
+of an external potential (Φ, A) (e.g. electromagnetic fields from the ions), k = −i∇ − A is the
+kinematical momentum, while ε = i∂t − Φ. Eq. (8) applies for the SM fermions ψ = p, n, e. If the
+DM χ is a spin- 21 fermion, it also applies for the DM, with ψ replaced by χ. For a spin-0 DM, on
+the other hand, χ = e−imχ t χ+ , with χ+ given by Eq. (7) without the ξs factor.
+2
+    The DM-proton and DM-neutron couplings follow from the DM-quark and DM-gluon couplings in the fundamental
+    Lagrangian by standard methods, see e.g. Ref. [59].
+3
+    In this and the next subsection, we shall use k to denote a SM fermion’s momentum while deriving the lattice
+    potential, which should not be confused with the phonon momentum in Eq. (5). Afterward, starting from Sec. II C,
+    we will no longer need to deal with fermion momenta, and the notation k will be recycled for phonon momentum.
+8
+
+
+      Lagrangian Term                 Coupling Type               (Effective) Current → NR Limit
+
+              gS φψ̄ψ                      Scalar         JS    = ψ̄ψ → 1
+
+           gP φψ̄iγ 5 ψ                Pseudoscalar       JP    = ψ̄iγ 5 ψ → − miqψ · S ψ
+
+           gV Vµ ψ̄γ µ ψ                   Vector         JVµ   = ψ̄γ µ ψ
+                                                                                       
+                                                                          K    iq
+                                                                → 1 , 2m   ψ
+                                                                             − mψ × S ψ
+
+                                                           µ
+          gA Vµ ψ̄γ µ γ 5 ψ             Axial vector      JA    = ψ̄γ µ γ 5 ψ
+                                                                                  
+                                                                → mKψ · S ψ , 2S ψ
+
+       gedm                                               µ                            
+                  µν 5
+       4mψ Vµν ψ̄σ iγ ψ                Electric dipole   Jedm = 2m1 ψ ∂ν ψ̄σ µν iγ 5 ψ
+                                                                                                                      
+                                                              → − miqψ · S ψ , miωψ S ψ + miqψ ×            K
+                                                                                                           2mψ × S ψ
+
+         gmdm                                             µ                       
+                    µν
+         4mψ Vµν ψ̄σ ψ                Magnetic dipole    Jmdm = 2m1 ψ ∂ν ψ̄σ µν ψ
+                                                                                                             
+                                                                                             q2
+                                                              → miqψ · 2m  K
+                                                                              ψ
+                                                                                ×   S ψ   − 4m 2 , − iq
+                                                                                                     m ψ
+                                                                                                         × S ψ
+                                                                                                  ψ
+
+
+    gana
+                                                                                                          
+    4m2ψ
+         (∂ ν Vµν ) ψ̄γ µ γ 5 ψ           Anapole         µ
+                                                         Jana = − 4m1 2 (g µν ∂ 2 − ∂ µ ∂ ν ) ψ̄γν γ 5 ψ
+                                                                      ψ
+
+                                                                    q2     µ                  qµ
+                                                              → − 4m2 JA     + mqψ · S ψ 2m      ψ
+                                                                         ψ
+                                                                                               2
+      gV 2
+      4m2ψ
+           (∂ ν Vµν ) ψ̄γ µ ψ         Vector (O(q 2 ))   JVµ 2 = − 4m1 2 ∂ 2 ψ̄γ µ ψ            q
+                                                                                           → − 4m    µ
+                                                                                                  2 JV
+                                                                        ψ                         ψ
+
+
+
+TABLE I. Types of couplings between a spin- 12 fermion ψ and a scalar (vector) mediator φ (Vµ ). The
+                                                                     µ
+(effective) currents are defined by L ⊃ gX φJX (X = S, P ) or gX Vµ JX (X = V, A, edm, mdm, ana, V 2), upon
+integration by parts in the last four cases. The expressions following the arrows are the leading operators in
+the NR reduction of the currents (assuming scattering kinematics), which appear between the nonrelativistic
+fields ψ − and ψ + — see e.g. Eq. (9). These will be used to derive the NR operators generated by specific
+DM models involving tree-level exchange of a scalar or vector mediator in Table II.
+
+
+    To demonstrate the procedure of matching a relativistic model onto the NR EFT, we focus
+on tree level DM scattering mediated by a spin-0 or abelian spin-1 particle, denoted by φ and Vµ
+respectively. While it should be kept in mind that the EFT is capable of describing a broader class
+of models, including e.g. loop-mediated scattering, we find it useful to organize our thinking by
+categorizing mediator couplings to fermion bilinears. In Table I, we list the commonly considered
+types of couplings at the level of the relativistic Lagrangian, and their NR limits. We explain the
+table in detail in the following two paragraphs.
+    For a spin-0 mediator φ, we consider its couplings to the scalar and pseudoscalar currents JS ,
+JP . For a spin-1 mediator Vµ , we consider both minimal coupling to the vector and axial-vector
+                                                                                                                    9
+
+
+currents JVµ , JAµ , and non-minimal couplings to the field strength Vµν .4 The latter include a series
+of higher dimensional operators. At dimension five, we have the electric dipole moment (edm) and
+magnetic dipole moment (mdm) couplings. Upon integration by parts, they can be cast in the
+                                                                           µ      µ
+same form, Vµ J µ , as the minimal coupling case, with effective currents Jedm , Jmdm listed in the
+last column of Table I. Next, at dimension six, we consider ∂ ν Vµν coupling to the axial-vector and
+vector currents. The former represents a new type of coupling known as the anapole [67, 69, 70],
+                                                       µ
+and the corresponding effective current is denoted by Jana . On the other hand, ∂ ν Vµν coupling
+to the vector current gives an O(q 2 ) contribution to the same form factors that JVµ induces (i.e.
+the familiar charge and magnetic dipole in quantum electrodynamics), so we denote the effective
+current by JVµ 2 . It is useful to note that all the (effective) currents that couple to a spin-1 mediator,
+except JAµ , are conserved: qµ JX
+                                µ
+                                  = 0 (X = V, edm, mdm, ana, V 2).
+     In the NR limit, we can substitute Eq. (8) for the relativistic fermion field ψ into the expressions
+for the (effective) currents in Table I, and expand in powers of mkψ and mεψ . For example, for
+JVµ = (JV0 , J V ), we find, at leading order,
+                                                                                          
+                                                                              K    iq
+                  JV0 = ψ̄γ 0 ψ → ψ − ψ + ,       J V = ψ̄γψ → ψ     −
+                                                                                 −    × S ψ ψ+ .                  (9)
+                                                                             2mψ   mψ
+
+where S ψ = σ2 is the spin operator, and
+
+                                            K ≡ k0 + k ,       q ≡ k0 − k ,                                      (10)
+
+                                                              ←−
+with k0 defined as acting on the ψ − field on the left, k0 = i ∇ −A, giving the kinematical momentum
+of the final state ψ. We can carry out the same exercise for the other (effective) currents. The
+results, up to the first nonvanishing order, are listed after the arrows in the last column of Table I,
+with ψ − on the left and ψ + on the right implicit. We see that all currents reduce to operators
+involving S ψ , K and iq; in the case of the electric dipole coupling, ω ≡ ε0 − ε also appears, with
+ε0 defined as acting on ψ − on the left.
+     With Table I, it is straightforward to derive the NR effective operators generated by tree-level
+exchange of a spin-0 or spin-1 mediator between a DM current and a SM current. Concretely, let
+us consider a set of benchmark models of spin- 12 DM [61], listed in Table II. In each model, the
+DM χ and a SM fermion ψ each couple to the mediator via a linear combination of the currents in
+the last column of Table I, whose NR limits can be directly read off. Integrating out the mediator,
+
+4
+    Other operators, such as those with derivatives acting on ψ and those involving the dual field strength Veµν , are
+    not independent — see e.g. Ref. [68].
+10
+
+
+we then arrive at a NR EFT for DM scattering of the form
+                                                       
+        −      p2       −2
+                            +    −       k2          −2
+                                                          + X X (ψ) (ψ) − + − +
+Leff = χ ε −       + O mχ    χ +ψ ε−          + O mψ       ψ +   ci Oi χ χ ψ ψ .
+              2mχ                        2mψ
+                                                                                       i   ψ=p,n,e
+                                                                                                                   (11)
+For convenience, we reserve k and k0 for the momentum operators acting on ψ ± , and write the
+same operators as p and p0 when they act on χ± . We normalize the operators by powers of mψ
+             (ψ)                                                  (ψ)
+so that Oi         are dimensionless and their coefficients ci          have dimension −2. For each UV model,
+                  (ψ)
+the coefficients ci of the NR operators generated at leading order are given in Table II (to be
+discussed in detail shortly). These coefficients contain all the information for constructing the
+                  elj for a given DM model, and will be exploited below for computing the DM
+lattice potential V
+detection rate.
+     For kinematic conventions, we take
+
+                                                    q ≡ k 0 − k = p − p0                                           (12)
+
+to denote the momentum transfer from the DM to the target, which agrees with Refs. [59, 63]
+but has an opposite sign compared to the definitions in Refs. [58, 60–62]. There are two other
+independent combinations of momenta:
+                                                     P                    K
+                                             vχ ≡       ,        vψ ≡        ,                                     (13)
+                                                    2mχ                  2mψ
+where P = p0 + p, K = k0 + k. Note that v χ should not be confused with the incoming DM’s
+velocity, which we denote by v = mpχ ; the two are related by v χ = v − 2m
+                                                                         q
+                                                                           χ
+                                                                             .
+                                       (ψ)
+     The list of NR operators Oi             up to linear order in v χ , v ψ is presented in Table III (grouped
+into four categories to be explained below). These encompass all the operators generated at
+leading order in the benchmark models in Table II. Our operator basis here is an extension of the
+familiar one from previous works on the EFT for direct detection via nuclear recoils [58–63]. In the
+latter case, due to Galilean invariance, NR effective operators involve only the linear combination
+v ⊥ ≡ v χ − v ψ . In contrast, for collective excitations considered in this work, in-medium effects,
+which break Galilean invariance, can be important, so v χ and v ψ must be treated separately. We
+adopt the operator numbering convention of Ref. [63], and split each v ⊥ -dependent operator into
+                                                                                 (ψ)
+two; one term dependent on v χ and the other v ψ . For example, O7                     = S ψ ·v ⊥ = S ψ ·v χ −S ψ ·v ψ ≡
+    (ψ)     (ψ)                     (ψ)          (ψ)
+O7a − O7b , and we treat O7a and O7b as independent operators.
+     Among the benchmark models in Table II, the standard SI and SD interactions correspond to
+O1 and O4 , respectively.5 Other types of scalar mediators generate O6 , O10 and O11 . A well-
+5
+    Note that the standard SD interaction cannot be realized with a light mediator. In that case the leading interaction
+                                                                                              µ
+    is induced by longitudinal vector exchange, and is proportional to JP,χ JP,ψ rather than JA,χ JA,ψ µ .
+                                                                                                                                           11
+
+
+               Model                         UV Lagrangian                                  NR EFT                              Responses
+                                                             
+                                          φ gχ JS,χ + gψ JS,ψ or                       (ψ)            gχ g eff
+             Standard SI                                                           c1         = q2 +mψ2                             N
+                                                  µ         µ
+                                                                
+                                           Vµ gχ JV,χ − gψ JV,ψ                                               φ,V
+
+
+
+                                                  µ         µ                           (ψ)           4g g
+             Standard SD a                                                                           χ ψ
+                                                                  
+                                           Vµ gχ JA,χ + gψ JA,ψ                        c4       = q2 +m 2                           S
+                                                                                                               V
+
+                                                                                   (ψ)          m        gχ g eff
+    Other            P×S                    φ gχ JP,χ + gψ JS,ψ                   c11 = mψχ q2 +m
+                                                                                                ψ
+                                                                                                  2                                 N
+                                                                                                                    φ
+
+                                                                                        (ψ)             g g
+                                                                                    c10 = − q2χ+mψ2
+                                                                  
+    scalar           S×P                    φ gχ JS,χ + gψ JP,ψ                                                                     S
+                                                                                                                   φ
+mediators                                                                           (ψ)          m         g g
+                                                                                            = mψχ q2χ+mψ2
+                                                                  
+                     P×P                    φ gχ JP,χ + gψ JP,ψ                   c6                                                S
+                                                                                                                    φ
+                                     
+                                          µ           µ          µ              (ψ)             m        gχ g eff
+                 Electric dipole   Vµ gχ Jedm,χ + gψ JV,ψ + δe
+                                                             µψ Jmdm,ψ                         ψ
+                                                                               c11 = − mψχ q2 +m 2                                  N
+                                                                                                             V
+                                                                                                          eff
+                                                                                   (ψ)          q2   gχ gψ
+                                                                                  c1        =  4m2    2     2
+                                                                                                  χ q +mV
+                                                                              (ψ)                  2     g χ gψ
+                                                                                                 q
+Multipole                                                                    c4 = µ
+                                                                                  e           ψ mχ m q 2 +m2
+                                                                                                     ψ         V
+                                                                                                         eff
+                                                                                                mψ gχ gψ
+                                                                      
+                                          µ           µ          µ                 (ψ)
+     DM         Magnetic dipole    Vµ gχ Jmdm,χ + gψ JV,ψ + δe
+                                                             µψ Jmdm,ψ            c5a =         mχ q 2 +m2
+                                                                                                                                 N, S, L
+                                                                                                           V
+    models                                                                         (ψ)           m
+                                                                                  c5b = mψχ q2 χ+mψ2
+                                                                                                           g g
+                                                                                                                    V
+                                                                              (ψ)                   χ m        g g
+                                                                             c6            eψ mψ q2 +mψ2
+                                                                                        = −µ   χ                           V
+                                                                                                  eff
+                                                                                   (ψ)   q2   gχ gψ
+                                                                                  c8a = 2m 2 q 2 +m2
+                                                                                           χ                           V
+                                                                      
+                                          µ           µ          µ                 (ψ)   q2    gχ gψ
+                    Anapole        Vµ gχ Jana,χ + gψ JV,ψ + δe
+                                                             µψ Jmdm,ψ            c8b = 2m 2 q 2 +m2
+                                                                                                                                 N, S, L
+                                                                                           χ                           V
+                                                                              (ψ)                      2       g g
+                                                                                              q       χ ψ
+                                                                             c9        = −µ
+                                                                                          eψ 2m 2 q 2 +m2
+                                                                                                          χ                 V
+
+                                                                             (ψ)          q2    gχ gψ
+                                                                            c1 = (1 + κ) 4m 2 q 2 +m2
+                                                                                            ψ        V
+                                                                                  (ψ)           (ψ)           g g
+                                                                              c3a = c3b = q2 χ+mψ2
+                                           µ          µ
+                                                            + κJVµ 2,ψ )
+                                                                                                                          V
+        (L · S)-interacting         Vµ gχ JV,χ + gψ (Jmdm,ψ                           2
+                                                                                                                                N, S, L ⊗ S
+                                                                               (ψ)        g g
+                                                                              c4 = mχqmψ q2 χ+mψ2
+                                                                                                                        V
+                                                                                  (ψ)             m           g g
+                                                                               c6        = − mψχ q2 χ+mψ2
+                                                                                                                       V
+
+
+a
+    Heavy mediator only.
+
+
+TABLE II. Benchmark models of spin- 12 DM χ coupling to SM fermions ψ = p, n, e. For each model, the
+                                             (ψ)                                   (ψ)
+leading order nonvanishing coefficients ci         for the NR EFT operators Oi              (defined in Table III) are listed
+in the second to last column. gψeff are the screened couplings defined in Eq. (14), and µ
+                                                                                        eψ = 1 + δe
+                                                                                                  µψ is half
+                          µp ≃ 2.8, µ
+the Landé g-factor of ψ (e         en ≃ −1.9, µ
+                                               ee ≃ 1). The last column lists the lattice degrees of freedom
+which enter the scattering potential, Eq. (27). All models can excite phonons, and models with S or L
+response generated by DM-electron coupling can also excite magnons.
+
+
+motivated class of (hidden sector) models contain DM particles coupling to a vector mediator via a
+multipole moment, which in turn kinetically mixes with the photon (see e.g. Refs. [61, 67, 69–74]).
+We consider the electric dipole, magnetic dipole and anapole DM models, which generate O11 ,
+O1,4,5a,5b,6 and O8a,8b,9 , respectively. Finally, Table II includes a model where a vector mediator
+12
+
+                                                    µ
+couples to the SM fermion’s magnetic dipole moment Jmdm , and as a result generates O3b . Among
+other things, this leads to a coupling to the SM fermion’s spin-orbit coupling, which can be the
+leading interaction if one simultaneously introduces a coupling to the “O(q 2 ) vector current” JVµ 2
+                                                µ
+(see Table I), with a coefficient (relative to Jmdm ) tuned to κ = −1 to cancel the standard SI
+interaction O1 .
+     We also note that, in the case of a vector mediator coupling to the electron’s vector current
+ µ
+JV,e , in-medium screening effects modify the effective couplings to the proton and electron [33,
+39, 42, 43, 75]. For NR scattering, screening is negligible for transverse photon exchange, but can
+be significant for longitudinal photon exchange, which generates the first category of operators
+(O1,5a,8a,11 ) in Table III. As shown in Refs. [33, 75], this amounts to replacing
+                                                  
+                            eff              q2                              q2
+                    gp → gp = gp + 1 −               ge ,     ge → geeff =       ge ,              (14)
+                                          q·ε·q                            q·ε·q
+
+where ε is the dielectric tensor, and gp,e are the tree-level (unscreened) couplings. The same is
+true for a scalar mediator coupling to the electron’s scalar current JS,e [76]. For single phonon and
+magnon excitations below the electronic band gap that we focus on in this work, one can use the
+high-frequency dielectric ε∞ , which captures the screening due to fast electron responses [33, 54, 77].
+     We will study the reach phonon and magnon detectors have to these benchmark models in
+Sec. III, after developing the formalism of rate calculations within the EFT in the rest of this
+section.
+
+
+              B.   Matching Effective Operators Onto Lattice Degrees of Freedom
+
+                                                (ψ)
+     We now match the effective operators Oi          onto lattice degrees of freedom (highlighted for
+                                                         elj . In Table III, we have organized
+clarity) that appear in the DM-ion scattering potentials V
+                                                                 (ψ)
+the operators into four categories, according to whether Oi            ∝ 1ψ (“coupling to charge”) or
+ (ψ)
+Oi ∝ S ψ (“coupling to spin”), and whether the operator involves v ψ .         Since our focus is light
+DM that evades conventional searches via nuclear recoils and electronic excitations, we will work
+in the long wavelength limit, where the momentum transfer is small compared to the inverse ionic
+radius (corresponding to mχ . 10 MeV), so at leading order, the only relevant degrees of freedom
+are those that characterize the ion as a whole. Intuitively, we expect couplings to charge and spin
+of a constituent particle ψ = p, n, e to match onto couplings to the total number hNψ i and spin
+hS ψ i of that particle, respectively. These are point-like degrees of freedom that do not involve the
+internal motions of the ion constituents; they are the only degrees of freedom to which DM couples
+                                                                                                          13
+
+
+            Interaction Type                          NR Operators                   Crystal Response
+
+                                                                (ψ)
+                                                            O1        =1
+                                                  (ψ)                   
+                                                 O5a = S χ · miqψ × v χ
+    Coupling to charge, v ψ -independent               (ψ)
+                                                                                           N
+                                                    O8a = S χ · v χ
+                                                      (ψ)
+                                                    O11 = S χ · miqψ
+                                                    (ψ)               iq
+                                                                                 
+                                                 O3a = S ψ ·          mψ × v χ
+                                                          (ψ)
+                                                      O4      = Sχ · Sψ
+                                               (ψ)                            
+                                              O6 =         S χ · mqψ S ψ · mqψ
+                                                          (ψ)
+                                                      O7a = S ψ · v χ
+                                                    (ψ)                          
+                                                 O9       = S χ · S ψ × miqψ
+     Coupling to spin, v ψ -independent                   (ψ)
+                                                                                            S
+                                                      O10 = S ψ · miqψ
+                                                  (ψ)                   
+                                                 O12a = S χ · S ψ × v χ
+                                                (ψ)                       
+                                               O13a = S χ · v χ S ψ · miqψ
+                                                (ψ)                       
+                                               O14a = S ψ · v χ S χ · miqψ
+                                            (ψ)                             
+                                           O15a = S χ · miqψ × v χ S ψ · miqψ
+                                                    (ψ)               iq
+                                                                                 
+                                                 O5b = S χ ·          mψ × v ψ
+     Coupling to charge, v ψ -dependent                   (ψ)
+                                                                                            L
+                                                      O8b = S χ · v ψ
+                                                    (ψ)               iq
+                                                                                 
+                                                 O3b = S ψ ·          mψ × v ψ
+                                                          (ψ)
+                                                      O7b = S ψ · v ψ
+                                                   (ψ)                  
+                                                 O12b = S χ · S ψ × v ψ
+      Coupling to spin, v ψ -dependent          (ψ)                                     L⊗S
+                                               O13b = S χ · v ψ S ψ · miqψ
+                                                (ψ)                       
+                                               O14b = S ψ · v ψ S χ · miqψ
+                                            (ψ)                             
+                                           O15b = S χ · miqψ × v ψ S ψ · miqψ
+
+TABLE III. NR effective operators relevant for DM scattering defined in Eq. (11), organized into four
+categories, and the crystal responses generated. Here χ is the DM and ψ is a SM particle that can be the
+proton, neutron or electron. q is the momentum transfer from the DM to the SM target, and v χ , v ψ are
+defined in Eq. (13). Previous calculations [33, 34, 53, 54, 57] focused on phonon and magnon excitations via
+v ψ -independent couplings to charge and spin, corresponding to the first two categories listed here. In this
+work we extend the calculations to all operators.
+
+
+if the operator is velocity-independent. On the other hand, v ψ -dependent operators are expected
+to couple DM to the motion of ψ particles inside an ion, manifest as the total orbital angular
+momenta hLψ i and spin-orbit couplings hLψ ⊗ S ψ i, which are “composite” degrees of freedom.
+In the rest of this subsection, we will see concretely how these intuitive expectations are borne
+14
+
+
+out. The final result of this calculation is the lattice potential in terms of the NR EFT operator
+                 (ψ)
+coefficients ci , given below in Eq. (27).
+     Since the calculation proceeds in much the same way for all operators in the same category, to
+                                                                                                                              (ψ)
+avoid tedious repetition we pick one operator from each category to explain the procedure: O1 ,
+ (ψ)       (ψ)          (ψ)
+O4 , O8b and O3b , with ψ taken to be one of p, n, e. To obtain the DM-ion scattering potentials
+elj , we need to compute the matrix elements of these operators between the incoming and outgoing
+V
+states of the DM-ion system. Since the initial and final DM states are plane waves, the DM part
+of the matrix element simply yields a phase factor, so
+
+
+                          X (ψ)            (ψ)
+            elj (−q, v) ⊃
+            V               c1 eiq·xα lj + c4 S χ · eiq·xα S ψ,α lj
+                              α
+                                                                                                                     
+                                       (ψ)           iq·xα               (ψ) iq            iq·xα
+                                    + c8b S χ ·     e        v ψ,α lj + c3b     ·          e          v ψ,α × S ψ,α lj ,     (15)
+                                                                             mψ
+
+where α runs over all the ψ fermions associated with the ion labeled by l, j, and h·i represents
+the ionic expectation value (assuming the ionic state is unchanged for the low energy deposi-
+tions of interest). Computing these expectation values in full generality is a tedious task that
+involves numerical integration over nuclear and electronic wavefunctions. However, the calcula-
+tion is dramatically simplified in the long wavelength limit of interest here, where we can expand
+eiq·xα = 1 + iq · xα + . . . and keep just the leading nonvanishing terms. In the following two
+                                                                                     (ψ)        (ψ)
+paragraphs, we discuss in turn the v ψ -independent operators O1 , O4                                 (first line of Eq. (15)) and
+                               (ψ)   (ψ)
+the v ψ -dependent operators O8b , O3b (second line of Eq. (15)).
+                                   (ψ)   (ψ)
+   a) v ψ -independent operators: O1 , O4 . For these, it is sufficient to set eiq·xα → 1:
+
+                                  (ψ)
+                                        X                 (ψ)
+                                                                X              (ψ)
+                              c1             eiq·xα lj ≃ c1          h1ilj = c1 hNψ ilj ,                                    (16)
+                                         α                       α
+                       (ψ)
+                              X                           (ψ)
+                                                                      X                        (ψ)
+                   c4 S χ ·             eiq·xα S ψ,α lj ≃ c4 S χ ·         hS ψ,α ilj = c4 S χ · hS ψ ilj .                  (17)
+                              α                                        α
+
+So we obtain, respectively, the expectation values of the number and total spin of ψ particles for
+                                                                                                     (ψ)
+ion l, j, as one would expect for the lowest order “coupling to charge” (O1 ) and “coupling to spin”
+     (ψ)
+(O4 ) operators. Note that hS ψ ilj should not be confused with the total nuclear or ionic spin,
+which may also contain orbital angular momentum components. We will see in the next subsection
+that the total ionic spin (from electrons) is relevant for magnon excitations, and we will need to
+work out its decomposition into spin and orbital components (see Eq. (32) below); the total nuclear
+spin, on the other hand, does not enter the calculation of phonon or magnon excitations.
+                                                                                                                  15
+
+                                         (ψ)      (ψ)                               0             ←→
+   b) v ψ -dependent operators: O8b , O3b .               The operator v ψ,α = (k+k
+                                                                                 2mψ
+                                                                                      )α
+                                                                                         = − 2mi ψ ∇ α is in fact the
+probability current, and its treatment is analogous to the nuclear recoil calculation [58]. Assuming
+the ionic states are energy eigenstates implies that the probability density is constant in time, and
+                                             i i = 0. This means that v i
+therefore by the continuity equation, ∂i hvψ,α   lj                         ψ,α can be written as a
+                                    
+                   i
+total derivative, vψ,α = ∂k xiα vψ,α
+                                 k     , and therefore has vanishing expectation value. The leading
+contribution then comes from expanding the eiq·xα to the next order in q:
+                                  X                             X
+                                          eiq·xα v ψ,α lj ≃ i        (q · xα ) v ψ,α lj ,                       (18)
+                                    α                            α
+                       X                                        X
+                                iq·xα
+                            e           v ψ,α × S ψ,α lj ≃ i         (q · xα ) v ψ,α × S ψ,α lj .               (19)
+                        α                                        α
+
+To go further, we note that xiα vψ,α
+                                  k
+                                       lj
+                                          is anti-symmetric in i ↔ k since the symmetric part can
+                                                                      i0
+                                                                          
+                                       k
+be written as a total derivative, xiα vψ,α         i
+                                            + xkα vψ,α = ∂i0 xiα xkα vψ,α   and therefore has vanishing
+expectation value. Expanding the anti-symmetric part gives
+
+                  1 i k                       i  i→−k        i←
+                                                               −k        k→
+                                                                          −i         −i 
+                                                                                    k←
+  xiα vψ,α
+       k
+           lj
+              =     xα vψ,α −xkα vψ,α
+                                  i
+                                      lj
+                                         = −     x  ∇
+                                                   α α lj − x  ∇
+                                                              α α lj − x  ∇
+                                                                         α α lj + x  ∇
+                                                                                    α α lj , (20)
+                  2                          4mψ
+
+which after integration by parts can be simplified to
+
+                                                i    →
+                                                     −         →
+                                                               −           1            0
+                        xiα vψ,α
+                             k
+                                 lj
+                                    =−             xi ∇ kα − xk ∇ iα lj =     ikk0 hLkα ilj ,                  (21)
+                                               2mψ                        2mψ
+
+where Lα is the angular momentum operator. We therefore have
+                   X                   iq   X                   iq
+                       eiq·xα v ψ,α lj ≃ −×     hLψ,α ilj = −        × hLψ ilj ,                                (22)
+               α
+                                      2mψ    α
+                                                               2mψ
+        X                               i X
+          eiq·xα v ψ,α × S ψ,α lj ≃ −        h(q × Lψ,α ) × S ψ,α ilj
+        α
+                                      2mψ α
+                                        i X                          X                        
+                                  =−          hLψ,α ⊗ S ψ,α ilj · q −      hLψ,α · S ψ,α ilj q
+                                      2mψ α                             α
+                                        i                                      
+                                  =−       hLψ ⊗ S ψ ilj · q − hLψ · S ψ ilj q
+                                      2mψ
+                                        i h                                       i
+                                  =−       hLψ ⊗ S ψ ilj · q − tr hLψ ⊗ S ψ ilj q .                             (23)
+                                      2mψ
+
+where
+
+                                                  ik                      X
+                                hLψ ⊗ S ψ ilj           = hLiψ Sψk ilj ≡       hLiψ,α Sψ,α
+                                                                                       k
+                                                                                           ilj                  (24)
+                                                                           α
+
+are Cartesian components of the spin-orbit coupling tensor. So we finally obtain
+                   X                                             
+          (ψ)          iq·xα              (ψ)         iq
+         c8b S χ ·   e       v ψ,α lj = −c8b S χ ·       × hLψ ilj ,                                            (25)
+                   α
+                                                     2mψ
+16
+
+
+            (ψ)   iq X iq·xα                      (ψ) 1                                      ik
+           c3b       · e     v ψ,α × S ψ,α lj = −c3b    2 (q 2 δ ik − q i q k ) hLψ ⊗ S ψ ilj .                (26)
+                  mψ α                               2mψ
+                                                                          (ψ)             (ψ)
+As alluded to previously, the v ψ -dependent operators O8b and O3b induce DM couplings to the
+ψ particles’ total orbital angular momentum and spin-orbit coupling.
+   We can carry out the same calculation for the other operators in Table III. The result is
+              X (ψ)
+elj (−q, v) =
+V                  c1 hNψ ilj
+                  ψ=p,n,e
+
+                       (ψ)   iq                       (ψ) q
+                                                             2                                    ik
+                    − c3a       v χ · q̂ × hS ψ ilj − c3b     2 (δ ik − q̂ i q̂ k ) hLψ ⊗ S ψ ilj
+                             mψ                           2mψ
+                       (ψ)
+                    + c4 S χ · hS ψ ilj
+
+                       (ψ)   iq                       (ψ) q
+                                                             2                 
+                    + c5a       · v χ × S χ hNψ ilj − c5b     2 S χ · 1 − q̂ q̂ · hLψ ilj
+                             mψ                           2mψ
+                       (ψ) q
+                               2                          
+                    + c6            q̂ · S χ q̂ · hS ψ ilj
+                             m2ψ
+                                                               k0                   ik
+                       (ψ)                  (ψ)     0 iq
+                    + c7a v χ · hS ψ ilj − c7b ikk                 hLψ ⊗ S ψ ilj
+                                                     2mχ
+                       (ψ)                       (ψ) iq                     
+                    + c8a v χ · S χ hNψ ilj − c8b         S χ · q̂ × hLψ ilj
+                                                      2mψ
+                       (ψ) iq                     
+                    + c9      S χ · hS ψ ilj × q̂
+                           mψ
+                       (ψ) iq
+                    + c10          · hS ψ ilj
+                             mψ
+                       (ψ) iq
+                    + c11          · S χ hNψ ilj
+                             mψ
+                       (ψ)                          (ψ) iq                                           ik
+                    + c12a v χ × S χ · hS ψ ilj − c12b        (q̂ · S χ )δ ik − q̂ k Sχi hLψ ⊗ S ψ ilj
+                                                        2mψ
+                       (ψ) iq                            (ψ) q
+                                                                  2              
+                    + c13a     v χ · S χ q̂ · hS ψ ilj − c13b      2   q̂ × S χ · hLψ ⊗ S ψ ilj · q̂
+                           mψ                                 2mψ
+                       (ψ)   iq                          (ψ)      0 q
+                                                                        2
+                                                                               0                      ik
+                    + c14a      q̂ · S χ v χ · hS ψ ilj + c14b ikk      2 q̂ k q̂ · S χ hLψ ⊗ S ψ ilj
+                             mψ                                      2mψ
+                       (ψ)   q2                                  (ψ) iq
+                                                                          3                 
+                    − c15a    2 q̂ · (v χ × S χ ) q̂ · hS ψ ilj − c15b     3 S χ · 1 − q̂ q̂ · hLψ ⊗ S ψ ilj · q̂ ,
+                             mψ                                        2mψ
+                                                                                                               (27)
+                 q
+where v χ = v − 2m χ
+                     (with the incoming DM’s velocity v and momentum transfer q to be integrated
+over when calculating detection rates), and summation over repeated Cartesian indices is implicit.
+Here and in what follows, we denote q ≡ |q| (so that q 2 ≡ q 2 6= q µ qµ ), and q̂ ≡ q/q.
+                                                                                 elj involves a
+     To summarize, in the long wavelength limit, the DM-ion scattering potential V
+set of quantities that characterize properties of the ion: the total numbers hNψ i, spins hS ψ i and
+                                                                                                                         17
+
+
+orbital angular momenta hLψ i of the constituent particles ψ = p, n, e, as well as the spin-orbit
+coupling tensors Lψ ⊗ S ψ . We will refer to these as different types of crystal responses, as DM
+couplings to these quantities drive collective excitations in the crystal; they play a similar role to
+the nuclear responses in nuclear recoil calculations (which similarly reduce to the total nucleon
+numbers, spins, etc. in the long wavelength limit [58, 60–62]). We emphasize, however, that in
+contrast to standard nuclear recoil where nuclei are treated as free – a valid approximation at
+energy depositions & 500 meV [33] – collective excitations arise in a lower energy regime where
+inter-ionic interactions become important; the EFT therefore involves different degrees of freedom
+and the calculation proceeds differently.6 We will sometimes abbreviate the crystal responses
+introduced above as N , S, L, L ⊗ S, or simply N , S, L, L ⊗ S, when there is no confusion. The
+crystal responses generated by each NR operator and in each benchmark DM model have been
+summarized in Tables III and II, respectively.
+     We reiterate that, among the four types of crystal responses, hNψ i and hS ψ i are induced by DM
+couplings to point-like ionic degrees of freedom (which do not involve internal motions of nucleons
+or electrons inside an ion), while hLψ i and Lψ ⊗ S ψ are induced by DM couplings to composite
+degrees of freedom. We therefore refer to them as point-like and composite responses respectively.
+v ψ -independent operators (the first two categories in Table III) generate point-like responses, while
+v ψ -dependent operators (the last two categories in Table III) generate composite responses. It is
+worth noting that operators related by v χ ↔ v ψ (e.g. O3a and O3b , O5a and O5b ) are usually
+generated with similar coefficients. For each such pair of operators, the ratio of composite versus
+point-like responses (i.e. coefficients of hLψ i versus hNψ i, or Lψ ⊗ S ψ versus hS ψ i in Eq. (27)) is,
+parametrically, mqψ v . This is generic, as point-like and composite responses result from the leading
+two terms in the expansion eiq·xα = 1 + iq · xα + . . . , and qx ∼ mqψ v L, with L ∼ O(1). For nuclear
+                                                                                                                µ
+recoils (where the two operators have exactly equal and opposite coefficients), mqψ v ∼ mχN
+                                                                                         p,n
+                                                                                             with
+µχN the reduced mass of the DM and the target nucleus, so composite responses can be significant,
+as emphasized in Refs. [60, 61]. In contrast, in the present case of collective excitations induced
+                                       m
+by light DM, we have mqψ v . mψχ . For couplings to nucleons, ψ = p, n, this ratio is always smaller
+than one for sub-GeV DM, so for a given type of excitation, point-like responses tend to dominate;
+for couplings to electrons, ψ = e, both point-like and composite responses, if present, can be
+important. From the bottom-up point of view, it is useful to keep in mind this interplay between
+                                                                                    0      0
+6                                                                            ττ
+    Technically, Refs. [58, 60] defined a few “nuclear response functions,” WM  , WΣτ 0τ etc., which the nuclear recoil
+    rate is proportional to, from the unpolarized average of nuclear matrix element squared. No such averaging is
+    involved in the calculation of collective excitations, and the rate formulae derived below do not depend on the
+                         0      0
+                    ττ
+    same functions WM  , WΣτ 0τ etc. even in the absence of coupling to electrons. Here we are simply borrowing the
+    terminology “response” in the sense that it refers to a type of coupling, just as M , Σ0 , etc., usually called “nuclear
+    responses,” are different types of couplings to the nucleus.
+18
+
+
+point-like and composite responses for the purpose of organizing the effects of various operators,
+although from the top-down point of view, it seems difficult to construct well-motivated simple
+models that dominantly generate a composite response (L or L ⊗ S) without being accompanied
+by a point-like response (N or S) of at least comparable size, similar to the case of nuclear recoil
+as highlighted in Ref. [61]. We will elaborate on this in Sec. III.
+
+
+                    C.    Quantization of Lattice Potential for Phonons and Magnons
+
+
+                               elj in terms of the lattice degrees of freedom, Eq. (27), it remains
+     Now that we have obtained V
+to compute the matrix elements
+                                                         X
+                                       e
+                                hν, k| V(−q, v)|0i =                     elj (−q, v)|0i
+                                                          hν, k| eiq·xlj V                                      (28)
+                                                          l,j
+
+by quantizing the lattice potential in terms of phonon or magnon modes. The simplest cases, where
+phonon excitations in a crystal proceed through hNψ i (via the SI operator O1 = 1) and magnon
+excitations proceed through hS e i were considered previously in Refs. [33, 34, 53, 54] and Ref. [57],
+respectively. Here we extend those calculations to include all four crystal responses (hNψ i, hS ψ i,
+hLψ i, hLψ ⊗ S ψ i) identified in the previous subsection, which can be generated by the full set of
+effective operators.
+     Phonons arise from the ions’ displacements with respect to their equilibrium positions x0lj :
+                                   3n X
+                                   X             1                          0                         0
+                                                                                                         
+            ulj = xlj − x0lj =               p             âν,k ν,k,j eik·xlj + â†ν,k ∗ν,k,j e−ik·xlj .     (29)
+                                   ν=1 k∈1BZ
+                                              2N mj ων,k
+Recall that N (without subscript, not to be confused with hNψ i) is the total number of primitive
+cells in the crystal lattice, to be sent to infinity at the end of the calculation. The phonon creation
+and annihilation operators satisfy the canonical commutation relations, [âν,k , â†ν 0 ,k0 ] = δνν 0 δk,k0
+with all others vanishing. The eigenenergies ων,k and eigenvectors ν,k,j (normalized such that
+P            2
+  j |ν,k,j | = 1) are solved for by diagonalizing the quadratic crystal potential. The quadratic
+
+crystal potential, and equilibrium positions, are computed with DFT [78] (see Refs. [34, 54] for
+details) and the diagonalization is performed with phonopy [65]. At leading order, dependence
+of the matrix element in Eq. (28) on ulj comes only from the phase factor eiq·xlj ; we assume
+                                 elj (−q, v) are not significantly affected by ionic displacements
+the DM-ion scattering potentials V
+and can thus be pulled out of the matrix element.7 Then, evaluating the matrix element of
+7
+    If V
+       elj receives contributions from DM-electron couplings, the scattering potential can depend on ulj directly, as
+
+    ionic displacements distort the electron wavefunctions. This correction can be taken into account via the Born
+    effective charges in the case of SI interactions in the long wavelength limit, as discussed in Ref. [33].
+                                                                                                          19
+
+
+the phase factor, hν, k| eiq·xlj |0i, follows the standard procedure of expanding xlj as in Eq. (29)
+and applying the Baker-Campbell-Hausdorff formula to normal-order the phonon creation and
+annihilation operators [33]. As a result,
+                                          "                          #
+                                  1  X X                           0           i(q · ∗ν,k,j )
+                   e
+            hν, k| V(−q, v)|0i = √           elj (−q, v) e
+                                             V             i(q−k)·xlj e−Wj (q) p               ,         (30)
+                                   N ν,k,j l                                      2mj ων,k
+                        P         |q·ν,k,j |2
+where Wj (q) = 4N1mj        ν,k      ων,k        is the Debye-Waller factor. Crucially, the √1N factor (which
+originates from Eq. (29) and is to be squared when computing the rate), together with the prefactor
+1
+V   in the rate formula Eq. (5), indicates that the rate Γ would scale as N12 → 0 unless the l sum
+in Eq. (30) scales with N . This in turn requires the N terms in the l sum to add up coherently,
+which is possible only when i) the phonon momentum k matches the momentum transfer q up
+to reciprocal lattice vectors, which is the statement of lattice momentum conservation, and ii)
+P e
+  l Vlj ∼ N , i.e. the DM couples coherently across the crystal lattice. The second requirement
+
+is trivially satisfied for DM couplings to the scalar quantities hNψ i, tr(hLψ ⊗ S ψ i). For couplings
+to the vector and tensor quantities hS ψ i, hLψ i, hLψ ⊗ S ψ i (modulo the trace part), on the other
+hand, coherence is possible only when they are ordered (or polarized), so that they point in the
+same directions in all primitive cells; in the case of hS ψ i, this can be achieved by spontaneous
+magnetic ordering for ψ = e, or by applying an external magnetic field for ψ = p, n.
+                                                                                           elj = V
+    Up to possible small corrections due to the presence of different isotopes, we can set V     ej ,
+
+which is independent of l. We then obtain the single phonon excitation rate:
+               Z        3n
+             1    d3 q X                     1 X −W (q) iG·x0 q · ∗ν,k,j             2
+    Γ(v) =                  2π δ ω ν,k − ωq          e   j
+                                                            e    j
+                                                                    √      Vej (−q, v)   ,               (31)
+             Ω   (2π)3                       2ων,k                    mj
+                          ν=1                                  j
+
+where Ω is the volume of the primitive cell, x0j is the equilibrium position of the jth ion with
+respect to the cell center, and it is implicit that q = k + G where G is a reciprocal lattice vector.
+                                                               P
+To map q to a vector k within the 1BZ, we first write q = 3i=1 ai bi , with bi the basis vectors
+of the reciprocal lattice, then construct a set of eight candidate G vectors whose components in
+reduced coordinates take the floor and ceiling integer values of ai , and finally choose the correct
+G vector to be the one that minimizes |q − G|.
+                                    ej that enters Eq. (31) is simply given by Eq. (27) above, with
+    The DM-ion scattering potential V
+the l subscripts dropped, assuming hS ψ i, hLψ i, hLψ ⊗ S ψ i are ordered, as explained above; in the
+absence of ordering, the corresponding terms should be dropped (with hLψ ⊗ S ψ i set to its scalar
+component 31 tr(hLψ ⊗ S ψ i) 1 = 13 hLψ · S ψ i 1). In the special case of SI interactions, one has only
+ (ψ)         P (ψ)
+c1 , so Vej = ψ c1 hNψ ij , reproducing the results in Ref. [33], whereas in the full EFT, all four
+crystal responses can contribute to phonon excitations.
+20
+
+
+     Next we move on to magnons. They are collective spin excitations in a magnetically ordered
+                                                                    elj depend on the magnetic
+phase, and can thus respond to DM scattering only if the potentials V
+ions’ effective spins S lj . Generally, S lj can come from the electrons’ spin and orbital angular
+momenta, hS e ilj and hLe ilj , respectively. When projected onto the Hilbert space spanned by S lj ,
+they become
+
+                                      hS e ilj → λS,j S lj ,         hLe ilj → λL,j S lj ,                                   (32)
+
+where λS,j , λL,j are numbers (which we will say more about shortly). Therefore, from Eq. (27) we
+obtain the matrix element for exciting a magnon mode |ν, ki:
+                                                        X
+                                  e
+                           hν, k| V(−q, v)|0i =                eiq·xlj f j (−q, v) · hν, k|S lj |0i ,                        (33)
+                                                         l,j
+
+where
+                  
+                      (e) iq               (e)       (e) q
+                                                            2                  (e)        (e) iq             (e) iq
+f j (−q, v) = λS,j c3a        q̂ × v χ + c4 S χ + c6         2
+                                                               q̂ · S χ q̂ + c7a v χ + c9          q̂ × S χ + c10
+                         me                               me                                  me                   me
+                                                                                                                      
+                   (e)                 (e) iq                 (e) iq                     (e) q
+                                                                                                 2                
+               +c12a v χ × S χ + c13a           v χ · S χ + c14a        (q̂ · S χ ) v χ − c15a 2 q̂ · (v χ × S χ ) q̂
+                                            me                      me                         me
+                                                                         
+                λL,j       (e) q
+                                 2                   (e) iq            
+              +         −c5b 2 1 − q̂ q̂ · S χ + c8b           q̂ × S χ .                                         (34)
+                  2           me                         me
+                                                                  q
+As in Eq. (27), we have defined q ≡ |q|, q̂ ≡ q/q, and v χ = v − 2m χ
+                                                                      .
+     Now we need to compute hν, k|S lj |0i. The calculation follows Ref. [57], which we encourage the
+reader to consult for more details. The magnetic order is captured by a set of rotation matrices
+Rj that take each S lj to a local coordinate system where it points in the +z direction:
+
+                                                                                                      
+                     S lj = Rj · S 0lj ,             hS 0lj i = hSlj0x i, hSlj0y i, hSlj0z i = 0, 0, Sj .                    (35)
+
+We restrict ourselves to commensurate orders, in which case the rotation matrices Rj do not depend
+on the primitive cell label l. We then apply the Holstein-Primakoff transformation and expand S lj
+around the ground state in terms of bosonic creation and annihilation operators:
+
+                                     1/2                                             1/2
+          Slj0x = 2Sj − â†lj âlj          âlj ,   Slj0y = â†lj 2Sj − â†lj âlj          ,   Slj0z = Sj − â†lj âlj .   (36)
+
+Magnon eigenstates are obtained by diagonalizing the spin Hamiltonian, which is specific to the
+target material; in the simplest cases, the target can be modeled by Heisenberg exchange interac-
+tions S lj · S l0 j 0 between neighboring sites, while more complicated model descriptions are needed in
+other cases. For a general spin Hamiltonian, the diagonalization can be achieved by a Bogoliubov
+                                                                                                               21
+
+
+transformation in momentum space:
+                                                                                                
+                      1 X                           
+                                                        âj,k
+                                                             =
+                                                                        Ujν,k   Vjν,k
+                                                                                        ,
+                                                                                             b̂j,k
+              âlj = √         âj,k eik·xlj ,                                                               (37)
+                       N k∈1BZ                       â†j,−k    V∗jν,−k U∗jν,−k   b̂†j,−k
+
+where U, V are n × n matrices (with n the number of magnetic ions per cell), and b̂†j,k , b̂j,k are the
+creation and annihilation operators for the magnon eigenstates satisfying canonical commutation
+relations, [b̂ν,k , b̂†ν 0 ,k0 ] = δνν 0 δk,k0 with all others vanishing. An efficient algorithm for the diagonal-
+ization can be found in Ref. [66] (see also Refs. [57, 79]). Now computing the magnon excitation
+matrix element hν, k|S lj |0i, and hence the DM scattering rate, is reduced to standard algebra. We
+obtain [57, 79]
+             Z           n
+        1          d3 q X                 1 X iG·x0 p    ∗                   ∗
+                                                                                            2
+ Γ(v) =                   2π δ ων,k − ωq      e    j  Sj Ujν,k r j + Vjν,−k r j · f j (−q, v) , (38)
+        Ω         (2π)3                    2
+                       ν=1                         j
+
+where r j = (Rjxx , Rjyx , Rjzx ) + i (Rjxy , Rjyy , Rjzy ). As in the phonon case, it is implicit that k
+matches q up to a reciprocal lattice vector, q = k + G, due to lattice momentum conservation.
+   A comment is in order about the target choice. In the case where the total S lj involve only spin
+degrees of freedom (as is the case for yttrium iron garnet (YIG) discussed in Ref. [57]), λS,j = 1,
+λL,j = 0, and only the first two lines of Eq. (34) are relevant. Targets for which λL,j 6= 0 are more
+exotic. One class of materials with λL,j 6= 0 is spin-orbit-entangled Mott insulators [80–82], where
+the combined effect of crystal fields and spin-orbit coupling results in effective spins Sj = 12 , and
+we can show that λS,j = − 31 , λL,j = − 34 (see Appendix B for details, and Refs. [81–84] for related
+discussion), so the magnetic ions’ effective spins are in fact dominated by their orbital components.
+Perovskite irridates such as Sr2 IrO4 [80, 83] and Kitaev materials Na2 IrO3 , α-RuCl3 [82, 84–86] are
+among the materials with this feature that have been actively studied recently by the condensed
+matter physics community. While perhaps futuristic as DM detectors, such materials have the
+novel feature of being sensitive to DM couplings with electrons’ orbital angular momenta.
+   As a final remark, we note from the derivation above that when the same crystal response,
+hS e i or hLe i, excites both phonons and magnons, the phonon excitation rate is parametrically
+                   q2               
+                             −2 q 2 10 GeV
+                                             10 meV 
+suppressed by mion    ω ∼ 10    keV    mion      ω     . Thus, for example, for the second group
+of operators in Table III with ψ = e, which generates hS e i response, single magnon excitation
+is expected to achieve better sensitivity than single phonon excitation for the same exposure and
+detector efficiency. On the other hand, since phonons can be excited also by other crystal responses,
+they have a broader coverage of the DM theory space. We will investigate the interplay between
+single phonon and magnon excitations in the context of our benchmark models in the next section.
+22
+
+
+                       III.    APPLICATION TO BENCHMARK MODELS
+
+
+     We now apply the general results of the previous section to the set of benchmark models in
+Table II. The first step of the calculation – matching the relativistic model onto the NR EFT – was
+                                                                                     (ψ)
+already done in Sec. II A. The results are the operator coefficients ci                    listed in the second to last
+column of Table II. We then need to substitute these operator coefficients into the formulae derived
+in Secs. II B and II C to compute direct detection rates Γ(v) — Eq. (31) together with Eq. (27) for
+single phonon excitations, and Eq. (38) together with Eq. (34) for single magnon excitations.
+     In order to present the results in a concise way, let us introduce the following definitions. For
+single phonon excitation, we define (cf. Eq. (31))
+
+                               (ψ)
+                                           X                      0  q · ∗ν,k,j
+                              FX,ν (q) ≡            e−Wj (q) eiG·xj p            hXψ ij ,                         (39)
+                                               j
+                                                                      2mj ων,k
+
+                                                                                                           (ψ)
+where X represents one of the crystal responses, X = N , S, L, L ⊗ S; note that FX,ν are vector
+                                                                                              (ψ)    (ψ)            (ψ)
+(tensor) quantities when X = S, L (X = L ⊗ S), and will be written as F X,ν (FX,ν ). These FX,ν
+play the role of form factors for exciting a single phonon via a certain type of response. For single
+magnon excitation, we define (cf. Eq. (38))
+                                                        r
+                                    X iG·x0                 Sj                         
+                        E X,ν (q) ≡  e    j                    U∗jν,k r j + Vjν,−k r ∗j λX,j ,                    (40)
+                                                            2
+                                       j
+
+where X = S, L. These are formally analogous to polarization vectors of a vector field. In both
+Eqs. (39) and (40), k is the phonon momentum inside the 1BZ that satisfies q = k + G for some
+reciprocal lattice vector G; as emphasized below Eq. (31), k is uniquely determined by mapping
+q into the 1BZ through reciprocal lattice vectors. We further define a set of quantities Σν (q), for
+both single phonon and single magnon excitations, by (cf. Eq. (5))
+                                           Z
+                                       1            d3 q X               
+                              Γ(v) ≡                    3
+                                                           2π δ ων,k − ωq Σν (q) .                                (41)
+                                       Ω           (2π) ν
+
+We will refer to Σν (q), which have mass dimension −4, as “differential rates.” Practically, Σν (q)
+                              elj in Eq. (27), substituting hXψ ilj by F (ψ) (for ψ = p, n, e and
+are obtained simply by taking V                                         X,ν
+
+X = N , S, L, L ⊗ S) or E X,ν (for ψ = e only, and X = S, L), squaring it and averaging over the
+DM’s spin (which amounts to replacing Sχi Sχk → 14 δ ik ). As we will see, written in terms of the
+                               (ψ)
+dimensionless quantities FX,ν and E X,ν defined above, Σν (q) can be expressed in a concise form
+for each benchmark model. This will be convenient when we compare the rates between different
+models, and between phonon and magnon excitations.
+                                                                                                   23
+
+
+   Our final results will be presented in terms of the rate per unit target mass,
+                                               Z
+                                         1 ρχ
+                                   R=             d3 v fχ (v) Γ(v) ,                             (42)
+                                        ρT mχ
+where ρT is the target’s mass density that we take from Ref. [87], ρχ = 0.4 GeV/cm3 is the local
+DM mass density, and fχ (v) is the DM’s velocity distribution, taken to be a boosted and truncated
+Maxwell-Boltzmann distribution — see Appendix C for technical details of evaluating the velocity
+integrals. For the projected reach, we assume 3 events per kilogram-year exposure, corresponding
+to 95% C.L. exclusion in a background-free counting experiment, and assume a detector energy
+threshold of 1 meV. While we will present full numerical results, the main features can usually be
+understood by simple parametric estimates. Generally, noting that the velocity integral over the
+energy conserving delta function δ(ων,k − ωq ) yields a function that scales as q −1 (see Appendix C),
+we have from Eqs. (41) and (42), parametrically,
+                                                        Z
+                                            ρχ 1
+                                      R∼                    dq q Σ ,                             (43)
+                                            mχ mcell
+where mcell = ρT Ω is the mass of the primitive cell, and as before, q = |q|. Then, from the formulas
+                                                             (ψ)
+for Σν (q) presented below for each model in terms of FX,ν and E X,ν defined in Eqs. (39) and (40),
+we can estimate the rate R by
+
+                              (ψ)       q                              p
+                            FX,ν ∼ √          hXψ i ,        E X,ν ∼    Sion .                   (44)
+                                       mion ω
+                                                                                                   (ψ)
+In the case of single phonon excitations, we should further note that ω, which appears in FX,ν
+above, can scale differently with q for different models and DM masses. Typically, either acoustic
+phonons (associated with in-phase oscillations) or optical phonons (associated with out-of-phase
+oscillations) dominate the total rate, depending on whether the DM model couples to different ions
+in a correlated or anti-correlated way. For acoustic phonons, and for q within the 1BZ, ω ∼ cs q
+(with cs the sound speed that is typically O(10−5 )), whereas for optical phonons or for q beyond
+the 1BZ, ω ∼ q 0 . The size of the 1BZ is set by the inverse lattice spacing a−1 , and is typically
+O(keV). Since v ∼ O(10−3 ), contributions from outside the 1BZ are possible for DM masses above
+around an MeV. We will see below that in several cases, the curves scale differently for mχ . MeV
+and mχ & MeV for this reason.
+   On the target side, we will consider the following representative set of materials:
+
+    • GaAs [phonons, subject of R&D]. As the first-studied target for DM detection via phonons,
+      GaAs is already in R&D as a target for both electron excitations and phonon excitations [88].
+      Phonons in GaAs form 3 acoustic and 3 optical branches, and have energies up to ∼35 meV.
+24
+
+
+     • SiO2 (quartz) [phonons, optimal sensitivity]. Based on our previous theoretical study com-
+       paring the phonon reach of a variety of target materials [34], we have advocated quartz
+       as having good sensitivity to DM couplings to both acoustic and optical phonons. Also,
+       quartz has complementary features compared to GaAs: while GaAs has a simple crystal
+       structure and relatively low phonon energies, quartz has a large number of phonon branches
+       (3 acoustic, 24 optical), with energies up to ∼ 150 meV.
+
+     • Y3 Fe5 O12 (YIG) [mostly magnons, also phonons for comparison]. YIG is a well studied
+       material with ferrimagnetic order, and is already used in an axion DM detection experiment
+       QUAX [89–93]. The effective spin Hamiltonian is a Heisenberg model, with Sj = 25 for
+       the magnetic Fe3+ ions coming entirely from electron spins hS e i (i.e. λS,j = 1, λL,j = 0
+       in Eq. (40)). We take the antiferromagnetic exchange coupling parameters from Ref. [94],
+       together with the crystal parameters from Ref. [87], to compute the magnon spectrum and
+       rotation matrices. YIG has 20 magnon branches, one of which is gapless and has a quadratic
+       dispersion at small k. The gapped magnons have energies up to ∼ 90 meV. We will mostly
+       consider YIG as a candidate material for DM detection via magnon excitations, but will
+       also consider phonon excitations in YIG via DM couplings to the ordered electron spins in
+       Sec. III A for comparison; in this case the scattering potential is determined by hS e ilj of
+       the Fe3+ ions, which have magnitude 25 and directions set by the ferrimagnetic order. YIG
+       has 80 ions in total in the primitive cell and therefore 240 phonon branches (3 acoustic, 237
+       optical), with energies up to ∼ 120 meV.
+
+     • α-RuCl3 [small-gap magnons with orbital component]. As discussed below Eq. (34), α-
+       RuCl3 is one of the materials where the effective ionic spins involve orbital degrees of free-
+       dom, and is therefore sensitive to DM couplings to the electrons’ orbital angular momenta.
+       The magnetic ions Ru3+ have Slj = 12 , coming from both hS e i and hLe i with λS,j = − 13 ,
+       λL,j = − 34 , as discussed in Appendix B. The effective spin Hamiltonian features Kitaev-
+       type bond-directional exchange couplings. We use the Hamiltonian parameters derived from
+       neutron scattering data in Ref. [95], which also includes an antiferromagnetic Heisenberg
+       exchange; see Ref. [86] for a summary of some alternative model parameterizations derived
+       from a variety of experimental and numerical techniques. The resulting magnetic order
+       is zig-zag antiferromagnetic. Magnons in α-RuCl3 , of which there are 4 branches, are at
+       very low energy, below 7 meV, and can thus probe lighter DM than YIG. Also, since all
+       magnon branches are gapped at zero momentum, the sensitivity is not significantly affected
+                                                                                                   25
+
+
+      by the finite detector threshold. This is in contrast with YIG, where the assumed 1 meV
+      energy threshold limits the momentum transfer to be greater than ∼ 80 eV in order to ex-
+      cite magnons on the gapless branch. Therefore, even though the experimental prospects of
+      α-RuCl3 itself are unclear, it can be regarded as a useful benchmark which highlights the
+      generic advantage of small-gap targets.
+
+   Our main results are Figs. 1-4. We give a brief summary here and discuss them in more detail
+in the following subsections. A major issue of interest is the comparison of sensitivity to various
+types of DM interactions, via single phonon and magnon excitations induced by various crystal
+responses. First, we consider the standard SD interaction in Fig. 1, where we see that magnons
+outperform phonons, typically, by more than an order of magnitude in terms of the coupling reach.
+Next, in Fig. 2, we compare the phonon and magnon rates for the four combinations of scalar
+mediator couplings; the phonon production rate is larger, if the scalar and pseudoscalar couplings
+are of the same order, while magnons allow access to the models where the mediator dominantly
+couples to the pseudoscalar currents of SM fermions. Next, we compare the reach of phonons and
+magnons to multipole models in Fig. 3; for the magnetic dipole and anapole models we expect the
+magnon reach to be better, and indeed it is. However, the phonon reach from quartz is sufficiently
+strong that, given the greater experimental challenges currently associated with magnon read-out,
+quartz should be considered a competitor for these models. Lastly, in Fig. 4, we compare theoretical
+reach in the (L · S)-interacting model, where magnons outperform phonons for sub-MeV DM with
+the same exposure; however, the (L · S)-interacting model is difficult to UV complete, and our
+calculation is perhaps somewhat an academic exercise that demonstrate aspects of the EFT.
+   We now discuss each benchmark model in turn.
+
+
+                           A.   Standard Spin-Dependent Interaction
+
+
+   For the standard SD interaction there is only one operator, O4 , which generates the S response,
+and can excite both phonons and magnons in a magnetically ordered target. Here, only couplings
+to electrons (whose spins are ordered) are relevant, and we obtain, for the differential rates,
+                                                    4gχ2 ge2   (e) 2
+                                   Σν (q)phonon =            F S,ν ,                              (45)
+                                                     m4V
+                                                    4gχ2 ge2      2
+                                   Σν (q)magnon =       4    E S,ν .                              (46)
+                                                     mV
+   In Fig. 1, we compare the phonon and magnon reach with YIG. As a technical note, in the
+absence of a DFT calculation for the crystal potential in YIG which is necessary for computing the
+26
+
+
+                             10−8
+
+                             10−9
+                                                                                    s
+              gχgem2χ/m2V                                           o n − e stimate
+                            10−10                              phon
+                                                                                     n   on
+                                                                                m ag
+                            10−11
+
+                            10−12      Standard SD
+                                       gp = gn = 0                                        YIG
+                                10−3            10−2          10−1                  1              10
+                                                            mχ [MeV]
+
+FIG. 1. Projected reach on the standard SD model listed in Table II from single magnon (red) and phonon
+(blue) excitations in YIG. The phonon rate is estimated in two ways, as discussed in the text, which lead
+to the solid and dashed curves, respectively. Since this model generates only the S response, magnons are
+seen to have better sensitivity than phonons.
+
+
+phonon eigenmodes, we estimate the rate in two ways. First, we carry out an approximate analytic
+calculation taking into account long-wavelength acoustic phonons, as explained in Appendix D.
+This results in the dashed reach curve in Fig. 1, which is truncated at the DM mass for which
+the maximum momentum transfer reaches the edge of the 1BZ, so that the approximations we
+make cease to hold. Second, we borrow the crystal potential of Y3 Ga5 O12 (YGG) which is publicly
+available [96]. YGG has the same crystal structure as YIG, with Fe replaced by Ga, and the
+phonon dispersions we obtain for YGG are very similar to those of YIG [97]. The resulting reach
+is shown by the solid blue curve in Fig. 1. We see from the figure that both estimates are in
+good agreement near mχ ∼ 10−2 MeV, where acoustic phonons dominate, while including optical
+phonon contributions in the second approach improves the reach at lower and higher mχ .
+     We can understand these curves by estimating the rates using Eqs. (43) and (44). The q integrals
+are dominated by qmax ∼ mχ v. As a result,
+
+                                      ρχ 1 gχ2 ge2 Sion 2 Z       q3
+                            Rphonon ∼                         dq
+                                      mχ mcell m4V mion           ω
+                                      
+                                         2 2
+                                       gχ g4e ρχ
+                                                    2
+                                                   Sion
+                                        mV mχ mcell mion cs
+                                                            (mχ v)3    (acoustic, mχ v . a−1 ) ,
+                                    ∼                                                                   (47)
+                                      
+                                       gχ2 ge2 ρχ   2
+                                                   Sion
+                                        m4 mχ mcell mion hωi
+                                                             (mχ v)4   (otherwise) ,
+                                           V
+                                                                                                                      27
+
+                                                         Z
+                               ρχ 1 gχ2 ge2                              gχ2 ge2 ρχ Sion
+                     Rmagnon ∼              Sion                dq q ∼                   (mχ v)2 .                  (48)
+                               mχ mcell m4V                              m4V mχ mcell
+                                                        m2                          1/2           3/2
+Fixing R, the coupling plotted in Fig. 1, gχ ge m2χ scales as mχ , mχ                       and mχ , respectively, in the
+                                                          V
+
+three cases, in agreement with the high-mχ behaviors of the dashed blue, solid blue and red curves
+in Fig. 1, respectively. Also, magnons have better sensitivity than phonons to the SD coupling by
+             q            √
+               Rmagnon      mion ω/Sion
+a factor of    Rphonon  ∼      mχ v     , and the advantage becomes more significant at smaller mχ
+(though the magnon curve hits the kinematic threshold at higher mχ due to the dispersion being
+quadratic).
+
+
+                                          B.   Scalar Mediator Models
+
+
+     We next consider scalar mediator models with both scalar and pseudoscalar couplings. We take
+the mediator couplings to SM fermions to be proportional to their masses, gψ ∝ mψ (motivated by
+Higgs-portal hidden sector theories, see Ref. [98] for a recent review), and consider each of the four
+combinations of currents, which we denote by S × S, P × S, S × P and P × P . Among them, S × S
+(i.e. standard SI considered previously in Refs. [33, 34, 53, 54]) and P × S can excite phonons via
+the N response,8 while S × P and P × P can excite both phonons and magnons in a magnetically
+ordered target via the S response. However, similar to the standard SD interaction in Sec. III A,
+the phonon excitation rate will be suppressed relative to the magnon excitation rate, so we focus
+on the latter here. We obtain the following expressions for the differential rates defined in Eq. (41):
+                                                      gχ2     X        (ψ) 2
+                                Σν (q)S×S
+                                      phonon =      2     2 2
+                                                                gψeff FN,ν ,                                        (49)
+                                                  (q + mφ )
+                                                                     ψ
+
+                                        ×S             gχ2       q 2 X eff (ψ) 2
+                                Σν (q)Pphonon =                       gψ FN,ν ,                                     (50)
+                                                  (q 2 + m2φ )2 4m2χ
+                                                                            ψ
+                                                      gχ2 ge2      q2               2
+                               Σν (q)S×P
+                                     magnon =                          q̂ · E S,ν       ,                           (51)
+                                                  (q 2 + m2φ )2 me   2
+
+
+                                       ×P
+                                                      gχ2 ge2     q4             2
+                               Σν (q)Pmagnon =      2         2 2 2  2
+                                                                       q̂ · E S,ν .                                 (52)
+                                                  (q + mφ ) 4mχ me
+Note that for the S × S and P × S models, screening effects have been taken into account by using
+gψeff in place of gψ , as discussed around Eq. (14); the dielectric tensors ε∞ of the phonon targets
+GaAs and SiO2 are obtained from DFT calculations [56].
+
+8
+    These models generate additional operators when matched onto the NR EFT beyond leading order, which could
+    excite magnons. We do not consider magnon excitation here due to the severely suppressed rate. The same applies
+    to the SI and electric dipole DM models in Sec. III C.
+ 28
+
+
+      1018           −13
+                                              mV  eV                   106 gχge = 10−13                               mV  keV
+      1016 gχge = 10
+                                                                        104                                     S × S − phonon
+      1014                          S × S − phonon                      102
+      1012
+
+
+
+
+                                                                               
+                                                         R × m4V /m4χ kg−1yr−1
+                                                                          1
+      1010
+                                                                       10−2                                     P × S − phonon
+           
+
+
+
+
+       108
+R kg−1yr−1
+
+
+
+
+                                                                       10−4
+       106
+
+
+
+
+                                                                     
+                                    P × S − phonon                     10−6
+       104
+                                                                       10−8
+       102
+ 
+
+
+
+
+                                    S × P − magnon                                                          S × P − magnon
+                                                                      10−10
+         1
+                                                                      10−12
+      10−2
+                                                                      10−14
+      10−4                          P × P − magnon                                                          P × P − magnon
+                                                                      10−16
+      10−6
+                                                                      10−18
+      10−8
+        10−3       10−2          10−1         1         10                    10−3         10−2        10−1            1          10
+                               mχ [MeV]                                                              mχ [MeV]
+
+
+ FIG. 2.        Comparison of the total detection rate in models with a light (left panel) or heavy (right panel)
+                                                                                                                             m
+ scalar mediator. The couplings to SM fermions are taken proportional to their masses, gp = gn = mpe ge ,
+ and we fix gχ ge = 10−13 . Each curve is labeled with the model type as in Table II and the excitation type
+ (phonon or magnon) that can probe each model. The phonon curves assume SiO2 (solid) and GaAs (dashed)
+ targets, and the magnon curves assume YIG (solid) and α-RuCl3 (dashed) targets.
+
+
+      In Fig. 2, we plot the expected rate for each of the four coupling combinations, for a common
+ value for the product of couplings, to illustrate the hierarchy between the rate from the different
+ interactions. We have chosen to show the rate instead of projected reach here so that the general
+ case where more than one types of interactions are present, it would be straightforward to rescale
+                                                                                     (S)      (P )    (S)       (P )
+ the curves to see which one is dominant. For example, if gχ                               ∼ gχ , gψ        ∼ gψ , we have the
+ highest rate from phonon excitations via the S × S coupling, i.e. the standard SI interaction,
+ as expected. On the other hand, if the couplings to SM fermions are dominantly pseudoscalar,
+   (P )   (S)
+ gψ /gψ & 107 , magnon excitations have better sensitivity than phonon excitations for the same
+ exposure; this is one of the benchmark models considered previously in Ref. [57]. The hierarchy
+ seen in Fig. 2, and also some main features of the curves, can be understood following Eqs. (43)
+ and (44), as we now explain.
+      First consider the light mediator case, mV  q (left panel of Fig. 2). For phonon excitations
+ in the S × S and P × S models, since the couplings to all ions have the same sign, the rate is
+ dominated by acoustic phonons. For q within the 1BZ, setting ω ∼ cs q, we obtain
+                                              2 Z                 ρχ hNp,n i2 1
+                S×S      ρχ 1      2 2 hNp,n i        1
+              Rphonon ∼           gχ gp           dq    ∼ gχ2 gp2                    ,                                       (53)
+                         mχ mcell       mion         qω           mχ mcell mion ωmin
+                                                                                                          29
+
+                                                 2 Z                    ρχ hNp,n i2
+                    P ×S     ρχ 1     2 2 hNp,n i           q                          v
+                   Rphonon ∼         g g               dq     ∼ gχ2 gp2                     ,            (54)
+                             mχ mcell χ p mion m2χ          ω           mχ mcell mion mχ cs
+
+where ωmin = cs qmin . These are consistent with the m−1     −2
+                                                      χ and mχ scaling of the green and
+
+purple curves for mχ up to ∼ MeV. Also, consistent with the figure, the ratio between them is
+ P ×S
+Rphonon                            −1            −5
+ S×S      ∼ ωmmin v
+               χ cs
+                    ∼ 10−6 1ωmeV
+                             min 10  MeV v 10
+                                    mχ  10−3 cs
+                                                for couplings of the same size. For heavier DM, on
+Rphonon
+the other hand, momentum transfers beyond the 1BZ are allowed. For the S × S model, this is
+irrelevant since the integral is dominated by small q, so the m−1
+                                                               χ trend continues past MeV. For the
+
+P × S model, since the integral is dominated by high q where ω no longer scales with q, we have
+ v2              v
+hωi in place of mχ cs    in Eq. (54). This explains the m−1
+                                                         χ scaling of the purple curves past mχ ∼
+
+MeV in the left panel of Fig. 2.
+   For magnon excitations in the S × P and P × P models, we have
+                                              Z
+                  S×P        ρχ 1 2 2 Sion        1            ρχ Sion
+                Rmagnon ∼            gχ ge 2    dq ∼ gχ2 ge2               ,                             (55)
+                            mχ mcell      me       q          mχ mcell m2e
+                                                Z
+                  P ×P       ρχ 1 2 2 Sion                       ρχ Sion
+                Rmagnon  ∼           gχ ge 2 2    dq q ∼ gχ2 ge2              v2 ,                       (56)
+                            mχ mcell      me mχ                  mχ mcell m2e
+
+again consistent with the m−1
+                           χ scaling of the corresponding curves in Fig. 2 (though the YIG
+
+curves have a bump near MeV due to the gapped magnons starting to contribute, as discussed
+in Ref. [57], which slightly obscures the overall scaling with mχ ). Comparing the two models,
+               P ×P
+              Rmagnon
+we see that    S×P    ∼ v2.    Also, comparing with phonon excitation in the S × S model, we have
+              Rmagnon
+  S×P        2
+Rmagnon
+  S×S   ∼ gge2 Sion mion ωmin
+                       2 2    ∼ ωmmin ∼ 10−14 1ωmeV
+                                                min 100 GeV
+                                                      mion , assuming similar values of mcell , mion for the
+Rphonon     p hNp,n i me          ion
+
+targets and Sion ∼ O(1), and noting that gpeff ≃ gp and ge /gp = me /mp . This is consistent with
+what we see in Fig. 2.
+   The heavy mediator case, mV  q (right panel of Fig. 2), follows a similar analysis. All the q
+integrals are now peaked at qmax ∼ mχ v, and we find
+                                                 
+                                       Z          gχ2 gp2 ρχ hNp,n i2
+                                            q 3  m4V mχ mcell mion cs (mχ v)          (mχ v . a−1 ) ,
+                                                                              3
+       S×S       ρχ 1 gχ2 gp2 hNp,n i2
+     Rphonon ∼                           dq    ∼                                                         (57)
+                mχ mcell m4V mion           ω    
+                                                  gχ2 gp2 ρχ hNp,n i2 (m v)4
+                                                        m4V mχ mcell mion hωi   χ      (mχ v & a−1 ) ,
+      P ×S          S×S
+     Rphonon ∼ v 2 Rphonon ,                                                                             (58)
+                                 Z
+      S×P       ρχ 1 gχ gp2 Sion
+                           2                     gχ2 ge2 ρχ Sion
+     Rmagnon ∼                           dq q 3 ∼ 4              (mχ v)4 ,                               (59)
+               mχ mcell m4V m2e                  mV mχ mcell m2e
+      P ×P
+     Rmagnon ∼ v 2 Rmagnon
+                    S×P
+                            .                                                                            (60)
+
+These equations explain both the hierarchy of the rates for the four models, and the mχ scaling: in
+              m4
+all cases, R mV4 ∼ m−1                                                 −2
+                    χ at large mχ , while the phonon curves switch to mχ scaling below ∼ MeV.
+               χ
+30
+
+                                                               10−6                                                        10−3
+        10−2                   gn = 0, gp = −ge
+
+        10−4                 GaAs                              10−7                                                        10−4
+                                                                                               GaAs
+                                                                                                                                                     GaAs
+        10−6                          gχana                    10−8                                                        10−5
+        10−8                                                                            SiO2                                                       SiO2
+gχ ge
+
+
+
+
+                                                       gχ ge
+
+
+
+
+                                                                                                                   gχ ge
+                                      gχmdm                    10−9                                                        10−6
+        10−10
+        10−12                         gχedm                    10−10                                  YIG                  10−7
+                                                                                                                                                              YIG
+        10−14                                                  10   −11     α − RuCl3
+                                                                                                                           10   −8     α − RuCl3
+                                                                                           Magnetic Dipole                                                     Anapole
+                             SiO2     gχSI
+        10−16                                                                              gn = 0, gp = −ge                                           gn = 0, gp = −ge
+           10−3   10−2     10−1      1            10                 10−3     10−2     10−1       1           10                10−3     10−2     10−1       1           10
+                         mχ [MeV]                                                    mχ [MeV]                                                   mχ [MeV]
+
+
+FIG. 3.           Projected reach on the multipole DM models listed in Table II, assuming dark photon-like
+couplings to SM particles: gp = −ge , gn = 0. The left panel shows the hierarchy of sensitivities of single
+phonon excitations, in GaAs and in SiO2 , to the three multipole DM models, together with the SI interaction
+model for comparison. The center and right panels focus on the magnetic dipole and anapole DM models,
+respectively, and compare the phonon reach of GaAs and SiO2 (via the N response), and the magnon reach
+of YIG (via the S response) and α-RuCl3 (via both S and L responses); these models are best probed by
+magnons, though the phonon sensitivity with an optimal target like SiO2 may be competitive.
+
+
+                                              C.               Multipole Dark Matter Models
+
+
+         We now turn to the electric dipole, magnetic dipole, and anapole DM models in Table II. For
+comparison, we also include the SI interaction model with a vector mediator. Motivated by the
+kinetic mixing benchmark, we assume the mediator couples to electric charge, gp = −ge , gn = 0,
+and is much lighter than the smallest momentum transfer, mV  eV. The SI and electric dipole
+DM models generate O1 and O11 at leading order, respectively, both of which induce only the N
+response, which can be probed by single phonon excitation. The differential rates are
+                                                          gχ2 ge2     (p)       (e) 2
+                                      Σν (q)SI
+                                            phonon =                F     −  F N,ν ,                                                                                (61)
+                                                     (q · ε∞ · q)2 N,ν
+                                                          gχ2 ge2   q2      (p)       (e) 2
+                                      Σν (q)edm
+                                            phonon =                      F      −  F N,ν .                                                                         (62)
+                                                     (q · ε∞ · q)2 4m2χ N,ν
+
+Eq. (61) is in agreement with previous results in Refs. [33, 34, 54]. The magnetic dipole and the
+anapole DM models generate, in addition to N , also S and L responses, and can therefore be
+probed by both phonons and magnons. For single phonon excitation, we have
+                             
+         mdm
+                   gχ2 ge2           q4        q2      (p)     (e) 2
+   Σν (q)phonon =     2    2               2      2
+                                                    FN,ν − FN,ν
+                  4mχ q (q · ε∞ · q) 4mχ
+                                   q4                               
+                                                         (p)     (e)
+                        +                  (q̂ ×  v)   F N,ν − F N,ν
+                             (q · ε∞ · q)2
+                                                                                                           31
+
+                                                                                                 2 
+                                           iq        (p)      (p)
+                                                                         iq        (e)     (e)
+                          −(1 − q̂ q̂) ·         µp F S,ν + F L,ν −
+                                                2e                             2e
+                                                                                µe F S,ν + F L,ν        , (63)
+                                         2mp                             2me
+                                                                     
+         ana
+                  gχ2 ge2      q4                q        (p)       (e)
+   Σν (q)phonon =                         v  −          F N,ν −  F N,ν
+                  16m4χ (q · ε∞ · q)2          2mχ
+                                      iq                              iq                       2
+                                                    (p)      (p)                      (e)     (e)
+                                +         × 2e µp F S,ν + F L,ν −           × 2e µe F S,ν + F L,ν     . (64)
+                                    2mp                                2me
+                                                             (ψ)      (ψ)
+Note that for an unordered/unpolarized target, F S,ν = F L,ν = 0. For single magnon excitation,
+we have
+                                              gχ2 ge2                                     2
+                       Σν (q)mdm
+                             magnon =             2   2
+                                                        (1 − q̂ q̂) · (2e
+                                                                        µe E S,ν + E L,ν ) ,             (65)
+                                            16mχ me
+                                              gχ2 ge2                          2
+                       Σν (q)ana
+                             magnon =                 q × (2e
+                                                            µe E S,ν + E L,ν )   ,                       (66)
+                                            64m4χ m2e
+which extend the results in Ref. [57].
+   A comparison of the phonon reach in these models is shown in the left panel of Fig. 3. The center
+and right panels of Fig. 3 zoom in on the magnetic dipole and anapole DM models, respectively,
+and compare the reach of phonon and magnon excitations.
+   We can carry out a similar analysis as in the previous subsections to understand the main
+                                                                                                   (ψ)
+features in Fig. 3. For single phonon excitation in GaAs and SiO2 , we keep only the FN,ν terms
+in the Σν (q) formulae above, and note that, as in the SI case discussed previously in Refs. [33, 34,
+53, 54], the DM-ion couplings, being proportional to hNp i − hNe i = Qion , have opposite signs for
+oppositely charged ions, so the optical phonon modes with ω ∼ q 0 give the dominant contributions.
+Using Eqs. (43) and (44), we obtain the following parametric estimates:
+                                              Z                                
+                SI        ρχ 1 gχ2 ge2 Q2ion       1    2 2 ρχ        Q2ion
+              Rphonon ∼                         dq ∼ gχ ge                        ,                      (67)
+                         mχ mcell ε2∞ mion ω       q        mχ ε2∞ mcell mion ω
+                 edm
+                Rphonon        mdm
+                              Rphonon        ana
+                                            Rphonon
+                 SI
+                          ∼    edm
+                                        ∼
+                                       mdm
+                                             ∼ v2 ,                                                      (68)
+                Rphonon       Rphonon
+                                    Rphonon
+                                          Z
+                mdm       ρχ Sion gχ2 ge2             2 2 ρχ Sion v
+                                                                    2
+               Rmagnon ∼                    dq q ∼  g  g
+                                                     χ e               ,                                 (69)
+                         mχ mcell m2χ m2e                 mχ mcell m2e
+                ana
+               Rmagnon
+                mdm
+                       ∼ v2 .                                                                            (70)
+               Rmagnon
+   Several comments are in order. First, Eq. (68) explains the hierarchy of sensitivity of phonon
+excitations to the four models in the left panel of Fig. 3, while Eq. (70) shows a similar hierarchy
+of sensitivity of magnon excitations to the magnetic dipole and anapole DM models. Also, note
+                                                                        1/2
+that in all cases, R ∼ m−1
+                        χ , so the reach on gχ ge scales as mχ , as seen in Fig. 3.
+
+   Next, let us compare the reach of different target materials, and via phonons versus magnons.
+For phonon excitations, the factor in parentheses in Eq. (67) reproduces the “quality factor”
+32
+
+
+identified in Ref. [34], up to O(1) factors we have dropped here. It captures the material properties
+that determine the sensitivity to the SI model with a dark photon mediator, and is the quantity
+to maximize in order to optimize target choice. For example, SiO2 has a quality factor that is
+about 80 times that of GaAs, which explains its significantly better reach, by almost an order of
+magnitude on the coupling gχ ge , as seen in Fig. 3 (and also previously in Ref. [34]).
+     For magnon excitations for the magnetic dipole and anapole DM models, we have considered
+YIG, which probes only the S response, and α-RuCl3 , which probes both S and L. Since for these
+models, DM couples to the linear combination 2S e + Le – the spin of an elementary particle has
+a Landé g-factor of 2 – the additional L response that α-RuCl3 has does not qualitatively improve
+the sensitivity. Indeed, we see from Fig. 3 that YIG and α-RuCl3 have very similar reach around
+mχ ∼ 0.1 MeV. At higher mχ , YIG performs better due to additional contributions from the large
+number of gapped magnon modes. On the other hand, α-RuCl3 extends the reach down to much
+lower mχ ∼ keV. As discussed previously, this is because the magnon modes at zero momentum
+are gapped at a few meV (in contrast to YIG which has a gapless magnon branch that dominates
+the coupling to DM in the low momentum transfer limit).
+     Finally, we can compare the magnon and phonon excitation rates for the two models (magnetic
+                                                                            Q2 p     m2
+                                                                                     1 meV
+dipole and anapole DM) where both are available. Let us denote Q ≡ ε2ion mcell m ion   ω , which is
+                                                                             ∞
+
+the phonon quality factor with the dimensionful parameters normalized in a way close to Ref. [34].
+Its values are typically O(10−7 -10−5 ), with GaAs and SiO2 residing on the lower and higher ends
+of the interval, respectively. We find
+                     mdm        ana                                                 
+                    Rphonon    Rphonon   Q mcell m2e v 2                    Q
+                            ∼         ∼                  ∼ 10−4                          ,         (71)
+                     mdm
+                    Rmagnon    ana
+                              Rmagnon   Sion m2p · 1 meV                1.4 × 10−7
+where mcell is for the target for magnon excitations, and we have substituted the numbers for YIG
+in the last equation. We see that, for the magnetic dipole and anapole DM models, magnons are
+indeed more sensitive than phonons, though choosing high phonon quality factor targets, such as
+SiO2 with Q ∼ 10−5 can approach the magnon sensitivity. Up to O(1) factors, this is consistent
+with the center and right panels of Fig. 3.
+
+
+                               D.   (L · S)-Interacting Dark Matter
+
+
+     We finally consider the (L · S)-interacting DM model, which induces N , S and L ⊗ S responses.
+Taking the mediator to couple only to electrons for simplicity, we obtain the differential rates:
+                                                                                         
+                   gχ2 ge2     q2 h          (e)                       (e)   i     iq           (e)
+                                                                                                     2
+ Σν (q)phonon = 2                   (1 + κ)F N,ν + 2 tr (1 − q̂ q̂) · FL⊗S,ν    +      × v   · F S,ν
+               (q + m2V )2    4m2e                                                  me
+                                                                                                                    33
+
+
+        10−6                                                           10−1
+
+        10−7                                                           10−2
+                    SiO2      GaAs                                                SiO2       GaAs
+
+        10−8                                                           10−3
+
+
+
+
+                                                         gχgem2χ/m2V
+gχ ge
+
+
+
+
+        10−9                                                           10−4
+
+                  α − RuCl3
+        10−10                                                          10−5                          YIG
+                                       YIG
+                                                                                α − RuCl3
+        10−11                                                          10−6
+                  mV  eV             gp = gn = 0                               mV  keV             gp = gn = 0
+
+           10−3       10−2       10−1         1     10                   10−3       10−2        10−1       1        10
+                               mχ [MeV]                                                       mχ [MeV]
+
+FIG. 4.         Projected reach on the (L · S)-interacting DM model in Table II, assuming coupling only to
+electrons, and κ = 0. Single phonon excitations in GaAs and SiO2 targets (via the N response) and single
+magnon excitations in YIG and α-RuCl3 targets (via the S response) are seen to cover complementary
+regions of parameter space.
+
+                                                              
+                                  q4                    (e) 2
+                              + 2 2 (1 − q̂ q̂) · F S,ν         ,                                                  (72)
+                                4mχ me
+                                                                           
+                   gχ2 ge2  q2 q2                        2               2
+  Σν (q)magnon = 2                   (1 − q̂ q̂) · E S,ν + q̂ × v · E S,ν     .                                    (73)
+                (q + m2V )2 m2e 4m2χ
+                                             (e)
+In the absence of magnetic order, F S,ν = 0. Also, unless κ is tuned to be very close to −1, we do
+                       (e)
+not expect the FL⊗S,ν term in Eq. (72) to dominate — the total spin-orbit coupling vanishes for
+full shells, and is otherwise often suppressed by crystal fields, especially for lighter elements. Thus,
+while an interesting feature of this model, the coupling to L · S does not suggest a better probe
+than searching for phonon excitations via the N response with already proposed target materials.
+                                       (e)
+In Fig. 4, we include only the FN,ν term when computing phonon reach for GaAs and SiO2 , and
+for concreteness set κ = 0. Since the total electron numbers of ions are all positive, the rate is
+dominated by acoustic phonons, with ω ∼ cs q. Again using Eqs. (43) and (44), we can estimate
+                                                
+                                     Z                           2
+                                                gχ2 ge2 ρχ hNe i (mχ v)4
+                                                                          3
+               ρχ 1         hN e i 2      q 3
+                                                         m  m     m   m  c
+                                                                            (mχ v . a−1 ) ,
+                        2 2                               χ   cell ion e s
+    Rphonon ∼          g g             dq     ∼                                              (74)
+              mχ mcell χ e mion m4e       ω     
+                                                g 2 g 2 ρχ hNe i2 (mχ v)4            −1 ) ,
+                                                  χ e mχ mcell mion m4 hωi  (mχ v & a
+                                                                                         e
+34
+
+
+for a light mediator (mV  q), and
+                                                      
+                                       Z                2 2
+                                                       gχ g4e ρχ    hNe i2 (mχ v)7
+                 ρχ 1 gχ2 ge2 hNe i2           q7     mV mχ mcell mion m4e cs
+                                                                                        (mχ v . a−1 ) ,
+       Rphonon ∼                            dq    ∼                                                             (75)
+                 mχ mcell m4V mion m4e         ω    
+                                                     gχ2 ge2 ρχ hNe i2 (mχ v)8
+                                                            m4V mχ mcell mion m4e hωi
+                                                                                        (mχ   v & a−1 ) ,
+
+for a heavy mediator (mV  q). These equations explain the scaling of the phonon curves in
+                                              −3/2
+Fig. 4: fixing R, we obtain gχ ge ∼ m−1
+                                     χ (mχ           ) for mχ below (above) about an MeV in the light
+                                      m2
+mediator case, and the same for gχ ge m2χ    in the heavy mediator case.
+                                       V
+
+     The magnon reach curves for YIG and α-RuCl3 can be understood in a similar way. We have
+                                                   Z
+                               ρχ 1      2 2 Sion                   ρχ Sion v 2
+                   Rmagnon ∼            gχ ge 2 2    dq q ∼ gχ2 ge2                      (76)
+                               mχ mcell      me mχ                  mχ mcell m2e
+
+for a light mediator (mV  q), and
+                                                        Z
+                             ρχ 1 gχ2 ge2 Sion                          gχ2 ge2 ρχ Sion m4χ v 6
+                   Rmagnon ∼                                 dq q 5 ∼                                           (77)
+                             mχ mcell m4V m2e m2χ                       m4V mχ mcell m2e
+
+                                                                                                        m2
+for a heavy mediator (mV  q). In contrast to the phonon case, the reach on gχ ge (gχ ge m2χ ) in the
+                                                                                                            V
+                                       1/2
+light (heavy) mediator case scales as mχ . So the magnon reach becomes better at lower mχ , as we
+can see in Fig. 4. In particular, magnons outperform phonons for mχ below about an MeV, which
+                                          Rphonon     hNe i2 m3 v      mχ 3 hNe i 2 10 GeV v 10−5
+we can understand from the estimate: Rmagnon      ∼ Sion mion mχ2 cs ∼ MeV    10       mion 10−3 cs ,
+                                                                        e
+
+assuming similar mcell and mion for the targets and Sion ∼ O(1).
+
+
+                                      IV.     CONCLUSIONS
+
+
+     We have formulated an EFT framework for computing direct detection rates via single phonon
+and magnon excitations for general DM interactions, and illustrated its application with a set of
+benchmark models, listed in Table II, that cover a wide range of possibilities for a spin- 21 DM
+particle interacting with SM fermions ψ = p, n, e (proton, neutron and electron). The procedure
+consists of first matching a relativistic DM model onto a set of NR effective operators, listed in
+Table III, and then matching these operators onto lattice degrees of freedom, including particle
+numbers hNψ i, spins hS ψ i, orbital angular momenta hLψ i and spin-orbit couplings Lψ ⊗ S ψ for
+the ψ = p, n, e particles in an ion. These define the four types of crystal responses and enter the
+rate formula for single phonon excitation, while a subset of them – hS e i and hLe i – also enter the
+rate formula for single magnon excitation.
+     A practical prescription for computing direct detection rates, as explained around Eq. (41),
+utilizes the central formula, Eq. (27), which gives the lattice scattering potential in terms of the
+                                                                                                  35
+
+                               (ψ)                           (ψ)
+effective operator coefficients ci . Upon plugging in the ci ’s generated by a relativistic theory
+of DM (listed in Table II for our benchmark models), one simply replaces the ionic expectation
+                   (ψ)
+values hXψ ilj by FX,ν defined in Eq. (39) (for ψ = p, n, e and X = N , S, L, L ⊗ S) or E X,ν defined
+in Eq. (40) (for ψ = e and X = S, L), squares the expression and takes the DM spin average. This
+gives the differential rates Σν (q), which are then substituted into Eqs. (41) and (42) for the total
+rate of single phonon or magnon excitation.
+   The set of crystal responses that we have identified point to various possibilities of optimizing
+detector target choice. However, a general observation from our calculations in Sec. III is that,
+among the four types of crystal responses, hNψ i and hS ψ i, which are associated with point-like
+degrees of freedom, tend to dominate the rate, compared to the composite responses hLψ i and
+ Lψ ⊗ S ψ . This implies that, purely from the point of view of maximizing the rate, exotic
+materials with orbital orders or strong spin-orbit couplings are not necessary for improving the
+reach to a broad class of DM models.
+   Meanwhile, as phonon DM experiments focused on crystal targets, such as SPICE (Sub-eV Polar
+Interactions Cryogenic Experiment), which is part of the TESSERACT (Transition Edge Sensors
+with Sub-EV Resolution And Cryogenic Targets) project [88], move into R&D, it is important to
+note that their discovery potential extends well beyond the simplest models with spin-independent
+interactions studied previously. As we showed in Sec. III, phonon excitations have broad sensitivity
+to light DM models. Perhaps surprisingly, with judicious choice of target material, phonon exci-
+tations may even be competitive with magnon excitations for some DM models where the latter
+is expected to have a parametrically higher rate, such as the magnetic dipole and anapole DM
+models. Given the greater challenges associated with single magnon detection relative to phonons,
+this is encouraging for phonon-based experiments in the near term.
+
+   Acknowledgments. We thank Jason Alicea, Sinéad Griffin, Thomas Harrelson, David Hsieh,
+Katherine Inzani, Chunxiao Liu, Andrea Mitridate and Mengxing Ye for useful discussion. Special
+thanks to Andrea Mitridate for discussions and collaboration on related work that helped clarify
+the treatment of in-medium effects. This work is supported by the Quantum Information Science
+Enabled Discovery (QuantISED) for High Energy Physics (KA2401032).
+36
+
+
+                   Appendix A: Nonrelativistic Matching for a Fermion Field
+
+
+     In this appendix, we review the procedure of decomposing a Dirac fermion field ψ in the NR
+limit. Consider the following unperturbed relativistic Lagrangian:
+
+                                 L0 = ψ̄ i(∂µ − iAµ )γ µ ψ − mψ ψ̄ψ .                                 (A1)
+
+In free space, we would expand the ψ field in plane waves multiplied by the usual u, v spinors
+satisfying the free particle Dirac equation. Here, we allow the presence of an external gauge
+potential Aµ = (Φ, A), which may not be a small perturbation. For example, if ψ is an electron
+in a crystal, it is bound by the electromagnetic potential from the ions, and the bound state
+wavefunctions are very different from plane waves. Generally, we can expand the ψ field in the
+basis of energy eigenstate wavefunctions. Dropping the antiparticle part, we have
+                                       X                     X
+                           ψ(x, t) =       uI (x, t) b̂I =       e−iEI t uI (x) b̂I ,                 (A2)
+                                       I                     I
+
+where the c-number uI spinors satisfy
+                                                                  
+                        EI γ 0 − iγ · ∇ − mψ − γ 0 Φ(x) + γ · A(x) uI (x) = 0 .                       (A3)
+
+Writing
+                                                            
+                                          1  ΨI (x) + Θ I (x)
+                                 uI (x) = √                 ,                                       (A4)
+                                           2 ΨI (x) − ΘI (x)
+
+with ΨI , ΘI two-component wavefunctions, we see that Eq. (A3) is solved by
+                                                       
+                                      iσ · ∇ − iA(x)
+                             ΘI (x) =                    ΨI (x) .                                     (A5)
+                                       EI + mψ − Φ(x)
+
+This immediately leads to Eq. (8), repeated here for easy reference:
+                                                                      
+                                                       σ·k      + (x, t)
+                                           1     1 − 2mψ +ε   ψ
+                        ψ(x, t) = e−imψ t √                           ,                           (A6)
+                                            2    1 + σ·k      ψ + (x, t)
+                                                             2mψ +ε
+
+                                                             P     −iεI t Ψ (x) b̂ with ε = E − m .
+where k = −i∇ − A, ε = i∂t − Φ, and ψ + (x, t) =                 Ie        I      I      I   I   ψ    The
+prefactor has been chosen such that the NR field ψ ± ’s kinetic term is normalized at leading order
+as in Eq. (11).
+     In the NR limit, |ΘI |  |ΦI |. The large component ΨI satisfies
+                                                                     
+                                    1                      
+          −σ · ∇ − iA(x)                       σ · ∇ − iA(x) + Φ(x) ΨI (x) = εI ΨI (x) .              (A7)
+                             2mψ + εI − Φ(x)
+                                                                                                                        37
+
+
+At leading order, we replace 2mψ +ε1I −Φ(x) → 2m1 ψ , and recover the NR Schrödinger equation:
+
+                              2                          
+                      ∇ − iA(x)      1              
+                    −             +     σ · ∇ × A(x) + Φ(x) ΨI (x) = εI ΨI (x) .                                     (A8)
+                         2mψ        2mψ
+
+Corrections to this equation can be incorporated order by order if needed.
+
+
+                        Appendix B: Projection of Angular Momentum Operators
+
+
+   In this appendix, we detail the steps that lead to the numbers λS,j = − 13 , λL,j = − 43 in the
+case of α-RuCl3 , following the projection of angular momentum operators S e , Le in Eq. (32).
+The formation of effective ionic spins Sj = 21 is due to the combined effect of crystal fields and
+spin-orbit coupling [82]. First, octahedral crystal fields split the five degenerate 3d orbitals (` = 2)
+of Ru3+ into two higher-energy eg orbitals and three lower-energy t2g orbitals with an effective
+orbital moment `eff = 1. The energy difference between the eg and t2g orbitals is O(eV), rendering
+the (unoccupied) eg orbitals irrelevant for the discussion. For the t2g orbitals, spin-orbit coupling
+further splits these `eff = 1 states into jeff = 23 and 12 . With five 3d electrons, the lower-energy
+jeff = 32 states are fully occupied, while the higher-energy jeff = 21 Kramers doublet is occupied
+by a single electron — it is this electron that contributes to the magnetic order. Therefore, the
+goal is to project the angular momentum operators S, L (dropping subscript e from here on for
+simplicity) onto the jeff = 12 subspace.
+   The first step is to project L onto the t2g subspace. The t2g states are denoted by dyz , dzx , dxy .
+                                                                                         m (θ, φ)
+The angular part of their wavefunctions are linear combinations of spherical harmonics Y`=2
+(see e.g. Ref. [99]); equivalently, these t2g states are linear combinations of |`, m` i states with ` = 2:
+
+
+
+           i                                          1                                        i                
+ |dyz i = √ |2, 1i + |2, −1i ,             |dzx i = − √ |2, 1i − |2, −1i ,           |dxy i = − √ |2, 2i − |2, −2i .
+            2                                           2                                         2
+                                                                                                                 (B1)
+To compute Pt2g L Pt2g , with the projection operator
+
+                                     Pt2g = |dyz ihdyz | + |dzx ihdzx | + |dxy ihdxy | ,                             (B2)
+
+we make use of the familiar formulae
+                                                                              p
+  h`0 , m0` |Lz |`, m` i = m` δ`0 ,` δm0` ,m` ,    h`0 , m0` |L± |`, m` i =    (` ∓ m` )(` ± m` + 1) δ`0 ,` δm0` ,m` ±1 ,
+                                                                                                                     (B3)
+38
+
+
+where L± = Lx ± iLy , and obtain, for the matrix representation in the |dyz i, |dzx i, |dxy i basis:
+                                                                               
+                              0 i 0                                  0 0 ±1
+                                                                               
+                                                                               
+            Pt2g Lz Pt2g =
+                         ˙ −i 0 0  ,             Pt2g L± Pt2g =
+                                                                ˙ 0 0 i.                        (B4)
+                                                                               
+                              0 0 0                                 ∓1 −i 0
+
+These might not look familiar, but they are nothing but ` = 1 angular momentum operators in the
+|px i, |py i, |pz i basis, which is related to the |`, m` i basis with ` = 1 by [99]
+
+                   1                                            i                
+        |px i = − √ |1, 1i − |1, −1i ,                  |py i = √ |1, 1i + |1, −1i ,                      |pz i = |1, 0i .    (B5)
+                    2                                             2
+The angular momentum operators in this basis read
+                                                            
+                           0 −i 0                       0 0 ∓1
+                                                            
+                                                            
+                      ˙  i 0 0,
+                   Lz =                             ˙  0 0 −i  .
+                                                 L± =                                                                         (B6)
+                                                            
+                           0 0 0                        ±1 i 0
+
+Comparing Eq. (B4) and (B6), we see that L acts as an effective angular momentum with ` = 1
+on the t2g subspace:
+
+                                                                          (`=1)
+                                                    Pt2g L Pt2g = −Leff           .                                           (B7)
+
+     The second step is to combine this effective orbital angular momentum `eff = 1 with the elec-
+tron’s spin s = 12 . This follows the standard angular momentum addition, and we obtain, for the
+jeff = 12 states:
+                                            q                                         q
+               jeff = 12 , mjeff = 21 =         2
+                                                3    m`eff = 1, ms = − 12 −               1
+                                                                                          3   m`eff = 0, ms = 21 ,            (B8)
+                                            q                                         q
+             jeff = 21 , mjeff = − 21 =         1
+                                                3    m`eff = 0, ms = − 12 −               2
+                                                                                          3   m`eff = −1, ms = 12 ,           (B9)
+
+where the coefficients are Clebsch-Gordan coefficients. It is now straightforward to project Leff
+and S onto the jeff = 21 subspace:
+                                                                                                               
+                                                2                                                                 4
+                                                         0                                                0
+                    Pjeff = 1 Leff
+                               z Pjeff = 1 =
+                                           ˙   3              ,     Pjeff = 1 Leff         ˙ 
+                                                                                 + Pjeff = 1 =
+                                                                                                                  3
+                                                                                                                       ,     (B10)
+                          2             2
+                                                    0   − 23                  2               2
+                                                                                                          0       0
+                                                                                                               
+                                              − 61 0                                                  0 − 13
+                                           ˙ 
+                    Pjeff = 1 Sz Pjeff = 1 =         ,                                    ˙ 
+                                                                    Pjeff = 1 S+ Pjeff = 1 =                      .         (B11)
+                            2            2
+                                               0 61                       2               2
+                                                                                                      0       0
+
+We see that both Leff and S are proportional to J eff = σ2 (identified as the total ionic spin as
+discussed above) when acting on the jeff = 12 subspace. So finally, we obtain
+
+                                                           4                                               1
+      Pjeff = 1 L Pjeff = 1 = −Pjeff = 1 Leff Pjeff = 1 = − J eff ,               Pjeff = 1 S Pjeff = 1 = − J eff .          (B12)
+              2           2            2              2    3                              2           2    3
+                                                                                                      39
+
+
+                                   Appendix C: Velocity Integrals
+
+
+   When the velocity dependent rate Γ(v), given by Eq. (41), is convoluted with the incoming DM’s
+velocity distribution fχ (v) to yield the total rate, Eq. (42), we encounter the following scalar, vector
+and tensor velocity integrals:
+                                             Z
+                              g0 (q, ω) ≡        d3 v fχ (v) 2πδ(ω − ωq ) ,                         (C1)
+                                             Z
+                             g 1 (q, ω) ≡        d3 v fχ (v) 2πδ(ω − ωq ) v χ ,                     (C2)
+                                             Z
+                             g2 (q, ω) ≡         d3 v fχ (v) 2πδ(ω − ωq ) v χ v χ ,                 (C3)
+
+                 q                       q          2
+where v χ = v − 2m χ
+                     , and ωq = q · v − 2m χ
+                                             . From the expressions of differential rates Σν (q)
+throughout Sec. III, it should be easy to see how these integrals emerge. Note that for velocity-
+independent interactions, only the scalar integral g0 appears [33, 43, 54].
+   As we now show, all three velocity integrals above can be evaluated analytically for a boosted
+and truncated Maxwell-Boltzmann distribution, which we assume in this work:
+
+                                         1 −(v+ve )2 /v02                    
+                             fχ (v) =       e             Θ vesc − |v + v e | ,                     (C4)
+                                         N0
+
+where
+                                         "                                         #
+                                                               2 vesc           
+                        N0 = π 3/2 v02   v0 erf vesc /v0                 2     2
+                                                               − √ exp −vesc /v0 ,                  (C5)
+                                                                   π
+
+and we take v0 = 230 km/s, vesc = 600 km/s, ve = 240 km/s. For all the target materials considered
+in Sec. III, the rates are insensitive to the direction of v e . The analytic results obtained here are
+                                                                                   R     R
+key to efficient rate calculations, as they reduce the six-dimensional integral d3 v d3 q to just a
+                             R
+three-dimensional integral d3 q, which we then compute numerically.
+   First, the scalar integral g0 follows from Refs. [33, 43, 54]. Shifting v → v − v e , we obtain
+                           Z                                                          
+                       2π      3   −v 2 /v02                                  q2
+           g0 (q, ω) =        d ve           Θ(vesc − v) δ q · v − q · v e −        −ω
+                       N0                                                    2mχ
+                            Z                     Z 1                                      
+                       4π 2 vesc              2 2                                      q2
+                     =           dv v 2 e−v /v0        d cos θ δ qv cos θ − q · v e −     −ω .    (C6)
+                       N0 0                         −1                                2mχ
+
+Let us define
+                                              
+                            1             q2                                           
+                       v∗ ≡     q · ve +     +ω ,                 v− ≡ min |v∗ | , vesc .           (C7)
+                            q            2mχ
+
+We then obtain
+40
+
+
+
+                                          Z                         Z 1                     
+                                    4π 2 vesc             −v 2 /v02                       v∗
+                        g0 (q, ω) =                dv v e               d cos θ δ cos θ −
+                                    N0 q 0                           −1                   v
+                                          Z   v
+                                    4π 2       esc
+                                                             2    2
+                                  =                dv v e−v /v0
+                                    N0 q v−
+                                    2π 2 v02  −v− 2 /v 2         2
+                                                       0 − e−vesc /v0
+                                                                      2
+                                                                        
+                                  =            e                          .                                   (C8)
+                                     N0 q
+
+     Next, the vector integral g 1 can be decomposed as
+                                   Z                                
+                                       3                          q
+                       g 1 (q, ω) = d v fχ (v)(v + v e ) − v e +       g0 (q, ω) .                            (C9)
+                                                                 2mχ
+
+The first term can be computed by shifting v → v − v e as before, but this time the integrand also
+depends on the azimuthal angle φ:
+ Z                             Z                                                                 
+    3                     2π          3    −v 2 /v02                                     q2
+   d v fχ (v)(v + v e ) =           d ve             Θ(vesc − v) δ q · v − q · v e −          −ω v
+                          N0                                                            2mχ
+                                Z                          Z 1                                           
+                          4π 2 vesc            3 −v 2 /v02                                        q2
+                        =                 dv v e                 d cos θ δ qv cos θ − q · v e −        −ω
+                          N0 0                                −1                                 2mχ
+                                Z 2π
+                                         dφ                                           
+                                              cos θ q̂ + sin θ (cos φ n̂1 + sin φ n̂2 )
+                                   0     2π
+                             2      Z vesc                     Z 1                                         
+                          4π                      3 −v 2 /v02                                       q2
+                        =       q̂          dv v e                 d cos θ δ qv cos θ − q · v e −       − ω cos θ
+                          N0         0                          −1                                 2mχ
+                                    Z vesc                     Z 1                      
+                          4π 2                     2 −v 2 /v02                        v∗
+                        =        q̂         dv v e                  d cos θ δ cos θ −       cos θ
+                          N0 q         0                        −1                    v
+                                       Z vesc
+                          4π 2 v∗                        2    2
+                        =           q̂         dv v e−v /v0 = v∗ q̂ g0 (q, ω) ,                               (C10)
+                           N0 q          v−
+
+where n̂1 , n̂2 are orthogonal unit vectors in the plane perpendicular to q. Plugging in the definition
+of v∗ in Eq. (C7), we obtain
+                                                                            
+                                                     ω
+                                  g 1 (q, ω) =         q̂ − (1 − q̂ q̂) · v e g0 (q, ω) .                    (C11)
+                                                     q
+
+     Finally, we compute the tensor integral g2 , which can be similarly decomposed as
+                  Z                                                                         
+                      3                                               q                      q
+      g2 (q, ω) = d v fχ (v)(v + v e )(v + v e ) − v e +                     q̂ + q̂ v e +          v∗ g0 (q, ω)
+                                                                    2mχ                     2mχ
+                                                 
+                              q                  q
+                  + ve +             ve +              g0 (q, ω)
+                             2mχ              2mχ
+                  Z
+                = d3 v fχ (v)(v + v e )(v + v e )
+                                                                                  
+                        ω                           ω                             2
+                  +       q̂ − (1 − q̂ q̂) · v e      q̂ − (1 − q̂ q̂) · v e − v∗ q̂ q̂ g0 (q, ω) ,            (C12)
+                        q                           q
+                                                                                                                    41
+
+
+where we have used Eq. (C10). The remaining integral can be evaluated similarly to Eq. (C10):
+       Z
+         d3 v fχ (v)(v + v e )(v + v e )
+               Z vesc                    Z 1                                    
+        4π 2               4 −v 2 /v02                                  q2
+      =           dv v e               d cos θ δ qv cos θ − q · v e −         −ω
+        N0   0                      −1                                 2mχ
+            Z 2π
+                 dφ                                                                                    
+                      cos θ q̂ + sin θ(cos φ n̂1 + sin φ n̂2 ) ⊗ cos θ q̂ + sin θ(cos φ n̂1 + sin φ n̂2 )
+             0   2π
+            Z                      Z 1                                                      
+        4π 2 vesc      3 −v 2 /v02                        v∗         2         1   2
+      =           dv v e               d cos θ δ cos θ −         cos θ q̂ q̂ + sin θ(1 − q̂ q̂)
+        N0 q 0                      −1                     v                   2
+            Z                                                     
+        4π 2 vesc           2  2             1
+      =           dv v e−v /v0 v∗2 q̂ q̂ + (v 2 − v∗2 )(1 − q̂ q̂)
+        N0 q v−                              2
+                                          π 2 v02 h 2                  2   2                          2     2
+                                                                                                              i
+      = v∗2 q̂ q̂ g0 (q, ω) + (1 − q̂ q̂)          (v0 − v∗2 + v−
+                                                                2
+                                                                  ) e−v− /v0 − (v02 − v∗2 + vesc
+                                                                                               2
+                                                                                                 ) e−vesc /v0
+                                          N0 q
+                                          π 2 v02 h 2 −v−2 /v 2                         2    2
+                                                                                               i
+                                                             0 − (v 2 − v 2 + v 2 ) e−vesc /v0 ,
+      = v∗2 q̂ q̂ g0 (q, ω) + (1 − q̂ q̂)          v0 e             0    −     esc                                (C13)
+                                          N0 q
+where we have used n̂1 n̂1 + n̂2 n̂2 = 1 − q̂ q̂. Therefore,
+                                                                               
+                             ω                           ω
+              g2 (q, ω) =      q̂ − (1 − q̂ q̂) · v e       q̂ − (1 − q̂ q̂) · v e g0 (q, ω)
+                             q                           q
+                                        π 2 v02 h 2 −v−  2 /v 2                           2  2
+                                                                                               i
+                                                             0 − (v 2 − v 2 + v 2 ) e−vesc /v0 .
+                           +(1 − q̂ q̂)          v0 e               0      −      esc                             (C14)
+                                        N0 q
+   The following relations between the velocity integrals often help simplify the calculation:
+
+                  q · g 1 (q, ω) = ω g0 (q, ω) ,           q · g2 (q, ω) = g2 (q, ω) · q = ω g 1 (q, ω) .         (C15)
+
+They follow from q · v χ = ωq , and can be easily checked using the explicit expressions above.
+
+
+                 Appendix D: Estimation of Single Phonon Excitation Rate in YIG
+
+
+   In this appendix, we explain the analytic estimation that results in the dashed curve in Fig. 1.
+For the standard SD interaction considered in Sec. III A, the single phonon excitation rate is
+                                        Z
+                             4gχ2 ge2 1    d3 q X                   (e) 2
+                     Γ(v) =      4             3
+                                                   2π δ ων,k − ωq F S,ν ,                      (D1)
+                              mV Ω        (2π) ν
+
+where
+
+                                 (e)
+                                                X                      0  q · ∗ν,k,j
+                               F S,ν (q) =               e−Wj (q) eiG·xj p            hS e ij .                   (D2)
+                                                      3+
+                                                                           2mj ων,k
+                                               j=Fe
+
+See Eqs. (41), (45) and (39). For YIG, ν runs from 1 to 240. However, since DM has same-sign
+couplings to all the Fe3+ ions (and zero couplings to the other ions), we expect acoustic phonons
+42
+
+
+to give an O(1) contribution to the total rate at low momentum transfer. Further, the dot product
+             (e)
+q · ∗ν,k,j in F S,ν singles out the longitudinal acoustic branch, ν = 3, which has the following general
+properties at low momentum [100]:
+                                                                        r
+                                                                            mj
+                               ων=3,k ≃ cs k ,           ν=3,k,j ≃               k̂ ,                 (D3)
+                                                                            mcell
+
+where cs is the longitudinal acoustic sound speed. Also, we can set G = 0, k = q, and Wj ≃ 0 at
+low q. Therefore,
+                                       r                X                   r
+                         (e)                  q                                    q
+                       F S,ν=3 (q) ≃                            hS e ij =                   S cell ,   (D4)
+                                           2mcell cs                            2mcell cs
+                                                       j=Fe3+
+
+and the velocity-dependent rate becomes
+                                      Z
+                       gχ2 ge2 2Scell
+                                 2
+                                           d3 q                
+                Γ(v) ≃ 4                        2
+                                                   δ cs q − ωq q
+                        mV Ωmcell cs      (2π)
+                         2   2   2      Z          Z                                 
+                       gχ ge    Scell            3                                 q2
+                     = 4                   dq q       d cos θ δ cs q − qv cos θ +
+                        mV πΩmcell cs                                             2mχ
+                         2   2            Z
+                       gχ ge     2
+                                Scell 1                              
+                     = 4                     dq q 2 Θ v − vmin (q) ,                                   (D5)
+                        mV πΩmcell cs v
+
+where
+
+                                                              q
+                                            vmin (q) ≡           + cs .                                (D6)
+                                                             2mχ
+
+Now we can write the total rate per unit target mass in terms of the commonly used η function,
+defined by
+                                                  Z
+                                                             f (v)
+                                  η(vmin ) ≡          d3 v         Θ(v − vmin ) .                      (D7)
+                                                               v
+
+The result is
+                                                      Z
+                               1 ρχ gχ2 ge2 Scell
+                                               2                          
+                           R≃           4               dq q 2 η vmin (q)
+                              ρT mχ mV πΩmcell cs
+                                                    Z
+                               1   Scell 2 gχ2 ge2 ρχ                     
+                            =                  4        dq q 2 η vmin (q) .                            (D8)
+                              πcs mcell     mV mχ
+
+This is the formula we use to estimate the single phonon excitation rate in YIG in Sec. III A.
+The material parameters are cs = 7.2 km/s [101], Scell = 10, mcell = ρT Ω, with ρT = 4.95 g/cm3 ,
+Ω = 990.683 Å3 . The analytic expression for the η(vmin ) function for the Maxwell-Boltzmann
+distribution of Eq. (C4) can be found in e.g. Ref. [33]. Since the η function has support up to
+qmax ≃ 2mχ (ve + vesc ), we cut off the dashed curve in Fig. 1 at the mχ value for which qmax reaches
+ π
+Ω1/3
+     , roughly the edge of the 1BZ.
+                                                                                                        43
+
+
+
+
+ [1] C. Boehm and P. Fayet, Nucl. Phys. B 683, 219 (2004), arXiv:hep-ph/0305261.
+ [2] M. Pospelov, A. Ritz, and M. B. Voloshin, Phys. Lett. B662, 53 (2008), arXiv:0711.4866 [hep-ph].
+ [3] D. Hooper and K. M. Zurek, Phys. Rev. D77, 087302 (2008), arXiv:0801.3686 [hep-ph].
+ [4] J. Kumar and J. L. Feng, AIP Conf. Proc. 1200, 1059 (2010), arXiv:0909.2877 [hep-ph].
+ [5] N. Arkani-Hamed and N. Weiner, JHEP 12, 104 (2008), arXiv:0810.0714 [hep-ph].
+ [6] C. Cheung, J. T. Ruderman, L.-T. Wang,           and I. Yavin, Phys. Rev. D80, 035008 (2009),
+    arXiv:0902.3246 [hep-ph].
+ [7] D. E. Morrissey, D. Poland, and K. M. Zurek, JHEP 07, 050 (2009), arXiv:0904.2567 [hep-ph].
+ [8] D. E. Kaplan, M. A. Luty,     and K. M. Zurek, Phys. Rev. D79, 115016 (2009), arXiv:0901.4117
+    [hep-ph].
+ [9] T. Cohen, D. J. Phalen, A. Pierce, and K. M. Zurek, Phys. Rev. D82, 056001 (2010), arXiv:1005.1655
+    [hep-ph].
+[10] L. J. Hall, K. Jedamzik, J. March-Russell, and S. M. West, JHEP 03, 080 (2010), arXiv:0911.1120
+    [hep-ph].
+[11] Y. Hochberg, E. Kuflik, T. Volansky,     and J. G. Wacker, Phys. Rev. Lett. 113, 171301 (2014),
+    arXiv:1402.5143 [hep-ph].
+[12] E. Aprile et al. (XENON), Phys. Rev. Lett. 123, 251801 (2019), arXiv:1907.11485 [hep-ex].
+[13] R. Agnese et al. (SuperCDMS), Phys. Rev. D 99, 062001 (2019), arXiv:1808.09098 [astro-ph.CO].
+[14] P. Agnes et al. (DarkSide), Phys. Rev. Lett. 121, 081307 (2018), arXiv:1802.06994 [astro-ph.HE].
+[15] X. Cui et al. (PandaX-II), Phys. Rev. Lett. 119, 181302 (2017), arXiv:1708.06917 [astro-ph.CO].
+[16] D. Akerib et al. (LUX), Phys. Rev. Lett. 122, 131301 (2019), arXiv:1811.11241 [astro-ph.CO].
+[17] M. Pyle, E. Feliciano-Figueroa, and B. Sadoulet, (2015), arXiv:1503.01200 [astro-ph.IM].
+[18] H. J. Maris, G. M. Seidel, and D. Stein, Phys. Rev. Lett. 119, 181303 (2017), arXiv:1706.00117
+    [astro-ph.IM].
+[19] J. Rothe et al., J. Low Temp. Phys. 193, 1160 (2018).
+[20] I. Colantoni et al., J. Low Temp. Phys. 199, 593 (2020).
+[21] C. Fink et al., AIP Adv. 10, 085221 (2020), arXiv:2004.10257 [physics.ins-det].
+[22] R. Essig, J. Mardon, and T. Volansky, Phys. Rev. D85, 076007 (2012), arXiv:1108.5383 [hep-ph].
+[23] P. W. Graham, D. E. Kaplan, S. Rajendran, and M. T. Walters, Phys. Dark Univ. 1, 32 (2012),
+    arXiv:1203.2531 [hep-ph].
+[24] S. K. Lee, M. Lisanti, S. Mishra-Sharma,      and B. R. Safdi, Phys. Rev. D 92, 083517 (2015),
+    arXiv:1508.07361 [hep-ph].
+[25] R. Essig, M. Fernandez-Serra, J. Mardon, A. Soto, T. Volansky, and T.-T. Yu, JHEP05, JHEP 05,
+    046 (2016), arXiv:1509.01598 [hep-ph].
+[26] R. Essig, T. Volansky, and T.-T. Yu, Phys. Rev. D96, 043017 (2017), arXiv:1703.00910 [hep-ph].
+44
+
+
+[27] R. Catena, T. Emken, N. A. Spaldin,          and W. Tarantino, Phys. Rev. Res. 2, 033195 (2020),
+     arXiv:1912.08204 [hep-ph].
+[28] S. Derenzo, R. Essig, A. Massari, A. Soto,        and T.-T. Yu, Phys. Rev. D96, 016026 (2017),
+     arXiv:1607.01009 [hep-ph].
+[29] R. Agnese et al. (SuperCDMS), Phys. Rev. Lett. 121, 051301 (2018), [Erratum: Phys.Rev.Lett. 122,
+     069901 (2019)], arXiv:1804.10697 [hep-ex].
+[30] N. A. Kurinsky, T. C. Yu, Y. Hochberg,          and B. Cabrera, Phys. Rev. D 99, 123005 (2019),
+     arXiv:1901.07569 [hep-ex].
+[31] O. Abramoff et al. (SENSEI), Phys. Rev. Lett. 122, 161801 (2019), arXiv:1901.10478 [hep-ex].
+[32] A. Aguilar-Arevalo et al. (DAMIC), Phys. Rev. Lett. 123, 181802 (2019), arXiv:1907.12628 [astro-
+     ph.CO].
+[33] T. Trickle, Z. Zhang, K. M. Zurek, K. Inzani, and S. Griffin, JHEP 03, 036 (2020), arXiv:1910.08092
+     [hep-ph].
+[34] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang, and K. M. Zurek, Phys. Rev. D 101, 055004 (2020),
+     arXiv:1910.10716 [hep-ph].
+[35] E. Andersson, A. Bökmark, R. Catena, T. Emken, H. K. Moberg, and E. Åstrand, JCAP 05, 036
+     (2020), arXiv:2001.08910 [hep-ph].
+[36] L. Barak et al. (SENSEI), (2020), arXiv:2004.11378 [astro-ph.CO].
+[37] R. Catena, T. Emken, M. Matas, N. A. Spaldin, and E. Urdshals, Phys. Rev. Res. 3, 033149 (2021),
+     arXiv:2105.02233 [hep-ph].
+[38] Y. Hochberg, Y. Zhao, and K. M. Zurek, Phys. Rev. Lett. 116, 011301 (2016), arXiv:1504.07237
+     [hep-ph].
+[39] Y. Hochberg, M. Pyle, Y. Zhao, and K. M. Zurek, JHEP 08, 057 (2016), arXiv:1512.04533 [hep-ph].
+[40] C. Blanco, J. Collar, Y. Kahn, and B. Lillard, Phys. Rev. D 101, 056001 (2020), arXiv:1912.02822
+     [hep-ph].
+[41] Y. Hochberg, Y. Kahn, M. Lisanti, C. G. Tully, and K. M. Zurek, Phys. Lett. B772, 239 (2017),
+     arXiv:1606.08849 [hep-ph].
+[42] Y. Hochberg, Y. Kahn, M. Lisanti, K. M. Zurek, A. G. Grushin, R. Ilan, S. M. Griffin, Z.-F. Liu, S. F.
+     Weber, and J. B. Neaton, Phys. Rev. D97, 015004 (2018), arXiv:1708.08929 [hep-ph].
+[43] A. Coskuner, A. Mitridate, A. Olivares, and K. M. Zurek, (2019), arXiv:1909.09170 [hep-ph].
+[44] R. M. Geilhufe, F. Kahlhoefer, and M. W. Winkler, (2019), arXiv:1910.02091 [hep-ph].
+[45] K. Schutz and K. M. Zurek, Phys. Rev. Lett. 117, 121302 (2016), arXiv:1604.08206 [hep-ph].
+[46] S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D95, 056019 (2017), arXiv:1611.06228 [hep-ph].
+[47] F. Acanfora, A. Esposito, and A. D. Polosa, Eur. Phys. J. C79, 549 (2019), arXiv:1902.02361 [hep-ph].
+[48] A. Caputo, A. Esposito, and A. D. Polosa, Phys. Rev. D 100, 116007 (2019), arXiv:1907.10635
+     [hep-ph].
+                                                                                                      45
+
+
+[49] A. Caputo, A. Esposito, E. Geoffray, A. D. Polosa, and S. Sun, Phys. Lett. B 802, 135258 (2020),
+    arXiv:1911.04511 [hep-ph].
+[50] G. Baym, D. Beck, J. P. Filippini, C. Pethick, and J. Shelton, Phys. Rev. D 102, 035014 (2020),
+    arXiv:2005.08824 [hep-ph].
+[51] Y. Hochberg, T. Lin, and K. M. Zurek, Phys. Rev. D94, 015019 (2016), arXiv:1604.06800 [hep-ph].
+[52] Y. Hochberg, T. Lin, and K. M. Zurek, Phys. Rev. D95, 023013 (2017), arXiv:1608.01994 [hep-ph].
+[53] S. Knapen, T. Lin, M. Pyle, and K. M. Zurek, Phys. Lett. B785, 386 (2018), arXiv:1712.06598
+    [hep-ph].
+[54] S. Griffin, S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D98, 115034 (2018), arXiv:1807.10291
+    [hep-ph].
+[55] B. Campbell-Deem, P. Cox, S. Knapen, T. Lin, and T. Melia, Phys. Rev. D 101, 036006 (2020),
+    [Erratum: Phys.Rev.D 102, 019904 (2020)], arXiv:1911.03482 [hep-ph].
+[56] S. M. Griffin, Y. Hochberg, K. Inzani, N. Kurinsky, T. Lin, and T. C. Yu, (2020), arXiv:2008.08560
+    [hep-ph].
+[57] T. Trickle, Z. Zhang, and K. M. Zurek, Phys. Rev. Lett. 124, 201801 (2020), arXiv:1905.13744
+    [hep-ph].
+[58] A. Fitzpatrick, W. Haxton, E. Katz, N. Lubbers, and Y. Xu, JCAP 02, 004 (2013), arXiv:1203.3542
+    [hep-ph].
+[59] M. Cirelli, E. Del Nobile, and P. Panci, JCAP 10, 019 (2013), arXiv:1307.5955 [hep-ph].
+[60] N. Anand, A. L. Fitzpatrick, and W. Haxton, Phys. Rev. C 89, 065501 (2014), arXiv:1308.6288
+    [hep-ph].
+[61] M. I. Gresham and K. M. Zurek, Phys. Rev. D 89, 123521 (2014), arXiv:1401.3739 [hep-ph].
+[62] N. Anand, A. L. Fitzpatrick, and W. Haxton, Phys. Procedia 61, 97 (2015), arXiv:1405.6690 [nucl-th].
+[63] E. Del Nobile, Phys. Rev. D 98, 123003 (2018), arXiv:1806.01291 [hep-ph].
+[64] T. Trickle, Z. Zhang, and K. M. Zurek, https://phonodark.caltech.edu.
+[65] A. Togo and I. Tanaka, Scripta Materialia 108, 1 (2015).
+[66] S. Toth and B. Lake, Journal of Physics: Condensed Matter 27, 166002 (2015).
+[67] A. Fitzpatrick and K. M. Zurek, Phys. Rev. D 82, 075004 (2010), arXiv:1007.5325 [hep-ph].
+[68] B. Grzadkowski, M. Iskrzynski, M. Misiak, and J. Rosiek, JHEP 10, 085 (2010), arXiv:1008.4884
+    [hep-ph].
+[69] M. Pospelov and T. ter Veldhuis, Phys. Lett. B 480, 181 (2000), arXiv:hep-ph/0003010.
+[70] C. M. Ho and R. J. Scherrer, Phys. Lett. B 722, 341 (2013), arXiv:1211.0503 [hep-ph].
+[71] K. Sigurdson, M. Doran, A. Kurylov, R. R. Caldwell, and M. Kamionkowski, Phys. Rev. D 70, 083501
+    (2004), [Erratum: Phys.Rev.D 73, 089903 (2006)], arXiv:astro-ph/0406355.
+[72] E. Masso, S. Mohanty, and S. Rao, Phys. Rev. D 80, 036009 (2009), arXiv:0906.1979 [hep-ph].
+[73] G. D. Kribs, T. S. Roy, J. Terning, and K. M. Zurek, Phys. Rev. D 81, 095001 (2010), arXiv:0909.2034
+    [hep-ph].
+46
+
+
+ [74] T. Banks, J.-F. Fortin, and S. Thomas, (2010), arXiv:1007.5515 [hep-ph].
+ [75] S. Knapen, T. Lin, and K. M. Zurek, Phys. Rev. D96, 115021 (2017), arXiv:1709.07882 [hep-ph].
+ [76] G. B. Gelmini, V. Takhistov, and E. Vitagliano, Phys. Lett. B 809, 135779 (2020), arXiv:2006.13909
+     [hep-ph].
+ [77] X. Gonze and C. Lee, Physical Review B 55, 10355 (1997).
+ [78] R. M. Martin, Electronic Structure (Cambridge University Press, 2004).
+ [79] A. Mitridate, T. Trickle, Z. Zhang, and K. M. Zurek, (2020), arXiv:2005.10256 [hep-ph].
+ [80] G. Jackeli and G. Khaliullin, Physical Review Letters 102 (2009).
+ [81] W. Witczak-Krempa, G. Chen, Y. B. Kim, and L. Balents, Annual Review of Condensed Matter
+     Physics 5, 57–82 (2014).
+ [82] S. Trebst, “Kitaev materials,” (2017), arXiv:1701.07056 [cond-mat.str-el].
+ [83] B. J. Kim, H. Jin, S. J. Moon, J.-Y. Kim, B.-G. Park, C. S. Leem, J. Yu, T. W. Noh, C. Kim, S.-J.
+     Oh, and et al., Physical Review Letters 101 (2008).
+ [84] S. M. Winter, A. A. Tsirlin, M. Daghofer, J. van den Brink, Y. Singh, P. Gegenwart, and R. Valentı́,
+     Journal of Physics: Condensed Matter 29, 493002 (2017).
+ [85] K. W. Plumb, J. P. Clancy, L. J. Sandilands, V. V. Shankar, Y. F. Hu, K. S. Burch, H.-Y. Kee, and
+     Y.-J. Kim, Physical Review B 90 (2014).
+ [86] L. Janssen, E. C. Andrade, and M. Vojta, Physical Review B 96 (2017).
+ [87] A. Jain et al., APL Materials 1, 011002 (2013).
+ [88] C. Chang et al., “Snowmass 2021 Letter of Interest: The TESSARACT Dark Matter Project,” (2020).
+ [89] G. Ruoso, A. Lombardi, A. Ortolan, R. Pengo, C. Braggio, G. Carugno, C. S. Gallo, and C. C.
+     Speake, J. Phys. Conf. Ser. 718, 042051 (2016), arXiv:1511.09461 [hep-ph].
+ [90] R. Barbieri, C. Braggio, G. Carugno, C. Gallo, A. Lombardi, A. Ortolan, R. Pengo, G. Ruoso, and
+     C. Speake, Phys. Dark Univ. 15, 135 (2017), arXiv:1606.02201 [hep-ph].
+ [91] N. Crescini et al., Eur. Phys. J. C 78, 703 (2018), [Erratum: Eur.Phys.J.C 78, 813 (2018)],
+     arXiv:1806.00310 [hep-ex].
+ [92] D. Alesini et al., Phys. Rev. D 99, 101101 (2019), arXiv:1903.06547 [physics.ins-det].
+ [93] N. Crescini et al. (QUAX), Phys. Rev. Lett. 124, 171801 (2020), arXiv:2001.08940 [hep-ex].
+ [94] V. Cherepanov, I. Kolokolov, and V. L’vov, Physics Reports 229, 81 (1993).
+ [95] A. Banerjee et al., Nature Materials 15, 733 (2016).
+ [96] A. Togo, “Phonon Database at Kyoto University,” (2020).
+ [97] L.-W. Wang, L.-S. Xie, P.-X. Xu, and K. Xia, Physical Review B 101 (2020).
+ [98] G. Arcadi, A. Djouadi, and M. Raidal, Phys. Rept. 842, 1 (2020), arXiv:1903.03616 [hep-ph].
+ [99] J. M. D. Coey, Magnetism and Magnetic Materials (Cambridge University Press, 2001) , Sec. 4.4.2.
+[100] P. Cox, T. Melia, and S. Rajendran, Phys. Rev. D 100, 055011 (2019), arXiv:1905.05575 [hep-ph].
+[101] A. E. Clark and R. E. Strakna, Journal of Applied Physics 32, 1172 (1961).
+

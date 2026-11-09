@@ -1,0 +1,62 @@
+% Preamble: Springer-monograph conventions on the standard book class.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,inner=30mm,outer=25mm,top=28mm,bottom=30mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage[scr=boondoxo]{mathalpha} % lowercase script letters (number densities)
+\usepackage[separate-uncertainty=true,per-mode=symbol]{siunitx}
+\usepackage{graphicx}
+\usepackage[section]{placeins} % floats stay within their section
+\usepackage{booktabs}
+\usepackage{array,longtable} % Appendix F table
+\usepackage{pdflscape} % Appendix F table in landscape
+\usepackage{capt-of} % numbered figure captions inside limit boxes
+\usepackage[most]{tcolorbox}
+\usepackage[backend=biber,style=numeric-comp,sorting=none,refsection=chapter,maxbibnames=6,giveninits=true,doi=true,eprint=true]{biblatex}
+\addbibresource{bib/book.bib}
+\setcounter{biburlnumpenalty}{9000}\setcounter{biburlucpenalty}{9000}\setcounter{biburllcpenalty}{9000}% let long DOIs break
+\usepackage[hidelinks]{hyperref}
+\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
+% Springer-style cross-reference names: "Sect.", "Chap.", "Eq.", "Fig."
+\crefname{section}{Sect.}{Sects.}
+\crefname{chapter}{Chap.}{Chaps.}
+\crefname{appendix}{Appendix}{Appendices}
+\crefname{equation}{Eq.}{Eqs.}
+\crefname{figure}{Fig.}{Figs.}
+\crefname{table}{Table}{Tables}
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{1}
+% Boxed environments
+% Limit boxes: \begin{limitbox}[Title][lim:N.Mx] ... \end{limitbox}; numbered "Limit Check N.M" (user ruling: "Limit" clashed with exclusion limits) within the chapter.
+% The second optional argument is a \label for the box counter; a bare \label at the start of the body also
+% works (before any \captionof, which relabels to the figure). Refer with \cref{lim:...} -> "Limit Check N.M".
+\makeatletter
+\DeclareTColorBox[auto counter,number within=chapter]{limitbox}{O{} o}{%
+  enhanced,breakable,colback=white,colframe=black!60,boxrule=0.5pt,arc=0pt,
+  fonttitle=\bfseries,title={Limit Check~\thetcbcounter.\ #1},IfValueT={#2}{label={#2}},
+  code={\appto\kvtcb@phantom{\global\let\lim@currentlabel\@currentlabel
+    \global\let\lim@crefcurrentlabel\cref@currentlabel\global\let\lim@currentHref\@currentHref}},
+  before upper={\let\@currentlabel\lim@currentlabel\let\cref@currentlabel\lim@crefcurrentlabel
+    \let\@currentHref\lim@currentHref}}
+\crefname{tcb@cnt@limitbox}{Limit Check}{Limit Checks}
+\Crefname{tcb@cnt@limitbox}{Limit Check}{Limit Checks}
+\crefname{limitbox}{Limit Check}{Limit Checks}
+\Crefname{limitbox}{Limit Check}{Limit Checks}
+\makeatother
+\newtcolorbox{keyresult}[1][]{enhanced,breakable,colback=black!3,colframe=black!40,boxrule=0.4pt,arc=0pt,
+  fonttitle=\bfseries,title={#1}}
+\newcounter{workedexample}[chapter]\renewcommand{\theworkedexample}{\thechapter.\arabic{workedexample}}
+% Worked examples: boxed, with a blue tint distinct from the grey limit-check and key-result boxes (user ruling 2026-11-03).
+\definecolor{weframe}{RGB}{38,84,140}\definecolor{weback}{RGB}{240,245,252}
+\newenvironment{workedexample}[1]{\par\medskip\refstepcounter{workedexample}%
+  \begin{tcolorbox}[enhanced,breakable,colback=weback,colframe=weframe,boxrule=0.5pt,arc=0pt,
+    left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries,coltitle=white,
+    title={Worked example \theworkedexample: #1}]}{\end{tcolorbox}\par\medskip}
+\crefname{workedexample}{Worked example}{Worked examples}
+\setlength{\emergencystretch}{1.5em}% third pass only for paragraphs that would otherwise overflow
+\input{macros}

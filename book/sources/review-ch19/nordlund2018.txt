@@ -1,0 +1,572 @@
+                  ARTICLE
+                  DOI: 10.1038/s41467-018-03415-5               OPEN
+
+                  Improving atomic displacement and replacement
+                  calculations with physically realistic damage
+                  models
+                  Kai Nordlund 1, Steven J. Zinkle 2,3, Andrea E. Sand 1, Fredric Granberg 1, Robert S. Averback4,
+                  Roger Stoller3, Tomoaki Suzudo 5, Lorenzo Malerba6, Florian Banhart7, William J. Weber 3,8,
+                  Francois Willaime 9, Sergei L. Dudarev 10 & David Simeone11
+1234567890():,;
+
+
+
+
+                  Atomic collision processes are fundamental to numerous advanced materials technologies
+                  such as electron microscopy, semiconductor processing and nuclear power generation.
+                  Extensive experimental and computer simulation studies over the past several decades
+                  provide the physical basis for understanding the atomic-scale processes occurring during
+                  primary displacement events. The current international standard for quantifying this energetic
+                  particle damage, the Norgett−Robinson−Torrens displacements per atom (NRT-dpa) model,
+                  has nowadays several well-known limitations. In particular, the number of radiation defects
+                  produced in energetic cascades in metals is only ~1/3 the NRT-dpa prediction, while the
+                  number of atoms involved in atomic mixing is about a factor of 30 larger than the dpa value.
+                  Here we propose two new complementary displacement production estimators (athermal
+                  recombination corrected dpa, arc-dpa) and atomic mixing (replacements per atom, rpa)
+                  functions that extend the NRT-dpa by providing more physically realistic descriptions of
+                  primary defect creation in materials and may become additional standard measures for
+                  radiation damage quantiﬁcation.
+
+
+
+
+                  1 Department of Physics, University of Helsinki, P.O.Box 43, Helsinki FI-00014, Finland. 2 Department of Nuclear Engineering, University of Tennessee,
+
+                  Knoxville, TN 37996, USA. 3 Materials Science & Technology Division, Oak Ridge National Laboratory, P.O. Box 2008, Oak Ridge, TN 37831, USA.
+                  4 Department of Materials Science & Engineering, University of Illinois, Urbana, IL 61801, USA. 5 Japan Atomic Energy Agency Center for Computational
+
+                  Science and e-Systems, Tokai, Ibaraki 319-1195 Japan. 6 SCK-CEN, Institute for Nuclear Materials Science, 2400 Mol, Belgium. 7 Institut de Physique et
+                  Chimie des Matériaux, CNRS, UMR 7504, Université de Strasbourg, 67000 Strasbourg, France. 8 Department of Materials Science and Engineering,
+                  University of Tennessee, Knoxville, TN 37996, USA. 9 DEN-Département des Matériaux pour le Nucléaire, CEA, Université Paris-Saclay, 91191 Gif-sur-Yvette,
+                  France. 10 Culham Centre for Fusion Energy, UK Atomic Energy Authority, Abingdon, Oxfordshire OX14 3DB, UK. 11 DEN/DMN/SRMA/LA2M-LRC
+                  CARMEN, CEA, Université Paris-Saclay, 91191 Gif-sur-Yvette, France. Correspondence and requests for materials should be addressed to
+                  K.N. (email: kai.nordlund@helsinki.ﬁ)
+
+                  NATURE COMMUNICATIONS | (2018)9:1084                     | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications                       1
+ARTICLE                                                                                NATURE COMMUNICATIONS | DOI: 10.1038/s41467-018-03415-5
+
+
+
+
+Q
+         uantiﬁcation of the amount of displacement damage                      the one hand overestimates the number of stable defects by a
+         introduced by energetic particle interactions in matter is             factor of 3 to 4 (refs. 11–14), and on the other hand underestimates
+         important for a broad range of fundamental science and                 the amount of atomic mixing (atoms permanently displaced from
+applied engineering applications ranging from semiconductor                     their initial lattice position to replace an atom in another posi-
+physics to nuclear energy generation1. Kinchin and Pease2                       tion)13,15,16 that takes place as a result of the cascade. Even
+developed the basis for an early model to calculate displacements               though the initial effect is on the nanometric scale, it has also
+per atom (dpa) by considering kinetic energy transfers above a                  been estimated that it can lead to macroscopic consequences such
+threshold material-speciﬁc displacement energy. The current de                  as a 5-year underestimation of the lifetime of a nuclear reactor
+facto international standard for quantifying atomic displacement                pressure vessel exposed to a very high thermal ﬂux17. Similar
+levels in irradiated materials is based on the more than 40-year-               trends have also been reported for intermetallic alloys18 and
+old binary collision computer simulations of ion collisions in                  ceramics19–21. Figure 1 illustrates the time-dependent evolution
+solids3,4. The predicted number of atomic displacements (Nd) as a               of a displacement cascade based on molecular dynamics (MD)
+function of cascade energy, or the damage function, is given in                 simulations in a typical metal (see Methods section). Such a
+this model by                                                                   displacement cascade can be induced by a passing neutron or
+                             2                       3                          other high-energy (MeV or more) particle. The ﬁrst lattice atom
+                                 0   ;    Td <Ed
+                                                                                to receive a recoil energy is called the primary knock-on atom.
+                             6       ; Ed <Td < 2E d 7
+                N d ð Td Þ ¼ 4 1                 0:8 5;        ð1Þ              Note how initially, when the atoms are highly excited, many of
+                               0:8Td
+                                     ; 2Ed
+                                           <T d <1                              them are displaced from their lattice sites. However, as the cas-
+                                2Ed    0:8
+                                                                                cade begins to thermally equilibrate with its surroundings, nearly
+                                                                                all atoms regain positions in the perfect lattice structure. It is
+where Td is the damage energy, i.e. the kinetic energy available for
+                                                                                because of these two so-called heat spike effects22,23 (also known
+creating atomic displacements. The damage energy for a single
+                                                                                in parts of the literature as ‘thermal spike’) that the amount of
+ion is given by the total ion energy minus the energy lost to
+                                                                                ﬁnal defects generated is much smaller, and the number of atoms
+electronic interactions (ionization). Typical values of Ed for dif-
+                                                                                replacing other atoms (atomic mixing) much larger than the
+ferent materials range from 20 to 100 eV5,6. This is essentially the
+                                                                                prediction from simple linear collision cascade models such as the
+Kinchin–Pease model, except that the original kinetic energy term
+                                                                                NRT-dpa model (see Fig. 2). The physical reasons to this are
+was replaced by the damage energy to account for ionization
+                                                                                discussed in detail in the following two subsections (building
+effects and a factor of 0.8 was introduced to account for more
+                                                                                upon an earlier review work by us24), which also present
+realistic interatomic potentials.
+                                                                                improved functional forms and tests of these against experimental
+   The importance of the calculated dpa parameter is that it is the
+                                                                                and new simulation data.
+starting point for calculations of virtually all radiation effects in
+solid materials, and it facilitates quantitative comparisons of
+different materials irradiated with the same irradiation source as              Results
+well as materials irradiated in different irradiation sources such as           In-cascade recombination effects on defect production. The
+electron, ion and neutron irradiation1–8 facilities. Estimation of              physical basis for the overprediction by the NRT-dpa model of
+the damage is also important in modern materials processing by                  the defect production at high energies is the enhanced recombi-
+focused ion beams, or when irradiating nanomaterials9,10. How-                  nation of defects in close proximity in energetic displacement
+ever, it has been recognized for several decades that the dpa value             cascades. The binary collision simulations used as the basis of the
+calculated from Eq. (1) for energetic cascades in pure metals on                NRT-dpa model3 focused on the collisional phase of the
+
+
+                                                                                                                       Energy (eV)
+                                                0 ps                         0.1 ps                        0.8 ps         0.01-
+                                                                                                                          0.0237-
+                                                                                                                          0.0562-
+                                                                                                                          0.133-
+                                                                                                                          0.316-
+                                                                                                                          0.75-
+                                                                                                                          1.78-
+                                                                                                                          4.22-
+                                                                                                                          10-
+                                                                                                                          23.7-
+                                                                                                                          56.2-
+                                                                                                                          133-
+                                                                                                                          316-
+                               5 nm                                                                                       750-
+                                                                                                                          1780-
+                                                                                                                          4220-
+
+
+
+
+                                                3 ps                         10 ps                          50 ps
+
+
+
+
+Fig. 1 Collision cascade. A cross-sectional view of a collision cascade induced by a 10 keV primary knock-on atom in Au obtained from typical molecular
+dynamics simulations. The individual dots show atom positions. Blue circles illustrate atoms with low temperature and red and whitish atoms have high
+kinetic energies, with the energy scale given to the right. Note how initially, when the atoms are hot (high kinetic energy), a large number of atoms are
+displaced from their lattice sites. However, as the cascade cools down, almost all atoms regain positions in the perfect lattice sites. It is because of these
+two so-called ‘heat spike’ effects that the number of atoms replacing other atoms is much larger and the amount of ﬁnal defects generated much smaller
+than the prediction from simple linear collision cascade models like the NRT-dpa model
+
+2                            NATURE COMMUNICATIONS | (2018)9:1084                       | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications
+NATURE COMMUNICATIONS | DOI: 10.1038/s41467-018-03415-5                                                                                                                           ARTICLE
+
+               a                                                                                                       b
+
+
+
+                Number of defects/displaced atoms
+                                                    105      Damage, ion expt [A98]
+                                                             Damage, electron expt [Z93]    Cu, Ed = 33 eV                    Periphery with atoms
+                                                             Damage, ion expt [Z93]                                           pushed outwards to                              L
+                                                             Damage (MD, CEM)
+                                                    104      Damage (MD, S-L)
+                                                                                                                              become interstitials
+                                                             Replaced atoms (MD, CEM)
+                                                             Replaced atoms (MD, S-L)
+                                                                                                                                                                  R−L
+                                                    103         NRT-dpa damage prediction                                                                                     R
+                                                                                                                             Hot cascade core
+                                                    102
+
+                                                    10
+
+                                                     1                                                                       Atom movemements causing
+                                                                                                                             replacements everywhere
+
+                                                      10–2            10–1      1         10                 102
+                                                                          Damage energy (keV)
+
+               c                                          NRT-dpa damage model                               Actual damage production                  Actual atom replacements
+
+
+
+
+Fig. 2 Problem with NRT-dpa. a Experimental and simulation data showing quantitatively the problem with the NRT-dpa equation. In the ﬁgure, ‘expt’
+stands for experimental data, and ‘MD’ for simulated molecular dynamics data. The other abbreviations denoted different interatomic potentials. The
+references are: [A98]: ref. 26, [Z93]: ref. 13. The Cu MD data is original work for this publication, see Methods section. The ﬁgure shows that the NRT-dpa
+equation does not represent correctly either the actual damage (Frenkel pairs produced) nor the number of replaced atoms. The former is overestimated by
+roughly a factor of 3, and the latter underestimated by a factor of 30. b Schematic of the concepts and quantities used in deriving the new arc-dpa and rpa
+equations. c Schematic illustration of the damage predicted by the three different damage models for the case of ~1 keV damage energy in a typical metal.
+For illustration purposes, the damage is illustrated as if all damage were produced in the same two-dimensional plane. Blue circles illustrate atoms in
+original lattice positions, yellow-brown denotes atoms that are in a different lattice position after the damage event, red atom pairs denote two interstitial
+atoms sharing the same lattice site, and empty lattice positions denote vacancies. Left: Damage production predicted by the NRT-dpa model. Middle: actual
+damage production, addressed by the new arc-dpa equation. Right: actual atom replacements, addressed by the new rpa equation, agreeing better with
+experimental data on number of replaced atoms (ion beam mixing). Note that in real three-imensional systems, the difference is even larger than in this 2D
+schematic
+
+
+
+displacement cascade and did not consider the dynamics of                                                                  sublinear with respect to damage energy between ~0.1 and 10 keV
+cascade evolution as atomic velocities fell to the speed of sound                                                          (ref.23), becoming about 1/3 of the NRT-dpa prediction. At
+(~5 eV) and lower, when many-body interactions become rele-                                                                energies >10 keV corresponding to the onset of subcascade
+vant. In energetically dense cascades, like that shown in Fig. 1,                                                          formation14,26,27, the defect production increases linearly with
+local melting clearly plays an important role in defect retention                                                          damage energy but maintains the factor of ~3 lower defect
+and structure. With increasing primary knock-on atom energy,                                                               production compared to the NRT-dpa value.
+the displacement event produces progressively more Frenkel                                                                    The physical basis for the reduction in surviving defects, with
+defects (pairs of vacancies and interstitials25) that are spatially                                                        respect to the NRT model, with increasing knock-on atom energy
+close to other defects. The ~10–100 jumps occurring per atom                                                               can be understood by considering the following simpliﬁed
+during the 1–10 ps cascade cooling phase14 can induce signiﬁcant                                                           derivation.
+additional recombination events as the cascade atom energies                                                                  The ultimate survival of initially created Frenkel defects
+decrease, following the collisional phase, from Ed to the threshold                                                        requires physical separation of the interstitial and vacancy
+value for atomic migration (Em ~ 0.01–0.3 eV for self-interstitial                                                         beyond a minimum distance known as the spontaneous
+atoms and ~0.5–1 eV for vacancies). Accurate simulations of                                                                recombination distance (L). Atomic collisions along close-
+these cooperative multi-body effects in displacement cascades are                                                          packed directions (known as recoil collision sequences) are one
+realistically performed with MD simulations14.                                                                             example of a method to efﬁciently transport interstitial atoms to
+   Figure 2a summarizes the defect production as a function of                                                             the periphery of a displacement cascade, leaving the associated
+primary knock-on atom energy as determined from experiments                                                                vacancy near the cascade interior. Molecular dynamics simula-
+performed in Cu near 4 K (where long-range thermally activated                                                             tions22 indicate atom transport from the displacement cascade
+defect motion is impossible25). The predicted defect production                                                            interior may be associated with a supersonic shock-front
+and number of replaced atoms obtained from MD simulations are                                                              expanding from the primary recoil event during the early stages
+also shown. The ﬁgure shows that the actual defect production is                                                           of the cascade evolution. At low energies (below the subcascade
+
+NATURE COMMUNICATIONS | (2018)9:1084                                                                | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications                3
+ARTICLE                                                                                                                                                             NATURE COMMUNICATIONS | DOI: 10.1038/s41467-018-03415-5
+
+
+formation regime14) the displacement cascades are roughly                                                                  becomes linear with energy. Hence the surviving defect fraction
+spherical with radius R, and form a liquid-like zone of dense                                                              factor ξ ðTd Þ that accounts also for subcascade breakdown should
+collisions (the heat spike described above).                                                                               have the feature of being a power law at low energies, but
+   It is further assumed that only interstitials transported to the                                                        becoming a constant c at high ones. A function that fulﬁls both
+cascade outer periphery deﬁned by R − L to R will result in stable                                                         criteria is
+defects, whereas Frenkel pairs created in the cascade interior (0 to
+R − L) will experience recombination. The fraction of initially                                                                                                                               ξ ðTd Þ ¼ A′Tdb þ c;                      ð4Þ
+created NRT-dpa defects that survive is therefore given by the
+ratio of the outer spherical shell volume to the total cascade                                                             where b < 0 is consistent with the damage production efﬁciency
+volume:                                                                                                                    reducing with increasing energy Td and the desired limit ξ ðTd Þ !
+                                                                                                                           c when Td → ∞. This thus gives a total damage production
+                                                                                                 3
+                                         ¼ ð4πR =3Þðð4πðRLÞ Þ=3Þ                  3
+                                 Vinner
+              ξ survive ¼ VouterVouter             4πR3 =3                                                                                                                       0:8Td             0:8A′ Td1þb 0:8 c Td
+                                                                            2      3
+                                                                                                                    ð2Þ                                        Nd ′ðTd Þ ¼               A′ Tdb þ c ¼           þ         :             ð5Þ
+                                                           ¼ 3 RL  3 RL2 þ RL3  3 RL                                                                                            2Ed                   2Ed        2Ed
+
+for L ≪ R. This ‘surviving defect production fraction’ ξ survive thus
+tells which fraction of defects predicted by the NRT-dpa model                                                                Note that here the exponent b is not the same as x, since the
+without any recombination survives. The cascade radius R can be,                                                           latter ξ function is not a pure power law. The prefactor A′ is
+within the regime of spherical cascades, estimated from classical                                                          deﬁned by demanding the function to be continuous, i.e.
+theory of nuclear stopping power28,29. In practice, we used the                                                            ξð2Ed =0:8Þ ¼ 1.
+SRIM code that implements an integral calculation to obtain                                                                   Taken together, this derivation leads us to propose (based in
+mean range tables, based on cross sections from the widely used                                                            part on review work done within an OECD Nuclear Energy
+Ziegler−Biersack−Littmark (ZBL) interatomic potential29.                                                                   Agency group24) a modiﬁed defect production model, the
+   We found that low-energy (less than or of the order to 10 keV)                                                          athermal recombination corrected displacements per atom (arc-
+recoils of damage energy Td have an average movement distance                                                              dpa).
+(range) R that is proportional to Tdx , where the exponent x is ~                                                                                    2                               3
+                                                                                                                                                           0         ;    Td <Ed
+0.4–0.6 for the metals considered in this study. Since R / Tdx , this                                                                                6                             d 7
+                                                                                                                                   Nd;arcdpa ðTd Þ ¼ 4     1         ; Ed <Td < 2E
+                                                                                                                                                                                 0:8 5  ð6Þ
+further gives
+                                                                                                                                                                                                 2Ed ξ arcdpa ðTd Þ   ;
+                                                                                                                                                                                                0:8Td                     2Ed
+              0:8Td          0:8Td L 0:8Td L                                                                                                                                                                              0:8 <Td <1
+    Nd ′ðTd Þ       ξ      ¼      3 /     3   / Td1x :                                                             ð3Þ
+               2Ed survive    2Ed R   2Ed Tdx                                                                              with the new efﬁciency function ξ arcdpa ðTd Þ given by
+                                                                                                                                                        1  carcdpa      b
+                                                                                                                                     ξ arcdpa ðTd Þ ¼                   Td arcdpa þ carcdpa :                                           ð7Þ
+   This simple model thus provides an intuitive explanation for                                                                                       ð2Ed =0:8Þbarcdpa
+why cascade damage production is sublinear with damage energy
+in the heat spike regime. Physically realistic MD simulation                                                               Here Ed is the average threshold displacement energy33 which is
+studies14,30 have reported that defect production rates up to the                                                          the same as in the NRT-dpa and barcdpa and carcdpa are material
+onset of subcascade formation in a variety of metals can be well                                                           constants, that need to be determined for a given material from
+described by Nd ~ (Td)1−x, where x is between 0.2 and 0.3. These                                                           MD simulations or experiments. The overall form (Eq. (5)) and
+x values are slightly larger than the value obtained in our                                                                the constant 0.8 are retained for direct comparison with the NRT-
+simpliﬁed model because real cascades are not perfectly spherical                                                          dpa model; in particular making it easy to modify computer codes
+and some defects form small clusters, reducing the recombination                                                           that now use the NRT-dpa by simply multiplying with the
+probability.                                                                                                               function ξ arcdpa ðTd Þ.
+   However, it is well known that at high energies cascades break                                                            Figure 3 compares the derived arc-dpa expression for Fe and
+up into subcascades24,31,32, after which damage production                                                                 W with several recent MD simulation results used for the ﬁtting.
+
+             a                                            Damage (MD, AMS)
+                                                                                                                          b                                            Damage (MD, DD)
+                                                          Damage (MD, MEA-BN)                Fe, Ed = 40 eV                                                            Damage (MD, JW)                       W, Ed = 70 eV
+                                                                                                                          Number of defects/displaced atoms
+             Number of defects/displaced atoms
+
+
+
+
+                                                                                                                                                                5
+                                                          Damage (MD, DD-BN)                                                                                  10       Damage (MD, AT)
+                                                 104      Damage (MD, Stoller)                                                                                         Damage (MD, AH)
+                                                          Replaced atoms (MD, AMS)                                                                                     Replaced atoms (MD, DD)
+                                                               NRT-dpa damage prediction                                                                               Replaced atoms (MD, JW)
+                                                               Arc-dpa damage prediction
+                                                                                                                                                              104      Replaced atoms (MD, AT)
+                                                 103           Rpa damage prediction                                                                                   Replaced atoms (MD, AH)
+                                                                                                                                                                            NRT-dpa damage prediction
+                                                                                                                                                              103           Arc-dpa damage prediction
+                                                                                                                                                                            Rpa damage prediction
+                                                      2
+                                                 10
+                                                                                                                                                              102
+
+                                                 10
+                                                                                                                                                              10
+
+
+                                                  1                                                                                                            1
+                                                  10–1                     1                10                102                                              10–1                     1                  10                102
+                                                                               Damage energy (keV)                                                                                          Damage energy (keV)
+
+Fig. 3 Improvement with arc-dpa and rpa. Illustration of the improvement obtained with the new arc-dpa and rpa equations for a Fe and b W. The W data
+also includes two data points simulated at 800 K with the DD potential (solid circles). The references are: [A98]: ref. 26, [Z93]: ref. 13. The Fe damage data
+is from ref. 14 (Stoller) and ref. 48 (AMS, MEA-BN, DD-BN). The Fe replacement data and all W data is original work for this publication, see Methods
+section
+
+4                                                               NATURE COMMUNICATIONS | (2018)9:1084                                                                 | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications
+NATURE COMMUNICATIONS | DOI: 10.1038/s41467-018-03415-5                                                                             ARTICLE
+
+We tested that if the ﬁt is limited to energies <10 keV, one also           dpa, but now it has the form
+can ﬁt the data well with a power law with an exponent of                                                  crpa                c
+                                                                                                          brpa                  Tdrpa
+~0.7–0.8, i.e. the data is consistent with MD reports of power law                    ξ rpa ðTd Þ ¼                  þ 1    crpa      c :    ð9Þ
+dependencies. However, the arc-dpa form has the major                                                 ð2Ed =0:8Þcrpa       brpa  þ Tdrpa
+improvement that it can also describe the saturation. Even
+though there is some variation in the MD data (due to differences           Here brpa and crpa are the new material constants. This form of
+in interatomic potentials), all of the MD results give damage               ξrpa(Td) is constructed to be consistent with the derivation above.
+production well below the ξ = 1 value predicted by the NRT-dpa              Since the NRT equation already is proportional to Td, with this
+model for cascade energies >1 keV. The arc-dpa ﬁt to the                    form the prediction is that the number of replaced atoms
+                                                                                                                               c       1þc
+composite data gives a reasonable averaging description of the              increases at low energies with Td as Nrpa ¼ Td Tdrpa ¼ Td rpa , i.e.
+decreasing trend in ξ up to ~10 keV and the expected approach to            crpa = 3x−1. At high energies, when Td ≫ brpa, the form becomes
+a constant value at higher cascade energies.                                linear with energy, as expected when cascades are split into
+                                                                            subcascades. In this functional form, brpa has a physical meaning
+Replacements-per-atom (rpa) model. Since the NRT-dpa model                  as the average energy for subcascade breakdown in terms of
+deals with production of defects that are not on perfect lattice            number of replaced atoms. Moreover, similar to the arc-dpa form,
+sites, it cannot predict the number of atoms that are transported           Eq. (9) fulﬁls the same conditions of continuity and compatibility
+from their initial lattice site to a new lattice site, i.e. replace         with the NRT-dpa model.
+another atom in a perfect crystal site (right panel in Fig. 2c). This
+number of atom replacements is experimentally measurable via                Discussion
+so-called radiation mixing experiments. Typically, an ion beam is           We ﬁrst reiterate the physical meaning of the newly introduced
+used to bombard a thin marker layer inside a material, and the              material constants. brpa is related to the subcascade formation
+resulting broadening of the marker layer is measured16,34. For              energy, and has energy units. The unitless exponents barcdpa and
+ordered alloys, it can also be conveniently measured by electrical          crpa are associated with the dependence of the ion range with
+resistivity15. Via an analogy with random walk atom diffusion, it           energy. Finally, the unitless quantity carcdpa is associated with the
+is possible to relate this measured broadening to the actual                saturation value of damage recombination with heat spike size.
+number of atom replacements per ion inside the material35.                     As a summary of the arc-dpa and rpa models, Fig. 3 compares
+Analysis of neutron and ion beam radiation mixing data has                  the obtained rpa and arc-dpa curves with the NRT dpa prediction
+shown that the actual number of replaced atoms can be more                  for Fe and W, as a function of damage energy. Note that the
+than an order of magnitude larger than the number of displace-              NRT-dpa damage production equation does not, except at the
+ments predicted by the NRT-dpa model15,36–38. A correct esti-               very lowest energies near 100 eV, describe correctly either the
+mation of this number can be of enormous importance in                      surviving defects or the amount of radiation mixing in energetic
+predicting the effects of irradiation on phase stability39,40 and the       displacement cascades. The newly introduced arc-dpa correction
+associated mechanical properties of materials. Nanostructured               factor ξ arcdpa for the primary damage leads to a calculated sur-
+materials, such as nanolaminates and nanoscale oxide-dispersion             viving defect fraction about a factor of 3 lower than the NRT-dpa
+strengthened steels, are particularly sensitive to these errors owing       prediction, and the rpa correction factor ξ rpa leads to the calcu-
+to their small length scales.                                               lated number of atom replacements to be about 30 times higher
+   The superlinear increase in the number of replaced atoms with            than the predicted NRT displacement value. Both the correction
+increasing knock-on atom energy can be understood by a model                factors agree very well with MD simulation results over more
+considering the spatial extent of a collision cascade. We consider          than three orders of magnitude in energy for all elements, giving
+ﬁrst low energies (in the keV regime) and dense materials, where            conﬁdence that the derived functional forms are well motivated.
+cascades are normally compact. As noted above, low-energy                   We note that when additional and more accurate MD or
+cascades are roughly spherical. After the ballistic phase of a              experimental data becomes available, the models (Eqs. (6) and
+cascade, MD simulations show (cf. Fig. 1) that the lattice breaks           (9)) could be reﬁned for a better description e.g. near the
+down and a liquid-like region forms. In this region all atoms are           threshold.
+free to move and hence are almost certain to lead to one or more               We also considered the dependence of the results on the
+replacements during the thermal spike phase (as illustrated in              ambient temperature. Several previous studies have shown that
+Fig. 2c, right frame). The number of atoms N in a spherical                 the effect of ambient temperature on primary damage production
+cascade of radius R is proportional to the sphere volume, i.e.              or atom replacements at ps time scales is insigniﬁcant or weak up
+N∝R3, and (as already noted for the arc-dpa model) R / Tdx . We             to temperatures around roughly half the melting point14,42,43. For
+thus ﬁnd that the number of replaced atoms Nrpa / Td3x . Since x            this work, we also simulated two of the data points for W at an
+> 1/3, this simple consideration gives an intuitive explanation for         elevated temperature, 800 K. The results (solid circles in Fig. 3b)
+why the number of replaced atoms increases superlinearly with               show that both the damage and replacements is the same within
+energy at low energies, when cascades are compact. At high                  the statistical uncertainty as those at low temperature for the
+energies, when cascades split into subcascades32,41, the behaviour          same potential. We note that given sufﬁciently large and statis-
+can be expected to change to a linear dependence with damage                tically accurate data sets for a range of higher elevated tempera-
+energy. Similarly to the arc-dpa function, we thus arrive at a form         tures, it would be possible to make the arc-dpa and rpa model
+                                            c                               parameters temperature-dependent.
+                                           Tdrpa                               Table 1 gives results of the arc-dpa and rpa model ﬁt para-
+                      ξ rpa ðTd Þ /    crpa      c :                 ð8Þ
+                                      brpa þ Tdrpa                          meters for several metals based on MD data. The metals were
+                                                                            chosen as those for which a sufﬁciently wide MD database was
+                                                                            available for the ﬁtting.
+  The proportionality prefactor is again set to ensure continuity,             We note that, in spite of its failure to predict damage pro-
+(2Ed/0.8) = 1. To augment the NRT equation in order to predict              duction correctly, the original NRT-dpa standard remains useful
+the number of replaced (mixed) atoms, we propose another                    for comparing scaled radiation dose (exposure), as it is essentially
+improved damage function, the replacements-per-atom (rpa)                   proportional to the collision-relevant portion of radiation energy
+equation. The correction factor is applied in Eq. (5) as for the arc-       deposited per volume. The correct use of this standard as the ﬁrst
+
+NATURE COMMUNICATIONS | (2018)9:1084                   | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications                 5
+ARTICLE                                                                                                      NATURE COMMUNICATIONS | DOI: 10.1038/s41467-018-03415-5
+
+
+
+ Table 1 Material constants
+
+ Material                       Ed (eV)                        barc-dpa                                  carc-dpa                          brpa (eV)                         crpa
+ Fe                             40                             −0.568 ± 0.020                            0.286 ± 0.005                     1018 ± 145                        0.95 ± 0.04
+ Cu                             33                             −0.68 ± 0.05                              0.16 ± 0.01                       3319 ± 249                        0.97 ± 0.02
+ Ni                             39                             −1.01 ± 0.11                              0.23 ± 0.01                       3325 ± 230                        0.92 ± 0.01
+ Pd                             41                             −0.88 ± 0.12                              0.15 ± 0.02                       2065 ± 183                        1.08 ± 0.02
+ Pt                             42                             −1.12 ± 0.09                              0.11 ± 0.01                       5531 ± 762                        0.87 ± 0.02
+ W                              70                             −0.56 ± 0.02                              0.12 ± 0.01                       12,332 ± 1250                     0.73 ± 0.01
+ Results for the arc-dpa and rpa material constants for a number of metals. The errors are given in s.e.m.
+
+
+
+
+variable by which to compare radiation damage levels in different                                     mechanisms gained during the last four decades into software
+environments remains, therefore, strongly recommended. The                                            calculating primary radiation damage generation rates in mac-
+new models, arc-dpa and rpa, developed here extend the useful-                                        roscopic reactor components. The arc-dpa model accounts for the
+ness of the dpa in that, while they can also be used to compare                                       enhanced recombination active in pure metals as well as in many
+different irradiations, they in addition give accurate predictions of                                 alloys, which strongly reduces the number of point defects pre-
+primary damage production and radiation mixing. They are                                              sent in the primary damage, compared to the traditional NRT-
+deliberately constructed in such a way that they are easy to                                          dpa model. The rpa model provides a measure of the volume of
+implement in existing radiation effects software: they add only                                       the irradiated material directly affected by the cascade, which is
+four additional parameters (or two, if only one of the two new                                        important e.g. for phase stability considerations. In calculations of
+models is used) for each element. The arc-dpa and rpa equations                                       radiation damage effects where the dpa measure is used as a
+thus enable a signiﬁcant increase in physical relevance with                                          starting point, these new functions provide improved accuracy in
+minimal increase in computational efﬁciency or complexity. Of                                         a simple analytical form. This allows, e.g., differentiating between
+course, however, the practical application of arc-dpa and rpa                                         irradiation conditions dominated by either low- or high-energy
+requires the construction of suitable databases of parameters for                                     recoils, and perhaps even more importantly, introduces the pos-
+each material: not only Ed but also the b and c constants. Col-                                       sibility to quantify analytically the very large (about two orders of
+lectively, the new models represent an important step towards                                         magnitude) difference between damage production and atom
+improved quantiﬁcation of the primary damage state during                                             relocation effects.
+irradiation of materials.
+   In general, these damage models are expected to be relevant for                                    Methods
+many other materials besides the elemental metals discussed here.                                     Molecular dynamics simulations. The new data used for the ﬁts of the arc-dpa
+Studies of damage in metal alloys indicate the arc-dpa model will                                     and rpa functions were obtained from MD simulations following Refs. 31,36,37,48,49.
+                                                                                                      The Fe damage data is from ref. 48 or the references indicated in the ﬁgure, and the
+be directly applicable to both dilute44 and concentrated45 metal                                      Ni, Pd and Pt data from ref. 49, and other data previously unpublished. In all cases,
+alloys. In non-metallic materials, the arc-dpa function may not be                                    a crystalline simulation cell in either the face-centred cubic or body-centred cubic
+universally relevant, as damage production involves effects such                                      crystal structure was ﬁrst constructed and equilibrated by a short (few picoseconds)
+as amorphization25 that cannot be captured by any simple                                              MD simulation at room temperature. The interatomic interactions were modelled
+                                                                                                      with equilibrium reactive interatomic potentials to which the ZBL repulsive
+equation. However, some ceramic materials are known to
+                                                                                                      potential36 was joint at small separations to realistically mimic high-energy
+undergo signiﬁcant in-cascade recombination19–21, and for these                                       interactions. The interatomic potentials indicated by abbreviations in the ﬁgures
+arc-dpa can be useful. On the other hand, the rpa function can be                                     are for Cu: CEM: ref. 50, S-L: ref. 51 and for W: DD: ref. 52, JW: ref. 53, AT: ref. 54,
+expected to be relevant in any material where heat spikes are                                         AH: ref. 55.
+signiﬁcant (i.e. all dense materials), since in all of these the atomic                                   Periodic boundary conditions were used in all directions, to correspond to high-
+                                                                                                      energy ion or neutron effects deep inside a material, and the lattice constant was set
+mixing will be enhanced by collective atomic motion. The for-                                         to the equilibrium value at 0 K (previous works show that 0 and 300 K primary
+mation of the arc-dpa and rpa also motivate systematic experi-                                        damage results are identical within the statistical uncertainty in transition metals).
+mental and simulation studies to understand better the primary                                        After equilibration, an atom was selected randomly near the centre of the
+state of damage in non-metallic systems, where (with the                                              simulation cell, and given a recoil energy in a random direction in three
+                                                                                                      dimensions. The central parts of the simulation cell were simulated in the NVE
+exception of Si) studies are scarce.                                                                  ensemble, while excess energy was removed from the system using temperature
+   Prior to concluding, we emphasize that the arc-dpa and rpa                                         scaling towards room temperature in the outermost 1 unit cell thick regions of the
+models deal with the primary damage state only, i.e. the damage                                       cell. To account for energy loss to ionizations, the ZBL96 electronic stopping
+produced during the ﬁrst few ps after a collision cascade initiated.                                  power29 was applied as a frictional force on all atoms with a kinetic energy higher
+                                                                                                      than 10 eV, and the damage energy Td was calculated as the difference between the
+Already at room temperature, thermally activated defect migra-                                        initial recoil energy and the total sum of energy lost to electronic stopping. The
+tion is known to be signiﬁcant, and can reduce the damage                                             damage was analysed using the Wigner−Seitz cells approach31 that is space-ﬁlling
+production signiﬁcantly from the arc-dpa value due to recombi-                                        and hence allows for a unique determination of whether a defect is vacancy- or
+nation effects, or enhance atom mixing from the rpa value. They                                       interstitial-type.
+also do not describe defect clustering or damage overlap effects45–
+47. However, even for these cases the new functions can be useful,                                    Data availability. The new molecular dynamics data that has been produced for
+                                                                                                      this paper, and comprises the source data for the parameters given in Table 1, is
+as a starting point for e.g. kinetic Monte Carlo or rate theory                                       freely available for download at http://urn.ﬁ/urn:nbn:ﬁ:csc-
+calculations of high-dose irradiation effects45 (where cascades                                       kata20180125132021651079.
+overlap) or conditions where thermal defect migration recom-
+bines defects.                                                                                        Received: 22 February 2017 Accepted: 9 February 2018
+   In conclusion, the new arc-dpa and rpa models introduced
+here allow, in a very simple and efﬁcient way, to incorporate the
+improved understanding on radiation defect generation
+
+
+6                                   NATURE COMMUNICATIONS | (2018)9:1084                                       | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications
+NATURE COMMUNICATIONS | DOI: 10.1038/s41467-018-03415-5                                                                                                      ARTICLE
+
+References                                                                                 31. Nordlund, K. et al. Defect production in collision cascades in elemental
+1.    Seitz, F. & Koehler, J. S. Displacement of atoms during irradiation. Solid State         semiconductors and FCC metals. Phys. Rev. B 57, 7556 (1998).
+      Phys. 2, 305–448 (1956).                                                             32. De Backer, A. et al. Subcascade formation and defect cluster size scaling in
+2.    Kinchin, G. H. & Pease, R. S. The displacement of atoms in solids. Rep. Prog.            high-energy collision events in metals. EPL 115, 26001 (2016).
+      Phys. 18, 1–51 (1955).                                                               33. Nordlund, K., Wallenius, J. & Malerba, L. Molecular dynamics simulations of
+3.    Robinson, M. T. & Torrens, I. M. Computer simulation of atomic-                          threshold energies in Fe. Nucl. Instr. Meth. Phys. Res. B 246, 322 (2005).
+      displacement cascades in solids in the binary-collision approximation. Phys.         34. Klatt, J. L., Averback, R. S. & Peak, D. Ion beam mixing in Ag-Pd alloys. Appl.
+      Rev. B 9, 5008–5024 (1974).                                                              Phys. Lett. 55, 1295 (1989).
+4.    Norgett, M. J., Robinson, M. T. & Torrens, I. M. A proposed method of                35. Diaz de la Rubia, T., Averback, R. S., Benedek, R. & King, W. E. Role of
+      calculating displacement dose rates. Nucl. Eng. Des. 33, 50–54 (1975).                   thermal spikes in energetic collision cascades. Phys. Rev. Lett. 59, 1930–1933
+5.    Jung, P. in Atomic Defects in Metals, Landolt-Börnstein–Group III Condensed              (1987). See also erratum: Phys. Rev. Lett. 60, 76 (1988).
+      Matter Vol. 25 (eds Ullmaier, H., Ehrhart, P., Jung, P., & Schultz, H.)              36. Nordlund, K., Ghaly, M. & Averback, R. S. Mechanisms of ion beam mixing in
+      (Springer, New York, 1991).                                                              metals and semiconductors. J. Appl. Phys. 83, 1238–1246 (1998).
+6.    Averback, R. S. Atomic displacement processes in irradiated metals. J. Nucl.         37. Nordlund, K., Wei, L., Zhong, Y. & Averback, R. S. Role of electron−phonon
+      Mater. 216, 49–62 (1994).                                                                coupling on collision cascade development in Ni, Pd and Pt. Phys. Rev. B
+7.    Farrell, K., Mahmood, S. T., Stoller, R. E. & Mansur, L. K. An evaluation of low         (Rapid Comm.) 57, 13965–13968 (1998).
+      temperature radiation embrittlement mechanisms in ferritic alloys. J. Nucl.          38. Zhang, L. & Demkowicz, M. J. Radiation-induced mixing between metals of
+      Mater. 210, 268–281 (1994).                                                              low solid solubility. Acta Mater. 76, 135–150 (2014).
+8.    Jones, R. B. and Wootton, M. R. Surveillance of reactor pressure vessel (RPV)        39. Jaouen, C., Delafond, J. & Riviere, J. P. Crystalline to amorphous
+      embrittlement in Magnox reactors. In Irradiation Embrittlement of Reactor                transformation in NiAl: ion irradiation studies in relation to cascade
+      Pressure Vessels (RPVs) in Nuclear Power Plants. Woodhead Publishing Series              parameters. J. Phys. F: Metal. Phys. 17, 335–350 (1987).
+      in Energy (ed Soneda, N), 156−178 (Sawston, UK, 2015).                               40. Gao, F. & Weber, W. J. Cascade overlap and amorphization in 3C-SiC: defect
+9.    Mayer, J., Gianuzzi, L. A., Kamino, T. & Michael, J. TEM sample preparation              accumulation, topological features, and disordering. Phys. Rev. B 66, 024106
+      and FIB-induced damage. MRS Bull. 32, 400 (2007).                                        (2002).
+10.   Krasheninnikov, A. V. & Nordlund, K. Ion and electron irradiation-induced            41. Calder, A. F., Bacon, D. J., Barashev, A. V. & Osetsky, Y. N. On the origin of
+      effects in nanostructured materials. J. Appl. Phys. (Appl. Phys. Rev.) 107,              large interstitial clusters in displacement cascades. Philos. Mag. 90, 863–884
+      071301 (2010).                                                                           (2010).
+11.   Averback, R. S., Benedek, R. & Merkle, K. L. Ion irradiation studies of the          42. Phythian, W. J., Stoller, R. E., Foreman, A. J. E., Calder, A. F. & Bacon, D. J. A
+      damage function of copper and silver. Phys. Rev. B 18, 4156–4171 (1978).                 comparison of displacement cascades in copper and iron by molecular
+12.   Jung, P. et al. in 11th Int. Symp. on Effects of Radiation on Materials ASTM             dynamics and its application to microstructural evolution. J. Nucl. Mater. 223,
+      STP 782 (eds Brager, H. R. & Perrin, J. S.) 963−982 (American Society for                245 (1995).
+      Testing and Materials, Philadelphia, 1982).                                          43. Paine, B. M. & Averback, R. S. Ion beam mixing: basic experiments. Nucl.
+13.   Zinkle, S. J. & Singh, B. N. Analysis of displacement damage and defect production       Instr. Meth. Phys. Res. B 7/8, 666 (1985).
+      under cascade damage conditions. J. Nucl. Mater. 199, 173–191 (1993).                44. Vörtler, K., Juslin, N., Bonny, G., Malerba, L. & Nordlund, K. The effect of
+14.   Stoller, R. E. in Comprehensive Nuclear Materials Vol. 1 (ed. Konings, R. J. M.)         prolonged irradiation on defect production and ordering in Fe-Cr and Fe-Ni
+      293−332 (Elsevier, Amsterdam, 2012).                                                     alloys. J. Phys.: Condens. Matter 23, 355007 (2011).
+15.   Kirk, M. A. & Blewitt, T. H. Atomic rearrangements in ordered fcc alloys             45. Granberg, F. et al. Mechanism of radiation damage reduction in equiatomic
+      during neutron irradiation. Metall. Mater. Trans. A 9, 1729–1737 (1978).                 multicomponent single phase alloys. Phys. Rev. Lett. 116, 135504 (2016).
+16.   Kim, S. J., Nicolet, M. A., Averback, R. S. & Peak, D. Low-temperature ion           46. Gao, F., Bacon, D. J., Calder, A. F., Flewitt, P. E. J. & Lewis, T. A. Computer
+      beam mixing in metals. Phys. Rev. B 37, 38–49 (1988).                                    simulation study of cascade overlap effects in alpha-iron. J. Nucl. Mater. 230
+17.   Caro, M. & Caro, A. Spectral effects on defect production in the reactor                 (1), 47 (1996).
+      pressure vessel of a pressurized heavy-water reactor. Philos. Mag. A 80(6),          47. Nordlund, K. & Averback, R. S. Point defect movement and annealing in
+      1365–1378 (2000).                                                                        collision cascades. Phys. Rev. B 56, 2421 (1997).
+18.   Diaz de la Rubia, T., Guinan, M. W., Caro, A. & Scherrer, P. Radiation effects       48. Björkas, C. & Nordlund, K. Comparative study of cascade damage in Fe
+      in FCC metals and intermetallic compounds—a molecular-dynamics                           simulated with recent potentials. Nucl. Instr. Meth. Phys. Res. B 259, 853
+      computer-simulation study. Radiat. Eff. Defects Solids 130, 39–54 (1994).                (2007).
+19.   Zinkle, S. J. & Kinoshita, C. Defect production in ceramics. J. Nucl. Mater.         49. Sand, A. E. & Nordlund, K. On the lower energy limit of electronic stopping in
+      251, 200–217 (1997).                                                                     simulated collision cascades in Ni, Pd and Pt. J. Nucl. Mater. 456, 99 (2015).
+20.   Gao, F. & Weber, W. J. Computer simulation of disordering and                        50. Kelchner, C. L., Halstead, D. M., Perkins, L. S., Wallace, N. M. & DePristo, A.
+      amorphization by Si and Au recoils in 3C- SiC. J. Appl. Phys. 89, 4275–4281              E. Construction and evaluation of embedding functions. Surf. Sci. 310,
+      (2001).                                                                                  425–435 (1994).
+21.   Devanathan, R. & Weber, W. J. Dynamic annealing of defects in irradiated             51. Sabochick, M. J. & Lam, N. Q. Radiation-induced amorphization of ordered
+      zirconia-based ceramics. J. Mater. Res. 23(3), 593 (2008).                               intermetallic compounds CuTi, CuTi3, and Cu4Ti3 A molecular-dynamics
+22.   Meldrum, A., Zinkle, S. J., Boatner, L. A. & Ewing, R. C. A transient liquid-like        study. Phys. Rev. B 43(7), 5243 (1991).
+      phase in the displacement cascades in zircon, hafnon and thorite. Nature 395,        52. Björkas, C., Nordlund, K. & Dudarev, S. L. Modelling radiation effects using
+      56 (1998).                                                                               the ab-initio based tungsten and vanadium potentials. Nucl. Instr. Meth. Phys.
+23.   Nordlund, K., Keinonen, J., Ghaly, M. & Averback, R. S. Coherent                         Res. B 267, 3204–3208 (2009).
+      displacement of atoms during ion irradiation. Nature 398(6722), 49 (1999).           53. Juslin, N. & Wirth, B. D. Interatomic potentials for simulation of He bubble
+24.   Nordlund, K. et al. Primary Radiation Damage in Materials - Review of                    formation in W. J. Nucl. Mater. 432, 61–66 (2013).
+      Current Understanding and Proposed New Standard Displacement Damage                  54. Ackland, G. J. & Thetford, R. An improved N-body semi-empirical model for
+      Model to Incorporate in Cascade Defect Production Efﬁciency and Mixing                   b.c.c. transition metals. Philos. Mag. A 56, 15–30 (1987).
+      Effects. NEA/NSC/DOC 9. 1−86 (Nuclear Energy Agency, OECD, Paris,                    55. Ahlgren, T., Heinola, K., Juslin, N. & Kuronen, A. Bond-order potential for
+      2015).                                                                                   point and extended defect simulations in tungsten. J. Appl. Phys. 107, 033516
+25.   Ehrhart, P. Properties and Interactions of Atomic Defects in Metals and Alloys.          (2010).
+      Vol. 25 of Landolt-Börnstein, New Series III, Ch. 2, 88 (Springer, Berlin,
+      1991).
+26.   Averback, R. S. & Diaz de la Rubia, T. Displacement damage in irradiated
+      metals and semiconductors. Solid State Phys. 51, 281–402 (1998).                     Acknowledgements
+27.   Muroga, T., Kitajima, K. & Ishino, S. The effect of recoil energy spectrum on        We thank the OECD/NEA for setting up the initial working group that initiated this
+      cascade structures and defect production efﬁciencies. J. Nucl. Mater. 133&134,       work. This work was sponsored in part by the U.S. Department of Energy, Ofﬁce of
+      378–382 (1985).                                                                      Fusion Energy Sciences, SJZ, RES, Ofﬁce of Basic Energy Sciences, RSA, WJW. A.E.S.
+28.   Lindhard, J., Scharff, M. & Schiott, H. E. Range concepts and heavy ion ranges.      acknowledges support from the Academy of Finland through project No. 311472. Grants
+      Kgl. Dan. Vid. Selsk., Mat. Fys. Medd. 33, 1–42 (1963).                              of computer time from CSC—the Finnish IT Center for Science as well as the Finnish
+29.   Ziegler, J. F., Biersack, J. P. & Littmark, U. The Stopping and Range of Ions in     Grid and Cloud Infrastructure (persistent identiﬁer urn:nbn:ﬁ:research-infras-
+      Matter. (Pergamon, New York, 1985).                                                  2016072533) are gratefully acknowledged. This work has been also partly carried out
+30.   Bacon, D. J., Gao, F. & Osetsky, Y. N. The primary damage state in fcc, bcc          within the framework of the EUROfusion Consortium and has also received partial
+      and hcp metals as seen in molecular dynamics simulations. J. Nucl. Mater.            funding from the Euratom research and training programme 2014–2018 under grant
+      276, 1–12 (2000).                                                                    agreement no. 633053. The views and opinions expressed herein do not necessarily
+                                                                                           reﬂect those of the European Commission.
+
+NATURE COMMUNICATIONS | (2018)9:1084                                | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications                                    7
+ARTICLE                                                                                            NATURE COMMUNICATIONS | DOI: 10.1038/s41467-018-03415-5
+
+
+Author contributions                                                                        Publisher's note: Springer Nature remains neutral with regard to jurisdictional claims in
+K.N. was the lead author of the theory and modelling parts, guided the computational        published maps and institutional afﬁliations.
+simulations, derived the rpa equation, and did the ﬁtting of the arc-dpa and rpa models
+to the plots. S.J.Z. derived the arc-dpa equation, performed the analyses of experimental
+data and stimulated activities on the importance of rpa. A.E.S. simulated all the new MD
+data. R.S.A. and S.J.Z. were lead authors on the discussion of experiments and R.S.A on                       Open Access This article is licensed under a Creative Commons
+the mixing parts. All authors contributed to data interpretation and to the manuscript                        Attribution 4.0 International License, which permits use, sharing,
+preparation and approved the ﬁnal version of the manuscript.                                adaptation, distribution and reproduction in any medium or format, as long as you give
+                                                                                            appropriate credit to the original author(s) and the source, provide a link to the Creative
+                                                                                            Commons license, and indicate if changes were made. The images or other third party
+Additional information                                                                      material in this article are included in the article’s Creative Commons license, unless
+Supplementary Information accompanies this paper at https://doi.org/10.1038/s41467-         indicated otherwise in a credit line to the material. If material is not included in the
+018-03415-5.                                                                                article’s Creative Commons license and your intended use is not permitted by statutory
+                                                                                            regulation or exceeds the permitted use, you will need to obtain permission directly from
+Competing interests: The authors declare no competing interests.                            the copyright holder. To view a copy of this license, visit http://creativecommons.org/
+                                                                                            licenses/by/4.0/.
+Reprints and permission information is available online at http://npg.nature.com/
+reprintsandpermissions/
+                                                                                            © The Author(s) 2018
+
+
+
+
+8                                NATURE COMMUNICATIONS | (2018)9:1084                                | DOI: 10.1038/s41467-018-03415-5 | www.nature.com/naturecommunications
+

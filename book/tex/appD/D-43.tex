@@ -1,0 +1,92 @@
+\section{The cascade generating functional}\label{app:D.43}
+
+The backward equation \cref{eq:18.1-backward} gives every statistic of the deposits of a hot-carrier cascade from the kernels of its collisions. We derive it by first-step analysis, show that the minimal solution is the physical one, and write the recursions for the first and second moments, with covariances between deposits. Under the energy-only reduction of \cref{sec:18.1-reductions} the recursions become one-dimensional convolutions. The energy identity \cref{eq:18.1-energy} then turns the first two moments of the pair number into the mean energy per pair and the Fano factor, and splits the Fano factor into the three variance terms of \cref{sec:18.2}. The notation is that of \cref{sec:18.1-branching}; \cref{app:C.11} gives the discrete branching process on which the argument is modeled.
+
+\subsection{The process}
+
+A particle in a state $x$ that is not terminal waits a time drawn from $\varGamma_x\ee^{-\varGamma_xt}$, with $\varGamma_x = \sum_c\int\mathscr{K}_c$, and then collides. The collision is in channel $c$ and produces the particles $x'_1, \dots, x'_m$ with probability density $\mathscr{K}_c(x \to x'_1\dots x'_m)/\varGamma_x$, and it adds the deposit $\delta\vect{N}_c$. A particle in a terminal state adds $\vect{N}_{\mathrm{term}}(x)$ and does nothing more. Two hypotheses of \cref{sec:18.1-branching} enter. The process is Markov: the outcome of a collision depends only on the state of the colliding particle. And different particles evolve independently: the kernels of one particle do not depend on the others. The total deposit $\vect{N}$ of the cascade started by $x$ is the sum of the deposits of all its collisions and terminal states. Its entries are nonnegative: pair numbers, heat, numbers of phonons.
+
+\subsection{First-step analysis}
+
+Condition on the first collision of the particle at $x$, of channel $c$ with products $x'_1, \dots, x'_m$. By the Markov property, each product then starts a cascade whose law is that of a cascade started at $x'_j$, whatever happened before. By independence, these $m$ cascades are independent of each other. Hence
+\begin{equation*}
+  \vect{N} = \delta\vect{N}_c + \sum_{j=1}^m\vect{N}^{(j)} ,
+\end{equation*}
+with $\vect{N}^{(j)}$ independent and distributed as the deposit of a cascade started at $x'_j$. For a vector $\vect{\lambda}$ with real, nonpositive entries, $0 < \ee^{\vect{\lambda}\cdot\vect{N}} \le 1$, so every average below exists. The conditional average of $\ee^{\vect{\lambda}\cdot\vect{N}}$ factorizes,
+\begin{equation*}
+  \bigl\langle\ee^{\vect{\lambda}\cdot\vect{N}}\,\big|\,c;\,x'_1\dots x'_m\bigr\rangle = \ee^{\vect{\lambda}\cdot\delta\vect{N}_c}\prod_{j=1}^m\mathfrak{G}_{x'_j}(\vect{\lambda}) ,
+\end{equation*}
+and averaging over the first collision with its density $\mathscr{K}_c/\varGamma_x$ gives
+\begin{equation}
+  \mathfrak{G}_x(\vect{\lambda}) = \sum_c\int\dd x'_1\cdots\dd x'_m\;\frac{\mathscr{K}_c(x \to x'_1\dots x'_m)}{\varGamma_x}\;\ee^{\vect{\lambda}\cdot\delta\vect{N}_c}\prod_{j=1}^m\mathfrak{G}_{x'_j}(\vect{\lambda}) .
+  \label{eq:D.43-firststep}
+\end{equation}
+Multiplied by $\varGamma_x$ this is \cref{eq:18.1-backward}. For an integer deposit and $s = \ee^\lambda$ it is \cref{eq:C.11-functional}, with $p_c$ the integrated branching ratio and the average over products written as an integral. The waiting time has dropped out, since $\vect{N}$ does not depend on when the collisions happen. If only deposits made before a time $t$ are counted, the same conditioning, now on whether the first collision comes before $t$, gives the backward Kolmogorov equation
+\begin{equation*}
+  \partial_t\mathfrak{G}_x(\vect{\lambda},t) = -\varGamma_x\mathfrak{G}_x(\vect{\lambda},t) + \sum_c\int\dd x'_1\cdots\dd x'_m\;\mathscr{K}_c\;\ee^{\vect{\lambda}\cdot\delta\vect{N}_c}\prod_j\mathfrak{G}_{x'_j}(\vect{\lambda},t) ,
+\end{equation*}
+with the initial value $\mathfrak{G}_x(\vect{\lambda},0) = 1$, since nothing has been deposited at $t = 0$. Its stationary limit is \cref{eq:D.43-firststep}. The time-resolved form is the one the kinetics of \cref{sec:18.5} needs; for the final pair number the stationary form suffices.
+
+\subsection{The minimal solution}
+
+Write \cref{eq:D.43-firststep} as $\mathfrak{G} = \mathcal{T}[\mathfrak{G}]$ on the nonterminal states, with $\mathfrak{G}_x = \ee^{\vect{\lambda}\cdot\vect{N}_{\mathrm{term}}(x)}$ on the terminal ones. For real $\vect{\lambda} \le 0$ the map $\mathcal{T}$ takes functions with values in $[0, 1]$ to functions with values in $[0, 1]$, and it is monotone: if $\mathfrak{G} \le \mathfrak{G}'$ at every state, then $\mathcal{T}[\mathfrak{G}] \le \mathcal{T}[\mathfrak{G}']$, since the right side of \cref{eq:D.43-firststep} is a sum of products of nonnegative factors. Start the iteration from $\mathfrak{G}^{(0)}_x = 0$ on the nonterminal states and set $\mathfrak{G}^{(n+1)} = \mathcal{T}[\mathfrak{G}^{(n)}]$. By induction on $n$,
+\begin{equation*}
+  \mathfrak{G}^{(n)}_x(\vect{\lambda}) = \bigl\langle\ee^{\vect{\lambda}\cdot\vect{N}}\,;\ \text{every line of the tree from } x \text{ ends within } n \text{ collisions}\,\big|\,x\bigr\rangle ,
+\end{equation*}
+with the average restricted to the trees that satisfy the condition. It holds at $n = 0$, where only a terminal start contributes. If it holds at $n$, the tree from $x$ ends within $n + 1$ collisions on every line exactly when the subtree of each product of the first collision ends within $n$, and the first-step factorization gives it at $n + 1$. The sequence increases with $n$ and converges to the average over all finite trees. If $\mathfrak{G}^*$ is any solution with values in $[0, 1]$, then $\mathfrak{G}^{(0)} \le \mathfrak{G}^*$, and monotonicity gives $\mathfrak{G}^{(n)} \le \mathcal{T}^n[\mathfrak{G}^*] = \mathfrak{G}^*$ for all $n$. The limit is therefore the smallest solution in $[0, 1]$.
+
+The physical functional is the average over all trees. It equals the minimal solution exactly when the trees are finite with probability one, the termination hypothesis. Otherwise the minimal solution misses the weight of the infinite trees, as in the toy law $1 - p + ps^2$ of \cref{app:C.11} with $p > 1/2$, whose iteration converges to $(1 - p)/p$ at $s = 1$. A carrier cascade terminates for a simple reason. Order the states by the kinetic energy of the particle. An ionization at $x$ leaves products with total kinetic energy $x - \Eg$, and an emission leaves $x - \omega_{\vect{Q}\nu}$. If every collision with a nonzero rate removes at least $\delta_{\min} > 0$ from the total kinetic energy of the nonterminal particles, the number of collisions in a cascade of energy $\omega$ is at most $\omega/\delta_{\min}$, and every tree is finite. Acoustic emission with $\omega_{\vect{Q}\nu} \to 0$ violates the uniform bound; finiteness then holds with probability one as long as the mean rate of energy loss of every nonterminal state is positive, which is true for a hot carrier at temperatures where phonon absorption is negligible. In the energy ordering, the right side of \cref{eq:D.43-firststep} refers only to states of lower energy than $x$, and the equation is an explicit recursion. Solved upward in energy from the terminal states, it constructs the minimal solution directly, and no other solution can appear.
+
+\subsection{Moment recursions}
+
+The deposits of a cascade of finite energy are bounded, so $\mathfrak{G}_x$ is smooth at $\vect{\lambda} = 0$ and its derivatives there are the moments. Write $\vect{m}_x = \langle\vect{N}\,|\,x\rangle$ for the mean vector, $\mathbf{M}_x = \langle\vect{N}\vect{N}^{\mathrm{T}}\,|\,x\rangle$ for the matrix of second moments, and abbreviate $\vect{m}_j = \vect{m}_{x'_j}$, $\mathbf{M}_j = \mathbf{M}_{x'_j}$ and $\langle\cdots\rangle_c = \int\dd x'_1\cdots\dd x'_m\,\mathscr{K}_c(\cdots)$. One derivative of the product $\ee^{\vect{\lambda}\cdot\delta\vect{N}_c}\prod_j\mathfrak{G}_{x'_j}$ at $\vect{\lambda} = 0$, where every factor is 1, gives $\delta\vect{N}_c + \sum_j\vect{m}_j$. Two derivatives give the second derivative of each factor plus the products of first derivatives of two different factors. Hence
+\begin{align}
+  \varGamma_x\,\vect{m}_x &= \sum_c\Bigl\langle\delta\vect{N}_c + \sum_j\vect{m}_j\Bigr\rangle_c ,
+  \label{eq:D.43-mean}\\
+  \varGamma_x\,\mathbf{M}_x &= \sum_c\Bigl\langle\delta\vect{N}_c\delta\vect{N}_c^{\mathrm{T}} + \sum_j\bigl(\delta\vect{N}_c\vect{m}_j^{\mathrm{T}} + \vect{m}_j\delta\vect{N}_c^{\mathrm{T}}\bigr) + \sum_j\mathbf{M}_j + \sum_{i\neq j}\vect{m}_i\vect{m}_j^{\mathrm{T}}\Bigr\rangle_c ,
+  \label{eq:D.43-second}
+\end{align}
+the vector form of \cref{eq:C.11-mean,eq:C.11-second}, with covariances between different deposits in the off-diagonal entries.
+
+The covariance matrix $\mathbf{C}_x = \mathbf{M}_x - \vect{m}_x\vect{m}_x^{\mathrm{T}}$ obeys a form without cancellations. Let $\vect{Z}_c = \delta\vect{N}_c + \sum_j\vect{m}_j$ be the mean deposit given the first collision. Expand $\langle(\vect{Z}_c - \vect{m}_x)(\vect{Z}_c - \vect{m}_x)^{\mathrm{T}} + \sum_j\mathbf{C}_j\rangle_c$, summed over $c$ and divided by $\varGamma_x$. The terms linear in $\vect{m}_x$ average to $-2\vect{m}_x\vect{m}_x^{\mathrm{T}}$ by \cref{eq:D.43-mean}, the constant term is $\vect{m}_x\vect{m}_x^{\mathrm{T}}$, and $\vect{Z}_c\vect{Z}_c^{\mathrm{T}} + \sum_j(\mathbf{M}_j - \vect{m}_j\vect{m}_j^{\mathrm{T}})$ reproduces the bracket of \cref{eq:D.43-second}, since $\sum_{i,j}\vect{m}_i\vect{m}_j^{\mathrm{T}} - \sum_j\vect{m}_j\vect{m}_j^{\mathrm{T}} = \sum_{i\ne j}\vect{m}_i\vect{m}_j^{\mathrm{T}}$. So
+\begin{equation}
+  \varGamma_x\,\mathbf{C}_x = \sum_c\Bigl\langle\sum_j\mathbf{C}_j + (\vect{Z}_c - \vect{m}_x)(\vect{Z}_c - \vect{m}_x)^{\mathrm{T}}\Bigr\rangle_c ,
+  \label{eq:D.43-cov}
+\end{equation}
+the law of total covariance: the covariance of the cascade is the average covariance of the subtrees plus the covariance of the first step's conditional mean. For one deposit both terms are nonnegative, which keeps the recursion stable on a grid; \cref{app:E.24} uses the same split for its estimator. For a seed of independent particles, such as the pair of \cref{eq:18.1-seed}, the means and covariances of its particles add, plus the deposit of the seed itself.
+
+\subsection{The energy-only recursions}
+
+Under the energy-only reduction the state is the type $t$ and the kinetic energy $x$, and there are two channels. Impact ionization, at the iso-energy rate $\varGamma_{\mathrm{ii},t}(x)$, leads to $(t, x_1)$, $(t, x_2)$, $(\bar t, x_3)$ on the plane $x_1 + x_2 + x_3 = x - \Eg$. Emission of a phonon of energy $\omega_{\mathrm{AB}}$, at the rate $\varGamma_{\mathrm{ph},t}(x)$, leads to $(t, x - \omega_{\mathrm{AB}})$. Let $p_t(x) = \varGamma_{\mathrm{ii},t}/(\varGamma_{\mathrm{ii},t} + \varGamma_{\mathrm{ph},t})$ be the probability that the next collision ionizes. For one entry $Y$ of $\vect{N}$, with deposits $d_{\mathrm{ii}}$ per ionization, $d_{\mathrm{ph}}$ per emission and $d_<(x)$ at the terminal state, write $m_t(x)$ and $M_t(x)$ for its first and second moments. In the random-$k$ form the products have the density $\rho_t(x_1)\rho_t(x_2)\rho_{\bar t}(x_3)/\mathfrak{P}_t(y)$ of \cref{eq:18.1-phase}, with $y = x - \Eg$. With $P_t = \rho_tm_t$, $S_t = \rho_tM_t$ and $*$ the convolution on $[0, \infty)$, the averages over the products are convolutions:
+\begin{gather*}
+  \Bigl\langle\sum_jm_j\Bigr\rangle = \frac{[2P_t*\rho_t*\rho_{\bar t} + \rho_t*\rho_t*P_{\bar t}](y)}{\mathfrak{P}_t(y)} , \qquad
+  \Bigl\langle\sum_jM_j\Bigr\rangle = \frac{[2S_t*\rho_t*\rho_{\bar t} + \rho_t*\rho_t*S_{\bar t}](y)}{\mathfrak{P}_t(y)} , \\
+  \Bigl\langle\sum_{i<j}m_im_j\Bigr\rangle = \frac{[P_t*P_t*\rho_{\bar t} + 2P_t*\rho_t*P_{\bar t}](y)}{\mathfrak{P}_t(y)} .
+\end{gather*}
+The pair sum has one term for the two products of type $t$ and two for the mixed pairs. The scalar forms of \cref{eq:D.43-mean,eq:D.43-second} then read, for $x \ge \theta_{\mathrm{ii}}\Eg$,
+\begin{align}
+  m_t(x) &= p_t\Bigl[d_{\mathrm{ii}} + \Bigl\langle\sum_jm_j\Bigr\rangle\Bigr] + (1 - p_t)\bigl[d_{\mathrm{ph}} + m_t(x - \omega_{\mathrm{AB}})\bigr] ,
+  \label{eq:D.43-m1}\\
+  M_t(x) &= p_t\Bigl[d_{\mathrm{ii}}^2 + 2d_{\mathrm{ii}}\Bigl\langle\sum_jm_j\Bigr\rangle + \Bigl\langle\sum_jM_j\Bigr\rangle + 2\Bigl\langle\sum_{i<j}m_im_j\Bigr\rangle\Bigr] \nonumber\\
+  &\qquad + (1 - p_t)\bigl[d_{\mathrm{ph}}^2 + 2d_{\mathrm{ph}}m_t(x - \omega_{\mathrm{AB}}) + M_t(x - \omega_{\mathrm{AB}})\bigr] ,
+  \label{eq:D.43-m2}
+\end{align}
+and $m_t = d_<$, $M_t = d_<^2$ below threshold. Every term on the right is known at energies below $x$, so one sweep upward on a grid of $K$ points solves both at a cost of order $K^2$. The grid must contain $\omega_{\mathrm{AB}}$, $\Eg$ and $\theta_{\mathrm{ii}}\Eg$ as whole numbers of steps, since the recursion reads $m_t$ at $x - \omega_{\mathrm{AB}}$ and starts ionizing at $\theta_{\mathrm{ii}}\Eg$. When $\omega_{\mathrm{AB}}$ is not a whole number of steps, the recursions are solved at the three commensurate phonon energies nearest it and interpolated to its value. With phonons the discretization error falls as $h^{3/2}$ in the step $h$, so values at the steps $h$ and $h/2$ extrapolate to zero step as $f(h/2) + [f(h/2) - f(h)]/(2^{3/2} - 1)$; the silicon numbers of \cref{sec:18.2,sec:18.4} are extrapolated from $h = \Eg/74$ and $\Eg/148$ (or $\Eg/73$ and $\Eg/146$). Covariances between two entries follow from the second moment of their sum, or of their difference, which gives a second, independent route.
+
+\subsection{Pair energy and Fano factor}
+
+Take the deposit vector $\vect{N} = (N_{\mathrm{eh}}, E_<, E_>)$, with $E_<$ the kinetic energy each carrier holds when it falls below threshold for good, summed over carriers, and $E_>$ the phonon energy emitted above threshold. The deposits are $d_{\mathrm{ii}} = (1, 0, 0)$, $d_{\mathrm{ph}} = (0, 0, \omega_{\mathrm{AB}})$ and $d_<(x) = (0, x, 0)$, and the heat of \cref{eq:18.1-energy} is $E_{\mathrm{heat}} = E_< + E_>$. For a cascade of total energy $\omega$, with the seed pair counted in $N_{\mathrm{eh}}$, the identity $\omega = N_{\mathrm{eh}}\Eg + E_< + E_>$ holds on every path. Its mean gives the mean pair number $\bar n = \langle N_{\mathrm{eh}}\rangle$ and with it
+\begin{equation}
+  \varepsilon_{\mathrm{eh}} = \frac{\omega}{\bar n} , \qquad
+  F_{\mathrm{eh}} = \frac{\operatorname{Var}N_{\mathrm{eh}}}{\bar n} = \frac{\operatorname{Var}(E_< + E_>)}{\Eg^2\,\bar n} ,
+  \label{eq:D.43-moments}
+\end{equation}
+since $N_{\mathrm{eh}} = (\omega - E_< - E_>)/\Eg$ and $\omega$ is fixed. Expanding the variance of the sum,
+\begin{equation}
+  F_{\mathrm{eh}} = \mathcal{V}_< + \mathcal{V}_> + 2\mathcal{V}_{<>} , \qquad
+  \mathcal{V}_< = \frac{\operatorname{Var}E_<}{\Eg^2\,\bar n} , \quad
+  \mathcal{V}_> = \frac{\operatorname{Var}E_>}{\Eg^2\,\bar n} , \quad
+  \mathcal{V}_{<>} = \frac{\operatorname{Cov}(E_<,E_>)}{\Eg^2\,\bar n} .
+  \label{eq:D.43-decomp}
+\end{equation}
+All three terms are entries of $\mathbf{C}$ in \cref{eq:D.43-cov}, computed with the deposits above, and \cref{sec:18.2} evaluates them for silicon. The identity provides two checks on any solution. The means must satisfy $\Eg\bar n + \langle E_<\rangle + \langle E_>\rangle = \omega$, and the variance of $N_{\mathrm{eh}}$ computed with $d_{\mathrm{ii}} = 1$ alone must equal $\operatorname{Var}(E_< + E_>)/\Eg^2$ computed from the heat deposits.

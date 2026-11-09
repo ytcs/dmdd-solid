@@ -1,0 +1,113 @@
+\section{Moment matrices and Ward identities}\label{app:D.26}
+
+This section derives the relations of \cref{sec:8.3} beyond the first moment. The species-resolved f-sum rule, \cref{eq:4.3-species}, and the algebra behind it are those of \cref{app:D.6}, which we use without repeating. The Hamiltonian is that of electrons and nuclei, $H = \sum_i\vect{p}_i^2/2m_i + U$, with $U$ a function of the positions and spins of all particles; species are labeled $s$, particles $i, j$, and nuclei of species $\kappa$ also $I$, with positions $\vect{X}_I$.
+
+\subsection{Moments as commutator brackets}
+
+For operators with $O(-\vect{q}) = O(\vect{q})^\dagger$ and a state diagonal in the energy basis with weights $p_i$, insert a complete set $|f\rangle$ and use $\langle f|[H, X]_k|i\rangle = \omega_{fi}^k\langle f|X|i\rangle$, $\omega_{fi} = E_f - E_i$:
+\begin{equation*}
+  \frac1\Vol\bigl\langle O_a^\dagger[H, O_b]_k\bigr\rangle = \int\frac{\dd\omega}{2\pi}\,\omega^kS_{ab}(\vect{q},\omega) , \qquad
+  \frac1\Vol\bigl\langle[H, O_b]_kO_a^\dagger\bigr\rangle = (-1)^k\int\frac{\dd\omega}{2\pi}\,\omega^kS_{ba}(-\vect{q},\omega) ,
+\end{equation*}
+the second after relabeling $i \leftrightarrow f$, which turns $\omega_{fi}^k$ into $(-\omega)^k$ and the matrix elements into those of $S_{ba}(-\vect{q},\omega)$ (\cref{sec:4.3}). The difference of the two lines is the commutator, the sum the anticommutator, and $\int\omega^k[S_{ab}(\vect{q}) + S_{ba}(-\vect{q})]$ is the commutator for odd $k$ and the anticommutator for even $k$: \cref{eq:8.3-moments}. The same expansion as in \cref{eq:4.1-tail}, carried to higher order, makes the coefficient of $z^{-(n+1)}$ in $R_{ab}(\vect{q},z)$ equal to $\Vol^{-1}\langle[O_a^\dagger, [H, O_b]_n]\rangle$ for every $n$; for odd $n$ this is $\mathscr{M}^n_{ab}$.
+
+In a stationary state the average of $[H, Y]$ vanishes for any $Y$, so by the Jacobi identity $\langle[X, [H, Y]]\rangle = \langle[[X, H], Y]\rangle$. For the third moment this moves one commutator to the left,
+\begin{equation}
+  \mathscr{M}^3_{ab} = \frac1\Vol\bigl\langle\bigl[[O_a^\dagger, H],\,[H, [H, O_b]]\bigr]\bigr\rangle .
+  \label{eq:D.26-M3sym}
+\end{equation}
+
+\subsection{Commutators of a density}
+
+For one particle of mass $m$, write $A = \ee^{\ii\vect{q}\cdot\vect{r}}$. The shift $\vect{p}A = A(\vect{p} + \vect{q})$ (\cref{app:D.6}) gives, for any function $h(\vect{p})$,
+\begin{equation}
+  \Bigl[\frac{\vect{p}^2}{2m},\,A\,h(\vect{p})\Bigr] = A\,f(\vect{p})\,h(\vect{p}) , \qquad f(\vect{p}) = \frac{(\vect{p} + \vect{q})^2 - \vect{p}^2}{2m} = \frac{\vect{q}\cdot\vect{p} + q^2/2}{m} ,
+  \label{eq:D.26-shift}
+\end{equation}
+where $f$ is the energy a free particle of momentum $\vect{p}$ gains from the kick $\vect{q}$. With $h = 1$ this is the continuity equation, $[H, A] = Af = \frac12\{\vect{q}\cdot\vect{p}/m, A\}$. Applied once more, with the potential energy, which commutes with $A$ but not with $f$,
+\begin{equation}
+  [H, Af] = A f^2 + \frac{\ii}{m}\,A\,\vect{q}\cdot\nabla U ,
+  \label{eq:D.26-HAf}
+\end{equation}
+since $[U, \vect{q}\cdot\vect{p}] = \ii\vect{q}\cdot\nabla U$. Summed over the particles of species $s$, $[H, n_s] = \vect{q}\cdot\vect{j}_s = \sum_iA_if_i$, and $[H, [H, n_s]] = \sum_i[A_if_i^2 + (\ii/m_s)A_i\vect{q}\cdot\nabla_iU]$. The adjoint is $(Af)^\dagger = A^\dagger g(\vect{p})$, with $g(\vect{p}) = (\vect{q}\cdot\vect{p} - q^2/2)/m$, and $[n_s^\dagger, H] = \sum_iA_i^\dagger g_i = \vect{q}\cdot\vect{j}_s^\dagger$.
+
+\subsection{Third moments}
+
+By \cref{eq:D.26-M3sym}, $\mathscr{M}^3_{ss'} = \Vol^{-1}\langle[\sum_{i\in s}A_i^\dagger g_i,\,\sum_{j\in s'}(A_jf_j^2 + (\ii/m_{s'})A_j\vect{q}\cdot\nabla_jU)]\rangle$. Three kinds of terms survive.
+
+\emph{Same particle, kinetic.} Using $A^\dagger g(\vect{p})A = g(\vect{p} + \vect{q}) = f(\vect{p})$ and $Af(\vect{p})A^\dagger = f(\vect{p} - \vect{q}) = g(\vect{p})$,
+\begin{equation*}
+  [A^\dagger g, Af^2] = f^3 - g^3 = (f - g)(f^2 + fg + g^2) = \frac{q^2}{m}\Bigl[\frac{3(\vect{q}\cdot\vect{p})^2}{m^2} + \Bigl(\frac{q^2}{2m}\Bigr)^2\Bigr] .
+\end{equation*}
+
+\emph{Same particle, potential.} $[A^\dagger g, (\ii/m)A\,\vect{q}\cdot\nabla U] = (\ii/m)\{f\,\vect{q}\cdot\nabla U - \vect{q}\cdot\nabla U\,g\} = (\ii/m)\{[f, \vect{q}\cdot\nabla U] + \vect{q}\cdot\nabla U(f - g)\}$. The commutator is $-(\ii/m)(\vect{q}\cdot\nabla)^2U$, and the last term, $(\ii q^2/m^2)\vect{q}\cdot\nabla U$, has zero average, because $\nabla_iU = -\dot{\vect{p}}_i$ and $\langle\dot{\vect{p}}_i\rangle = 0$ in a stationary state. What remains is $m^{-2}(\vect{q}\cdot\nabla_i)^2U$.
+
+\emph{Different particles.} Kinetic terms of different particles commute. In the potential term, $g_i$ fails to commute only with the dependence of $\nabla_jU$ on $\vect{r}_i$: $[A_i^\dagger g_i, (\ii/m_{s'})A_j\vect{q}\cdot\nabla_jU] = (m_sm_{s'})^{-1}A_i^\dagger A_j(\vect{q}\cdot\nabla_i)(\vect{q}\cdot\nabla_j)U$.
+
+Collecting, with $A_i^\dagger A_j = \ee^{-\ii\vect{q}\cdot(\vect{r}_i - \vect{r}_j)}$ and the same-particle potential term included as $i = j$,
+\begin{equation}
+  \mathscr{M}^3_{ss'} = \delta_{ss'}\,\frac{\nd_sq^2}{m_s}\Bigl[\Bigl(\frac{q^2}{2m_s}\Bigr)^2 + \frac{3q^2\langle(\hat{\vect{q}}\cdot\vect{p})^2\rangle_s}{m_s^2}\Bigr]
+  + \frac{1}{m_sm_{s'}\Vol}\Bigl\langle\sum_{i\in s}\sum_{j\in s'}\ee^{-\ii\vect{q}\cdot(\vect{r}_i - \vect{r}_j)}(\vect{q}\cdot\nabla_i)(\vect{q}\cdot\nabla_j)U\Bigr\rangle ,
+  \label{eq:D.26-M3}
+\end{equation}
+which is \cref{eq:8.3-M3ss} for $s = s'$. For $s = e$ and $s' = \kappa$ only the part of $U$ that depends on both an electron and a nucleus survives, $\sum_{j,I}w_\kappa(\vect{r}_j - \vect{X}_I)$ with $w_\kappa(\vect{y}) = -Z_\kappa\alpha/y$, for which $(\vect{q}\cdot\nabla_j)(\vect{q}\cdot\nabla_I)w_\kappa = -(\vect{q}\cdot\nabla)^2w_\kappa$. Defining the conditional density by $N_\kappa\nd_e^{(\kappa)}(\vect{y}) = \langle\sum_j\sum_{I\in\kappa}\delta^3(\vect{r}_j - \vect{X}_I - \vect{y})\rangle$, with $N_\kappa$ the number of nuclei of species $\kappa$, the average becomes an integral over $\vect{y}$, and this is \cref{eq:8.3-M3}. A spring $U = \frac12K(\vect{r} - \vect{X})^2$ between one electron and one nucleus has $(\vect{q}\cdot\nabla_r)(\vect{q}\cdot\nabla_X)U = -Kq^2$, which gives $\mathscr{M}^3_{e\kappa} = -Kq^2\langle\ee^{-\ii\vect{q}\cdot(\vect{r} - \vect{X})}\rangle/(m_eM_\kappa \Vol) \to -Kq^2/(m_eM_\kappa \Vol)$ at small $q$. The same number follows from the spectrum. In the relative mode, at $\omega_{\mathrm{r}}^2 = K/\mu$ with $\mu = m_eM_\kappa/(m_e + M_\kappa)$, the displacements are $M_\kappa/(m_e + M_\kappa)$ and $-m_e/(m_e + M_\kappa)$ times the relative one, whose squared transition amplitude is $1/2\mu\omega_{\mathrm{r}}$. The cross weight $-q^2[m_eM_\kappa/(m_e + M_\kappa)^2]/2\mu\omega_{\mathrm{r}}$, times $2\omega_{\mathrm{r}}^3/\Vol$ for the two terms of \cref{eq:8.3-moments}, is $-Kq^2/(m_eM_\kappa \Vol)$; the center-of-mass mode, in which the pair recoils as a whole with $\omega = q^2/2(m_e + M_\kappa)$, contributes at order $q^6$.
+
+\subsection{The mixed moment in a crystal}
+
+In Fourier space, $(\vect{q}\cdot\nabla)^2w_\kappa$ has the transform $-(\vect{q}\cdot\vect{k})^2\tilde w_\kappa(\vect{k})$, with $\tilde w_\kappa(\vect{k}) = -Z_\kappa e^2/k^2$. For a static crystal, $\nd_e^{(\kappa)}(\vect{y}) = \sum_{\vect{G}}\nd^{(\kappa)}_{\vect{G}}\ee^{\ii\vect{G}\cdot\vect{y}}$ with $\nd^{(\kappa)}_{\vect{0}} = \nd_e$ and $\sum_{\vect{G}}\nd^{(\kappa)}_{\vect{G}} = \nd_e^{(\kappa)}$, and the integral in \cref{eq:8.3-M3} picks $\vect{k} = \vect{q} - \vect{G}$:
+\begin{equation}
+  \mathscr{M}^3_{e\kappa}(\vect{q}) = -\frac{Z_\kappa e^2\,\nd_\kappa}{m_eM_\kappa}\sum_{\vect{G}}\nd^{(\kappa)}_{\vect{G}}\,\frac{[\vect{q}\cdot(\vect{q} - \vect{G})]^2}{|\vect{q} - \vect{G}|^2} .
+  \label{eq:D.26-Gsum}
+\end{equation}
+The term $\vect{G} = 0$ is exactly $\nd_eq^2$ at every $q$; it does not vanish faster than $q^2$ as $q \to 0$, because the Coulomb transform $1/k^2$ is evaluated at $k = q$. For $\vect{G} \neq 0$ and $q \ll G$, the weight is $(\vect{q}\cdot\hat{\vect{G}})^2[1 + O(q/G)]$. On a site of cubic symmetry the coefficients are equal over each star of $\vect{G}$, and the average of $(\vect{q}\cdot\hat{\vect{G}})^2$ over a cubic star is $q^2/3$. The sum is then $q^2[\nd_e + (\nd_e^{(\kappa)} - \nd_e)/3]$, which is \cref{eq:8.3-M3lim}. The correction of first order in $q/G$ is odd in $\vect{G}$; it cancels between $\vect{G}$ and $-\vect{G}$ when the site has inversion symmetry, $\nd^{(\kappa)}_{-\vect{G}} = \nd^{(\kappa)}_{\vect{G}}$, and survives otherwise. Since the density is real, $\nd^{(\kappa)}_{-\vect{G}} = (\nd^{(\kappa)}_{\vect{G}})^*$, and the surviving odd part is $\ii\Imag\nd^{(\kappa)}_{\vect{G}}$: the first-order correction is purely imaginary and enters $\Imag\mathscr{M}^3_{e\kappa}$ alone, while the real part is corrected at order $(q/G)^2$ at every cubic site. When $q$ exceeds $G$ for some stars, their weight tends to $q^2$ instead of $q^2/3$, which is the middle regime of \cref{sec:8.3-third}.
+
+For a density with spherical symmetry about the nucleus the angular integral can be done in real space. Writing $(\vect{q}\cdot\nabla)^2(1/y) = -(4\pi/3)q^2\delta^3(\vect{y}) + 2q^2P_2(\hat{\vect{q}}\cdot\hat{\vect{y}})/y^3$, with $P_2$ the Legendre polynomial, the angular integral of the plane wave against $P_2$ is $\int\dd\Omega_y\,\ee^{-\ii\vect{q}\cdot\vect{y}}P_2(\hat{\vect{q}}\cdot\hat{\vect{y}}) = -4\pi j_2(qy)$. With $w_\kappa = -Z_\kappa e^2/(4\pi y)$, \cref{eq:8.3-M3} becomes
+\begin{equation*}
+  \mathscr{M}^3_{e\kappa} = -\frac{\nd_\kappa}{m_eM_\kappa}\Bigl(-\frac{Z_\kappa e^2}{4\pi}\Bigr)\Bigl[-\frac{4\pi}{3}q^2\bar\nd_e^{(\kappa)}(0) - 8\pi q^2\int_0^\infty\dd y\,\frac{\bar\nd_e^{(\kappa)}(y)\,j_2(qy)}{y}\Bigr] ,
+\end{equation*}
+which is \cref{eq:8.3-M3sph}. For a uniform density the integral is $\nd_e\int_0^\infty\dd x\,j_2(x)/x = \nd_e/3$, which reproduces the $\vect{G} = 0$ term of \cref{eq:D.26-Gsum}, $\nd_eq^2$ in total. The same check runs in momentum space: the spherical form equals $\int\frac{\dd^3p}{(2\pi)^3}A(p/q)\,\tilde\nd(p)$ with $A(x) = \frac12\int_{-1}^{1}\dd u\,(1 - xu)^2/(1 + x^2 - 2xu)$, which tends to 1 for structure much smoother than $1/q$ and to $1/3$ for structure much sharper.
+
+\subsection{Existence of the fourth moment}
+
+The even moment $\mathscr{M}^4_{ss}$ is $\Vol^{-1}\langle X^\dagger X + XX^\dagger\rangle$ with $X = [H, [H, n_s]]$, a sum of nonnegative terms. By \cref{eq:D.26-HAf}, $X$ contains $(\ii/m_s)\sum_iA_i\vect{q}\cdot\nabla_iU$, whose square contains the mean square of $\vect{q}\cdot\nabla_iU$. For the Coulomb attraction of a nucleus, $|\nabla w_\kappa|^2 = (Z_\kappa\alpha)^2/y^4$, and against an electron density that is finite at $y = 0$ its average $\int4\pi y^2\dd y\,\nd(y)\,(Z_\kappa\alpha)^2/y^4$ diverges at small $y$. The kinetic part of $X$, $\sum_iA_if_i^2$, has a finite mean square, set by the average of $p^4$, which is finite even with the cusp of the wavefunction at the nucleus. By the triangle inequality for the norm $\langle X^\dagger X\rangle^{1/2}$ it cannot cancel the divergence, and $\mathscr{M}^4$ is infinite for both electrons and nuclei. The third moment involves $\nabla^2w_\kappa$ only, which is a delta function at the nucleus, and stays finite. In the Born--Oppenheimer approximation $U$ is replaced, for the nuclei, by a smooth surface, and the force on a nucleus is bounded.
+
+\subsection{Momentum flux}
+
+Let $\vect{g}(\vect{q}) = \sum_i\frac12\{\vect{p}_i, A_i\} = \sum_iA_i(\vect{p}_i + \vect{q}/2)$. The kinetic part of its commutator with $H$ follows from \cref{eq:D.26-shift} with $h = p^\alpha + q^\alpha/2$:
+\begin{equation*}
+  \Bigl[\sum_j\frac{\vect{p}_j^2}{2m_j},\,g^\alpha\Bigr] = q_\beta\sum_i\frac{A_i}{m_i}\Bigl(p_i + \frac{q}{2}\Bigr)^\alpha\Bigl(p_i + \frac{q}{2}\Bigr)^\beta .
+\end{equation*}
+For a pair potential $U = \sum_{i<j}w_{ij}(\vect{r}_i - \vect{r}_j)$ the potential part is
+\begin{equation*}
+  \ii\sum_i\partial_i^\alpha U\,A_i = \ii\sum_{i<j}\partial^\alpha w_{ij}(\vect{r}_{ij})\,(A_i - A_j) ,
+\end{equation*}
+since the force of $j$ on $i$ is minus that of $i$ on $j$. With $\vect{r}_{ij} = \vect{r}_i - \vect{r}_j$,
+\begin{equation*}
+  A_i - A_j = \ii q_\beta r_{ij}^\beta\int_0^1\dd\lambda\,\ee^{\ii\vect{q}\cdot(\vect{r}_j + \lambda\vect{r}_{ij})} ,
+\end{equation*}
+which contains the plane wave averaged along the segment between the two particles. Both parts carry a factor $q_\beta$, and
+\begin{equation}
+  \mathsf{T}^{\alpha\beta}(\vect{q}) = \sum_i\frac{A_i}{m_i}\Bigl(p_i + \frac{q}{2}\Bigr)^\alpha\Bigl(p_i + \frac{q}{2}\Bigr)^\beta - \sum_{i<j}\partial^\alpha w_{ij}(\vect{r}_{ij})\,r_{ij}^\beta\int_0^1\dd\lambda\,\ee^{\ii\vect{q}\cdot(\vect{r}_j + \lambda\vect{r}_{ij})}
+  \label{eq:D.26-flux}
+\end{equation}
+is the momentum flux of \cref{eq:8.3-flux}: the momentum carried by the particles plus the stress transmitted along each pair. Two hypotheses enter. There must be no external potential, which would add a force $\sum_i\nabla_iV_{\mathrm{ext}}$ that no factor of $q$ cancels. The interactions must be pairwise, or more generally translation invariant with forces that sum to zero; spin-dependent interactions that are functions of positions and spins satisfy this.
+
+The soft acoustic limit follows in two steps. Between eigenstates, \cref{eq:8.3-mass} gives $\omega_{fi}\langle f|n_{\mathrm{M}}|i\rangle = q_\alpha\langle f|g^\alpha|i\rangle$ and \cref{eq:8.3-flux} gives $\omega_{fi}\langle f|g^\alpha|i\rangle = q_\beta\langle f|\mathsf{T}^{\alpha\beta}|i\rangle$, so for $\omega_{fi} \neq 0$
+\begin{equation*}
+  \langle f|n_{\mathrm{M}}(\vect{q})|i\rangle = \frac{q_\alpha q_\beta}{\omega_{fi}^2}\,\langle f|\mathsf{T}^{\alpha\beta}(\vect{q})|i\rangle .
+\end{equation*}
+Inserted into \cref{eq:4.2-Sab} in the second slot, or in both, this is \cref{eq:8.3-soft}. The matrix elements of $\mathsf{T}^{\alpha\beta}(\vect{q})$ between the ground state and a state of finite energy are finite as $q \to 0$, those of the total stress, so the mass-density amplitude to such a state is of order $q^2$.
+
+\subsection{The boost from momentum conservation}
+
+In a crystal of one element, $n_{\mathrm{M}} = m_en_e + M_\kappa\sum_\kappa n_\kappa$. For a final state $f$ at a finite energy above the ground state, the amplitude of $n_{\mathrm{M}}$ is of order $q^2$, while that of $n_e$ to an electronic excitation is of order $q$ (the dipole term). Dividing by $M_\kappa$ gives \cref{eq:8.3-boostward}. The same result follows from the superadiabatic amplitude \cref{eq:8.6-boost} summed over all nuclei at small $q$, where $\ee^{\ii\vect{q}\cdot\vect{X}_I} \to 1$ inside the electronic factor. The adiabatic states move rigidly with a rigid translation of all nuclei, so $\sum_I\nabla_I\Psi_j = -\sum_i\nabla_i\Psi_j$, and the summed derivative coupling is $\sum_I\vect{d}^I_{j0} = -\langle\Psi_j|\sum_i\nabla_i|\Psi_0\rangle = -\ii\langle\Psi_j|\vect{P}_e|\Psi_0\rangle$, with $\vect{P}_e$ the total electron momentum. Since $\vect{P}_e = \ii m_e[H_e, \sum_i\vect{r}_i]$, $\langle\Psi_j|\vect{P}_e|\Psi_0\rangle = \ii m_e(E_j - E_0)\langle\Psi_j|\sum_i\vect{r}_i|\Psi_0\rangle$. The summed amplitude \cref{eq:8.6-boost} is then $-\ii\vect{q}\cdot\sum_I\vect{d}^I_{j0}/[M_\kappa(E_j - E_0)] = -(m_e/M_\kappa)\langle\Psi_j|\ii\vect{q}\cdot\sum_i\vect{r}_i|\Psi_0\rangle$, which is $-(m_e/M_\kappa)\langle\Psi_j|n_e(\vect{q})|\Psi_0\rangle$ to first order in $q$. The two routes agree.
+
+\subsection{The electron third moment}
+
+Multiply \cref{eq:8.3-ward}, with $O_B = n_e$, by $\omega^3$, add the term with $-\vect{q}$, and integrate. By \cref{eq:8.3-flux} the right side is $q_\alpha q_\beta$ times the first moment of $n_e$ and $\mathsf{T}^{\alpha\beta}$, $\Vol^{-1}\langle[n_e^\dagger, [H, \mathsf{T}^{\alpha\beta}]]\rangle$, and the outer commutator with $n_e^\dagger$ brings one more factor of $q$. Hence $\sum_{s'}m_{s'}\mathscr{M}^3_{es'} = O(q^3)$, and the terms of order $q^2$ of $m_e\mathscr{M}^3_{ee}$ and $\sum_\kappa M_\kappa\mathscr{M}^3_{e\kappa}$ must cancel.
+
+We check this directly. In \cref{eq:D.26-M3} with $s = s' = e$, the kinetic bracket is of order $q^4$. In the potential term, the electron--nucleus energy contributes only at $i = j$, $\sum_{i,I}(\vect{q}\cdot\nabla)^2w_\kappa(\vect{r}_i - \vect{X}_I)$, whose average over a cubic crystal keeps the trace, $q^2\nabla^2w_\kappa/3 = Z_\kappa e^2q^2\delta^3/3$, and gives $(e^2q^2/3m_e^2)\sum_\kappa Z_\kappa\nd_\kappa\nd_e^{(\kappa)}$. The electron--electron energy $\sum_{i<j}e^2/(4\pi r_{ij})$ contributes at $i = j$ and at $i \neq j$, which combine into $\sum_{i\neq j}(\vect{q}\cdot\nabla)^2w_{ee}(\vect{r}_{ij})[1 - \ee^{-\ii\vect{q}\cdot\vect{r}_{ij}}]$. The bracket vanishes at $\vect{r}_{ij} = 0$, so the contact term and the short-range exchange--correlation hole contribute only at higher order in $q$. Against the uniform density $\nd_e$, the term 1 gives $\nd_e\int\dd^3r\,(\vect{q}\cdot\nabla)^2w_{ee} = -e^2q^2\nd_e/3$, since the quadrupolar part averages out over angles and the contact part remains. The phase term gives $-\nd_e\int\dd^3r\,\ee^{-\ii\vect{q}\cdot\vect{r}}(\vect{q}\cdot\nabla)^2w_{ee} = \nd_eq^4\tilde w_{ee}(q) = +e^2q^2\nd_e$, with $\tilde w_{ee} = e^2/q^2$. Together the electron pairs contribute $\frac23e^2q^2\nd_e$ per electron. The periodic part of the density cancels between the two terms on cubic sites, star by star as in \cref{eq:D.26-Gsum}. Altogether
+\begin{equation*}
+  m_e\mathscr{M}^3_{ee} = \frac{e^2q^2}{3m_e}\Bigl[\sum_\kappa Z_\kappa\nd_\kappa\nd_e^{(\kappa)} + 2\nd_e^2\Bigr] + O(q^3) ,
+\end{equation*}
+which is \cref{eq:8.3-M3ee}. By \cref{eq:8.3-M3lim} and neutrality, $\sum_\kappa M_\kappa\mathscr{M}^3_{e\kappa} = -(e^2q^2/3m_e)[\sum_\kappa Z_\kappa\nd_\kappa\nd_e^{(\kappa)} + 2\nd_e^2]$, and the sum vanishes at order $q^2$, as it must. In jellium the nuclei are a rigid uniform background with $\nabla^2U_{\mathrm{bg}} = e^2\nd_e$ at every electron, the contact sum becomes $\nd_e^2$, and $\mathscr{M}^3_{ee} = (\nd_eq^2/m_e)(e^2\nd_e/m_e) = \nd_eq^2\omega_p^2/m_e$ at small $q$, the third moment of the electron gas.

@@ -1,0 +1,122 @@
+\section{The Allen--Heine--Cardona self-energy}\label{app:D.16}
+
+A band energy shifts at second order in the nuclear displacements through two terms of the same order. One is the first-order vertex $g$ of \cref{eq:A.6-g} used twice, with a virtual phonon emitted and reabsorbed: the Fan--Migdal self-energy $\Sigma^{\mathrm{FM}}$. The other is the second-order vertex $g^{\mathrm{AH}}$ used once, with its two displacements averaged over the thermal state of the lattice: the Allen--Heine self-energy $\Sigma^{\mathrm{AH}}$. This section derives both with the rules of \cref{app:D.11} and continues them to real frequency. Their adiabatic limit is the formula of Allen and Heine~\cite{allen1976theory}. In the rigid-ion approximation, the relation of Allen and Cardona~\cite{allen1981temperature} then expresses $\Sigma^{\mathrm{AH}}$ through first-order matrix elements. The field-theoretic forms follow Ref.~\cite[Sects.~V.B and~IX.A]{giustino2017electron}; the steps are written out here in the conventions of \cref{app:A.6}. These results are used in \cref{sec:6.3}.
+
+\subsection*{Second-order coupling}
+
+Let $V(\vect{r};\{\vect{u}\})$ be the one-electron potential, the Kohn--Sham potential of \cref{app:D.5}, as a function of the displacements $\vect{u}_{\vect{R}\kappa}$ of all nuclei from equilibrium. To second order,
+\begin{equation*}
+  V = V^{(0)} + \sum_a\frac{\partial V}{\partial u_a}\,u_a + \frac12\sum_{ab}\frac{\partial^2V}{\partial u_a\,\partial u_b}\,u_au_b ,
+\end{equation*}
+where $a = (\vect{R}\kappa\alpha)$ collects the cell, the species and the Cartesian index, and the derivatives are total derivatives at equilibrium, which include the self-consistent response of the electrons. Inserting the normal-mode expansion \cref{eq:A.6-u} into the linear term and taking its matrix elements between Bloch states gives $H_{\mathrm{ep}}$ of \cref{eq:A.6-Hep} with the vertex \cref{eq:A.6-g}. The same insertion into the quadratic term gives
+\begin{gather}
+  H^{(2)}_{\mathrm{ep}} = \frac1N\sum_{\vect{k}\vect{Q}\vect{Q}'}\sum_{mn\nu\nu'}g^{\mathrm{AH}}_{mn\nu\nu'}(\vect{k},\vect{Q},\vect{Q}')\,c^\dagger_{m,\vect{k}+\vect{Q}+\vect{Q}'}c_{n\vect{k}}\,B_{\vect{Q}\nu}B_{\vect{Q}'\nu'} , \notag\\
+  g^{\mathrm{AH}}_{mn\nu\nu'}(\vect{k},\vect{Q},\vect{Q}') = \frac{1}{2}\sum_{\kappa\alpha,\kappa'\beta}\frac{e^\alpha_{\kappa\nu}(\vect{Q})\,e^\beta_{\kappa'\nu'}(\vect{Q}')}{\sqrt{2M_\kappa\omega_{\vect{Q}\nu}\,2M_{\kappa'}\omega_{\vect{Q}'\nu'}}}\,\bigl\langle\psi_{m,\vect{k}+\vect{Q}+\vect{Q}'}\big|\partial^2_{\kappa\alpha\vect{Q},\kappa'\beta\vect{Q}'}V\big|\psi_{n\vect{k}}\bigr\rangle ,
+  \label{eq:D.16-gAH}
+\end{gather}
+with $\partial^2_{\kappa\alpha\vect{Q},\kappa'\beta\vect{Q}'}V = \sum_{\vect{R}\vect{R}'}\ee^{\ii\vect{Q}\cdot\vect{R} + \ii\vect{Q}'\cdot\vect{R}'}\,\partial^2V/\partial u^\alpha_{\vect{R}\kappa}\partial u^\beta_{\vect{R}'\kappa'}$. The two factors $1/\sqrt N$ of \cref{eq:A.6-u} combine into the single $1/N$, and the matrix element is of order one in $N$ for the same reason as in \cref{eq:A.6-g}. This is the normalization of Ref.~\cite[Eqs.~(39) and~(40)]{giustino2017electron}, where the vertex is called $g^{\mathrm{DW}}$. Both $H_{\mathrm{ep}}$ and $H^{(2)}_{\mathrm{ep}}$ are of second order in the zero-point amplitude when they enter an energy: $H_{\mathrm{ep}}$ twice, $H^{(2)}_{\mathrm{ep}}$ once. A consistent second-order theory keeps both. The term of $H_{\mathrm{ep}}$ with $\vect{Q} = 0$ and one boson line attached to a closed electron loop, the tadpole, would describe a static shift of the equilibrium positions; it vanishes because the expansion is made about the minimum of the Born--Oppenheimer surface, where $\langle B_{\vect{0}\nu}\rangle = 0$.
+
+\subsection*{The Fan--Migdal self-energy}
+
+The second-order self-energy from $H_{\mathrm{ep}}$ is the boson-exchange diagram of \cref{app:D.11}, with two changes. The vertex of \cref{eq:A.6-Hep} carries $1/\sqrt N$ instead of $1/\sqrt \Vol$, so the replacement \cref{eq:D.11-boson} reads $-|g|^2\mathsf{D}_0/N$. And the vertex carries band indices: an electron in $(n,\vect{k})$ goes to $(m,\vect{k}+\vect{Q})$ with $g_{mn\nu}(\vect{k},\vect{Q})\,B_{\vect{Q}\nu}$ and returns with $g_{nm\nu}(\vect{k}+\vect{Q},-\vect{Q})\,B_{-\vect{Q}\nu}$, which is $g_{mn\nu}(\vect{k},\vect{Q})^*$ by \cref{eq:A.6-herm}. Neglecting the off-diagonal elements in $n$, which is exact for a nondegenerate level and, once summed over the zone, for a level whose partners form one irreducible representation (\cref{sec:6.3}),
+\begin{equation}
+  \Sigma^{\mathrm{FM}}_{n\vect{k}}(\ii\omega^{\mathrm{F}}_j) = -\frac1N\sum_{\vect{Q}\nu m}|g_{mn\nu}(\vect{k},\vect{Q})|^2\;T\sum_{j'}\mathsf{D}_0(\vect{Q}\nu,\ii\omega^{\mathrm{B}}_{j'})\,\GF_0(m,\vect{k}+\vect{Q},\ii\omega^{\mathrm{F}}_j - \ii\omega^{\mathrm{B}}_{j'}) ,
+  \label{eq:D.16-FMmats}
+\end{equation}
+with $\mathsf{D}_0(\vect{Q}\nu,z) = 1/(z - \omega_{\vect{Q}\nu}) - 1/(z + \omega_{\vect{Q}\nu})$ from \cref{eq:D.11-D0} and $\GF_0(m,\vect{p},z) = 1/(z - \xi_{m\vect{p}})$, where $\xi_{m\vect{p}} = \varepsilon_{m\vect{p}} - \mu_{\mathrm{ch}}$.
+
+The frequency sum is done with the bosonic form of \cref{eq:C.5-matsum}. Write $\omega_0 = \omega_{\vect{Q}\nu}$, $\xi = \xi_{m,\vect{k}+\vect{Q}}$ and $z_0 = \ii\omega^{\mathrm{F}}_j - \xi$. The function $g(z) = \mathsf{D}_0(z)\,\GF_0(\ii\omega^{\mathrm{F}}_j - z)$ falls off as $1/|z|^3$ and has three simple poles. At $z = \omega_0$ the residue of $n_{\mathrm{B}}(z)g(z)$ is $n_{\mathrm{B}}(\omega_0)/(z_0 - \omega_0)$. At $z = -\omega_0$ it is $-n_{\mathrm{B}}(-\omega_0)/(z_0 + \omega_0) = [1 + n_{\mathrm{B}}(\omega_0)]/(z_0 + \omega_0)$. At $z = z_0$, where $\GF_0(\ii\omega^{\mathrm{F}}_j - z) = -1/(z - z_0)$, it is $-n_{\mathrm{B}}(z_0)\,\mathsf{D}_0(z_0)$, and since $\ee^{\ii\beta\omega^{\mathrm{F}}_j} = -1$, $n_{\mathrm{B}}(\ii\omega^{\mathrm{F}}_j - \xi) = -1/(\ee^{-\beta\xi} + 1) = -[1 - n_{\mathrm{F}}(\xi)]$. The three residues add up to $[n_{\mathrm{B}} + 1 - n_{\mathrm{F}}]/(z_0 - \omega_0) + [n_{\mathrm{B}} + n_{\mathrm{F}}]/(z_0 + \omega_0)$, and the sum is minus this. The two minus signs cancel in \cref{eq:D.16-FMmats}. Continuing $\ii\omega^{\mathrm{F}}_j \to \omega + \ii0^+$ by the argument of \cref{app:D.10}, and measuring $\omega$ from $\mu_{\mathrm{ch}}$ as in \cref{sec:4.7},
+\begin{keyresult}[Fan--Migdal self-energy]
+\begin{equation}
+  \begin{aligned}
+  \Sigma^{\mathrm{FM}}_{n\vect{k}}(\omega) = \frac1N\sum_{\vect{Q}\nu m}|g_{mn\nu}(\vect{k},\vect{Q})|^2
+  \biggl[&\frac{n_{\vect{Q}\nu} + 1 - f_{m,\vect{k}+\vect{Q}}}{\omega - \xi_{m,\vect{k}+\vect{Q}} - \omega_{\vect{Q}\nu} + \ii0^+} \\
+  &+ \frac{n_{\vect{Q}\nu} + f_{m,\vect{k}+\vect{Q}}}{\omega - \xi_{m,\vect{k}+\vect{Q}} + \omega_{\vect{Q}\nu} + \ii0^+}\biggr] ,
+  \end{aligned}
+  \label{eq:D.16-FM}
+\end{equation}
+\end{keyresult}
+with $f_{m\vect{p}} = n_{\mathrm{F}}(\xi_{m\vect{p}})$ and $n_{\vect{Q}\nu} = n_{\mathrm{B}}(\omega_{\vect{Q}\nu})$. This is Ref.~\cite[Eqs.~(157) and~(158)]{giustino2017electron}. The term weighted by $n + 1 - f$ describes the emission of a phonon, weighted by $n + 1$ and blocked by an occupied final state. The term weighted by $n + f$ describes the absorption of a phonon, weighted by $n$, together with an electron in an occupied state $(m,\vect{k}+\vect{Q})$ that emits a phonon and fills the hole, weighted by $f$. At $T = 0$ an empty conduction state can only emit, $\Sigma^{\mathrm{FM}}$ has poles only at $\omega = \xi_m + \omega_{\vect{Q}\nu}$ for empty $m$ and at $\xi_m - \omega_{\vect{Q}\nu}$ for occupied $m$, and the zero-point motion enters through the $1$ of $n + 1$ and through $f$.
+
+The imaginary part follows from \cref{eq:2.4-SP}:
+\begin{equation}
+  \begin{aligned}
+  \Imag\Sigma^{\mathrm{FM}}_{n\vect{k}}(\omega) = -\frac{\pi}{N}\sum_{\vect{Q}\nu m}|g_{mn\nu}(\vect{k},\vect{Q})|^2
+  \Bigl[&(n_{\vect{Q}\nu} + 1 - f_{m,\vect{k}+\vect{Q}})\,\delta(\omega - \xi_{m,\vect{k}+\vect{Q}} - \omega_{\vect{Q}\nu}) \\
+  &+ (n_{\vect{Q}\nu} + f_{m,\vect{k}+\vect{Q}})\,\delta(\omega - \xi_{m,\vect{k}+\vect{Q}} + \omega_{\vect{Q}\nu})\Bigr] .
+  \end{aligned}
+  \label{eq:D.16-ImFM}
+\end{equation}
+Both weights are nonnegative, since $n + 1 - f \ge 0$ and $n + f \ge 0$, so $\Imag\Sigma^{\mathrm{FM}} \le 0$, as \cref{eq:4.7-ImSigma} requires. At $\omega = \xi_{n\vect{k}}$, \cref{eq:4.7-qp} turns it into the phonon-limited decay rate $\varGamma_{n\vect{k}} = -2z_{\mathrm{qp}}\Imag\Sigma^{\mathrm{FM}}_{n\vect{k}}(\xi_{n\vect{k}})$, which is the golden rule \cref{eq:2.5-golden} summed over the emission and absorption of one phonon with the weights \cref{eq:A.6-weights}. An electron at the bottom of the conduction band of an insulator at $T = 0$ has no state below it to emit into, and its rate vanishes.
+
+\subsection*{The Allen--Heine self-energy}
+
+The second-order vertex enters at first order. To lowest order in the coupling, the phonons in $H^{(2)}_{\mathrm{ep}}$ may be replaced by their thermal average in the free lattice. The operators $B_{\vect{Q}\nu}$ and $B_{-\vect{Q}\nu} = B^\dagger_{\vect{Q}\nu}$ commute, so their product needs no ordering rule, and by \cref{eq:2.5-nF}
+\begin{equation*}
+  \langle B_{\vect{Q}\nu}B_{\vect{Q}'\nu'}\rangle = \delta_{\vect{Q}',-\vect{Q}}\,\delta_{\nu\nu'}\,\langle b_{\vect{Q}\nu}b^\dagger_{\vect{Q}\nu} + b^\dagger_{-\vect{Q}\nu}b_{-\vect{Q}\nu}\rangle = \delta_{\vect{Q}',-\vect{Q}}\,\delta_{\nu\nu'}\,(2n_{\vect{Q}\nu} + 1) .
+\end{equation*}
+The average of $H^{(2)}_{\mathrm{ep}}$ is then a one-electron operator that conserves $\vect{k}$. A static one-body term enters the Dyson equation directly as a self-energy, the first-order rule of \cref{app:D.11} for a potential that carries no interaction line, so
+\begin{keyresult}[Allen--Heine self-energy]
+\begin{equation}
+  \Sigma^{\mathrm{AH}}_{n\vect{k}} = \frac1N\sum_{\vect{Q}\nu}g^{\mathrm{AH}}_{nn\nu\nu}(\vect{k},\vect{Q},-\vect{Q})\,(2n_{\vect{Q}\nu} + 1) .
+  \label{eq:D.16-AH}
+\end{equation}
+\end{keyresult}
+This is Ref.~\cite[Eqs.~(160) and~(161)]{giustino2017electron}. It is real and independent of frequency. Its diagram is a phonon line that starts and ends at the same point of the electron line. The thermal weight $2n + 1$ is that of the mean-square displacement, \cref{we:2-oscillator}: $\Sigma^{\mathrm{AH}}$ is the average of the second-order potential over the zero-point and thermal motion of the nuclei. The literature calls it the Debye--Waller self-energy. It is not the factor $\ee^{-2W_\kappa}$ of \cref{sec:5.6}, which reduces the weight of a scattering process; $\Sigma^{\mathrm{AH}}$ shifts an energy level (\cref{app:A.6}).
+
+\subsection*{The adiabatic limit}
+
+The band energy renormalized to second order is $\varepsilon^{\mathrm{ren}}_{n\vect{k}} = \varepsilon_{n\vect{k}} + \Real[\Sigma^{\mathrm{FM}}_{n\vect{k}}(\omega) + \Sigma^{\mathrm{AH}}_{n\vect{k}}]$ at the pole of \cref{eq:4.7-dyson}. Evaluating the self-energy at the unperturbed energy and dropping the phonon energies in the denominators gives the formula of Allen and Heine. Setting $\omega = \xi_{n\vect{k}}$ is Rayleigh--Schrödinger perturbation theory. Dropping $\pm\omega_{\vect{Q}\nu}$ against $\xi_{n\vect{k}} - \xi_{m,\vect{k}+\vect{Q}}$ is the adiabatic approximation, valid when the electronic energy differences that dominate the sum are large compared with phonon energies; it fails for $m = n$ at small $Q$ and for degenerate states, where the denominator itself is of order $\omega_{\vect{Q}\nu}$. The two terms of \cref{eq:D.16-FM} then have the same denominator, the occupations cancel in the sum of numerators, $(n + 1 - f) + (n + f) = 2n + 1$, and
+\begin{equation}
+  \varepsilon^{\mathrm{ren}}_{n\vect{k}} - \varepsilon_{n\vect{k}} = \frac1N\sum_{\vect{Q}\nu}(2n_{\vect{Q}\nu} + 1)\left[\sum_m\frac{|g_{mn\nu}(\vect{k},\vect{Q})|^2}{\varepsilon_{n\vect{k}} - \varepsilon_{m,\vect{k}+\vect{Q}}} + g^{\mathrm{AH}}_{nn\nu\nu}(\vect{k},\vect{Q},-\vect{Q})\right] ,
+  \label{eq:D.16-adiabatic}
+\end{equation}
+which is Ref.~\cite[Eq.~(167)]{giustino2017electron}. The occupations have dropped out, and every band $m$, occupied or empty, contributes. At $T = 0$ the weight is $1$, and \cref{eq:D.16-adiabatic} is the zero-point renormalization.
+
+The same formula follows without diagrams, which was the route of Allen and Heine~\cite{allen1976theory}. Freeze the nuclei at displacements $u_a$. To second order in $u$, nondegenerate perturbation theory gives
+\begin{equation}
+  \begin{split}
+  \varepsilon_{n\vect{k}}(\{u\}) - \varepsilon_{n\vect{k}} &= \sum_a\langle n\vect{k}|\partial_aV|n\vect{k}\rangle\,u_a + \frac12\sum_{ab}\Bigl[\langle n\vect{k}|\partial_a\partial_bV|n\vect{k}\rangle\\
+  &\qquad + 2\Real{\sum_{m\vect{k}'}}'\frac{\langle n\vect{k}|\partial_aV|m\vect{k}'\rangle\langle m\vect{k}'|\partial_bV|n\vect{k}\rangle}{\varepsilon_{n\vect{k}} - \varepsilon_{m\vect{k}'}}\Bigr]u_au_b ,
+  \end{split}
+  \label{eq:D.16-frozen}
+\end{equation}
+where $\partial_a = \partial/\partial u_a$ and the prime removes the states degenerate with $(n,\vect{k})$. Averaging over the harmonic lattice removes the linear term and replaces $u_au_b$ by $\langle u_au_b\rangle$. With \cref{eq:A.6-u}, the average couples $\vect{Q}$ only to $-\vect{Q}$ with the weight $(2n_{\vect{Q}\nu} + 1)/(2N\sqrt{M_\kappa M_{\kappa'}}\,\omega_{\vect{Q}\nu})$ times the polarization vectors, and the two brackets become, term by term, the Fan sum and $g^{\mathrm{AH}}$ of \cref{eq:D.16-adiabatic}. The diagrammatic form adds what the frozen picture misses: the phonon energies in the denominators, the separate weights of emission and absorption, and the imaginary part.
+
+\subsection*{Translation invariance and the rigid-ion approximation}
+
+The second derivatives of $V$ in $g^{\mathrm{AH}}$ require second-order density-functional perturbation theory. Translation invariance trades them for products of first derivatives, which a phonon calculation already supplies. Displace the whole crystal rigidly by $\vect{t}$, on top of an arbitrary configuration $\{u\}$. The potential follows, $V(\vect{r};\{\vect{u} + \vect{t}\}) = V(\vect{r} - \vect{t};\{\vect{u}\})$, and the eigenvalues do not change. Hence $\sum_{\vect{R}\kappa}\partial\varepsilon_{n\vect{k}}/\partial u^\alpha_{\vect{R}\kappa} = 0$ for every configuration. At equilibrium this is the first sum rule,
+\begin{equation}
+  \sum_{\vect{R}\kappa}\langle n\vect{k}|\partial_{\vect{R}\kappa\alpha}V|n\vect{k}\rangle = \sum_\kappa\langle n\vect{k}|\partial_{\kappa\alpha,\vect{0}}V|n\vect{k}\rangle = 0 ,
+  \label{eq:D.16-sr1}
+\end{equation}
+by the Hellmann--Feynman theorem, with $\partial_{\kappa\alpha,\vect{Q}}V$ of \cref{app:A.6}; it states that the diagonal vertex of a uniform translation vanishes, the acoustic sum rule of \cref{sec:6.2}. Differentiating the identity once more with respect to $u^\beta_{\vect{R}'\kappa'}$ and using the second-order coefficient of \cref{eq:D.16-frozen} gives the second sum rule,
+\begin{equation}
+  \sum_{\vect{R}\kappa}\langle n\vect{k}|\partial_{\vect{R}\kappa\alpha}\partial_{\vect{R}'\kappa'\beta}V|n\vect{k}\rangle
+  = -2\Real\sum_\kappa{\sum_{m}}'\,\frac{\langle n\vect{k}|\partial_{\kappa\alpha,\vect{0}}V|m\vect{k}\rangle\,\langle m\vect{k}|\partial_{\vect{R}'\kappa'\beta}V|n\vect{k}\rangle}{\varepsilon_{n\vect{k}} - \varepsilon_{m\vect{k}}} ,
+  \label{eq:D.16-sr2}
+\end{equation}
+where $\partial_{\kappa\alpha,\vect{0}}V = \sum_{\vect{R}}\partial_{\vect{R}\kappa\alpha}V$ conserves $\vect{k}$, so that only $\vect{k}' = \vect{k}$ survives. Both rules are exact; they are Ref.~\cite[Eqs.~(193) and~(194)]{giustino2017electron}.
+
+The left side of \cref{eq:D.16-sr2} is a sum over all sites, and it does not yet give the on-site element that $g^{\mathrm{AH}}$ needs. The rigid-ion approximation closes the gap. It writes the potential as a sum of atom-centered terms that move with their nuclei, $V(\vect{r}) = \sum_{\vect{R}\kappa}v_\kappa(\vect{r} - \vect{R} - \vect{\tau}_\kappa - \vect{u}_{\vect{R}\kappa})$, with $\vect{\tau}_\kappa$ the position of species $\kappa$ in the cell. Then $\partial^2V/\partial u_{\vect{R}\kappa\alpha}\partial u_{\vect{R}'\kappa'\beta}$ vanishes unless $(\vect{R}\kappa) = (\vect{R}'\kappa')$, and the left side of \cref{eq:D.16-sr2} is the on-site element $\langle n\vect{k}|\partial_\alpha\partial_\beta v_{\kappa'}(\vect{r} - \vect{R}' - \vect{\tau}_{\kappa'})|n\vect{k}\rangle$. On the right, the matrix element of the single-site operator $\partial_{\vect{R}'\kappa'\beta}V$ between two states of the same $\vect{k}$ is the same for every cell $\vect{R}'$, by the translation symmetry of Bloch states, and equals $N^{-1}\langle m\vect{k}|\partial_{\kappa'\beta,\vect{0}}V|n\vect{k}\rangle$. Hence
+\begin{equation}
+  \langle n\vect{k}|\partial_\alpha\partial_\beta v_{\kappa'}|n\vect{k}\rangle = -\frac{2}{N}\Real\sum_\kappa{\sum_m}'\frac{\langle n\vect{k}|\partial_{\kappa\alpha,\vect{0}}V|m\vect{k}\rangle\,\langle m\vect{k}|\partial_{\kappa'\beta,\vect{0}}V|n\vect{k}\rangle}{\varepsilon_{n\vect{k}} - \varepsilon_{m\vect{k}}} ,
+  \label{eq:D.16-ria}
+\end{equation}
+for every site of species $\kappa'$. The second derivative of the potential has been expressed through first derivatives at $\vect{Q} = 0$.
+
+In the same approximation the Allen--Heine term is the on-site element averaged with the displacement tensor $B_\kappa = \langle\vect{u}_{\vect{R}\kappa}\vect{u}_{\vect{R}\kappa}\rangle$ of \cref{eq:A.6-DW}. Only the diagonal terms $(\vect{R}\kappa) = (\vect{R}'\kappa')$ of the quadratic potential survive, and by \cref{eq:A.6-u,eq:A.6-e},
+\begin{equation*}
+  \Sigma^{\mathrm{AH}}_{n\vect{k}} = \frac12\sum_{\vect{R}\kappa'}\sum_{\alpha\beta}B^{\alpha\beta}_{\kappa'}\,\langle n\vect{k}|\partial_\alpha\partial_\beta v_{\kappa'}|n\vect{k}\rangle, \qquad
+  B^{\alpha\beta}_\kappa = \frac1N\sum_{\vect{Q}\nu}\frac{2n_{\vect{Q}\nu} + 1}{2M_\kappa\omega_{\vect{Q}\nu}}\,e^\alpha_{\kappa\nu}(\vect{Q})\,e^\beta_{\kappa\nu}(\vect{Q})^* .
+\end{equation*}
+The sum over cells gives a factor $N$. We insert \cref{eq:D.16-ria} and symmetrize between $(\kappa\alpha)$ and $(\kappa'\beta)$, which leaves the real part of the product unchanged:
+\begin{keyresult}[Allen--Heine term in the rigid-ion approximation]
+\begin{equation}
+  \Sigma^{\mathrm{AH}}_{n\vect{k}} = -\frac12\sum_{\kappa\kappa'}\sum_{\alpha\beta}\bigl(B^{\alpha\beta}_\kappa + B^{\alpha\beta}_{\kappa'}\bigr)\,\Real{\sum_m}'\frac{\langle n\vect{k}|\partial_{\kappa\alpha,\vect{0}}V|m\vect{k}\rangle\,\langle m\vect{k}|\partial_{\kappa'\beta,\vect{0}}V|n\vect{k}\rangle}{\varepsilon_{n\vect{k}} - \varepsilon_{m\vect{k}}} .
+  \label{eq:D.16-AHria}
+\end{equation}
+\end{keyresult}
+Writing $B_\kappa$ as its sum over modes gives Ref.~\cite[Eqs.~(195)--(198)]{giustino2017electron}, where the $\vect{Q} = 0$ matrix elements are rebuilt from the vertices $g_{mn\nu}(\vect{k},\vect{0})$ of the optical modes. This is the Allen--Cardona form for crystals with several atoms in the cell~\cite{allen1981temperature}.
+
+The Allen--Heine term \cref{eq:D.16-AHria} has the structure of a Fan term at $\vect{Q} = 0$ with the opposite sign, and the two partly cancel. Translation invariance requires this: for a uniform translation, the acoustic mode at $\vect{Q} = 0$, the two terms cancel exactly and no level moves. The translational modes at $\vect{Q} = 0$ themselves, with $\omega_{\vect{Q}\nu} = 0$, are excluded from all sums, consistently in both terms. And the rule \cref{eq:D.16-sr2} holds for any potential, while \cref{eq:D.16-ria} needs the rigid-ion form. A self-consistent potential has off-site second derivatives, because moving two nuclei together changes the screening charge differently from moving each alone; \cref{eq:D.16-AHria} drops them. The error need not be small. In a one-dimensional crystal of Gaussian wells, adding a well between two atoms whose depth depends on their separation leaves \cref{eq:D.16-sr2} exact and makes \cref{eq:D.16-ria} wrong by \SI{66}{\percent}. In crystals the neglected term is usually taken to be small; Ref.~\cite{ponce2015temperature} reports that it is large in molecules.

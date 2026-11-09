@@ -1,0 +1,2462 @@
+                                                                                                                           CALT-TH-2021-025
+
+
+                                                     Dark Matter Absorption via Electronic Excitations
+
+                                               Andrea Mitridate, Tanner Trickle, Zhengkang Zhang, Kathryn M. Zurek
+                                                               Walter Burke Institute for Theoretical Physics,
+                                                       California Institute of Technology, Pasadena, CA 91125, USA
+
+                                            We revisit the calculation of bosonic dark matter absorption via electronic excitations.
+                                          Working in an effective field theory framework and consistently taking into account in-
+                                          medium effects, we clarify the relation between dark matter and photon absorption. As is
+                                          well-known, for vector (dark photon) and pseudoscalar (axion-like particle) dark matter, the
+arXiv:2106.12586v1 [hep-ph] 23 Jun 2021
+
+
+
+
+                                          absorption rates can be simply related to the target material’s optical properties. However,
+                                          this is not the case for scalar dark matter, where the dominant contribution comes from a
+                                          different operator than the one contributing to photon absorption, which is formally next-
+                                          to-leading-order and does not suffer from in-medium screening. It is therefore imperative to
+                                          have reliable first-principles numerical calculations and/or semi-analytic modeling in order
+                                          to predict the detection rate. We present updated sensitivity projections for semiconductor
+                                          crystal and superconductor targets for ongoing and proposed direct detection experiments.
+                                                                2
+
+
+                                          CONTENTS
+
+
+ I. Introduction                                                3
+
+II. Dark Matter Couplings to Non-relativistic Electrons         5
+
+III. In-medium Self-energies and Absorption Rates               9
+    A. Vector Absorption                                       12
+    B. Pseudoscalar Absorption                                 13
+    C. Scalar Absorption                                       14
+
+IV. Dark Matter Absorption in Crystals                         16
+
+V. Dark Matter Absorption in Superconductors                   21
+
+VI. Conclusions                                                24
+
+    Acknowledgments                                            25
+
+A. Self-energy Calculations                                    25
+    1. General Result for the One-loop Self-energy             25
+    2. Real Part of the One-loop Self-energy in a Metal        27
+    3. Imaginary Part of the Two-loop Self-energy in a Metal   28
+
+B. Absorption in Anisotropic Targets                           34
+
+    References                                                 36
+                                                                                                       3
+
+
+                                         I.   INTRODUCTION
+
+
+   Uncovering the nature of cosmic dark matter (DM) remains one of the major goals in particle
+physics. Recent advances in low-threshold detectors (e.g. skipper charge-coupled devices [1], transition
+edge sensors [2–5], microwave kinetic inductance detectors [6] and quantum evaporation of helium
+atoms [7]) coupled with new theoretical investigations of various small-gap materials (e.g. O(eV)-
+gap semiconductor crystals [8–21], O(meV)-gap superconductors [22–24] and Dirac materials [25–28])
+have opened up new possibilities in the pursuit of this goal, well beyond the scope of conventional
+searches based on nuclear recoils. In a direct detection experiment, DM may leave its trace not only
+via scattering off the target ions or electrons, but also via absorption if it is bosonic and has a mass
+that matches the difference between energy levels in the target system [14–16, 24–27, 29–40]. In this
+work, we focus on processes where the absorption of a bosonic DM drives electronic excitations, i.e.
+transitions between electronic states.
+   It has been widely appreciated that, for several well-motivated bosonic DM models, the absorption
+process is closely related to that of photon absorption, and the rate can be expressed in terms of
+the target material’s optical properties, i.e. the (complex) conductivity or dielectric function. In
+fact, most studies on DM absorption so far have utilized this feature to make rate predictions by
+simply rescaling optical data. This approach is obviously attractive because it saves the labor of
+first-principles calculations, which can be technically challenging or resource-intensive, and because
+one can often make quick comparisons between target materials based on existing data.
+   Nevertheless, this data-driven approach has important limitations. First of all, conductivity/di-
+electric data are not always readily available, especially for newly proposed, more exotic materials,
+in which case one has to resort to first-principles calculations and/or semi-analytic modeling (this
+is the case, e.g. for Dirac materials studied in several recent works [25–28]). Meanwhile, and more
+importantly, the question of whether DM absorption for a particular model can be simply related to
+photon absorption is a nontrivial one, and explicit calculations are needed to establish the answer.
+   It is the purpose of this work to revisit the calculation of DM absorption via electronic excitations.
+We critically examine the question above by carefully working out the matching between relativistic
+Lagrangians for DM-electron interactions and non-relativistic (NR) effective field theories (EFTs)
+(Sec. II), and computing in-medium self-energies to fully account for mixing and screening effects
+(Sec. III). This is a slightly different strategy than several previous calculations: by matching onto a
+NR EFT from the beginning instead of taking the NR limit of a relativistic calculation in the end,
+the power counting relevant for the absorption process becomes more transparent; also, the cryogenic
+nature of direct detection experiments allows us to perform the in-medium calculation in the zero-
+temperature limit and avoid the complications of thermal field theory. We will carry out the calculation
+for three widely-studied bosonic DM candidates:
+
+   • Vector (e.g. dark photon) DM, which can be produced, for example, by inflationary fluctua-
+                                                                                                                   4
+
+
+        DM type                    Scalar (φ ψ̄ψ)                         Pseudoscalar (φ ψ̄iγ 5 ψ)
+                              †          1      †←→2           1            †           i           †     ←
+                                                                                                          →
+      NR operators         φ ψ+ ψ+ +    8m2e φ ψ+ ∇ ψ+      − 2m e
+                                                                   (∇φ) · (ψ+ Σ ψ+ ) + 4m 2 (∂t φ)(ψ+ Σ · ∇ ψ+ )
+                                                                                           e
+
+
+ Related to dielectric?       X               7                       X                           X
+
+TABLE I. Summary of results for scalar and pseudoscalar DM φ coupling to electron ψ. The effective operators
+at LO and NLO in the NR (1/me ) expansion are shown in the second row. In both cases, the NLO operator
+(underlined) gives the dominant contribution to DM absorption. Importantly, the dominant contribution in the
+scalar case is not directly related to the target material’s conductivity/dielectric function. See Secs. II and III
+for details.
+
+
+       tions [41], by parent particle decays or coherent oscillations after reheating [42–45], or from a
+       network of cosmic strings [46]. In this case, since the DM couples to electrons via the same
+       vector current ψ̄γ µ ψ as the photon does, its absorption rate is trivially a rescaling of the photon
+       absorption rate.
+
+    • Pseudoscalar (e.g. axion-like particle) DM, which can be produced, for example, via the mis-
+       alignment mechanism [47–49], from the decays of topological defects [50–52], or by a variety
+       of other mechanisms (see e.g. Refs. [53–57]). While not immediately obvious (since the DM
+       couples to a different current, ψ̄iγ 5 ψ, than the photon does), it has been well-known that also
+       in this case, there is a simple relation between DM and photon absorption [29]. We will recover
+       this result in the NR EFT calculation. It is worth noting that the dominant contribution to
+       NR pseudoscalar DM absorption actually comes from an operator generated at the next-to-
+       leading order (NLO) in the 1/me expansion, because the leading order (LO) operator suffers a
+       suppression by the DM’s momentum q.
+
+    • Scalar DM, which can be produced via mechanisms similar to pseudoscalar DM mentioned
+       above. It couples to the scalar current ψ̄ψ, which at LO coincides with the temporal component
+       of the vector current ψ̄γ 0 ψ. However, as we will see, the LO operator gives a q-suppressed contri-
+       bution and, as in the pseudoscalar case, the rate is dominated by a NLO operator. Importantly,
+       this NLO operator has a different structure than the photon coupling, and its contribution
+       cannot be simply related to photon absorption, invalidating the data-driven approach.
+
+We make the statements above on the scalar and pseudoscalar DM more concrete in Table I.
+   The fact that the DM absorption rate is not always relatable to the target material’s optical
+properties highlights the necessity to go beyond the conventional data-driven approach. (The same
+can be said for DM scattering, for which the data-driven approach based on the dielectric function
+that has been advocated recently [58–60] covers only a limited set of DM interactions.) In this work,
+we consider two types of targets:
+                                                                                                        5
+
+
+    • Semiconductor crystals with O(eV) gaps (Sec. IV), focusing on silicon (Si) and germanium (Ge)
+      that are in use in current experiments (DAMIC [61–63], EDELWEISS [64–66], SENSEI [67–69],
+      SuperCDMS [70–76]). We compute DM absorption rates using first-principles density functional
+      theory (DFT) calculations of electronic band structures and wave functions, which are now
+      publicly available [77]. The numerical calculation builds upon the EXCEED-DM framework [21]
+      and we publish the “absorption” module of the program together with this work [78].
+
+    • Conventional (BCS) superconductors with O(meV) gaps (Sec. V), focusing on aluminum (Al)
+      that has been proposed for direct detection [22–24]. We compute DM absorption rates by semi-
+      analytically modeling the electronic states near the Fermi surface, largely following Refs. [22–24].
+
+For all the materials under study, we find good agreement between our theoretical calculation and the
+data-driven approach for the DM models where both are valid, i.e. vector and pseudoscalar DM. This
+serves as an important validation of our calculations. In the case of scalar DM, we show explicitly
+how the data-driven approach fails to reproduce the leading contribution, and present our calculated
+sensitivity projections. In particular, for Al superconductor, our revised projected reach is much
+more optimistic than that found in Ref. [38], although somewhat weaker than the original estimate in
+Ref. [24].
+
+
+         II.   DARK MATTER COUPLINGS TO NON-RELATIVISTIC ELECTRONS
+
+
+   Since electrons in a detector are non-relativistic, it is convenient to perform the DM absorption
+calculation in the framework of NR EFT (see e.g. Refs. [79, 80] for reviews). In this section, we work
+through the procedure of matching a relativistic theory of DM-electron interactions onto effective
+operators involving the NR electron field. The total Lagrangian of interest is
+
+                                          L = Lψ + Lφ + Lint .                                        (1)
+
+Here Lψ is the Standard Model part that includes the electron ψ coupling to electromagnetism,
+
+                                   Lψ = ψ̄ iγ µ (∂µ + ieAµ ) − me ψ ,
+                                                                
+                                                                                                      (2)
+
+Lφ contains the standard kinetic and mass terms of the DM field φ, and we consider the following
+DM-electron interactions:
+                                                                                   √
+                                                                                     4π me
+                   
+                   
+                     gφψ̄ψ                                  (scalar DM, g = dφee    MPl ) ,
+                   
+                                   g
+            Lint = gφψ̄iγ 5 ψ ≃ − 2m
+                                     e
+                                       (∂µ φ)(ψ̄γ µ γ 5 ψ)   (pseudoscalar DM, g = gaee ) ,           (3)
+                   
+                   
+                    gφ ψ̄γ µ ψ
+                   
+                                                             (vector DM, g = κe) ,
+                          µ
+                                                                                                      6
+
+
+where we have also indicated the relation between the coupling g and commonly adopted parameters
+dφee , gaee , κ in the literature. Note that there are two equivalent ways of writing the pseudoscalar
+coupling that are related by a field redefinition and integration by parts (IBP).
+   Let us first consider Lψ . Writing the electron field in the relativistic theory as
+
+                                       ψ(x, t) = e−ime t ψNR (x, t) .                               (4)
+
+We obtain
+                              h                                         i
+                           †
+                     Lψ = ψNR  i∂t − eA0 + iγ 0 γ · (∇ − ieA) + 1 − γ 0 me ψNR .                    (5)
+
+We now define projection operators
+                                                          1
+                                                            1 ± γ0 ,
+                                                                  
+                                                   P± ≡                                             (6)
+                                                          2
+which satisfy P±2 = P± , P+ P− = P− P+ = 0 and (P± )† = P± . By using P± γ 0 = γ 0 P± = ±P± and
+P± γ i = γ i P∓ , we can rewrite Eq. (5) as
+
+       †                    †                          †                      †
+ Lψ = ψ+ (i∂t − eA0 ) ψ+ + ψ− (i∂t − eA0 + 2me ) ψ− + ψ+ iγ · (∇ − ieA) ψ− − ψ− iγ · (∇ − ieA) ψ+ , (7)
+
+where ψ± ≡ P± ψNR (thus ψNR = ψ+ + ψ− ). Integrating out the heavy field ψ− at tree level by solving
+its equation of motion (EOM),
+                                              1
+                                ψ− =                   iγ · (∇ − ieA)ψ+ ,                           (8)
+                                       2me + i∂t − eA0
+we arrive at the EFT for ψ+ :
+                                                                
+   eff    †                                1
+ Lψ = ψ+ i∂t − eA0 − γ · (∇ − ieA)                  γ · (∇ − ieA) ψ+
+                                    2me + i∂t − eA0
+                        (∇ − ieA)2
+                                                                                         
+          †                                    eΣ       i
+       = ψ+ i∂t − eA0 +            + (∇ × A) ·     −      (∇ − ieA) · ∂t (∇ − ieA) + . . . ψ+ (9)
+                            2me                2me 4m2e
+where we have used
+                                                                             !
+                                 i j          ij      ijk    k         σ 0
+                                γ γ = −δ − i               Σ ,   Σ≡             .                 (10)
+                                                                       0 σ
+
+We can readily identify the first four terms in Eq. (9), which come from LO in the 1/me expansion, as
+the familiar electromagnetic interactions as in NR quantum mechanics. There are several operators at
+NLO in the 1/me expansion, of which we have only written out the one involving ∂t . This is the last
+term in Eq. (9), and is the only NLO term that will be relevant in what follows. Importantly, it gives a
+tree-level contribution to the wave function renormalization of the ψ+ field. In NR EFT calculations,
+it is often convenient to adopt an operator basis where temporal derivatives in the quadratic part
+of the Lagrangian have been traded for spatial derivatives, so as to eliminate any non-trivial wave
+                                                                                                                       7
+
+
+function renormalization factors at tree level. The field redefinition needed to go into this basis, at
+the order we are working here, is
+                                                                   
+                                                1                2
+                                      ψ+ = 1 −      γ · (∇ − ieA)     ψ̂+ .                                          (11)
+                                               8m2e
+This field redefinition does not change the LO Lagrangian (the first four terms in Eq. (9)), but replaces
+the last term in Eq. (9) by NLO operators that do not contain ∂t (and hence do not contribute to the
+wave function renormalization of ψ̂+ ). We will not need the NLO operators for electron couplings to
+vector fields (photon and dark photon),1 but the field redefinition in Eq. (11) that modifies the NLO
+Lagrangian will be important in the cases of scalar and pseudoscalar DM.
+     We are interested in the case where the photon field Aµ consists of an electrostatic background Φ
+and quantum fluctuations Aµ :
+
+                               A0 (x, t) = Φ(x) + A0 (x, t) ,        A(x, t) = A(x, t) .                             (12)
+
+The normalized NR field ψ̂+ can be expanded in energy eigenstates of the NR Schrödinger equation:
+                                                                          !
+                                         X
+                                                     −iεI t         1 ξs
+                            ψ̂+ (x, t) =     ĉI,s e        ΨI (x) √        ,                  (13)
+                                         I,s
+                                                                     2 ξs
+
+where ĉI,s are annihilation operators for NR electrons, and
+                                                                               !                   !
+                          ∇2
+                                    
+                                                                              1                   0
+                       −     − e Φ(x) ΨI (x) = εI ΨI (x) ,           ξ+ =          ,     ξ− =          .             (14)
+                         2me                                                  0                   1
+
+Note that the form of the background field in Eq. (12) assumes negligible spin-orbit coupling, in which
+case the two spin states s = ± for a given I are degenerate. From Eqs. (9) and (12), we can also
+deduce the electron’s coupling to photon quanta Aµ at LO in the NR EFT:
+
+                     †         ie        ←
+                                            † →
+                                                          e            
+                                                                             †
+                                                                                         e2      †
+   Leff
+    ψA  = −e  A 0 ψ̂+  ψ̂ + −      A  ·  ψ̂ +  ∇  ψ̂+   +     (∇ × A) ·   ψ̂ + Σ ψ̂+   −     A2 ψ̂+ ψ̂+ ,            (15)
+                              2me                         2me                            2me
+        †←→            †                 †
+where ψ̂+ ∇ ψ̂+ ≡ ψ̂+     (∇ψ̂+ ) − (∇ψ̂+  ) ψ̂+ .
+     Let us now move on to the DM-electron interaction Lint . For vector DM, we can simply replace
+e Aµ → e Aµ − g φµ in the derivation above, and obtain:
+                                          ←
+                                ig           † →          g
+                                                                                  
+                       †                                                    †
+       Leff
+         int = g φ  ψ̂
+                  0 + +  ψ̂ +        φ ·  ψ̂+  ∇ ψ̂+   −     (∇ × φ) ·   ψ̂+  Σ ψ̂+
+                               2me                       2me
+                   ge           †         g2 2 †
+               +        φ · A ψ̂+ ψ̂+ −        φ ψ̂+ ψ̂+                                        (vector DM).         (16)
+                   me                    2me
+
+1
+    As a side remark, in the special case of an electrostatic potential, A0 = Φ(x), A = 0, one can check that keeping all
+                                                                                                            † ∇  4
+    the NLO terms reproduces the familiar fine structure correction in NR quantum mechanics: Leff,NLO
+                                                                                                 ψ      = ψ̂+ 8m3
+                                                                                                                   ψ̂+ −
+                                                                                                                 e
+      e   2     †        ie          †      ←
+                                            →     
+    8m2
+        (∇ Φ) ψ̂+ ψ̂+ − 8m2 (∇Φ) · ψ̂+ Σ × ∇ ψ̂+ , where the three terms are the relativistic kinetic energy correction,
+      e                    e
+    the Darwin term and spin-orbit coupling, respectively.
+                                                                                                                    8
+
+
+For the scalar and pseudoscalar cases, since Lint contains an operator that has a different structure
+than all the operators in Lψ , there is no such simple replacement. In principle, we should have included
+Lint when solving the EOM for ψ− in Eq. (8). However, if we are working at leading order in the
+DM-electron coupling g, it is sufficient to simply substitute Eq. (8) into Lint . We therefore obtain, at
+LO in the NR expansion:
+                                     
+                                     g φ ψ̂ † ψ̂+                 (scalar DM) ,
+                                            +
+                           Leff,LO
+                            int    =                                                                              (17)
+                                     − g (∇φ) · ψ̂ † Σ ψ̂         (pseudoscalar DM) .
+                                           2me           +     +
+
+We now show that these LO terms are not sufficient to capture the dominant contributions to DM
+absorption. The point is that our NR EFT is an expansion in m∇e ∼ ve , and the power counting is
+such that momenta (and spatial derivatives) count as me ve and energies (and time derivatives) count
+as me ve2 . For NR absorption, the energy deposition is ω ≃ mφ ∼ me ve2 . Meanwhile although the
+momentum transfer formally counts as me ve , it is in fact much smaller: q = mφ vφ ∼ me ve2 vφ  me ve ,
+with vφ ∼ O(10−3 ). Therefore, when the LO result contains factors of q, we need to work out the
+NLO terms and see if they may in fact dominate.
+     From Eq. (17) it is clear that such q suppression is indeed present in the pseudoscalar case. It is
+perhaps less obvious that the scalar case also suffers a q suppression, and its origin can be understood
+from charge conservation: the LO operator couples the scalar DM φ to the electron number density
+  †
+ψ̂+ ψ̂+ = −ρe /e (with ρe the charge density carried by the electron), whose matrix elements vanish
+in the q → 0 limit because ρe = q · Je /ω; technically this is manifest via the orthogonality of initial
+and final state electron wave functions, as we will see later in the paper.2 Therefore, in both scalar
+and pseudoscalar cases, we need to expand Lint up to NLO where there are several operators. Many
+of them will not be needed, though, because they are also q suppressed or involve too many fields
+to contribute to the in-medium self-energies to be computed in the next section. Including only the
+unsuppressed operators at NLO that contain up to four fields, we have
+                                  ←
+                                    † →
+                                                           ←
+                                                             † →
+                                                                   
+                   †        g                    ige
+            g φ ψ̂+ ψ̂+ + 8m2e φ ψ̂+ ∇ 2 ψ̂+ − 2m2e φ A · ψ̂+ ∇ ψ̂+
+                                                                      (scalar DM) ,
+     Leff
+      int =                                                                                                       (18)
+            − g (∇φ) · ψ̂ † Σ ψ̂ + ig (∂ φ) ψ̂ † Σ · ←   → 
+                                                
+                                                          ∇
+            
+               2me           +     +   4m  2  t      +      ψ̂+        (pseudoscalar DM) .
+                                                 e
+
+
+These results were already summarized in Table I (for brevity we dropped the hat on ψ̂+ and omitted
+the last operator in the scalar case in that table — we will see that it gives vanishing contribution to
+DM absorption in an isotropic medium). The second term in the scalar case, where the DM φ couples
+     †←→           †                   †               †                                            †
+to ψ̂+ ∇ 2 ψ̂+ ≡ ψ̂+ (∇2 ψ̂+ ) + (∇2 ψ̂+ ) ψ̂+ − 2 (∇ψ̂+ ) · (∇ψ̂+ ), is obtained by combining the ψ− ψ− term
+            †       †
+from ψ̄ψ = ψ+ ψ+ − ψ− ψ− (with ψ− replaced by its EOM solution Eq. (8)) and additional terms from
+the field redefinition in Eq. (11). We will see in the next section that this operator gives the dominant
+
+2
+    The same can be said for the φ0 component in the vector DM case. However, since φ0 couples exactly to the charge
+    density even beyond LO, retaining higher order terms in the NR expansion does not remove the q suppression.
+                                                                                                                          9
+
+
+contribution to scalar DM absorption. Pseudoscalar DM absorption is likewise dominated by the NLO
+                  †     ←
+                        → 
+operator (∂t φ) ψ̂+ Σ · ∇ ψ̂+ .3
+
+
+                  III.    IN-MEDIUM SELF-ENERGIES AND ABSORPTION RATES
+
+
+     We now use the NR EFT derived in the previous section to compute DM absorption rates. Gen-
+erally, the absorption rate of a state can be derived from the imaginary part of its self-energy. In
+a medium, care must be taken because of mixing effects. If the DM φ mixes with a SM state A in
+the medium (generalization to the case of mixing with multiple states is straightforward) then the
+self-energy matrix has to diagonalized to find the in-medium eigenstates:
+                                              !                         !
+                              m2φ + Πφφ ΠφA            m2φ + Πφ̂φ̂ 0
+                                                 →                        ,                                            (19)
+                                 ΠAφ     ΠAA               0      ΠÂÂ
+
+where Πφφ ∼ O(g 2 ), ΠφA , ΠAφ ∼ O(g). For a 4-momentum Qµ = (ω, q), we have ΠφA (Q) = ΠAφ (−Q).
+Simple algebra shows that to O(g 2 ),
+
+                                                                 ΠφA ΠAφ
+                                               Πφ̂φ̂ ≃ Πφφ +              .                                            (20)
+                                                                m2φ − ΠAA
+
+The DM absorption rate is then derived from the imaginary part of the eigenvalue corresponding to
+the DM-like state, φ̂:
+                                                                                           !
+                                         Zφ̂             1                 ΠφA ΠAφ
+                               Γφabs = −     Im Πφ̂φ̂ ≃ − Im         Πφφ + 2                   ,                       (21)
+                                         ω               ω                mφ − ΠAA
+                                                d Re Π
+                                                           −1
+where the wave function renormalization Zφ̂ = 1 − d ω2φ̂φ̂     = 1 + O(g 2 ) has been approximated
+as unity. The total rate per unit target mass is given by
+                                                                                          !
+                                  ρφ 1 φ        ρφ 1            ΠφA ΠAφ
+                               R=      Γabs = −      2
+                                                       Im Πφφ + 2                              ,                       (22)
+                                  ρT ω          ρT ω           mφ − ΠAA
+
+where ρT is the target’s mass density, and ρφ = 0.4 GeV/cm3 is the local DM energy density. For
+non-relativistic DM, ω ≃ mφ , and ρφ ≃ 21 m2φ φ20 with the DM field amplitude defined by φ(x, t) =
+φ0 cos(q · x − ωt).
+
+3
+    Technically, the electron fields in the two equivalent expressions of the pseudoscalar coupling, gφψ̄iγ 5 ψ and
+       g
+    − 2m e
+           (∂µ φ)(ψ̄γ µ γ 5 ψ), are not the same, but are related by a field redefinition. If one derives the NR EFT start-
+                g
+    ing from − 2m e
+                    (∂µ φ)(ψ̄γ µ γ 5 ψ), this NLO operator is obtained directly from its µ = 0 component. On the other hand,
+    if one derives the NR EFT from gφψ̄iγ 5 ψ, a further field redefinition is needed to eliminate operators involving the
+    background electrostatic potential Φ and arrive at the same operator coefficient shown in Eq. (18).
+                                                                                                     10
+
+
+   The calculation of self-energies generally involves two graph topologies:
+
+                       Q
+                     −→
+                                                 ≡ − i ΠO1 ,O2 (Q) = −i ΠO2 ,O1 (−Q) ,             (23)
+                           O1           O2
+
+
+
+
+                                Q
+                            −→
+                                                 ≡ − i Π0O (Q) ,                                   (24)
+                                    O
+
+
+where a blob represents the sum of one-particle-irreducible (1PI) graphs. While we have drawn curly
+external lines for concreteness, they can each represent a scalar, pseudoscalar or vector. The operators
+O1 , O2 , O that the external fields couple to may carry Lorentz indices, in which case Π and Π0 inherit
+these indices. We discuss the calculation of these self-energy diagrams in App. A.
+   In the cases of interest here, A represents one of the polarizations of the SM photon, and ΠAA is
+directly related to the target’s complex conductivity/dielectric function, as discussed further below.
+Since ΠAA enters the absorption rate formula (Eq. (22)) as long as there is a nonzero mixing ΠφA , let
+us examine this quantity in more detail before specializing to each DM model. The photon self-energy
+tensor Πµν is defined such that the effective action contains
+            Z
+          1
+   Seff ⊃      d4 Q Πµν (Q)Aµ (Q)Aν (−Q)
+          2
+            Z
+          1         h                                                                   i
+        =      d4 Q Π00 (Q)A0 (Q)A0 (−Q) − 2 Π0j (Q)A0 (Q)Aj (−Q) + Πij (Q)Ai (Q)Aj (−Q) ,         (25)
+          2
+where Aj (j = 1, 2, 3) represent the three components of A. As usual, we compute Πµν from the
+sum of 1PI graphs. From Eq. (25) it is clear that the sign convention here is such that i Π00 , −i Π0j
+and i Πij are given by the sum of two-point 1PI graphs between A0 A0 , A0 Aj and Ai Aj , respectively.
+From the photon-electron couplings in Eq. (15), we obtain Πµν in terms of ΠO1 ,O2 and Π0O defined in
+Eq. (23) and (24):
+
+                       Π00 = −e2 Π1,1 ,         Π0j = −e2 Π1,vj ,
+                                              e2 2 ij                   e2 ij 0
+                       Πij = −e2 Πvi ,vj −        (q δ − q i j
+                                                            q  ) Π1,1 +    δ Π1 ,                  (26)
+                                             4m2e                       me
+where the velocity operator v j is defined by
+                                                          ←
+                                                          →
+                                                         i∇j
+                                                vj ≡ −       .                                     (27)
+                                                         2me
+Here and in what follows, we suppress the arguments Qµ = (ω, q) of self-energy functions where there
+is no confusion. To arrive at the expression of Πij in Eq. (26), we have simplified the spin trace
+                                                                                                                        11
+
+
+assuming the electron loop does not involve non-trivial spin structures; for example,
+                                                        tr(σ i σ j )
+                                            ΠΣi ,Σj =                Π1,1 = δ ij Π1,1 .                               (28)
+                                                           tr 1
+This assumption is obviously valid for one-loop self-energy diagrams. In the superconductor calculation
+in Sec. V, we will need two-loop self-energies with an internal phonon line; in that case the electron-
+phonon coupling is spin-independent, so the same simplification applies.
+     The photon self-energy satisfies the Ward identity Qµ Πµν = Qν Πµν = 0. From Eq. (26) we see
+that this implies the following relations between Π1,1 , Π1,vj , Πvi ,vj and Π01 :
+                                                                                            qj 0
+                                 ω Π1,1 = q j Π1,vj ,        ω Π1,vj = q i Πvi ,vj −          Π .                     (29)
+                                                                                            me 1
+These relations can be explicitly checked with the one-loop-level expressions in Eqs. (A7) and (A8).
+     We can write Πµν in terms of its polarization components as follows:
+
+                                                      Πλλ0 eµλ eν∗
+                                                 X
+                                      Πµν = −                   λ0 ,                                                  (30)
+                                                          λ,λ0 =±,L
+
+where
+                                              1                              1
+                                       eµ± = √ (0 , x̂ ± iŷ) ,       eµL = p   (q , ω ẑ)                            (31)
+                                               2                             Q2
+for Qµ = (ω, q) = (ω, q ẑ). These are the three photon polarizations in Lorenz gauge Qµ eµλ = 0, and
+coincide with the three physical polarizations of a massive vector with m2 = Q2 .
+     We will mostly focus on isotropic target materials in this work, and leave a discussion of the
+anisotropic case to App. B. For an isotropic medium, the 3 × 3 matrix Πλλ0 is diagonal:
+                                                                   
+                              Π++ Π+− Π+L                 ΠT 0 0
+                            Π−+ Π−− Π−L  isotropic
+                                                                   
+                                               −→  0 ΠT 0                                                          (32)
+                                                                     
+                            
+                                        ΠL+ ΠL− ΠLL                          0     0 ΠL
+where ΠT and ΠL are the transverse and longitudinal photon self-energies, respectively. The photon
+self-energy tensor Πµν therefore has the following form:
+                                                                                  q2                   ωq
+                                                                                                               
+                                                                                   Q2
+                                                                                          ΠL   0    0      Π
+                                                                                                        Q2 L
+                                                                                                              
+                  µν isotropic                                                          0      ΠT   0    0
+                                        eµ+ eν∗    µ ν∗        µ ν∗                                          
+              Π        −→        −ΠT         + + e − e − − ΠL e L e L     = −                                 .     (33)
+                                                                             
+                                                                                       0      0 ΠT      0     
+                                                                                                               
+                                                                                   ωq                   ω2
+                                                                                      Π
+                                                                                   Q2 L
+                                                                                               0    0      Π
+                                                                                                        Q2 L
+
+From the linear response relation J µ = −Πµν Aν 4 and Ohm’s law J = σE = σ(iωA − iqA0 ) we can
+relate ΠT and ΠL to the complex conductivity σ, which in turn is related to the complex dielectric ε
+4
+    Strictly speaking, linear response theory relates J µ and Aν via the retarded Green’s function Rµν , which differs from
+    the time-ordered self-energy Πµν by the sign of the imaginary part at negative frequencies. This difference is however
+    irrelevant for our calculations.
+                                                                                                            12
+
+
+via σ = iω(1 − ε) [17, 23, 26]:
+
+                        ΠT = −iωσ = ω 2 (1 − ε) ,           ΠL = −iωZL−1 σ = Q2 (1 − ε) ,                  (34)
+
+where ZL = ω 2 /Q2 . The real part of the conductivity σ1 ≡ Re σ (the imaginary part of the dielectric)
+gives the photon absorption rate in medium:
+                                                    1           ZL
+                                  σ1 = ω Im ε = −     Im ΠT = −    Im ΠL .                                 (35)
+                                                    ω           ω
+We finally note that all the quantities introduced above – the complex conductivity σ and dielectric
+ε, and photon self-energies ΠT , ΠL can be simply computed from Π1,1 :
+
+                                            iσ    ΠL    ΠT    e2
+                                  ε−1=         = − 2 = − 2 = − 2 Π1,1 .                                    (36)
+                                            ω     Q     ω     q
+With the photon part of the self-energy calculation completed, we now move on to consider self-energies
+involving the DM and compute DM absorption rates.
+
+
+                                            A.   Vector Absorption
+
+
+   Since a vector DM couples to electrons in the same way as the photon, albeit with a coupling
+rescaled by −g/e = −κ, we have
+
+                                       Πµν       µν       µν    2 µν
+                                        φφ = −κ ΠφA = −κ ΠAφ = κ Π   .                                     (37)
+
+Each of the three polarizations of φ mixes with the corresponding polarization of the photon. There-
+fore, for the transverse (longitudinal) polarization, we simply set Πφφ = −κ ΠφA = −κ ΠAφ = κ2 ΠAA
+in Eq. (22), with ΠAA = ΠT (ΠL ). As a result,
+                                                        !                                          !
+                              2 ρφ             ΠT,L              2 ρφ                      1
+                   RT,L = −κ           Im    2              = −κ         m2φ Im         2              .   (38)
+                                  ρT        mφ − ΠT,L              ρT                  mφ − ΠT,L
+
+The total absorption rate for an unpolarized vector DM is obtained by averaging over the three
+polarizations, R = (2RT + RL )/3. For NR absorption, we have ω 2 ≃ Q2 = m2φ , and ΠT ≃ ΠL =
+     2
+m2φ qe2 Π1,1 (see Eq. (36)), so
+                                                                               !
+                                                     ρφ              1
+                                       Rvector = −κ2    Im           2             .                       (39)
+                                                     ρT         1 − qe2 Π1,1
+
+The rate is semi-independent of the momentum transfer (and hence the DM velocity) since Π1,1
+generically scales as q 2 .
+   The result can also be written in terms of the material’s complex conductivity/dielectric:
+                                                   
+                                         2 ρφ      1         ρφ 1 σ1
+                            Rvector = −κ       Im     = κ2              ,                                  (40)
+                                           ρT      ε         ρT |ε|2 mφ
+                                                                                                                   13
+
+
+with ε, σ1 evaluated at ω = mφ , q = 0. One may think of
+
+                                             1                m4φ
+                                                 =                                                               (41)
+                                            |ε|2   (m2φ − Re ΠL )2 + (Im ΠL )2
+
+as an in-medium screening factor, which suppresses the absorption rate compared to the obvious
+rescaling of photon absorption by κ2 [14, 24, 31, 81].
+
+
+                                             B.       Pseudoscalar Absorption
+
+
+        A pseudoscalar does not mix with the photon due to parity mismatch,5 and we simply have R =
+    ρ
+− ρ φ ω12 Im Πφφ . The pseudoscalar self-energy Πφφ is defined such that the effective action contains
+     T
+                                                  Z
+                                            1
+                                                      d4 Q m2φ + Πφφ (Q) φ(Q) φ(−Q) .
+                                                                       
+                                   Seff ⊃ −                                                                      (42)
+                                            2
+Therefore, −i Πφφ is given by the sum of two-point 1PI graphs. From the pseudoscalar coupling in
+Eq. (18), we find, again after simplifying the spin trace as in Eq. (28):
+
+                                         g2     h
+                                                   2            j
+                                                                                          2
+                                                                                                        i
+                           Im Πφφ =          Im  q   Π 1,1 − ωq   Π 1,v j + Π v j ,1   + ω   Π v j ,v j          (43)
+                                        4m2e
+Comparing with Eq. (26), we see that Im Πφφ for a pseudoscalar is closely related to the photon
+polarization Πµν :
+                            g2 1                                    2
+                                                                          
+                                       2 00    j 0j  j0   2 jj  2 ω     00
+                                                        
+                  Im Πφφ = − 2     Im q Π − ω q Π + Π + ω Π − q       Π      .                                   (44)
+                            e 4m2e                               2m2e
+
+Note that the Π01 term in Πjj is purely real and thus does not appear in the equation above. Also,
+since ω  me , we can drop the last term. Writing Πµν in terms of ΠT and ΠL as in Eq. (33) and
+setting g = gaee , we find
+                                             2         ρφ   1      1     2          2
+                                                                                            
+                           Rpseudoscalar = −gaee                      2ω   Im ΠT + mφ Im ΠL   .                  (45)
+                                                       ρT 4m2e ω 2 e2
+                                                                        m2
+For NR absorption, ω 2 ≃ Q2 = m2φ , and ΠT ≃ ΠL = e2 q2φ Π1,1 (see Eq. (36)), and therefore,
+                                                                           2
+                                                         2        ρφ 3mφ 1
+                                       Rpseudoscalar = −gaee                  Im Π1,1 .                          (46)
+                                                                  ρT 4m2e q 2
+As in the vector DM case, the absorption rate can be written solely in terms of Π1,1 ; the other self-
+energies that appear in Eq. (43) have been traded for Π1,1 via the Ward identity. Also, analogous
+to the vector DM case, the rate is semi-independent of the DM velocity as Π1,1 ∼ q 2 . Note that the
+
+5
+    The mixed self-energy Π0φA (ΠjφA ) between φ and A0 (Aj ) has to be parity odd (even). For an isotropic target one
+    must have ΠjφA ∝ q j while Π0φA is a scalar function of q 2 , so neither has the right parity if nonzero.
+                                                                                                    14
+
+
+dominant contribution to pseudoscalar DM absorption comes from the last term in Eq. (43) that is
+proportional to ω 2 Πvi ,vj , which originates from the second (formally NLO) operator in Eq. (18) (as
+underlined in Table I).
+   We can further recast the pseudoscalar DM absorption rate in terms of the photon absorption rate
+σ1 = Re σ = ω Im ε and reproduce the standard result [14, 15, 24, 29]:
+                                                         2
+                                                        gaee ρφ 3mφ σ1
+                                      Rpseudoscalar =                  .                          (47)
+                                                         e2 ρT 4m2e
+
+We remark in passing that pseudoscalar absorption has also been studied in the context of solar axion
+detection; in that case, the relativistic kinematics ω  mφ means that the Im ΠL term in Eq. (45) is
+negligible, so the proportionality factor in Eq. (47) is 21 instead of 34 [14, 29, 82].
+
+
+                                         C.    Scalar Absorption
+
+
+   For scalar DM, we need to compute explicitly both Im Πφφ and its mixing with the photon
+ΠµφA (Q) = ΠµAφ (−Q). These self-energies are defined such that
+         Z                                                    
+             4 1 2                        µ
+ Seff ⊃   d Q − mφ + Πφφ (Q) φ(Q) φ(−Q) − ΠφA (Q) φ(Q) Aµ (−Q)
+               2
+        Z                                                                          
+           4   1 2                        0                      j            j
+      =   d Q − mφ + Πφφ (Q) φ(Q) φ(−Q) − ΠφA (Q) φ(Q) A0 (−Q) + ΠφA (Q) φ(Q) A (−Q) .
+               2
+                                                                                    (48)
+
+Therefore, −i Πφφ , −i Π0φA and i ΠjφA are given by the sum of two-point 1PI graphs between φφ, φA0
+and φAj , respectively. From the scalar coupling in Eq. (18) and photon coupling in Eq. (15), we find:
+
+                            Im Πφφ = g 2 Im Π1,1 − Π1,v̄2 − Πv̄2 ,1 + Πv̄2 ,v̄2 ,
+                                                                               
+                                                                                                  (49)
+                              Π0φA = − ge Π1,1 − Πv̄2 ,1 ,
+                                                         
+                                                                                                  (50)
+                                                                      
+                                j                               1 0
+                              ΠφA = − ge Π1,vj − Πv̄2 ,vj +         Π j ,                         (51)
+                                                              me v
+where
+                                                           ←→
+                                                   1 j j    ∇2
+                                          v̄ 2 ≡     v v =− 2.                                    (52)
+                                                   2       8me
+
+As in the photon case, the self-energies are related by the Ward identity Qµ ΠµφA = 0:
+
+                                                                   qj 0
+                                      ω Πv̄2 ,1 = q j Πv̄2 ,vj −     Π j,                         (53)
+                                                                   me v
+where we have used the first relation in Eq. (29). One can explicitly check that Eq. (53) holds between
+the one-loop-level expressions for the self-energies in Eqs. (A7) and (A8).
+                                                                                                                      15
+
+
+     For an isotropic medium, we must have ΠjφA ∝ q j because there is no special direction other than
+q.6 So the mixing only involves the photon’s longitudinal component. Therefore, ΠAA in the rate
+                                                      2
+formula Eq. (22) should be set to ΠL = m2φ qe2 Π1,1 (see Eq. (36)), and ΠφA should be set to
+                                                     p           p
+                               1                      Q2 0        Q2
+        ΠφL = ΠµφA eLµ =           2 0      j j
+                                                                                  
+                              p   q ΠφA − ωq ΠφA = −    ΠφA = ge     Π1,1 − Πv̄2 ,1 ,                               (54)
+                             q Q2                     q           q
+
+where we have used the Ward identity to trade q j ΠjφA for ω Π0φA . Substituting the expressions for
+Im Πφφ , ΠφL and ΠL above into Eq. (22), and applying the NR absorption kinematics ω 2 ≃ Q2 = m2φ ,
+we find
+                                                                             e2             e2
+                                                          "                                          #
+                                 4πm2e ρφ 1                          q 2 1 − q2 Πv̄2 ,1 1 − q2 Π1,v̄2
+               Rscalar = − d2φee   2 ρ m2 Im              Πv̄2 ,v̄2 + 2                 2                ,          (55)
+                                  MPl   T  φ                         e          1 − e2 Π1,1
+                                                                                      q
+                                                                                              √
+                                                                                                4π me
+where we have used ΠLφ (Q) = ΠφL (−Q), Πv̄2 ,1 (−Q) = Π1,v̄2 (Q), and g = dφee                  MPl .
+     We see that the result for scalar absorption, Eq. (55), depends on Πv̄2 ,v̄2 , Πv̄2 ,1 , Π1,v̄2 in addition
+                                                  †
+to Π1,1 . If we had kept only the LO operator φ ψ̂+ ψ̂+ in the calculation above, we would obtain
+                                                                                 2
+Eq. (55) with Πv̄2 ,v̄2 , Πv̄2 ,1 , Π1,v̄2 set to zero, which coincides with mq 2 times the vector DM absorption
+                                                                                 φ
+                                                                                         †
+rate in Eq. (39). Just as in the vector DM case, the contribution of the LO operator φ ψ̂+ ψ̂+ to
+scalar DM absorption is screened due to in-medium mixing [38]. However, the formally NLO operator
+     †←→
+       ∇ 2 ψ̂+ introduces additional contributions via Πv̄2 ,v̄2 , Πv̄2 ,1 , Π1,v̄2 . As we will see in the next
+              
+φ ψ̂+
+two sections, generically Π1,1 , Πv̄2 ,1 ∼ q 2 while Πv̄2 ,v̄2 ∼ q 0 . It is thus clear from Eq. (55) that the
+absorption rate of a NR scalar DM is in fact dominated by the Πv̄2 ,v̄2 term:
+
+                                                          4πm2e ρφ 1
+                                      Rscalar ≃ −d2φee      2 ρ m2 Im Πv̄ 2 ,v̄ 2 .                                 (56)
+                                                           MPl   T  φ
+
+Importantly, this term (overlooked in several previous calculations of scalar DM absorption [38–40])
+is not directly proportional to the photon absorption rate and is unscreened. We emphasize that the
+suppression of LO operator’s contribution is specific to the case of non-relativistic DM absorption,
+where q  ω; for absorption of a relativistic scalar (q ≃ ω) or scalar-mediated scattering (q  ω), the
+                †
+LO operator φ ψ̂+ ψ̂+ indeed gives the dominant contribution.
+
+
+     To summarize, in this section we have derived DM absorption rates in terms of in-medium self-
+energies of the form ΠO1 ,O2 , as defined in Eq. (23). (Contributions from the other graph topology,
+Eq. (24), have been eliminated using the Ward identity.) Both vector and pseudoscalar absorption
+involve a single self-energy function Π1,1 ∝ ΠL (see Eqs. (39) and (46)), and the rates can be simply
+
+6
+    We note in passing that the Π0vj term in ΠjφA is q independent and must therefore vanish in an isotropic medium. This
+                                         †←→ 
+    is why we have omitted the φ A · ψ̂+   ∇ ψ̂+ operator in Eq. (18), which only contributes to this term, from Table I.
+                                                                                                                          16
+
+
+related to the (complex) conductivity/dielectric (see Eqs. (40) and (47)). In these cases, the data-
+driven approach based on the measured conductivity/dielectric is viable, and we can also use optical
+data to calibrate our theoretical calculations based on DFT or analytic modeling. On the other hand,
+for scalar DM absorption, additional self-energy functions Πv̄2 ,v̄2 , Πv̄2 ,1 , Π1,v̄2 enter (see Eq. (55)),
+and the rate is not directly related to photon absorption. In this case, the data-driven approach fails
+and theoretical calculations are needed.
+   In the next two sections, we compute the self-energies Π1,1 , Πv̄2 ,v̄2 , Πv̄2 ,1 , Π1,v̄2 in crystal and
+superconductor targets, respectively, which then allow us to derive the absorption rates of vector,
+pseudoscalar and scalar DM in these targets. Our main results for Si, Ge and Al-superconductor
+(Al-SC) targets are collected in Figs. 1, 2 and 3. First, Fig. 1 confirms the dominance of the Πv̄2 ,v̄2
+term in the scalar DM absorption rate (i.e. that Eq. (55) indeed simplifies to Eq. (56)) by rewriting
+Eq. (55) as
+
+                                              4πm2e ρφ
+                            Rscalar = d2φee
+                                                                                 
+                                                2      Rv̄2 ,v̄2 + R1,1 + Rv̄2 ,1 ,                                     (57)
+                                               MPl ρT
+                                                                                                                         
+                                                                                           2
+and comparing the sizes of the terms. Here Rv̄2 ,v̄2 ≡ − m12 Im Πv̄2 ,v̄2 , R1,1 ≡ − m12 qe2 Im                     1
+                                                                                                                    2      ,
+                                                           φ                           φ                     1− e2 Π1,1
+                                                                                                                q
+while the remaining terms define Rv̄2 ,1 . Next, Fig. 2 shows the projected reach for the pseudoscalar
+and vector DM models, where we see good agreement between our theoretical calculations (solid
+curves) and rescaled optical data (dashed curves). Lastly, Fig. 3 shows our calculated reach for scalar
+DM and compares the Al-SC results with previous work [14, 38]. These results will be discussed in
+detail in the following sections.
+
+
+                      IV.    DARK MATTER ABSORPTION IN CRYSTALS
+
+
+   In this section, we specialize to the case of crystal targets that are described by band theory. It
+suffices to compute the self-energies ΠO1 ,O2 at one-loop level, with O1,2 = 1, v̄ 2 . The result for general
+O1 , O2 is given in Eq. (A7) in Appendix A, and involves a sum over electronic states I, I 0 that run
+in the loop. Since we assume the target is at zero temperature the occupation numbers fI , fI 0 take
+values of either 1 or 0. Only pairs of states for which fI 0 − fI 6= 0, i.e. one is occupied and the other
+is unoccupied, contribute to the sum — it is between these pairs of states that electronic transitions
+can happen.
+   In the present case, the states are labeled by a band index i and momentum k within the first
+Brillouin zone (1BZ), so we write I = i, k, and I 0 = i0 , k0 . The wave functions have the Bloch form,
+which in real and momentum space read, respectively:
+
+                           1 X                                             √       X
+               Ψi,k (x) = √     ui,k,G ei(k+G)·x ,           Ψ
+                                                             e i,k (p) =       V       ui,k,G δp,k+G ,                  (58)
+                            V G                                                    G
+                                                                                                               17
+
+
+
+
+FIG. 1. Comparison between different terms contributing to the scalar DM absorption rate, defined in Eq. (57),
+for Si, Ge and Al-SC targets assuming q = 10−3 mφ . Dashed curves indicate negative values. In all three targets
+we see that Rv̄2 ,v̄2 dominates over the entire DM mass range considered. This term comes from an NLO operator
+in the NR EFT (underlined in Table I) and cannot be directly related to the target’s optical properties (i.e. the
+complex conductivity/dielectric function). For Si and Ge, the calculation of Rv̄2 ,1 is technically challenging as
+explained in Sec. IV; however, it is parameterically the same order in q as R1,1 and therefore expected to be
+also subdominant compared to Rv̄2 ,v̄2 .
+
+
+where the sum runs over all reciprocal lattice vectors G. These are related by
+                              d3 p e
+                          Z                                      Z
+               Ψi,k (x) =          Ψi,k (p) e ip·x
+                                                   ,   Ψi,k (p) = d3 x Ψi,k (x) e−ip·x
+                                                       e                                                     (59)
+                             (2π)3
+upon applying the standard dictionary between discrete and continuum expressions:
+                                    d3 p                (2π)3 3
+                        X        Z
+                            =V           ,    δp1 ,p2 =      δ (p1 − p2 ) .                                  (60)
+                         p
+                                   (2π)3                  V
+
+   We now examine the matrix element hi0 , k0 | O1 eiq·x |i, ki involved in Eq. (A7) for the v̄ 2 and 1
+operators; hi, k| O2 e−iq·x |i0 , k0 i is completely analogous. For the v̄ 2 operator, we simply obtain
+                                                                ←→2
+                                                Z
+              0   0 2 iq·x                  1       3    ∗
+                                                                        iq·x
+           hi , k | v̄ e   |i, ki = −              d  x Ψi 0 ,k0 ∇ Ψi,k e
+                                           8m2e
+                                          1 X 0
+                                    =             (k + G0 + k + G)2 u∗i0 ,k0 ,G0 ui,k,G δk0 +G0 , k+G+q . (61)
+                                        8m2e 0
+                                                G ,G
+
+For NR absorption in the mass range of interest here, mφ . 100 eV, the momentum transfer q ∼
+                m 
+10−3 mφ ∼ meV eVφ is well within the 1BZ (O(keV)). This implies that Umklapp processes where
+G0 6= G do not contribute, so (lattice) momentum conservation simply dictates k0 = k + q. At leading
+order in q we can set k0 = k, and Eq. (61) simplifies to
+                                                             1 X
+                    hi0 , k0 | v̄ 2 eiq·x |i, ki = δk0 ,k        (k + G)2 u∗i0 ,k,G ui,k,G + O(q) .          (62)
+                                                            2m2e
+                                                                 G
+                                                                                                                                  18
+
+
+                             Vector DM                                                                Pseudoscalar DM
+     10−11                                                                           10−9
+     10−12                                     Su
+                                                 n
+                                                                                     10−10
+
+
+
+
+                                                                                               Al
+     10−13
+
+                         Al
+
+
+
+
+                                                     XENON10/100
+
+
+
+
+                                                                                                  −
+                          −
+
+
+
+
+                                                                                                   SC
+                                                                                     10−11
+
+                               SC
+     10−14
+
+
+
+
+                                                                              gaee
+ κ
+
+
+
+
+     10−15                                                                           10−12                                 Ge
+                                                                   Si
+     10−16                                                                                   WD
+                                          Ge                                                                                Si
+                                                                                     10−13
+     10−17                                                                                                 SZ     VZ
+                                                                                                         DF     KS
+          10−3     10−2      10−1   1                 10                102             10−3      10−2    10−1   1         10    102
+                              mφ [eV]                                                                      mφ [eV]
+
+FIG. 2.    Projected 95% C.L. reach (3 events with no background) with semiconductor crystal (Si, Ge) and
+superconductor (Al-SC) targets for the vector and pseudoscalar DM models defined in Eq. (3), assuming 1 kg-yr
+exposure. We compare our theoretically calculated reach (solid) against the data-driven approach utilizing the
+target material’s measured conductivity/dielectric [83, 84] (dashed). For Si and Ge, the data-driven approach
+was taken in previous works [14, 15], with which we find good agreement. For Al-SC, our theoretical calculation
+reproduces the results in Ref. [24] (dotted) up to the choice of overall normalization factor. Also shown are
+existing direct detection limits from XENON10/100 [15], stellar cooling constraints from the Sun (assuming
+Stückelberg mass for vector DM) [85] and white dwarfs (WD) [86], and pseudoscalar couplings corresponding
+to the QCD axion in KSVZ and DFSZ (for 0.28 ≤ tan β ≤ 140) models [87].
+
+
+For the 1 operator, additional care is needed since hi0 , k0 | eiq·x |i, ki vanishes in the q → 0 limit: |i0 , k0 i
+and |i, ki are distinct energy eigenstates and therefore orthogonal. At O(q), we have hi0 , k0 | eiq·x |i, ki ≃
+iq · hi0 , k0 | x |i, ki. A numerically efficient way to compute this matrix element is to trade the position
+                                                                                p                                      2
+operator for the momentum operator via its commutator with the Hamiltonian H = 2m e
+                                                                                    + V (x):
+
+                                               1                                             i
+             hi0 , k0 | x |i, ki = −                  hi0 , k0 | [x, H] |i, ki = −                      hi0 , k0 | p |i, ki .    (63)
+                                       εi0 ,k0 − εi,k                              me (εi0 ,k0 − εi,k )
+
+Substituting in the wave functions, we find:
+
+                                                                 q          X
+                     hi0 , k0 | eiq·x |i, ki = δk0 ,k                     ·  (k + G) u∗i0 ,k,G ui,k,G + O(q 2 ) .                (64)
+                                                              me ωi0 i, k
+                                                                               G
+
+
+where ωi0 i, k ≡ εi0 ,k − εi,k .
+   It is convenient to define the following crystal form factors, via which the Bloch wave functions
+                                                                                                            19
+
+
+                                                                     Scalar DM
+                             1011
+
+
+
+
+                                                                          Ge
+                             1010
+
+
+
+
+                                                                            lm
+                                                                              ini
+                                            Al
+
+
+
+
+                                                                               et
+                                  9                 −
+
+
+
+
+                                                                                  al.
+                             10                         SC
+                      dφee
+                             108            Ho
+                                                 ch
+                                                   be
+                                                     rg                                      Si
+                                  7                       et
+                             10         RG
+                                                               al.
+
+
+
+                                                         rce
+                             106                    th
+                                                       Fo
+                                                                                             Ge
+                                                 Fif
+
+
+
+                               10−3           10−2                   10−1    1          10        102
+                                                                       mφ [eV]
+
+FIG. 3.   Projected 95% C.L. reach (3 events with no background) with semiconductor crystal (Si, Ge) and
+superconductor (Al-SC) targets, for the scalar DM model defined in Eq. (3), assuming 1 kg-yr exposure. In
+contrast to the vector and pseudoscalar cases shown in Fig. 2, the projections here cannot be derived from the
+target’s optical properties. Differences compared to Hochberg et al. [24] and Gelmini et al. [38] in the Al-SC
+case are discussed in detail in Sec. V. Also shown are existing constraints from fifth force [88] and red giant
+(RG) cooling [89].
+
+
+enter DM absorption rates (at leading order in q):
+
+                                                  1 X
+                                      f i0 i, k ≡           (k + G)2 u∗i0 ,k,G ui,k,G ,                   (65)
+                                                 2m2e
+                                                          G
+                                                   1 X
+                                      fi0 i, k ≡             (k + G) u∗i0 ,k,G ui,k,G .                   (66)
+                                                 ωi0 i, k
+                                                                     G
+
+
+Note that they differ from the crystal form factor used in spin-independent DM scattering [12, 17, 21]:
+f[i0 k0 ,ik,G] = G0 u∗i0 ,k0 ,G0 +G ui,k,G0 . The absorption kinematics simply set the k and G vectors of the
+                P
+
+initial and final states to be the same; also, powers of (k + G) appear as follows from the effective
+operators.
+   The crystal form factors defined above allow us to write the self-energies in a concise form. For
+the operators 1 and v̄ 2 , the spin trace is trivial and simply yields a factor of two. Each pair of
+valence/conduction states between which a transition can happen contributes to two terms in the sum
+over electronic states, because either i, k or i0 , k0 can be a valence or conduction state. Combining the
+                                                                                                                 20
+
+
+two terms for each pair, we obtain
+
+                                    X                                                                    2
+                      2 X                            1                       1                q
+               Π1,1 =                                             −                              · fi0 i, k ,   (67)
+                      V 0                     ω − ωi0 i, k + iδ       ω + ωi0 i, k − iδ       me
+                          i ∈ cond. k ∈ 1BZ
+                           i ∈ val.
+                          2 X       X               1                       1
+                                                                                          
+                                                                                                     2
+              Πv̄2 ,v̄2 =                                         −                           fi0 i, k ,        (68)
+                          V 0                 ω − ωi0 i, k + iδ       ω + ωi0 i, k − iδ
+                          i ∈ cond. k ∈ 1BZ
+                           i ∈ val.
+
+
+where δ → 0+ . We see explicitly that Π1,1 ∼ q 2 and Πv̄2 ,v̄2 ∼ q 0 , as already alluded to in Sec. III. The
+other two self-energies, Πv̄2 ,1 and Π1,v̄2 , take the form of q · F + O(q 2 ), where F is a target-dependent
+function that involves f i0 i, k and f i0 i, k . In the absence of a special direction, we must have F = 0
+and therefore, Πv̄2 ,1 , Π1,v̄2 ∼ O(q 2 ). Working out the leading O(q 2 ) contribution to these self-energies
+would require the O(q 2 ) term in hi0 , k0 | eiq·x |i, ki, which however does not admit a simple expression
+in terms of just the momentum operator as in Eq. (63). Nevertheless, Πv̄2 ,1 and Π1,v̄2 only enter the
+absorption rate in the scalar DM case and we expect Rv̄2 ,1 ∼ R1,1 since Πv̄2 ,1 , Π1,v̄2 and Π1,1 all scale
+as q 2 . So as long as R1,1  Rv̄2 ,v̄2 , it is justified to neglect the second term in Eq. (55) altogether
+and use Eq. (56) for the rate; computing Πv̄2 ,1 , Π1,v̄2 then becomes unnecessary. We see from Fig. 1
+that this is indeed the case for Si and Ge.
+   To calculate the DM absorption rates and make sensitivity projections, we use DFT-computed
+electronic band structures and wave functions for Si and Ge [77], including all-electron reconstruction
+up to a cutoff of 2 keV; see Ref. [21] for details. We adopt the same numerical setup as the “valence to
+conduction” calculation in Ref. [21], and include also the 3d states in Ge as valence (treating them as
+core states gives similar results). The finite resolution of the k-grid means we need to apply some kind
+of smearing to the delta functions coming from the imaginary part of Eqs. (67) and (68). This is done
+in practice by setting δ in Eqs. (67) and (68) to a finite constant 0.2 eV, which we find appropriate for
+a 10 × 10 × 10 k-grid for the majority of the DM mass range. We implement our numerical calculation
+as a new module “absorption” of the EXCEED-DM program [78].
+   We present the projected reach for the three DM models in Figs. 2 and 3, assuming 3 events
+(corresponding to 95% CL) for 1 kg-yr exposure without including background, together with existing
+constraints on these models for reference. The solid curves are our theoretical predictions; they
+are obtained using the rate formulae Eqs. (39), (46) and (56) for vector, pseudoscalar and scalar
+DM, respectively, with the self-energies Π1,1 , Πv̄2 ,v̄2 computed numerically for Si and Ge according
+to Eqs. (67) and (68) as explained above. For pseudoscalar and scalar DM, the reach curves are
+essentially the sum of Lorentzians coming from the smearing of delta functions in Im Π1,1 and Im Πv̄2 ,v̄2 ,
+respectively; there is no screening in these cases. For vector DM, in-medium mixing with the photon
+results in the plasmon peak (dip in the reach curves) between 10 and 20 eV for both Si and Ge; the
+rate is screened below the plasmon peak.
+   For vector and pseudoscalar DM, we can alternatively take the data-driven approach, using
+                                                                                                        21
+
+
+Eqs. (40) and (47), respectively, to derive the rate from the measured conductivity/dielectric. As in
+Ref. [14, 15], we use the measured optical data from Ref. [83]. Results from this data-driven approach
+are shown by the dashed curves; they are the same as in Ref. [14, 15] upon inclusion of backgrounds.
+For Si, the solid and dashed curves are very close to each other for mφ & 3 eV; the theoretical cal-
+culation (solid curves) systematically overestimates the rate as mφ approaches the band gap (1.2 eV)
+because of the smearing procedure discussed above. For Ge, we see the same systematic discrepancy
+close to the band gap (0.67 eV); also, the theoretical calculation predicts a sharper plasmon peak
+(corresponding to a smaller Im Π1,1 near the plasmon frequency) compared to data. Aside from these
+issues, we view the overall good agreement between the solid and dashed curves in the vector and
+pseudoscalar cases as a validation of our DFT-based theoretical calculation in the majority of DM
+mass range. Importantly, this gives credence to the reach curves we have calculated in the scalar
+DM case, where the data-driven approach does not apply, though one has to keep in mind that our
+calculation systematically overestimates the rate for DM masses below about 3 eV because of the
+smearing issue.
+
+
+                  V.   DARK MATTER ABSORPTION IN SUPERCONDUCTORS
+
+
+   We now turn to the case of conventional superconductors described by BCS theory. For the majority
+of the calculation, we are concerned with electronic states with energies ε satisfying |ε − εF |  ∆,
+where εF is the Fermi energy and 2∆ ∼ O(meV) is the gap, and the description of a superconductor
+approaches that of a normal metal; corrections due to Cooper pairing only become relevant within
+O(∆) of the Fermi surface.
+   Following Refs. [22–24], we model the electrons near the Fermi surface with a free-electron disper-
+          k 2
+sion εk = m ∗
+              and wave function Ψk (x) = √1V eik·x , where the effective mass m∗ is generally an O(1)
+number times the electron’s vacuum mass me . At zero temperature, electrons occupy states up to the
+                                      p
+Fermi surface, a sphere of radius kF = 2m∗ εF . The volume of the Fermi sphere gives the density of
+                       2 4      3
+free electrons, ne = (2π) 3 3 πkF , where the twofold spin degeneracy has been taken into account. We
+
+expect this simple effective description to hold up to a UV cutoff ωmax (∼ 0.5 eV for Al), above which
+interband transitions become important and one may instead perform a DFT calculation (as in the
+case of crystals discussed in Sec. IV).
+   Within this simple free-electron model, the self-energies ΠO1 ,O2 are real at one-loop level; it is easy
+to see that two electronic states differing by energy ω and momentum q cannot be both on-shell when
+ω  q. Therefore, the leading contribution to the imaginary part arises at two loops, and we have
+
+                                                     (1-loop)    (2-loop)
+                                 ΠO1 ,O2 ≃ Re ΠO1 ,O2 + i Im ΠO1 ,O2 .                                (69)
+
+                                          (1-loop)
+   For the real part Re ΠO1 ,O2 = Re ΠO1 ,O2 , we apply the general formula Eq. (A7) to the free-
+                                                                                                                  22
+
+
+electron model in the limit ω  q, as explained in detail in App. A 2. The results are:
+
+                                        q 2 ne                                     kF2 q 2 ne
+                          Re Π1,1 =            ,       Re Πv̄2 ,1 = Re Π1,v̄2 =               .               (70)
+                                        ω 2 m∗                                    2m2e ω 2 m∗
+While these are derived for normal conductors, we expect them to carry over to the superconductor
+case; proportionality to ne (the total number of electronic states within the Fermi sphere) implies
+insensitivity to deformations within O(∆) of the Fermi surface. We also note in passing that, via
+                                                                                                              2
+Eq. (36), we obtain the familiar result for the photon self-energies [90, 91]: Re ΠT = ωp2 , Re ΠL = Q ω2,
+                                                                                                     ω2 p
+               2
+where ωp2 ≡ emn∗e is the plasma frequency squared.
+                                                       (2-loop)
+   For the imaginary part Im ΠO1 ,O2 = Im ΠO1 ,O2 , we expect the dominant contribution to come from
+two-loop diagrams with an internal phonon line for a high-purity sample (otherwise impurity scattering
+may also contribute). These are associated with φ (or γ) + e− → e− + phonon processes by the optical
+theorem, and can be computed by the standard cutting rules, as we detail in App. A 3. We model
+the (acoustic) phonons with a linear dispersion, ωq0 = cs q 0 where cs is the sound speed, and neglect
+                                                                              0
+Umklapp processes which amounts to imposing a cutoff on the phonon momentum, qmax = qD ≡ ωD /cs
+with ωD the Debye frequency. The electron-phonon coupling, in our normalization convention, is given
+    C     q0
+by √ e-ph
+     2ωq0 ρT
+             [24, 92, 93], with Ce-ph ∼ O(εF ) a constant with mass dimension one. Accounting for the
+superconducting gap, we obtain, for ω  q:
+                                     2             Z min(1− 2∆ , ωD )                  s       !
+                                    Ce-ph ω2 q2               ω   ω
+                                                                        4            (2∆/ω)2
+                Im Π1,1 = −                                   dx x (1 − x) E      1−             ,            (71)
+                                3 (2π)3 ρT c6s 0                                     (1 − x)2
+                                                        2∆ ω
+                                                                                   s               !
+                                   2
+                                  Ce-ph ω 4 m4∗ min(1− ω , ωD )
+                                                 Z                                              2
+                                                                                        (2∆/ω)
+              Im Πv̄2 ,v̄2 = −                                   dx x2 (1 − x)3 E   1−                ,       (72)
+                                (2π)3 ρT c4s m4e 0                                       (1 − x)2
+                                                      2∆ ω
+                                                                                  s              !
+                                2
+                              Ce-ph ω 2 q 2 m2∗ min(1− ω , ωD )                        (2∆/ω)2
+                                               Z
+                                                                    2        2
+  Im Πv̄2 ,1 = Im Π1,v̄2 =                                      dx x (1 − x) E     1−               ,         (73)
+                             3 (2π)3 ρT c4s m2e 0                                      (1 − x)2
+
+                   R1     q
+                              1−z 2 t2
+where E(z) =       0 dt        1−t2
+                                       is the complete elliptic integral of the second kind. For energy depositions
+much higher than the gap, ω  2∆, the elliptic integral E(1) = 1 drops out and we reproduce the
+results for a normal conductor; see App. A 3 for details.
+   With the expressions of self-energies above, we can use Eqs. (39), (46) and (55) to calculate the
+absorption rates for vector, pseudoscalar and scalar DM. We consider an aluminum superconductor
+(Al-SC) target, for which the relevant material parameters are listed in Table II. We use the same
+numerical values as in Ref. [24] for εF , ωp , ∆, ωD , cs , and determine the electron-phonon coupling
+Ce-ph from resistivity measurements [94, 95] as explained in App. A 3. For scalar DM, we again confirm
+the dominance of the Rv̄2 v̄2 term in Eq. (57), as seen in Fig. 1, so the rate formula Eq. (55) simplifies
+to Eq. (56) as in the cases of Si and Ge discussed in Sec. IV.
+   Figs. 2 and 3 show the projected reach, assuming 3 events per kg-yr exposure without including
+background. We see that Al-SC, with its O(meV) gap, significantly extends the reach with respect
+                                                                                                   23
+
+
+                     Fermi energy                         εF = 11.7 eV
+                     Plasma frequency                     ωp = 12.2 eV
+                                                                   9π 2 ω 4
+                     Electron effective mass              m∗ = 128α2 εp3 = 0.35 me
+                                                                       F
+                                                              p
+                     Fermi momentum                       kF = 2m∗ εF = 2.1 keV
+                     Superconducting gap                  2∆ = 0.6 meV
+                     Debye frequency                      ωD = 37 meV
+                     Sound speed                          cs = 2.1 × 10−5
+                                                               ω
+                     Maximum phonon momentum              qD = cD
+                                                                s
+                                                                  = 1.8 keV
+                     Electron-phonon coupling             Ce-ph = 56 eV
+                     Mass density                         ρT = 2.7 g/cm3
+
+                      TABLE II. Material parameters for aluminum superconductor.
+
+
+to Si and Ge to lower mφ . The solid red curves are obtained from the self-energy calculations dis-
+cussed above; the underlying model has a UV cutoff ωmax ∼ 0.5 eV where we truncate the curves.
+Low-temperature conductivity data are available between 0.2 eV and 3 eV [84]. For the vector and
+pseudoscalar DM models, we also present the reach following the data-driven approach in this mass
+range (dashed curves), obtained by using Eqs. (40) and (47) with σ1 (= Re σ = ω Im ε) taken from
+                               ω2
+Ref. [84] and Re ε set to 1 − ωp2 . Between 0.2 eV and 0.5 eV where both theoretical (solid) and data-
+driven (dashed) predictions are shown, they are in reasonable agreement, with the latter stronger by
+about 40% for both κ and gaee at 0.2 eV. The difference is presumably a result of approaching the
+UV cutoff of the theoretical calculation, and possibly also the neglect of Umklapp contributions. For
+scalar DM, the data-driven approach is not viable, and we present our theoretical prediction up to
+0.5 eV. We also show the reach curves obtained in the previous literature [24, 38] for comparison, and
+discuss the differences in what follows.
+   Comparison with previous calculations. The calculation of DM absorption in superconductors was
+first carried out in Ref. [24], where the 2→2 matrix element for φ + e− → e− + phonon was evaluated
+at leading order in q. For vector and pseudoscalar DM, our results agree with Ref. [24] as seen in
+Fig. 2, up to a minor numerical prefactor understood as follows. Ref. [24] chose the value of the
+electron-phonon coupling Ce-ph such that the photon absorption rate (i.e. conductivity σ1 ) matches
+the experimentally measured value at ω = 0.2 eV. In this work, we instead determine Ce-ph via the
+λtr parameter following Refs. [94, 95], which results in a slightly lower value and hence the slight
+mismatch observed in Fig. 2.
+   The more significant numerical difference in the scalar case between our results and Ref. [24], as
+seen in Fig. 3, can be traced to two sources. First, the numerically dominant effect is that Ref. [24]
+did not distinguish m∗ and me , while we have kept the vacuum mass me in the operator coefficients
+and used the effective mass m∗ for the electron’s dispersion and phase space; the two masses differ
+by about a factor of three in Al-SC. Note that the difference between me and m∗ does not affect the
+                                                                                                         24
+
+
+vector and pseudoscalar absorption rates as they only depend on Π1,1 , which is independent of m∗ /me .
+Second, Ref. [24] dropped a factor of (1 − x)2 in the scalar absorption matrix element when taking
+the soft phonon limit; this results in an O(1) difference on the projected reach that is numerically
+subdominant. One can easily verify these two points by evaluating the integral in Eq. (A38) using
+                       4
+x2 (1 − x) in place of m∗
+                       m4
+                          x2 (1 − x)3 in the last line; this would reproduce the analytic relation presented
+                       e
+in Ref. [24] between scalar and photon absorption rates in the limit ω  2∆.
+   More recently, Ref. [38] revisited scalar DM absorption and claimed that in-medium effects lead to
+a significantly weaker reach. We reiterate that while in-medium mixing with the photon screens the
+contribution from the LO operator 1, the leading contribution to scalar absorption comes instead from
+the NLO operator v̄ 2 that is not screened. In fact, the screening factor in Ref. [38] was (correctly)
+derived for the 1 operator but inconsistently applied to the dominant contribution coming from the
+v̄ 2 operator as obtained in Ref. [24]. As a result, Ref. [38] significantly underestimated the reach as
+we can see from Fig. 3.
+
+
+                                         VI.   CONCLUSIONS
+
+
+   In this paper we revisited the calculation of electronic excitations induced by absorption of bosonic
+DM. Specifically, we focused on O(1 - 100) eV mass DM for Si and Ge targets that are in use in current
+experiments, and sub-eV mass DM that a proposed Al superconductor detector will be sensitive to.
+We utilized an NR EFT framework, where couplings between the DM and electron in a relativistic
+theory are matched onto NR effective operators in a 1/me expansion. We then computed absorption
+rates from in-medium self-energies, carefully accounting for mixing between the DM and the photon.
+For crystal targets like Si and Ge, we used first-principles calculations of electronic band structures and
+wave functions based on density functional theory, and implemented the numerical rate calculation as
+a new module “absorption” of the EXCEED-DM program [21, 78]. For BCS superconductors, we adopted
+an analytic model as in Refs. [22–24] treating electrons near the Fermi surface as free quasiparticles
+and including corrections due to the O(meV) superconducting gap. The projected reach is presented
+in Figs. 2 and 3 for vector, pseudoscalar and scalar DM.
+   Most of previous calculations of DM absorption relied upon relating the process to photon ab-
+sorption, and hence to the target’s optical properties, i.e. the complex conductivity/dielectric. For
+vector and pseudoscalar DM, this is a valid approach. Our theoretical calculations reproduced the
+results of this data-driven approach in the majority of mass range, which we view as a validation of
+our methodology and numerical implementation.
+   For scalar DM, however, we showed that the dominant contribution is not directly related to pho-
+ton absorption. One therefore cannot simply rescale optical data to derive the DM absorption rate.
+Importantly, the familiar coincidence between scalar and vector couplings, ψ̄ψ ≃ ψ̄γ 0 ψ, holds only at
+leading order in the NR EFT. For non-relativistic scalar DM φ, matrix elements of the leading order
+                                                                                                        25
+
+
+operator are severely suppressed by the momentum transfer q ∼ 10−3 mφ . The dominant contribution
+comes instead from a different operator that is formally next-to-leading-order in the NR EFT expan-
+sion, and does not suffer from in-medium screening. We presented reach projections for scalar DM
+based on our theoretical calculations. Notably, for Al superconductor, the reach we found is much
+more optimistic than the recent estimate in Ref. [38].
+   It is straightforward to extend the calculation presented here to anisotropic targets and materials
+with spin-dependent electronic wave functions (as can arise from spin-orbit coupling); we will investi-
+gate this subject in detail in an upcoming publication. Another future direction is to calculate phonon
+and magnon excitations from DM absorption via in-medium self-energies in a similar EFT framework,
+refining and extending the calculation in Ref. [96]. Finally, in-medium self-energies are also relevant for
+DM detection via scattering; one can carry out a calculation similar to what we have done here, but in
+a different kinematic regime, to include in-medium screening corrections in the study of DM-electron
+scattering via general EFT interactions [97].
+
+
+                                         ACKNOWLEDGMENTS
+
+
+   We thank Sinéad Griffin and Katherine Inzani for DFT calculations used in this work, and Mengxing
+Ye for helpful discussions. This material is based upon work supported by the U.S. Department of
+Energy, Office of Science, Office of High Energy Physics, under Award No. DE-SC0021431, by a Simons
+Investigator Award (K.Z.) and the Quantum Information Science Enabled Discovery (QuantISED)
+for High Energy Physics (KA2401032). The computations presented here were conducted on the
+Caltech High Performance Cluster, partially supported by a grant from the Gordon and Betty Moore
+Foundation.
+
+
+                                  Appendix A: Self-energy Calculations
+
+                          1.     General Result for the One-loop Self-energy
+
+
+   At one-loop level, the self-energies defined in Eqs. (23) and (24) are given by
+                                                                                 I
+                                         I0
+                                   Q                                         Q
+                                  −→                                        −→
+              −i ΠO1 ,O2 (Q) =                     ,        −i Π0O (Q) =                    ,         (A1)
+                                    O1        O2                                 O
+                                         I
+
+
+
+where the external states (drawn with curly lines for concreteness) can be either spin-0 or spin-1, and
+the internal electronic states I, I 0 are summed over. Using the in-medium Feynman rules (see e.g.
+                                                                                                          26
+
+
+Ref. [93]) we obtain, for the first diagram:
+
+                                 (−1) X ∞ dε tr hI 0 | O1 eiq·x |IihI| O2 e−iq·x |I 0 i
+                                          Z                                             
+                  −i ΠO1 ,O2 =                                                            ,             (A2)
+                                   V    0  −∞ 2π (ε + ω − εI 0 + iδI 0 )(ε − εI + iδI )
+                                         I I
+
+where V is the total volume, “tr” represents the spin trace, and δI (0) ≡ δ sgn(εI (0) − εF ) with δ → 0+ .
+Note that the iδ prescription for electron propagators is different from the vacuum theory, and depends
+on whether the state is above or below the Fermi energy εF ; using the correct iδ prescription is crucial
+for ensuring causality. Meanwhile, the matrix elements coming from the vertices are
+                                           Z
+                           hI | O1 e |Ii = d3 x Ψ∗I 0 (x) O1 ΨI (x) eiq·x ,
+                             0      iq·x
+                                                                  
+                                                                                                        (A3)
+
+and likewise for hI| O2 e−iq·x |I 0 i. Here O1,2 are matrices in spin space, and may involve spatial deriva-
+tives acting on the electronic wave functions. For example, for the velocity operator defined in Eq. (27)
+(which is proportional to the identity matrix in spin space), we have
+
+                               0 ←
+                                 → iq·x
+                                                      Z
+      0 j iq·x           i                         i
+                                                         d3 x Ψ∗I 0 (∇j ΨI ) − (∇j Ψ∗I 0 ) ΨI eiq·x .
+                                                                                            
+    I v e      I =−          I ∇j e      I =−                                                           (A4)
+                       2me                       2me
+   We can evaluate the energy integral in Eq. (A2) by examining the pole structure of the integrand
+in the complex plane. If δI 0 and δI have the same sign (i.e. if both I 0 and I are above or below the
+Fermi energy), the two poles are on the same side of the real axis and they have opposite residues;
+the integral therefore vanishes upon closing the contour via either +i∞ or −i∞. So we must have one
+state above the Fermi energy and one below it, in which case there is one pole on each side of the real
+axis; closing the contour via either +i∞ or −i∞ to pick up the residue at one of the poles, we obtain
+                                                           
+                                                                   i
+                                                           
+                                                                              if δI 0 > 0, δI < 0 ;
+           Z ∞                                               ω − ωI 0 I + iδ
+                                                           
+                dε                 1                       
+                                                         =                                           (A5)
+            −∞ 2π (ε + ω − εI 0 + iδI 0 )(ε − εI + iδI )              i
+                                                           −                  if δI 0 < 0, δI > 0 .
+                                                           
+                                                           
+                                                               ω − ωI 0 I − iδ
+
+Here ωI 0 I ≡ εI 0 − εI , and δ → 0+ . All cases discussed above can be concisely summarized as:
+                        Z ∞
+                              dε                  1                           −i (fI 0 − fI )
+                                                                          =                      ,      (A6)
+                          −∞  2π (ε + ω − ε I0 + iδ I0 )(ε − ε I + iδ I )   ω − ωI 0 I + iδI 0 I
+
+where fI , fI 0 are the occupation numbers (equal to 1 for states below the Fermi energy, 0 for states
+above it), and δI 0 I ≡ δ sgn(ωI 0 I ). We therefore obtain
+                               1 X    fI 0 − fI                                                  
+                 ΠO1 ,O2 = −                            tr hI 0 | O1 eiq·x |IihI| O2 e−iq·x |I 0 i .    (A7)
+                               V 0 ω − ωI 0 I + iδI 0 I
+                                  I I
+
+As the simplest example, setting O1 = O2 = 1 in Eq. (A7), we obtain Π1,1 , and hence the dielectric
+via Eq. (36), which reproduces the familiar Lindhard formula (see e.g. Ref. [98] and recent discussions
+in Refs. [58, 59]).
+                                                                                                           27
+
+
+   Now move on to the second diagram in Eq. (A1). While we have shown in Sec. III that contributions
+to absorption rates from this diagram can be eliminated using the Ward identity, we present its result
+here for completeness and also to allow for an explicit check of the Ward identity. In this diagram, the
+electron propagator starts and ends at the same time point and time-ordering becomes ambiguous.
+The correct prescription is to take the normal-ordered product of creation and annihilation operators,
+and the loop is simply proportional to the electron number operator [93]. Again writing the result in
+terms of occupation number fI , we find
+                                                  1 X
+                                        Π0O = −       fI trhI| O|Ii .                                   (A8)
+                                                  V
+                                                      I
+
+Note that Π0O is purely real at all orders. With Eqs. (A7) and (A8) one can readily verify the relations
+implied by the Ward identity, Eqs. (29) and (53).
+
+
+                         2.   Real Part of the One-loop Self-energy in a Metal
+
+
+   We now apply Eq. (A7) to the case of a metal. As discussed in Sec. V, we model the electrons near
+the Fermi surface of a metal as free quasiparticles with an effective mass m∗ and energy eigenstates
+labeled by momentum. The sum over I, I 0 becomes integrals over k, k0 , and we have
+                               V d3 k 0   V d3 k   fk0 − fk
+                             Z          Z
+                           1                                     
+                                                                      0        iq·x             −iq·x 0
+                                                                                                         
+  ΠO1 ,O2 = Re ΠO1 ,O2 = −                            02     2 tr  hk   | O1 e      |kihk| O2 e      |k i  .
+                           V   (2π)3      (2π)3 ω − k + k
+                                                    2m∗    2m∗
+                                                                                                        (A9)
+Note that the iδ in the denominator is irrelevant since the intermediate states cannot go on-shell and
+ΠO1 ,O2 is real at one-loop level.
+   Let us first consider Π1,1 . For the matrix element part, we have
+                                                                       (2π)3 3
+                                              Z
+                           0               1                  0
+                                iq·x
+                        hk | 1 e |ki =           d3 x ei(k+q−k )·x 1 =       δ (k + q − k0 ) 1 ,         (A10)
+                                          V                              V
+                                             (2π)3 3                              (2π)3 3
+                                                                       Z
+                                                                   1
+ tr hk0 | 1 eiq·x |kihk| 1 e−iq·x |k0 i = 2         δ (k + q − k0 )      d3 x = 2      δ (k + q − k0 ) . (A11)
+                                               V                    V               V
+Therefore,
+                                   d3 k   fk+q − fk                    d3 k   fk+q − fk
+                              Z                                   Z
+                  Π1,1 = −2                            = −2                             .              (A12)
+                                  (2π) ω − (k+q)2 + k2
+                                        3                             (2π) ω − k·q − q2
+                                                                            3
+                                              2m∗         2m∗                    m∗       2m∗
+
+Expanding in small q and integrating by parts, we find
+                                      d3 k                               k·q
+                                 Z                                                   
+                                                                     1
+                      Π1,1 = − 2            (q · ∇fk +    . . . )      +     +  . . .
+                                    (2π)3                           ω m∗ ω 2
+                                   3                                   k·q
+                              Z                                                 
+                                  d k                             1
+                           =2            fk (q · ∇ + . . . )        +      + ...
+                                 (2π)3                           ω m∗ ω 2
+                                  d3 k        q2        q 2 ne
+                              Z
+                           ≃2            fk         =               ,                                  (A13)
+                                 (2π)3      m∗ ω 2      ω 2 m∗
+                                                                                                             28
+
+                                                              d3 k
+                                                         R
+where the gradients are in k space, and ne = 2                     f is the free electron density.
+                                                             (2π)3 k
+   We can calculate Πv̄2 ,1 in a similar way. The matrix element part again yields a momentum-
+conserving delta function, and the integrand can then be expanded in small q. We find
+                       d3 k      fk+q − fk (2k + q)2
+                  Z
+    Πv̄2 ,1 = − 2
+                     (2π)3 ω − k·q − q2            8m2e
+                                     m∗    2m∗
+                   d3 k
+                                                                                    2
+                                                                       k·q                  k·q
+               Z                                                                                      
+                                         1 i j                    1                   k
+            =2            fk   q  · ∇  −    q q ∇  ∇
+                                                  i j  + . . .       +     + . . .        +      + . . .
+                  (2π)3                  2                        ω m∗ ω 2           2m2e   2m2e
+                   d3 k      k 2 q 2 + 2(k · q)2     kF2 q 2 ne
+               Z
+            ≃2            fk                     =                 ,                                     (A14)
+                  (2π)3           2m2e m∗ ω 2       2m2e ω 2 m∗
+                                              2 4      3
+where we have used fk = Θ(kF − k), and ne = (2π) 3 3 πkF . Finally, since Eq. (A14) is invariant under
+
+(ω, q) → (−ω, −q), we have Π1,v̄2 (Q) = Πv̄2 ,1 (−Q) = Πv̄2 ,1 (Q).
+
+
+                         3.   Imaginary Part of the Two-loop Self-energy in a Metal
+
+
+   The one-loop self-energies calculated above are purely real: both electrons cannot go on-shell if their
+energies and momenta differ by Qµ = (ω, q) with ω  q. The leading contribution to Im ΠO1 ,O2 (Q)
+comes from two-loop diagrams with an internal phonon line. In this section, we compute them first in
+the case of a normal conductor, and then discuss the corrections needed in the superconductor case
+when ω approaches the gap 2∆.
+   Cut diagrams.         There are three contributing diagrams:
+
+
+
+   Q
+                                      d4 K       d4 Q0
+                                 Z           Z
+  −→        →0
+            Q             = −i                         G G          G       0 G      Gph0
+    O1              O2               (2π)4       (2π)4 K K+Q K+Q−Q K+Q Q
+                                                              h                             i
+            K                                          yq20 tr Oe1 (K, K + Q) Oe2 (K + Q, K) ,            (A15)
+
+           K+Q
+
+   Q
+                                      d4 K       d4 Q0
+                                 Z           Z
+  −→        Q0                                                                   ph
+           →              = −i                         G G          G G      0 G 0
+    O1              O2               (2π)4       (2π)4 K K+Q K K+Q Q
+                                                              h                             i
+                                                       yq20 tr Oe1 (K, K + Q) Oe2 (K + Q, K) ,            (A16)
+
+
+
+   Q
+                                      d4 K       d4 Q0
+                                 Z           Z
+  −→                                                                                   ph
+           ↓   Q0         = −i                         G G          G       0 G     0 G 0
+    O1              O2               (2π)4       (2π)4 K K+Q K+Q−Q K−Q Q
+       K                                                      h                                         i
+                                                       yq20 tr Oe1 (K, K + Q) Oe2 (K + Q − Q0 , K − Q0 ) . (A17)
+                                                                                                                     29
+
+
+Here each propagator is labeled by a four-momentum that consists of the energy it carries and the
+momentum label of the electron or phonon state. In each diagram, we denote four-momentum flowing
+into the O1 vertex from the electron propagator as K µ = (ε, k), and the phonon four-momentum
+(with direction indicated by the arrow) as Q0µ = (ω 0 , q 0 ). The electron and phonon propagators are
+denoted by iG and iGph , respectively, with
+
+                     1                                 1                    1                  2 ωq0
+       GK =                     ,        Gph
+                                          Q0 =                    −                    =                 ,        (A18)
+                    k2
+               ε − 2m   + iδε                    ω 0 − ωq0 + iδ       ω 0 + ωq0 − iδ       ω − ωq20 + iδ
+                                                                                            02
+                      ∗
+
+
+                                                                                                      C      q0
+where δε = δ sgn(ε−εF ), δ → 0+ , and ωq0 = cs q 0 . The electron-phonon vertex yq0 = √2ω
+                                                                                       e-ph
+                                                                                            ρ
+                                                                                              , while the
+                                                                                                          q0 T
+vertices associated with operator insertions O1,2 yield the momentum space representations of these
+operators, Oe1,2 , whose arguments are the incoming and outgoing electrons’ four-momenta. We have
+assumed exact momentum conservation and neglected Umklapp processes; the latter may introduce
+an O(1) correction to the final results which is more difficult to calculate.
+   By the optical theorem, 2 Im ΠO1 ,O2 is given by the sum of cut diagrams. For the first diagram,
+Eq. (A15), there is only one possible cut to put all intermediate states on-shell, i.e. the one through
+the phonon propagator and the two electron propagators carrying momenta K and K + Q − Q0 . By
+the cutting rules, we should replace
+
+                  Gph             0            0
+                                                       
+                   Q0 → − 2πi δ(ω − ωq ) + δ(ω + ωq ) ,                                                           (A19)
+                                       0              0
+
+
+                                                  k2
+                                                     
+                  GK → − 2πi sgn(ε − εF ) δ ε −         ,                                                         (A20)
+                                                 2m∗
+                                                                 (k + q − q 0 )2
+                                                                                
+                                            0                 0
+              GK+Q−Q0 → − 2πi sgn(ε + ω − ω − εF ) δ ε + ω − ω −                   .                              (A21)
+                                                                     2m∗
+
+For ω > 0, the on-shell condition requires ω 0 > 0, ε < εF and ε + ω − ω 0 > εF ; this corresponds to a
+process where an electron jumps out of the Fermi sphere by absorbing Qµ = (ω, q) while emitting a
+phonon to conserve momentum. We therefore obtain
+
+                              d4 K       d4 Q0                       k2                  (k + q − q 0 )2
+                         Z           Z                                                                
+                                                     0                                0
+            
+Cut Eq. (A15) = −                              2π δ(ω − ωq0 ) δ ε −      δ ε+ω−ω −
+                             (2π)3       (2π)3                      2m∗                       2m∗
+                                                                          h                               i
+                                               fk 1 − fk+q−q0 GK+Q yq20 tr O
+                                                                2
+                                                                            e1 (K, K + Q) O
+                                                                                          e2 (K + Q, K)
+
+                              d3 k        d3 q 0             k2     (k + q − q 0 )2
+                         Z           Z                                                    
+                                                                                                              2
+                  = −                            2π δ   ω +      −                  − ωq 0   f k 1 − fk+q−q 0 y 0
+                                                                                                               q
+                             (2π)3       (2π)3              2m∗         2m∗
+                                                          h                                  i
+                                                 G2K+Q tr O e1 (K, K + Q) Oe2 (K + Q, K) ,                   (A22)
+
+                                                                      k                     2
+where it is understood that ε (the energy components of K) is set to 2m ∗
+                                                                          in the final expression.
+The second diagram, Eq. (A16), is completely analogous. Cutting the propagators GK+Q , Gph
+                                                                                        Q0 and
+                                                                                                               30
+
+
+GK+Q0 , we obtain
+
+                               d3 k        d3 q 0              (k + q 0 )2 (k + q)2
+                          Z           Z                                                    
+                                                                                     − ωq0 fk+q0 1 − fk+q yq20
+                                                                                                       
+ Cut Eq. (A16) = −                                 2π δ ω +               −
+                              (2π)3       (2π)   3               2m∗            2m∗
+                                                         h                                i
+                                                   G2K tr Oe1 (K, K + Q) O  e2 (K + Q, K)
+
+                               d3 k     d3 q 0              k2     (k + q − q 0 )2
+                          Z           Z                                                
+                                                                                   − ωq0 fk 1 − fk+q−q0 yq20
+                                                                                                        
+                    = −                          2π δ ω +        −
+                              (2π)3    (2π)   3            2m∗         2m∗
+                                                h                                                    i
+                                    G2K−Q0 tr O   e1 (K − Q0 , K + Q − Q0 ) O
+                                                                            e2 (K + Q − Q0 , K − Q0 ) , (A23)
+
+where we have shifted the integration variable k → k − q 0 to arrive at the last line.
+   For the last diagram, Eq. (A17), there are two possible cuts: through GK , Gph
+                                                                               Q0 , GK+Q−Q and
+                                                                                          0
+
+through GK+Q , Gph
+                Q0 , GK−Q . Carrying out the same procedure as above, we obtain
+                         0
+
+
+
+                               d3 k        d3 q 0              k2      (k + q − q 0 )2
+                          Z           Z                                                   
+                                                                                       − ωq0 fk 1 − fk+q−q0 yq20
+                                                                                                            
+ Cut Eq. (A17) = −                                   2π δ ω +       −
+                              (2π)3       (2π)3               2m∗          2m∗
+                                                                  h                                           i
+                                                    GK+Q GK−Q0 tr O e1 (K, K + Q) O  e2 (K + Q − Q0 , K − Q0 )
+
+                                                          (k − q 0 )2 (k + q)2
+                                                                                   
+                                                                               − ωq0 fk−q0 1 − fk+q yq20
+                                                                                                   
+                                               + 2π δ ω +            −
+                                                            2m∗         2m∗
+                                                              h                                      i
+                                                                                           0       0
+                                                GK GK+Q−Q0 tr O1 (K, K + Q) O2 (K + Q − Q , K − Q )
+                                                                e              e
+
+
+                               d3 k        d3 q 0            k2     (k + q − q 0 )2
+                          Z           Z                                                    
+                                                                                                               2
+                    = −                           2π δ  ω +       −                 − ω q 0   f k 1 − fk+q−q 0 y 0
+                                                                                                                q
+                              (2π)3       (2π)3             2m∗          2m∗
+                                                           h
+                                          GK+Q GK−Q0 tr O    e1 (K, K + Q) O e2 (K + Q − Q0 , K − Q0 )
+                                                                                                         i
+                                                           +O e1 (K − Q0 , K + Q − Q0 ) O   e2 (K + Q, K) , (A24)
+
+where we have shifted the integration variable k → k + q 0 and then changed q → −q 0 (assuming the
+phonon energies ωq0 and electron-phonon couplings yq0 depend only on the magnitude but not the
+direction of q 0 ) in the second term.
+   Adding up Eqs. (A22), (A23) and (A24), we obtain
+
+                         d3 k     d3 q 0             k2    (k + q − q 0 )2
+                    Z           Z                                              
+                                                                           − ωq0 fk 1 − fk+q−q0 yq20
+                                                                                               
+ 2 Im ΠO1 ,O2 = −                         2π δ ω +      −
+                        (2π)3    (2π)   3           2m∗        2m∗
+                                h                                                          i
+                              tr GK+Q O     e1 (K, K + Q) + GK−Q0 Oe1 (K − Q0 , K + Q − Q0 )
+
+                                     h                                                  i
+                                                                              0       0
+                                    × GK+Q O2 (K + Q, K) + GK−Q0 O2 (K + Q − Q , K − Q ) . (A25)
+                                           e                     e
+                                                                                                                          31
+
+
+   Small q expansion. As in the previous section, we expand the integrand in small q. The electron
+propagators become:
+
+                          1                        1                 1   k·q
+      GK+Q =                (k+q)2
+                                        =             q2
+                                                                =      +      + ... ,                                  (A26)
+                    k2                      ω − k·q                  ω m∗ ω 2
+                   2m∗ + ω − 2m∗                m∗ − 2m∗
+                          1                                   1                           1   (k − q 0 ) · q
+     GK−Q0 =                    (k−q 0 )2
+                                            =          (k+q−q 0 )2       (k−q 0 )2
+                                                                                     =−     −                + ... ,   (A27)
+                   k2                                                                     ω      m∗ ω 2
+                   2m∗ − ωq −                   −ω +                 −
+                           0
+                                  2m∗                     2m∗              2m∗
+
+where we have used the energy-conserving delta function to eliminate ωq0 in GK−Q0 . Therefore, at
+leading order in q 0 ,
+
+        GK+Q O
+             e1 (K, K + Q) + GK−Q0 O e1 (K − Q0 , K + Q − Q0 )
+
+                              q0 · q
+          
+          GK+Q + GK−Q0 ≃
+                                                                                                 for O1 = 1 ,
+                              m∗ ω 2
+          
+        =                                             2                                                               (A28)
+                  (2k + q)2           2(k − q 0 ) + q      m∗ ω − ωq0
+                                                         ≃− 2                                     for O1   = v̄ 2 ,
+          
+          GK+Q
+          
+                       2
+                            + GK−Q0             2
+                     8me                   8me             me   ω
+
+where an identity operator in spin space is understood, and we have again used energy conservation
+to simplify the expression in the O1 = v̄ 2 case. Note in particular how the O(q 0 ) terms cancel
+in the case of O1 = 1, such that this LO operator gives a q-suppressed contribution. The other
+factor GK+Q Oe2 (K + Q, K) + GK−Q0 Oe2 (K + Q − Q0 , K − Q0 ) in Eq. (A25) is completely analogous,
+so we obtain, after taking the spin trace (which simply yields a factor of two) and substituting in
+      C     q0
+yq0 = √ e-ph , ωq0 = cs q 0 :
+         2ωq0 ρT
+
+                         
+  
+        Im   Π1,1        
+                          
+                                   2
+                                 Ce-ph        d3 k    d3 q 0             k2      (k + q − q 0 )2
+  
+                         
+                                          Z       Z                                                        
+   Im Πv̄2 ,1 = Im Π1,v̄2   = −                              2π δ   ω +       −                      − ω q 0   ×
+  
+                         
+                               2m2∗ ρT cs   (2π)3   (2π)3              2m∗             2m∗
+                         
+       Im Πv̄2 ,v̄2      
+
+                                                                               (q 0 · q)2
+                                                                                                    
+                                                                    
+                                                                                                    
+                                                                                                     
+                                                                    
+                                                                    
+                                                                                  ω 4               
+                                                                                                     
+                                                                                                     
+                                                                    
+                                                                                                    
+                                                                                                     
+                                                                          2   0                  0
+                                                                                                    
+                                                                        m∗ q · q
+                                                                                                  
+                                                               0                           cs q 
+                                              fk 1 − fk+q−q0 q · − 2                   1−              . (A29)
+                                                                    
+                                                                       me ω 2                ω     
+                                                                                                    
+                                                                                       cs q 0 2 
+                                                                                                    
+                                                                         m4∗
+                                                                    
+                                                                                                  
+                                                                                                     
+                                                                                   −
+                                                                    
+                                                                    
+                                                                    
+                                                                            4
+                                                                                1                    
+                                                                                                     
+                                                                         me             ω
+
+
+
+   Including the gap.     We have presented the calculation of cut diagrams assuming a normal metal
+for simplicity. Accounting for pairing of electrons in the BCS theory introduces a slight modification
+in the final result in the form of a coherence factor [94]. Concretely, for the imaginary part of two-loop
+self-energies computed above, this amounts to replacing
+                                                                                                                32
+
+
+              k2    k 02                                                        k k0 − ∆2
+                                                                                         
+                                              π                        
+   2π δ ω +      −       − ωq0 fk 1 − fk0 →        δ Ek + Ek0 + ωq0 − ω     1−                   (A30)
+             2m∗ 2m∗                            2                                  Ek Ek0
+                                                                                            q
+                                                                           k2
+in Eq. (A29), where we have abbreviated k + q − q 0 ≡ k0 and defined k ≡ 2m ∗
+                                                                               − ε F , Ek ≡   2k + ∆2
+(and similarly for k0 , Ek0 ). The energy of the electron-hole pair is therefore constrained to be
+Ek + Ek0 ≥ 2∆.
+
+
+   The k integral. We now perform the k integral:
+
+                           d3 k π      k k0 − ∆2
+                        Z                         
+                                                                         
+                    I≡         3
+                                    1−               δ Ek + Ek0 + ωq0 − ω .                                  (A31)
+                          (2π) 2          Ek Ek0
+The integrand depends only on the magnitude of k and the angle θ between k and q 0 − q. So
+the azimuthal angle integral simply yields a factor of 2π and we can use the δ function to perform
+the integral over cos θ. The argument of the δ function has two roots in cos θ (corresponding to
+k0 = ±|k0 |), both of which are within the range [−1, 1] in most of viable phase space. Noting that
+ dEk0     k0 dk0        k0 k|q 0 −q|
+d cos θ = Ek0 d cos θ = − Ek0 m∗ , we have
+                                    Z ∞
+                                                                ∆2
+                                                                       
+                         m∗                    Ek0                                            
+                   I=                     dk k              1+              Θ ω − ωq0 − ∆ − Ek .             (A32)
+                      4π|q 0 − q|    0         |k0 |          Ek Ek0
+where Ek0 = ω − ωq0 − Ek . Changing the integration variable from k to Ek , we find
+                Z ω−ωq0 −∆                            Z ω−ωq0 −∆
+        m2∗                   EE 0 + ∆2       m2∗                           EE 0 + ∆2
+ I=                        dE           =                        dE                            , (A33)
+     2π|q 0 − q| ∆              |0 |     2π|q 0 − q| ∆
+                                                                    p
+                                                                       (E 2 − ∆2 )(E 02 − ∆2 )
+where a factor of two comes from combining contributions from the two values of k above and below
+kF that correspond to the same Ek , and we have abbreviated Ek , Ek0 , k , k0 to E, E 0 , , 0 , with E 0 =
+ω−ωq0 −E. The integral over E can be reduced to elliptic integrals via E = 21 ω−ωq0 +t (ω−ωq0 −2∆) :
+                                                                                                            
+
+                      Z 1 "                 r                                                        #
+               m2∗                            1 − α2 t2     4∆(ω − ωq0 )             1
+      I=                  dt (ω − ωq0 + 2∆)             −
+           4π|q 0 − q| −1                      1 − t2      ω − ωq0 + 2∆ (1 − t2 )(1 − α2 t2 )
+                                                                           p
+
+
+              m2∗                             4∆(ω − ωq0 )
+                                                               
+         =              (ω − ωq0 + 2∆) E(α) −              K(α)
+           2π|q 0 − q|                        ω − ωq0 + 2∆
+
+           m2∗ (ω − ωq0 )                              m2∗ (ω − ωq0 ) p
+                                                  
+                                            2β                                2
+                                                                                
+         =                  (1 + β) E(α) −     K(α)  =               E  1 − β                                (A34)
+            2π|q 0 − q|                    1+β          2π|q 0 − q|
+where we have introduced
+                                    ω − ωq0 − 2∆   1−β                             2∆
+                              α≡                 =     ,                    β≡                               (A35)
+                                    ω − ωq0 + 2∆   1+β                           ω − ωq 0
+to simplify notation, and
+                            Z 1                                                  Z 1        r
+                                               1                                                1 − z 2 t2
+                   K(z) =      dt p                       ,         E(z) =             dt                    (A36)
+                             0     (1 − t2 )(1 − z 2 t2 )                          0             1 − t2
+                                                                                                         33
+
+
+are the complete elliptic integrals of the first and second kind, respectively. In the ∆ → 0 limit,
+                                                                                      m2∗ (ω−ωq0 )
+corresponding to a normal conductor, we have α → 1, β → 0, E(1) = 1, and I →           2π|q 0 −q| .
+
+   The q 0 integral. The remaining integral over the phonon momentum is
+
+
+                       
+ 
+       Im   Π1,1       
+                                                s                      !
+                               2 ω Z
+                             Ce-ph    d3 q 0
+                       
+                                                        (2∆/ω)2
+  Im Πv̄2 ,1 = Im Π1,v̄2 = −                 E     1−                     ×
+ 
+                       
+                            4πρT cs (2π)3             (1 − cs q 0 /ω)2
+                       
+      Im Πv̄2 ,v̄2     
+
+                                                                             (q 0 · q)2
+                                                                                                 
+                                                                  
+                                                                                                 
+                                                                                                  
+                                                                  
+                                                                  
+                                                                                ω 4              
+                                                                                                  
+                                                                                                  
+                                                                  
+                                                                                                 
+                                                                                                  
+                                               0             0          2   0                  0
+                                                                                                 
+                                                                      m∗ q · q
+                                                                                              
+                                             q          cs q                              cs q 
+                                                    1−           · − 2               1−             . (A37)
+                                        |q 0 − q|        ω         me ω 2
+                                                                                           ω    
+                                                                                                 
+                                                                                     cs q 0 2 
+                                                                                                 
+                                                                        m4∗
+                                                                  
+                                                                                               
+                                                                                 −
+                                                                                                 
+                                                                  
+                                                                             1                   
+                                                                                                  
+                                                                        m4e           ω
+
+
+              0           0
+Expanding |q0q−q| = 1 + qq02·q + . . . and keeping the leading nonvanishing term, we can easily carry out
+                                                                                       0
+the angular integration. Finally, changing the radial integration variable to x = csωq , we obtain
+
+
+
+                                                                              q2
+                                                                                                  
+                                                                        
+                                                                                     4
+                                                                                    x (1 − x) 
+                                                                                                   
+                                                                              2  2
+                                                                         3cs ω
+                                                                      
+                                                                                                  
+                                                                                                   
+  
+        Im   Π1,1       
+                                                       s             !
+                                                                        
+                                                                        
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                               2
+                               Ce-ph ω 4  Z  x                      2
+                                                                            2     2
+                                                                                                   
+                                             max
+                                                             (2∆/ω)     
+                                                                            q m∗ 2               2
+                                                                                                   
+   Im Πv̄2 ,1 = Im Π1,v̄2 = −                      dx E  1 −             −            x (1 −  x)     ,
+  
+                        
+                             (2π)3 ρT c4s 0                 (1 − x)2    3ω 2 m2e                
+                                                                                                   
+                                                                                                
+       Im Πv̄2 ,v̄2                                                   
+                                                                        
+                                                                            m 4
+                                                                                                   
+                                                                                                   
+                                                                                                   
+                                                                               ∗   2        3
+                                                                                        −
+                                                                                                  
+                                                                                x   (1   x)       
+                                                                             m4e
+                                                                                                  
+
+                                                                                                 (A38)
+
+
+
+where the upper limit
+
+
+                                                           
+                                                     2∆ ωD
+                                      xmax ≡ min 1 −    ,                                             (A39)
+                                                      ω   ω
+
+
+
+is set by the requirements ω − ωq0 ≥ 2∆ and ωq0 = cs q 0 ≤ ωD (Debye frequency).
+
+   When the energy deposition is well above the gap, ω  2∆, Eq. (A38) reproduces the normal
+                                                                                                       34
+
+
+conductor result:
+                                                      1
+                                                    
+                                     2
+                                                               (ω ≤ ωD ) ,
+                                    Ce-ph ω2q2
+                                                    
+                                                    6
+                         ω2∆
+                 Im Π1,1 −−−−→ −                ·                                                (A40)
+                                 (2π)3 ρT 15 c6s         5
+                                                  x5D 1 − xD
+                                                               (ω > ωD ) ,
+                                                          6
+
+                                                        1
+                                                      
+                                   2       2 q 2 m2 
+                                                                           (ω ≤ ωD ) ,
+                                 C
+                                                      
+                           ω2∆    e-ph  ω        ∗     10
+   Im Πv̄2 ,1 = Im Π1,v̄2 −−−−→                     ·                                            (A41)
+                                (2π)3 ρT 9 c4s m2e      3      3     3 2
+                                                      x
+                                                       D   1 −   x +  x    (ω > ωD ) ,
+                                                                2 D 5 D
+
+                                                            1
+                                                          
+                                        2       4     4
+                                                                                  (ω ≤ ωD ) ,
+                                      Ce-ph ω m∗
+                                                          
+                              ω2∆
+                                                           20 
+                Im Πv̄2 ,v̄2 −−−−→ −                    ·                        
+                                     (2π)3 ρT 3 c4s m4e   3    9    9     1
+                                                          xD 1 − xD + x2D − x3D   (ω > ωD ) ,
+                                                                 4    5     2
+                                                                                          (A42)
+
+where xD ≡ ωD /ω.
+   Determination of Ce-ph .   We use resistivity measurements [95] to determine Ce-ph . In Refs. [94, 95],
+a parameter λtr is introduced for the electron-phonon coupling, which is defined by
+                                              Z ∞
+                                                  dω 0 2
+                                      λtr = 2         α F (ω 0 ) .                                 (A43)
+                                               0  ω 0 tr
+              2 F (ω 0 ) is in turn defined from the conductivity of a normal conductor,
+The function αtr
+                                               ωp2 2π ω 0
+                                                     Z
+                          σ1 (ω) = Re σ(ω) = 2          dω (ω − ω 0 ) αtr
+                                                                       2
+                                                                          F (ω 0 ) .               (A44)
+                                               ω ω 0
+Note that the normalization convention in Ref. [94] is such that 4πσ1 there equals σ1 in our notation.
+From Eqs. (36) and (A38) (in the limit ∆ → 0) we can readily identify
+                                               2 e2 ω 04
+                                         
+                                             Ce-ph
+                                                            (ω 0 ≤ ωD ) ,
+                                         
+                                         
+                                         
+                              2     0      3 (2π)4 ρ c6 ω 2
+                            αtr F (ω ) =            T s p                                          (A45)
+                                         
+                                         0                 (ω 0 > ω ) ,
+                                         
+                                                                          D
+
+and therefore
+                                                    2 e2 ω 4
+                                                   Ce-ph  D
+                                         λtr =                        .                            (A46)
+                                                 6 (2π)4 ρT c6s ωp2
+For Al, using λtr = 0.39 together with values of the other parameters in Table II, we find Ce-ph = 56 eV.
+
+
+                          Appendix B: Absorption in Anisotropic Targets
+
+
+   Since the benchmark materials considered in this work (Si, Ge and Al-SC) are near-isotropic, in
+the main text of the paper we worked under the simplifying assumption that the medium is isotropic.
+                                                                                                       35
+
+
+However, it is straightforward to extend the calculation to anisotropic targets. In this appendix, we
+discuss the modifications needed to go beyond the isotropic limit.
+   First, the in-medium photon self-energy matrix Πλλ0 may have nonzero off-diagonal entries, and
+its eigenvalues can be found by diagonalization [26]:
+                                                            
+                             Π++ Π+− Π+L               Π1 0 0
+                           Π−+ Π−− Π−L  diagonalize
+                                                            
+                                                 −→  0 Π2 0  .
+                                                                                                   (B1)
+                             ΠL+ ΠL− ΠLL                0 0 Π3
+
+A DM state φ may mix with all three photon polarizations, and Eq. (22) generalizes to
+                                                                   
+                                 ρφ 1               X      Πφi Πiφ 
+                         R=−            Im Πφφ +                     ,                              (B2)
+                                 ρT ω 2
+                                                   i=1,2,3
+                                                           m2φ − Πi
+
+where Πφi is obtained from ΠµφA by first projecting onto eµ±,L and then rotating into the diagonal basis.
+   For vector DM φ, the same rotation in Eq. (B1) diagonalizes also the φφ and φA self-energy
+matrices. So each of the three polarizations of φ mixes only with the one corresponding photon
+polarization, and we simply replace ΠT,L in Eq. (22) by Π1,2,3 and average over the three polarizations
+to obtain the rate in the anisotropic case:
+                                                                               !
+                                       1   ρφ 2 X                      1
+                            Rvector = − κ2   m    Im                               .                 (B3)
+                                       3   ρT φ                      2
+                                                                   m φ − Πi
+                                                       i=1,2,3
+
+
+   For pseudoscalar DM, still assuming spin-degenerate electronic states, we obtain from Eq. (44):
+
+                                 2     ρφ   1      1 h 2                      2
+                                                                                       i
+               Rpseudoscalar = −gaee                  ω  Im (Π++ + Π −− ) + m φ Im ΠLL   ,           (B4)
+                                       ρT 4m2e ω 2 e2
+
+which generalizes Eq. (45). Note that while anisotropy allows for a nonzero mixing between the DM
+φ and the photon (via its coupling to the electron’s magnetic dipole), its contribution to absorption
+rate is at O(q 2 ) and negligible. On the other hand, if the electronic states are not spin-degenerate
+(e.g. due to spin-orbit coupling), one would need to explicitly compute additional matrix elements of
+the spin operator Σ between the spin part of the wave functions, and the absorption rate cannot be
+written in terms of components of the photon self-energy matrix. Also, mixing between the DM and
+the photon becomes relevant in this case.
+   For scalar DM, anisotropy may introduce mixing with all three photon polarizations, and Eq. (B2)
+applies. The final result, however, is still expected to be dominated by the Πv̄2 ,v̄2 term from Πφφ , and
+we therefore have the same formula, Eq. (56), as in the isotropic case:
+
+                                                   4πm2e ρφ 1
+                                Rscalar ≃ −d2φee     2 ρ m2 Im Πv̄ 2 ,v̄ 2 .                         (B5)
+                                                    MPl   T  φ
+                                                                                                               36
+
+
+
+
+ [1] SENSEI Collaboration, J. Tiffenberg, M. Sofo-Haro, A. Drlica-Wagner, R. Essig, Y. Guardincerri,
+    S. Holland, T. Volansky, and T.-T. Yu, “Single-electron and single-photon sensitivity with a silicon
+    Skipper CCD,” Phys. Rev. Lett. 119 (2017) no. 13, 131802, arXiv:1706.00028 [physics.ins-det].
+ [2] M. Pyle, E. Feliciano-Figueroa, and B. Sadoulet, “Optimized Designs for Very Low Temperature Massive
+    Calorimeters,” arXiv:1503.01200 [astro-ph.IM].
+ [3] J. Rothe et al., “TES-Based Light Detectors for the CRESST Direct Dark Matter Search,” J. Low Temp.
+    Phys. 193 (2018) no. 5-6, 1160–1166.
+ [4] C. Fink et al., “Characterizing TES Power Noise for Future Single Optical-Phonon and Infrared-Photon
+    Detectors,” AIP Adv. 10 (2020) no. 8, 085221, arXiv:2004.10257 [physics.ins-det].
+ [5] C. Chang et al., “Snowmass 2021 Letter of Interest: The TESSARACT Dark Matter Project,” 2020.
+    https://www.snowmass21.org/docs/files/summaries/CF/SNOWMASS21-CF1_CF2-IF1_IF8-120.pdf.
+ [6] I. Colantoni et al., “BULLKID: BULky and Low-Threshold Kinetic Inductance Detectors,” J. Low Temp.
+    Phys. 199 (2020) no. 3-4, 593–597.
+ [7] H. J. Maris, G. M. Seidel, and D. Stein, “Dark Matter Detection Using Helium Evaporation and Field
+    Ionization,” Phys. Rev. Lett. 119 (2017) no. 18, 181303, arXiv:1706.00117 [astro-ph.IM].
+ [8] R. Essig, J. Mardon, and T. Volansky, “Direct Detection of Sub-GeV Dark Matter,” Phys. Rev. D85
+    (2012) 076007, arXiv:1108.5383 [hep-ph].
+ [9] P. W. Graham, D. E. Kaplan, S. Rajendran, and M. T. Walters, “Semiconductor Probes of Light Dark
+    Matter,” Phys. Dark Univ. 1 (2012) 32–49, arXiv:1203.2531 [hep-ph].
+[10] R. Essig, A. Manalaysay, J. Mardon, P. Sorensen, and T. Volansky, “First Direct Detection Limits on
+    sub-GeV Dark Matter from XENON10,” Phys. Rev. Lett. 109 (2012) 021301, arXiv:1206.2644
+    [astro-ph.CO].
+[11] S. K. Lee, M. Lisanti, S. Mishra-Sharma, and B. R. Safdi, “Modulation Effects in Dark Matter-Electron
+    Scattering Experiments,” Phys. Rev. D 92 (2015) no. 8, 083517, arXiv:1508.07361 [hep-ph].
+[12] R. Essig, M. Fernandez-Serra, J. Mardon, A. Soto, T. Volansky, and T.-T. Yu, “Direct Detection of
+    sub-GeV Dark Matter with Semiconductor Targets,” JHEP 05 (2016) 046, arXiv:1509.01598 [hep-ph].
+[13] S. Derenzo, R. Essig, A. Massari, A. Soto, and T.-T. Yu, “Direct Detection of sub-GeV Dark Matter with
+    Scintillating Targets,” Phys. Rev. D 96 (2017) no. 1, 016026, arXiv:1607.01009 [hep-ph].
+[14] Y. Hochberg, T. Lin, and K. M. Zurek, “Absorption of light dark matter in semiconductors,” Phys. Rev.
+     D 95 (2017) no. 2, 023013, arXiv:1608.01994 [hep-ph].
+[15] I. M. Bloch, R. Essig, K. Tobioka, T. Volansky, and T.-T. Yu, “Searching for Dark Absorption with
+    Direct Detection Experiments,” JHEP 06 (2017) 087, arXiv:1608.02123 [hep-ph].
+[16] N. A. Kurinsky, T. C. Yu, Y. Hochberg, and B. Cabrera, “Diamond Detectors for Direct Detection of
+    Sub-GeV Dark Matter,” Phys. Rev. D 99 (2019) no. 12, 123005, arXiv:1901.07569 [hep-ex].
+[17] T. Trickle, Z. Zhang, K. M. Zurek, K. Inzani, and S. Griffin, “Multi-Channel Direct Detection of Light
+    Dark Matter: Theoretical Framework,” JHEP 03 (2020) 036, arXiv:1910.08092 [hep-ph].
+[18] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang, and K. M. Zurek, “Multichannel direct detection of light
+    dark matter: Target comparison,” Phys. Rev. D 101 (2020) no. 5, 055004, arXiv:1910.10716 [hep-ph].
+[19] S. M. Griffin, Y. Hochberg, K. Inzani, N. Kurinsky, T. Lin, and T. Chin, “Silicon carbide detectors for
+                                                                                                              37
+
+
+    sub-GeV dark matter,” Phys. Rev. D 103 (2021) no. 7, 075002, arXiv:2008.08560 [hep-ph].
+[20] P. Du, D. Egana-Ugrinovic, R. Essig, and M. Sholapurkar, “Sources of Low-Energy Events in
+    Low-Threshold Dark Matter Detectors,” arXiv:2011.13939 [hep-ph].
+[21] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang, and K. M. Zurek, “Extended Calculation of Dark
+     Matter-Electron Scattering in Crystal Targets,” arXiv:2105.05253 [hep-ph].
+[22] Y. Hochberg, Y. Zhao, and K. M. Zurek, “Superconducting Detectors for Superlight Dark Matter,” Phys.
+    Rev. Lett. 116 (2016) no. 1, 011301, arXiv:1504.07237 [hep-ph].
+[23] Y. Hochberg, M. Pyle, Y. Zhao, and K. M. Zurek, “Detecting Superlight Dark Matter with
+    Fermi-Degenerate Materials,” JHEP 08 (2016) 057, arXiv:1512.04533 [hep-ph].
+[24] Y. Hochberg, T. Lin, and K. M. Zurek, “Detecting Ultralight Bosonic Dark Matter via Absorption in
+    Superconductors,” Phys. Rev. D 94 (2016) no. 1, 015019, arXiv:1604.06800 [hep-ph].
+[25] Y. Hochberg, Y. Kahn, M. Lisanti, K. M. Zurek, A. G. Grushin, R. Ilan, S. M. Griffin, Z.-F. Liu, S. F.
+    Weber, and J. B. Neaton, “Detection of sub-MeV Dark Matter with Three-Dimensional Dirac Materials,”
+    Phys. Rev. D 97 (2018) no. 1, 015004, arXiv:1708.08929 [hep-ph].
+[26] A. Coskuner, A. Mitridate, A. Olivares, and K. M. Zurek, “Directional Dark Matter Detection in
+    Anisotropic Dirac Materials,” Phys. Rev. D 103 (2021) no. 1, 016006, arXiv:1909.09170 [hep-ph].
+[27] R. M. Geilhufe, F. Kahlhoefer, and M. W. Winkler, “Dirac Materials for Sub-MeV Dark Matter
+    Detection: New Targets and Improved Formalism,” Phys. Rev. D 101 (2020) no. 5, 055005,
+    arXiv:1910.02091 [hep-ph].
+[28] K. Inzani, A. Faghaninia, and S. M. Griffin, “Prediction of Tunable Spin-Orbit Gapped Materials for
+    Dark Matter Detection,” Phys. Rev. Res. 3 (2021) no. 1, 013069, arXiv:2008.05062
+    [cond-mat.mtrl-sci].
+[29] M. Pospelov, A. Ritz, and M. B. Voloshin, “Bosonic super-WIMPs as keV-scale dark matter,” Phys. Rev.
+    D 78 (2008) 115012, arXiv:0807.3279 [hep-ph].
+[30] V. A. Dzuba, V. V. Flambaum, and M. Pospelov, “Atomic Ionization by keV-scale Pseudoscalar Dark
+    Matter Particles,” Phys. Rev. D 81 (2010) 103520, arXiv:1002.2979 [hep-ph].
+[31] H. An, M. Pospelov, J. Pradler, and A. Ritz, “Direct Detection Constraints on Dark Photon Dark
+    Matter,” Phys. Lett. B 747 (2015) 331–338, arXiv:1412.8378 [hep-ph].
+[32] S. Knapen, T. Lin, and K. M. Zurek, “Light Dark Matter in Superfluid Helium: Detection with
+    Multi-excitation Production,” Phys. Rev. D 95 (2017) no. 5, 056019, arXiv:1611.06228 [hep-ph].
+[33] A. Arvanitaki, S. Dimopoulos, and K. Van Tilburg, “Resonant absorption of bosonic dark matter in
+    molecules,” Phys. Rev. X 8 (2018) no. 4, 041001, arXiv:1709.05354 [hep-ph].
+[34] S. Knapen, T. Lin, M. Pyle, and K. M. Zurek, “Detection of Light Dark Matter With Optical Phonons in
+     Polar Materials,” Phys. Lett. B 785 (2018) 386–390, arXiv:1712.06598 [hep-ph].
+[35] S. Griffin, S. Knapen, T. Lin, and K. M. Zurek, “Directional Detection of Light Dark Matter with Polar
+    Materials,” Phys. Rev. D 98 (2018) no. 11, 115034, arXiv:1807.10291 [hep-ph].
+[36] M. Lawson, A. J. Millar, M. Pancaldi, E. Vitagliano, and F. Wilczek, “Tunable axion plasma
+    haloscopes,” Phys. Rev. Lett. 123 (2019) no. 14, 141802, arXiv:1904.11872 [hep-ph].
+[37] G. B. Gelmini, A. J. Millar, V. Takhistov, and E. Vitagliano, “Probing dark photons with plasma
+    haloscopes,” Phys. Rev. D 102 (2020) no. 4, 043003, arXiv:2006.06836 [hep-ph].
+[38] G. B. Gelmini, V. Takhistov, and E. Vitagliano, “Scalar direct detection: In-medium effects,” Phys. Lett.
+    B 809 (2020) 135779, arXiv:2006.13909 [hep-ph].
+                                                                                                             38
+
+
+[39] I. M. Bloch, A. Caputo, R. Essig, D. Redigolo, M. Sholapurkar, and T. Volansky, “Exploring new physics
+    with O(keV) electron recoils in direct detection experiments,” JHEP 01 (2021) 178, arXiv:2006.14521
+    [hep-ph].
+[40] H. B. T. Tan, A. Derevianko, V. A. Dzuba, and V. V. Flambaum, “Atomic ionization by scalar dark
+     matter and solar scalars,” arXiv:2105.08296 [hep-ph].
+[41] P. W. Graham, J. Mardon, and S. Rajendran, “Vector Dark Matter from Inflationary Fluctuations,”
+    Phys. Rev. D 93 (2016) no. 10, 103520, arXiv:1504.02102 [hep-ph].
+[42] P. Agrawal, N. Kitajima, M. Reece, T. Sekiguchi, and F. Takahashi, “Relic Abundance of Dark Photon
+    Dark Matter,” Phys. Lett. B 801 (2020) 135136, arXiv:1810.07188 [hep-ph].
+[43] J. A. Dror, K. Harigaya, and V. Narayan, “Parametric Resonance Production of Ultralight Vector Dark
+    Matter,” Phys. Rev. D 99 (2019) no. 3, 035036, arXiv:1810.07195 [hep-ph].
+[44] R. T. Co, A. Pierce, Z. Zhang, and Y. Zhao, “Dark Photon Dark Matter Produced by Axion
+    Oscillations,” Phys. Rev. D 99 (2019) no. 7, 075002, arXiv:1810.07196 [hep-ph].
+[45] M. Bastero-Gil, J. Santiago, L. Ubaldi, and R. Vega-Morales, “Vector dark matter production at the end
+    of inflation,” JCAP 04 (2019) 015, arXiv:1810.07208 [hep-ph].
+[46] A. J. Long and L.-T. Wang, “Dark Photon Dark Matter from a Network of Cosmic Strings,” Phys. Rev.
+    D 99 (2019) no. 6, 063529, arXiv:1901.03312 [hep-ph].
+[47] J. Preskill, M. B. Wise, and F. Wilczek, “Cosmology of the Invisible Axion,” Phys. Lett. B 120 (1983)
+    127–132.
+[48] L. F. Abbott and P. Sikivie, “A Cosmological Bound on the Invisible Axion,” Phys. Lett. B 120 (1983)
+    133–136.
+[49] M. Dine and W. Fischler, “The Not So Harmless Axion,” Phys. Lett. B 120 (1983) 137–141.
+[50] R. L. Davis, “Cosmic Axions from Cosmic Strings,” Phys. Lett. B 180 (1986) 225–230.
+[51] M. Gorghetto, E. Hardy, and G. Villadoro, “Axions from Strings: the Attractive Solution,” JHEP 07
+    (2018) 151, arXiv:1806.04677 [hep-ph].
+[52] M. Gorghetto, E. Hardy, and G. Villadoro, “More Axions from Strings,” SciPost Phys. 10 (2021) 050,
+    arXiv:2007.04990 [hep-ph].
+[53] D. Lyth, “Axions and inflation: Sitting in the vacuum,” Phys. Rev. D 45 (1992) 3394–3404.
+[54] L. Visinelli and P. Gondolo, “Axion cold dark matter in non-standard cosmologies,” Phys. Rev. D 81
+    (2010) 063508, arXiv:0912.0015 [astro-ph.CO].
+[55] R. T. Co, E. Gonzalez, and K. Harigaya, “Axion Misalignment Driven to the Hilltop,” JHEP 05 (2019)
+    163, arXiv:1812.11192 [hep-ph].
+[56] R. T. Co, L. J. Hall, and K. Harigaya, “Axion Kinetic Misalignment Mechanism,” Phys. Rev. Lett. 124
+     (2020) no. 25, 251802, arXiv:1910.14152 [hep-ph].
+[57] R. T. Co, L. J. Hall, K. Harigaya, K. A. Olive, and S. Verner, “Axion Kinetic Misalignment and
+    Parametric Resonance from Inflation,” JCAP 08 (2020) 036, arXiv:2004.00629 [hep-ph].
+[58] Y. Hochberg, Y. Kahn, N. Kurinsky, B. V. Lehmann, T. C. Yu, and K. K. Berggren, “Determining Dark
+    Matter-Electron Scattering Rates from the Dielectric Function,” arXiv:2101.08263 [hep-ph].
+[59] S. Knapen, J. Kozaczuk, and T. Lin, “Dark matter-electron scattering in dielectrics,” arXiv:2101.08275
+    [hep-ph].
+[60] S. Knapen, J. Kozaczuk, and T. Lin, “DarkELF: A python package for dark matter scattering in
+    dielectric targets,” arXiv:2104.12786 [hep-ph].
+                                                                                                          39
+
+
+[61] DAMIC Collaboration, J. R. T. de Mello Neto et al., “The DAMIC dark matter experiment,” PoS
+    ICRC2015 (2016) 1221, arXiv:1510.02126 [physics.ins-det].
+[62] DAMIC Collaboration, A. Aguilar-Arevalo et al., “Constraints on Light Dark Matter Particles
+    Interacting with Electrons from DAMIC at SNOLAB,” Phys. Rev. Lett. 123 (2019) no. 18, 181802,
+     arXiv:1907.12628 [astro-ph.CO].
+[63] DAMIC, DAMIC-M Collaboration, M. Settimo, “Search for low-mass dark matter with the DAMIC
+    experiment,” in 16th Rencontres du Vietnam: Theory meeting experiment: Particle Astrophysics and
+    Cosmology. 4, 2020. arXiv:2003.09497 [hep-ex].
+[64] EDELWEISS Collaboration, E. Armengaud et al., “Searches for electron interactions induced by new
+    physics in the EDELWEISS-III Germanium bolometers,” Phys. Rev. D 98 (2018) no. 8, 082004,
+    arXiv:1808.02340 [hep-ex].
+[65] EDELWEISS Collaboration, E. Armengaud et al., “Searching for low-mass dark matter particles with a
+    massive Ge bolometer operated above-ground,” Phys. Rev. D 99 (2019) no. 8, 082003,
+    arXiv:1901.03588 [astro-ph.GA].
+[66] EDELWEISS Collaboration, Q. Arnaud et al., “First germanium-based constraints on sub-MeV Dark
+    Matter with the EDELWEISS experiment,” Phys. Rev. Lett. 125 (2020) no. 14, 141301,
+    arXiv:2003.01046 [astro-ph.GA].
+[67] SENSEI Collaboration, M. Crisler, R. Essig, J. Estrada, G. Fernandez, J. Tiffenberg, M. Sofo haro,
+    T. Volansky, and T.-T. Yu, “SENSEI: First Direct-Detection Constraints on sub-GeV Dark Matter from
+    a Surface Run,” Phys. Rev. Lett. 121 (2018) no. 6, 061803, arXiv:1804.00088 [hep-ex].
+[68] SENSEI Collaboration, O. Abramoff et al., “SENSEI: Direct-Detection Constraints on Sub-GeV Dark
+    Matter from a Shallow Underground Run Using a Prototype Skipper-CCD,” Phys. Rev. Lett. 122 (2019)
+    no. 16, 161801, arXiv:1901.10478 [hep-ex].
+[69] SENSEI Collaboration, L. Barak et al., “SENSEI: Direct-Detection Results on sub-GeV Dark Matter
+    from a New Skipper-CCD,” Phys. Rev. Lett. 125 (2020) no. 17, 171802, arXiv:2004.11378
+    [astro-ph.CO].
+[70] SuperCDMS Collaboration, R. Agnese et al., “Search for Low-Mass Weakly Interacting Massive
+    Particles with SuperCDMS,” Phys. Rev. Lett. 112 (2014) no. 24, 241302, arXiv:1402.7137 [hep-ex].
+[71] SuperCDMS Collaboration, R. Agnese et al., “New Results from the Search for Low-Mass Weakly
+    Interacting Massive Particles with the CDMS Low Ionization Threshold Experiment,” Phys. Rev. Lett.
+    116 (2016) no. 7, 071301, arXiv:1509.02448 [astro-ph.CO].
+[72] SuperCDMS Collaboration, R. Agnese et al., “Projected Sensitivity of the SuperCDMS SNOLAB
+     experiment,” Phys. Rev. D 95 (2017) no. 8, 082002, arXiv:1610.00006 [physics.ins-det].
+[73] SuperCDMS Collaboration, R. Agnese et al., “Low-mass dark matter search with CDMSlite,” Phys.
+    Rev. D 97 (2018) no. 2, 022002, arXiv:1707.01632 [astro-ph.CO].
+[74] SuperCDMS Collaboration, R. Agnese et al., “First Dark Matter Constraints from a SuperCDMS
+    Single-Charge Sensitive Detector,” Phys. Rev. Lett. 121 (2018) no. 5, 051301, arXiv:1804.10697
+    [hep-ex]. [Erratum: Phys.Rev.Lett. 122, 069901 (2019)].
+[75] SuperCDMS Collaboration, R. Agnese et al., “Search for Low-Mass Dark Matter with CDMSlite Using
+    a Profile Likelihood Fit,” Phys. Rev. D 99 (2019) no. 6, 062001, arXiv:1808.09098 [astro-ph.CO].
+[76] SuperCDMS Collaboration, D. W. Amaral et al., “Constraints on low-mass, relic dark matter
+    candidates from a surface-operated SuperCDMS single-charge sensitive detector,” Phys. Rev. D 102
+                                                                                                            40
+
+
+     (2020) no. 9, 091101, arXiv:2005.14067 [hep-ex].
+[77] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang, and K. M. Zurek, “EXCEED-DM: DFT-computed
+     electronic wave functions for Si and Ge,” May, 2021. https://doi.org/10.5281/zenodo.4735777.
+[78] EXCEED-DM Collaboration, “EXCEED-DM-v0.2.0,” June, 2021.
+     https://doi.org/10.5281/zenodo.5009167.
+[79] I. Z. Rothstein, “TASI lectures on effective field theories,” 8, 2003. arXiv:hep-ph/0308266.
+[80] R. Penco, “An Introduction to Effective Field Theories,” arXiv:2006.16285 [hep-th].
+[81] H. An, M. Pospelov, and J. Pradler, “Dark Matter Detectors as Dark Photon Helioscopes,” Phys. Rev.
+     Lett. 111 (2013) 041302, arXiv:1304.3461 [hep-ph].
+[82] A. Derevianko, V. A. Dzuba, V. V. Flambaum, and M. Pospelov, “Axio-electric effect,” Phys. Rev. D 82
+     (2010) 065006, arXiv:1007.1833 [hep-ph].
+[83] Handbook of Optical Constants of Solids. Elsevier, 1985.
+[84] R. L. Benbow and D. W. Lynch, “Optical absorption in Al and dilute alloys of Mg and Li in Al at 4.2
+     K,” Phys. Rev. B 12 (1975) 5615–5621.
+[85] H. An, M. Pospelov, and J. Pradler, “New stellar constraints on dark photons,” Phys. Lett. B 725 (2013)
+     190–195, arXiv:1302.3884 [hep-ph].
+[86] M. M. Miller Bertolami, B. E. Melendez, L. G. Althaus, and J. Isern, “Revisiting the axion bounds from
+     the Galactic white dwarf luminosity function,” JCAP 10 (2014) 069, arXiv:1406.7712 [hep-ph].
+[87] Particle Data Group Collaboration, M. Tanabashi et al., “Review of Particle Physics,” Phys. Rev. D
+     98 (2018) no. 3, 030001.
+[88] E. G. Adelberger, B. R. Heckel, and A. E. Nelson, “Tests of the gravitational inverse square law,” Ann.
+     Rev. Nucl. Part. Sci. 53 (2003) 77–121, arXiv:hep-ph/0307284.
+[89] E. Hardy and R. Lasenby, “Stellar cooling bounds on new light particles: plasma mixing effects,” JHEP
+     02 (2017) 033, arXiv:1611.05852 [hep-ph].
+[90] G. G. Raffelt, Stars as laboratories for fundamental physics: The astrophysics of neutrinos, axions, and
+     other weakly interacting particles. 5, 1996.
+[91] J. Redondo and G. Raffelt, “Solar constraints on hidden photons re-visited,” JCAP 08 (2013) 034,
+     arXiv:1305.2920 [hep-ph].
+[92] C. Kittel, Introduction to Solid State Physics. Wiley, 8 ed., 2004.
+[93] G. D. Mahan, Many Particle Physics, Third Edition. Plenum, New York, 2000.
+[94] P. B. Allen, “Electron-Phonon Effects in the Infrared Properties of Metals,” Phys. Rev. B 3 (1971)
+     305–320.
+[95] P. B. Allen, “Empirical electron-phonon λ values from resistivity of cubic metallic elements,” Phys. Rev.
+     B 36 (1987) 2920–2923.
+[96] A. Mitridate, T. Trickle, Z. Zhang, and K. M. Zurek, “Detectability of Axion Dark Matter with Phonon
+     Polaritons and Magnons,” Phys. Rev. D 102 (2020) no. 9, 095005, arXiv:2005.10256 [hep-ph].
+[97] R. Catena, T. Emken, M. Matas, N. A. Spaldin, and E. Urdshals, “Crystal responses to general dark
+     matter-electron interactions,” arXiv:2105.02233 [hep-ph].
+[98] M. Dressel and G. Grüner, Electrodynamics of Solids: Optical Properties of Electrons in Matter.
+     Cambridge University Press, 2002.
+

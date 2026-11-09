@@ -1,0 +1,2032 @@
+                                              All-electron dark matter-electron scattering with random-phase approximation
+                                                                 dielectric screening and local field effects
+                                              Cyrus E. Dreyer,1, 2 Rouven Essig,3 Marivi Fernandez-Serra,1, 4 Megan Hott,1, 3, 4, ∗ and Aman Singal1, 3, 4
+                                                         1
+                                                           Department of Physics and Astronomy, Stony Brook University, Stony Brook, NY 11794, USA
+                                               2
+                                                   Center for Computational Quantum Physics, Flatiron Institute, 162 Fifth Avenue, New York, NY 10010, USA
+                                                       3
+                                                         C. N. Yang Institute for Theoretical Physics, Stony Brook University, Stony Brook, NY 11794, USA
+                                                     4
+                                                       Institute for Advanced Computational Sciences, Stony Brook University, Stony Brook, NY 11794, USA
+                                                           Accurate predictions for dark matter-electron scattering in solids require an all-electron treatment
+                                                        together with a faithful description of dielectric screening beyond simple approximations. In par-
+                                                        ticular, local field effects, arising from microscopic inhomogeneities of the electronic response, can
+                                                        significantly modify scattering rates across relevant momentum and energy scales. We present an
+                                                        all-electron framework for computing dark matter-electron scattering rates that incorporates dielec-
+                                                        tric screening at the random-phase approximation (RPA) level, including local field effects. Using
+                                                        crystalline silicon as a benchmark, we show that local field effects play an important role both at
+                                                        large momentum transfers, spanning multiple Brillouin zones, and at low momentum near the plas-
+                                                        mon resonance. We compute electron recoil spectra and projected sensitivities for nonrelativistic
+                                                        halo dark matter and for boosted dark matter or other dark-sector particles, which are sensitive
+                                                        to the impact of local field effects in these high and low momentum regimes, respectively. We fur-
+                                                        ther present RPA dielectric functions including local field effects for Ge, GaAs, SiC, and diamond,
+                                                        enabling a systematic comparison across target materials. These developments are implemented in
+arXiv:2603.12326v2 [hep-ph] 7 Aug 2026
+
+
+
+
+                                                        the open source code QCDark2.
+
+
+                                                             I.   INTRODUCTION                               aspects of the electronic response (i.e., including all-
+                                                                                                             electron effects and dielectric screening). The first ab
+                                            Several direct detection experiments searching for elec-         initio calculations were performed with QEDark [24],
+                                         tron recoils in solid state materials [1] have been im-             which is built on the plane-wave DFT software Quan-
+                                         plemented or proposed in recent years, including SEN-               tum ESPRESSO [25]. While plane-wave DFT codes
+                                         SEI [2–9], DAMIC-M [10–13], SuperCDMS [14–17],                      are computationally efficient for solid-state applications,
+                                         EDELWEISS [18], and Oscura [19]. These experiments                  the use of pseudopotentials means that extensions are
+                                         aim to detect light dark matter (DM), with masses rang-             necessary to capture the response at high momentum
+                                         ing from O(keV) to O(GeV), which interact with elec-                [20, 26]. Additionally, in QEDark, the full effects of
+                                         trons and possibly other standard model particles. Accu-            dielectric screening were neglected. Results obtained
+                                         rate calculations of DM-electron scattering rates and the           with DarkELF [22, 27], which calculates the ab ini-
+                                         expected spectrum are required to optimize DM searches              tio random-phase approximation (RPA) dielectric func-
+                                         and to understand the reach into parameter space that               tion using GPAW [28], have much more accurate screen-
+                                         these experiments achieve. This involves the use of ab              ing for both low and intermediate momentum trans-
+                                         initio methods to obtain the electronic structure of the            fers. DarkELF provides tabulated dielectric functions
+                                         detector material and to calculate its response to poten-           for Si and Ge with and without local field effects. How-
+                                         tial DM scattering events.                                          ever, the dielectric functions are only calculated up to
+                                            Density functional theory (DFT) is the standard tool             momentum transfers1 of q = 6 αme , and some all-
+                                         for electronic structure calculations. When using it to             electron effects are neglected through the use of pseu-
+                                         calculate DM-electron scattering, there are several im-             dopotentials. EXCEED-DM [20, 26] does capture high-
+                                         portant theoretical aspects that need to be considered.             momentum effects through all-electron reconstruction via
+                                         Since the DM interactions can transfer large amounts                the projector-augmented wave approach [29]; however,
+                                         of momentum to the detector (several times the crystal              the RPA dielectric function at low momentum transfer is
+                                         momentum), an all-electron treatment of the electronic              not modeled accurately. The first version of QCDark
+                                         states is needed [20, 21]. The response of the detector             (which we will refer to as QCDark1) [21] implements
+                                         material also involves dielectric screening, which is cap-          all-electron DFT with PySCF [30]; however, the dielec-
+                                         tured via the dielectric function [22, 23]. The dielectric          tric screening was approximated with an analytic model.
+                                         function can either be approximated analytically or cal-               The lack of full ab initio screening coupled with an
+                                         culated ab initio at varying levels of theoretical accuracy.        all-electron treatment means that none of the above im-
+                                            Existing implementations for calculating DM-electron             plementations are simultaneously accurate for both low
+                                         scattering have taken different approaches to these two
+
+                                                                                                              1 We will write momentum in units of αm , also known as inverse
+                                                                                                                                                     e
+                                                                                                                bohr or atomic units (a.u.). 1 αme ≈ 3.73 keV. We will also set
+                                         ∗ Contact author: megan.hott@stonybrook.edu                            ℏ = c = 1 throughout.
+                                                                                                                        2
+
+and high momentum transfers. While high momentum                                   II.   THEORY
+transfer is important for the typical nonrelativistic halo
+DM model, the low momentum region also becomes rel-                           A.    Dark sector model
+evant for DM particles that have been boosted out of
+the halo velocity distribution to relativistic or semirela-      We will consider dark sector models containing a
+tivistic speeds [31–34]. Considering these boosted DM         fermion χ of mass mχ and a dark mediator. The dark
+components can extend the sensitivity of detectors to         mediator can be either a vector V with mass mV , or a
+lower DM masses, since these lighter particles would now      scalar ϕ with mass mϕ . The dark mediator couples to χ
+have enough kinetic energy to excite electrons in the crys-   with strength gχ and to the standard model (SM) elec-
+tal [34–46]. Moreover, dark-sector particles (such as DM      tron with strength ge . This results in one of the following
+or millicharged particles) can also be produced in accel-     effective Lagrangians:
+erators (e.g., beam dumps) and scatter downstream in
+low-threshold detectors [47–51]. In all cases, the low-                     L ⊃ −ge Vµ ēγ µ e − gχ Vµ χ̄γ µ χ
+momentum dielectric response produces a distinct signal                                                               (1)
+                                                                            L ⊃ −ge ϕēe − gχ ϕχ̄χ .
+of several electron-hole pairs (due to the plasmon reso-
+nance) that can be easier to distinguish from background        A vector mediator can obtain its coupling to the elec-
+events than that of halo DM, which typically peaks to-        tron through kinetic mixing with the standard model
+ward a lower number of charge carriers [8, 33].               photon, hence this type of mediator is often called a dark
+                                                              photon. If mV = 0, then L can instead be rotated into a
+                                                              basis where χ appears to be directly coupled to the pho-
+                                                              ton with a small electric charge, called a millicharge. Our
+  To obtain scattering rates that are accurate for boosted    analysis in Section IV will be constrained to models with
+DM (or other dark-sector particles) as well as halo DM,       scalar or vector mediators (which includes the dark pho-
+we have updated QCDark to calculate the ab initio RPA         ton and millicharged DM models), although there has
+dielectric function including local field effects (LFEs) to   been much recent work on generalized dark sector in-
+use for both electronic transitions and screening at all      teractions with the SM, which we will briefly discuss in
+momenta. With this new version of the code, QCDark2,          Section V.
+we have computed RPA dielectric functions for Si, Ge,
+GaAs, SiC, and diamond. We find that for halo DM,
+LFEs reduce the projected reach by 20%–50% for masses               B.   Dark matter-electron scattering rate
+above a few MeV across all materials. Further, while the
+total integrated spectrum is unchanged, LFEs do modify          The differential DM-electron scattering rate with re-
+the shape of the expected electron recoil spectrum.           spect to the transferred energy ω can be written as
+                                                                                        Z
+                                                                                 dR         dΦ dσ
+                                                                                     = dv          ,              (2)
+                                                                                 dω          dv dω
+   The rest of the paper is organized as follows. We
+will first review the general formalism for DM-electron       where dΦ/dv is the differential flux for DM particles with
+scattering rates in Section II, including the contributions   velocity v, and dσ/dω is the differential DM-electron
+from both halo DM and boosted DM. We then review              scattering cross section. Assuming the DM is described
+the random-phase approximation and discuss how LFEs           by the standard halo model, this flux is comprised of two
+are included in the dielectric function. The computa-         components,
+tional implementation of the RPA dielectric function is
+                                                                             dΦ   dΦhalo   dΦboosted
+briefly explained in Section III. In Section IV, we analyze                     =        +           .                (3)
+how LFEs alter the dielectric function and electron recoil                   dv    dv         dv
+spectra for different DM fluxes, compare electron recoil      The first term on the right is the (usual) flux of DM
+spectra with previously used analytic screening approx-       particles in the halo that can be described by a truncated
+imations, show projected sensitivities of all the materi-     Maxwell-Boltzmann velocity distribution. We can write
+als listed above, and compare QCDark2 to other DM-            this flux in terms of the velocity distribution, fχ (v), to
+electron scattering codes. We include a further discussion    obtain the more-familiar form of the nonrelativistic DM-
+of how this work fits into the condensed matter literature    electron scattering rate [52],
+and recent generalized-response DM studies in Section V,                                 Z             
+and conclude in Section VI. The Appendixes contain a                     dRhalo       ρχ      3            dσ
+                                                                                 =           d vfχ (v)v
+full derivation of the boosted DM-electron scattering rate                 dω         mχ                   dω
+(A), the band structures and dynamic structure factors of                                   Z
+                                                                                     1 ρχ                 dΓ
+all materials (B), a derivation of the RPA dielectric func-                      =             d3 vfχ (v)    ,
+                                                                                    ρT mχ                 dω
+tion in the optical limit (C), and extra comparison of our
+RPA dielectric functions to those available in DarkELF        where ρT is the mass density of the detector, ρχ is the
+(D).                                                          local mass density of DM, and Γ is the rate for a given DM
+                                                                                                                               3
+
+velocity and detector volume. We use the recommended                 q = |q|. This is a good approximation for crystals with
+parameters in [53] to model the DM halo.                             cubic symmetry and allows us to easily integrate over
+   The second term on the right in Eq. (3) is the flux               the angular q coordinates using the delta function (see
+of DM particles previously in the halo that have been                Eq. (A8) in Appendix A for more details). Writing Eχ′ in
+boosted to velocity v through some other interaction                 terms of Eχ and parametrizing the interaction strength
+before reaching the detector. We will focus on solar-                with the reference cross section,
+reflected DM (SRDM) where halo DM particles scatter
+                                                                                                 µ2χe (ge gχ )2
+off the solar plasma [35–39], although there are many                                 σ̄e =                       ,           (7)
+other possible sources of boosted DM, including inter-                                        π(m2A′ + (αme )2 )2
+actions with cosmic rays in the interstellar medium [34,             where µχe is the DM-electron reduced mass, results in
+40, 41] and the Earth’s atmosphere [42, 43], supernova                                                 Z
+neutrinos [44–46], and heavy DM annihilation [54]. This                  dσ    mT σ̄e           1
+                                                                            =                            dq qHA′ (q)
+flux, while typically very small, can be important for low               dω     ρT 16πµ2χe Eχ (Eχ − ω)
+DM masses, as it contains DM particles that have large                            (m2A + (αme )2 )2         Θ(v − vmin )
+kinetic energies and thus can more easily leave a signal                      ×     2   2     2   2
+                                                                                                    S(ω, q)              ,    (8)
+                                                                                  (ω − q − mA′ )                v2
+above the energy threshold of a detector.
+   For application to direct detection in semiconductors,            where
+we will calculate the differential cross section for DM                                              q   ω
+scattering off the electron density in a solid-state ma-                                 vmin =         + .                   (9)
+                                                                                                   2γmχ  q
+terial of total mass mT , given by
+                                                                     Since the initial energy of the DM particle can√ be written
+                         Z
+     dσ     mT (ge gχ )2    d3 q 1                                   in terms of its velocity (Eχ = γmχ = mχ / 1 − v 2 ), we
+        =                            δ(Eχ′ − Eχ + ω)                 can now plug Eq. (8) into Eq. (2) to obtain the rate of
+     dω     ρT 4Eχ v       (2π)3 Eχ′
+                                                                     DM-electron scattering in the detector material.
+                                 HA′ (q)                               For nonrelativistic DM in the halo, we can assume the
+                       ×                         S(ω, q) ,    (4)
+                           (ω 2 − |q|2 − m2A′ )2                     energy and momentum transfer are negligible compared
+                                                                     to the DM mass, and Eq. (9) ensures that q ≫ ω. In
+where ω is the energy and q is the momentum transferred              this limit, HA′ ≈ 4m2χ for both types of mediators, and
+to the detector from a DM particle with initial energy Eχ ,          Eq. (8) simplifies to
+final energy Eχ′ , and velocity v. We use A′ to refer to                                        Z
+either a vector or scalar mediator. The form of function                   dσ          mT σ̄e
+                                                                                    =                dq q|FDM (q)|2 S(ω, q)
+HA′ (q) depends on the mediator type [see Appendix A                       dω NR       ρT 4πµ2χe
+for a full derivation of the cross section]:                                                           Θ(v − vmin )
+                                                                                                            ×       , (10)
+            HV (q) = (Eχ + Eχ′ )2 − |q|2                                                                    v2
+                                                              (5)    where we have introduced the dark matter form factor,
+            Hϕ (q) = 4m2χ − (Eχ − Eχ′ )2 + |q|2
+                                                                                                  (αme )2 + m2A′
+The dynamic structure factor S(ω, q) captures all the mi-                             FDM (q) =                  .           (11)
+                                                                                                    q 2 + m2A′
+croscopic details of the material response. S(ω, q) can be
+generalized to describe various interactions including nu-           We will later show results for the light mediator and
+clear recoils and phonon response; however, in this work             heavy mediator limits of the form factor (mA′ ≪ αme
+we will focus on just the electronic response of the mate-           and mA′ ≫ αme , respectively):
+rial. In this case, S(ω, q) can be written in terms of the                                  (αme )2
+                                                                              light                        heavy
+loss function2 , Im[−1/ϵ(ω, q)], obtained from the longi-                    FDM    (q) =           ,     FDM    (q) = 1 .   (12)
+                                                                                              q2
+tudinal dielectric function, ϵ:
+                                                                      We see that the only part of the calculation that varies
+                          q2         −1                              depending on the detector material (besides the density)
+               S(ω, q) =      Im             .         (6)
+                         2πα       ϵ(ω, q)                           is the dynamic structure factor, which is derived from
+                                                                     the dielectric function. We can make varying levels of
+   While Eq. (4) is valid for a general crystal [55] and QC-         approximation to calculate the dielectric function, rang-
+Dark2 calculates the full angular-dependent dynamic                  ing from simple analytical models to beyond-DFT ap-
+structure factor S(ω, q), we will make the approxima-                proaches. One must be careful to use a dielectric func-
+tion in this work that the crystal is isotropic and average          tion model that is accurate for the energy and momen-
+over the angular directions of q, to obtain S(ω, q), where           tum transfers relevant to the DM flux considered. In
+                                                                     sections II D and III, we describe our implementation of
+                                                                     the random-phase approximation to calculate the dielec-
+                                                                     tric function at both small and large momentum trans-
+2 See Section V for a discussion of the generalization of the loss
+                                                                     fers, which are relevant for boosted DM and halo DM,
+  function for highly-boosted DM.                                    respectively.
+                                                                                                                                  4
+
+                  C.     Ionization yield                          ditionally, a fraction of the transferred energy is lost to
+                                                                   phonons and does not contribute to electron-hole pair
+   After a DM particle scatters off the electron density in        excitation. A phenomenological model of p(ω, Q) tak-
+a crystal, imparting some momentum and energy to ex-               ing these two effects into account was made for silicon
+cite an electron-hole pair, the electron and hole can each         in [56], which we will use to compute ∆RQ (also called
+excite further electron-hole pairs. This “secondary ion-           the electron recoil spectrum) in Section IV. To study the
+ization” process continues until all electrons and holes           signals arising from halo DM and SRDM separately, we
+have energies lower than the bandgap. The final num-               will split the total scattering rate according to the two
+ber of excited electrons, Q, is the ionization yield. The          components of the flux in Eq. (3).
+number of DM-electron scattering events resulting in an
+ionization yield of Q per unit detector mass and exposure
+time is
+                         Z                                                        D.    RPA dielectric function
+                               dR
+                ∆RQ = dω           p(ω, Q) ,           (13)
+                               dω
+                                                                     We calculate the longitudinal dielectric function in the
+where dR/dω is the scattering rate from Eq. (2) and                random-phase approximation (RPA) using Kohn-Sham
+p(ω, Q) is the probability to excite Q electron-hole pairs         (KS) wave functions and energies from DFT. Crystals
+with a transferred energy of ω. A given ω does not always          are periodic in lattice vectors R, which corresponds to a
+excite the same number of electron-hole pairs because the          microscopic response in reciprocal space that depends on
+energies required for various valence-to-conduction band           reciprocal lattice vectors G. The RPA dielectric function
+excitations are different due to the band structure; ad-           can be written as [57–61]
+
+
+
+
+                                           4πα
+  ϵRPA
+   GG′ (ω, q1BZ ) = δGG′ −
+                              Vcell |q1BZ + G||q1BZ + G′ |
+                                              XX                                                                  ′
+                                                                        ⟨ik|e−i(q1BZ +G)·r |jk′ ⟩ ⟨jk′ |ei(q1BZ +G )·r |ik⟩
+                                            ×         (fik − fjk′ ) lim                                                     ,   (14)
+                                                    ′
+                                                                    η→0    ω − (ωjk′ − ωik ) + isgn(ωjk′ − ωik )η
+                                                ik jk
+
+
+
+
+where |ik⟩ is the KS wave function of band i at wave                  The energy denominator of Eq. (14) can be divided
+vector k in the first Brillouin zone (1BZ). This state             into a real and imaginary part,
+has energy ωik and occupation number fik . We evalu-                                                  
+ate Eq. (14) at temperature T = 0 K to simplify the                             1                  1
+                                                                   lim                     =P            −iπsgn(ω̃)δ(ω−ω̃) ,
+occupation numbers fik to 0 for unoccupied states (con-            η→0 ω − ω̃ + i sgn(ω̃)η      ω − ω̃
+duction bands) or 2 for occupied states (valence bands).
+This is a good approximation for semiconductor detec-              where ω̃ = ωjk′ − ωik . We will refer to these two terms
+tors used in direct-detection experiments, which are held          as the principal value part and the spectral part; more
+at low temperatures.                                               precisely, we define the spectral part of the RPA dielectric
+                                                                   function as
+
+
+
+
+                                   4π 2 α           XX
+  ϵSGG′ (ω, q1BZ ) =                                    sgn(ωjk′ − ωik )(fik − fjk′ )
+                       Vcell |q1BZ + G||q1BZ + G′ |   ′
+                                                     ik jk
+                                                                                                                   ′
+                                                × δ(ω − (ωjk′ − ωik )) ⟨ik|e−i(q1BZ +G)·r |jk′ ⟩ ⟨jk′ |ei(q1BZ +G )·r |ik⟩ .    (15)
+
+
+
+Explicitly calculating the principal value part to the same        spectral part and obtain the principal value part through
+precision as the spectral part requires an impractical
+number of bands, so we instead directly calculate only the
+                                                                                                                            5
+
+the Kramers-Kronig relations.3                                             III.   COMPUTATIONAL DETAILS
+   While {k} theoretically cover all wav evectors in the
+1BZ, we sample the KS wave functions at a finite num-                 We performed all DFT calculations with the python
+ber of initial state k and final state k′ from Monkhorst-          package PySCF [30], which uses localized Gaussian-type
+Pack grids during the DFT calculation. The over-                   orbital basis sets. The basis set, exchange-correlation
+laps, ⟨ik|e−i(q1BZ +G)·r |jk′ ⟩, will introduce a factor of        functional, and Monkhorst-Pack [67] k-grid {k} must be
+δk+q1BZ ,k′ . Therefore, we evaluate Eq. (15) at all q1BZ ∈        specified to perform a self-consistent field (SCF) calcula-
+{k′ } − {k}, where q1BZ is by definition in the 1BZ. The           tion in PySCF, which converges the wave function co-
+number of G included in the matrix is determined by                efficients and energies at each k ∈ {k}. The number of
+the maximum momentum transfer qmax = q1BZ + Gmax                   states, or bands, at each k is the number of elements
+considered in the scattering rate calculations.                    in the chosen basis set. This is different from a plane-
+   The microscopic RPA dielectric function is then used            wave basis, where the number of bands is determined by
+to determine the finite-momentum dielectric function re-           a maximum energy cutoff. Therefore, the chosen basis
+quired in Eq. (6). We can write q = q1BZ + G for any               set must be large enough to include states up to the en-
+momentum q transferred to the material, such that the              ergy required to converge the total scattering rate (or
+finite-momentum dielectric function is                             the maximum energy to which an experiment is sensi-
+                                        1                          tive). We use the correlation-consistent polarized ba-
+  ϵ(ω, q = q1BZ + G) =                                , (16)       sis sets cc-pv(t+d)z for silicon [68] and cc-pvtz for all
+                           RPA            −1
+                           ϵGG′ (ω, q1BZ )                         other materials [69–71], which ensures an accurate rep-
+                                                  G′ =G
+                                                                   resentation of the band structure within our maximum
+where we first take the matrix inverse of ϵRPA
+                                           GG′ , then take
+                                                                   energy range of 50 eV (150 eV for diamond due to its
+the diagonal element corresponding to G, and finally in-           much larger bandgap). We generate at least 64 con-
+vert that single element.4                                         duction bands and use around 45 to cover the maxi-
+   Performing the matrix inversion amounts to averaging            mum transition energy, ωmax , to ensure convergence in
+over the microscopic inhomogeneities in the crystal, or            the calculation of the dielectric function of each mate-
+LFEs. We have the option to neglect LFEs by setting                rial. The band structures are shown in Appendix B (see
+all nondiagonal elements (G′ ̸= G) of the RPA dielectric           Fig. 16). The Perdew-Burke-Ernzerhof (PBE) exchange-
+function to 0, making the matrix inversion trivial. This           correlation functional [72] was used in all DFT calcula-
+approximation will be referred to as ϵnoLFE :                      tions, and the sizes of the k-grids used for each material
+                                                                   are listed in Table I. We apply a scissor correction on the
+    ϵnoLFE (ω, q = q1BZ + G) = ϵRPA
+                                GG (ω, q1BZ ) ,            (17)    conduction band energies to correct for the low bandgaps
+while the full calculation including all off-diagonal ele-         predicted by PBE; the bandgaps before and after the scis-
+ments as in Eq. (16) will be called ϵLFE .                         sor correction can also be found in Table I. Finally, we
+   The reason one would neglect LFEs is that it is com-            specify a vector in reciprocal space, ∆q, by which the
+putationally intensive to calculate all the off-diagonal el-       final state k-grid {k′ } is shifted relative to {k}. The
+ements of Eq. (14) when a large number of G are in-                magnitude of this shift determines the smallest q1BZ at
+cluded in the matrix. Our application requires many                which the dielectric function is calculated. The final KS
+G to accommodate the high qmax needed for accurate                 states at {k′ } are obtained with a non-SCF calculation
+calculation of the scattering rate. Programs includ-               in PySCF using the fully k-converged SCF density.
+ing GPAW [28, 65] and turboEELS in Quantum                            We require the dielectric function to very high mo-
+ESPRESSO [25, 66] have the option to neglect LFEs,                 mentum, which means a large number of G are included
+and it has been common practice to do so in DM-electron            in Eq. (14) — O(104 ) for momenta up to 20–25 αme .
+scattering calculations [21, 26]. We perform a detailed in-        Including LFEs drastically increases the computational
+vestigation of LFEs in silicon in Section IV A, and show           cost, since the full ϵGG′ matrix must be calculated and in-
+that they have a significant effect on predicted scattering        verted, instead of only calculating the diagonal elements
+rates in Section IV B.                                             if LFEs are neglected. This motivated us to impose an
+                                                                   LFE cutoff, qLFE , which is the maximum momentum at
+                                                                   which the dielectric function includes LFEs. A compos-
+                                                                   ite finite-momentum dielectric function is formed for each
+3 This is a common technique that is performed in other codes—
+                                                                   material that concatenates ϵLFE and ϵnoLFE at qLFE ,
+  the implementation in GPAW, for example, is very well docu-
+  mented [62, 63].                                                                        (
+4 Our definition of the finite-momentum dielectric function is                              ϵLFE (ω, q)   q ≤ qLFE
+                                                                                ϵcomp = noLFE                             (18)
+  equivalent to the macroscopic dielectric function found in the                            ϵ      (ω, q) q > qLFE
+  condensed matter literature,
+                                      1                            The LFE momentum cutoff is around 7 − 8 αme for most
+             ϵM (ω, q) =                           ,
+                                                                   materials, which includes O(103 ) G vectors. We show
+                          RPA       −1
+                          ϵGG′ (ω, q)
+                                        G′ =G=0                    the convergence of electron recoil spectra and reach pro-
+  generalized to nonzero G [64].                                   jections with qLFE in Section IV.
+                                                                                                                                      6
+
+
+TABLE I. DFT and dielectric function parameters used for all materials studied. These include the original bandgap predicted
+by the PBE functional and the corrected bandgap after applying a scissor correction (SC), or uniform shift of the conduction
+bands. The target bandgaps are taken from experimental data. The maximum momentum at which LFEs are included is qLFE ,
+and we calculate the dielectric functions for 0 ≤ q ≤ qmax and 0 ≤ ω ≤ ωmax . All materials below are in the diamond or zinc
+blende crystal structure.
+
+                                                                 Bandgap                Bandgap
+                                                                                                          qLFE      qmax       ωmax
+Material            Basis                  k-grid               (before SC)            (after SC)
+                                                                                                         (αme )    (αme )      (eV)
+                                                                   (eV)                   (eV)
+   Si           cc-pv(t+d)z              8×8×8                      0.63                 1.1 [73]         8         25           50
+  SiC              cc-pvtz               8×8×8                      1.35                2.36 [74]          8        20          50
+   C               cc-pvtz               8×8×8                      4.12                 5.5 [75]         12        20          150
+                                     10×10×10 (LFE)
+   Ge              cc-pvtz                                             0.53            0.67 [75]           7        20          50
+                                     8×8×8 (noLFE)
+ GaAs              cc-pvtz               8×8×8                         1.20            1.42 [75]           7        20          50
+
+
+
+   The large number of G also requires us to bin the el-                  Table I.
+ements of ϵLFE or ϵnoLFE in three-dimensional q-space
+during the calculation. The bins are defined by selecting
+the number of angular bins, (Nθ , Nϕ ), to include in each                                         IV.   RESULTS
+spherical shell separated by a chosen magnitude dq. We
+use parameters Nθ = 9, Nϕ = 16, and dq = 0.02 αme .                           A.     Impacts of LFEs on the dynamic structure
+The smallest q1BZ at which the dielectric function is cal-                                          factor
+culated with Eq. (15) is the chosen shift of the final state
+k-grid. We choose this shift to be ∆q ∼ ∆k/2, where                          We first compare the isotropic dynamic structure fac-
+∆k is the distance between k-points in the Monkhorst-                     tor of Si calculated with and without LFEs in Fig. 1.
+Pack grid. We then use the optical (q → 0) limit of                       There are two main areas in (ω, q) phase space that are
+the dielectric function to calculate the bins closest to the              significantly different when LFEs are included. The first
+origin—see Appendix C for more details.                                   occurs at low momentum transfers and is highlighted by
+   The code proceeds by calculating the microscopic di-                   the red box. A peak in the dynamic structure factor (as
+electric function for all G according to Eq. (14) for a given             well as the loss function) can be observed in this region,
+q1BZ . Next, the finite-momentum dielectric function is                   which is due to collective plasmon excitations intrinsic to
+obtained with Eq. (16) or (17) and binned before the di-                  the material. It has been established that LFEs broaden
+electric function calculation for the next value of q1BZ is               the plasmon peak, which better matches experimental
+started. After this process is completed for all q1BZ , any               refraction index and electron energy loss spectroscopy
+bins with missing entries are filled in by interpolation of               data [76]. In Fig. 2, we compare our computed dielectric
+the surrounding bins. The chosen {k′ } shift5 and use of                  function in the q → 0 limit to the dielectric function at
+the optical limit allow us to maximize the number of low-                 q = 0 obtained from experimental refractive index data
+momentum bins that are calculated before interpolation.                   tabulated in [77]. The broadening of the peak in the loss
+The three-dimensional binned dielectric function can be                   function is apparent with the inclusion of LFEs. The lo-
+used in Eq. (4) to calculate the general rate, or the an-                 cation of the peak at 16.6 eV is also consistent with the
+gular average can be taken to compute the rate in the                     experimental data. The left plot of Fig. 3 shows the loss
+isotropic approximation in Eq. (8). As discussed above,                   function in the q → 0 limit for all the materials we con-
+we make the isotropic approximation for all results in                    sider in this study along with the expected peak locations
+Section IV due to the cubic symmetry of the materials in                  taken from experimental data. Overall, we see very good
+                                                                          agreement between experiment and our calculations.
+                                                                             We compare the dynamic structure factor of Si with
+5 We initially calculated the high-momentum dielectric functions          and without LFEs at finite momentum in Fig. 4. For
+  without LFEs with a shift of |∆q| = 0.01 αme before we real-            momenta less than ∼ 3 αme , we can compare our results
+  ized that the optical limit is required for momenta this small.         to data from nonresonant inelastic x-ray scattering ex-
+  Since the dielectric function at high momentum is not affected          periments. We include experimental data from [83] along
+  by this smaller shift, we did not recalculate the dielectric func-
+                                                                          the q ∥ [111] and q ∥ [100] directions in the top row of
+  tions without LFEs past the LFE cutoff, except for Si and dia-
+  mond. Therefore, these two materials have consistent {k′ } shifts       Fig. 4 for 0.53 ≤ q ≤ 2.39 αme .
+  of ∆q = ∆k/2 while all other materials have ∆q = ∆k/2 up                   Ref. [83] calculated dielectric functions at the RPA
+  to the LFE cutoff and ∆q = 0.01 × (1, 1, 1) αme past the LFE            level with and without LFEs, and additionally calcu-
+  cutoff.                                                                 lated a dielectric function in the adiabatic local-density
+                                                                                                                                    7
+
+
+            8
+                                                   No LFE                                                           LFE
+            7
+
+            6
+
+            5
+ q [αme ]
+
+
+
+
+            4
+
+            3
+
+            2
+
+            1
+
+            0
+                0          10   20            30     40        50 0           10          20            30         40          50
+                                     ω [eV]                                                    ω [eV]
+
+
+                    10−4         10−3                10−2                  10−1                 100                     101
+                                                                 S(ω, q)
+
+FIG. 1. Comparison of the dynamic structure factor (Eq. (6) averaged over angular q coordinates) for silicon calculated without
+local field effects (LFEs) on the left and with LFEs on the right. The red boxes at low momentum transfer and the cyan boxes
+at intermediate momentum transfer highlight the two areas where LFEs have the largest effect, as discussed further in the text.
+
+
+approximation with time-dependent DFT (TDLDA) [84,               Si, Ge, and GaAs,6 with the dynamic structure factor of
+85], which includes the exchange-correlation kernel that         Si being reduced to 15% of its value without LFEs at low
+the RPA neglects (note that their TDLDA dielectric               energies. These materials also have the largest reduction
+function still included LFEs). They found that the               in plasmon peak height in the left plot of Fig. 3, which are
+RPA dielectric function excluding LFEs reproduces the            all located around 16 eV. The plasmon peaks of SiC and
+TDLDA and experimental results better than RPA with              diamond are located at higher energies and do not have a
+LFEs for this range of momenta. They attributed this             significant change in height when LFEs are incorporated.
+to the cancellation of the exchange-correlation and LFE
+effects at the TDLDA level, particularly at energies ω ≲
+20 eV. However, the results in [83] are only shown up to              B.   Impacts of LFEs on electron recoil spectra
+q = 2.39 αme , which is still below our second region of
+interest marked by the cyan box in Fig. 1. Therefore, it            We defined the composite dielectric function, which
+is unknown whether this fortuitous agreement between             includes LFEs only up to momentum qLFE , by concate-
+experiment and RPA without LFEs continues at higher              nating ϵLFE and ϵnoLFE in Section III [Eq. (18)]. In this
+momenta. Plotting our dynamic structure factors with             section, we will analyze how the choice of qLFE affects
+and without LFEs at high momenta in the bottom row               the predicted response in Si for both nonrelativistic halo
+of Fig. 4, we find that they converge around q ≈ 3 αme           DM and semirelativistic solar-reflected DM (SRDM).
+before LFEs begin to greatly suppress the dynamic struc-            The maximum velocity of the DM flux, vmax , deter-
+ture factor at higher momenta,                                   mines the region in (ω, q) phase space of the dynamic
+                                                                 structure factor that is relevant to the scattering rate
+   The rest of the materials considered show a similar
+suppression when LFEs are included at high momentum.
+The right plot of Fig. 3 shows the ratio of the dynamic           6 The impact of LFEs (and excitonic effects) on the dynamic struc-
+structure factors with and without LFEs at the momenta             ture factor in GaAs is studied in the context of DM detection
+where they differ the most, qdiff , which falls between 4–6        in [86], however they only perform calculations at momentum
+αme for each material. LFEs have the greatest effect on            transfers q < 4 αme .
+                                                                                                                                                                                                  8
+
+                                                                                                                                                              h              i
+                                                                                                                                                                     −1
+             40                      Re[ǫ(ω, q → 0)]                                Im[ǫ(ω, q → 0)]                                              8       Im       ǫ(ω,q→0)
+                                                            40
+                                                                                                                                                 6
+             20                                             30                                                                    Exp.
+                                                                                                                                  ǫnoLFE         4
+                                                                                                                                                                   16.6 eV
+                                                            20                                                                    ǫLFE
+                  0
+                                                            10                                                                                   2
+
+
+    −20                                                      0                                                                                   0
+                      0         10            20       30        0        10                                                 20            30        0               10            20        30
+                                     ω [eV]                                     ω [eV]                                                                                    ω [eV]
+
+
+FIG. 2. The dielectric function and loss function for Si calculated with QCDark2 in the q → 0 limit compared to experimental
+data from [77]. Gaussian smoothing with σω = 0.2 eV has been applied to the QCDark2 curves for visual clarity. We see
+excellent agreement in the location of the plasmon peak at 16.6 eV between the RPA calculation and experiment. The inclusion
+of LFEs broadens the plasmon peak, in better agreement with the data.
+
+               8
+                                                       Si
+               7                                                                                                       1.0
+                                                       Ge
+                                                                               S LFE (ω, qdiff )/S noLFE (ω, qdiff )
+
+
+                                                       GaAs
+               6
+                                                       SiC                                                             0.8
+Im [−1/ǫ(ω, q → 0)]
+
+
+
+
+               5                                       C
+
+               4                                                                                                       0.6
+               3
+                                                                                                                                                                             Si: 4.3 αme
+               2                                                                                                       0.4                                                   Ge: 4.2 αme
+                                                                                                                                                                             GaAs: 4.5 αme
+               1                                                                                                                                                             SiC: 5.8 αme
+                                                                                                                       0.2
+                                                                                                                                                                             C: 5.9 αme
+               0
+                      10   15         20        25     30            35   40                                                 0              10                  20                 30        40
+                                              ω [eV]                                                                                                          ω [eV]
+
+FIG. 3. The left plot shows the loss function for all materials we consider, including Si, Ge, GaAs, SiC, and diamond (C),
+calculated with QCDark2 in the q → 0 limit. The dotted vertical lines correspond to the locations of the plasmon peak for
+each material taken from experimental data (Si: [77], Ge: [78], GaAs: [79], SiC: [80], diamond: [81, 82]). The lighter dashed
+curves do not include LFEs, while the darker solid curves do include them. The right plot shows the ratio of the dynamic
+structure factor, S, with LFEs to S without LFEs at qdiff , the momentum where they differ the most for each material (which
+is the momentum indicated in the legend). Gaussian smoothing with σω = 0.4 eV has been applied to all curves for better
+visual clarity.
+
+
+calculation. When the cross section containing the ve-                                                         kinematic limits on q (see also Appendix A):
+locity step function in Eq. (8) is integrated with the flux                                                                              q
+to obtain the scattering rate, the constraints imposed                                                                  qmin = γmχ v − (γmχ − ω)2 − m2χ
+by the step function become equivalent to the following                                                                                  q                                               (19)
+                                                                                                                        qmax = γmχ v + (γmχ − ω)2 − m2χ .
+
+                                                                                                               The first example we will consider is halo DM with
+                                                                                                                                  9
+
+
+                                                                                               6
+                20       q = 0.53 αme                        q = 1.59 αme                              q = 2.39 αme
+                                                   10
+                15                                                                             4
+      S(ω, q)
+
+
+
+
+                10                                                               No LFE
+                                                    5                            LFE           2
+                5                                                                Exp. [111]
+                                                                                 Exp. [100]
+                0                                   0                                          0
+                                                  0.03
+           1.00          q = 3 αme                           q = 5 αme                                 q = 8 αme
+                                                                                          0.0100
+           0.75                                   0.02                                    0.0075
+ S(ω, q)
+
+
+
+
+           0.50                                                                           0.0050
+                                                  0.01
+           0.25                                                                           0.0025
+
+           0.00                                   0.00                                    0.0000
+                     0      10     20   30   40          0      10     20   30       40            0      10     20   30     40
+                                 ω [eV]                              ω [eV]                                    ω [eV]
+
+FIG. 4. The top row shows the dynamic structure factor of Si with and without LFEs at intermediate momenta compared to
+experimental data from [83]. The bottom row shows the dynamic structure taken at momentum slices below, inside, and above
+the cyan box in Fig. 1, where we see significant differences between S noLFE and S LFE . Above 3 αme , LFEs greatly suppress
+the dynamic structure factor until ∼ 8 αme .
+
+
+mχ = 1 GeV. In this case, the maximum velocity of the                 sen such that both examples could be produced via a
+DM is vmax = vescape + vearth = 0.0026, where vescape is              freeze-in mechanism (see calculations/benchmark curves
+the Galactic escape speed and vearth is the average speed             in [1, 24, 39, 87, 88]).
+of the Earth relative to the Galactic rest frame.7 For                   The regions of interest for all three fluxes (the halo DM
+nonrelativistic velocities and large DM masses, the lower             flux and the two SRDM fluxes) in the q versus ω param-
+bound on the momentum transfer is almost mass inde-                   eter space, which are defined by the kinematic limits,
+pendent and the upper bound greatly exceeds momenta                   are shown in Fig. 5. For halo DM, the kinematic lim-
+where the dynamic structure factor contributes appre-                 its exclude the low-momentum plasmon region of the Si
+ciably (qmax ∼ 100 αme ). We will use a reference cross               dynamic structure factor, but include the intermediate-
+section of σ̄e = 10−39 cm2 for the halo DM example to                 momentum region where LFEs are also relevant. Con-
+be consistent with the analysis in [21].                              versely, the 50 keV SRDM limits include the plasmon
+   We will also consider SRDM fluxes with two different               region but exclude the intermediate-momentum region.
+sets of parameters, one with mχ = 50 keV and refer-                   The 0.5 MeV SRDM limits include contributions from
+ence cross section σ̄e = 10−38 cm2 , and the other with               both regions. These examples were chosen to give a
+mχ = 0.5 MeV and σ̄e = 10−37 cm2 . Both SRDM exam-                    complete picture of how LFEs affect the electron recoil
+ples assume a massless dark mediator. The maximum ve-                 spectrum, and to emphasize the importance of having
+locities were extracted from the start of the high-velocity           an accurate dielectric function for the entire (ω, q) space.
+tail of the flux distributions simulated in [39]: the 50              The chosen fluxes also produce equivalent results for dark
+keV case has vmax = 0.06 and the 0.5 MeV case has                     sectors with either vector or scalar mediators (see Sec-
+vmax = 0.02. The reference cross sections were cho-                   tion II A), so all results in this section and the following
+                                                                      section apply to both models.
+                                                                         Figure 6 shows how the electron recoil spectrum calcu-
+7 Using the recommended parameters in [53], v
+                                             escape = 544km/s =       lated with Eq. (13) for DM in the standard halo model is
+  0.0018, vearth = 250.2 km/s = 0.0008, and the local DM density      affected by the LFE momentum cutoff, qLFE , for the two
+  is ρχ = 0.3 GeV/cm3 .                                               limiting cases of the dark matter form factor as defined
+                                                                                                                                                        10
+
+
+
+               8
+                                                       mχ = 1 GeV                      mχ = 0.5 MeV                             mχ = 50 keV
+                                                      vmax = 0.0026                      vmax = 0.02                             vmax = 0.06
+               6
+ q [αme ]
+
+
+
+
+               4
+
+
+               2
+
+
+               0
+                               0                 20           40          0           20            40         0            20         40
+                                                  ω [eV]                               ω [eV]                                ω [eV]
+
+FIG. 5. Kinematic limits on (ω, q) (white dashed curves) for three DM fluxes. The limits are overlaid on the dynamic structure
+factor (with LFEs) of Si from Fig. 1, showing the two regions most affected by LFEs in the red and cyan boxes. The regions
+excluded by the kinematic limits are shaded. The left plot shows the lower kinematic limit on halo DM for a DM mass of
+mχ = 1 GeV, which excludes the low-momentum plasmon region but does include the intermediate-momentum region. The
+middle and right plots show the lower and upper kinematic bounds on SRDM with masses of mχ = 0.5 MeV and mχ = 50 keV,
+respectively. The mχ = 0.5 MeV case includes contributions from both regions affected by LFEs, while the mχ = 50 keV case
+is only impacted by the plasmon region. The maximum velocities of v = 0.02 and v = 0.06 for the two SRDM examples are
+determined by the fluxes simulated in [39] for a massless dark mediator.
+
+
+
+
+                                                                                      101
+                                   10   0
+                                                             Light Mediator                                   Heavy Mediator                8
+                                                                                                                                            7
+        ∆RQ [Events/kg year]
+
+
+
+
+                               10−1                                                                                                         6
+
+
+
+
+                                                                                                                                                qLFE [αme ]
+                                                                                                                                            5
+                                                                                                                                            4
+                               10−2
+                                                                                                                                            3
+                                                                                                                                            2
+                               10−3         Si, Halo                                  100   Si, Halo
+                                            mχ = 1 GeV                                      mχ = 1 GeV                                      1
+                                            σ̄e = 10−39 cm2                                 σ̄e = 10−39 cm2                                 0
+                ∆RQnoLFE
+
+
+
+
+                                   1.0                                                1.0
+ ∆RQLFE
+
+
+
+
+                                   0.8                                                0.8
+                                   0.6                                                0.6
+                                             1    2    3   4 5 6      7       8   9             1   2    3   4 5 6      7   8   9
+                                                            Q [e− ]                                           Q [e− ]
+
+FIG. 6. Electron recoil spectra in Si for halo DM with the ionization yield model from [56] at 100 K, assuming a light mediator
+on the left and a heavy mediator on the right. The light mediator case converges quickly with LFE momentum cutoff, qLFE ,
+since high momentum modes are suppressed by a factor of q −4 compared to the heavy mediator case. The bottom panel shows
+the ratio of the rates when including LFEs (with qLFE = 8αme ) to not including them.
+                                                                                                                          11
+
+in Eq. (12). The light mediator case converges quickly           only the imaginary part of the RPA dielectric function,
+with qLFE , since high momentum modes are suppressed             Im[ϵ(ω, q)], was calculated to use as the numerator, while
+by a factor of q −4 compared to the heavy mediator case.         different approximations of the dielectric function, which
+The heavy mediator case accesses more of the dynamic             we will call ϵscr , were used to obtain the magnitude of the
+structure factor in and above the cyan rectangle in Fig. 1       dielectric function for the denominator. This was done
+where LFEs significantly reduce its magnitude. This              to avoid the calculation of the real part of the RPA di-
+causes scattering rates to be reduced by about 30% for           electric function. The loss function for a given screening
+ionization yields of 1–4 electron-hole pairs.                    approximation can be written as
+   The electron recoil spectra with varying qLFE for the                                    
+two SRDM examples (both with a massless mediator)                                       −1           Im[ϵ(ω, q)]
+                                                                               Im                 = scr          .       (21)
+are shown in Fig. 7. Focusing first on the 50 keV case,                               ϵ(ω, q) scr   |ϵ (ω, q)|2
+the main feature of the spectrum is the enhancement in
+∆RQ for yields of 4–6 electron-hole pairs compared to              In this section, we will compare electron recoil spectra
+the monotonic decrease in the event rate for halo DM.            in Si calculated with no screening, i.e. ϵscr = 1, full
+This enhancement is due to the inclusion of the plas-            RPA screening using the composite dielectric function
+mon peak at 16–18 eV in the cross section.8 Since direct         with LFEs, and two approximations used previously for
+detection experiments see the most background signal             QCDark1 analyses: the analytic model taken from [91],
+in lower Q bins (particularly Q = 1), higher sensitivity         which we will call the modified Thomas-Fermi (MTF)
+can be achieved for a signal peaked at these larger Q            model, and the Lindhard approximation [92, 93]. All
+bins [8, 33]. The effects of the broadening of the plasmon       models will use Im[ϵcomp ] with qLFE = 8αme [see Eq. (18)
+peak by LFEs are also apparent in the 50 keV SRDM                for the definition of ϵcomp ] as the numerator of Eq. (21).
+spectrum. This broadening causes power to be redis-                The MTF model was used in the first version of
+tributed from the peak at 16.6 eV out to both lower and          EXCEED-DM [26] as well as QCDark1 [21]. The
+higher energies, which can be seen in the loss function in       material-dependent and fitted parameters included in
+the third plot of Fig. 2 at q → 0. This causes an increase       this model are discussed in [91]; we take their best-fit
+in ∆RQ for Q = 1–3 and 7–9, while the peak at Q = 5              parameters for Si as ϵ0 = 11.3, τ = 1.563, ωp = 16.6 eV,
+decreases as qLFE is increased from 0 to 0.5 αme .               and qTF = 4.13 keV to obtain
+   The spectrum of the 0.5 MeV case is an intermedi-
+ate example between nonrelativistic halo DM and light,             ϵMTF (ω, q) = 1 +
+(semi)relativistic SRDM where both the plasmon and                  "                 2               2 #−1
+high-momentum regions of the dynamic structure factor                    1          q         q4        ω
+                                                                             +τ           +          −          .       (22)
+are relevant. We can still see the decrease in the middle             ϵ0 − 1       qTF      4m2e ωp2    ωp
+bins as LFEs are included up to 1 αme , but the increase
+in ∆RQ for Q = 1–3 and 7–9 caused by the broadening of              The Lindhard model can be derived from the RPA di-
+the plasmon peak has been canceled out by the overall de-        electric function in Eq. (14) by plugging in the electronic
+crease in rates as LFEs are included at higher momenta.          states for a homogeneous electron gas of density ne . This
+The flat spectrum is also a unique signal that could be          greatly simplifies the wave functions and all overlaps in
+easier to distinguish from backgrounds than that of halo         the numerator reduce to 0 or 1. Further algebra can
+DM.                                                              be performed to write the Lindhard dielectric function
+                                                                 as [92, 93]
+                                                                                                               
+ C.   Impacts of different screening approximations                                         3ωp2 1
+                                                                     ϵLindhard (ω, q) = 1 + 2 2      + F+ + F− ,        (23)
+             on electron recoil spectra                                                    q vF 2
+
+  We can write the loss function (or equivalently the dy-        where
+namic structure factor) in terms of the real and imaginary                                                   
+                                                                                    qF                 Q± + 1
+parts of the dielectric function:                                            F± =      (1 − Q2± )Log
+                                                                                    4q                 Q± − 1
+                 
+            −1                Im[ϵ(ω, q)]                        and
+    Im              =                             ,   (20)
+          ϵ(ω, q)     Re[ϵ(ω, q)]2 + Im[ϵ(ω, q)]2
+                                                                                        q     ω     fp ωp
+                                                                                Q± =       ±     ±i       .
+where the denominator represents the effects of dielec-                                2qF   qvF    qvF
+tric screening in the medium. In previous works [20, 21],
+                                                                 Often the Lindhard approximation takes the imaginary
+                                                                 part of Q± to 0 (as was originally done by Lind-
+                                                                 hard in [92]); however, we choose a finite fp to match
+8 The mean energy per pair in silicon has been measured to be    Im[−1/ϵLindhard (ω, q = 0)] to experimental results, since
+  around 3.6–3.75 eV [89, 90], which corresponds to an average   we are interested in the plasmon region at finite momen-
+  yield of 4.5–4.7 electrons for an energy transfer of 17 eV.    tum. For Si, we choose fp = 0.1. The other parameters
+                                                                                                                                         12
+
+
+                                                        qLFE [αme ]                                                          qLFE [αme ]
+                                                                                                 10−1
+                                                                1.5                                                                  6
+     ∆RQ [Events/kg year]
+
+
+
+
+                                                                          ∆RQ [Events/kg year]
+                                                                0.5                                                                  5
+                             100                                0.4                                                                  4
+                                                                0.3                                                                  3
+                                                                0.2                                                                  2
+                                   Si, SRDM                     0.1                                     Si, SRDM                     1
+                                   mχ = 50 keV                                                   10−2   mχ = 0.5 MeV
+                            10−1   σ̄e = 10−38 cm2              0                                       σ̄e = 10−37 cm2              0
+                             1.2                                                                  1.2
+             ∆RQnoLFE
+
+
+
+
+                                                                                  ∆RQnoLFE
+ ∆RQLFE
+
+
+
+
+                                                                      ∆RQLFE
+                             1.0                                                                  1.0
+                             0.8                                                                  0.8
+                                    1 2 3 4 5 6 7 8 9                                                    1 2 3 4 5 6 7 8 9
+                                          Q [e− ]                                                              Q [e− ]
+
+FIG. 7. The electron recoil spectra in Si for two examples of solar-reflected DM fluxes assuming a massless dark mediator.
+The left plot corresponds to a DM mass of 50 keV while the right plot corresponds to 0.5 MeV. The reference cross sections
+are chosen to make both examples compatible with the benchmark freeze-in model [1, 24, 39, 87, 88]. The LFE momentum
+cutoff is increased over the relevant (ω, q) phase space in Fig. 5 for each example. The broadening of the plasmon peak for
+higher qLFE clearly redistributes some power from the peak at Q = 5 to Q = 1–3 and 7–9 in the left plot, while the effects from
+including LFEs in the plasmon and intermediate-momentum regions compete in the right plot. The bottom panel shows the
+ratio of the rates when fully including LFEs to not including them.
+
+
+in the Lindhard model are derived from the average elec-                 come important in Si at larger momentum transfer. Ad-
+tron density
+      p       in Si: qF = (3π 2 ne )1/3 , vF = qF /me , and              ditionally, constructing the loss function using Im[ϵ] from
+ωp = 4παne /me = 16.6 eV.                                                one approximation and |ϵ|2 from another is of course not
+   First we show the dynamic structure factor of Si with                 fully self-consistent because the real and imaginary parts
+the above screening models in the left panel of Fig. 8. All              of ϵ are linked by causality. By computing the full com-
+three screening models greatly suppress the low-energy                   plex RPA dielectric function, we incorporate screening
+absorption peaks of the numerator, as can be seen in the                 consistently across (ω, q), and we quantify the residual
+upper plot of the right panel where a slice of the dy-                   model dependence by comparing scattering rates com-
+namic structure factor is taken at constant momentum                     puted with each of these screening models.
+q = 0.1 αme . MTF screening has been used in studies                        In Fig. 9, we compare the electron recoil spectra of Si
+of halo DM [7, 8, 13, 20, 21] since it accurately captures               with the four screening models introduced above for the
+the magnitude of the dielectric function in the large-q                  mχ = 1 GeV halo DM example. We can see that the
+limit; however, it should not be used when considering                   MTF model slightly overestimates the recoil rates, while
+boosted DM fluxes due to the singularity at low-q and                    the Lindhard model slightly underestimates them com-
+extremely high magnitude of the plasmon peak. These                      pared to RPA screening. Overall, the Lindhard model
+features can be seen in the right panel of Fig. 8: the                   performs better than the MTF model, although the RPA
+lower plot shows that the dynamic structure factor at                    dielectric function must be used in the numerator to fully
+constant energy ω = 17 eV screened with the MTF model                    capture the high momentum contributions.
+agrees well with RPA screening past the singularity at                      We show the different screening models applied to the
+q ≈ 1 αme , and the upper plot shows the inaccurate                      two SRDM examples in Fig. 10. The Lindhard model
+plasmon peak at low momentum. The Lindhard model                         shows reasonable agreement with full RPA screening,
+was used previously to study boosted dark matter [33, 39]                since it replicates the plasmon peak. However, it per-
+(and low-energy Compton scattering [94]), since it mod-                  forms slightly worse for mχ = 50 keV compared to
+els the plasmon region more accurately than the MTF                      mχ = 0.5 MeV, since the RPA dielectric function with
+model (as can be seen in the upper right plot of Fig. 8);                LFEs predicts a lower plasmon peak than the Lindhard
+however, it still cannot capture material-specific features              model in the extreme q → 0 limit. This limit is included
+such as interband matrix elements and LFEs that be-                      in the mχ = 50 keV phase space, but is excluded by the
+                                                                                                                                                                         13
+
+
+             4                                                                                                                         8
+                                No Screening                             MTF Model
+
+
+
+
+                                                                                                                  S(ω, q = 0.1 αme )
+             3                                                                                                                         6
+  q [αme ]
+
+
+
+                                                                                                                                       4
+             2
+                                                                                                                                       2
+             1
+                                                                                                                                       0
+             0                                                                                                                             0     10     20   30      40
+             4                                                                                                                                        ω [eV]
+                           Lindhard Model                        RPA with LFEs
+             3
+
+
+
+
+                                                                                                S(ω = 17 eV, q)
+                                                                                                                          101
+  q [αme ]
+
+
+
+
+             2
+                                                                                                                  10−1
+             1
+
+             0                                                                                                    10−3
+                 0         10      20       30         40 0      10        20         30   40                                              0     1     2   3     4   5
+                                 ω [eV]                                  ω [eV]                                                                       q [αme ]
+
+                                                                                                                                               None          Lindhard
+                 10   −3
+                                  10   −2
+                                                 10   −1
+                                                                10   0
+                                                                             10   1                                                            MTF           RPA
+                                                      S(ω, q)
+
+FIG. 8. The left panel shows the dynamic structure factor of Si with different dielectric function approximations used for
+                            q2
+screening, i.e., S(ω, q) = 2πα  Im[ϵcomp (ω, q)] / |ϵscr (ω, q)|2 . Top left: ϵscr = 1 for no screening; top right: ϵscr = ϵMTF [Eq. (22)];
+                scr   Lindhard
+bottom left: ϵ = ϵ             [Eq. (23)]; bottom right: ϵscr = ϵLFE . The right panel shows slices of the dynamic structure factor
+at a constant momentum of q = 0.1 αme in the upper plot and at constant energy ω = 17 eV in the lower plot. These examples
+highlight the importance of accurate screening at low momentum and show the eventual convergence of all screening models
+at large enough momentum.
+
+
+mχ = 0.5 MeV kinematic limits as can be seen in Fig. 5.                       ent materials and DM fluxes considered above. Results
+The MTF model should not be used for boosted DM,                              from other codes discussed in the introduction will also
+since the plasmon region has divergent behavior; we in-                       be compared to our new QCDark2 results for Si and Ge.
+clude it here to demonstrate why the Lindhard model or                        We assume no backgrounds and a one-electron threshold
+RPA need to be used for correctly modeling high-velocity                      such that the expected number of DM-electron scatter-
+DM (or other boosted dark-sector particles). Finally, we                      ing events can be calculated by simply integrating Eq. (2)
+include the spectrum with no screening to demonstrate                         over transferred energy ω. The maximum energy transfer
+that the implementation of some form of dielectric screen-                    included for Si, Ge, GaAs, and SiC is 50 eV; for diamond
+ing is even more important for boosted DM compared to                         we include up to 150 eV due to its much larger bandgap.
+halo DM, since it completely alters the shape of the recoil                   All curves are calculated at a 90% confidence level (C.L.),
+spectrum. The bottom plots show that the Q = 1–2 bins                         which corresponds to 2.3 events over an exposure of 1 kg
+are suppressed by two orders of magnitude when RPA                            year.
+screening is applied.                                                            In Fig. 11, we show a detailed view of how the reach
+                                                                              for Si changes as qLFE is increased from 0 to 8 αme as
+                                                                              was done in Fig. 6. A 20%–40% reduction in the reach
+                           D.   Sensitivity projections                       for halo DM occurs for masses larger than a few MeV
+                                                                              for both the light and heavy mediator limits. This re-
+   In this subsection, we discuss the projected sensitiv-                     duction is more gradual as a function of LFE cutoff for
+ity in the σ̄e versus DM mass mχ plane for the differ-                        the heavy mediator case as we would expect from Fig. 6.
+                                                                                                                                                                                        14
+
+
+
+                                                                                                                           101
+                                                                                            Light Mediator                                                    Heavy Mediator
+                                    ∆RQ [Events/kg year]    100                                           Screening
+                                                                                                             None
+                                                           10−1                                              MTF
+                                                                                                             Lindhard
+                                                                                                             RPA
+                                                           10−2
+                                                                      Si, Halo                                                        Si, Halo
+                                                                      mχ = 1 GeV                                                      mχ = 1 GeV
+                                                           10−3                                                            100        σ̄e = 10−39 cm2
+                                                                      σ̄e = 10−39 cm2
+                                                           1.00                                                            1.00
+                                    ∆RQNone
+                           ∆RQRPA
+
+
+
+
+                                                           0.75                                                            0.75
+                                                           0.50                                                            0.50
+                                                           0.25                                                            0.25
+                                                                       1    2       3       4     5        6     7                     1       2      3     4     5   6     7
+                                                                                          Q [e− ]                                                         Q [e− ]
+
+FIG. 9. Electron recoil spectra in Si for halo DM with the screening models in Fig. 8. We use the ionization model from [56]
+at 100 K. The Lindhard model accurately replicates RPA screening for these examples. The bottom panel shows the ratio of
+the rates when including the RPA screening to not including any screening.
+
+
+
+
+                                   104
+                                                                                                                102
+                                   103
+           ∆RQ [Events/kg year]
+
+
+
+
+                                                                                                                101                                                       Screening
+                                   102
+                                                                                                                                                                             None
+                                   101                                                                          100                                                          MTF
+                                                                                                                                                                             Lindhard
+                                   100                                                                         10−1
+                                                                                                                                                                             RPA
+                                                            Si, SRDM                                           10−2   Si, SRDM
+                                  10−1
+                                                            mχ = 50 keV                                               mχ = 0.5 MeV
+                                                            σ̄e = 10−38 cm2                                           σ̄e = 10−37 cm2
+                                  10−2                                                                         10−3
+          ∆RQNone
+ ∆RQRPA
+
+
+
+
+                                   100                                                                          100
+                                  10−1                                                                         10−1
+                                  10−2                                                                         10−2
+                                                             1    2     3   4     5 6       7   8     9                1     2    3     4     5 6         7   8   9
+                                                                                Q [e− ]                                                     Q [e− ]
+
+
+FIG. 10. Electron recoil spectra in Si for two examples of solar-reflected DM fluxes, both assuming a massless mediator. As in
+Fig. 9, the Lindhard model comes closest to RPA screening; however, there are still inconsistencies in the q → 0 limit, which
+contribute to the increased rate for low Q in the left plot. The modified Thomas-Fermi (MTF) model should not be used for
+boosted DM (or other boosted dark-sector particles). The bottom panel shows the ratio of the rates when including the RPA
+screening to not including any screening.
+                                                                                                                               15
+
+
+
+
+              10−38                                        10−39
+                                                                                                                   8
+                                                                                                                   7
+              10−39                                        10−40                                                   6
+ σ¯e [cm2 ]
+
+
+
+
+                                                                                                                       qLFE [αme ]
+                                                                                                                   5
+                                                                                                                   4
+              10−40                            Si, Halo 10
+                                                             −41
+                                                                                            Si, Halo
+                                                                                                                   3
+                                              1 kg year                                    1 kg year
+                                              90% C.L.                                     90% C.L.                2
+                                        Light Mediator −42                           Heavy Mediator
+              10−41                                         10                                                     1
+                      100         101      102            103      100         101      102              103
+                                                                                                                   0
+                                  mχ [MeV]                                     mχ [MeV]
+              10−36                                        10−36
+                                        Light Mediator                               Heavy Mediator
+                            DM                                           SRDM
+ σ¯e [cm2 ]
+
+
+
+
+                −38                                          −38
+              10         SR                                10
+
+              10−40                           Halo         10−40
+                                                                                                Halo
+              10−42                                         10−42
+                  10−2       −1
+                            10    100
+                                        101
+                                                 10   2
+                                                          103   10−3 10−2 10−1 100 101            102    103
+                                  mχ [MeV]                                   mχ [MeV]
+
+FIG. 11. Projections for exclusion curves at 90% C.L. in Si, assuming no backgrounds and a one-electron threshold. The top
+two plots show the reach for halo DM as LFEs are included up to varying qLFE . The bottom two plots show the projections
+for SRDM in the light and heavy mediator limits along with the full LFE screening halo projections.
+                                                                                                                         16
+
+We observed that the SRDM limits are barely affected by         high-momentum contributions can also be seen in the
+the inclusion of LFEs (< 5% difference). This may seem          electron recoil spectrum in the left plot of Fig. 15. Due
+unexpected since LFEs have such a dramatic effect on            to the kinematic limits on (ω, q) for halo DM, recoils with
+the plasmon peak in Fig. 3, however they mainly redis-          large transferred energy ω must necessarily transmit large
+tribute the power away from the peak at low momentum            momentum q as well, so neglecting the high-momentum
+instead of causing an overall reduction in the dynamic          response significantly reduces the event rate for Q ≥ 3.
+structure factor that we see at higher momentum. Ex-
+perimental data currently show much larger backgrounds             The lower reach of QCDark1 is due to the MTF di-
+for the lowest Q bins (especially Q ≤ 2) and moreover           electric function used for screening and the neglect of
+consider each Q bin separately; in this case, the impact of     LFEs; we showed in Fig. 9 that MTF screening results in
+using our updated calculations on the sensitivity is larger     slightly larger scattering rates than RPA screening, and
+than shown by these plots. The SRDM projections shown           that LFEs reduce the scattering rate in Fig. 6. The black
+here are calculated only for vector mediators, as the dif-      QEDark curve also has lower reach due to MTF screen-
+ference between vector and scalar mediator sensitivities        ing, and QEDark with no screening (as was initially
+differ by less than 0.5% above mχ = 10 keV; and they            calculated in [24]) in gray has even lower reach, showing
+agree closely with those calculated using QCDark1 with          the importance of including dielectric screening. There is
+Lindhard screening in [39]. We note that for the heavy-         a sharp turnover at 10 MeV for both QEDark curves be-
+mediator case, DM masses lower than ∼5–10 MeV are               cause the loss function quickly vanishes above q = 6 αme
+generally disfavored from bounds on the number of rela-         (see Fig. 5 in [24]; the effect is even more obvious for
+tivistic degrees of freedom [95].                               Ge), since high-momentum modes are not included in
+   Figure 12 shows the projected reach for Si, Ge, GaAs,        its plane-wave basis sets. This results in a similar de-
+SiC, and diamond over an exposure of 1 kg year. Follow-         crease in the Q > 3 bins of the electron recoil spectrum
+ing the same behavior as Si in Fig. 11, LFEs reduce the         as we saw for DarkELF in Fig. 15. The EXCEED-DM
+reach by 20%–50% for DM masses larger than a few MeV            rates include extra valence to free electron transitions and
+for all materials. As for Si, there is again little change in   are screened by a numerical dielectric function calculated
+the SRDM limits when the LFE cutoff is varied and so we         with these extra states, also resulting in a lower reach.
+only show the SRDM sensitivities with LFEs included.
+   Interestingly, the SRDM limits are very similar across          Moving on to the Ge results in Fig. 14, we see that
+materials (even if the rates are calculated per atom in-        the light mediator limit looks very similar to the vari-
+stead of per kg). We may be able to explain this similar-       ous Si curves in Fig. 13, and much of the same analysis
+ity using a sum rule [96] that relates the integrated loss      applies here. There is a new feature in the projected
+function to the location of the plasmon peak ωp ,               reach for a heavy mediator model, where an enhance-
+                                                                ment of the reach to lower cross sections is seen for the
+             Z ∞                                              EXCEED-DM, QCDark1, and QCDark2 codes. This
+                            −1            π
+                   ωIm              dω = ωp2 .           (24)   enhanced sensitivity is due to the onset of excitations
+               0          ϵ(ω, q)         2
+                                                                from the 3d orbitals starting at ω = 26 eV, which can
+Since all the materials we consider have similar plasmon        be seen in the band structure shown in Appendix B (see
+peak shapes and locations, the integrated magnitudes            Fig. 16). The 3d orbitals cause an increase in the rate of
+of the loss functions are expected to be similar as well.       high-Q events in the electron recoil spectrum shown in
+Equation (24) is technically only fulfilled for a complete      the right plot of Fig. 15. The importance of the 3d or-
+basis set (and integration up to ω → ∞), but it applies         bitals for DM-electron scattering in Ge was first pointed
+well to our dielectric functions up to q ≲ 1 αme , which        out in [97], which used a semianalytic model to include
+covers the regions relevant to SRDM scattering.                 these states. QCDark1 and QCDark2 both use an
+   In Figs. 13 and 14, we compare the halo DM sensi-            all-electron basis, which, by definition, includes the 3d
+tivities calculated using the other available DM-electron       orbitals as possible initial states i in the calculation of
+scattering codes for Si and Ge, respectively. Focusing          the dielectric function in Eq. (14). EXCEED-DM uses
+first on Fig. 13, we see that QCDark2 and DarkELF9              the projector augmented wave (PAW) method to split
+(both with LFEs) agree very well across the whole mass          up the calculation of core and valence electronic states,
+range in the light mediator limit. In the heavy media-          using all-electron reconstruction to correctly model the
+tor limit however, these start to diverge around 10 MeV.        3d orbitals. DarkELF also uses DFT states calculated
+DarkELF predicts a shallower reach for these masses             via the PAW method, however the 3d states are included
+because their dielectric function is only tabulated up to       only in the pseudopotential core and do not contribute
+q = 6 αme , while the QCDark2 curve includes contri-            to the scattering rate. QEDark does model the 3d or-
+butions up to q = 25 αme . The effect of neglecting these       bitals separately from the pseudopotential, but the high-
+                                                                momentum modes that dominate the scattering rate are
+                                                                not captured due to the plane-wave basis set. This ex-
+                                                                ample of Ge particularly exemplifies how important the
+9 See Appendix D for a more detailed comparison of   QCDark2    choice of DFT method is for capturing the relevant re-
+  and DarkELF with and without LFEs.                            sponses that contribute to the scattering rate.
+                                                                                                                                               17
+
+
+                                           Light Mediator                                              Heavy Mediator
+              10−38
+                                           90% C.L., 1 kg yr                                               90% C.L., 1 kg yr
+                                                                              10−40                                                    Si
+                                                                                                                                       Ge
+                                                                                                                                       GaAs
+              10−39
+ σ̄e [cm2 ]
+
+
+
+
+                                                                                                                                       SiC
+                                                                                                                                       C
+                                                                              10−41
+              10−40                                                                                                                    LFE
+                                                                                                                                       noLFE
+
+
+              10−41                                                           10−42
+                           0           1              2                   3
+                      10             10          10                   10               100           101         102         103
+              10−36                                                           10−36
+
+
+
+
+                                                                                                                        Halo
+              10−37                        M                                  10−37                    SRDM
+                                                                   Ha
+
+                                    SRD
+ σ̄e [cm2 ]
+
+
+
+
+                                                                     lo
+
+
+              10−38                                                           10−38
+              10−39                                                           10−39
+              10−40                                                           10−40
+                  10−2                −1
+                                     10                   10   0
+                                                                                  10−3        10−2        10−1         100
+                                      mχ [MeV]                                                       mχ [MeV]
+
+
+FIG. 12. Projections for exclusion curves at 90% C.L. in Si, Ge, GaAs, SiC, and diamond (C), assuming no backgrounds and
+a one-electron threshold. For the upper two plots, solid curves fully include LFEs (up to the maximum LFE cutoff for each
+material shown in Table I) and the light dashed curves fully neglect LFEs. The lower left plot shows SRDM projections for all
+materials assuming a massless mediator, while the right plot shows the same for a heavy mediator. LFEs are fully included for
+all SRDM curves.
+
+
+                               V.   DISCUSSION                                        to the KS states through the G0 W0 method [99], using
+                                                                                      time-dependent DFT to calculate the dielectric function
+                                                                                      beyond the RPA with contributions from the exchange-
+   Before concluding, we would like to discuss some sub-                              correlation kernel [83], and including excitonic effects
+tleties of the dielectric function and DFT calculations,                              in the dielectric function by solving the Bethe-Salpeter
+recent work on generalized DM-electron interactions, the                              equation (BSE) [86].
+transverse dielectric response for ultrarelativistic DM,                                 The key challenge, however, is the accurate modeling
+and the applicability of the QCDark2 loss function to                                 of the electronic structure for the wide range of momenta
+the neutrino fog and the Migdal effect. These topics serve                            and energies needed to calculate DM-electron scatter-
+to illustrate our work in the context of the wider fields                             ing rates. Indeed, we have found that the elements of
+of electronic structure calculations and DM-electron in-                              the calculation required for accuracy over a wide range
+teractions, and offer some possible extensions based on                               of materials and potential DM parameters (e.g., ab ini-
+recent ideas.                                                                         tio treatments of the structure factor, high momentum
+  a. DFT and the dielectric function. In this work, we                                cutoffs, LFEs, all-electron effects, dense k-grids) already
+have computed the dielectric function at the RPA level                                carry a heavy computational burden, which makes us-
+using all-electron Kohn-Sham wave functions, and have                                 ing even more expensive electronic structure methods im-
+included LFEs up to fairly large momentum. In principle,                              practical (or even impossible). For this reason, it is cru-
+one can apply improved theoretical methods to more ac-                                cial to explore and benchmark ad hoc corrections based
+curately calculate the dielectric response. Improvements                              on experimental data or higher-level calculations, as well
+can include more intensive DFT calculations, such as us-                              as approximations based on the (ω, q) region of inter-
+ing hybrid exchange-correlation functionals to accurately                             est. For example, we use a scissor correction in this
+model the bandgap [21, 26] and applying a Hubbard U                                   study to correct the bandgap, but tuned hybrid func-
+correction to shift the 3d bands of Ge and GaAs [98].                                 tionals or Hubbard U corrections could be useful to ob-
+More expensive improvements include energy corrections                                tain a more accurate initial electronic structure at a cost
+                                                                                                                          18
+
+
+
+
+              10−38            QEDark No scr                         10−39
+                               QEDark MTF
+                               DarkELF
+                               EXCEED-DM
+              10−39            QCDark1                               10−40
+                               QCDark2
+ σ̄e [cm2 ]
+
+
+
+
+              10−40
+                                                                     10−41
+                                               Si, Halo                                                   Si, Halo
+                                              1 kg year                                                  1 kg year
+              10−41                           90% C.L.                                                   90% C.L.
+                                        Light Mediator                                             Heavy Mediator
+                                                                     10−42
+                           0     1              2                3
+                      10       10        10                10                100          101       102                103
+                                mχ [MeV]                                                   mχ [MeV]
+
+FIG. 13. Projections for exclusion curves at 90% C.L. in Si, assuming no backgrounds and a one-electron threshold. We compare
+all available codes including QEDark with no screening [24] and with MTF screening, DarkELF with LFEs [22], EXCEED-
+DM with its numerical dielectric function used for screening [26], QCDark1 with MTF screening [21], and QCDark2 with
+LFEs (this work).
+
+
+
+
+              10−38            QEDark No scr                         10−38
+                               QEDark MTF
+                               DarkELF
+                               EXCEED-DM
+                                                                     10−39
+                               QCDark1
+              10−39
+                               QCDark2
+ σ̄e [cm2 ]
+
+
+
+
+                                                                     10−40
+
+              10−40
+
+                                                 Ge, Halo            10−41
+                                                                                                           Ge, Halo
+                                                 1 kg year                                                 1 kg year
+                                                 90% C.L.                                                  90% C.L.
+              10−41                        Light Mediator                                            Heavy Mediator
+                                                                     10−42
+                           0     1             2                 3
+                      10       10        10                 10               100          101       102                103
+                                mχ [MeV]                                                   mχ [MeV]
+
+
+FIG. 14. Projections for exclusion curves at 90% C.L. in Ge, assuming no backgrounds and a one-electron threshold. We
+compare results from QEDark with no screening [24] and with MTF screening, DarkELF with LFEs [22], EXCEED-DM
+with its numerical dielectric function used for screening [26], QCDark1 with MTF screening [21], and QCDark2 with LFEs
+(this work).
+                                                                                                                                 19
+
+
+
+
+                                                           QEDark No scr    101
+                                                           QEDark MTF
+                         101
+                                                           DarkELF
+ ∆RQ [Events/kg year]
+
+
+
+
+                                                           EXCEED-DM
+                                                           QCDark1          100
+                                                           QCDark2
+
+                         100
+                                                                           10−1
+                               Si, Halo                                           Ge, Halo
+                               mχ = 1 GeV                                         mχ = 1 GeV
+                               σ̄e = 10−39 cm2                                    σ̄e = 10−39 cm2
+                               Heavy Mediator                              10−2   Heavy Mediator
+                        10−1
+                                1   2    3       4    5    6   7    8             1   2   3   4   5   6 7 8      9 10 11 12 13
+                                                 Q [e− ]                                               Q [e− ]
+
+
+FIG. 15. Electron recoil spectra in Si and Ge calculated with different DM-electron scattering codes for halo DM with a heavy
+mediator, using the ionization model from [56] at 100 K for Si, and Q(ω) = 1 + ⌊(ω − ωgap )/ωpp ⌋ for Ge, where ωgap = 0.67 eV is
+the bandgap and ωpp = 2.9 eV is the pair creation energy. We show QEDark with no screening [24] and with MTF screening,
+DarkELF with LFEs [22], EXCEED-DM with its numerical dielectric function used for screening [26], QCDark1 with MTF
+screening [21], and QCDark2 with LFEs (this work). The high-Q behavior of QCDark1 and EXCEED-DM agree well
+with QCDark2, since these codes include high-momentum transitions and all-electron effects, while DarkELF is cut off at
+q = 6 αme and QEDark does not include all-electron effects. The increased dielectric screening at low energy/momentum
+when LFEs are included is apparent from the reduction of the first Q bin for QCDark2 and DarkELF.
+                                                                                                                                   20
+
+that still allows for accurate calculations of the scatter-        to include the transverse response [33],
+ing rate. In addition, we relied on concatenating the
+                                                                                                      
+dielectric function with and without LFEs in different                            −1              −1
+momentum regimes for computational efficiency. A simi-               Im                  → Im
+                                                                                ϵ(ω, q)        ϵL (ω, q)
+lar procedure may be performed with ab initio and model                                                                  
+                                                                                         2 2   2               1
+dielectric functions to further reduce the cost, or poten-                           + (v q − ω )Im                         .    (25)
+tially RPA and GW+BSE dielectric functions to include                                                  ϵT (ω, q)ω 2 − q 2
+excitonic effects in the (ω, q) regime where they have the
+                                                                   The longitudinal dielectric function, ϵL , is the same di-
+largest effect. Finally, we believe that mitigating the cost
+                                                                   electric function we have calculated throughout this pa-
+of all-electron calculations with carefully benchmarked
+                                                                   per with RPA. While ϵT (ω, q → 0) = ϵL (ω, q → 0), the
+methods like PAW-based reconstructions [20, 26] are a
+                                                                   transverse response quickly vanishes at larger q due to
+promising avenue.
+                                                                   the dispersion in the denominator. Additionally, at the
+   b. Generalized DM-electron interactions. General-               velocities relevant for SRDM (v ≲ 0.2), the integration
+ized DM-electron interactions have been a topic of inter-          limits of the cross section exclude any significant contri-
+est for many years [98, 100, 101]. While we have focused           butions from this term, so we neglect it throughout our
+on a DM model that gives the usual heavy- and light-               analysis.11 In principle, the transverse dielectric function
+mediator form factors in Eq. (12), other possible models           can be calculated at the RPA level [108], and this term
+exist with different couplings to the SM.10                        can be included for extremely boosted DM. We should
+   It was pointed out in [101] that any nonrelativistic DM-        also note that Eq. (25) assumes that the detector mate-
+electron interactions that do not depend on the electron’s         rial is isotropic; for a crystalline material, there will be
+spin (but may depend on the DM spin) can be described              a few modifications. First, even in the highest-symmetry
+by the charge density response, or equivalently, by the di-        cubic crystals, where ϵL (ω, q → 0) is isotropic, at finite q
+electric function, which we have calculated in this work.          the longitudinal dielectric function is no longer isotropic.
+The only models that are fully independent of the elec-            Second, for a crystal with lower symmetry, the dielectric
+tron spin are scalar- and vector-mediated interactions,            function cannot be neatly decomposed into a longitudi-
+to which our analyses in this paper apply. However, par-           nal and transverse part and the response must instead be
+tial interactions of anapole, electric dipole, and magnetic        described by the full 3 × 3 dielectric tensor [106].
+dipole couplings can also be calculated with the dielec-              d. Neutrino fog and Migdal rates. In addition to
+tric function, while the spin-density response is required         governing DM-electron scattering rates, the loss function
+to fully characterize these general DM-electron interac-           is also used to calculate the neutrino fog and electronic
+tions. A different formalism to describe general interac-          excitation rates via the Migdal effect. The neutrino fog
+tions is developed in [98] and the evaluation of the gen-          refers to the unavoidable background of solar neutrinos
+eralized DM-electron interactions can be performed with            that scatter with nuclei and electrons in a detector. This
+an extension of QEDark, QEDark-EFT [102]. This                     background becomes important as we probe ever-smaller
+however still suffers from the same limitations of plane           DM-electron cross sections [1, 109, 110]. Coherent elastic
+wave DFT as QEDark.                                                neutrino-nucleus scattering (CEνNS) is the largest con-
+                                                                   tribution to the neutrino fog. While the CEνNS rate
+   c. Transverse dielectric response. While the spin-              itself does not depend on the loss function, the boundary
+dependent terms discussed above are not relevant to the            of the neutrino fog can vary slightly depending on the
+simple vector or scalar mediator models considered in              calculation of the DM-electron scattering rate. A study
+this study, an extra interaction term still must be taken          of the CEνNS boundary for DM-electron scattering in Si
+into account when considering any model with highly rel-           found that the DarkELF and EXCEED-DM bound-
+ativistic DM. This term arises from the vector potential           aries agree well within an order of magnitude [111]. Since
+generated by a fast-moving DM particle, which induces a            the QCDark2 projections in Fig. 13 agree very closely
+transverse response in the detector material in addition           with DarkELF in the light mediator case and fall be-
+to the longitudinal Coulomb response originating from              tween the reach of DarkELF and EXCEED-DM at
+the scalar potential [103–106]. At low speeds, the vec-            high DM masses in the heavy mediator case, we expect
+tor potential is negligible, and the dielectric response is        the same trends to carry over to a neutrino fog analysis.
+completely captured by the loss function in Eq. (6). At
+ultrarelativistic speeds, we must modify the loss function
+
+                                                                   11 The  transverse response was also shown to be many or-
+                                                                     ders of magnitude smaller than the longitudinal response for
+                                                                     bremsstrahlung produced by nuclear recoils in semiconductors
+                                                                     using simple models for the loss functions in [107] (considering
+10 We note that a detailed study of UV completions of these gen-     excitations caused by initial nuclear recoils allows one to probe
+  eralized interactions may show that other experimental probes      the plasmon region at low momentum for halo DM, which is
+  are more constraining than even optimistic projections for fu-     not kinematically allowed for the inelastic electronic collisions
+  ture direct-detection experiments.                                 we consider in this paper).
+                                                                                                                                   21
+
+The background from neutrino-electron scattering does         and for running calculations on new materials.
+depend on the loss function and even accesses the plas-
+mon peak region, since the neutrinos are relativistic, how-
+ever it is still subdominant to the CEνNS background by                         ACKNOWLEDGMENTS
+many orders of magnitude as shown in [1, 109] and ana-
+lyzed in detail in [112]. We expect that neutrino-electron       We thank Tanner Trickle for feedback about
+scattering rates calculated with QCDark2 would agree          EXCEED-DM and for providing the projections in
+well with the rates calculated in [112] with DarkELF,         Figs. 13 and 14, and Hailin Xu for useful discussions
+since both accurately model the plasmon region of the         regarding the projections for solar-reflected dark mat-
+loss function.                                                ter. C.E.D. acknowledges support from the National Sci-
+   The loss function is also used to calculate the rate of    ence Foundation under Grant No. DMR-2237674. The
+the Migdal effect for DM models that couple to nuclei.        Flatiron Institute is a division of the Simons Founda-
+The Migdal effect refers to the prompt transfer of energy     tion. R.E. and M.H. acknowledge support from DOE
+from a recoiling nucleus to an atomic electron [113, 114].    Grant DE-SC0025309 and Simons Investigator in Physics
+When these nuclear recoils occur in semiconductors, the       Awards 623940 and MPS-SIP-00010469. M.V.F-S. ac-
+subsequent excitation of the electron density is described    knowledges support from the National Science Founda-
+by the loss function [115–117]. DarkELF can be used           tion award DMR-2427902. We also thank Stony Brook
+to calculate Migdal rates because the high-momentum re-       Research Computing and Cyberinfrastructure, and the
+sponse is suppressed (similar to the light mediator limit     Institute for Advanced Computational Science at Stony
+of DM-electron scattering). The Migdal rate is also sup-      Brook University for access to the high-performance Sea-
+pressed by an additional factor of ω −4 compared to DM-       Wulf computing system, which was made possible by a
+electron scattering, so we expect even the Ge rates to        National Science Foundation grant No. 1531492.
+agree very closely between DarkELF and QCDark2,
+since the contribution from the 3d orbitals becomes neg-
+ligible.                                                        Appendix A: Derivation of the scattering rate for
+                                                                               relativistic DM
+
+
+                 VI.   CONCLUSION                               Here we show in detail the derivation of Eq. (4) and the
+                                                              simplifications that can be made for an isotropic detector
+                                                              material to obtain Eq. (8). We can build the cross section
+   In this paper, we have studied the importance of ac-
+                                                              for a general DM-electron interaction starting from the
+curate dielectric screening for different DM fluxes. We
+                                                              basic form for 2 → 2 scattering:
+presented the impacts of local field effects on scattering                                 Z
+rates, specifically in their application to electron recoil                      1             d3 p3     d3 p4
+spectra, at both low momentum, where we observe a                 σif =
+                                                                         4E1 E2 |v1 − v2 |   (2π)3 2E3 (2π)3 2E4   (A1)
+broadening of the plasmon peak, and at high momen-
+                                                                           ×(2π) δ (p3 + p4 − p1 − p2 )|Mif |2 ,
+                                                                                  4 4
+tum, where we see a suppression when LFEs are in-
+cluded. We demonstrated the sensitivity of halo DM            where this is for a specific initial state (i) to final state (f )
+to the high-momentum region and of different solar-           electronic transition. The total cross section is obtained
+reflected DM models to one (or, depending on the mass,        by summing all possible initial and final states. The in-
+both) of these regions by varying the LFE momentum            coming and outgoing DM particle may be relativistic and
+cutoff. We also compared the electron recoil spectra cal-     has four-momenta
+culated with previously used dielectric screening models
+to those with full RPA screening. Finally, we computed                         p1 = (Eχ , p ) (incoming DM)
+sensitivity projections for Si, Ge, SiC, GaAs, and dia-                        p3 = (Eχ′ , p′ ) (outgoing DM)
+mond; showed the effects of the LFE momentum cut-             and the electron in the crystal is nonrelativistic with ini-
+off on the sensitivity in Si; and compared QCDark2 to         tial and final four-momenta12
+other DM-electron scattering codes, finding good agree-
+ment with DarkELF for low DM masses (where low-                                   p2 = (Ee , k )     (initial e− )
+momentum screening is important) and QCDark1 for                                  p4 = (Ee′ , k′ )   (final e− )
+larger DM masses (where high-momentum transitions
+are important), as well as qualitative agreement with
+EXCEED-DM electron recoil spectra. While we fo-
+                                                              12 Since the electrons are in a periodic lattice, they do not have defi-
+cused mainly on Si and Ge to compare with past results,
+                                                                 nite momenta, however the typical momentum should be around
+we provide precomputed dielectric functions for Si, Ge,
+                                                                 the Fermi momentum that is O(αme ) = O(4keV), which is safely
+GaAs, SiC, and diamond as resources for future stud-             nonrelativistic. We will write expressions containing k′ in terms
+ies. QCDark2 is freely available for others to use at            of the transferred momentum q = k′ − k. The DM particle is
+https://github.com/meganhott/QCDark2, and we have                also not directly interacting with a single electron, but rather
+provided guides for reproducing all results in this paper        with the electron density.
+                                                                                                                                      22
+
+Working in the rest frame of the detector, we can set                  resulting in
+                                                         ′
+|v1 − v2 | ≈ v, the velocity of theR DM, and E     e = Ee =
+                                                 ′                                               (Eχ + Eχ′ )2 − |q|2
+R e . We can multiply by 1 = dωδ(ω − (Ee − Ee )) =
+m                                                                        |MVif |2 = 4(ge gχ )2
+  dωδ(ω − (ωf − ωi )) to obtain a differential cross section                                     (ω 2 − |q|2 − m2V )2
+with respect to transferred energy ω. To obtain the full                                      × m2e ⟨f |n(q)|i⟩ ⟨i|n(−q)|f ⟩ .      (A4)
+differential cross section, we sum over all initial and final
+electron states:                                                         A similar procedure can be done to obtain the ampli-
+             X              Z                                          tude when the dark mediator is a scalar, ϕ. In this case,
+      dσ             1         d3 p′ d3 k ′ 1                          the amplitude is
+          =
+      dω        16m2e Eχ v    (2π)3 (2π)3 Eχ′                                                                          !
+                 if
+                                                                            ϕ     s′  ′        s              i
+                      × (2π)4 δ(Eχ′ + Ee′ − (Eχ + Ee ))         (A2)     Mif = ūχ (p )(−igχ )uχ (p )
+                                                                                                      ω 2 − |q|2 − m2ϕ
+                          3         ′   ′
+                      × δ (p + k − (p + k ))
+                                                                                                       × (−i2me ge ⟨f |n(q)|i⟩) ,   (A5)
+                      × |Mif |2 δ(ω − (ωf − ωi )) .
+                                                                       the spin-averaged amplitude is
+   We will first derive separately the amplitudes for mod-                                                        !2
+els with vector/scalar mediators to show the origin of the                                              1
+                                                                            |Mϕif |2 = (ge gχ )2
+HA′ function defined in Eq. (5).13 For fermionic DM par-                                        ω 2 − |q|2 − m2ϕ
+ticles scattering off an electron with initial state |i⟩ and
+                                                                                          1 X s′ ′ s                       ′
+final state |f ⟩ though a vector mediator V , the amplitude                              × Tr   ūχ (p )uχ (p )ūsχ (p )usχ (p′ )
+MVif is                                                                                   2   ′  s,s
+
+                      ′                                                                  × 4m2e ⟨f |n(q)|i⟩ ⟨i|n(−q)|f ⟩    ,
+       MVif = ūsχ (p′ )(−igχ γ µ )usχ (p )
+                                                                     and the spin sum simplifies to
+                                   −igµ0
+                         ×                                      (A3)
+                             ω 2 − |q|2 − m2V                            1 X s′ ′ s                        ′
+                                                                           Tr   ūχ (p )uχ (p )ūsχ (p )usχ (p′ )
+                         × (−i2me ge ⟨f |n(q)|i⟩) ,                      2    ′
+                                                                              s,s
+
+where the γ 0 term is dominant for the nonrelativistic elec-                                           = 4m2χ − (Eχ − Eχ′ )2 + |q|2 .
+tron vertex and we have taken the nonrelativistic limit                Therefore, the spin-averaged amplitude for a scalar me-
+of the electron spinors:                                               diator is
+       ′
+    ūse (k′ )(−ige γ 0 )use (k ) → − i2me ge ⟨f |n(k − k′ )|i⟩                                  4m2χ − (Eχ − Eχ′ )2 + |q|2
+                                                                         |Mϕif |2 = 4(ge gχ )2
+                                    = −i2me ge ⟨f |n(q)|i⟩ .                                        (ω 2 − |q|2 − m2ϕ )2
+The factor of 2me comes from the normalization of the                                         × m2e ⟨f |n(q)|i⟩ ⟨i|n(−q)|f ⟩ ,      (A6)
+relativistic wave functions. Since the electrons are in a              and it is clear that HA′ is simply the spin sum for DM-
+crystal, we have to replace the usual delta function over              electron interactions (within a crystal) in each model.
+incoming and outgoing spins with an     P interaction with the            We can write a unified amplitude in terms of HA′ (q)
+electron density operator, n(q) = rj e−iq·rj .                         and plug this back into Eq. (A2),
+   The spin-averaged amplitude is                                                         Z
+                                                                         dσ     (ge gχ )2    d3 p ′ d3 k ′ 1
+                                           2                               =
+                                   1                                     dω      4Eχ v      (2π)3 (2π)3 Eχ′
+   |MVif |2 = (ge gχ )2
+                           ω 2 − |q|2 − m2V                                    × (2π)4 δ(Eχ′ + Ee′ − Eχ − Ee )
+                1 X s′ ′ 0 s                                ′
+              × Tr         ūχ (p )γ uχ (p )ūsχ (p )γ 0 usχ (p′ )             × δ 3 (p′ + k′ − p − k) 2
+                                                                                                              HA′ (q)
+                2        ′                                                                              (ω − |q|2 − m2A′ )2
+                              s,s
+                                                                                 X
+                 × 4m2e ⟨f |n(q)|i⟩ ⟨i|n(−q)|f ⟩      ,                        ×       ⟨f |n(q)|i⟩ ⟨i|n(−q)|f ⟩ δ(ω − (ωf − ωi )) ,
+                                                                                    if
+where we can simplify the spin sum
+                                                                       then use momentum conservation to integrate over k′ and
+   1 X s′ ′ 0 s                            ′
+                                                                       substitute d3 p′ → d3 q:
+     Tr   ūχ (p )γ uχ (p )ūsχ (p )γ 0 usχ (p′ )
+   2                                                                                       Z
+        ′  s,s                                                           dσ    2π(ge gχ )2      d3 q 1
+                                                                             =
+                                            = (Eχ + Eχ′ )2 − |q|2 ,      dω       4Eχ v       (2π)3 Eχ′
+                                                                                                                HA′ (q)
+                                                                               × δ(Eχ′ + Ee′ − Eχ − Ee ) 2
+                                                                                                         (ω − |q|2 − m2A′ )2
+13 Recall
+                                                                                 X
+             that A′ refers to a general mediator (either vector or            ×     ⟨f |n(q)|i⟩ ⟨i|n(−q)|f ⟩ δ(ω − (ωf − ωi )) .
+  scalar).
+                                                                                    if
+                                                                                                                             23
+
+The dynamic structure factor is defined as in [22]:                 on q in Eq. (A9):
+
+               2π X                                                                           q
+   S(ω, q) =        | ⟨f |n(−q)|i⟩ |2 δ(ω − (ωf − ωi )) ,                  qmin = γmχ v −         (γmχ − ω)2 − m2χ ,
+               VT                                                                             q                          (A10)
+                     if
+                                                                          qmax = γmχ v +          (γmχ − ω)2 − m2χ .
+where VT is the total volume of the crystal. The rate is
+typically reported as a function of the total mass rather              This cross section can be plugged into Eq. (2) and in-
+than the total volume, so we can replace VT with mT /ρT ,           tegrated over v with the flux if the energy of the DM
+where mT is the total crystal mass and ρT is the mass               particle
+density. Our cross section is now                                        √ is written in terms of its velocity, Eχ = γmχ =
+                                                                    mχ / 1 − v 2 . The step function obtained by integrat-
+                          Z                                         ing over the angular variables becomes redundant with
+  dσ   mT (ge gχ )2             d3 q 1                              the explicitly calculated integration bounds, so we will
+     =                                   δ(Eχ′ + Ee′ − Eχ − Ee )
+  dω   ρT 4Eχ v                (2π)3 Eχ′                            remove it from the cross section for now. The standard
+                                HA′ (q)                             scattering rate derivation for halo DM uses the step func-
+                      ×                         S(ω, q) .    (A7)   tion to simplify the velocity integration, so we show it in
+                          (ω 2 − |q|2 − m2A′ )2
+                                                                    Eq. (A9) for clarity.
+Soft collisions dominate between a relativistic scatterer              Writing in terms of the standard reference cross section
+and the electrons in a crystal [103], so we can make the            for a general dark mediator mass [24],
+assumption that ω ≪ (Eχ = γmχ ) and q ≪ (p = γmχ v).
+We can apply this to the remaining delta function and                                          µ2χe (ge gχ )2
+                                                                                    σ̄e =                       ,
+write its argument in terms of the angle θ between v and                                    π(m2A′ + (αme )2 )2
+q:
+                                                                    and writing the dynamic structure factor in terms of the
+   δ(Eχ′ + Ee′ − Eχ − Ee )                                          loss function using Eq. (6), the cross section can be rep-
+             q                      q                             resented as
+         =δ      m2χ + |p − q|2 | − m2χ + |p |2 | + ω
+             q                                                                                      Z qmax
+                                                                      dσ   mT        σ̄e                     HA′ (q)
+         =δ      m2χ + |p |2 − 2γmχ vq cos θ + |q|2                      =                                      dq q 3
+                                    q                                dω   ρT 32π 2 αµ2χe Eχ v 2qmin        (Eχ − ω)
+                                                                                    2          2 2
+                                                                                                                 
+                                  − m2χ + |p |2 + ω                               (mA′ + (αme ) )           −1
+                                                                              × 2                  Im             . (A11)
+                                                                                 (ω − |q|2 − m2A′ )2      ϵ(ω, q)
+                                     2
+                −2γm  χ vq cos θ + q
+         = δ        q                 + ω
+                    2 m2χ + p2                                         As discussed in Section V, the transverse dielectric re-
+                                                                  sponse must be included in addition to the longitudi-
+                               q2                                   nal response for ultrarelativistic DM, which amounts to
+         = δ −vq cos θ +           +ω                               modifying the loss function with an additional term [see
+                            2γmχ
+                                                                  Eq. (25)]. Considering the opposite limit, if we assume
+            1                 q        ω
+         =     δ cos θ −           −       .          (A8)          the incoming DM particles are nonrelativistic as is the
+           qv              2γmχ v qv                                case for halo DM, we obtain the usual expression for the
+                                                                    effective field theory description of fermionic DM-electron
+This looks the same as the nonrelativistic derivation [24,          interactions [52]:
+52] up to the factor of q/2γmχ v that replaces q/2mχ v. If
+we make the approximation that the dynamic structure                                          Z qmax
+                                                                    dσ   mT       σ̄e                    4m2χ (m2A′ + (αme )2 )2
+factor is isotropic [see the discussion around Eq. (6)], we            =                               dq q 3
+can integrate over the q angles to obtain                           dω   ρT 32π 2 αµ2χe v 2  qmin         m2χ   (q 2 + m2A′ )2
+                                                                                                                                 
+                                                                                                                             −1
+                          Z qmax                                                                                  × Im
+  dσ   mT (ge gχ )2                          q                                                                            ϵ(ω, q)
+     =                               dq            S(ω, q)                                 Z qmax                              
+  dω   ρT 16π 2 Eχ            qmin        (Eχ − ω)                        mT      σ̄e                 3         2         −1
+                                                                        =                         dq q |FDM (q)| Im
+                           HA′ (q)        Θ(v − vmin )                    ρT 8π 2 αµ2χe v 2 qmin                        ϵ(ω, q)
+                 ×                                     ,     (A9)
+                     (ω 2 − q 2 − m2A′ )2     v2
+
+where                                                                    Appendix B: Band structures and dynamic
+                              q   ω                                                  structure factors
+                     vmin =      + .
+                            2γmχ  q
+                                                                      We show the band structures for Si, Ge, GaAs, SiC,
+We can also use energy conservation at the maximum                  and diamond (C) in Fig. 16 and their dynamic structure
+momentum transfer to determine the integration bounds               factors in Fig. 17.
+                                                                                                                                           24
+
+
+           60                                                 60
+                                                       Si                                     SiC 150                                  C
+           40                                                 40
+                                                                                                        100
+ ω [eV]
+
+
+
+
+           20                                                 20
+                                                                                                        50
+            0                                                  0
+                                                                                                         0
+          −20                                                −20
+                L   G             X WK                      G    L           G      X WK            G         L    G         X WK          G
+                                  60                                                60
+                                                                             Ge                                   GaAs
+                                  40                                                40
+
+                                                                                    20
+                        ω [eV]
+
+
+
+
+                                  20
+                                                                                     0
+                                   0
+                                                                                  −20
+                                 −20
+                                                                                   −40
+                                       L           G          X WK                G    L     G          X WK             G
+
+FIG. 16. Band structures for all materials studied, where the dashed lines at ω = 0 eV represent the top of the valence band.
+Conduction bands have been shifted according to the experimental band gaps listed in Table I. The 3d orbitals of Ge and GaAs
+are located at −25.8 eV and −15.5 eV respectively. GaAs has further semicore states at −36.4 eV that also contribute to the
+dielectric function at high energy transfers.
+
+
+  Appendix C: Optical limit of the RPA dielectric                                  where Ṽ is the perturbing potential for a system with
+                    function                                                       Hamiltonian H,
+                                                                                                  Ṽ = H(k + q) − H(k ) .              (C1)
+  Care must be taken when calculating ϵ00 , ϵ0G′ , and
+ϵG0 in the q → 0 limit (also called the optical limit) due                         The Bloch functions are orthonormal, so the perturbed
+to the |q| factors in the denominator of Eq. (14). We can                          overlap is
+cancel out this divergence by expanding the overlap terms
+with respect to a small perturbation in q [61, 118, 119].                                                          ⟨uik |Ṽ |ujk ⟩
+                                                                                                 uik uj(k+q) =                     .   (C2)
+Since we are working in a periodic crystal, the molecular                                                           ωjk − ωik
+orbitals ψik can be written in Bloch form,
+                                                                                   The molecular orbitals ψik are eigenstates of H =
+                    ψik (r ) = uik (r )eik·r ,                                     ∇2 /2m + V (r ), so we can apply the Hamiltonian and
+where uik (r ) are orthonormal and periodic with the lat-                          use the Bloch expansion to obtain
+                                                                                                                              
+tice. Now we can write the overlap integrals in terms of                                                 1
+the Bloch functions                                                                   H(k )uik (r ) = −     (∇ + ik )2 + V (r ) uik (r ) .
+                                                                                                        2me
+   ⟨ik|e−iq·r |j(k + q)⟩                                                           Now the perturbation in Eq. (C1) can be written as
+                                   −ik·r −iq·r i(k+q)·r
+                    = uik e                e       e               uj(k+q)                          1
+                                                                                           Ṽ = −      (∇ + i(k + q))2 + V (r )
+                    = uik uj(k+q)              ,                                                  2me
+                                                                                                                                 
+                                                                                                           1
+and expand uj(k+q) for small q,                                                                   − −         (∇ + ik )2 + V (r )
+                                                                                                          2me
+                                  X ⟨umk |Ṽ |ujk ⟩                                               i
+          uj(k+q) = |ujk ⟩ +                                  |umk ⟩ ,                        =−     q · (∇ + ik ) ,
+                                           ωjk − ωmk                                             me
+                                  m̸=j
+                                                                                                                                                           25
+
+
+            20                                                      20                                            20
+                     Si                                                        SiC                                         C
+            15                                                      15                                            15
+ q [αme ]
+
+
+
+
+            10                                                      10                                            10
+
+             5                                                       5                                             5
+
+             0                                                       0                                             0
+                 0        10      20    30               40    50         0     10      20    30       40    50        0       10        20    30   40   50
+                                   ω [eV]                                                ω [eV]                                           ω [eV]
+                                             20                                              20
+                                                      Ge                                              GaAs
+                                             15                                              15
+                                  q [αme ]
+
+
+
+
+                                             10                                              10
+
+                                              5                                               5
+
+                                              0                                               0
+                                                  0      10    20    30         40      50        0    10    20    30          40        50
+                                                                ω [eV]                                        ω [eV]
+
+
+
+                                                      10−4      10−3            10−2        10−1            100            101
+                                                                                          S(ω, q)
+
+FIG. 17. The dynamic structure factors for all materials studied, with dashed lines showing the LFE q cutoff. The increased
+magnitude around 15–30 eV for Ge and GaAs are due to transitions from the 3d orbitals; these states can be seen in the band
+structure in Fig. 16.
+
+
+
+after dropping the O(q 2 ) term. Plugging Ṽ into Eq. (C2)                                   The magnitude of the q factor cancels the diverging fac-
+and converting back to molecular orbitals, the overlaps                                      tor of |q| in the denominator of Eq. (14). The overlaps
+in the optical limit are                                                                      ⟨ik|∇|jk⟩ are well defined (and easily calculated with ex-
+                                                                                             isting PySCF routines). The head (ϵ00 ) and wings (ϵ0G′
+                                                       i q · ⟨ik|∇|jk⟩                       and ϵG0 ) of the RPA dielectric function in the proper
+            ⟨ik|e−iq·r |j(k + q)⟩ → −                                  .         (C3)        optical limit are
+                                                      me ωjk − ωik
+
+
+
+                                                               4πα X fik − fjk
+                                                                                                                                     2
+                                                                                                   |q̂ · ⟨ik|∇|jk⟩|
+                               ϵ00 (ω, q → 0) = 1 +                                   lim                                                                (C4)
+                                                              Vcell m2e (ωjk − ωik )2 η→0 ω − (ωjk − ωik ) + isgn(ωjk − ωik )η
+                                                                         ijk
+
+                                                            4πα i       X fik − fjk         q̂ · ⟨ik|∇|jk⟩ ⟨jk|eiG ·r |ik⟩
+                                                                                                                                 ′
+
+                           ϵ0G′ (ω, q → 0) =                                        lim                                                                  (C5)
+                                                         Vcell me |G′ |   ωjk − ωik η→0 ω − (ωjk − ωik ) + isgn(ωjk − ωik )η
+                                                                         ijk
+
+                                                          −4πα i X fik − fjk           ⟨ik|e−iG·r |jk⟩ q̂ · ⟨jk|∇|ik⟩
+                           ϵG0 (ω, q → 0) =                                     lim                                                                      (C6)
+                                                         Vcell me |G| ωjk − ωik η→0 ω − (ωjk − ωik ) + isgn(ωjk − ωik )η
+                                                                         ijk
+                                                                                                                             26
+
+        Appendix D: Comparing to DarkELF                         projections with and without LFEs agree very well for a
+                                                                 light mediator.
+                                                                    In the heavy mediator limit, the high-momentum con-
+   The projected sensitivities calculated from the GPAW          tributions that become kinematically relevant for masses
+dielectric functions tabulated as part of the DarkELF            larger than 10 MeV are not suppressed by the form factor,
+code are compared to those calculated with QCDark2               so the projected sensitivities calculated with QCDark2
+in Fig. 18. Both codes provide RPA dielectric functions          and DarkELF start to diverge at this mass due to the
+with and without LFEs, however DarkELF only in-                  absence of data above 6 αme in the DarkELF dielectric
+cludes momentum transfers up to 6 αme compared to                function (see also the electron recoil spectrum at mχ = 1
+25 αme for Si or 20 αme for Ge in QCDark2. In the                GeV in Fig. 15). The high-momentum contributions are
+light mediator limit, the DM form factor contributes an          especially important for Ge due to transitions from the 3d
+extra factor of q −4 , which suppresses high-momentum            orbitals, which DarkELF freezes in the pseudopotential
+contributions. Therefore the DarkELF and QCDark2                 core as discussed in Section IV D.
+
+
+
+
+  [1] R. Essig, J. Mardon, and T. Volansky, Direct detec-              [hep-ex].
+      tion of sub-GeV dark matter, Phys. Rev. D 85, 076007        [12] K. Aggarwal et al. (DAMIC-M), Daily Modulation Con-
+      (2012), arXiv:1108.5383 [hep-ph].                                straints on Light Dark Matter with DAMIC-M, (2025),
+  [2] J. Tiffenberg, M. Sofo-Haro, A. Drlica-Wagner, R. Es-            arXiv:2511.13962 [hep-ex].
+      sig, Y. Guardincerri, S. Holland, T. Volansky, and T.-T.    [13] K. Aggarwal et al. (DAMIC-M), Probing bench-
+      Yu (SENSEI), Single-electron and single-photon sensi-            mark models of hidden-sector dark matter with
+      tivity with a silicon Skipper CCD, Phys. Rev. Lett. 119,         DAMIC-M, Phys. Rev. Lett. 10.1103/2tcc-bqck (2025),
+      131802 (2017), arXiv:1706.00028 [physics.ins-det].               arXiv:2503.14617 [hep-ex].
+  [3] M. Crisler, R. Essig, J. Estrada, G. Fernandez, J. Tiff-    [14] R. Agnese et al. (SuperCDMS), First Dark Matter Con-
+      enberg, M. Sofo haro, T. Volansky, and T.-T. Yu (SEN-            straints from a SuperCDMS Single-Charge Sensitive De-
+      SEI), SENSEI: First Direct-Detection Constraints on              tector, Phys. Rev. Lett. 121, 051301 (2018), [Erratum:
+      sub-GeV Dark Matter from a Surface Run, Phys. Rev.               Phys.Rev.Lett. 122, 069901 (2019)], arXiv:1804.10697
+      Lett. 121, 061803 (2018), arXiv:1804.00088 [hep-ex].             [hep-ex].
+  [4] O. Abramoff et al. (SENSEI), SENSEI: Direct-                [15] D. W. Amaral et al. (SuperCDMS), Constraints on
+      Detection Constraints on Sub-GeV Dark Matter from                low-mass, relic dark matter candidates from a surface-
+      a Shallow Underground Run Using a Prototype                      operated SuperCDMS single-charge sensitive detector,
+      Skipper-CCD, Phys. Rev. Lett. 122, 161801 (2019),                Phys. Rev. D 102, 091101 (2020), arXiv:2005.14067
+      arXiv:1901.10478 [hep-ex].                                       [hep-ex].
+  [5] L. Barak et al. (SENSEI), SENSEI: Direct-Detection          [16] M. F. Albakry et al. (SuperCDMS), Light dark matter
+      Results on sub-GeV Dark Matter from a New                        constraints from SuperCDMS HVeV detectors operated
+      Skipper-CCD, Phys. Rev. Lett. 125, 171802 (2020),                underground with an anticoincidence event selection,
+      arXiv:2004.11378 [astro-ph.CO].                                  Phys. Rev. D 111, 012006 (2025), arXiv:2407.08085
+  [6] L. Barak et al. (SENSEI), SENSEI: Characterization               [hep-ex].
+      of Single-Electron Events Using a Skipper Charge-           [17] M. F. Albakry et al. (SuperCDMS), Search for low-mass
+      Coupled Device, Phys. Rev. Applied 17, 014022 (2022),            electron-recoil dark matter using a single-charge sen-
+      arXiv:2106.08347 [physics.ins-det].                              sitive SuperCDMS-HVeV detector, Phys. Rev. D 113,
+  [7] P. Adari et al. (SENSEI), First Direct-Detection Results         032001 (2026), arXiv:2509.03608 [hep-ex].
+      on Sub-GeV Dark Matter Using the SENSEI Detec-              [18] Q. Arnaud et al. (EDELWEISS), First Germanium-
+      tor at SNOLAB, Phys. Rev. Lett. 134, 011804 (2025),              Based Constraints on Sub-MeV Dark Matter with the
+      arXiv:2312.13342 [astro-ph.CO].                                  EDELWEISS Experiment, Phys. Rev. Lett. 125, 141301
+  [8] I. M. Bloch et al. (SENSEI), SENSEI at SNO-                      (2020).
+      LAB: Single-Electron Event Rate and Implications for        [19] A. Aguilar-Arevalo et al. (Oscura), The Oscura Exper-
+      Dark Matter, Phys. Rev. Lett. 134, 161002 (2025),                iment, (2022), arXiv:2202.10518 [astro-ph.IM].
+      arXiv:2410.18716 [astro-ph.CO].                             [20] S. M. Griffin, K. Inzani, T. Trickle, Z. Zhang, and K. M.
+  [9] I. M. Bloch et al. (SENSEI), SENSEI: A Search for Di-            Zurek, Extended calculation of dark matter-electron
+      urnal Modulation in Sub-GeV Dark Matter Scattering,              scattering in crystal targets, Phys. Rev. D 104, 095015
+      Phys. Rev. Lett. 136, 211001 (2026), arXiv:2510.20889            (2021), arXiv:2105.05253 [hep-ph].
+      [hep-ex].                                                   [21] C. E. Dreyer, R. Essig, M. Fernandez-Serra, A. Singal,
+ [10] I. Arnquist et al. (DAMIC-M), First Constraints from             and C. Zhen, Fully ab-initio all-electron calculation of
+      DAMIC-M on Sub-GeV Dark-Matter Particles Interact-               dark matter-electron scattering in crystals with evalu-
+      ing with Electrons, Phys. Rev. Lett. 130, 171003 (2023),         ation of systematic uncertainties, Phys. Rev. D 109,
+      arXiv:2302.02372 [hep-ex].                                       115008 (2024), arXiv:2306.14944 [hep-ph].
+ [11] I. Arnquist et al. (DAMIC-M), Search for Daily Mod-         [22] S. Knapen, J. Kozaczuk, and T. Lin, Dark matter-
+      ulation of MeV Dark Matter Signals with DAMIC-M,                 electron scattering in dielectrics, Phys. Rev. D 104,
+      Phys. Rev. Lett. 132, 101006 (2024), arXiv:2307.07251            015031 (2021), arXiv:2101.08275 [hep-ph].
+                                                                                                                         27
+
+
+ σ̄e [cm2 ]   10−39
+
+
+
+
+              10−40
+
+
+
+                                                  Si, Halo                                              Ge, Halo
+                                                 1 kg year                                              1 kg year
+                                                 90% C.L.                                               90% C.L.
+                                           Light Mediator                                         Light Mediator
+              10−41
+              10−39
+                                  DarkELF noLFE
+                                  DarkELF LFE
+                                  QCDark2 noLFE
+              10−40               QCDark2 LFE
+ σ̄e [cm2 ]
+
+
+
+
+              10−41
+                                                 Si, Halo                                              Ge, Halo
+                                                1 kg year                                              1 kg year
+                                                90% C.L.                                               90% C.L.
+                                          Heavy Mediator                                         Heavy Mediator
+              10−42
+                      100   101              102               103 100              101              102              103
+                                  mχ [MeV]                                                mχ [MeV]
+
+FIG. 18. Projections for the 90% C.L. sensitivity in Si and Ge, assuming no backgrounds and a one-electron threshold. We
+compare the RPA dielectric function calculated with GPAW from [22] with and without LFEs to the RPA dielectric function
+calculated with QCDark2.
+
+
+ [23] Y. Hochberg, Y. Kahn, N. Kurinsky, B. V. Lehmann,          [27] S. Knapen, J. Kozaczuk, and T. Lin, python package for
+      T. C. Yu, and K. K. Berggren, Determining dark-                 dark matter scattering in dielectric targets, Phys. Rev.
+      matter–electron scattering rates from the dielec-               D 105, 015014 (2022), arXiv:2104.12786 [hep-ph].
+      tric function, Phys. Rev. Lett. 127, 151802 (2021),        [28] J. J. r. Mortensen et al., GPAW: An open Python pack-
+      arXiv:2101.08263 [hep-ph].                                      age for electronic structure calculations, The Journal of
+ [24] R. Essig, M. Fernandez-Serra, J. Mardon, A. Soto,               Chemical Physics 160, 092503 (2024).
+      T. Volansky, and T.-T. Yu, Direct Detection of sub-        [29] P. E. Blöchl, Projector augmented-wave method, Phys.
+      GeV Dark Matter with Semiconductor Targets, JHEP                Rev. B 50, 17953 (1994).
+      05, 046, arXiv:1509.01598 [hep-ph].                        [30] Q. Sun et al., Recent developments in the PySCF pro-
+ [25] P. Giannozzi et al., Advanced capabilities for ma-              gram package, The Journal of Chemical Physics 153,
+      terials modelling with Quantum ESPRESSO,                        024109 (2020), https://pubs.aip.org/aip/jcp/article-
+      Journal of Physics:         Condensed Matter 29,                pdf/doi/10.1063/5.0006074/16722275/024109 1 online.pdf.
+      https://doi.org/10.1088/1361-648X/aa8f79 (2017).           [31] N. Kurinsky, D. Baxter, Y. Kahn, and G. Krnjaic, Dark
+ [26] T. Trickle, Extended calculation of electronic excita-          matter interpretation of excesses in multiple direct de-
+      tions for direct detection of dark matter, Phys. Rev.           tection experiments, Phys. Rev. D 102, 015017 (2020).
+      D 107, 035035 (2023), arXiv:2210.14917 [hep-ph].           [32] S. Knapen, J. Kozaczuk, and T. Lin, Migdal Effect in
+                                                                                                                              28
+
+     Semiconductors, Phys. Rev. Lett. 127, 081805 (2021),              057, arXiv:2412.09652 [hep-ph].
+     arXiv:2011.09496 [hep-ph].                                   [52] T. Trickle, Z. Zhang, K. M. Zurek, K. Inzani, and
+[33] R. Essig, R. Plestid, and A. Singal, Collective excita-           S. M. Griffin, Multi-channel direct detection of light
+     tions and low-energy ionization signatures of relativistic        dark matter: theoretical framework, Journal of High
+     particles in silicon detectors, Communications Physics            Energy Physics 2020, 36 (2020), arXiv:1910.08092 [hep-
+     7, 416 (2024), arXiv:2403.00123 [hep-ph].                         ph].
+[34] Z.-L. Liang, L. Su, L. Wu, and B. Zhu, Plasmon-              [53] D. Baxter et al., Recommended conventions
+     Enhanced Direct-Detection Method for Boosted Sub-                 for reporting results from direct dark matter
+     MeV Dark Matter, Phys. Rev. Lett. 134, 071001 (2025),             searches, The European Physical Journal C 81,
+     arXiv:2401.11971 [hep-ph].                                        https://doi.org/10.1140/epjc/s10052-021-09655-y
+[35] T. Emken, C. Kouvaris, and N. G. Nielsen, The sun as              (2021).
+     a sub-gev dark matter accelerator, Phys. Rev. D 97,          [54] K. Agashe, Y. Cui, L. Necib, and J. Thaler, (In)direct
+     063007 (2018).                                                    detection of boosted dark matter, Journal of Cosmology
+[36] H. An, M. Pospelov, J. Pradler, and A. Ritz, Directly             and Astroparticle Physics 2014 (10), 062.
+     Detecting MeV-Scale Dark Matter Via Solar Reflection,        [55] C. Boyd, Y. Hochberg, Y. Kahn, E. D. Kramer,
+     Phys. Rev. Lett. 120, 141801 (2018).                              N. Kurinsky, B. V. Lehmann, and T. C. Yu, Directional
+[37] T. Emken, Solar reflection of light dark matter with              detection of dark matter with anisotropic response func-
+     heavy mediators, Phys. Rev. D 105, 063020 (2022),                 tions, Phys. Rev. D 108, 015015 (2023).
+     arXiv:2102.12483 [hep-ph].                                   [56] K. Ramanathan and N. Kurinsky, Ionization yield in
+[38] H. An, H. Nie, M. Pospelov, J. Pradler, and A. Ritz, So-          silicon for eV-scale electron-recoil processes, Phys. Rev.
+     lar reflection of dark matter, Phys. Rev. D 104, 103026           D 102, 063026 (2020), arXiv:2004.10709 [astro-ph.IM].
+     (2021), arXiv:2108.10332 [hep-ph].                           [57] D. Pines and D. Bohm, A Collective Description of Elec-
+[39] T. Emken, R. Essig, and H. Xu, Solar reflection of                tron Interactions: II. Collective vs Individual Particle
+     dark matter with dark-photon mediators, Journal of                Aspects of the Interactions, Phys. Rev. 85, 338 (1952).
+     Cosmology and Astroparticle Physics 2024 (07), 023,          [58] H. Ehrenreich and M. H. Cohen, Self-Consistent Field
+     arXiv:2404.10066 [hep-ph].                                        Approach to the Many-Electron Problem, Phys. Rev.
+[40] T. Bringmann and M. Pospelov, Novel direct detection              115, 786 (1959).
+     constraints on light dark matter, Phys. Rev. Lett. 122,      [59] S. L. Adler, Quantum Theory of the Dielectric Constant
+     171801 (2019).                                                    in Real Solids, Phys. Rev. 126, 413 (1962).
+[41] Y. Ema, F. Sala, and R. Sato, Light dark matter at neu-      [60] N. Wiser, Dielectric Constant with Local Field Effects
+     trino experiments, Phys. Rev. Lett. 122, 181802 (2019).           Included, Phys. Rev. 129, 62 (1963).
+[42] J. Alvey, M. D. Campos, M. Fairbairn, and T. You,            [61] M. S. Hybertsen and S. G. Louie, Ab initio static di-
+     Detecting light dark matter via inelastic cosmic ray col-         electric matrices from the density-functional approach.
+     lisions, Phys. Rev. Lett. 123, 261802 (2019).                     I. Formulation and application to semiconductors and
+[43] L. Su, W. Wang, L. Wu, J. M. Yang, and B. Zhu, Atmo-              insulators, Phys. Rev. B 35, 5585 (1987).
+     spheric dark matter and XENON1T excess, Phys. Rev.           [62] M. Shishkin and G. Kresse, Implementation and perfor-
+     D 102, 115028 (2020).                                             mance of the frequency-dependent GW method within
+[44] Y. Jho, J.-C. Park, S. C. Park, and P.-Y. Tseng, Cosmic-          the PAW framework, Phys. Rev. B 74, 035101 (2006).
+     Neutrino-Boosted Dark Matter (νBDM),              (2021),    [63] T. Miyake and F. Aryasetiawan, Efficient algorithm for
+     arXiv:2101.11262 [hep-ph].                                        calculating noninteracting frequency-dependent linear
+[45] A. Das and M. Sen, Boosted dark matter from diffuse               response functions, Phys. Rev. B 61, 7172 (2000).
+     supernova neutrinos, Phys. Rev. D 104, 075029 (2021).        [64] R. M. Martin, L. Reining, and D. M. Ceperley, Interact-
+[46] J.-W. Sun, L. Wu, Y.-H. Xu, and B. Zhu, Probing su-               ing Electrons: Theory and Computational Approaches
+     pernova neutrino boosted dark matter with collective              (Cambridge University Press, 2016).
+     excitations, Phys. Rev. D 112, 015014 (2025).                [65] J. Yan, J. J. Mortensen, K. W. Jacobsen, and K. S.
+[47] L. Barak et al. (SENSEI), Search by the SENSEI Ex-                Thygesen, Linear density response function in the pro-
+     periment for Millicharged Particles Produced in the               jector augmented wave method: Applications to solids,
+     NuMI Beam, Phys. Rev. Lett. 133, 071801 (2024),                   surfaces, and interfaces, Phys. Rev. B 83, 245122 (2011).
+     arXiv:2305.04964 [hep-ex].                                   [66] I. Timrov, N. Vast, R. Gebauer, and S. Baroni, tur-
+[48] S. Perez et al. (Oscura), Searching for millicharged par-         boEELS—A code for the simulation of the electron en-
+     ticles with 1 kg of Skipper-CCDs using the NuMI beam              ergy loss and inelastic X-ray scattering spectra using the
+     at Fermilab, JHEP 02, 072, arXiv:2304.08625 [hep-ex].             Liouville–Lanczos approach to time-dependent density-
+[49] A. A. Aguilar-Arevalo et al. (CONNIE, Atucha-II),                 functional perturbation theory, Computer Physics Com-
+     Search for Reactor-Produced Millicharged Particles                munications 196, 460 (2015).
+     with Skipper-CCDs at the CONNIE and Atucha-II                [67] H. J. Monkhorst and J. D. Pack, Special points for
+     Experiments, Phys. Rev. Lett. 134, 071801 (2025),                 Brillouin-zone integrations, Phys. Rev. B 13, 5188
+     arXiv:2405.16316 [hep-ex].                                        (1976).
+[50] A. A. Aguilar-Arevalo et al. (CONNIE), Searches for          [68] J. Dunning, Thom H., K. A. Peterson, and A. K. Wil-
+     CEνNS and physics beyond the standard model using                 son, Gaussian basis sets for use in correlated molec-
+     Skipper-CCDs at CONNIE, Phys. Rev. D 113, 092017                  ular calculations. X. The atoms aluminum through
+     (2026), arXiv:2403.15976 [hep-ex].                                argon revisited, The Journal of Chemical Physics
+[51] R. Essig, P. Li, Z. Liu, M. McDuffie, R. Plestid, and             114, 9244 (2001), https://pubs.aip.org/aip/jcp/article-
+     H. Xu, Probing millicharged particles at an electron              pdf/114/21/9244/19119290/9244 1 online.pdf.
+     beam dump with ultralow-threshold sensors, JHEP 04,          [69] J. Dunning,       Thom H., Gaussian basis sets
+                                                                                                                               29
+
+     for use in correlated molecular calculations.                     997 (1984).
+     I. The atoms boron through neon and hy-                      [85] E. K. U. Gross and W. Kohn, Local density-functional
+     drogen, The Journal of Chemical Physics 90,                       theory of frequency-dependent linear response, Phys.
+     1007     (1989),    https://pubs.aip.org/aip/jcp/article-         Rev. Lett. 55, 2850 (1985).
+     pdf/90/2/1007/18974738/1007 1 online.pdf.                    [86] N. Taufertshöfer, V. Zema, R. Catena, V. Olevano, and
+[70] D. E. Woon and J. Dunning, Thom H., Gaus-                         N. A. Spaldin, Excitonic contributions to dark matter-
+     sian basis sets for use in correlated molecular                   electron scattering, Phys. Rev. Res. 8, 013056 (2026),
+     calculations. III. The atoms aluminum through                     arXiv:2507.14345 [hep-ph].
+     argon, The Journal of Chemical Physics 98,                   [87] X. Chu, T. Hambye, and M. H. G. Tytgat, The Four
+     1358     (1993),    https://pubs.aip.org/aip/jcp/article-         Basic Ways of Creating Dark Matter Through a Portal,
+     pdf/98/2/1358/19124934/1358 1 online.pdf.                         JCAP 05, 034, arXiv:1112.0493 [hep-ph].
+[71] A. K. Wilson, D. E. Woon, K. A. Peterson, and J. Dun-        [88] C. Dvorkin, T. Lin, and K. Schutz, Making dark matter
+     ning, Thom H., Gaussian basis sets for use in corre-              out of light: freeze-in from plasma effects, Phys. Rev. D
+     lated molecular calculations. IX. The atoms gallium               99, 115009 (2019), [Erratum: Phys.Rev.D 105, 119901
+     through krypton, The Journal of Chemical Physics                  (2022)], arXiv:1902.08623 [hep-ph].
+     110, 7667 (1999), https://pubs.aip.org/aip/jcp/article-      [89] P. Sellin and J. Vaitkus, New materials for radiation
+     pdf/110/16/7667/19328616/7667 1 online.pdf.                       hard semiconductor dectectors, Nuclear Instruments
+[72] J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized             and Methods in Physics Research Section A: Acceler-
+     gradient approximation made simple, Phys. Rev. Lett.              ators, Spectrometers, Detectors and Associated Equip-
+     77, 3865 (1996).                                                  ment 557, 479 (2006).
+[73] C. Kittel, Introduction to Solid State Physics, 7th ed.      [90] D. Rodrigues et al., Absolute measurement of the Fano
+     (Wiley, 1996).                                                    factor using a Skipper-CCD, Nucl. Instrum. Meth.
+[74] M. E. Levinshteı̆n, S. L. Rumyantsev, and M. Shur,                A 1010, 165511 (2021), arXiv:2004.11499 [physics.ins-
+     Properties of advanced semiconductor materials : GaN,             det].
+     AlN, InN, BN, SiC, SiGe (Wiley, 2001).                       [91] G. Cappellini, R. Del Sole, L. Reining, and F. Bechst-
+[75] O. Madelung, Semiconductors. Group IV elements                    edt, Model dielectric function for semiconductors, Phys.
+     and III-V compounds, Data in science and technology               Rev. B 47, 9892 (1993).
+     (Springer-Verlag, Berlin, 1991).                             [92] J. Lindhard, On the properties of a gas of charged par-
+[76] S. G. Louie, J. R. Chelikowsky, and M. L. Cohen, Local-           ticles, Kgl. Danske Videnskab. Selskab Mat.-fys. Medd.
+     Field Effects in the Optical Spectrum of Silicon, Phys.           Vol: 28, No. 8 (1953).
+     Rev. Lett. 34, 155 (1975).                                   [93] M. Vos and P. L. Grande, RPA Dielectric functions:
+[77] D. F. Edwards, Silicon, in Handbook of Optical Con-               Streamlined approach to relaxation effects, binding and
+     stants of Solids Vol. 1, edited by E. D. Palik (Academic          high momentum dispersion, Journal of Physics and
+     Press, 1985) pp. 547–568.                                         Chemistry of Solids 198, 112470 (2025).
+[78] L. Marton and J. Toots, Optical properties of germa-         [94] R. Essig, Y. Hochberg, Y. Shoji, A. Singal, and
+     nium in the far ultraviolet, Phys. Rev. 160, 602 (1967).          G. Suczewski, Low-energy compton scattering in ma-
+[79] G. Brockt and H. Lakner, Nanoscale EELS analysis of               terials, Phys. Rev. D 109, 116011 (2024).
+     dielectric function and bandgap properties in GaN and        [95] C. Boehm, M. J. Dolan, and C. McCabe, A Lower
+     related materials, Micron 31, 435 (2000).                         Bound on the Mass of Cold Thermal Dark Matter from
+[80] J.-M. Costantini and J. Ribis, Analysis of plasmon loss           Planck, JCAP 08, 041, arXiv:1303.6270 [hep-ph].
+     peaks of oxides and semiconductors with the energy loss      [96] M. L. Cohen and S. G. Louie, Fundamentals of Con-
+     function, Materials 16, 10.3390/ma16247610 (2023).                densed Matter Physics (Cambridge University Press,
+[81] V. Serin, E. Beche, R. Berjoan, O. Abidate,                       2016).
+     D. Rats, J. Fontaine, L.Vandenbulcke, C. Germain, and        [97] S. K. Lee, M. Lisanti, S. Mishra-Sharma, and B. R.
+     A. Catherinot, XAES, XPS, EELS and RAMAN Spec-                    Safdi, Modulation Effects in Dark Matter-Electron Scat-
+     troscopy of Polycrystalline to Amorphous Carbon Films             tering Experiments, Phys. Rev. D 92, 083517 (2015),
+     with Various sp3 to sp2 Bondings, in Proceedings of               arXiv:1508.07361 [hep-ph].
+     the Fifth International Symposium on Diamond Materi-         [98] R. Catena, T. Emken, M. Matas, N. A. Spaldin, and
+     als, edited by J. L. Davidson, W.D.Brown, A. Gicquel,             E. Urdshals, Crystal responses to general dark matter-
+     B. Spytsin, and J. Angus (The Electrochemical Society,            electron interactions, Phys. Rev. Res. 3, 033149 (2021),
+     Pennington NJ, 1998) pp. 126–141.                                 arXiv:2105.02233 [hep-ph].
+[82] P. Ewels, T. Sikora, V. Serin, C. P. Ewels, and L. La-       [99] E. A. Peterson, S. L. Watkins, C. Lane, and J.-X. Zhu,
+     jaunie, A complete overhaul of the electron energy-               Beyond-DFT ab initio Calculations for Accurate Pre-
+     loss spectroscopy and x-ray absorption spectroscopy               diction of Sub-GeV Dark Matter Experimental Reach,
+     database: eelsdb.eu, Microscopy and Microanalysis 22,             (2023), arXiv:2310.00147 [hep-ph].
+     717 (2016).                                                 [100] G. Krnjaic, D. Rocha, and T. Trickle, The non-
+[83] H.-C. Weissker, J. Serrano, S. Huotari, E. Luppi,                 relativistic effective field theory of dark matter-electron
+     M. Cazzaniga, F. Bruneval, F. Sottile, G. Monaco,                 interactions, JHEP 03, 165, arXiv:2407.14598 [hep-ph].
+     V. Olevano, and L. Reining, Dynamic structure factor        [101] Y. Hochberg, M. Khalaf, A. Lenoci, and R. Ovadia, De-
+     and dielectric function of silicon for finite momentum            termining (All) Dark Matter-Electron Scattering Rates
+     transfer: Inelastic x-ray scattering experiments and ab           From Material Properties, (2025), arXiv:2510.25835
+     initio calculations, Phys. Rev. B 81, 085104 (2010).              [hep-ph].
+[84] E. Runge and E. K. U. Gross, Density-Functional The-        [102] QEdark-EFT (2021), github.com/urdshals/QEdark-
+     ory for Time-Dependent Systems, Phys. Rev. Lett. 52,              EFT.
+                                                                                                                             30
+
+[103] W. W. M. Allison and J. H. Cobb, Relativistic Charged            ing experiments, Phys. Rev. D 109, 083016 (2024),
+      Particle Identification by Energy Loss, Annual Review            arXiv:2312.04303 [hep-ph].
+      of Nuclear and Particle Science 30, 253 (1980).            [112] J. B. Dent, B. A. Friedman, J. L. Newstead, and S. Sab-
+[104] U.     Fano,      Penetration    of    Protons,      Al-         harwal, Nuclear and electron scattering by neutrinos
+      pha     Particles,     and    Mesons,    Annual     Re-          and dark matter in condensed systems, Phys. Rev. D
+      view of Nuclear and Particle Science 13,                         113, 116016 (2026), arXiv:2510.06574 [hep-ph].
+      https://doi.org/10.1146/annurev.ns.13.120163.000245        [113] A. Migdal, Ionizatsiya atomov pri yadernykh reakt-
+      (1963).                                                          siyakh, ZhETF , 1163 (1939).
+[105] H. Bichsel and H. Schindler, The Interaction of Radia-     [114] M. Ibe, W. Nakano, Y. Shoji, and K. Suzuki, Migdal
+      tion with Matter, in Particle Physics Reference Library:         effect in dark matter direct detection experiments,
+      Volume 2: Detectors for Particles and Radiation, edited          Journal of High Energy Physics 2018, 194 (2018),
+      by C. W. Fabjan and H. Schopper (Springer Interna-               arXiv:1707.07258 [hep-ph].
+      tional Publishing, 2020).                                  [115] S. Knapen, J. Kozaczuk, and T. Lin, Migdal effect in
+[106] M. Dressel and G. Grüner, Electrodynamics of Solids:            semiconductors, Phys. Rev. Lett. 127, 081805 (2021),
+      Optical Properties of Electrons in Matter (Cambridge             arXiv:2011.09496 [hep-ph].
+      University Press, 2002) pp. 47–56.                         [116] Z.-L. Liang, C. Mo, F. Zheng, and P. Zhang, Describing
+[107] J. Kozaczuk and T. Lin, Plasmon production from dark             the migdal effect with a bremsstrahlung-like process and
+      matter scattering, Phys. Rev. D 101, 123012 (2020).              many-body effects, Phys. Rev. D 104, 056009 (2021),
+[108] A. C. Sharma and S. Auluck, Transverse dielectric func-          arXiv:2011.13352 [hep-ph].
+      tion for a model semiconductor, Phys. Rev. B 24, 4729      [117] K. V. Berghaus, A. Esposito, R. Essig, and M. Shola-
+      (1981).                                                          purkar, The Migdal effect in semiconductors for dark
+[109] R. Essig, M. Sholapurkar, and T.-T. Yu, Solar neu-               matter with masses below ∼ 100 MeV, JHEP 01, 023,
+      trinos as a signal and background in direct-detection            arXiv:2210.06490 [hep-ph].
+      experiments searching for sub-gev dark matter with         [118] S. Baroni and R. Resta, Ab initio calculation of the
+      electron recoils, Phys. Rev. D 97, 095029 (2018),                macroscopic dielectric constant in silicon, Phys. Rev. B
+      arXiv:1801.10159 [hep-ph].                                       33, 7017 (1986).
+[110] J. Wyenberg and I. M. Shoemaker, Mapping the neu-          [119] M. Gajdoš, K. Hummer, G. Kresse, J. Furthmüller, and
+      trino floor for direct detection experiments based on            F. Bechstedt, Linear optical properties in the projector-
+      dark matter-electron scattering, Phys. Rev. D 97,                augmented wave methodology, Phys. Rev. B 73, 045112
+      115026 (2018), arXiv:1803.08146 [hep-ph].                        (2006).
+[111] B. Carew, A. R. Caddell, T. N. Maity, and C. A. J.
+      O’Hare, Neutrino fog for dark matter-electron scatter-
+

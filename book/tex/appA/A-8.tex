@@ -1,0 +1,47 @@
+\section{Halo conventions and rate normalization}\label{app:A.8}
+
+Every rate in this book is a rate per unit target mass, $\mathcal{R}$ in \si{kg^{-1}.yr^{-1}}. Every halo average uses the standard halo model with the parameters of Ref.~\cite[Table~1]{baxter2021recommended}: $\rho_\chi = \SI{0.3}{GeV.cm^{-3}}$, $v_0 = \SI{238}{km.s^{-1}}$, $v_{\mathrm{esc}} = \SI{544}{km.s^{-1}}$, and the solar velocity $\vect{v}_\odot = (11.1, 250.2, 7.3)\,\si{km.s^{-1}}$ in galactic coordinates (\cref{eq:1.2-vsun}, \cref{tab:1-shm}). The laboratory distribution is $f_\chi(\vect{v},t) = N_{\mathrm{esc}}^{-1}\ee^{-|\vect{v}+\vect{v}_{\mathrm{E}}(t)|^2/v_0^2}\,\Theta(v_{\mathrm{esc}} - |\vect{v}+\vect{v}_{\mathrm{E}}(t)|)$ with $\vect{v}_{\mathrm{E}}(t) = \vect{v}_\odot + \vect{v}_\oplus(t)$ (\cref{eq:1.2-flab}). These are the standard values of the field; the measured ranges are given in \cref{sec:1.2}.
+
+\subsection{Two Earth speeds}
+
+The Earth's speed enters in two roles. Halo integrals, such as $\eta(\vmin)$ and the daily and annual modulation, use the full time-dependent $\vect{v}_{\mathrm{E}}(t)$, averaged over the exposure when a time-averaged rate is quoted. Reference scalars, such as kinematic edges, threshold masses and the windows in $(q,\omega)$ that a mass can reach, use one fixed speed,
+\begin{equation}
+  v_{\mathrm{E}}^{\mathrm{ref}} \equiv |\vect{v}_\odot| = \SI{250.5}{km.s^{-1}}, \qquad
+  v_{\mathrm{max}} \equiv v_{\mathrm{esc}} + v_{\mathrm{E}}^{\mathrm{ref}} = \SI{794.5}{km.s^{-1}} = 2.650\times10^{-3} ,
+  \label{eq:A.8-ref}
+\end{equation}
+as in \cref{eq:1.2-vmax}. The fixed value keeps every threshold time-independent. Over a year, $v_{\mathrm{esc}} + |\vect{v}_{\mathrm{E}}(t)|$ ranges from 781 to \SI{810}{km.s^{-1}} (\cref{sec:1.2}); that spread belongs to the uncertainty of the halo, not to the definition of the edge. The annual mean of $|\vect{v}_{\mathrm{E}}(t)|$ differs from $|\vect{v}_\odot|$ at second order in $v_\oplus/v_\odot$, and the difference is absorbed in the same way. Papers that quote ``$v_{\mathrm{E}}$'' mean one or the other, and older ones use $v_0 = \SI{220}{km.s^{-1}}$ and $v_{\mathrm{E}} \approx \SIrange{232}{244}{km.s^{-1}}$~\cites[below Eq.~(S.9)]{hochberg2021determining}[below Eq.~(4)]{catena2021crystal}; to compare with them, first change to their halo parameters.
+
+\subsection{Speed integrals}
+
+The halo enters through the velocity kernel $\int\dd^3v\,f_\chi(\vect{v})\,\delta(\omega - \omega_{\vect{q}})$, which depends on $\hat{\vect{q}}$ and on $\vmin(q,\omega)$. For a structure factor that depends only on $|\vect{q}|$, or after averaging $S$ over the directions of $\vect{q}$, the angular integral over $\hat{\vect{q}}$ can be done first, and
+\begin{equation}
+  \int\frac{\dd^3q}{(2\pi)^3}\,S(q,\omega)\int\dd^3v\,f_\chi(\vect{v})\,\delta(\omega - \omega_{\vect{q}})
+  = \int\frac{q\,\dd q}{4\pi^2}\,\eta\bigl(\vmin(q,\omega)\bigr)\,S(q,\omega),
+  \label{eq:A.8-eta}
+\end{equation}
+with $\eta(\vmin) = \langle\Theta(v - \vmin)/v\rangle$ (\cref{eq:1.3-eta}). Per unit $\dd^3q/(2\pi)^3$ the kernel is $\eta(\vmin)/(2q)$; the factor $1/2$ comes from the angular integral $\tfrac12\int_{-1}^{1}\dd\cos\theta\,\delta(\cdots - qv\cos\theta) = \Theta(v - \vmin)/(2qv)$ (\cref{sec:1.3}). The step requires only that the target response be independent of the direction of $\vect{q}$; the halo itself need not be isotropic, since the integral over $\hat{\vect{q}}$ at fixed $\vect{v}$ is the same for every direction of $\vect{v}$. A second speed moment, $\eta_2(\vmin) = 2\int_{\vmin}^\infty\dd v'\,v'\eta(v')$, appears for interactions whose strength grows with the dark-matter velocity. Halo-independent analyses absorb the particle physics into $\tilde\eta(\vmin) = \rho_\chi\sigmae\eta(\vmin)/m_\chi$~\cite[Eq.~(2.8)]{bernreuther2024extracting}.
+
+For a crystal the structure factor depends on the direction of $\vect{q}$, and \cref{eq:A.8-eta} does not apply. The full kernel is then kept. The halo distribution is written in the laboratory frame at the time of the event, the crystal axes are rotated into that frame with the Earth's rotation (\cref{eq:1.2-rotation}), and the integral over $\hat{\vect{q}}$ is done with $S(\vect{q},\omega)$ evaluated in crystal axes. The daily modulation of \cref{sec:1.2} is the result. A time-averaged rate averages this kernel over the exposure; it is not the rate computed with the angle-averaged $\bar S$ unless the exposure samples all orientations of $\vect{v}_{\mathrm{E}}$ relative to the crystal equally, which a fixed detector does not.
+
+\subsection{Rate per unit target mass}
+
+For an interaction through the electron density with transform $\tilde V(\vect{q})$, a dark-matter particle in the box of \cref{app:A.3} scatters at the rate $\int\dd^3q\,(2\pi)^{-3}|\tilde V(\vect{q})|^2S(\vect{q},\omega_{\vect{q}})$. By \cref{eq:A.3-vertex} the matrix element is $\Vol^{-1}\tilde V\langle f|n_e(\vect{q})|i\rangle$, the golden rule squares it, the sum over final dark-matter momenta gives $\Vol\int\dd^3q/(2\pi)^3$, and \cref{eq:A.7-S} absorbs the remaining $2\pi/\Vol$ (\cref{eq:2.5-golden}). The box holds $\rho_\chi \Vol/m_\chi$ dark-matter particles and a target mass $\rho_T\Vol$, so the spectrum per unit target mass is
+\begin{equation}
+  \frac{\dd\mathcal{R}}{\dd\omega} = \frac{\rho_\chi}{m_\chi\,\rho_T}\int\dd^3v\,f_\chi(\vect{v})\int\frac{\dd^3q}{(2\pi)^3}\,|\tilde V(\vect{q})|^2\,S(\vect{q},\omega)\,\delta(\omega - \omega_{\vect{q}}),
+  \label{eq:A.8-rate}
+\end{equation}
+in which the volume has cancelled. With $|\tilde V|^2 = \pi\sigmae\FDM^2/\mu_{\chi e}^2$ (\cref{eq:1.4-Vsq}) and \cref{eq:A.8-eta},
+\begin{equation}
+  \frac{\dd\mathcal{R}}{\dd\omega} = \frac{\rho_\chi\,\sigmae}{4\pi\,m_\chi\,\rho_T\,\mu_{\chi e}^2}\int q\,\dd q\;\FDM(q)^2\,\eta\bigl(\vmin(q,\omega)\bigr)\,\bar S(q,\omega),
+  \label{eq:A.8-rateiso}
+\end{equation}
+with $\bar S$ the average of $S$ over the directions of $\vect{q}$. This is \cref{eq:1.5-rate}, and it agrees with Refs.~\cite[Eq.~(10)]{knapen2021dark} and~\cite[Eq.~(S.9)]{hochberg2021determining}, the latter after \cref{eq:A.7-SL}. For operators other than the density, $|\tilde V|^2S$ is replaced by a contraction of a dark-matter-side tensor with the response matrix $S_{ab}$ (\cref{sec:4.2}).
+
+Other papers normalize per target or per unit cell. Ref.~\cite[Eq.~(3.13)]{essig2016direct} gives the rate of a whole target of $N_{\mathrm{cell}}$ cells, and Ref.~\cite[Eq.~(36)]{catena2021crystal} the same with $n_\chi = \rho_\chi/m_\chi$. Dividing by the target mass $N_{\mathrm{cell}}M_{\mathrm{cell}}$, with $\rho_T = M_{\mathrm{cell}}/\Omega$, and comparing with \cref{eq:A.8-rateiso} identifies the crystal form factor of Ref.~\cite{essig2016direct} with the angle-averaged structure factor,
+\begin{equation}
+  |f_{\mathrm{crys}}(q,\omega)|^2 = \frac{q^3\,\Omega}{4\pi\alpha\,m_e^2}\,\bar S(q,\omega)
+  = \frac{q^5\,\Omega}{8\pi^2\alpha^2 m_e^2}\,\varepsilon_2(q,\omega),
+  \label{eq:A.8-fcrys}
+\end{equation}
+where the second form uses \cref{eq:A.7-SL} at $T = 0$ without screening and agrees with Ref.~\cite[Eq.~(16)]{knapen2021dark}. The product $\Omega\bar S$, of dimension $\mathrm{eV}^{-1}$, is the natural per-cell quantity to tabulate.

@@ -1,0 +1,303 @@
+                                                                       Lattice dynamics of anharmonic solids from first principles
+
+                                                                                          O. Hellman,1 I. A. Abrikosov,1 and S. I. Simak1
+                                                                                      1
+                                                                                          Department of Physics, Chemistry and Biology (IFM),
+                                                                                          Linköping University, SE-581 83, Linköping, Sweden.
+                                                                    An accurate and easily extendable method to deal with lattice dynamics of solids is offered. It is
+                                                                 based on first-principles molecular dynamics simulations and provides a consistent way to extract
+                                                                 the best possible harmonic – or higher order – potential energy surface at finite temperatures.
+                                                                 It is designed to work even for strongly anharmonic systems where the traditional quasiharmonic
+arXiv:1103.5590v3 [cond-mat.mtrl-sci] 29 Oct 2011
+
+
+
+
+                                                                 approximation fails. The accuracy and convergence of the method are controlled in a straightforward
+                                                                 way. Excellent agreement of the calculated phonon dispersion relations at finite temperature with
+                                                                 experimental results for bcc Li and bcc Zr is demonstrated.
+
+
+                                                       Ability to predict phase equilibria and structural trans-      perature dependence of phonon frequencies mimicking in-
+                                                    formations in solids under pressure and temperature is of         teraction of phonons. The price is the additional approx-
+                                                    vital importance to both science and industry. The den-           imations, such as fixed amplitudes of the vibrations and
+                                                    sity functional theory (DFT)[1] allows one to calculate           a limited phase space of allowed excitations. In Ref. [12]
+                                                    thermodynamic properties of solids from first principles,         experimental dispersion relations for the group IV met-
+                                                    i.e. without any adjustable parameters or information             als have in general been reproduced, though substantial
+                                                    from experiment. Though it is a ground-state theory the           error has been reported for a determination of transition
+                                                    crucial effect of thermal vibrations of atoms can in princi-      temperatures between different phases [13].
+                                                    ple be included via the harmonic approximation[2]. The               Fourier analyzing the velocity autocorrelation function
+                                                    DFT-based calculation of corresponding phonon disper-             from molecular dynamics (MD) represents an alterna-
+                                                    sion relations is nowadays routine[3]. The widely used so-        tive approach to determine the phonon dispersion rela-
+                                                    called quasiharmonic approximation[2] for the free energy         tions at finite temperature. It works for classical MD
+                                                    employing zero temperature DFT calculations of volume-            simulations[14], but the system sizes currently accessible
+                                                    dependent phonon frequencies is well developed[4]. How-           to ab initio MD (AIMD) makes this approach prone to
+                                                    ever, it assumes that the potential energy surface does           finite size effects and can thus not be used with meaning-
+                                                    not depend on temperature and is limited to systems               ful accuracy. The common practical way of dealing with
+                                                    where anharmonic effects can be neglected. In particular          anharmonic effects in DFT based simulations of phase
+                                                    it is known to dramatically fail when applied to crystal          transformations is combine AIMD with a thermodynamic
+                                                    structures which are dynamically unstable at 0 K, i.e.            integration using the harmonic energy as the starting
+                                                    their phonon spectra contain imaginary frequencies, but           point[15, 16]. In the standard harmonic approximation,
+                                                    which stabilized due to the anharmonic contributions to           however, the imaginary phonon frequencies mean that
+                                                    the free energy at elevated temperatures[5].                      the free energy is not defined and therefore the starting
+                                                      The failure of the harmonic theory mostly arises from           point is missing. Therefore often an artificial model with
+                                                    the 0 K Taylor expansion of the potential energy sur-             a fitted classical potential is used instead[15].
+                                                    face up to just the quadratic term, which at temper-                 We propose a method that intrinsically solves all the
+                                                    atures close to the melting point becomes increasingly            issues mentioned above. It uses ab initio molecular dy-
+                                                    inaccurate. Consequently, theoretical treatment of an-            namics simulations and provides a consistent and compu-
+                                                    harmonic effects has attracted great interest[6]. The self-       tationally easy way to extract the best possible harmonic
+                                                    consistent phonon approach was formulated by Born[7],             – or higher order – potential energy surface at finite tem-
+                                                    and developed by Born and Hooton[8, 9]. Choquard[10]              peratures to study the lattice dynamics and thermody-
+                                                    and Plakida[11] addressed the problem employing the               namic properties of the system under consideration. At
+                                                    perturbation theory based on the so-called double-time            present we show that already the second order terms are
+                                                    Green functions. However, such methods are difficult              sufficient to accurately describe systems where the anhar-
+                                                    to combine with DFT-based first-principles calculations.          monic effects are known to be prevalent and as examples
+                                                    The expansion to higher-order terms within the standard           we present calculations for the strongly anharmonic bcc
+                                                    techniques is cumbersome and currently unfeasible, in             Li and Zr. We stress, however, that if the second-order
+                                                    particular due to issues of numerical precision.                  approach proves insufficient for some complex system it
+                                                       On the other hand, recently Souvatzis et al.[12] have          is easily extended to any order. Further, our method al-
+                                                    introduced the so-called self-consistent ab initio lattice        lows one to control the accuracy and convergence in a
+                                                    dynamics approach, which is conceptually similar to the           straightforward way, in contrast to most of the previous
+                                                    so-called renormalized harmonic approximation[10]. The            methods.
+                                                    theory introduces anharmonic effects through the tem-               For clarity the equations are derived for a monoatomic
+                                                                                                                                                                                        2
+
+system but it is easy to extend them to the general case.
+
+
+
+
+                                                                    Free energy difference (meV/atom)
+Usually the harmonic approximation is given as a Tay-                                                   40              Free energy difference
+lor expansion of the potential energy surface (at 0 K)                                                                  Difference in ||D||         1.5
+
+
+
+
+                                                                                                                                                          Difference in ||D|| (eV/Å )
+                                                                                                                                                          2
+in atomic displacements u, truncating after the second                                                  30
+order terms:
+                                                                                                                                                    1.0
+         1 X                      ∂2U                                                                   20
+U = U0 +           uµ (Ri )                    uν (Rj ) + . . .
+         2 i,j,µ,ν          ∂uµ (Ri )∂uν (Rj )
+                                                                                                                                                    0.5
+                                                                                                        10
+                                                        (1)
+where the second derivatives of the energy surface U with
+respect to displacements u are called the force constant                                                 0                                          0.0
+            ij                                                                                               5   10             15            20   25
+matrices, Dµν  . Here Ri and Rj are ideal atomic posi-
+                                                                                                                  Thousands of timesteps
+tions and µ and ν correspond to the Cartesian coordi-
+nates. The established way to find the force constant
+                                                                  FIG. 1. (color online) Difference between the free energy
+matrices D is through the linear response[3] or the small         (solid line, left axis) and ||D11 (R11 )|| (dashed line, right
+displacement method[17]. In these methods the crystal is          axis), the Frobenius norm of the nearest neighbour interac-
+considered in its ground state and displacements of indi-         tion derived from increasingly longer simulations for bcc Li
+vidual atoms, either via perturbation theory or a super-          at T = 300K. As a reference the results obtained from simu-
+cell approach, are introduced. In this work however, we           lations with 25000 time steps are used, which are considered
+want to obtain the best possible harmonic potential for a         to give the converged results (0.43 eV/Å2 for ||D11 (R11 )||).
+given temperature and volume, derived from a thermally
+excited crystal.
+   In an expansion in the second order the forces are given       the free energy as a function of temperature. Note that
+by                                                                in our method the force constant matrix Dij is defined
+                                                                  per pair ij in the supercell. However, a careful remap-
+                           X
+                     Fi =      Dij uj .                 (2)       ping allows one to define it for each lattice vector, that
+                              j                                   is
+                                                                                                                        ij     αβ
+We want to find the effective force constant matrix D̃                                                                D̃µν → D̃µν (Rκi )                                       (4)
+that best represent the real forces. To do this we run Nt
+time steps of ab initio molecular dynamics simulations            where α, β are indices to atoms in a suitable unit cell of
+                                                                  choice (smaller or equal to the supercell), Rκi is vector i in
+for a supercell containing Na atoms, and at each time
+step t we store forces and displacements. We then seek            coordination shell κ that contains only pairs of type α, β.
+to minimise                                                       To increase numerical stability we use the point group of
+                                                                  the coordination shells as well as symmetry properties
+                        X 1
+                 ∆F =            |Fti − F̃ti |         (3)        of the force constant matrices. All the symmetrization
+                         t,i
+                             N t                                  procedures are similar to those detailed in Alfè et al.[17],
+                                                                  although used for a different purpose. The small dis-
+where Fti is the force acting on atom i at time step t            placement method uses as few displacements as possible
+from the simulation, and F̃ti is the force given by Eq. 2         and then constructs all force constant matrices through
+with displacements taken from time step t. If the number          symmetry relations, putting high accuracy demands on
+of time steps are larger than 3Na we have an overdeter-           the calculated forces. Our method yields all force con-
+mined system of equations for D̃. We can then obtain              stant matrices that are then forced to obey the symmetry
+the linear least squares solution of D̃. Having converged         relations of the lattice, reducing the need for numerical
+with respect to the number of time steps we have defined          accuracy in the calculated forces.
+a force constant matrix at temperature T we can obtain               In the spirit of Ref. [16] we analyzed the forces to
+the phonon dispersion relations and free energy.                  asses the errors in our method. We analysed forces from
+   To monitor the quality of the force constant matrix for        a subset of configurations, calculated with different level
+bcc Li we determine it from successively longer simula-           of accuracy. F L , forces with an accuracy typical for first
+tions, and show the result in Fig. 1. It clearly demon-           principles MD simulations were compared to F H fully
+strates that the suggested scheme allows us to derive a           converged results[18] . We found that the norm ratio,
+unique and well converged effective force constant matrix         h|F H |/|F L |i, oscillated around unity (≈ 1.0015), with
+D̃.                                                               standard deviation of 0.007. This, as well as the results
+   We explicitly note that the forces, displacements and          from several test calculations and data presented in Fig.
+force constant matrix in this example are obtained at             1, allows us to draw the conclusion that since the error
+temperature T = 300K, whereas the quasiharmonic ap-               in forces is normally distributed around the ”true” value,
+proximation would derive D at 0 K and from that obtain            our method of least square fitting of many configurations
+                                                                                                                                                     3
+
+appearing during the MD simulations can reproduce force       calculated phonon dispersion relations (easily extracted
+constant matrices with high accuracy.                         from the calculated force constant matrix) to experimen-
+   The fact that we do not do a Taylor expansion around       tal. In Fig 2 calculated dispersion relations at 0K, room
+equilibrium at 0 K but produce the potential energy sur-      temperature and experimental results are shown for bcc
+face according to the least square fit of a quadratic form    Li. The 0 K dispersion relations, obtained from the
+at a particular finite temperature allows one to apply
+our method to systems where the quasiharmonic approx-
+imation traditionally fails. We notice that the standard                           10
+                                                                                             00ξ            ξξξ           ξξξ             0ξξ
+
+quasiharmonic approximation has a temperature range
+at low temperatures where it works well for dynamically                             8
+stable systems. Our method moves this window to any
+temperature of interest. Although not explicitly anhar-
+
+
+
+
+                                                                 Frequency (THz)
+                                                                                    6
+monic, it gives us truly the best harmonic fit to the fully
+anharmonic energy landscape and therefore contains the
+                                                                                    4
+information about anharmonism implicitly through the
+temperature dependent vibrational frequencies.
+   At this point it should be stressed once again that                              2
+
+this method allows for an easy, though a more time-
+consuming, extension to explicitly handle anharmonism                               0
+
+by including more terms in the expansion in Eq. (1).
+   We chose bcc Li and Zr to demonstrate the advantages                      −2i
+                                                                                Γ                    H              P               Γ           N
+of the proposed technique. Li, long thought of as a sim-
+                                                                                        0 K quasiharmonic         300 K this work       experiment
+ple metal, has a complex phase diagram. It undergoes a
+phase transition from the bcc structure at room temper-       FIG. 2. (color online) Phonon dispersion relations in bcc Li
+ature to the close-packed R9 structure below 70 K[19].        along high-symmetry directions. The symbols are experimen-
+With pressure it behaves anomalously transforming to          tal values (293 K)[29], the solid lines correspond to calcula-
+the low symmetry Cmca structure[20]. Quasiharmonic            tions carried out at 300 K with the method proposed in this
+phonon dispersion relations for the bcc structure show        work and the dashed black lines to the 0 K harmonic calcu-
+that it is dynamically unstable at 0 K, and the free en-      lations.
+ergy is not defined. Zr has long been used as a model
+system for martensitic phase transitions and is a well        quasiharmonic approximation reveal imaginary frequen-
+known example of a strongly anharmonic solid. The na-         cies along the Γ−N direction. Using our method at finite
+ture and origin of the stabilization of the bcc phase has     temperature all imaginary frequencies disappear and we
+been discussed in numerous previous studies[21].              have an excellent agreement with experimental values.
+   All electronic structure calculations were carried out        Looking at Zr in Fig. 3 we see once again excellent
+with the projector-augmented wave (PAW) method as             agreement of the results obtained by our method with
+implemented in the code VASP[22–25]. We used a 128            experimental values. Worth noting is the near perfect
+atom bcc supercell (4 × 4 × 4) for the MD simulations.        location of the soft mode at the so-called ω-point in the
+For the BZ integration we used a 2 × 2 × 2 k-point mesh       H-P direction. It is indicated by the red vertical line.
+and Fermi smearing corresponding to the simulation tem-       This mode is of crucial importance for the bcc to ω phase
+perature. Exchange and correlation effects were treated       transition in Zr and it has been difficult to reproduce in
+using the Perdew–Burke–Ernzerhof[26] functional form.         previous calculations[12].
+A plane wave cutoff of 140 eV was used for Li and 154 eV         The phonon dispersion relations, while interesting, are
+for Zr. Both systems were considered at their theoretical     not the main goal of this work. We want a solid method
+equilibrium lattice parameter.                                to deal with lattice dynamics for strongly anharmonic
+   We used a 2 fs time step, which is suitable for both       dynamically unstable systems. To test this we calculated
+systems, and set the temperature with the Nosé-Hoover        the Gibbs free energy surface for bcc and hcp Zr, and in
+thermostat[27, 28]. To fully check the convergence of our     Fig. 4 we present the calculated bcc-hcp phase diagram.
+method we ran the calculations for a total of 44000 time      The dynamically unstable bcc free energies were calcu-
+steps (88 ps) after the initial equilibration and extracted   lated from the phonon dispersion relations as detailed
+the force constant matrix at fixed time intervals. After      above, on a grid of six volumes and five temperatures
+about 40 ps the free energy was converged to below 0.5        (volume ±20%, temperature 100-1700K).
+meV/atom (see Fig. 1), which is an accuracy exceeding            For dynamically stable hcp phase we used the quasi-
+that of the underlying DFT approximations.                    harmonic approximation[17] with phonon dispersion re-
+   The success of the suggested method on the quantita-       lations obtained on six volumes. We observe excellent
+tive level can be judged from a direct comparison of the      agreement with experimentally determined line for the
+                                                                                                                                                      4
+
+                                                                                                   3000
+                               00ξ        ξξξ           ξξξ        0ξξ
+                       6
+                                                                                                              liquid
+                       5                                                                           2500
+
+                       4
+   Frequency (THz)
+
+
+
+
+                                                                                                   2000
+                       3
+
+
+
+
+                                                                                 Temperature (K)
+                                                                                                                β (bcc)
+                       2
+                                                                                                   1500
+                       1
+
+
+                       0                                                                           1000
+
+                     -1i
+                                                                                                              α (hcp)
+                                                                                                    500
+                           Γ         H          ω   P         Γ          N                                                               ω
+                      0 K quasiharmonic   1300 K this work        experiment
+
+                                                                                                          0        2        4        6       8   10
+FIG. 3. (color online) Phonon dispersion relations for bcc Zr.
+Solid lines correspond to calculations at 1300 K, dashed lines                                                            Pressure (GPa)
+to the quasiharmonic results and symbols to experimental val-
+ues from Heiming et al.[30](circles) and Stassis et al.[31](filled             FIG. 4. (color online) Calculated bcc-hcp phase diagram for
+circles). The dotted vertical line is at q = ( 32 , 32 , 23 ) The ob-          Zr. The calculated stability fields for low temperature hcp
+served softening at this point, experimental as well as theo-                  and high-temperature bcc phases are given in light blue (light
+retical, is important for the bcc–ω phase transition.                          grey) and red (dark grey) colors, respectively. The black lines
+                                                                               show the experimental phase diagram[32], which also includes
+                                                                               solid ω and liquid phases, not considered in simulations.
+hcp to bcc transition over the whole interval of pressures
+and temperatures.
+                                                                                    Journal of Low Temperature Physics 9, 151 (1972).
+   In summary we have developed a thorough, accurate                            [7] M. Born, Fest. Akad. D. Wiss, Göttingen, Math. Phys.
+and easily extendable formalism to deal with lattice dy-                            Klasse (Springer, Berlin, 1951).
+namics at high temperatures where the traditional quasi-                        [8] D. J. Hooton, Zeitschrift für Physik 142, 42 (1955).
+harmonic approximation fails. Excellent agreement with                          [9] M.         Born        and       D.      J.       Hooton,
+experimental results for bcc Li and bcc Zr indicates the                            Zeitschrift für Physik 142, 201 (1955).
+usefulness of the method.                                                      [10] P. Choquard, The anharmonic crystal (W. A. Benjamin,
+                                                                                    INC., New York, 1967).
+   We would like to thank the Swedish Research Coun-                           [11] N. M. Plakida, Theoretical and Mathematical Physics 5, 1047 (1970).
+cil, (VR) for financial support and the Swedish National                       [12] P. Souvatzis, O. Eriksson, M. Katsnelson, and S. Rudin,
+Infrastructure for Computing (SNIC) for computational                               Physical Review Letters 100, 95901 (2008).
+resources. Thanks to the Swedish Government Strate-                            [13] P. Souvatzis, O. Eriksson, M. Katsnelson, and S. Rudin,
+gic Research Area Grant in Materials Science including                              Computational Materials Science 44, 888 (2009).
+Functional Materials. We are thankful to Prof. Yuri                            [14] J.          Dickey          and        A.          Paskin,
+                                                                                    Physical Review 188, 1407 (1969).
+Vekilov for valuable discussions and Eyvas Isaev for in-                       [15] L.          Vočadlo          and          D.        Alfè,
+valuable expertise.                                                                 Physical Review B 65, 214105 (2002).
+                                                                               [16] B. Grabowski, L. Ismer, T. Hickel, and J. Neugebauer,
+                                                                                    Physical Review B 79, 134106 (2009).
+                                                                               [17] D. Alfè, Computer Physics Communications 180, 2622 (2009).
+                                                                               [18] In this case FL are from a 128 atom bcc Li supercell,
+ [1] W.         Kohn       and        L.      J.       Sham,                        2×2×2 kpoint grid, and F H from the same configuration,
+     Physical Review 140, A1133 (1965).                                             with 50% higher energy cutoff and 7 × 7 × 7 kpoint grid.
+ [2] B. Fultz, Progress in Materials Science 55, 247 (2010).                   [19] A. Overhauser, Physical Review Letters 53, 64 (1984).
+ [3] S. Baroni, S. de Gironcoli,         and A. Dal Corso,                     [20] J.     B.      Neaton      and    N.     W.      Ashcroft,
+     Reviews of Modern Physics 73, 515 (2001).                                      Nature 400, 141 (1999).
+ [4] A.     van      de     Walle      and     G.      Ceder,                  [21] Y. Ye, Y. Chen, K. Ho, B. Harmon, and P. Lindgrd,
+     Reviews of Modern Physics 74, 11 (2002).                                       Physical Review Letters 58, 1769 (1987).
+ [5] L. Dubrovinsky, N. Dubrovinskaia, O. Narygina, I. Kan-                    [22] G. Kresse, Physical Review B 59, 1758 (1999).
+     tor, A. Kuznetzov, V. B. Prakapenka, L. Vitos, B. Jo-                     [23] G.         Kresse        and        J.        Furthmüller,
+     hansson, A. S. Mikhaylushkin, S. I. Simak, and I. A.                           Physical Review B 54, 11169 (1996).
+     Abrikosov, Science (New York, N.Y.) 316, 1880 (2007).                     [24] G.          Kresse          and         J.         Hafner,
+ [6] M.      L.     Klein     and      G.     K.      Horton,                       Physical Review B 48, 13115 (1993).
+                                                                                                                          5
+
+[25] G. Kresse, Computational Materials Science 6, 15 (1996).   [30] A. Heiming, W. Petry, J. Trampenau, M. Alba,
+[26] J. P. Perdew, K. Burke,            and M. Ernzerhof,            C.    Herzig,    H.    Schober,      and   G.    Vogl,
+     Physical Review Letters 77, 3865 (1996).                        Physical Review B 43, 10948 (1991).
+[27] W. Hoover, Physical Review A 31, 1695 (1985).              [31] C. Stassis, J. Zarestky,        and N. Wakabayashi,
+[28] S. Nosé, Molecular Physics 52, 255 (1984).                     Physical Review Letters 41, 1726 (1978).
+[29] M.          Beg         and          M.        Nielsen,    [32] D. Young, Phase diagrams of the elements (University of
+     Physical Review B 14, 4266 (1976).                              California Press, 1991).
+

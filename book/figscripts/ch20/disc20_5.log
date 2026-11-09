@@ -1,0 +1,48 @@
+High-voltage (100 V) ceiling, ideal Luke-share readout, central values, binomial collection f_det = 0.873:
+  E_R =  100 eV: S = 0.719  (Ramo mean 0.827; f_det = 1: 0.728; zero bias 10.802)
+  E_R =  220 eV: S = 1.220  (Ramo mean 1.503; f_det = 1: 1.324; zero bias 16.764)
+  E_R =  460 eV: S = 1.010  (Ramo mean 1.092; f_det = 1: 0.959; zero bias 18.706)
+  E_R =  890 eV: S = 1.084  (Ramo mean 1.129; f_det = 1: 0.992; zero bias 22.057)
+1-sigma envelopes (corners of Y, F_NR; f_det 0.873 or 1; both collection limits):
+  E_R =  100 eV: central 0.719, 1 sigma [0.472, 1.268], 2 sigma [0.343, 2.457]
+  E_R =  150 eV: central 0.937, 1 sigma [0.707, 1.475], 2 sigma [0.552, 2.160]
+  E_R =  220 eV: central 1.220, 1 sigma [1.063, 1.724], 2 sigma [0.941, 2.015]
+  E_R =  300 eV: central 1.078, 1 sigma [0.895, 1.451], 2 sigma [0.771, 1.806]
+  E_R =  460 eV: central 1.010, 1 sigma [0.804, 1.316], 2 sigma [0.695, 1.691]
+upper 1-sigma envelope, 100-890 eV: maximum 1.724 at 220 eV; stays below 2
+upper 2-sigma envelope, 100-890 eV: maximum 2.457 at 100 eV; exceeds 2 on 100-224 eV
+   pieces: 1; 100
+central curve, 100-890 eV: maximum 1.220 at 220 eV
+
+Worked example, E_R = 220 eV, 100 V:
+  g_Luke = 26.667; f g = 23.280; Y' = Y eps_eh/eps_src = 0.1066; E_R/eps_eh = 58.667
+  E_ph = 765.9 eV; electron recoil of equal E_ph: 31.54 eV
+  <N_NR> = 5.459, <N_ER> = 7.343, Delta N = 1.885
+  F_eff: NR 0.5635, ER 0.2309; variances 3.076, 1.695; S = 1.220
+  Ramo-mean limit: S = 1.503; f_det = 1: 1.324
+  most favourable 1-sigma corner (Y 0.098, F_NR 0.4, Ramo mean, f 0.873): S = 1.724; with f = 1: 1.521
+  same corner, binomial (trapped carriers induce nothing), f 0.873: S = 1.357; f = 1: 1.521
+  F_NR at which S = 2 (central Y, Ramo mean): 0.213; binomial: -0.129 (negative or nan = unreachable)
+  with the book's eps for the yield too (Y' = Y): S = 1.211
+  S at 300 eV central: 1.078; at 1 V (g = 0.267): 14.611
+  bias dependence at 220 eV (binomial): 0 V 16.764, 4 V 10.700, 10 V 7.095, 30 V 3.407, 100 V 1.220, 300 V 0.431
+
+Primary route: soft fraction of an electron recoil f_s = omega_opt/eps_eh = 0.0171
+  Y = 0.102: Delta_soft = (1 - Y) f_s = 0.0153; position spread that caps S < 2 for any contrast: 0.0077
+  Y = 0.136: Delta_soft = (1 - Y) f_s = 0.0148; position spread that caps S < 2 for any contrast: 0.0074
+
+Gap channel: E_g/eps_eh = 0.3120
+  Y = 0.102: equal release, nothing released by t1: Delta O_b = (1 - Y) E_g/eps = 0.2802
+  Y = 0.108: equal release, nothing released by t1: Delta O_b = (1 - Y) E_g/eps = 0.2783
+  NR annihilation 1/(1 + t/t_rel) vs ER exponential exp(-t/t_rel): Delta O_b changes sign at t1 = 3.865 t_rel (root of exp(-x)(1 + x) = Y_q at Y_q = 0.102)
+
+Low-bias route: Delta phi_L = g(1 - Y)/[(1 + g)(1 + Y g)], maximum (1 - sqrt Y)/(1 + sqrt Y) at g = Y^-1/2
+  Y = 0.102: g_opt = 3.131 (V = 11.74 V at full collection), max Delta phi_L = 0.5159
+  optimum gain g = f_det g_Luke = Y'^-1/2 = 3.152 (with Y: 3.131); bias at f_det = 0.873: 13.45 V (with Y), 13.54 V (with Y')
+  sigma_pos = 0.02: varpi_O,min = 0.108 (best bias 12.2 V)
+  sigma_pos = 0.05: varpi_O,min = 0.223 (best bias 10.7 V)
+  sigma_pos = 0.10: varpi_O,min = 0.430 (best bias 10.4 V)
+  ceiling of the route (varpi_O = 1, no baseline, no position spread) at 100 eV: max 10.801 at V = 0.001 V (bias grid 1e-3-300 V); zero-bias charge-and-heat value 10.802
+meaning of S_sep (equal Gaussians, cut at the midpoint): S = 2 -> acceptance = rejection = 0.841; leakage 1e-3 at the midpoint cut needs S = 6.18
+
+wrote fig20_5.pdf

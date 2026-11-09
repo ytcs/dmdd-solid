@@ -1,0 +1,71 @@
+=== Hecht relation and depth averages (units of d) ===
+lam_d/d =   0.1: Hecht (face) 0.1000; pair at mid-plane 0.1987; uniform depth, equal lam 0.1800; uniform, lam_h = lam_e/3 0.1222
+lam_d/d =   0.3: Hecht (face) 0.2893; pair at mid-plane 0.4867; uniform depth, equal lam 0.4264; uniform, lam_h = lam_e/3 0.3032
+lam_d/d =   1.0: Hecht (face) 0.6321; pair at mid-plane 0.7869; uniform depth, equal lam 0.7358; uniform, lam_h = lam_e/3 0.5956
+lam_d/d =   3.0: Hecht (face) 0.8504; pair at mid-plane 0.9211; uniform depth, equal lam 0.8976; uniform, lam_h = lam_e/3 0.8167
+lam_d/d =  10.0: Hecht (face) 0.9516; pair at mid-plane 0.9754; uniform depth, equal lam 0.9675; uniform, lam_h = lam_e/3 0.9373
+lam = 10: Hecht 0.951626 vs 1 - 1/(2 lam) = 0.950000; uniform 0.967484 vs 1 - 1/(3 lam) = 0.966667
+lam = 100: Hecht 0.995017 vs 1 - 1/(2 lam) = 0.995000; uniform 0.996675 vs 1 - 1/(3 lam) = 0.996667
+closed-form vs quadrature <qbar> at lam = 4: 0.921625058285 0.921625058285
+
+=== Monte Carlo check of the measured-charge Fano factor (eq:20.1-Fpos) ===
+lam_e = 4, lam_h = 4 (equal): MC F_meas = 0.1497 +- 0.0005, formula 0.1500 (cascade+partial 0.1422, position 0.0078); MC <q>/N = 0.92167, formula 0.92163
+lam_e = 6, lam_h = 2 (unequal): MC F_meas = 0.2065 +- 0.0007, formula 0.2061 (cascade+partial 0.1477, position 0.0584); MC <q>/N = 0.89959, formula 0.89946
+Bernoulli thinning MC at f = 0.95: 0.1583, exact f F + 1 - f = 0.1583
+
+=== Worked example: 95 % collection in silicon, F_eh = 0.114 ===
+binomial thinning: 0.1583
+Ramanathan-Kurinsky printed form F/f + 1 - f: 0.1700 (difference F(1/f - f) = 0.0117)
+pair at mid-plane, equal drift lengths: lam_d/d = 4.8319 gives qbar = 0.9500; var(q) = 0.01556 against the Bernoulli f(1-f) = 0.04750; F_meas = 0.1247
+uniform depth, equal drift lengths: lam_d/d = 6.4147 gives <qbar> = 0.9500
+  omega =    100 eV, N =    26.7: F_meas = 0.1357 = 0.1325 (cascade + partial charge) + 0.0032 (position)
+  omega =   1000 eV, N =   266.7: F_meas = 0.1649 = 0.1325 (cascade + partial charge) + 0.0325 (position)
+  omega =   5900 eV, N =  1573.3: F_meas = 0.3240 = 0.1325 (cascade + partial charge) + 0.1915 (position)
+  Var_z(qbar) = 1.156e-04, <var> = 2.2961e-02, <qbar^2> = 0.90262
+  position term equals 0.01 at N = 82.2
+  at 5.9 keV the position term stays below 0.01 only for Var_z(qbar) < 6.04e-06
+uniform depth, lam_h = lam_e/3: lam_e/d = 12.705; at 100 eV F_meas = 0.1472 (0.1320 + 0.0152)
+
+=== Bhatia-Davis: Var q <= qbar(1 - qbar) for q in [0, 1] (scan) ===
+max over scan of var - qbar(1 - qbar) = -1.666e-04 (must be <= 0)
+
+=== Space charge (planar, fixed bias) ===
+eps_0 = 11.4: sheet jump e n/(eps_0 eps0_SI) = 1.587e-07 V/cm per e/cm^2
+1% of 1 V/cm: n_sh = 6.300e+04 e/cm^2 (sheet at a face, max|dE| = jump) to 1.260e+05 (mid-plane, max = jump/2)
+illustration: 1 Hz/cm^2 of 100 eV events, 26.7 pairs, trapped charge 0.10 e per pair -> 2.67 e/cm^2/s; time to 1% of 1 V/cm: 6.56 h (face) to 13.13 h (mid-plane)
+same with 0.127 trapped charges of one sign per pair: 3.39 e/cm^2/s -> 5.17 h (face) to 10.33 h (mid-plane)
+field   1.0 V/cm: sheet density for xi_SC = 1 %: 6.30e+04 to 1.26e+05 e/cm^2
+field   4.0 V/cm: sheet density for xi_SC = 1 %: 2.52e+05 to 5.04e+05 e/cm^2
+field 100.0 V/cm: sheet density for xi_SC = 1 %: 6.30e+06 to 1.26e+07 e/cm^2
+Poole-Frenkel lowering at   4.0 V/cm: 0.45 meV
+Poole-Frenkel lowering at 100.0 V/cm: 2.25 meV
+thermal emission exponent E_b/kT for 45 meV at 50 mK: 1.044e+04
+Coulomb energy alpha/(eps_0 r) of a trapped pair at r = 0.01 mm: 1.26e-05 eV
+Coulomb energy alpha/(eps_0 r) of a trapped pair at r = 1.00 mm: 1.26e-07 eV
+
+=== Luke emission (golden rule, LA phonons, isotropic band) ===
+Si holes: l0 = 7.48 um; m c_LA^2 = 0.2303 meV; c_LA/(3 l0) = 4.010e+08 1/s
+   k/k_s = 1.2: Gamma_L = 2.673e+06 1/s (printed form with one power less: 2.228e+06); <E_ph> = 0.069 meV, E_max = 0.092 meV
+   k/k_s = 1.5: Gamma_L = 3.342e+07 1/s (printed form with one power less: 2.228e+07); <E_ph> = 0.173 meV, E_max = 0.230 meV
+   k/k_s = 2.0: Gamma_L = 2.005e+08 1/s (printed form with one power less: 1.003e+08); <E_ph> = 0.345 meV, E_max = 0.461 meV
+   k/k_s = 3.0: Gamma_L = 1.069e+09 1/s (printed form with one power less: 3.564e+08); <E_ph> = 0.691 meV, E_max = 0.921 meV
+   all Luke phonons below 0.36 meV while k/k_s < 1.782
+   all Luke phonons below 0.60 meV while k/k_s < 2.303
+   balance estimate at   1.0 V/cm: k/k_s = 4.32, <E_L> = 1.15 meV, E_max = 1.53 meV, energy fraction below 0.36 meV = (0.36/E_max)^4 = 0.0031
+   balance estimate at   4.0 V/cm: k/k_s = 6.95, <E_L> = 2.06 meV, E_max = 2.74 meV, energy fraction below 0.36 meV = (0.36/E_max)^4 = 0.0003
+   balance estimate at 100.0 V/cm: k/k_s = 27.45, <E_L> = 9.14 meV, E_max = 12.18 meV, energy fraction below 0.36 meV = (0.36/E_max)^4 = 0.0000
+Si electrons (Herring-Vogt, m_c): l0 = 16.42 um; m c_LA^2 = 0.1197 meV; c_LA/(3 l0) = 1.827e+08 1/s
+   k/k_s = 1.2: Gamma_L = 1.218e+06 1/s (printed form with one power less: 1.015e+06); <E_ph> = 0.036 meV, E_max = 0.048 meV
+   k/k_s = 1.5: Gamma_L = 1.522e+07 1/s (printed form with one power less: 1.015e+07); <E_ph> = 0.090 meV, E_max = 0.120 meV
+   k/k_s = 2.0: Gamma_L = 9.134e+07 1/s (printed form with one power less: 4.567e+07); <E_ph> = 0.180 meV, E_max = 0.239 meV
+   k/k_s = 3.0: Gamma_L = 4.872e+08 1/s (printed form with one power less: 1.624e+08); <E_ph> = 0.359 meV, E_max = 0.479 meV
+   all Luke phonons below 0.36 meV while k/k_s < 2.503
+   all Luke phonons below 0.60 meV while k/k_s < 3.505
+   balance estimate at   1.0 V/cm: k/k_s = 7.10, <E_L> = 1.09 meV, E_max = 1.46 meV, energy fraction below 0.36 meV = (0.36/E_max)^4 = 0.0037
+   balance estimate at   4.0 V/cm: k/k_s = 12.39, <E_L> = 2.05 meV, E_max = 2.73 meV, energy fraction below 0.36 meV = (0.36/E_max)^4 = 0.0003
+   balance estimate at 100.0 V/cm: k/k_s = 54.35, <E_L> = 9.58 meV, E_max = 12.78 meV, energy fraction below 0.36 meV = (0.36/E_max)^4 = 0.0000
+check: energy fraction below 0.3 E_max = 0.008100 vs 0.3^4 = 0.008100
+angular integral at M = 1.5: 0.11111111 vs 4 M^2 (1-1/M)^3/3 = 0.11111111
+angular integral at M = 4.0: 9.00000000 vs 4 M^2 (1-1/M)^3/3 = 9.00000000
+mean Luke phonon energy at M = 2.5: 2.250000 m c^2 vs (3/2)(M - 1) = 2.250000
+wrote fig20_1.pdf
