@@ -2,7 +2,7 @@
 \section{Hohenberg--Kohn theorems and the Kohn--Sham construction}\label{app:D.5}
 \let\sectionmark\origsectionmark
 
-The two theorems of Hohenberg and Kohn~\cite{hohenberg1964inhomogeneous} and the Kohn--Sham equations \cref{eq:3.4-KS}~\cite{kohn1965self} are proved here in the constrained-search formulation of Levy~\cite{levy1979universal}, which needs fewer assumptions than the original proof. The derivation follows Ref.~\cite[Chaps.~6 and 7]{martin2004electronic}.
+The two theorems of Hohenberg and Kohn~\cite{hohenberg1964inhomogeneous} and the Kohn--Sham equations \cref{eq:3.4-KS}~\cite{kohn1965self} are proved here in the constrained-search formulation of Levy~\cite{levy1979universal}, which needs fewer assumptions than the original proof. The derivation in this section follows Ref.~\cite[Chaps.~6 and 7]{martin2004electronic}.
 
 \subsection{The density determines the potential}
 
@@ -12,11 +12,11 @@ Take $N_e$ electrons in an external potential $U_1(\vect{r})$, the attraction of
 \end{equation*}
 and $H_{ee}$ the Coulomb repulsion of \cref{eq:2.3-Hee-density}. Only the last term depends on the material, and it enters every expectation value through the density alone: $\langle\Psi|\sum_iU_1(\vect{r}_i)|\Psi\rangle = \int\dd^3r\,U_1(\vect{r})\,\nd(\vect{r})$, with $\nd(\vect{r})$ the electron density of $\Psi$.
 
-Suppose two potentials $U_1$ and $U_1'$, which differ by more than a constant, had nondegenerate ground states $\Psi$ and $\Psi'$ with the same density $\nd$. The two states are different. If they were equal, subtracting the two Schr\"odinger equations would give $\sum_i[U_1(\vect{r}_i) - U_1'(\vect{r}_i)]\Psi = (E_0 - E_0')\Psi$, so that the sum would be constant wherever $\Psi \neq 0$, which for a ground state is almost everywhere, and the potentials would differ by a constant. Since the ground state of $H$ is nondegenerate, $\Psi'$ has a strictly higher energy in $H$:
+Suppose two potentials $U_1$ and $U_1'$, which differ by more than a constant, had nondegenerate ground states $\Psi$ and $\Psi'$ with the same density $\nd$. The two states are different. If they were equal, subtracting the two Schr\"odinger equations would give $\sum_i[U_1(\vect{r}_i) - U_1'(\vect{r}_i)]\Psi = (E_0 - E_0')\Psi$, so that the sum would be constant wherever $\Psi \neq 0$. A ground state is nonzero almost everywhere, so the potentials would differ by a constant. Since the ground state of $H$ is nondegenerate, $\Psi'$ has a strictly higher energy in $H$:
 \begin{equation*}
   E_0 < \langle\Psi'|H|\Psi'\rangle = \langle\Psi'|H'|\Psi'\rangle + \int\dd^3r\,\bigl[U_1(\vect{r}) - U_1'(\vect{r})\bigr]\nd(\vect{r}) = E_0' + \int\dd^3r\,\bigl[U_1 - U_1'\bigr]\nd .
 \end{equation*}
-The same argument with the primed and unprimed quantities exchanged gives $E_0' < E_0 + \int\dd^3r\,[U_1' - U_1]\nd$. Adding the two inequalities, the integrals cancel and $E_0 + E_0' < E_0' + E_0$, a contradiction. Hence the ground-state density determines $U_1$ up to a constant~\cite{hohenberg1964inhomogeneous}. It also fixes $N_e = \int\dd^3r\,\nd$, so it fixes $H$, and through $H$ every property of the system.
+The same argument with the primed and unprimed quantities exchanged gives $E_0' < E_0 + \int\dd^3r\,[U_1' - U_1]\nd$. Adding the two inequalities cancels the integrals and gives $E_0 + E_0' < E_0' + E_0$, a contradiction. Hence the ground-state density determines $U_1$ up to a constant~\cite{hohenberg1964inhomogeneous}. It also fixes $N_e = \int\dd^3r\,\nd$, so it fixes $H$, and through $H$ every property of the system.
 
 \subsection{The variational principle}
 
@@ -25,49 +25,49 @@ The universal functional of \cref{sec:3.4} is
   \mathcal{F}[\nd] = \min_{\Psi\to\nd}\langle\Psi|H_{\mathrm{kin}} + H_{ee}|\Psi\rangle ,
   \label{eq:D.5-levy}
 \end{equation}
-where the minimum is over all normalized antisymmetric states of $N_e$ electrons that have the density $\nd$~\cite{levy1979universal}. Every reasonable density, nonnegative, integrating to $N_e$ and with a finite kinetic energy, comes from some determinant, so $\mathcal{F}$ is defined on all of them. For a given potential let
+where the minimum is over all normalized antisymmetric states of $N_e$ electrons that have the density $\nd$~\cite{levy1979universal}. Call a density reasonable if it is nonnegative, integrates to $N_e$ and has a finite kinetic energy. Every reasonable density comes from some determinant, so $\mathcal{F}$ is defined on all reasonable densities. For a given potential let
 \begin{equation*}
   E_{U}[\nd] = \mathcal{F}[\nd] + \int\dd^3r\,U_1(\vect{r})\,\nd(\vect{r}) .
 \end{equation*}
-For any $\nd$, the state $\Psi_{\nd}$ that realizes the minimum in \cref{eq:D.5-levy} has $\langle\Psi_{\nd}|H|\Psi_{\nd}\rangle = E_U[\nd]$, and by the ordinary variational principle this is at least $E_0$. The minimum over all states, on the other hand, can be done in two steps, first over the states with a given density and then over the densities:
+For any $\nd$, the state $\Psi_{\nd}$ that realizes the minimum in \cref{eq:D.5-levy} has $\langle\Psi_{\nd}|H|\Psi_{\nd}\rangle = E_U[\nd]$, and by the ordinary variational principle $E_U[\nd]$ is at least $E_0$. The minimum over all states, on the other hand, can be done in two steps, first over the states with a given density and then over the densities:
 \begin{equation*}
   E_0 = \min_\Psi\langle\Psi|H|\Psi\rangle = \min_{\nd}\Bigl[\min_{\Psi\to\nd}\langle\Psi|H_{\mathrm{kin}} + H_{ee}|\Psi\rangle + \int\dd^3r\,U_1\nd\Bigr] = \min_{\nd}E_U[\nd] .
 \end{equation*}
-The ground-state energy is the minimum of $E_U$ over densities, and the minimum is reached at the ground-state density. This is the second theorem of Hohenberg and Kohn, here without the assumption of a nondegenerate ground state, and without the requirement that every trial density be the ground-state density of some potential. Where $\mathcal{F}$ is differentiable, the minimum under the constraint $\int\nd = N_e$ obeys $\delta\mathcal{F}/\delta\nd(\vect{r}) + U_1(\vect{r}) = \mu_{\mathrm{ch}}$, with the chemical potential as the Lagrange multiplier.
+The ground-state energy is the minimum of $E_U$ over densities, and the minimum is reached at the ground-state density. This variational principle for $E_U$ is the second theorem of Hohenberg and Kohn, here without the assumption of a nondegenerate ground state, and without the requirement that every trial density be the ground-state density of some potential. Where $\mathcal{F}$ is differentiable, the minimum under the constraint $\int\nd = N_e$ obeys $\delta\mathcal{F}/\delta\nd(\vect{r}) + U_1(\vect{r}) = \mu_{\mathrm{ch}}$, with the chemical potential as the Lagrange multiplier.
 
 \subsection{The Kohn--Sham equations}
 
-The independent-electron kinetic energy is the same constrained search over determinants $\Phi$ alone,
+The independent-electron kinetic energy is the constrained search of \cref{eq:D.5-levy} restricted to determinants $\Phi$,
 \begin{equation*}
   K_{\mathrm{s}}[\nd] = \min_{\Phi\to\nd}\langle\Phi|H_{\mathrm{kin}}|\Phi\rangle ,
 \end{equation*}
 and the Hartree energy is $E_{\mathrm{H}}[\nd] = \tfrac12\int\dd^3r\,\dd^3r'\,e^2\nd(\vect{r})\nd(\vect{r}')/(4\pi|\vect{r} - \vect{r}'|)$. The exchange--correlation energy is $E_{\mathrm{xc}}[\nd] = \mathcal{F}[\nd] - K_{\mathrm{s}}[\nd] - E_{\mathrm{H}}[\nd]$.
 
-Write the minimizing determinant through its orbitals $\psi_\gamma$, with occupations $n_\gamma$ equal to one for the $N_e$ occupied orbitals and zero otherwise, and the density $\nd(\vect{r}) = \sum_\gamma n_\gamma\sum_s|\psi_\gamma(\vect{r}, s)|^2$. Then
+Write the determinant that minimizes $K_{\mathrm{s}}$ through its orbitals $\psi_\gamma$, with occupations $n_\gamma$ equal to one for the $N_e$ occupied orbitals and zero otherwise, and the density $\nd(\vect{r}) = \sum_\gamma n_\gamma\sum_s|\psi_\gamma(\vect{r}, s)|^2$. Then
 \begin{equation*}
   E_U = \sum_\gamma n_\gamma\int\dd x\,\psi^*_\gamma(x)\Bigl(-\frac{\nabla^2}{2m_e}\Bigr)\psi_\gamma(x) + \int\dd^3r\,U_1\nd + E_{\mathrm{H}}[\nd] + E_{\mathrm{xc}}[\nd] ,
 \end{equation*}
-which depends on the orbitals explicitly through the kinetic term and implicitly through $\nd$. We vary $\psi^*_\gamma(x)$, with Lagrange multipliers for orthonormality chosen diagonal, as in \cref{app:D.4}. The chain rule gives $\delta E_{\mathrm{H}}/\delta\psi^*_\gamma(x) = n_\gamma v_{\mathrm{H}}(\vect{r})\psi_\gamma(x)$, with the Hartree potential $v_{\mathrm{H}} = \delta E_{\mathrm{H}}/\delta\nd$ of \cref{app:D.4}, and similarly for $E_{\mathrm{xc}}$. Dividing by $n_\gamma$ gives the Kohn--Sham equations \cref{eq:3.4-KS}, with the density built from the $N_e$ orbitals of lowest $E_\gamma$. Filling the lowest orbitals assumes that the minimizing density is the ground-state density of independent electrons in some local potential, the noninteracting $v$-representability of the density; for the crystals of this book it is taken for granted. In a crystal, $\gamma$ becomes the band and crystal momentum $n\vect{k}$, $E_\gamma$ the band energy $\varepsilon_{n\vect{k}}$ and $n_\gamma$ the occupation $f_{n\vect{k}}$, and the density is \cref{eq:E.1-density}. The equations are nonlinear, since $V_{\mathrm{KS}}$ depends on the density, and they are iterated to self-consistency.
+which depends on the orbitals explicitly through the kinetic term and implicitly through $\nd$. We vary $\psi^*_\gamma(x)$, with Lagrange multipliers for orthonormality chosen diagonal, as in \cref{app:D.4}. The chain rule gives $\delta E_{\mathrm{H}}/\delta\psi^*_\gamma(x) = n_\gamma v_{\mathrm{H}}(\vect{r})\psi_\gamma(x)$, with the Hartree potential $v_{\mathrm{H}} = \delta E_{\mathrm{H}}/\delta\nd$ of \cref{app:D.4}, and similarly for $E_{\mathrm{xc}}$. Dividing the stationarity condition by $n_\gamma$ gives the Kohn--Sham equations \cref{eq:3.4-KS}, with the density built from the $N_e$ orbitals of lowest $E_\gamma$. Filling the lowest orbitals assumes that the minimizing density is the ground-state density of independent electrons in some local potential. This assumption is the noninteracting $v$-representability of the density, and for the crystals of this book it is taken for granted. In a crystal, $\gamma$ becomes the band and crystal momentum $n\vect{k}$, $E_\gamma$ the band energy $\varepsilon_{n\vect{k}}$ and $n_\gamma$ the occupation $f_{n\vect{k}}$, and the density is \cref{eq:E.1-density}. The Kohn--Sham equations are nonlinear, since $V_{\mathrm{KS}}$ depends on the density, and they are iterated to self-consistency.
 
 \subsection{Total energy and the eigenvalues}
 
-Multiplying \cref{eq:3.4-KS} by $n_\gamma\psi^*_\gamma$, integrating and summing gives $\sum_\gamma n_\gamma E_\gamma = K_{\mathrm{s}} + \int\dd^3r\,V_{\mathrm{KS}}\nd$, and $\int v_{\mathrm{H}}\nd = 2E_{\mathrm{H}}$. The ground-state energy is therefore
+Multiplying \cref{eq:3.4-KS} by $n_\gamma\psi^*_\gamma$, integrating and summing gives $\sum_\gamma n_\gamma E_\gamma = K_{\mathrm{s}} + \int\dd^3r\,V_{\mathrm{KS}}\nd$; in addition, $\int v_{\mathrm{H}}\nd = 2E_{\mathrm{H}}$. The ground-state energy is therefore
 \begin{equation}
   E_0 = \sum_\gamma n_\gamma E_\gamma - E_{\mathrm{H}}[\nd] - \int\dd^3r\,v_{\mathrm{xc}}(\vect{r})\nd(\vect{r}) + E_{\mathrm{xc}}[\nd] .
   \label{eq:D.5-Etot}
 \end{equation}
-As in Hartree--Fock, \cref{eq:D.4-Etot}, the sum of the eigenvalues counts the interaction twice and the other terms correct for it.
+As in Hartree--Fock, \cref{eq:D.4-Etot}, the sum of the eigenvalues counts the interaction twice and the other terms of \cref{eq:D.5-Etot} correct for the double counting.
 
-The eigenvalues are Lagrange multipliers, and \cref{eq:3.4-KS} alone does not make them removal or addition energies. One exact statement connects them to energies. Let the occupations $n_\gamma$ take fractional values and keep the orbitals self-consistent at each set of $n_\gamma$. Then $E_U$ is a function of the occupations, and
+The eigenvalues are Lagrange multipliers, and \cref{eq:3.4-KS} alone does not make them removal or addition energies. One exact statement connects the Kohn--Sham eigenvalues to total energies. Let the occupations $n_\gamma$ take fractional values and keep the orbitals self-consistent at each set of $n_\gamma$. Then $E_U$ is a function of the occupations, and
 \begin{equation}
   \frac{\partial E_U}{\partial n_\gamma} = E_\gamma ,
   \label{eq:D.5-janak}
 \end{equation}
-which is Janak's theorem~\cite{janak1978proof}. The explicit dependence on $n_\gamma$, through the kinetic term and through $\nd$, gives the expectation value of the Kohn--Sham Hamiltonian in $\psi_\gamma$, which is $E_\gamma$. The implicit dependence through the orbitals gives, by \cref{eq:3.4-KS},
+which is Janak's theorem~\cite{janak1978proof}. The explicit dependence of $E_U$ on $n_\gamma$, through the kinetic term and through $\nd$, gives the expectation value of the Kohn--Sham Hamiltonian in $\psi_\gamma$, which is $E_\gamma$. The implicit dependence through the orbitals gives, by \cref{eq:3.4-KS},
 \begin{equation*}
   \sum_{\gamma'}n_{\gamma'}E_{\gamma'}\,\frac{\partial\langle\psi_{\gamma'}|\psi_{\gamma'}\rangle}{\partial n_\gamma} = 0 ,
 \end{equation*}
-because every orbital stays normalized. For the exact functional the ground-state energy of a fractional number of electrons is a straight line between integers~\cite{perdew1982density}. Integrating \cref{eq:D.5-janak} from $N_e - 1$ to $N_e$ in the highest occupied level, whose eigenvalue is then constant, gives $E_{N_e} - E_{N_e-1} = E_{\mathrm{HOMO}}$, with $E_{\mathrm{HOMO}}$ the eigenvalue of the highest occupied molecular orbital (HOMO): the highest occupied Kohn--Sham eigenvalue is minus the ionization energy $I$. In the same way, the eigenvalue of the level that fills between $N_e$ and $N_e + 1$ is minus the electron affinity $A$. No other eigenvalue has an exact meaning, and the Kohn--Sham gap differs from the fundamental gap by the derivative discontinuity of \cref{eq:3.4-gap}.
+because every orbital stays normalized. For the exact functional the ground-state energy of a fractional number of electrons is a straight line between integers~\cite{perdew1982density}. On that straight line the eigenvalue of the highest occupied level is constant, and integrating \cref{eq:D.5-janak} over the occupation of that level, from $N_e - 1$ to $N_e$ electrons, gives $E_{N_e} - E_{N_e-1} = E_{\mathrm{HOMO}}$, with $E_{\mathrm{HOMO}}$ the eigenvalue of the highest occupied molecular orbital (HOMO): the highest occupied Kohn--Sham eigenvalue is minus the ionization energy $I$. In the same way, the eigenvalue of the level that fills between $N_e$ and $N_e + 1$ is minus the electron affinity $A$. No other eigenvalue has an exact meaning, and the Kohn--Sham gap differs from the fundamental gap by the derivative discontinuity of \cref{eq:3.4-gap}.
 
 \subsection{The local exchange potential}
 
@@ -79,4 +79,4 @@ The exchange part of $\varepsilon_{\mathrm{xc}}$ is \cref{eq:D.4-Ex}, $\varepsil
 \begin{equation*}
   v_{\mathrm{x}}^{\mathrm{LDA}} = \frac43\,\varepsilon_{\mathrm{x}} = -\frac{e^2k_{\mathrm{F}}}{4\pi^2} = \Sigma_{\mathrm{x}}(k_{\mathrm{F}}) ,
 \end{equation*}
-the Hartree--Fock exchange of an electron at the Fermi surface of the gas, \cref{eq:D.4-gas} at $F_{\mathrm{L}}(1) = \tfrac12$. At the valence density of silicon, $v_{\mathrm{x}}^{\mathrm{LDA}} = \SI{-8.29}{eV}$. Unlike the Fock term, the local exchange potential does not cancel the self-repulsion of an electron in $v_{\mathrm{H}}$ exactly, and the residual self-interaction is one source of the error of the local-density approximation in localized states~\cite{perdew1981self}.
+the Fock term of an electron at the Fermi surface of the gas, \cref{eq:D.4-gas} at $F_{\mathrm{L}}(1) = \tfrac12$. At the valence density of silicon, $v_{\mathrm{x}}^{\mathrm{LDA}} = \SI{-8.29}{eV}$. Unlike the Fock term, the local exchange potential does not cancel the self-repulsion of an electron in $v_{\mathrm{H}}$ exactly, and the residual self-interaction is one source of the error of the local-density approximation in localized states~\cite{perdew1981self}.

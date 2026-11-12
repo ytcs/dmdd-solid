@@ -73,7 +73,7 @@ The volume of the cell spanned by the $\vect{b}_i$ follows from \cref{eq:3.1-b}.
 \begin{equation*}
   \vect{b}_2\times\vect{b}_3 = \frac{(2\pi)^2}{\Omega^2}\,(\vect{a}_3\times\vect{a}_1)\times(\vect{a}_1\times\vect{a}_2) = \frac{(2\pi)^2}{\Omega^2}\,\vect{a}_1\,[\vect{a}_1\cdot(\vect{a}_2\times\vect{a}_3)] = \frac{(2\pi)^2}{\Omega}\,\vect{a}_1 ,
 \end{equation*}
-where reversing the sign of the first cross product brings $\vect{a}_1$ to the front of both factors, and reversing the order of the cross product in the triple product that the identity then gives restores the sign. Then \cref{eq:3.1-dual} gives
+where reversing the first cross product brings $\vect{a}_1$ to the front of both factors at the cost of a sign, and reversing the cross product inside the resulting triple product restores the sign. Then \cref{eq:3.1-dual} gives
 \begin{equation}
   \vect{b}_1\cdot(\vect{b}_2\times\vect{b}_3) = \frac{(2\pi)^3}{\Omega} .
   \label{eq:3.1-BZvol}
@@ -104,7 +104,7 @@ For silicon the zone is about \SI{2.3}{keV} in radius: every momentum shorter th
 
 \subsection{Crystal momentum and the lattice sum}
 
-With the nuclei clamped at the sites of \cref{eq:3.1-X}, the Hamiltonian of the electrons is \cref{eq:2.3-HC} without the nuclear kinetic energy. The electronic Hamiltonian is unchanged when all electrons are moved by the same lattice vector $\vect{R}$, but not when they are moved by an arbitrary vector. Let $T_{\vect{R}}$ be the operator that moves all electrons by $\vect{R}$, $(T_{\vect{R}}\Psi)(\vect{r}_1, \dots, \vect{r}_{N_e}) = \Psi(\vect{r}_1 + \vect{R}, \dots, \vect{r}_{N_e} + \vect{R})$ for a wavefunction of $N_e$ electrons (spins are not moved). It is unitary, it commutes with the Hamiltonian, and translations compose, $T_{\vect{R}}T_{\vect{R}'} = T_{\vect{R} + \vect{R}'}$. As a result, the eigenstates of the Hamiltonian can be chosen as eigenstates of all $T_{\vect{R}}$ at once, with eigenvalues $c(\vect{R})$ that are phases and obey $c(\vect{R} + \vect{R}') = c(\vect{R})c(\vect{R}')$. With $c(\vect{a}_i) = \ee^{2\pi\ii x_i}$ and real $x_i$, the composition rule requires $c(\vect{R}) = \ee^{2\pi\ii\sum_in_ix_i}$, and with \cref{eq:3.1-dual} the eigenvalue equation becomes
+With the nuclei clamped at the sites of \cref{eq:3.1-X}, the Hamiltonian of the electrons is \cref{eq:2.3-HC} without the nuclear kinetic energy. The Hamiltonian of the electrons is unchanged when all electrons are moved by the same lattice vector $\vect{R}$, but not when they are moved by an arbitrary vector. Let $T_{\vect{R}}$ be the operator that moves all electrons by $\vect{R}$, $(T_{\vect{R}}\Psi)(\vect{r}_1, \dots, \vect{r}_{N_e}) = \Psi(\vect{r}_1 + \vect{R}, \dots, \vect{r}_{N_e} + \vect{R})$ for a wavefunction of $N_e$ electrons (spins are not moved). It is unitary, it commutes with the Hamiltonian, and translations compose, $T_{\vect{R}}T_{\vect{R}'} = T_{\vect{R} + \vect{R}'}$. As a result, the eigenstates of the Hamiltonian can be chosen as eigenstates of all $T_{\vect{R}}$ at once, with eigenvalues $c(\vect{R})$ that are phases and obey $c(\vect{R} + \vect{R}') = c(\vect{R})c(\vect{R}')$. With $c(\vect{a}_i) = \ee^{2\pi\ii x_i}$ and real $x_i$, the composition rule requires $c(\vect{R}) = \ee^{2\pi\ii\sum_in_ix_i}$, and with \cref{eq:3.1-dual} the eigenvalue equation becomes
 \begin{equation}
   T_{\vect{R}}\Psi = \ee^{\ii\vect{k}\cdot\vect{R}}\,\Psi, \qquad \vect{k} = \sum_ix_i\vect{b}_i .
   \label{eq:3.1-crystalmomentum}
@@ -181,7 +181,7 @@ Already at \SI{1}{MeV} the momentum transfers that can deposit $\Eg$ extend past
 
 \subsection{The basis structure factor}
 
-The positions of the atoms within the cell enter every Fourier component of a lattice-periodic quantity. Consider a function built from one term per atom, $f(\vect{r}) = \sum_{\vect{R}}\sum_\kappa v_\kappa(\vect{r} - \vect{R} - \vect{\tau}_\kappa)$, such as the potential of the clamped nuclei or a superposition of atomic charge densities. Its components, \cref{eq:A.3-periodic}, are
+The positions of the atoms within the cell enter every Fourier component of a lattice-periodic quantity. Consider a function built from one term per atom, $f(\vect{r}) = \sum_{\vect{R}}\sum_\kappa v_\kappa(\vect{r} - \vect{R} - \vect{\tau}_\kappa)$, such as the potential of the clamped nuclei or a superposition of atomic charge densities. The Fourier components of $f$, \cref{eq:A.3-periodic}, are
 \begin{equation*}
   f_{\vect{G}} = \frac{1}{\Omega}\int_\Omega\dd^3r\;\ee^{\ii\vect{G}\cdot\vect{r}}\sum_{\vect{R}}\sum_\kappa v_\kappa(\vect{r} - \vect{R} - \vect{\tau}_\kappa)
   = \frac{1}{\Omega}\sum_\kappa\int\dd^3r\;\ee^{\ii\vect{G}\cdot\vect{r}}\,v_\kappa(\vect{r} - \vect{\tau}_\kappa) .

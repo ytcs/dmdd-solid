@@ -494,7 +494,7 @@ Three-volume edition (2026-11-12): symbols no longer used in the tex have first 
 | Z*_κ | Born effective-charge tensor ∂F_κ/∂ℰ (in units of e) ⚑ | 1 | 5.5 |
 | ε₀ | static dielectric constant ε(0, ω → 0), lattice included: a pure number, never the vacuum permittivity (which appears only as ε₀^SI, entry 2). In the donor Coulomb term −α/(ε₀r) of 7.4 and D.23 it is the static constant of silicon, ε₀ = ε∞ = 11.7 at room temperature (nonpolar; editor ruling App. E), with 11.4 stated in 7.4 as the liquid-helium value of donor spectra and used at millikelvin in 18.5 and 20.1 (Coulomb and field radii, space-charge field) ⚑ | 1 | 5.5 |
 | ω_L, ω_T | longitudinal and transverse optical frequencies at Q → 0 ⚑ | meV | 5.5 |
-| W_κ(q) | Debye–Waller exponent, 2W_κ(q) = q·B_κ·q (only this meaning) ⚑ | 1 | 5.6 |
+| W_κ(q) | half the Debye–Waller exponent: the exponent is 2W_κ(q) = q·B_κ·q (only this meaning) ⚑ | 1 | 5.6 |
 | 𝒞_κκ′(R, t), 𝒞_κκ′(t) | displacement correlation function ⟨u_Rκ(t)u_0κ′(0)⟩; 𝒞_κκ′(t) where the cell is clear (script C; was Φ_κκ′(t)) ⚑ | Å² | 5.6 (derived D.15 → 5.6) |
 | S_HR | Huang–Rhys factor ⚑ | 1 | 5.6 |
 | γ_Qν, γ^anh_Qν | phonon linewidth (full width); its anharmonic part ⚑ | meV | 5.7 |
@@ -940,7 +940,7 @@ Three-volume edition (2026-11-12): symbols no longer used in the tex have first 
 | 𝐅_e | Σ_i∇_iV_eN, minus the total force on the electrons (subscript mandatory; bare F is not used) ⚑ | eV² | — (removed in the three-volume edition) |
 | P̂^W_I | projector on the occupied Wannier functions centered on nucleus I | 1 | — (removed in the three-volume edition) |
 | A^W_cv | Migdal amplitude of rigid Wannier following, transition v → c | 1 | — (removed in the three-volume edition) |
-| W_v | width of the occupied valence manifold (subscript mandatory; W_κ is the Debye–Waller exponent) ⚑ | eV | — (removed in the three-volume edition) |
+| W_v | width of the occupied valence manifold (subscript mandatory; 2W_κ is the Debye–Waller exponent) ⚑ | eV | — (removed in the three-volume edition) |
 | s^inc_κ(𝐐, ω) | incoherent spectrum of one nucleus, normalized to one, zero-phonon line included (superscript mandatory; s_κ(q) is the nuclear spin density of 8.1) ⚑ | eV⁻¹ | 12.4 (moved from D.33; named in 12.1) |
 | 𝓘_k, dσ_κ | inverse moments ∫Δ^{−k}dσ_κ of the force spectrum dσ_κ of one nucleus | eV^{4−k} | 12.5 |
 | E^Mig_k, E_BH | k-th moment of the Migdal spectrum; diagonal Born–Huang energy 𝓘₂/2M_κ | eV^k; eV | 12.5 |
@@ -1607,7 +1607,7 @@ which apply the editor's decision on the spine reviews (SPINE change log, second
 10. **Γ, X, L, K.** Γ (italic) rates; Γ_w a width; upright Γ, X, L, K the high-symmetry points of the zone. Italic L is the loss function
     (4.4); italic K is not used in Part I (K̄ is the mean kinetic energy, entry 41). The writer of 3.1 states the typographic rule
     (upright for zone points).
-11. **W.** W_κ(q) Debye–Waller exponent only; the screened interaction is W^scr (first use 4.8, superscript mandatory). Many papers write
+11. **W.** W_κ(q), half the Debye–Waller exponent 2W_κ(q), only; the screened interaction is W^scr (first use 4.8, superscript mandatory). Many papers write
     the loss function as W; the book writes L.
 12. **κ (revised).** κ is the species index only (bare κ, as a subscript or a summation index). The Born–Oppenheimer small parameter is
     κ_BO, a scalar that always carries its subscript and is never summed or used as an index. Kinetic mixing, formerly κ_mix, is renamed
