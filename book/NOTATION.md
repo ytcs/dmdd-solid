@@ -867,7 +867,7 @@ Three-volume edition (2026-11-12): symbols no longer used in the tex have first 
 | σ_ln ℛ | Gaussian width of ln ℛ from independent nuisances, (Σ_k ln²(1 + δ_k))^{1/2} | 1 | 10.10 |
 | ν̃, ν̃̄ | final-state fermion of fermionic absorption (named with the operators in 8.1; rates in 10.9); its Dirac conjugate ⚑ | — | 8.1 |
 | κ_η | constant of the light-mediator correction, 3.14 for c → 0 and 3.09 at the sound speed of Si (subscript mandatory; never an index) ⚑ | 1 | 11.1 |
-| c̄_LA | sphere-averaged longitudinal sound speed (Christoffel average) | km s⁻¹ | App. C.18 (moved from 11.1) |
+| c̄_LA | sphere-averaged longitudinal sound speed (Christoffel average) | km s⁻¹ | — (removed in the three-volume edition) |
 | B | bulk modulus (the Rayleigh bound c_LA ≥ √(B/ρ_T); the isothermal B of E.8, renamed from B_bulk in clash entry 72); bare B is never a magnetic field (𝐁₀ is bold) ⚑ | GPa | 11.1 (also App. C.18) |
 | q_BZ | zone-boundary momentum scale of a crystal | keV | 11.1 |
 | W_AB | pairwise mass window of two materials A, B: the contiguous masses with \|δ_AB\| < 0.1 (eq:17.5-window; for the heavy-mediator ranking capped at the smaller m_hi) ⚑ | MeV | 17.5 |
