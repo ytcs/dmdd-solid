@@ -24,3 +24,4 @@
 - ch17 'lattice ceiling' (s17-1) undefined; tab:17-fom cell 'L(q,omega) in the window' -> 'kinematic window' (tables now editable); s17-6 'the two nuclear channels' unnamed; names: 'kinematic window', 'remainder', 'the two couplings' unified
 - ch19 s19-5:65 'equal when both are zero' (only when?) - claim; s19-3:134 long base sentence
 - appE D-30:57 CONTENT? 'inversion maps q back to -q' (should be -q -> q) - possible erratum; block names unified (singlet/triplet/cross/current block)
+- ch21 s21-4 'along the other axis' unnamed; names: 'closed form at v_E^ref', 'standard-halo rate/curve'
