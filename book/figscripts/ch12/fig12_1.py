@@ -45,6 +45,7 @@ Q = 50e3                             # eV
 # ---- loss function --------------------------------------------------------------------------------------------------
 d = np.load(os.path.join(HERE, "..", "ch10", "si_elf_binned.npz"))
 pg, we, L = d["q"], d["omega"], d["lf"]          # eV, eV, L[omega, p]
+L = np.where(we[:, None] >= MG.EG, L, 0.0)        # the tables' 1.11 eV threshold, as in mig12 (ER-10)
 wp = np.gradient(pg)                              # trapezoid-like weights on the nonuniform p grid
 ww = np.gradient(we)
 Z2p = MG.z_ion(pg)**2                             # Z_ion(p)^2 on the p grid
