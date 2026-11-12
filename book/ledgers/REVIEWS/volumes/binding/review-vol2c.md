@@ -1,6 +1,6 @@
 # Binding review, block vol2c (Chaps. 14-17)
 
-Reviewer: independent, against `git diff -U0 60cc72c` on tex/ch14-ch17 (no generated files in these chapters). Diff read sentence by sentence through a sentence-aligned word diff; every file then read whole (ch14 in full; ch15-ch17 in full for all paragraphs containing edits and their neighbours). Editors' logs not consulted before forming the verdicts below.
+Reviewer: independent, against `git diff -U0 60cc72c` on tex/ch14-ch17 (no generated files in these chapters). Every changed sentence was read in a sentence-aligned word diff and then in context in the current file. Read in full: all of ch14 (every section file), s15-2, s15-3 and s15-4 (most of each), and the opening paragraphs of every ch16 and ch17 section. Read in context only (the edited paragraphs and their neighbours): the rest of ch15, ch16 and ch17. The editors' logs were not consulted before the verdicts below were formed. The ranker was run with `--summary` on all 33 files: every file has 14-28 flagged sentences per 1000 words, with no outlier, and the highest are ch16.tex, ch17.tex, s16-9, s17-6, s16-1 and s17-4. The recall top-up was weighted toward these files.
 
 ## Verdict
 
@@ -18,7 +18,7 @@ Overall the editors' work is sound. Most rebindings are correct and faithful; se
 
 | file:line | editor text | my text | reason |
 |---|---|---|---|
-| ch14/s14-1:74 | "is $1+2\Delta S$, the same statement as the value of $W_\perp$ in \cref{eq:14.1-ratio}, and the zone average gives a check" | "is $1+2\Delta S$, the statement of \cref{eq:14.1-ratio} for $W_\perp$, and this zone average gives a check" | "a statement as a value" does not parse; repeated noun phrase |
+| ch14/s14-1:74 | "is $1+2\Delta S$, the same statement as the value of $W_\perp$ in \cref{eq:14.1-ratio}, and the zone average gives a check" | "is $1+2\Delta S$, which restates $W_\perp$ of \cref{eq:14.1-ratio}, and this zone average gives a check" | "a statement as a value" does not parse; repeated noun phrase |
 | ch14/s14-1:76 | "The fraction $\Delta S/\|S\|$ is an estimate of the leading correction" (directly after "...too large by the fraction $\Delta S/\|S\|$.") | "This fraction is an estimate of the leading correction" | over-repair: one candidate in the previous sentence |
 | ch14/s14-1:104 | "on the same lattice linear spin-wave theory overcounts" | "on the same lattice, linear spin-wave theory overcounts" | garden path ("lattice linear ...") |
 | ch14/s14-2:37 | "as a rate for light dark matter requires, since light dark matter samples only small $q$" | "as the rate requires: light dark matter samples only small $q$" | robotic repetition; the inserted domain was redundant |
@@ -31,7 +31,22 @@ Overall the editors' work is sound. Most rebindings are correct and faithful; se
 | ch17/s17-1:44 | "since the whole Migdal rate at 1 MeV comes from momentum transfers between about 0.75 keV and $2q_{BZ}$ (29 % of it from below $q_{BZ}$)" | "... comes from this range of momentum transfers (29 % ...)" | verbatim repeat of the range stated three sentences earlier |
 | ch17/s17-4:89 | "In the window \cref{eq:17.4-lock} sets the scale" | "In the window, \cref{eq:17.4-lock} sets the scale" | garden path ("the window eq.") |
 
-Fixes in text the editors did not change (open items and recall) are listed in the next two sections.
+Fixes in text the editors did not change (base text in the second column):
+
+| file:line | base text | my text | reason |
+|---|---|---|---|
+| ch14/s14-1:9 (open) | "changes sign under a reciprocal vector of the sublattice that maps A onto B" | "changes sign when $\vect{q}$ is shifted by a reciprocal vector $\vect{G}$ of the sublattice for which that phase is negative" | attachment; no reciprocal vector maps A onto B |
+| ch14/s14-5:17 (open) | "The current block is the first that differs." | "For the current block, unlike the density block, the two relations differ." | relational word without comparand |
+| ch14/s14-5:184, tab:14-nuisances (open) | "Magnetic anisotropy near the gap" | "Magnetic anisotropy near the mass edge" | name used in s14-1 for the same row |
+| ch17/s17-1:9 (open) | "Below the lattice ceiling ... Above it ... at the lattice ceiling" | "Below the lattice ceiling, the larger of $\omega_{max}$ for one phonon and $E_R^{max}$ for a free recoil, ... Above the lattice ceiling ... at the lattice ceiling" | definite before introduction |
+| ch17/s17-5:26, tab:17-fom (open) | "$L(q,\omega)$ in the window" | "$L(q,\omega)$ in the kinematic window" | unified name |
+| ch17/s17-6:31 (open) | "not ranked in the two nuclear channels" | "not ranked in the two channels that need one, the heavy-mediator single-phonon rate and the nuclear edge" | unnamed set |
+| ch14/s14-6:165 (recall) | "Both curves follow from the Neyman construction" | "The Rayleigh and fixed-power curves both follow ..." | "both" picks from two earlier sentences |
+| ch15/s15-4:38 (recall) | "29.7 or 56.4 eV. This is two hundred times the 0.15 eV ..., and 61 times less than $k_F$" | "The smaller value is two hundred times ..., and the larger is 61 times less than $k_F$" | "this" bound to two different values (29.7/0.15 = 198, 3450/56.4 = 61) |
+| ch15/s15-1:27 (recall) | "this phase reproduces" | "this choice of phase reproduces" | second candidate: "the phase operator" |
+| ch15/s15-1:100 (recall) | "At 1 eV all three agree" | "At 1 eV the three loss functions agree" | set spread over three caption sentences |
+| ch16/s16-3:110 (recall) | "Gray: both ratios within" | "Gray: the ratios for $qR = 3$ and 8 both within" | same |
+| ch15/s15-4:161,162, nuisance table (recall, tables) | "the phonon-assisted part near the edge"; "Scalar absorption near the edge" | "... near the pair-breaking edge" (both cells) | the caption defines "edge" as the kinematic edge; these cells mean the pair-breaking edge |
 
 ## Open items
 
@@ -59,10 +74,10 @@ The sample is about 1 in 7 of the unchanged prose paragraphs of more than 40 wor
 
 | Chapter | paragraphs sampled | words | misses | per 1000 words |
 |---|---|---|---|---|
-| ch14 | ch14.tex:7; s14-1:120; s14-2:21,85; s14-3:18,153; s14-4:111; s14-5:99,120; s14-6:88,165; summary:11 | ~1120 | 1 | 0.9 |
-| ch15 | ch15.tex:9; s15-1:27,41,100; s15-2:20; s15-3:23,91,97; s15-4:38,40,96; summary:5 | ~1170 | 3 | **2.6** |
-| ch16 | s16-1:58; s16-2:16,72; s16-3:59,110; s16-4:7,103; s16-5:17,62; s16-6:52,99; s16-7:3,13,78,173; s16-8:14,130; s16-9:37,52; summary:7 | ~1870 | 1 | 0.5 |
-| ch17 | s17-1:73; s17-2:62; s17-3:52; s17-4:101; s17-5:40,118; s17-6:35; summary:5 | ~600 | 0 | 0 |
+| ch14 | ch14.tex:7; s14-1:120; s14-2:21,85; s14-3:18,153; s14-4:111; s14-5:99,120; s14-6:88,165; summary:11; prose cells of tab:14-nuisances (besides the open item) | ~1600 | 1 | 0.6 |
+| ch15 | ch15.tex:9; s15-1:27,41,100; s15-2:20; s15-3:23,91,97; s15-4:38,40,96; summary:5; prose cells of the s15-4 nuisance table | ~1670 | 5 | **3.0** |
+| ch16 | s16-1:58; s16-2:16,72; s16-3:59,110; s16-4:7,103; s16-5:17,62; s16-6:52,99; s16-7:3,13,78,173; s16-8:14,130; s16-9:37,52; summary:7; pointer-word grep of the prose cells of tab:16-inputs | ~1870 + cells | 1 | 0.5 |
+| ch17 | s17-1:73; s17-2:29,62; s17-3:12,52; s17-4:53,101; s17-5:40,118; s17-6:7,27,35; summary:5; prose cells of tab:17-fom and tab:17-rank (besides the open item) | ~1900 | 0 | 0 |
 
 I fixed every miss:
 - s14-6:165 (caption): "Both curves follow" → "The Rayleigh and fixed-power curves both follow". "Both" picked from two earlier sentences.
@@ -71,7 +86,9 @@ I fixed every miss:
 - s15-1:100 (caption): "all three agree" → "the three loss functions agree".
 - s16-3:110 (caption): "Gray: both ratios within" → "Gray: the ratios for $qR = 3$ and 8 both within".
 
-**ch15 exceeds 2 misses per 1000 words (2.6 in a sample of 1170 words). That chapter gets a second pass.** Two of the three misses are in s15-1 and s15-4, outside the paragraphs the editors changed. The rate rests on a small sample, but it is above the threshold.
+**ch15 exceeds 2 misses per 1000 words (3.0 in a sample of about 1670 words). That chapter gets a second pass.** ch14, ch16 and ch17 stay below the threshold.
+
+Note for the ch15 second pass: s15-1:3 defines two edges, the *kinematic edge* $q = \omega/v_{max}$ and the *pair-breaking edge* $\omega = 2\Delta_{BCS}$. Bare "the edge" is used for both: the kinematic edge in s15-1:93,108,115,121, s15-2:16,20,55,57,75 and the s15-4 table caption; the pair-breaking edge in ch15.tex:4, s15-4:32,38,83,86,124,128,132,134 and summary:3,7. In s15-2:73 one paragraph uses both: "moves the edge" means the pair-breaking edge, and "the edge remainder" belongs to the kinematic edge. Also check s15-1:137 ("comes from the edge") and s15-3:136 ("would give the edge"). This is the "one name, two referents" risk of the calibration. I fixed only the two table cells that contradict their own caption.
 
 ## Checks
 
