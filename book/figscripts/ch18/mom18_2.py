@@ -1,4 +1,4 @@
-"""Shared solver for Sect. 18.2 (imported by fig18_2.py, limit18_2a.py, limit18_2b.py, limit18_2c.py, we18_2.py).
+"""Shared solver for Sect. 18.2 (imported by fig18_2.py, limit18_2a.py, limit18_2b.py (we:18-parking), we18_2.py).
 
 Energy-only carrier cascade of Sect. 18.1, solved for the first and second moments of additive deposits by the first-step
 recursions of App. C.11 (eq:C.11-mean, eq:C.11-second), one upward sweep on an energy grid.  Units: E_g = 1.

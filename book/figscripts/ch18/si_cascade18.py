@@ -1,6 +1,6 @@
 """The one silicon parameter set of Chap. 18, shared by every Ch18 script, and its continuum calibration.
 Run: python si_cascade18.py > si_cascade18.log  (about 3 min).  Imported by fig18_1.py, fig18_2.py, num18_2.py, limit18_2a/c.py,
-casc18_3.py, table18_4.py, limit18_4a/c.py.
+casc18_3.py, table18_4.py, limit18_4c.py.
 
 Model: the energy-only random-k cascade of Sects. 18.1-18.2 (free-particle densities of states rho_t ~ x^(1/2), threshold ratio
 theta_ii = 1, one optical phonon, rate ratio Gamma_ph/Gamma_ii = A_AB rho_t(x - omega_AB)/Phi_t(x - E_g), Eq. (8) of Ramanathan and

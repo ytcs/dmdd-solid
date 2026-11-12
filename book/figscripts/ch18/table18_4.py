@@ -1,5 +1,5 @@
 """Table 18.1 (tab:18-pairs) and the silicon numbers of Sect. 18.4: the energy-only random-k cascade for Si, Ge and GaAs.
-Run: python table18_4.py > table18_4.log  (about one minute).  Writes table18_4.json (A_AB) for limit18_4a/c.py.
+Run: python table18_4.py > table18_4.log  (about one minute).  Writes table18_4.json (A_AB) for limit18_4c.py and the theta_ii = 3/2 value of Sect. 18.4.
 
 Inputs (each with its source):
   Si calibration datum: eps_eh = 3.749 +- 0.001 eV and F_eh = 0.119 +- 0.002 at 123 K, 5.9 keV (Rodrigues et al.,

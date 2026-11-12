@@ -1,4 +1,4 @@
-"""Moment solver of the energy-only random-k cascade, used by the Sect. 18.4 scripts (table18_4.py, limit18_4a/b/c.py).
+"""Moment solver of the energy-only random-k cascade, used by the Sect. 18.4 scripts (table18_4.py, limit18_4c.py).
 
 Model (Sects. 18.1-18.2; free-particle kernels of App. E.13, eq:E.13-ab).  Units E_g = 1.  A carrier of type t (0 electron,
 1 hole) has kinetic energy x >= 0 above its band edge.
