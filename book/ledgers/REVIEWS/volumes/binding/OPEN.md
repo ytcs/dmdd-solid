@@ -19,3 +19,4 @@
 - ch10 FIDELITY CHECK: s10-1:57 'about ten percent' -> 'of the first moment' (possible number/claim change); s10-7:96 sapphire caption 'widths borrowed from ordinary modes'; s10-8:12 dark Compton tied to seagull regime; s10-9:114 transverse row reading
 - ch10 s10-1:57 checked by lead: number kept, only pointer rebound (OK)
 - ch16 ch16.tex 'the dark-photon rate on a glass is its measured loss tangent' (rate = loss tangent; claim wording/possible erratum); names unified: 'published form', 'total-eps rate', 'local-field ratio'
+- ch11 judgment: s11-1:144 'Above that' -> q_BZ/2v_max (0.42 MeV); s11-3:106 names TDS subsection; s11-2:149 LST 1.4% spelled out. CONTENT: s11-5:3 exact moments 'which anharmonicity cannot change' (form vs values) - possible erratum
