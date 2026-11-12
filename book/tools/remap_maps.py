@@ -22,7 +22,14 @@ from xref import groups  # noqa: E402
 OLD = "7696d03"
 REPO = V.BOOK.parent
 # (script, old text, new text): applied to the 7696d03 script before the tags are renumbered.
-OVERRIDES = []
+OVERRIDES = [
+    # Chap. 3: plane waves, pseudopotentials, core states and Wannier functions moved to Volume III (Chaps. 24, 25)
+    ("map03.py", '"pw": dict(x=X, y=y(5), w=W, title=', '"pw": dict(x=X, y=y(5), w=W, shade="ext", title='),
+    ("map03.py", '"wan": dict(x=X, y=y(6), w=W, title=', '"wan": dict(x=X, y=y(6), w=W, shade="ext", title='),
+    ("map03.py", '"core": dict(x=XR, y=y(5.55), w=WR, shade="light",', '"core": dict(x=XR, y=y(5.55), w=WR, shade="ext",'),
+    # Chap. 5: phonons from first principles moved to Volume III (Chap. 26)
+    ("map05.py", '"dfpt": dict(x=XR, y=y(2) - 0.1, w=WR, shade="light",', '"dfpt": dict(x=XR, y=y(2) - 0.1, w=WR, shade="ext",'),
+]
 
 
 def git_show(path):
