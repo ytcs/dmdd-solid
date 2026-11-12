@@ -12,7 +12,7 @@ import subprocess
 import sys
 from collections import Counter
 
-DISPLAY = r"equation|align|gather|multline|eqnarray|tabular|longtable"
+DISPLAY = r"equation|align|gather|multline|eqnarray"  # tables: their math, numbers and citations are compared item by item
 
 
 def items(t):
