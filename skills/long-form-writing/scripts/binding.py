@@ -36,7 +36,7 @@ POINTER_OPEN = re.compile(r"^(It|Its|This|These|That|Those|Such|They|Their|Both|
 KIND = re.compile(r"\bsuch (?!as\b|that\b|a\b)[a-z]+|\ball the same\b|\bthe (?:former|latter)\b|\b(?:that|those) of\b|\bthe rest\b"
                   r"|\bthe remainder\b|\bthe one\b|\bthe other\b(?! \w+ (?:hand|way))|\bin between\b")
 REL = {"difference", "mismatch", "ratio", "shift", "excess", "deficit", "remainder", "correction", "denominator",
-       "numerator", "offset", "discrepancy", "gap"}
+       "numerator", "offset", "discrepancy"}
 REL_ADJ = {"missing", "remaining", "extra", "former", "latter"}
 PRONS = {"it", "its", "itself", "they", "them", "their", "themselves"}
 DEMS = {"this", "that", "these", "those"}
@@ -115,8 +115,7 @@ def flags(sent, prev):
             f.append(f"PROP[{t.text}]")
         if t.lemma_ in REL and t.pos_ == "NOUN" and not any(c.dep_ == "prep" and c.lower_ in ("of", "between", "from", "in", "to", "on")
                                                             for c in t.children) and not any(c.dep_ in ("compound", "amod", "poss", "nmod") for c in t.children):
-            if t.lemma_ != "gap":
-                f.append(f"REL[{t.text}]")
+            f.append(f"REL[{t.text}]")
         if lw in REL_ADJ and t.dep_ == "amod":
             f.append(f"REL[{t.text}]")
         if lw == "both" and t.dep_ != "preconj" and t.dep_ != "det":

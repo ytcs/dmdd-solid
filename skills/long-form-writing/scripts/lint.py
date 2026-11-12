@@ -29,8 +29,8 @@ WORDY = [r"\beach and every\b", r"\bfirst and foremost\b", r"\bin order to\b", r
 # pattern 25: periphrasis and negation-stacked withholding (warn tier, non-blocking)
 PERIPHRASIS = [r"\bnever\b.{0,40}\b(anything|anyone)\b.{0,20}\b(except|but)\b", r"\bnothing\b.{0,30}\bexcept\b",
                r"\bdoes little more than\b", r"\bhas yet to\b", r"\b(that|this|the) silence\b",
-               r"\b(data|results?|silence|crystal|lattice|nature)\b (tells?|speaks?|whispers?|hides?)\b",
-               r"\b(fingerprint|signature) of\b(?! the (phonon|band))"]
+               r"\b(data|results?|silence|system|nature)\b (tells?|speaks?|whispers?|hides?)\b",
+               r"\b(fingerprint|signature) of\b"]
 NEGFRAME = [r"\bnot (just|merely|only) [^.]{1,60}, (but|it is)\b", r"\brather than merely\b"]
 
 def strip_tex(t):

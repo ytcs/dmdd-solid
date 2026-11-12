@@ -44,7 +44,7 @@ Everything below guards against one or the other.
    human-style read): no filler signposting, no inflated adjectives, no reflexive triads, no stacked
    hedges, no paragraph that only restates the previous one, no bullet lists standing in for
    argument.
-   Beyond avoiding AI patterns, the prose must sound like the field: plain, idiomatic physics writing in
+   Beyond avoiding AI patterns, the prose must sound like the field: plain, idiomatic writing in
    the register of named human-written expositions (REGISTER.md). The register check is part of every prose review.
 4. **Concision.** Book, part, chapter and section titles are short noun phrases naming their content.
    There are no subtitles (unless the publisher requires one), no punchline or clever titles, and no
