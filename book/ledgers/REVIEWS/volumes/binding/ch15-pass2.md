@@ -24,11 +24,11 @@ The tab:15-nuisances caption still defines "edge" as the kinematic edge. Its onl
 |---|---|---|---|
 | ch15.tex | 5 | 4 | 5 |
 | s15-1.tex | 56 | 53 | 18 |
-| s15-2.tex | 24 | 20 | 20 |
-| s15-3.tex | 75 | 74 | 7 |
+| s15-2.tex | 24 | 21 | 20 |
+| s15-3.tex | 75 | 74 | 8 |
 | s15-4.tex | 90 | 89 | 20 |
-| s15-summary.tex | 7 | 7 | 2 |
-| **Total** | **257** | **247** | **72** |
+| s15-summary.tex | 7 | 6 | 2 |
+| **Total** | **257** | **247** | **73** |
 
 "Sentences changed" counts the sentences of the new text that do not occur in the old text, titles included. A split counts twice.
 
@@ -44,7 +44,7 @@ The tab:15-nuisances caption still defines "edge" as the kinematic edge. Its onl
 | s15-1:137 | "The difference between the two factors comes from the edge." | "… comes from the energies near the pair-breaking edge." | bare name; here it means the coherence-factor window above 2Δ |
 | s15-3:136 | "Anderson's theorem would keep the clean gap and \cref{eq:15.3-MB} would give the edge." | "… would give the loss function at the pair-breaking edge." | bare name and a missing object (what the equation gives) |
 | summary:3 | "the ladder raises that absorption by up to 44 % near the edge" | "… by up to 44 % on the kinematic edge near the threshold" | bare name; 0.44 is the kinematic-edge value at y = 2.2 (s15-1:93), so naming only the pair-breaking edge would claim a maximum over all q |
-| summary:7 | "At the edge of a dirty film the condensate short-circuits" | "At the pair-breaking edge the condensate of a dirty film short-circuits" | bare name; preposition kept |
+| summary:7 | "At the edge of a dirty film the condensate short-circuits" | "Near the pair-breaking edge the condensate of a dirty film short-circuits" | bare name; "near" follows s15-3:105, which this sentence summarises ("Near the threshold … at y = 2.2") |
 | s15-3:136 | "BCS theory contains neither effect" | "BCS theory contains neither the Altshuler–Aronov effect nor the Finkel'stein mechanism" | *neither* picked from two earlier sentences |
 | s15-4:13 | "comes from the sign of the velocity under k → −k, which the density, an even function of k, does not have" | "comes from the velocity, which changes sign under k → −k; the density is an even function of k and does not change sign" | *which* with two candidates; apposition inside the relative clause |
 | s15-4:38 | "…, that is a momentum of at most 29.7 or 56.4 eV" | "…, this phonon has a momentum of at most …" | *that* standing for a proposition |
@@ -59,12 +59,15 @@ Other changes:
 - s15-1:127: "approach twice it" became "approach twice the bulk value".
 - s15-1:130: "Every point" became "Every point (q, ω) that the particle reaches".
 - s15-1:139: "lost below it" became "lost below 2Δ".
-- s15-2:3: "the edge value" became "the momentum on the kinematic edge" or "the edge momentum".
+- s15-2:3: "the edge value" became "the momentum on the kinematic edge" or "the edge momentum". "1.03 times it" is kept, because *it* has one candidate.
 - s15-2:66: "this excess" became "the excess over the normal metal".
 - s15-2:23 and s15-3:95: "the normal state" (in a normalization) became "the normal-state loss function" or "that Mermin loss function".
 - s15-3:19: "either" became "either value of the coherence length".
 - s15-3:78: "It is within" became "The ratio is within".
 - s15-4:3: "the phonon-assisted part reproduces" became "the phonon-assisted absorption reproduces" (a part without its whole).
+- s15-3:62: "The loss function is the same in both regimes" became "in both limits of $\omega/D_{\mathrm{diff}}q^2$". *both* had no pair in its sentence, and the next paragraph's diffusive and ballistic regimes, which differ, were the obvious misreading.
+- s15-3:134: in the new sentence, "…= 0.20 eV, and $q\mathfrak{l}_e \approx 10^{-4}$, and the diffusion pole" became "…, with $q\mathfrak{l}_e \approx 10^{-4}$, and …". This removes a three-way *and* chain.
+- s15-1:121: "the case-I factor $\mathfrak{g}_{\mathrm{I}}(5) = 1.15$ of the conserving response accounts" became "the case-I factor of the conserving response, $\mathfrak{g}_{\mathrm{I}}(5) = 1.15$, accounts". This removes a garden path, since "1.15 of the conserving response" read as a second ratio.
 - s15-4:136: "that channel … that response" became "the amplitude channel … the scalar response".
 
 Considered and left unchanged:
