@@ -95,3 +95,61 @@ Checked and left: dups pairs E-14:86/s22-1:79 (worked example kept, move propose
 chapcheck (/tmp/e2e-ch31, -ch32, -ch33): all exit 0, 0 undefined, 0 multiply defined, 0 floats too large; ch32 keeps its one pre-existing overfull hbox. Lint on changed files: only LONG-SENT warnings, none in a sentence I wrote (two split).
 
 Left for others: see "Notes from block reader ch31–ch33" in E2E-vol3-notes.md (we:22-fsum placement, shared-base order, missing Summaries of Chaps. 31–32, c_κ^* in eq:11.3-weight, ch31 methods pointer).
+
+## Structural fixes
+
+Scope: tex/vol3.tex and tex/ch24 … ch33 (ch23 not edited: the Volume I fixer is moving s3-4). Inputs: E2E-vol3-structure.md (17 findings), E2E-vol3-notes.md, the block logs above. Words before/after: ch24 7625 → 7550; ch25 7954 → 7954; ch26 10625 → 10842; ch27 6319 → 6484; ch28 4161 → 4391; ch29 9509 → 9719; ch30 13382 → 14237 (+ we:22-fsum moved in, ~600 words); ch31 15370 → 15668; ch32 11312 → 11550; ch33 8220 → 7517 (− we:22-fsum). The growth is the seven Summaries (193–244 words each) and the moved worked example.
+
+### Chapter order (findings 5 and 6): done
+- Dependency check (grep of \cref targets between the chapters, after the block edits): ch25 (Wannier) cites ch26/ch27 inputs 7 times (app:E.4, eq:E.4-berry, eq:E.4-dpsiperp, we:E-dfpt-si, eq:E.7-fsum); ch26/27/28/29 cite ch25 only as "interpolated in app:E.5" pointers. ch30 builds on the base of app:E.17 (E-14:9, 19, 27, 64; E-16:9; E-18:23 and "the shared base" in E-14, E-16, E-18); ch31 cites ch30 only for the window grid and the germanium band test (E-17:7, 11). Both arguments still hold.
+- vol3.tex: Methods now ch23, ch24, ch26, ch27, ch25, ch28, ch29; Specifications ch31, ch30, ch32, ch33. Printed: chap:26 → 25, chap:27 → 26, chap:25 → 27, chap:31 → 30, chap:30 → 31.
+- \crefrange endpoints that no longer bracket the intended chapters: \crefrange{chap:30}{chap:32} → \crefrange{chap:31}{chap:32} in ch33.tex:3, s22-1.tex:3, E-17.tex:7, E-26.tex:7 (and the new ch31 opening); s21-6.tex:53 \crefrange{chap:23}{chap:26} (functional, pseudopotentials, scissor, grids: DFT, PP, Wannier, phonons) → \cref{chap:23,chap:24,chap:25,chap:26}. No "previous/next chapter" wording exists in ch24–ch33 (grep).
+- Openings: ch31.tex (now the first specification chapter) takes the Part II acceptance rule from ch30.tex and names its method chapter (DFPT of chap:26) and its link to chap:30. ch30.tex loses the Part sentences, the "Each is placed on the truncation label" sentence (finding 3) and "The electronic channels come first" (position); it now names its methods (\crefrange{chap:23}{chap:25}, printed "Chaps. 23 to 27") and the lattice base of app:E.17. The "shared base" used before its definition (notes, ch31–33 block) is resolved by the order.
+- ch24/E-2.tex: the closing paragraph that handed over to the Wannier chapter as the next one ("The density vertex ... can now be computed ... The localized orbitals of \cref{chap:25} turn a calculation on a coarse grid into one on any grid.") deleted; ch25's opening motivates the fine grids itself.
+- The seven back-pointers to app:E.5 in ch26–ch29 now point forward; each says where a step is done (Addendum 3 test), kept.
+
+### Summaries (finding 2): done
+\section*{Summary} added at the end of the drivers of ch26, ch27, ch28, ch29, ch30, ch31, ch32, condensed from the section openings, key results, worked examples and summary tables (sources: ch26 s5-4, E-4 incl. we:E-dfpt-si, E-8 incl. we:E-zpr; ch27 E-6, E-7 incl. we:E-siff; ch28 E-9, E-10; ch29 E-11–E-13 and tab:E-md-si, tab:E-cascade-si; ch30 E-14, E-15, E-16, E-18, E-26, s22-1:3; ch31 E-17, E-19–E-22; ch32 E-23–E-25, E-27). They avoid the sentences of the openings and of the Summaries of ch23–ch25 (no ε∞ 13.0/11.7, no zero-point double count, no nonlocal-sum-rule rule, no cost range, no acceptance rule). No new number: every number is in the chapter.
+
+### Repetition across openings and summaries (finding 3, 4 and item 3): done where in scope
+- Acceptance rule: once, ch31.tex:3. "quantity by quantity …": once, ch23.tex:3. Cost range: once, ch32.tex:3. Truncation-label claim: gone from ch30.tex.
+- ch26/E-8.tex (we:E-zpr): "So the window and threshold calculations of \cref{chap:13} take the measured gap and do not add the renormalization again." deleted (third copy of the double-count rule, finding 8); the clamped-gap rule stays.
+- ch27/E-7.tex:99: "With a nonlocal pseudopotential, a test that compares the truncated sum with q²/2m_e alone confuses the two effects, and the nonlocal term must be included before the shortfall is read as band truncation." deleted (stated in ch24/E-2, to which the paragraph already points as "the band-summed form of eq:E.2-dc").
+
+### Other findings
+- 1 (ch33 Summary): done by block reader; checked.
+- 7 (core region 24 ↔ 27): block reader cut the E-7 copies; remaining forward uses of eq:E.7-fsum and eq:E.7-vNL in ch24/E-2 are pointers to the per-state forms derived in E-7; accepted (E-2 derives the band-summed form, E-7 the per-state one). Order 24 before 27 (printed 26) unchanged.
+- 8 (nonlocal f-sum, zero point): see above; ch23/E-3:11 and :15 listed for ch23.
+- 9 (ch27 opening): the plasma-frequency/loss-peak sentences moved from E-6:3 to the opening (the opening now motivates by the 16.6 eV peak and the light-mass weight near the gap); E-6:3 keeps the hierarchy, rewritten as one sentence without the recap opener.
+- 10 (openings vs first sections): done by block readers; ch31/ch30 rechecked after the opening rewrite, no repeat.
+- 11 (method pointers): ch31.tex and ch30.tex openings (above); E-20 pointer done by block reader.
+- 12 (split ch28): not done. E-10 holds formation energies, charged-defect corrections, color centers and tunneling defects in metals as well as the bridge to recoils; moving it to ch29 would put color centers into the recoil chapter. "Displacement thresholds" (E-10:38–40) now has unique content (SW best of three potentials, 4–6 eV above DFT along ⟨111⟩) and a pointer; kept.
+- 13 (plane waves twice): ch24/s3-5.tex: the unlabeled-in-use display eq:3.5-pw removed (grep: no reference anywhere), its content kept as a clause pointing to app:E.1 for E_cut and k_cut; the first paragraph moved above the subsection to become the section's opening (Sect. 24.1 no longer starts with a subsection); subsection retitled "The cutoff and the vertex". Label removed: eq:3.5-pw (xref/all.tex keeps it until the next build).
+- 14 (ch23 order): ch23, not edited; listed below.
+- 15: done by block reader.
+- 16 (E-16:9 "20 functions in all (sec:21.6)"): the count is defined in E-16 itself (12 + 4 per version); no change.
+- 17: no "nuisance" left in ch24–ch33 except the label tab:12-nuisances; conventions.tex is front matter, for the lead.
+- Notes, we:22-fsum: moved from ch33/s22-1.tex to the end of ch30/E-14.tex "The f-sum check with its parts separated" (after "… in minutes, and \cref{we:22-fsum} works it through at one momentum."); s22-1.tex:77 keeps its one-sentence pointer. Inside the example: the re-statement of eq:E.7-fsum and of the 0.81/0.89 band sums cut (stated two paragraphs earlier); "δ_NL of \cref{app:E.14}" → "δ_NL" (same section now). In E-14 the clause "an all-electron (PAW) calculation, which has no nonlocal term (\cref{app:E.2}), checks it" deleted; the example's accurate statement ("An all-electron calculation, or a PAW calculation whose density vertices are reconstructed inside the augmentation spheres, … checks the split") stands once.
+
+### Sentences written (not copied verbatim)
+- ch24/s3-5.tex:3 "A plane-wave code stores each periodic part as the Fourier series \cref{eq:3.2-pw}, truncated at the kinetic-energy cutoff of \cref{app:E.1}, $|\vect{k}+\vect{G}| \le k_{\mathrm{cut}} = (2m_eE_{\mathrm{cut}})^{1/2}$." (rebuilt from the old first sentence and display).
+- ch27/E-6.tex:3 "The hierarchy of many-body approximations of \cref{sec:4.6,sec:4.9} runs from the independent-particle bubble through the random-phase approximation with and without local fields and time-dependent density-functional kernels to the Bethe--Salpeter equation." (rebuilt from the old sentence).
+- ch30.tex:3 "The electronic channels, with those that mix electrons with phonons or with the motion of a nucleus, are specified here with the methods of \crefrange{chap:23}{chap:25}, on the lattice base of \cref{app:E.17}."
+- ch31.tex:3 "One harmonic calculation per crystal by the DFPT of \cref{chap:26}, …" (clause added); "The electronic specifications of \cref{chap:30} start from the same ground state and phonons."; "The specifications of \crefrange{chap:31}{chap:32} share one rule: …" (rule sentence moved from ch30).
+- ch30/E-14.tex: "… in minutes, and \cref{we:22-fsum} works it through at one momentum."; in we:22-fsum "The test momentum sits at the upper end of the range in which the norm-conserving sum at Γ reaches 0.89 of q²/2m_e with 100 bands."
+- All sentences of the seven new Summaries (ch26.tex, ch27.tex, ch28.tex, ch29.tex, ch30.tex, ch31.tex, ch32.tex, last paragraph before \printbibliography): condensed rewordings of the cited sources, each checked against the prose patterns and the lint.
+
+### Checks
+chapcheck (/tmp/sf3-<unit>): ch24, ch26, ch27, ch28, ch29, ch30, ch31, ch32, ch33 exit 0, 0 undefined references, 0 multiply defined labels, 0 floats too large (ch25 not edited). Overfull hboxes > 5 pt: ch26 5, ch28 1, ch29 1, ch30 2, ch32 1, all in lines not touched here. Lint on changed files: 0 blocking; LONG-SENT warnings only in untouched sentences (and the ch33 Summary of the block reader); the long sentences I wrote were split. vol3.tex itself is not compiled (no full build run).
+
+### For the lead (outside Volume III or ch23)
+- ch23/ch23.tex:3 \Crefrange{chap:30}{chap:33} now prints "Chaps. 31 to 33"; change to \Crefrange{chap:31}{chap:33}. \Crefrange{chap:23}{chap:29} is still correct.
+- ch08/s8-8.tex:24 \crefrange{chap:23}{chap:26} now prints "Chaps. 23 to 25" (DFT, PP, phonons); if the Wannier grids are meant, use \cref{chap:23,chap:24,chap:25,chap:26}.
+- appB/B-1-vol3.tex (generated) lists notation blocks by chapter label in the old order (chap:25 before chap:26, chap:30 before chap:31); regenerate. xref/*.tex need a full build.
+- ch23 items: finding 14 (scissor in 23.1 and 23.5), E-3:15 zero-point pointer (finding 8), E-3:11 eq:E.2-fsumNL forward pointer, ch23.tex:3 "about 0.5 eV" should name the functional (LDA).
+- ch11/s11-8.tex:97 → eq:5.5-LOTO so that eq:E.4-LOTO (ch26/E-4:36–41) can go (block note, still open).
+- front/conventions.tex Limit Check paragraph in Vol. III (finding 17).
+
+### Value disagreements for the corrections stage (not changed)
+- Norm-conserving f-sum at Γ with 100 bands: 0.88 (ch24/E-2, at 0.1 Å⁻¹ along [100]) against 0.89 (ch30/E-14 and the moved we:22-fsum, 0.1–0.5 Å⁻¹; sec:13.9). New.
+- SG15 Si p core radius 1.89 Å (ch24/s3-5:43, fig:3-psae) vs 3.56 bohr = 1.88 Å (E-2:31). LDA a of Si 5.401 (ch23/s3-4:56) vs 5.403 Å (tab:E-functionals). Plasmon 16.6 eV (E-13, tab:E-cascade-si) vs 16.4 eV (E-24). SW threshold 17.5 (E-10) vs 18 eV (E-11). KS gap "about 0.5 eV" (ch23) vs 0.6 eV PBE (E-7). E-6:44 "local fields small in the rate" vs sec:10.2, ch21, sec:8.8. δ_LF reference ε_mac (eq:E.16-dLF) vs head-only (s13-4:122). c_κ^* in the old eq:E.17-Wn vs eq:11.3-weight.

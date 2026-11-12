@@ -67,3 +67,19 @@ def label_home():
                 for lab in labels_of(f):
                     home.setdefault(lab, []).append((vol, ch))
     return home
+
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) == 3 and sys.argv[1] == "--number":
+        # printed number of a chapter directory: its position in the volume drivers (chapters only)
+        n = {"vol1": 0, "vol2": 8, "vol3": 22}
+        for vol in VOLS:
+            k = n[vol]
+            for driver, _ in chapters(vol):
+                if driver.parent.name.startswith("ch"):
+                    k += 1
+                    if driver.parent.name == sys.argv[2]:
+                        print(k)
+                        sys.exit(0)
+        sys.exit(f"{sys.argv[2]} is in no volume")

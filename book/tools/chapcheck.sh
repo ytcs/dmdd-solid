@@ -8,7 +8,7 @@ set -u
 here="$(cd "$(dirname "$0")/.." && pwd)"
 name="$1"; out="${2:-/tmp/chapcheck-$name}"; mkdir -p "$out"
 case "$name" in
-  ch*) n=$((10#${name#ch})); setup="\\mainmatter\\setcounter{chapter}{$((n-1))}";;
+  ch*) n=$(python3 "$here/tools/volumes.py" --number "$name"); setup="\\mainmatter\\setcounter{chapter}{$((n-1))}";;
   appA) setup="\\appendix\\crefalias{chapter}{appendix}";;
   appC) setup="\\appendix\\crefalias{chapter}{appendix}\\setcounter{chapter}{2}";;
   appD) setup="\\appendix\\crefalias{chapter}{appendix}\\setcounter{chapter}{3}";;
