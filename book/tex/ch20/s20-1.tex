@@ -11,7 +11,7 @@ Consider electrodes $k$ held at potentials $V_k$ around a crystal with static di
 \end{equation}
 with the current $I_s = -q\,\vect{v}\cdot\nabla\varphi_s$ in its lead while the carrier moves at velocity $\vect{v}$. This is the Shockley--Ramo theorem~\cite{shockley1938currents,ramo1939currents}, \cite[Eq.~(2)]{lachish2017electron}. The weighting potential is a property of the electrode geometry alone. It is not the potential the carrier moves in. The applied bias, other carriers and trapped charges change the field and the trajectory, but by linearity they only add their own contributions to $Q_s$, and the charge induced by $q$ at a given point stays the same. \Cref{eq:20.1-ramo} is therefore exact in the presence of space charge.
 
-For two planar electrodes at $z = 0$ and $z = d_{\mathrm{det}}$, the weighting potential of the electrode at $z = d_{\mathrm{det}}$ is $\varphi = z/d_{\mathrm{det}}$. Let the electrode at $z = d_{\mathrm{det}}$ collect electrons (the anode), so that holes drift toward the cathode at $z = 0$. Let a pair be born at depth $z$, and let its electron drift a path $s_e$ toward the anode and its hole a path $s_h$ toward the cathode. By \cref{eq:20.1-ramo} the pair delivers the charge $e\,\mathfrak{q}$ to the anode, with
+For two planar electrodes at $z = 0$ and $z = d_{\mathrm{det}}$, the weighting potential of the electrode at $z = d_{\mathrm{det}}$ is $\varphi = z/d_{\mathrm{det}}$. Let the electrode at $z = d_{\mathrm{det}}$, the anode, collect electrons, so that holes drift toward the cathode at $z = 0$. Let a pair be born at depth $z$, and let its electron drift a path $s_e$ toward the anode and its hole a path $s_h$ toward the cathode. By \cref{eq:20.1-ramo} the pair delivers the charge $e\,\mathfrak{q}$ to the anode, with
 \begin{equation}
   \mathfrak{q} = \frac{s_e + s_h}{d_{\mathrm{det}}} , \qquad 0 \le s_e \le d_{\mathrm{det}} - z, \quad 0 \le s_h \le z .
   \label{eq:20.1-qpair}
@@ -85,7 +85,7 @@ The phonon energy of $n_Q$ pairs drifted across the bias $V_{\mathrm{bias}}$ is 
 When the drift length is no longer much longer than the crystal, the Luke heat falls below $N_{\mathrm{eh}}eV_{\mathrm{bias}}$ and depends on the depth of the event; it follows the read charge, not the pair number.
 \end{limitbox}
 
-Since the read charge of a planar detector carries the same factor $\bar{\mathfrak{q}}$ as the Luke heat, event by event, the subtraction $E_QeV_{\mathrm{bias}}/\varepsilon_{\mathrm{eh}}$ removes the Luke heat of partly collected pairs exactly. Trapping also changes the signal beyond the Luke heat. A trapped carrier keeps its share of the gap energy, which the balance law counts as missing energy (\cref{sec:19.5}), and a nuclear recoil has an ionized fraction $f_{\mathrm{ion}}$ below its ionization yield if its dense track traps more often.
+Since the read charge of a planar detector carries the same factor $\bar{\mathfrak{q}}$ as the Luke heat, event by event, the subtraction $E_QeV_{\mathrm{bias}}/\varepsilon_{\mathrm{eh}}$ removes the Luke heat of partly collected pairs exactly. Trapping also changes the signal beyond the Luke heat. A trapped carrier keeps its share of the gap energy, which the balance law counts as missing energy (\cref{sec:19.5}), and a nuclear recoil has an ionized fraction $f_{\mathrm{ion}}$ below its ionization yield if the carriers of its dense track are trapped more often than the carriers of an electron recoil.
 
 \subsection{Fano factor of the measured charge}\label{sec:20.1-fano}
 
@@ -147,7 +147,7 @@ With the scattering length $l_0 = \pi\rho_T/(2m^3(D^n)^2)$, a length that collec
 \end{equation}
 and the phonon is emitted at the polar angle $\theta$ with the probability density $\propto(\cos\theta - k_{\mathrm{s}}/k)^2\sin\theta$, up to $\cos\theta = k_{\mathrm{s}}/k$. Leman~\cite[Eq.~(22)]{leman2012invited} and Kelsey et al., for the G4CMP (Geant4 Condensed Matter Physics) toolkit~\cite[Eq.~(9)]{kelsey2023g4cmp}, print an angular law that integrates to \cref{eq:20.1-luke}, but the total rates printed beside that angular law~\cite[Eq.~(21)]{leman2012invited}, \cite[Eq.~(8)]{kelsey2023g4cmp} are lower by the factor $k_{\mathrm{s}}/k$.
 
-The phonon energy is $c_{\mathrm{LA}}Q_* = 2c_{\mathrm{LA}}k(\cos\theta - k_{\mathrm{s}}/k)$. The average over the angular distribution, in which $u = \cos\theta - k_{\mathrm{s}}/k$ is weighted by $u^2$ on $[0, 1 - k_{\mathrm{s}}/k]$ and so has the mean $\frac34(1 - k_{\mathrm{s}}/k)$, gives
+The phonon energy is $c_{\mathrm{LA}}Q_* = 2c_{\mathrm{LA}}k(\cos\theta - k_{\mathrm{s}}/k)$. In the angular distribution, $u = \cos\theta - k_{\mathrm{s}}/k$ is weighted by $u^2$ on $[0, 1 - k_{\mathrm{s}}/k]$ and so has the mean $\frac34(1 - k_{\mathrm{s}}/k)$. Averaging the phonon energy over the angular distribution gives
 \begin{equation}
   \langle E_{\mathrm{L}}\rangle = \frac32\,mc_{\mathrm{LA}}^2\Bigl(\frac{k}{k_{\mathrm{s}}} - 1\Bigr), \qquad E_{\mathrm{L}}^{\max} = 2mc_{\mathrm{LA}}^2\Bigl(\frac{k}{k_{\mathrm{s}}} - 1\Bigr) .
   \label{eq:20.1-Eluke}
