@@ -12,3 +12,4 @@
 - ch06 s6-3:177 'for the same reason' two candidates (left); s6-2:3 changed to 'The screened vertex' - verify
 - appC C-4:76 'its value at x0' (width vs delta term) - author choice; C-12:61 'the resulting leakage' may clash with Sect 21.2 'leakage'
 - appD D-24:97 'This is the order-v^2 term' antecedent is a formula fragment (left)
+- ch12 s12-3:130 'the second [difference]', s12-5:163 'Until both are computed' left; s12-6:123 'The nucleon amplitude' and Summary last sentence - check
