@@ -38,7 +38,7 @@ N = {
                  tag="Sect. 17.6"),
     "out": dict(x=2.2, y=y(5), w=5.6, shade="ext", title="Guide to next targets", h=H2,
                 body="pair energy, readout and backgrounds added",
-                tag="Sect. 21.7"),
+                tag="Sect. 21.6"),
 }
 E = [
     ("in", "sca", "fix the coupling", dict(sfrac=0.18, efrac=0.55, side="left", dx=-0.05)),

@@ -35,9 +35,9 @@ N = {
                tag="Sect. 21.5"),
     "nt": dict(x=2.2, y=y(5), w=5.6, title="Next targets", h=H2,
                body="leader per channel with its probability;" "\n" "missing demonstration; deciding measurement",
-               tag="Sect. 21.7"),
+               tag="Sect. 21.6"),
     "out": dict(x=2.2, y=y(6), w=5.6, shade="ext", title="Open problems", h=H2,
-                body="what stays open, by chapter", tag="next chapter"),
+                body="what stays open, by chapter", tag="Chap. 22"),
 }
 E = [
     ("in", "ra", "contract with the halo", dict(side="right")),

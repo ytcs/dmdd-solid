@@ -286,3 +286,14 @@ How much screening and local fields move the silicon rates: the Chap. 21 example
 Remaining Volume II items: recomputed fig:12-plane numbers, the conjugate in eq:11.3-weight, the 𝒜 symbol, and two statements about what Chap. 22's index holds.
 - Chapters: ch09 (s9-1), ch11 (s11-3, s11-9), ch12 (s12-1, s12-4), ch21 (s21-2, s21-7), ch22 (s22-2), ch31 (E-17), ch33 (s22-1), appE (D-31).
 - Scripts: book/figscripts/ch12/fig12_1.py (no log on disk; rerun), mig12.py; book/figscripts/ch11/ (we11_3.py, mph11.py for the n-phonon weight); book/figscripts/ch22/gaps22_2.py (row list of tab:22-gaps).
+
+## Late entries (found during the structural fixes)
+
+### ER-29 (VALUE) Local-field template of the electronic uncertainty budget: +0.067 against +0.066
+- Sect. 10.10 text gives +0.067; tab:10-nuisances and we:10-band3 give +0.066 (reported by the Vol II structural fixer A). Re-grep "0.067" and "0.066" in tex/ch10/.
+
+### ER-30 (VALUE) Norm-conserving f-sum with 100 bands: 0.88 against 0.89
+- ch24/E-2 gives 0.88; ch30/E-14 gives 0.89 (reported by the Vol III structural fixer). Re-grep in tex/ch24/E-2.tex and tex/ch30/E-14.tex.
+
+### Group G6 `late-values` (2 entries): ER-29, ER-30
+- Chapters: ch10 (s10-10, tab:10-nuisances, we:10-band3), ch24 (E-2), ch30 (E-14). Scripts: book/figscripts/ch10/nuis10_10.py and the ch10 rate scripts; the f-sum check scripts of E-2/E-14 if any (grep figscripts/ and /home/user/dmdd-solid/code/ for "fsum").

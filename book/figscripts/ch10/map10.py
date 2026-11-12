@@ -24,7 +24,7 @@ N = {
     "exc": dict(x=X, y=y(3), w=W, title="Excitons at finite momentum", h=H2,
                 body="Bethe-Salpeter rate; bound lines" "\n" "below the gap",
                 tag="Sect. 10.5; Limit Check 10.5"),
-    "nui": dict(x=X, y=y(4.5), w=W, title="Nuisance parameters", h=H2,
+    "nui": dict(x=X, y=y(4.5), w=W, title="Theory uncertainties", h=H2,
                 body="many-body spread; gap and" "\n" "threshold", tag="Sect. 10.10"),
     "gas": dict(x=XR, y=y(0) - 0.2, w=WR, shade="light", title="The plasmon", h=H2,
                 body="pole of the electron gas;" "\n" "threshold speed; decay", tag="Sect. 10.3; Limit Check 10.3"),
@@ -36,10 +36,10 @@ N = {
                 body="dark photon, axion-like particle," "\n" "scalar; in-medium mixing",
                 tag="Sect. 10.7; Limit Checks 10.6, 10.7"),
     "two": dict(x=XR, y=y(4) - 0.2, w=WR, shade="light", title="Two-insertion processes", h=H2,
-                body="pair absorption; dark Compton" "\n" "scattering", tag="Sect. 10.8; Limit Checks 10.8, 10.9"),
+                body="pair absorption; dark Compton" "\n" "scattering", tag="Sect. 10.8; Limit Check 10.8"),
     "inel": dict(x=XR, y=y(5) - 0.2, w=WR, shade="light", title="Inelastic and fast dark matter", h=H2,
                  body="exothermic; boosted; fermionic" "\n" "absorption; in-medium decay",
-                 tag="Sect. 10.9; Limit Check 10.10"),
+                 tag="Sect. 10.9; Limit Check 10.9"),
 }
 bus_top = N["ff"]["y"] + 0.5 * H2
 bus_bot = N["inel"]["y"] + 0.5 * H2

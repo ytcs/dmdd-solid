@@ -33,10 +33,10 @@ N = {
                 tag="Sect. 14.3; Limit Check 14.2"),
     "chi": dict(x=XR, y=y(3), w=WR, shade="light", title="Chiral, nonreciprocal targets", h=H2,
                 body="inversion and time reversal" "\n" "broken; cross responses",
-                tag="Sect. 14.5; Limit Check 14.4"),
+                tag="Sect. 14.6; Limit Check 14.7"),
     "coh": dict(x=XR, y=y(2), w=WR, shade="light", title="Coherent fields", h=H2,
                 body="classical wave; precessing" "\n" "nuclear spins",
-                tag="Sect. 14.6; Limit Checks 14.5-14.7"),
+                tag="Sect. 14.5; Limit Checks 14.4-14.6"),
 }
 E = [
     ("in", "one", r"Holstein-Primakoff to order $|\mathbf{S}|$;" "\n" "one transverse spin flip"),
