@@ -62,27 +62,70 @@ def main():
     build = args[0] if args else V.BOOK / "build"
     num, oldlim = new_numbers(build), old_limit_numbers()
 
-    def sect(m):
-        lab = f"sec:{m.group(0)}"
-        return num.get(lab, m.group(0))
+    def nums(part, fn):
+        """Translate every number and range of one tag part; drop numbers whose box no longer exists."""
+        head = re.match(r"^[A-Za-z. ]+", part).group(0)
+        items = []
+        for tok in re.split(r",\s*", part[len(head):]):
+            if "-" in tok:
+                a, b = tok.split("-")
+                c, x = a.split(".")
+                y = b.split(".")[-1]
+                seq = [f"{c}.{k}{suf}" for k in range(int(x), int(re.match(r"\d+", y).group(0)) + 1) for suf in [""]]
+            else:
+                seq = [tok]
+            for t in seq:
+                r = fn(t)
+                if r:
+                    items.append(r)
+        if not items:
+            return None
+        # compress consecutive numbers of one chapter into ranges
+        out, i = [], 0
+        def key(t):
+            c, k = t.split(".")
+            return c, int(re.match(r"\d+", k).group(0))
+        while i < len(items):
+            j = i
+            while j + 1 < len(items) and key(items[j + 1])[0] == key(items[i])[0] and key(items[j + 1])[1] == key(items[j])[1] + 1:
+                j += 1
+            out.append(items[i] if j < i + 2 else f"{items[i]}-{items[j]}")
+            if j == i + 1:
+                out.append(items[j])
+            i = j + 1
+        word = head.strip()
+        if word.startswith("Limit Check"):
+            word = "Limit Check" if len(items) == 1 else "Limit Checks"
+        elif word.startswith("Sect"):
+            word = "Sect." if len(items) == 1 else "Sects."
+        return word + " " + ", ".join(out)
 
-    def lim(m):
-        lab = oldlim.get(m.group(0))
-        return num.get(lab, m.group(0)) if lab else m.group(0)
+    def lim(t):
+        lab = oldlim.get(t)
+        if lab is None:
+            return t
+        return num.get(lab)          # None: the box was removed
+
+    def sect(t):
+        return num.get(f"sec:{t}", t)
 
     def tag(m):
         parts = []
         for part in m.group(1).split("; "):
             if part.startswith("Sect"):
-                part = re.sub(r"\d+\.\d+", sect, part)
+                part = nums(part, sect)
             elif part.startswith("Limit Check"):
-                part = re.sub(r"\d+\.\d+", lim, part)
-            parts.append(part)
+                part = nums(part, lim)
+            if part:
+                parts.append(part)
         return 'tag="%s"' % "; ".join(parts)
 
     for script in sorted((V.BOOK / "figscripts").glob("ch*/map*.py")):
         rel = script.relative_to(REPO)
         text = git_show(str(rel))
+        if text != script.read_text() and not any(o[0] == script.name for o in OVERRIDES) and "--force" not in sys.argv:
+            print(f"{rel}: edited since {OLD}; skipped (check its tags by hand)")
+            continue
         for name, a, b in OVERRIDES:
             if name == script.name:
                 if a not in text:
