@@ -125,3 +125,36 @@ The cascade hands over less than these equations need. No material has a compute
 Two approximations of the cascade itself remain unsized. A constant factor of 0.8 on the impact-ionization rate, the quasiparticle residue left out of \cref{eq:18.1-ii}, changes $\varepsilon_{\mathrm{eh}}$ by about \SI{3}{\percent}, and calibrating on the measured pair energy removes it. A factor that varies with the carrier energy between threshold and about \SI{10}{eV}, as the residue and the carrier--electron exchange may, changes $F_{\mathrm{eh}}$, and its size is not known. For the energy-only reduction, the probability that a carrier keeps its momentum between two events that change its energy is estimated to be below about 0.1 within \SI{1}{eV} of threshold, where intervalley scattering dominates, and to reach one half above 3 to \SI{5}{eV} in silicon. A full-band cascade finds the resulting memory negligible, but only within the deformation-potential model of the phonons (\cref{sec:18.1-reductions}); with first-principles couplings, which do not redraw the crystal momentum at every emission, neither this probability nor the spread over the iso-energy surface that it multiplies has been computed.
 
 The two-stage factorization of \cref{eq:18.3-obs} lets the detector stage see a cascade only through $N_{\mathrm{eh}}$ and the quantities $\mathfrak{m}$. Suppose the detector response is built from one class of seeds, photons, and applied to another, dark matter. Its error is then at most the total-variation distance between the two classes' laws of the full microstate at fixed $(N_{\mathrm{eh}}, \mathfrak{m})$, averaged with the probability of $(N_{\mathrm{eh}}, \mathfrak{m})$, and it vanishes exactly when $(N_{\mathrm{eh}}, \mathfrak{m})$ is a sufficient statistic for the seed class. That distance, for the features left out of $\mathfrak{m}$ such as the shape of the charge cloud beyond its centroid and spread, has not been computed.
+
+\subsection{Uncertainty budget of the ionization yield}
+
+\Cref{tab:18-nuisances} collects the truncations and inputs of the chapter with their sizes.
+
+\begin{table}[tbp]
+  \caption{Uncertainty budget of the ionization yield. Classes and bases as in \cref{tab:10-nuisances}; ``width'' marks an item that acts on the variance of the pair number rather than on its mean.}
+  \label{tab:18-nuisances}
+  \centering\scriptsize\setlength{\tabcolsep}{3pt}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.35\linewidth}>{\raggedright\arraybackslash}p{0.09\linewidth}>{\raggedright\arraybackslash}p{0.10\linewidth}@{}}
+    \toprule
+    Truncation or input & Type & Size & Basis & Section \\
+    \midrule
+    Independent carriers (Coulomb interaction within one cascade) & normali\-zation; width & pair density times $a_x^3$ is 0.47 at \SI{100}{eV} and 4.7 at \SI{1}{keV} in a \SI{10}{nm} sphere; error not estimated & unsized & \cref{sec:18.1} \\
+    Energy-only reduction & normali\-zation; width & error roughly $\varGamma_E/\varGamma_k$ per generation; first-generation memory negligible in a full-band cascade, within the deformation-potential model only & est.; model & \cref{sec:18.1,sec:18.5} \\
+    Impact ionization at first order in $W^{\mathrm{scr}}$ & normali\-zation; width & a constant factor ($z_{\mathrm{qp}} \approx 0.8$) moves $\varepsilon_{\mathrm{eh}}$ by about \SI{3}{\percent} and is absorbed by calibration; the energy dependence and the carrier--electron exchange act on $F_{\mathrm{eh}}$ & est.; unsized & \cref{sec:18.1,sec:18.5} \\
+    Step model or average seed instead of the resolved seed & tilt at a few pairs & at \SI{5}{eV} two pairs in \SI{17}{\percent} of events for a kick at $q_0$, against every event in the step model; a photon seed in place of the dark-matter seed, $d_{\mathrm{TV}} \le 0.062$ in the energy-only model, unresolved in the full band & model & \cref{sec:18.1,sec:18.3} \\
+    Random-$k$ kernels instead of full-band kernels & tilt at a few pairs & at matched pair energy $d_{\mathrm{TV}} = 0.12$--0.20 between 6 and \SI{8}{eV}; two or more pairs at \SI{5}{eV} in 0.169 of dark-matter events against 0.097 $[0.030, 0.173]$ in the full band & model & \cref{sec:18.3} \\
+    Full-band model class (bands, screening, phonon couplings) & normali\-zation & $\varepsilon_{\mathrm{eh}} = \SI{4.15}{eV}$ $[3.95, 4.73]$ against \SI{3.749}{eV} measured; class systematic $\ge \pm\SI{0.4}{eV}$; \SI{0.6}{eV} unexplained against Nielsen and Fischetti & input spread & \cref{sec:18.4} \\
+    Constant terms of the mean and variance of the yield & normali\-zation at a few pairs & $b_N$ from 0.008 (uniform split) to 0.35 (one-sided seed), $c_N = -0.02$, in the silicon model; no general derivation & model; unsized & \cref{sec:18.2} \\
+    Cascade model against the silicon Fano factor & width & 0.114 against $0.119 \pm 0.002$, $2.4\sigma$; threshold at $\frac32\Eg$ gives 0.113, a density of states linear in $x$ 0.102 & input spread; model & \cref{sec:18.4} \\
+    One phonon constant for all crystals & normali\-zation & residuals germanium $-\SI{4.9}{\percent}$, GaAs $-\SI{5.6}{\percent}$; over the seven crystals of the validated range $-\SI{19.8}{\percent}$ to $+\SI{7.0}{\percent}$, root mean square \SI{10.5}{\percent}; crystals outside the range are estimates & input spread & \cref{sec:18.4} \\
+    Capture at the end of the cascade & normali\-zation; width & $\varepsilon_{\mathrm{eh}}/(1 - f_{\mathrm{cap}})$, $(1 - f_{\mathrm{cap}})F_{\mathrm{eh}} + f_{\mathrm{cap}}$; $f_{\mathrm{cap}} = \SI{0.54}{\percent}$ would close the silicon Fano gap; hot-carrier capture length $\ge \SI{20}{cm}$ at \SI{e12}{cm^{-3}} & est. & \cref{sec:18.5} \\
+    Capture probability depending on the terminal energy & width & general form \cref{eq:18.5-thingen}; $f(x)$ not computed & unsized & \cref{sec:18.5} \\
+    Exciton binding in a heat readout & normali\-zation; width & mean heat $+E_x^b$ per bound pair, at most \SI{0.39}{\percent} of $\omega$ in silicon; $F_{\mathrm{heat}}/F_{\mathrm{eh}} = (1 - E_x^b/\Eg)^2$ if every pair binds, $-\SI{2.5}{\percent}$ (Si), $-0.7$ to $-\SI{1.3}{\percent}$ (Ge) & computed (limit) & \cref{sec:18.5} \\
+    Excitons never split, in a charge readout & width & $(1 - p_{\mathrm{ns}})F_{\mathrm{eh}} + p_{\mathrm{ns}}$; field separation beyond \SI{0.56}{\micro m} at \SI{4}{V/cm}; $p_{\mathrm{ns}}$ unknown & unsized & \cref{sec:18.5} \\
+    Direct creation of bound pairs by carriers below threshold & normali\-zation & at most \SI{25}{meV} (\SI{0.67}{\percent}) in silicon, \SI{8.6}{meV} (\SI{0.30}{\percent}) in germanium & est. & \cref{sec:18.5} \\
+    Gap energy still held at the end of the window & normali\-zation (heat) & \SI{42}{\percent} at \SI{1}{\micro s} (plus \SI{5.6}{\percent} already trapped or radiated), \SI{1}{\percent} at \SI{4.4}{\micro s} for the illustrative rates of \cref{fig:18-end}; power law in dense tracks & model & \cref{sec:18.5} \\
+    Rates of binding, trapping and luminescence at millikelvin & all & not measured or computed in silicon and germanium & unsized & \cref{sec:18.5} \\
+    Detector response built from photon seeds & tilt & total-variation distance of omitted features, not computed & unsized & \cref{sec:18.5} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
