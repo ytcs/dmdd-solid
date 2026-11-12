@@ -52,7 +52,9 @@ def main(a):
         new = open(f).read()
         o, n = items(old), items(new)
         lost = Counter({k: v for k, v in (o - n).items() if k not in n})      # item gone entirely
-        gained = Counter({k: v for k, v in (n - o).items() if k not in o})    # item new to the file
+        flat = re.sub(r"\s+", "", old)
+        gained = Counter({k: v for k, v in (n - o).items() if k not in o       # item new to the file
+                          and not (k.startswith("math:") and k[5:] in flat)})  # unless it is a piece of existing math
         recount = sorted(set((o - n) | (n - o)) - set(lost) - set(gained))     # repeats of existing items
         ro, rn = refs(old), refs(new)
         rlost, rgain = Counter({k: v for k, v in (ro - rn).items() if k not in rn}), rn - ro
