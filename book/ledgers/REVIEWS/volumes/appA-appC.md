@@ -8,7 +8,7 @@
 | appB hand-written (appB.tex, B-2.tex) | 1260 | 796 | −36.8 % |
 | appC (appC.tex, C-1 … C-20) | 33644 | 33052 | −1.8 % |
 
-Per file, changed files only: A-2 682→669; A-3 962→927; A-4 601→586; A-5 817→766; A-7 900→862; appB.tex 61→65; B-2 1199→731; C-1 1720→1613; C-2 1333→1316; C-3 1613→1588; C-4 1480→1378; C-5 1723→1594; C-8 1370→1314; C-9 1810→1776; C-10 2093→2065; C-11 2214→2198; C-18 2277→2244; C-20 2372→2328. Unchanged: A-1, A-6, A-8, A-9, C-6, C-7, C-12 … C-17, C-19.
+Per file, changed files only: A-2 682→669; A-3 962→927; A-4 601→586; A-5 817→766; A-7 900→862; appB.tex 61→65; B-2 1199→731; C-1 1720→1613; C-2 1333→1315; C-3 1613→1588; C-4 1480→1378; C-5 1723→1594; C-8 1370→1314; C-9 1810→1776; C-10 2093→2065; C-11 2214→2198; C-18 2277→2244; C-20 2372→2328. Unchanged: A-1, A-6, A-8, A-9, C-6, C-7, C-12 … C-17, C-19.
 
 Appendices A and C shrink by less than the 3 % guide. Reason, checked against the citing chapters: Appendix A is the convention authority and almost every sentence is a definition, a sign or a conversion; Appendix C is the single home of its mathematics. In every citing passage I read (s1-4, s2-4, s3-1, s4-1, s4-4, s4-7, s5-2, s5-6, s11-5, s12-6, s13-9, s14-4, s16-8, s17-6, s19-6, D-15) the chapter states the result and points to the C section for the proof; none repeats the derivation. The one true duplicate found (B-2 against A) is where the words went.
 
@@ -61,7 +61,7 @@ No C section became short enough to fold: the shortest is C.13 (957 words). Asse
 
 ## Checks
 
-- `tools/chapcheck.sh appA`: exit 0, 0 undefined references, 0 multiply defined labels (2 overfull hboxes > 5pt, present before the edit: table and displays untouched).
-- `tools/chapcheck.sh appC`: exit 0, 0 undefined references, 0 multiply defined labels (1 overfull hbox > 5pt, in untouched text).
+- `tools/chapcheck.sh appA`: exit 0, 0 undefined references, 0 multiply defined labels (2 overfull hboxes > 5pt reported; no table or display was edited in appA).
+- `tools/chapcheck.sh appC`: exit 0, 0 undefined references, 0 multiply defined labels (1 overfull hbox > 5pt reported; not compared with the pre-edit build).
 - Lint on all 18 changed files: 0 blocking; remaining warnings are LONG-SENT / EQ-PUNCT in sentences not touched.
 - B-1*.tex and B-3.tex not touched. Not committed by me (the lead's snapshot commits picked up some of the edits).
