@@ -49,7 +49,7 @@ The practical route therefore computes $\rho_{mn}(\vect{k},\vect{q})$ directly o
 \subsection{Counting matrix elements and memory}
 
 \begin{workedexample}{Matrix elements of a converged silicon rate}\label{we:E-counts}
-The setup of Ref.~\cite{noffsinger2012phonon} has $N_W = 26$ Wannier functions, coarse $6^3$ grids for $\vect{k}$ and $\vect{Q}$, and fine $40^3$ grids for both, with two atoms and six branches. We count what a phonon-assisted rate needs and how much memory it takes.
+The setup of Ref.~\cite{noffsinger2012phonon} has $N_W = 26$ Wannier functions, coarse $6^3$ grids for $\vect{k}$ and $\vect{Q}$, and fine $40^3$ grids for both, with two atoms and six branches. We count the storage and the operations that a phonon-assisted rate needs.
 
 \emph{Fine-grid vertices.} There are $N_k N_Q = 64{,}000^2 = 4.1\times10^9$ pairs $(\vect{k},\vect{Q})$, and at each pair $N_W^2\times6 = 4{,}056$ complex vertices. At \SI{16}{bytes} per complex number this is $1.7\times10^{13}$ numbers, or \SI{270}{TB}. Nobody stores it. Codes loop over $\vect{Q}$ (or over $\vect{k}$), interpolate the vertices for all partners at once, accumulate the rate, and discard them. Even one $\vect{Q}$ with all $64{,}000$ partners and all band pairs is \SI{4}{GB}, which is why the band indices are restricted at once to the bands that can be initial, final or intermediate states at the energies of interest.
 
