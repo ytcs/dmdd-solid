@@ -4,7 +4,7 @@
 Usage: python3 figscripts/appB/gen_B3.py
 Writes tex/appB/B-3.tex and figscripts/appB/gen_B3.log. Deterministic.
 
-1. Read the chapters and appendices in reading order (main.tex -> chNN.tex / appX.tex -> \\input files; App. B itself is skipped).
+1. Read the chapters and appendices in reading order (tex/vol1.tex, vol2.tex, vol3.tex -> chNN.tex / appX.tex -> \\input files; App. B itself is skipped).
 2. Drop comments, math, verbatim-like arguments (\\cite, \\cref, \\label, \\ref, \\includegraphics, \\url, \\SI units) and
    collect every all-caps token of 2-6 characters (letters, digits allowed, at least two capitals) in the running text, captions and
    tables. Excluded: Roman numerals, chemical formulae (element symbols with digits), units and method names in EXCLUDE.
@@ -15,6 +15,7 @@ Writes tex/appB/B-3.tex and figscripts/appB/gen_B3.log. Deterministic.
    (the hand-edited part of the table); an acronym with neither is logged and printed with a dash.
 """
 import re
+import sys
 from collections import OrderedDict, defaultdict
 from pathlib import Path
 
@@ -83,20 +84,19 @@ EXPANSION_OVERRIDE = {
 
 
 def reading_order():
-    main = (TEX / "main.tex").read_text(encoding="utf-8")
-    files = []
-    for m in re.finditer(r"\\input\{([^}]*)\}", main):
-        name = m.group(1)
-        if not re.match(r"(ch\d\d/ch\d\d|app[A-F]/app[A-F])$", name):
-            continue
-        if name.startswith("appB"):
-            continue
-        top = TEX / (name + ".tex")
-        files.append(top)
-        for mm in re.finditer(r"^[^%\n]*\\input\{([^}]*)\}", top.read_text(encoding="utf-8"), re.M):
-            f = TEX / (mm.group(1) + ".tex")
-            if f.exists():
-                files.append(f)
+    """Files of the three volumes in reading order (Volume I, II, III); App. B and front matter are skipped and a file
+    printed in several volumes (App. A) is read once."""
+    sys.path.insert(0, str(TEX.parent / "tools"))
+    import volumes as V  # noqa: E402
+    files, seen = [], set()
+    for vol in V.VOLS:
+        for driver, fs in V.chapters(vol):
+            if driver.parent.name == "appB":
+                continue
+            for f in fs:
+                if f not in seen:
+                    seen.add(f)
+                    files.append(f)
     return files
 
 

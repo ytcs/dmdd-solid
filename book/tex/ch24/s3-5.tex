@@ -1,14 +1,8 @@
 \section{Plane waves and the core region}\label{sec:3.5}
 
-\subsection{Plane waves and the cutoff}
+A plane-wave code stores each periodic part as the Fourier series \cref{eq:3.2-pw}, truncated at the kinetic-energy cutoff of \cref{app:E.1}, $|\vect{k}+\vect{G}| \le k_{\mathrm{cut}} = (2m_eE_{\mathrm{cut}})^{1/2}$. The basis treats all regions of the cell alike and improves systematically as the cutoff is raised. In \cref{eq:3.2-central} the kinetic energy is diagonal in $\vect{G}$, while the potential is diagonal in $\vect{r}$, and a fast Fourier transform between a grid of $\vect{G}$ and a grid of points in the cell applies each where it is diagonal. This is what makes plane waves the standard basis for crystals.
 
-A plane-wave code stores each periodic part as the Fourier series \cref{eq:3.2-pw}, truncated to the reciprocal-lattice vectors inside a sphere,
-\begin{equation}
-  u_{n\vect{k}}(\vect{r}) = \frac{1}{\sqrt\Omega}\sum_{|\vect{k}+\vect{G}| \le k_{\mathrm{cut}}}c_{n\vect{k}}(\vect{G})\,\ee^{\ii\vect{G}\cdot\vect{r}}, \qquad
-  E_{\mathrm{cut}} = \frac{k_{\mathrm{cut}}^2}{2m_e} .
-  \label{eq:3.5-pw}
-\end{equation}
-The basis treats all regions of the cell alike and improves systematically as the cutoff $E_{\mathrm{cut}}$ is raised. In \cref{eq:3.2-central} the kinetic energy is diagonal in $\vect{G}$, while the potential is diagonal in $\vect{r}$, and a fast Fourier transform between a grid of $\vect{G}$ and a grid of points in the cell applies each where it is diagonal. This is what makes plane waves the standard basis for crystals.
+\subsection{The cutoff and the vertex}
 
 The price is paid near the nuclei. A state confined to a region of size $r_0$ has momentum components up to a few times $1/r_0$, and the innermost orbitals of an atom are small. A hydrogen-like $1s$ orbital of nuclear charge $Z$, $(p_0^3/\pi)^{1/2}\ee^{-p_0r}$ with $p_0 = Z\alpha m_e$, has the radius $1/p_0$. Its Fourier transform follows from $\int\dd^3r\,\ee^{-\ii\vect{p}\cdot\vect{r}}\ee^{-p_0r} = 8\pi p_0/(p^2 + p_0^2)^2$, and its momentum density, normalized to $\int\dd^3p = 1$, is $(8/\pi^2)\,p_0^5/(p^2 + p_0^2)^4$. For silicon, $p_0 = 14\times\SI{3.73}{keV} = \SI{52}{keV}$. Worse, the density falls as slowly as $p^{-8}$, a power law that comes from the cusp of the orbital at the nucleus, and so do the squared coefficients $|c_{n\vect{k}}(\vect{G})|^2$ of any state that has weight there. The valence states inherit a version of this tail. A $3s$ electron of silicon must be orthogonal to the $1s$ and $2s$ orbitals, and it does this by changing sign at 0.08 and \SI{0.38}{\angstrom} from the nucleus; a $3p$ electron changes sign at \SI{0.38}{\angstrom} to stay orthogonal to $2p$. These oscillations, and the cusp, are what a momentum transfer of tens of keV sees. To resolve the silicon $1s$ orbital alone, a plane-wave basis needs wavevectors up to a few times $Z/a_0$. With $3Z/a_0 = 42$ inverse bohr, \cref{eq:E.1-npw} asks for a cutoff near \SI{1800}{Ry} and $3\times10^5$ plane waves per state, 160 times the 2121 of the converged calculation of silicon, and the cost of each band grows at least in proportion.
 

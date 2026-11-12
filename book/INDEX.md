@@ -33,6 +33,7 @@ qualifier list one subentry; "Sommerfeld/Fermi factor (exciton)" is "Fermi facto
 "no-pair projection", "attenuation length (silicon)" and "k-point weights (spin factor)", which the revised tex does not print). The entries of the accepted Chapter 11 (11.1–11.9, with the D.31–D.32 material in its sections) were merged on 2026-11-02 (162 new entries, 3 entries gained a Chap. 11 section; deduplicated as above, inserted in place without re-sorting; a qualifier list after a material became one subentry each, a list with a semicolon one subentry per part; "coupling to mass" (11.8) is folded into "coupling-to-mass cancellation" (11.6, 11.8); not entries: "dipole–quadrupole interference" and the extinction of the (200) peak, which the revised tex does not print, and "Weber bar", which it prints as a resonant bar). The entries of the accepted Chapter 12 (12.1–12.6, with the D.33–D.34 material in its sections) were merged on 2026-11-03 (92 new entries, 1 entry gained a Chap. 12 section; deduplicated as above, inserted in place without re-sorting; a list with a semicolon one subentry per part, any other qualifier list one subentry; the 12.1 "zero-phonon line" and 12.4 "zero-phonon" subentries of "Migdal effect" are one subentry, and "phonon-mediated Migdal effect" (12.1) is folded into "Migdal effect, phonon-mediated" (12.1, 12.4); not entries: "commutator expansion (Migdal amplitude)" and "scalar dark matter (nucleon coupling)", which the revised tex does not print). The entries of the accepted Chapter 13 (13.1–13.9, with the D.35–D.37 material in its sections) were merged on 2026-11-06 (109 new entries, 6 entries gained a Chap. 13 section and "linked-cluster theorem" gained App. D.35; deduplicated and inserted as above; in the revised wording of the tex: "applied-potential limit" for the SEAM's "coherent-potential limit", "Elliott formula" and "Fermi factor, indirect edge" for "Elliott form" and "Sommerfeld/Fermi factor", the 13.9 mass exponent as a subentry of "onset exponent"; "screening correction, phonon-assisted rate" added for ruling R2; not entries: "GPAW", "Sternheimer equation (conduction states)", "Rice–Mele chain", "Neumann series", "renormalized pair edge", "square-root non-analyticity", "exact diagonalization (two-pair test)", "acoustic sum rule (vertex, interband)" and "exchange kernel (third derivative)", which the revised tex does not print under those names). The entries of the accepted Chapter 14 (14.1–14.6, with the D.38 material in 14.1 and App. D.38, and the Summary tables of s14-summary as "Chap. 14 Summary") were merged on 2026-11-06 (138 new entries, 4 entries gained a Chap. 14 section; deduplicated and inserted as above; in the revised wording of the tex: "spectroscopic g factor" (g_ion), "Lu₁₋ₓScₓFeO₃, hexagonal" for the former hexaferrite, "chiral frameworks" for "metal–organic frameworks", "nuisance parameter, magnetic sector" for "nuisances (magnetic sector)", "relaxation times T₁, T₂" for "T₁, T₂"; "localized-moment inversion" (R2), "Neyman construction" (R7) and "exact diagonalization, eight-site cluster" (R7) added; "coherence length, dark-matter field" is a subentry, since "coherence length" (7.2) is the superconducting one; "daily modulation, magnon scattering" goes to 14.1, where the moment direction sets it; not entries: "CASPEr", "shape anisotropy" and "exchange suppression", which the revised tex does not print under those names). The entries of the accepted Chapter 15 (15.1–15.4, with the D.39–D.40 material in its sections and App. D.39, D.40, and the Summary tables of s15-summary as "Chap. 15 Summary") were merged on 2026-11-06 (72 new entries, 5 entries gained a Chap. 15 section; deduplicated and inserted as above; in the revised wording of the tex: "edge remainder" (two-sided, R3) for "nuisance (one-sided; superconducting)", "nuisance parameter, superconducting sector" as in Chap. 14, "Lindhard bracket" for the 𝔣_L of 15.2 (R7), "aluminum, loss function" holds the bulk and edge loss functions; "Knight shift", "Einstein relation", "Altshuler–Aronov enhancement", "impurity-assisted absorption", "electron–electron absorption" and "aluminum, free-electron constants" (R1) added; not entries: "masked cells" (R9), "gap inhomogeneity" and the author names Gan et al. and Hochberg et al. (the index has no author entries), which the revised tex does not print or the index does not carry). The entries of the accepted Chapter 16 (16.1–16.9, with the D.41–D.42 material in its sections and App. D.41, D.42, and the nuisance table of s16-summary as "Chap. 16 Summary") were merged on 2026-11-06 (170 new entries, 3 entries gained a Chap. 16 section; deduplicated and inserted as above; in the revised wording of the tex: "published screening rule, Dirac" and "reach re-plot" with D.41, "graphene, Dirac velocity" for the one velocity of R4, "surface term, quantum dot" for the proposed "Weyl's law (surface term)", "target classes (theory, calculation, data)" for the proposed theory-/data-limited target, "cage escape" for "cage effect, cage escape", "carbon nanotube" for "nanotube"; not entries: "Luttinger liquid", "neutral modes", "band curvature (1D plasmon)", "Landau damping (acoustic plasmon)", "heterostructure", "thin film (response)", "graphene, π band", "semiconducting nanotube", "PbS dielectric constant", "Weyl's law" as separate subentries, which the revised tex does not print or prints only in passing). The entries of the accepted Chapter 17 (17.1–17.6, no App. D material, and the nuisance table of s17-summary as "Chap. 17 Summary") were merged on 2026-11-06 (78 new entries, 1 entry gained a Chap. 17 section: "tier"; deduplicated and inserted as above; in the revised wording of the tex: "linear readout, quantum-limited", "counting of quanta, against linear readout" and "thermal quanta, readout mode" for the proposed "coherent readout", "photon counting", "standard quantum limit" and "thermal occupation", "line shape, exothermic" for "line profile", "absorption coverage" for "coverage map", "ionic correction, zero-phonon line" (not "ionic screening"), "Migdal effect, coherent small-q limit" (12.4, 17.1) for the Ch12 erratum, "pole prior, Migdal" for the X_pole device (R6), "kinematic ceiling, sectors" and "crossover threshold, multiphonon–Migdal" added from the text; the index has no author entries, so Lamoreaux et al. and Griffin et al. are not entries). The entries of the accepted Chapter 18 and App. D.43–D.44 (18.1–18.5, the D.43/D.44 items pointing to "App. D.n", and the nuisance table of s18-summary as "Chap. 18 Summary") were merged on 2026-11-06 (80 new entries, 5 entries gained a Chap. 18 section: "Fano factor", "binomial thinning", "Dirichlet integral", "impact ionization, GW", "impact ionization, threshold"; deduplicated and inserted as above; in the revised wording of the tex: "pair number at the readout" for the retired "observable law" and "marks (cascade)", "Ramanathan–Kurinsky planes" (18.4.2), "full-band cascade, reference" and "impact ionization, exchange factor" for the FBC integration, "pair energy, calibration" for the one Si constant (R1)). The entries of the accepted Chapter 19 and App. D.45 (19.1–19.6, the D.45 items pointing to "App. D.45", and the nuisance table of s19-summary as "Chap. 19 Summary") were merged on 2026-11-06 (133 new entries, 11 entries gained a Chap. 19 section, among them "Bethe formula", "damage energy", "Kinchin–Pease count", "crowdion", "kink mass", "Migdal effect, double counting" and "ionization yield, Migdal part"; deduplicated and inserted as above; in the revised wording of the tex: "Norgett–Robinson–Torrens formula" and "displacement-count factor" for the proposed "NRT formula" and "displacement efficiency", "direction-dependent threshold, as ionization threshold" for the directional-threshold critique, "zero-point energy, classical flow between modes" for "zero-point leakage", "largest-entropy spectrum" for "maximum-entropy spectrum", "soft-collision sensitivity, Lindhard yield" (R3), "pair energy, adopted by a reconstruction", "pair-energy offset" and "Luke gain" (g_Luke, R1/R8), "grown-in defects" (R6), "Ehrenfest dynamics", "surface hopping", "nudged elastic band" and "kinetic Monte Carlo" (glossed, reader reports); the index has no author entries; not entries: "Green–Kubo formula", "Fokker–Planck equation (crystal momentum)", "damage tracks" and "collection ratio (bound)", which the revised tex does not print or no longer holds in 19.4). The entries of the accepted Chapter 20 (20.1–20.5 and the nuisance table of s20-summary as "Chap. 20 Summary") were merged on 2026-11-06 (91 new entries, 13 entries gained a Chap. 20 section, among them "athermal phonon", "isotope scattering", "critical angle", "mode conversion", "recombination phonons", "collection kernel", "collection ratio", "binomial thinning", "flashing" and "Fano factor, nuclear recoil"; deduplicated and inserted as above; in the revised wording of the tex: "Chang–Scalapino equations" (the proposed "Chang–Scalapino correction" is a coinage the revision removed), "selective sink" and "film loss, arrival band" (R1 rework, R5/R6), "aluminum, elastic constants" (0 K set, R3), "low-bias Luke route"; "recoil discrimination (verdicts)" became "recoil discrimination", since the verdicts subsection is cut (R7). The entries of the accepted Chapter 21 (21.1–21.7 with D.46 and D.47, and the nuisance table of s21-summary as "Chap. 21 Summary") were merged on 2026-11-07 (116 new entries, 8 entries gained a Chap. 21 section, among them "η₂, second speed moment", "annual modulation, edge", "profile likelihood, cost of a nuisance", "Neyman construction" and the survivor leaders of 17.6; deduplicated and inserted as above; in the revised wording of the tex: "excluded cells" (not "masked cells"), "union bound, bins" (the tex names no Bonferroni), "stochastic ordering, pair number", "cascade, pair bins of a search" (R2), "CL_s" and "hybrid construction" (R1), "Fermi function, relativistic" (R5); not an entry: "GPAW (silicon tables)", which the revised tex does not print). The entries of the accepted Chapter 22 (22.1–22.3 with the chapter opening; the Summary adds none) were merged on 2026-11-07 (39 new entries, 3 entries gained a Chap. 22 section: "Fermi function, relativistic", "paleo-detectors" and "boosted dark matter, recast"; deduplicated and inserted as above; in the revised wording of the tex: "priority list of calculations" and "control, of a calculation" (the SEAM's "controls (calculations against data)"), "constant term of the mean pair number" (not "of the yield"), "phason, massive (longitudinal)" (not "Lee–Fukuyama phason", R5), "calculation-limited channel" beside the proposed theory- and data-limited entries, "axial coupling, quenching" (R5); the proposed "isospin" and "Fermi function (relativistic)" are the subentry "isospin, sum rules" and the existing 21.7 entry). The entries of the accepted Chapter 9 (9.1–9.4 with the chapter opening; the Summary adds none) were merged on 2026-11-07 (31 new entries, 3 entries gained a Chap. 9 section: "acoustic edge", "threshold mass, floor" and "off-shell window"; deduplicated and inserted as above; in the revised wording of the tex: "lightest mass of a channel" (the SEAM's "channel minimum mass"), "Limit Check, reading of", "channel atlas, allowed cells (○)" (R1), "sector, of an excitation (atlas)"; "floor (threshold mass)" is the existing subentry "threshold mass, floor"; not an entry: "absorption (point on the plane)", whose 9.3 paragraph the revision cut to a clause (R7)).
 
 Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; their entries stand as merged (the table has no status column).
+Three-volume edition (2026-11-12, mechanical): pointers to App. D.15, D.17, D.18, D.19, D.29, D.41, which were folded into Sects. 5.6, 6.4, 6.5, 7.1, 10.1, 16.1, now give that section; "App. E.n" and "App. D.4", "App. D.5" (sections now in the chapters of Volume III, labels kept) are written E.n, D.4, D.5. Log: ledgers/REVIEWS/volumes/notation.md.
 | Term | Sections |
 |---|---|
 | , Zα² estimate | 3.5 |
@@ -67,7 +68,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | acoustic phonon, neutrality, coupling per volume | 8.4 |
 | acoustic plasmon | 16.2 |
 | acoustic Snell law | App. C.18 |
-| acoustic sum rule | App. E.4, 5.2 |
+| acoustic sum rule | E.4, 5.2 |
 | acoustic sum rule, Born charges | 5.5 |
 | acoustic sum rule, correction | 5.4 |
 | acoustic sum rule, self-energy | 6.3, App. D.16 |
@@ -87,15 +88,15 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | adiabatic states | 5.1 |
 | adiabatic switching | 2.4, 4.1 |
 | adiabaticity, recoil | 19.1 |
-| Adler–Wiser formula | App. E.6, 4.6 |
-| AHC | App. E.8 |
+| Adler–Wiser formula | E.6, 4.6 |
+| AHC | E.8 |
 | aliasing | 3.6 |
 | aliasing, force constants | 5.4 |
 | Alig–Bloom model | 18.1 |
 | Alig–Bloom model, moments | 18.2 |
-| all-electron reconstruction | App. E.2, App. E.7, 3.5 |
+| all-electron reconstruction | E.2, E.7, 3.5 |
 | all-electron reconstruction, large q | 10.1 |
-| Allen's formula | 6.4, App. D.17 |
+| Allen's formula | 6.4 |
 | Allen's formula, infrared absorption | 15.4 |
 | Allen–Cardona relation | 6.3, App. D.16 |
 | Allen–Heine self-energy | 6.3, App. D.16 |
@@ -138,7 +139,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Anderson–Bogoliubov mode, pole of ε | 15.3 |
 | Anderson–Higgs mechanism | 7.2 |
 | angular moments | App. C.3 |
-| anharmonic decay | App. E.12 |
+| anharmonic decay | E.12 |
 | anharmonic order | 8.5 |
 | anharmonic shift | 5.7 |
 | anharmonic small parameter | 5.7 |
@@ -197,7 +198,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | B − L vector, absorption | 11.6 |
 | background | 1.5 |
 | background dielectric constant | 7.3 |
-| background dielectric constant, in the total ε | 16.1, App. D.41 |
+| background dielectric constant, in the total ε | 16.1 |
 | background tolerance | 21.7 |
 | background-free counting | 17.2 |
 | backward equation, cascade | 18.1, App. D.43 |
@@ -220,7 +221,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | band structure | 3.2 |
 | band-edge width, zero at T = 0 | 6.3 |
 | band-gap problem | 3.4 |
-| band-gap problem, DFT | App. D.5 |
+| band-gap problem, DFT | D.5 |
 | band-gap renormalization, silicon | 6.3 |
 | band-sum theorem | 13.2 |
 | band-sum theorem, density-matrix proof | 13.4 |
@@ -237,14 +238,14 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Berghaus et al. | 12.1, 12.4 |
 | Berghaus–Essig–McDuffie, nonrelativistic operators | 12.4 |
 | Berry connection | 3.6, 6.1 |
-| Berry phase | App. E.4 |
+| Berry phase | E.4 |
 | beta decay, dark-matter-induced | 22.3 |
 | Bethe formula | 4.4, 19.3 |
 | Bethe logarithm | 19.3 |
 | Bethe–Salpeter equation | 4.9 |
 | Bethe–Salpeter equation, derivation | App. D.12 |
 | Bethe–Salpeter equation, finite momentum, dark matter | 10.5 |
-| Bethe–Salpeter equation, practice | App. E.6 |
+| Bethe–Salpeter equation, practice | E.6 |
 | Bethe–Salpeter equation, rate nuisance | 10.10 |
 | Bethe–Salpeter exchange kernel, local fields | 4.6 |
 | bias work | 19.5 |
@@ -258,7 +259,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Black rate | 16.8 |
 | Bloch correction | 19.3 |
 | Bloch equations | 14.6 |
-| Bloch identity | App. C.6, 5.6, App. D.15 |
+| Bloch identity | App. C.6, 5.6 |
 | Bloch state | 3.2 |
 | Bloch sum | 3.2 |
 | Bloch's theorem | 3.2 |
@@ -287,7 +288,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Born approximation, validity | 8.2 |
 | Born approximation, validity in a medium | 16.7 |
 | Born charge, screening of nucleon coupling | 8.4 |
-| Born effective charge | App. E.4, 5.5 |
+| Born effective charge | E.4, 5.5 |
 | Born effective charge, cancellation of the electron-following cell | 17.4 |
 | Born effective charge, dark-photon vertex | 11.2 |
 | Born effective charge, dynamical | 12.6 |
@@ -344,7 +345,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Brillouin zone, volume | App. C.2 |
 | Brillouin-zone average | 11.3 |
 | broadband absorption | 11.6 |
-| Broyden mixing | App. E.1 |
+| Broyden mixing | E.1 |
 | bubble | 4.7 |
 | bubble diagram | 4.8 |
 | bulk acoustic resonator | 11.8 |
@@ -409,7 +410,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | charge neutrality, Born charges | 5.5 |
 | charge readout | 1.5 |
 | charge renormalization, Dirac | 16.1 |
-| charge sloshing | App. E.1 |
+| charge sloshing | E.1 |
 | charge state, vacancy | 16.6 |
 | charge vertex, valence deformation | 11.3 |
 | charge-density wave | 22.3 |
@@ -462,7 +463,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | coherent state, kick | 6.1 |
 | coherent tunneling, coherence temperature | 16.8 |
 | collection contrast | 20.5 |
-| collection kernel | App. E.12, 20.5 |
+| collection kernel | E.12, 20.5 |
 | collection offset | 19.5 |
 | collection offset, spectral part | 20.2 |
 | collection ratio | 19.5, 20.5 |
@@ -505,7 +506,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | conserving response, superconductor | 15.1 |
 | constant term of the mean pair number | 22.2 |
 | constrained nuisance | 8.8 |
-| constrained search | App. D.5 |
+| constrained search | D.5 |
 | constrained search, Levy | 3.4 |
 | contact density | 8.3, App. C.15 |
 | contact density, Migdal third moment | 12.5 |
@@ -540,9 +541,9 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | cosmic-ray-boosted dark matter, σ̄² scaling | 21.5 |
 | Coulomb gauge | App. C.16 |
 | Coulomb Hamiltonian | 2.3 |
-| Coulomb hole | App. E.3 |
+| Coulomb hole | E.3 |
 | Coulomb kernel | 2.3 |
-| Coulomb pseudopotential | App. E.9, 7.2 |
+| Coulomb pseudopotential | E.9, 7.2 |
 | Coulomb radius, cold carriers | 18.5 |
 | Coulomb singularity, sum rule | 10.7 |
 | Coulomb-line classes | 8.4 |
@@ -565,7 +566,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | crossover momentum | 11.5 |
 | crossover threshold, multiphonon–Migdal | 17.1 |
 | crowdion | App. C.20, 19.6 |
-| crystal form factor | App. A, App. E.7, 3.2, 10.1 |
+| crystal form factor | App. A, E.7, 3.2, 10.1 |
 | crystal form factor, named | 1.5 |
 | crystal form factor, pointer | 2.2 |
 | crystal form-factor rate, placement | 9.4 |
@@ -635,7 +636,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | debris flow | 21.1 |
 | Debye frequency | 5.2 |
 | Debye model | 5.2 |
-| Debye model, Debye–Waller exponent | App. D.15 |
+| Debye model, Debye–Waller exponent | 5.6 |
 | Debye model, mean-square displacement | 5.3 |
 | Debye temperature | 5.2 |
 | Debye temperature, Anderson convention | 11.1 |
@@ -645,7 +646,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Debye–Waller factor | App. A, 5.6 |
 | Debye–Waller factor, absorption on nuclei | 11.4 |
 | Debye–Waller factor, anisotropic | 11.7 |
-| Debye–Waller factor, finite temperature | App. D.15 |
+| Debye–Waller factor, finite temperature | 5.6 |
 | Debye–Waller factor, Migdal | 12.4 |
 | Debye–Waller factor, multiphonon | 11.3 |
 | Debye–Waller factor, normalization nuisance | 8.8 |
@@ -683,15 +684,15 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | density vertex | App. A, 3.2 |
 | density vertex, interpolation | 3.6 |
 | density vertex, large-q | 3.5 |
-| density-functional perturbation theory | App. E.4, 5.4 |
+| density-functional perturbation theory | E.4, 5.4 |
 | density-functional perturbation theory, vertex | 6.2 |
-| density-functional theory, practice | App. E.1 |
+| density-functional theory, practice | E.1 |
 | density-of-states mass | 3.3 |
 | density-of-states tensor | 11.7 |
 | depolarization factor | 16.3 |
 | depolarization factor, shape factor | 11.8 |
 | derivative coupling | 5.1, 6.1 |
-| derivative discontinuity | 3.4, App. D.5 |
+| derivative discontinuity | 3.4, D.5 |
 | derivative-coupling vector | 6.1 |
 | detailed balance | 2.5, App. A, App. C.20 |
 | detailed balance, dark-matter transitions | 8.2 |
@@ -703,7 +704,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | detailed balance, temperature transfer | 13.5 |
 | detector nuisances | 21.4 |
 | deviation notation | 8.5 |
-| DFT + U | App. E.9 |
+| DFT + U | E.9 |
 | diamagnetic current | 4.4 |
 | diamond space group, Fd3̄m | App. C.17 |
 | diamond structure | 3.1 |
@@ -768,7 +769,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | dispersion mass | 17.3 |
 | displaced oscillator, Migdal comb | 12.1 |
 | displaced oscillators | App. C.20, 5.6 |
-| displacement correlation | 5.6, App. D.15 |
+| displacement correlation | 5.6 |
 | displacement count | 19.4 |
 | displacement field | 5.3 |
 | displacement operator | App. C.6 |
@@ -825,7 +826,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Dyson convention, leakage | 21.2 |
 | Dyson equation | 4.7, App. C.7 |
 | Dyson equation, density response | 4.4 |
-| Dyson equation, phonons | 6.4, App. D.17 |
+| Dyson equation, phonons | 6.4 |
 | Dyson series | 2.4 |
 | Dzuba–Flambaum–Samsonov | 12.6 |
 | Earth velocity | 1.2 |
@@ -841,7 +842,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | effective gap, phenomenological fit | 13.8 |
 | effective kinetic mixing | 8.2 |
 | effective mass | 3.2 |
-| effective mass, finite differences | App. E.1 |
+| effective mass, finite differences | E.1 |
 | effective medium, layered | 16.2 |
 | effective mixing ζ_eff | 8.4 |
 | effective sound speed | 17.5 |
@@ -852,14 +853,14 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Einstein model, band gap | 6.3 |
 | Einstein model, failure for the tail | 11.3 |
 | Einstein relation | 15.3 |
-| elastic constants | App. E.4, App. C.18 |
+| elastic constants | E.4, App. C.18 |
 | elastic constants, diamond | 11.1 |
 | elastic constants, germanium | 11.1 |
 | elastic constants, silicon | 5.2, 11.1 |
 | elastic form factor | 2.2 |
 | elastic scattering | 1.3 |
 | electric dipole dark matter | 8.1 |
-| electron affinity | 3.4, App. D.5 |
+| electron affinity | 3.4, D.5 |
 | electron bubble, phonon self-energy | 6.4 |
 | electron density at the nucleus | 8.3 |
 | electron drag mass | 8.6 |
@@ -894,7 +895,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | electron–phonon order | 8.5 |
 | electron–phonon vertex | App. A |
 | electron–phonon vertex, bare | 6.1 |
-| electron–phonon vertex, interpolation | App. E.5, 3.6 |
+| electron–phonon vertex, interpolation | E.5, 3.6 |
 | electronic dielectric constant | 4.4 |
 | electronic energy, of a final state | 12.1 |
 | electronic friction | 4.4 |
@@ -904,9 +905,9 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | electrostatic theorem | 5.1 |
 | elementary renewal theorem | App. C.11 |
 | Eliashberg density of states | 15.4 |
-| Eliashberg equations | App. E.9 |
-| Eliashberg function | 6.4, App. D.17 |
-| Eliashberg function, convergence | App. E.5 |
+| Eliashberg equations | E.9 |
+| Eliashberg function | 6.4 |
+| Eliashberg function, convergence | E.5 |
 | Elliott formula | 4.9 |
 | Elliott formula, phonon-assisted | 13.8 |
 | elliptic integrals, coherence integrals | 15.1, App. D.40 |
@@ -963,9 +964,9 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | exact relations, table | 8.3 |
 | exact remaining gap | 22.2 |
 | EXCEED-DM, screening | 10.4 |
-| exchange constant | App. E.9, 7.1 |
-| exchange energy, electron gas | App. D.4 |
-| exchange hole | 3.4, App. D.4 |
+| exchange constant | E.9, 7.1 |
+| exchange energy, electron gas | D.4 |
+| exchange hole | 3.4, D.4 |
 | exchange integral | 7.1 |
 | exchange kernel | 4.9 |
 | exchange kernel, local fields | 4.8 |
@@ -974,7 +975,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | exchange symmetry | 2.3 |
 | exchange term | 2.3 |
 | exchange–correlation energy | 3.4 |
-| exchange–correlation functional | App. E.1 |
+| exchange–correlation functional | E.1 |
 | exchange–correlation kernel | 4.6 |
 | exchange–correlation nuisance, close collisions | 19.2 |
 | excitation–interaction matrix | 9.1 |
@@ -1059,14 +1060,14 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | free rotor, molecular solid | 16.6 |
 | freezing temperature | 16.8 |
 | Frenkel exciton | 16.4 |
-| f-sum rule | App. A, App. E.7, 4.3 |
+| f-sum rule | App. A, E.7, 4.3 |
 | f-sum rule, BCS violation | 7.2 |
 | f-sum rule, calibration of tables | 10.10 |
 | f-sum rule, free-gas check | 4.2 |
 | f-sum rule, loss function, ε₂, σ₁ | 4.4 |
 | f-sum rule, many-body nuisances | 8.8 |
 | f-sum rule, Migdal coefficient | 12.3 |
-| f-sum rule, nonlocal correction | App. E.2, App. E.7 |
+| f-sum rule, nonlocal correction | E.2, E.7 |
 | f-sum rule, oscillator | 2.5 |
 | f-sum rule, phonon-assisted sector | 13.3 |
 | f-sum rule, rate bound | 10.2 |
@@ -1082,7 +1083,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Fano coefficient | 8.6 |
 | Fano coefficient, size | 13.6 |
 | Fano factor | 1.5, App. C.11, 18.2 |
-| Fano factor, computation | App. E.13 |
+| Fano factor, computation | E.13 |
 | Fano interference | 8.6 |
 | Fan–Migdal self-energy | 6.3, App. D.16 |
 | Fan–Migdal self-energy, Fan term | 6.3 |
@@ -1131,11 +1132,11 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | fluctuation–dissipation theorem | App. A, 4.2 |
 | flux | 2.1 |
 | Fock exchange, nonlocal | 4.3 |
-| Fock operator | App. D.4 |
+| Fock operator | D.4 |
 | Fock space | 2.3 |
 | Foldy–Wouthuysen transformation | App. C.15 |
 | Foldy–Wouthuysen transformation, vertex corrections | 10.6 |
-| force constants | App. E.4, 5.2 |
+| force constants | E.4, 5.2 |
 | force constants, electronic part | 5.4 |
 | force constants, third- and fourth-order | 5.7 |
 | force operator, Fourier form | 12.1 |
@@ -1143,7 +1144,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | forced harmonic oscillator | 6.1 |
 | form factor ⟨j₂⟩ | 14.4 |
 | form factor, crystal, normalization | 10.1 |
-| formation energy | App. E.10 |
+| formation energy | E.10 |
 | formation energy, silicon defects | 7.4 |
 | Foster–Boys orbitals | 3.6 |
 | Fourier convention | App. A |
@@ -1169,8 +1170,8 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Fröhlich coupling constant | 6.2 |
 | Fröhlich coupling, named | 5.5 |
 | Fröhlich polaron, self-energy | 6.3 |
-| Fröhlich vertex | App. E.5, App. D.14, 6.2 |
-| frozen orbitals | App. D.4 |
+| Fröhlich vertex | E.5, App. D.14, 6.2 |
+| frozen orbitals | D.4 |
 | frozen window | 3.6 |
 | frozen-phonon method | 5.1, 5.4 |
 | Fröhlich vertex, dark matter | 11.2 |
@@ -1202,7 +1203,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | graphene, ejection | 16.3 |
 | graphene, plasmon | 16.2 |
 | g(v_min) | 1.3 |
-| G4CMP | App. E.12 |
+| G4CMP | E.12 |
 | GaAs | 1.5 |
 | GaAs, bremsstrahlung | 12.6 |
 | GaAs, chiral phonons | 14.5 |
@@ -1238,7 +1239,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | gauge consistency | 3.6 |
 | gauge freedom, Bloch states | 3.6 |
 | gauge matrix | 3.6 |
-| Gaussian approximation potential | App. E.11 |
+| Gaussian approximation potential | E.11 |
 | Gaussian field average | 8.2 |
 | Gaussian integral | App. C.6 |
 | Gaussian quadrature | App. C.10 |
@@ -1268,7 +1269,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | germanium, sound speed | 11.1 |
 | germanium, window, open | 13.9 |
 | germanium, pair energy at mK | 21.7 |
-| ghost state | App. E.2 |
+| ghost state | E.2 |
 | Gibbs distribution | 2.5 |
 | Gibbs state, target | 8.2 |
 | Gibbs–Bogoliubov inequality | 5.7 |
@@ -1295,15 +1296,15 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | group velocity | 3.2 |
 | group velocity, interpolated | 3.6 |
 | grown-in defects | 19.6 |
-| Grüneisen parameter | App. E.8 |
+| Grüneisen parameter | E.8 |
 | Grüneisen parameter, and cubic constants | 5.7 |
 | Grüneisen parameter, sign | 5.2 |
 | guide to next targets | 21.7 |
-| GW approximation | App. E.3, 4.8 |
+| GW approximation | E.3, 4.8 |
 | GW, pointer | 4.7 |
-| GW-BSE, molecular | App. E.6 |
+| GW-BSE, molecular | E.6 |
 | gyration tensor, α-quartz | 14.5 |
-| G₀W₀ | App. E.3 |
+| G₀W₀ | E.3 |
 | gyration tensor | App. C.17 |
 | H center | 16.6 |
 | h-BN, nuclear edge | 21.7 |
@@ -1313,7 +1314,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | half-gap | 7.3 |
 | half-metal, toy | 8.2 |
 | half-normal constraint | 21.4 |
-| Hall–Bardeen–Blatt edge | 6.5, App. D.18 |
+| Hall–Bardeen–Blatt edge | 6.5 |
 | halo convention, recast | 21.5 |
 | halo dependence, channel edges | 9.2 |
 | halo functional | 21.1 |
@@ -1334,11 +1335,11 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | harmonic oscillator, ladder operators | 2.3 |
 | harmonic oscillator, thermal | 2.5 |
 | harmonic perturbation | 2.1 |
-| Hartree potential | 4.4, App. D.4 |
+| Hartree potential | 4.4, D.4 |
 | Hartree–Fock approximation | 3.4 |
-| Hartree–Fock band width | App. D.4 |
+| Hartree–Fock band width | D.4 |
 | Hartree–Fock energy | 2.3 |
-| Hartree–Fock equations | App. D.4 |
+| Hartree–Fock equations | D.4 |
 | Hartree–Fock orbitals, pointer | 2.2 |
 | Hartree–Fock, free silicon atom | 8.3 |
 | Hartree–xc kernel | 4.6 |
@@ -1374,28 +1375,28 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | high-frequency expansion | 4.1 |
 | high-symmetry points | 3.1 |
 | high-voltage readout ceiling | 20.5 |
-| Hohenberg–Kohn theorems | 3.4, App. D.5 |
+| Hohenberg–Kohn theorems | 3.4, D.5 |
 | Huang–Rhys factor, release path | 19.6 |
 | hybrid construction | 21.4 |
 | Hölder inequality, saturation | 16.2 |
 | hole | 1.5 |
-| hole ordering | 6.5, App. D.18 |
+| hole ordering | 6.5 |
 | hole path | 13.2 |
 | Holstein absorption | 15.4, App. D.40 |
-| Holstein–Primakoff transformation | 7.1, App. D.19 |
+| Holstein–Primakoff transformation | 7.1 |
 | Hooke's law | App. C.18 |
 | hopping amplitude | 3.2 |
 | hopping conduction | 16.5 |
-| hot-carrier cascade | App. E.13 |
+| hot-carrier cascade | E.13 |
 | hot-electron energy loss | 4.8 |
-| HSE | App. E.1 |
+| HSE | E.1 |
 | HSE functional | 3.4 |
-| Huang–Rhys factor | App. E.10, 5.6, 10.5 |
+| Huang–Rhys factor | E.10, 5.6, 10.5 |
 | Huang–Rhys factor, Migdal | 12.1 |
 | Huang–Rhys factor, NV center | 7.4 |
 | Huang–Rhys factor, T center | 7.4 |
 | Hubbard repulsion | 7.1 |
-| Hubbard U | App. E.9 |
+| Hubbard U | E.9 |
 | Hubble parameter | 1.1 |
 | Hubble rate | 1.1 |
 | Hund's rule | 7.1 |
@@ -1421,10 +1422,10 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | imaginary time | 4.7 |
 | impact excitation | 18.5 |
 | impact ionization, exchange factor | 18.1 |
-| impact ionization, GW | App. E.13, 18.1 |
+| impact ionization, GW | E.13, 18.1 |
 | impact ionization, local fields | 18.1 |
 | impact ionization, master-formula rate | 18.1 |
-| impact ionization, threshold | App. E.3, 18.1 |
+| impact ionization, threshold | E.3, 18.1 |
 | improper response | 4.4 |
 | improved Born approximation | 16.6 |
 | impulse approximation | 4.2 |
@@ -1437,7 +1438,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | impurity band | 7.4, 16.5 |
 | impurity-assisted absorption | 15.4 |
 | in-medium decay | 10.9 |
-| in-medium form factor | 16.1, App. D.41 |
+| in-medium form factor | 16.1 |
 | in-medium mixing | 1.4, 8.4 |
 | in-medium mixing, comparison across targets | 17.2 |
 | in-medium mixing, dark photon absorption | 8.2 |
@@ -1463,11 +1464,11 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | independent-particle bubble | 4.5 |
 | independent-particle rate, overestimate | 10.2 |
 | index order, contraction | 8.2 |
-| indirect absorption | 6.5, App. D.18 |
+| indirect absorption | 6.5 |
 | indirect edge, silicon, cold | 10.7 |
 | indirect exciton, silicon | 4.9 |
 | indirect gap | 2.4 |
-| indirect transitions, allowed and forbidden | 6.5, App. D.18 |
+| indirect transitions, allowed and forbidden | 6.5 |
 | induced density | 4.1 |
 | inductive response, superconductor | 15.3 |
 | inelastic dark matter | 1.3, 1.4 |
@@ -1478,7 +1479,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | interaction picture | 2.4 |
 | interaction picture, density matrix | 4.1 |
 | interaction picture, imaginary time | App. D.11 |
-| interatomic potential | App. E.11 |
+| interatomic potential | E.11 |
 | interatomic scale | 1.3 |
 | interband damping, plasmon | 4.5 |
 | interface-weighted phonon density | 20.3 |
@@ -1513,7 +1514,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Ioffe–Regel limit | 15.3 |
 | ionic correction, zero-phonon line | 17.4 |
 | ionic polarization, insertion | 8.4 |
-| ionization energy | 3.4, App. D.5 |
+| ionization energy | 3.4, D.5 |
 | ionization form factor | 2.2 |
 | ionization form factor, spin convention | 10.9 |
 | ionization yield | 1.5 |
@@ -1530,7 +1531,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | isothermal response | 4.1, 4.7 |
 | isothermal sphere | 1.1 |
 | isotope effect, band gap | 6.3 |
-| isotope scattering | App. E.12, 20.2 |
+| isotope scattering | E.12, 20.2 |
 | isotope scattering, Born rate | 20.2 |
 | isotope scattering, self-energy | 11.6 |
 | isotope, silicon, masses and abundances | 11.6 |
@@ -1544,7 +1545,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | jamming | 18.2 |
 | JARVIS database, elastic tensors | 17.6 |
 | Jäckle rate | 16.8 |
-| Janak's theorem | 3.4, App. D.5 |
+| Janak's theorem | 3.4, D.5 |
 | Jeans equation | 1.2 |
 | jellium | 2.3 |
 | jellium, loss function | 4.5 |
@@ -1566,7 +1567,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Kane energy | 3.3 |
 | Kane model | 3.3 |
 | Kane model, as Dirac cone | 7.3 |
-| Kerker preconditioning | App. E.1 |
+| Kerker preconditioning | E.1 |
 | key renewal theorem | App. C.11 |
 | kinematic accessibility, plasmon | 4.5, 10.3 |
 | kinematic ceiling, sectors | 17.1 |
@@ -1598,17 +1599,17 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Klein relation | 18.4 |
 | Klein–Gordon equation | 1.4 |
 | Klein–Nishina structure | 10.8 |
-| Kleinman–Bylander form | App. E.2 |
+| Kleinman–Bylander form | E.2 |
 | Klemens channel | 5.7 |
 | Klemens law | 5.7 |
 | Knapen–Kozaczuk–Lin, crystal Migdal | 12.1 |
 | Knight shift | 15.4 |
-| Kohn anomaly | 4.5, App. C.8, 6.4, App. D.17 |
+| Kohn anomaly | 4.5, App. C.8, 6.4 |
 | Kohn anomaly, named | 5.4 |
-| Kohn–Sham equations | 3.4, App. D.5 |
-| Kohn–Sham potential | 3.4, App. D.5 |
+| Kohn–Sham equations | 3.4, D.5 |
+| Kohn–Sham potential | 3.4, D.5 |
 | Kolmogorov backward equation | App. D.43 |
-| Koopmans' theorem | 3.4, App. D.4 |
+| Koopmans' theorem | 3.4, D.4 |
 | Kouvaris–Pradler | 12.6 |
 | Kramers degeneracy | 7.3 |
 | Kramers doublet | 7.3 |
@@ -1651,7 +1652,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | law of total variance, seed term | 18.3 |
 | layer plasmons | 16.2 |
 | LCAO | 3.2 |
-| LDA | App. E.1 |
+| LDA | E.1 |
 | lead salts, electron-recoil floor | 21.7 |
 | lead salts, pair energy | 21.7 |
 | lead salts, ²¹⁰Pb | 21.7 |
@@ -1705,7 +1706,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | linear programming, halo-independent | 21.2 |
 | linear readout, quantum-limited | 17.2 |
 | linear response | 4.1 |
-| linear spin-wave theory | 7.1, App. D.19 |
+| linear spin-wave theory | 7.1 |
 | linked-cluster theorem | 4.8, App. D.11, App. D.35 |
 | Lippmann–Schwinger equation | 2.4 |
 | Lippmann–Schwinger equation, out-state | 8.7 |
@@ -1754,9 +1755,9 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | local equilibrium | App. D.9 |
 | local fields, pointer | 4.1 |
 | local standard of rest | 1.2 |
-| local-density approximation | 3.4, App. D.5 |
-| local-field effects | App. E.6, 4.4, 4.6 |
-| logarithmic derivative | App. E.2, 3.5 |
+| local-density approximation | 3.4, D.5 |
+| local-field effects | E.6, 4.4, 4.6 |
+| logarithmic derivative | E.2, 3.5 |
 | long-range kernel | 4.6 |
 | longitudinal | 5.2 |
 | longitudinal–transverse splitting, exciton | 4.9 |
@@ -1778,7 +1779,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Luttinger parameter | 16.2 |
 | Lyddane–Sachs–Teller relation, Born charge extraction | 11.2 |
 | Löwdin partitioning | App. C.7 |
-| Luke phonons | App. E.12, 6.3 |
+| Luke phonons | E.12, 6.3 |
 | luminescence, E³ weighting | 7.4 |
 | Luttinger parameters | 3.3 |
 | Luttinger theorem, Im Σ | 4.7 |
@@ -1811,7 +1812,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | magnon velocity | 7.1 |
 | magnon, density coupling forbidden | 9.1 |
 | magnon–phonon hybrid | 14.2 |
-| Makov–Payne correction | App. E.10 |
+| Makov–Payne correction | E.10 |
 | many-body approximation 𝒳 | 8.5 |
 | many-body spread | 4.6, 10.10 |
 | margin, off-shell window | 13.6 |
@@ -1820,7 +1821,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Markov–Krein band, silicon | 11.5 |
 | mass defect | 11.6 |
 | mass density | 8.3 |
-| mass enhancement | 6.4, App. D.17 |
+| mass enhancement | 6.4 |
 | mass number per mass, GaAs | 8.4 |
 | mass polarization | 12.2 |
 | mass ratio | 5.1 |
@@ -1841,7 +1842,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | maximum-gap method | 21.5 |
 | Maxwell Garnett medium | 16.3, 16.5 |
 | Maxwellian velocity distribution | 1.2 |
-| McMillan formula | App. E.9 |
+| McMillan formula | E.9 |
 | mean energy per pair | 18.2 |
 | mean excitation energy | 4.3, 4.4 |
 | mean excitation energy, from the loss function | 19.3 |
@@ -1905,7 +1906,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Migdal regime | 8.5 |
 | Migdal's adiabatic theorem | 6.1, 6.3 |
 | Migdal's adiabatic theorem, named | 5.1 |
-| Migdal's adiabatic theorem, phonon side | 6.4, App. D.17 |
+| Migdal's adiabatic theorem, phonon side | 6.4 |
 | Migdal, A. B., 1941 and 1958 results | 6.1 |
 | Migdal–Eliashberg approximation, pointer | 6.3 |
 | Migdal-type absorption | 12.6 |
@@ -1934,7 +1935,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | modified Bessel function, line shape | 5.6 |
 | modified Lindhard model | 19.3 |
 | molecular crystal | 16.4 |
-| molecular dynamics | App. E.11 |
+| molecular dynamics | E.11 |
 | molecular dynamics, acceptance tests | 19.1 |
 | molecular form factor | 16.4 |
 | moment matrices | 8.3 |
@@ -1951,7 +1952,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | momentum-resolved self density | 11.3 |
 | momentum-transfer distribution | 2.2 |
 | momentum–energy plane, silicon | 9.3 |
-| Monkhorst–Pack grid | App. E.1, App. C.2 |
+| Monkhorst–Pack grid | E.1, App. C.2 |
 | monochromatic perturbation | 5.4 |
 | Monte Carlo propagation | App. C.14 |
 | Monte Carlo, ranking | 17.6 |
@@ -2046,7 +2047,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | nonadiabatic phonons | 6.4 |
 | nonanalytic term | 5.5, App. D.14 |
 | noninteracting-blip approximation | App. C.20 |
-| nonlinear core correction | App. E.2 |
+| nonlinear core correction | E.2 |
 | nonlocal potential, f-sum | 4.3 |
 | nonlocal pseudopotential, velocity | 3.2 |
 | nonsymmorphic | App. C.17 |
@@ -2066,7 +2067,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | nuisance parameter, shared across experiments | 21.5 |
 | number flux | 1.2 |
 | number operator | 2.3 |
-| NV center | App. E.10 |
+| NV center | E.10 |
 | oblique momentum transfer | 16.2 |
 | occupation | 3.2 |
 | occupation number, dark-matter field | 8.2 |
@@ -2083,7 +2084,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | ohmic coupling, resonator fits | 16.8 |
 | on-shell | 2.4 |
 | one-body operator | 2.3 |
-| one-center correction | App. E.2 |
+| one-center correction | E.2 |
 | one-dimensional crystal | 13.6 |
 | one-magnon rate | 14.1 |
 | one-magnon spin response | 7.1 |
@@ -2116,9 +2117,9 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | orbital moment, NiO | 14.4 |
 | orbital quenching | 14.3 |
 | orbit–orbit interaction | 10.6 |
-| orbital relaxation | App. D.4 |
+| orbital relaxation | D.4 |
 | ordering wavevector | 14.1 |
-| orthogonality catastrophe | App. E.10, App. C.20 |
+| orthogonality catastrophe | E.10, App. C.20 |
 | orthogonality, plane-wave final states | 10.6 |
 | orthogonalized plane wave | 16.3 |
 | oscillator strength | 4.3 |
@@ -2152,7 +2153,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | pair-breaking threshold | 7.2 |
 | pair-breaking time | 20.4 |
 | pair-creation energy | 1.5 |
-| pair-creation energy, computation | App. E.13 |
+| pair-creation energy, computation | E.13 |
 | pair-creation spectrum | 7.2 |
 | pair-energy offset | 19.5 |
 | pair-field ladder | 15.1 |
@@ -2185,8 +2186,8 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Pauli blocking, virtual state | 4.8 |
 | Pauli principle | 2.3 |
 | Pauli principle, intermediate states | 2.4 |
-| PAW | App. E.2, App. E.7 |
-| PBE | App. E.1 |
+| PAW | E.2, E.7 |
+| PBE | E.1 |
 | PBE functional | 3.4 |
 | PBE, overscreening, gallium arsenide | 5.5 |
 | PbS, quantum dots | 16.3 |
@@ -2227,7 +2228,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | phonon self-energy | 6.4 |
 | phonon self-energy, anharmonic, off shell | 11.5 |
 | phonon sideband | 5.6 |
-| phonon transport Monte Carlo | App. E.12 |
+| phonon transport Monte Carlo | E.12 |
 | phonon, acoustic | 1.3, 5.2 |
 | phonon, optical | 1.3, 5.2 |
 | phonon, optical, silicon | 5.1 |
@@ -2266,7 +2267,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | plane-wave approximation, core shells | 10.6 |
 | plane-wave approximation, halo | 8.2 |
 | plane-wave basis | 3.5 |
-| plane-wave cutoff | App. E.1, 3.5 |
+| plane-wave cutoff | E.1, 3.5 |
 | plane-wave expansion | 3.2 |
 | plasma frequency | 4.3 |
 | plasma frequency, valence | 17.5 |
@@ -2290,7 +2291,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | plasmon, in impact ionization | 18.1 |
 | plasmon, no spin coupling | 9.1 |
 | plasmon, production rate | 10.3 |
-| plasmon-pole model | App. E.3 |
+| plasmon-pole model | E.3 |
 | Platt notation | 16.4 |
 | Plemelj jump relations | App. C.4 |
 | PMN-PT | 14.6 |
@@ -2355,22 +2356,22 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | provenance width | 17.6 |
 | provenance, response tables | 21.6 |
 | pseudo-magnetic field | 14.6 |
-| pseudopotential | App. E.2, 3.5 |
+| pseudopotential | E.2, 3.5 |
 | pseudopotential, nonlocal | 3.5 |
-| pseudopotential, norm-conserving | App. E.2, 3.5 |
-| pseudopotential, ONCV | App. E.2 |
-| pseudopotential, PseudoDojo | App. E.2 |
-| pseudopotential, SG15 | App. E.2 |
+| pseudopotential, norm-conserving | E.2, 3.5 |
+| pseudopotential, ONCV | E.2 |
+| pseudopotential, PseudoDojo | E.2 |
+| pseudopotential, SG15 | E.2 |
 | pseudopotential, sum rule | 4.3 |
 | pseudopotential, Troullier–Martins | 3.5 |
-| pseudopotential, ultrasoft | App. E.2 |
+| pseudopotential, ultrasoft | E.2 |
 | PT symmetry, in/out labeling | 8.7 |
 | PT symmetry, real amplitudes | 8.6 |
 | publication standard, likelihood | 21.5 |
-| published screening rule, Dirac | 16.1, App. D.41 |
+| published screening rule, Dirac | 16.1 |
 | Puff sum rule | 8.3 |
 | Pulay force | 5.1 |
-| Pulay stress | App. E.1 |
+| Pulay stress | E.1 |
 | pulse-shape discrimination | 20.5 |
 | push-through identity | App. D.27 |
 | pyroelectric crystal | 10.7 |
@@ -2384,7 +2385,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | quantum dot, gap | 16.3 |
 | quantum dot, rate | 16.3 |
 | quasi-diffuse phonon transport | 20.2 |
-| quasi-harmonic approximation | App. E.8, 5.7 |
+| quasi-harmonic approximation | E.8, 5.7 |
 | quasi-harmonic approximation, helium | 11.5 |
 | quasi-longitudinal mode | App. C.18 |
 | quasi-molecular promotion | 19.2 |
@@ -2393,12 +2394,12 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | quasiparticle density of states | 7.2 |
 | quasiparticle energy | 3.4 |
 | quasiparticle energy, silicon | 4.7 |
-| quasiparticle lifetime | App. E.3, 4.7 |
-| quasiparticle residue | App. E.3, 4.7 |
+| quasiparticle lifetime | E.3, 4.7 |
+| quasiparticle residue | E.3, 4.7 |
 | quasiparticle residue, electron–boson | 4.8 |
 | quasiparticle residue, pair state | 8.6 |
 | quasiparticle residue, shared nuisance | 8.8 |
-| quasiparticle self-consistent GW | App. E.3, App. E.13 |
+| quasiparticle self-consistent GW | E.3, E.13 |
 | quasiparticle yield | 20.4 |
 | quasiparticle yield, near-gap | 20.5 |
 | quasiparticle-number sectors | 8.6 |
@@ -2451,7 +2452,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Rayleigh scattering, defecton–phonon | 19.6 |
 | Rb₂MnF₄ | 14.2 |
 | reach band | 16.9 |
-| reach re-plot | 16.1, App. D.41 |
+| reach re-plot | 16.1 |
 | reach, phonon-assisted, estimate | 13.9 |
 | reach, polar targets | 11.2 |
 | reachable electrons | 10.6 |
@@ -2605,15 +2606,15 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | scaling crossover | 14.6 |
 | scaling limit | App. C.20 |
 | scattering amplitude | 2.2 |
-| SCHA | App. E.8 |
+| SCHA | E.8 |
 | Schiff moment | 14.6 |
 | Schur complement | App. C.7 |
 | Schur complement, dielectric | 4.4 |
 | scintillator | 1.5 |
-| scissor shift | App. E.3, App. E.6, App. E.7, 3.4 |
+| scissor shift | E.3, E.6, E.7, 3.4 |
 | scissor shift, effect on f-sum | 10.1 |
 | scissor shift, non-rigidity | 10.10 |
-| screened exchange | App. E.3, 3.4 |
+| screened exchange | E.3, 3.4 |
 | screened interaction | 4.8 |
 | screened interaction, pair momentum | 13.4 |
 | screening | 4.4 |
@@ -2656,10 +2657,10 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | self-energy | 4.7 |
 | self-energy, Coulomb, point charge | 2.3 |
 | self-energy, electron–phonon | 6.3 |
-| self-interaction | App. D.5 |
-| self-scattering | App. E.12, App. E.13 |
+| self-interaction | D.5 |
+| self-scattering | E.12, E.13 |
 | semi-infinite program | App. C.12 |
-| semicore states | App. E.2, App. E.7, 3.5 |
+| semicore states | E.2, E.7, 3.5 |
 | semicore states, germanium 3d, onset | 10.6 |
 | semiorder | App. C.13 |
 | sensitivity scaling, coherent signals | 14.6 |
@@ -2736,14 +2737,14 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | skipper CCD | 1.5 |
 | Slater condition | App. C.12 |
 | Slater determinant | 2.3 |
-| Slater exchange | App. D.5 |
+| Slater exchange | D.5 |
 | small oscillations | 5.2 |
 | small parameters, silicon values | 8.5 |
 | smeared potential | 6.3 |
 | smearing | App. C.2 |
-| smearing, cold | App. E.1 |
-| smearing, Fermi–Dirac | App. E.1 |
-| smearing, Methfessel–Paxton | App. E.1 |
+| smearing, cold | E.1 |
+| smearing, Fermi–Dirac | E.1 |
+| smearing, Methfessel–Paxton | E.1 |
 | smearing, pointer | 2.5 |
 | Sm³⁺ | 14.4 |
 | soft acoustic limit | 8.3 |
@@ -2800,7 +2801,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | spin-polarized electron gas | 8.2 |
 | sp³ hybrid | 3.2 |
 | space group | App. C.17 |
-| special displacements | App. E.8, 6.3, 6.5 |
+| special displacements | E.8, 6.3, 6.5 |
 | species-resolved f-sum | 4.3 |
 | spectral density | App. C.20 |
 | spectral function | 4.7 |
@@ -2812,12 +2813,12 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | spherical harmonics | App. C.3 |
 | spillage | 3.6 |
 | spin factor | App. A |
-| spin spiral | App. E.9 |
+| spin spiral | E.9 |
 | spin-flip scattering | App. C.19 |
 | spin-independent scattering | 2.2 |
 | spinor | App. C.15 |
 | spin–boson model | App. C.20 |
-| spin–orbit correction of the gap | App. E.3 |
+| spin–orbit correction of the gap | E.3 |
 | spin–orbit coupling | 3.3, App. C.15 |
 | spin–orbit coupling, core levels | 3.5 |
 | spin–orbit coupling, sum rule | 4.3 |
@@ -2851,7 +2852,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | step model, as a limit of the hand-off | 8.7 |
 | step model, deterministic renewal limit | 18.3 |
 | step model, failure at few pairs | 18.3 |
-| Sternheimer equation | App. E.4, 5.4 |
+| Sternheimer equation | E.4, 5.4 |
 | Sternheimer shift | 5.4 |
 | Stieltjes moment problem | App. C.10 |
 | Stieltjes problem, half line | 11.5 |
@@ -2868,7 +2869,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | stored energy, configurational | 19.1 |
 | stored energy, delayed release | 19.6 |
 | stored energy, mean over basins | 19.4 |
-| stored energy, quench | App. E.11 |
+| stored energy, quench | E.11 |
 | stored energy, quench reference | 19.1 |
 | strain | App. C.18 |
 | strain tensor | 6.2 |
@@ -2915,7 +2916,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | symmetry operation | App. C.17 |
 | symmorphic | App. C.17 |
 | systematic absence | App. C.17 |
-| T center | App. E.10, 7.4 |
+| T center | E.10, 7.4 |
 | T center, hole binding | 7.4 |
 | table conventions | 21.6 |
 | tagged-unit identity | 18.2, App. D.44 |
@@ -2939,8 +2940,8 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Tamm–Dancoff approximation, time orderings, coupling block | 10.5 |
 | target mass density | 1.5 |
 | target operators per species | 8.1 |
-| TDDFT kernels | App. E.6 |
-| TDEP | App. E.8 |
+| TDDFT kernels | E.6 |
+| TDEP | E.8 |
 | tellurium, circular dichroism | 14.5 |
 | temperature dependence of band energies, pointer | 4.8 |
 | temperature dependence of the band gap | 6.3 |
@@ -2985,8 +2986,8 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | three-phonon decay, acoustic phonons | 20.2 |
 | three-phonon processes | 5.7 |
 | three-phonon vertex | 5.7 |
-| threshold displacement energy | App. E.10 |
-| threshold displacement energy, computation | App. E.11 |
+| threshold displacement energy | E.10 |
+| threshold displacement energy, computation | E.11 |
 | threshold energy | 1.3 |
 | threshold mass | 1.3 |
 | threshold mass, Dirac material | 7.3 |
@@ -3092,7 +3093,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | two-photon absorption | 2.4 |
 | two-stage factorization, sufficiency | 19.6 |
 | two-window observable | 20.5 |
-| type-II order | 7.1, App. D.19 |
+| type-II order | 7.1 |
 | Umklapp | App. A |
 | Umklapp line, (2̄00) | 13.9 |
 | Umklapp process | 3.1 |
@@ -3110,7 +3111,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | union bound, bins | 21.2 |
 | unit cell volume | 3.1 |
 | unit heat quenching | 19.5 |
-| universal functional | App. D.5 |
+| universal functional | D.5 |
 | unpolarized dark matter | 8.2 |
 | unsized correction | 9.4 |
 | Unsöld's theorem | App. C.3 |
@@ -3125,7 +3126,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Via Lactea II | 21.1 |
 | vitreous silica, heat release | 16.8 |
 | vitreous silica, tunneling density | 16.7, 16.8 |
-| v-representability | App. D.5 |
+| v-representability | D.5 |
 | vacancy | 7.4 |
 | vacuum diagram | 4.8, App. D.11 |
 | vacuum polarization, analogy | 7.3, App. D.22 |
@@ -3143,7 +3144,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | velocity matrix element, absorption | 4.6 |
 | velocity matrix element, scissor rescaling | 3.4 |
 | velocity operator | 3.2 |
-| velocity operator, nonlocal | App. E.2, App. E.7 |
+| velocity operator, nonlocal | E.2, E.7 |
 | velocity-dependent couplings | 10.4 |
 | velocity-dependent couplings, halo dependence | 21.1 |
 | velocity-squared operator | 8.1 |
@@ -3167,7 +3168,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Wannier function, bond-centered | 3.6 |
 | Wannier function, maximally localized | 3.6 |
 | Wannier function, silicon sp³ | 3.6 |
-| Wannier interpolation | App. E.5, 3.6, 6.5 |
+| Wannier interpolation | E.5, 3.6, 6.5 |
 | Wannier interpolation, electron–phonon vertex | 6.2 |
 | Wannier–Mott exciton | 4.9 |
 | Wannier–Mott exciton, finite q | 10.5 |
@@ -3215,7 +3216,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | Yukawa potential | 1.4 |
 | Yukawa potential, screened Coulomb | 4.4 |
 | Zacharias–Giustino method | 6.3 |
-| ZBL potential | App. E.11 |
+| ZBL potential | E.11 |
 | Zener ratio | 11.1 |
 | zero differential overlap | 16.4 |
 | zero-order deformation potential | 6.2 |
@@ -3235,7 +3236,7 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | zero-point momentum, nucleus | 16.6 |
 | zero-point motion | 5.3 |
 | zero-point motion, amplitude | 5.1 |
-| zero-point renormalization | App. E.8, 6.3 |
+| zero-point renormalization | E.8, 6.3 |
 | zero-point renormalization, threshold nuisance | 8.8 |
 | zero-point renormalization, window | 13.7 |
 | zero-point spin deviation | 7.1 |
@@ -3248,8 +3249,8 @@ Final ledger merge (2026-11-07): App. C.10–C.20 and E.14–E.27 are accepted; 
 | ²⁰⁷Pb, PMN-PT | 14.6 |
 | ¹²⁵Te, charged-current absorption | 22.3 |
 | α-quartz, point-group test | 14.5 |
-| Δ gauge | App. E.2 |
-| ΔSCF | App. E.10 |
+| Δ gauge | E.2 |
+| ΔSCF | E.10 |
 | η(v_min) | 1.3 |
 | η₂, second speed moment | 10.4, 21.1 |
 | 𝒪₈, rate in silicon | 10.4 |

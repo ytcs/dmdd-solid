@@ -7,6 +7,7 @@ Heaviside–Lorentz charge (e² = 4πα) throughout (App. A); the Units column g
 conventional unit in which values are quoted. A decoration (subscript, superscript, alphabet, bold) is part of a symbol's name and may not
 be dropped. The rows proposed for the accepted Chapters 1–2 and Appendix A were merged on 2026-11-02 (clash entry 71 lists the renames,
 the flags and the moved first uses; ledgers/check_notation.py checks the tex against this table). The rows proposed for the accepted Appendix E (E.1–E.13) were merged on 2026-11-02 (clash entry 72 lists the renames, the spelling splits and the flags; the App. E rows close the table). The rows proposed for the accepted Chapter 4 and Appendix D.6–D.12 were merged on 2026-11-02 after the Chapter 4 gate (clash entry 73; their new rows follow the planned Sect. 4.9 rows). The rows proposed for the accepted Chapter 3, App. C.1–C.8 and App. D.4–D.5, and for the drafted App. C.10–C.20, were merged on 2026-11-02 (clash entry 74; the Chap. 3 and D.4–D.5 rows follow the planned Sect. 3.6 rows, the App. C rows precede the App. E rows). The rows proposed for the accepted Chapter 5, App. D.13–D.15 and App. C.18 were merged on 2026-11-02 (clash entry 75; the new rows follow the planned Sect. 5.7 rows). The rows proposed for the accepted Chapter 6 and App. D.16–D.18 were merged on 2026-11-02 (clash entry 76; the new rows follow the planned Sect. 6.5 rows). The rows proposed for the accepted Chapter 7 and App. D.19–D.23 were merged on 2026-11-02 (clash entry 77; the new rows follow the planned rows of Sects. 7.1–7.4). The rows proposed for the accepted Chapter 8 and App. D.24–D.28 were merged on 2026-11-02 (clash entry 78; the new rows follow the planned Chap. 8 rows, after ϑ_k; ρ_c(q) is dropped; the pair propagator of D.12 is now 𝔏). The rows proposed for the accepted Chapter 10 and App. D.29–D.30 were merged on 2026-11-02 (clash entry 79; the new rows follow the planned Chap. 10 rows, after v_χ,max; 𝒢_GS is 𝒢_rel, and the Euler gamma function of 10.5 is upright Γ). The rows proposed for the accepted Chapter 11 and App. D.31–D.32 were merged on 2026-11-02 (clash entry 80: the 33 rows of the Ch11 revision follow the Γ_iso row, the rows added at the merge follow the M_sph row). The rows proposed for the accepted Chapter 14 and App. D.38 were merged on 2026-11-06 (clash entry 85; the Ch14 rows of the revision and of the merge follow the S^PA_𝒯𝒯 row, before the planned Chap. 15 rows). The rows of the accepted Chapter 9 were merged on 2026-11-07 (clash entry 95: the six rows of the Ch9 revision follow the m_min^ac row and are kept; the merge adds M_Ge after the ○ row and moves the first use of c_M, c_LA and M_Si to 9.2). Clashes are flagged at the end; ⚑ in a row points to that list, and every ⚑ row has an entry there.
+Three-volume edition (2026-11-12): symbols no longer used in the tex have first use "— (removed in the three-volume edition)"; where only some symbols of a row went, the row is split and the removed ones follow it in a row of their own; first uses in the folded App. D.15, D.17, D.18, D.19, D.29, D.41 (now in Sects. 5.6, 6.4, 6.5, 7.1, 10.1, 16.1) and in sections whose use was cut are retargeted; D.14 now holds only the Fröhlich vertex. Log: ledgers/REVIEWS/volumes/notation.md.
 
 | Symbol | Meaning | Units | First use |
 |---|---|---|---|
@@ -322,7 +323,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | E_H[𝓃] | Hartree energy (argument mandatory; the host-supercell energy of E.10 is E_host, clash entry 74(c)) ⚑ | eV | 3.4 |
 | I, A (energies) | ionization energy, electron affinity (3.4, D.5; I also the first ionization energy of an atom in 12.2; I is otherwise the nucleus index and A the mass number, entry 26) ⚑ | eV | 3.4 |
 | E_g^KS, Δ_xc | Kohn–Sham gap; derivative discontinuity, E_g = E_g^KS + Δ_xc (subscripts mandatory, entry 14) | eV | 3.4 |
-| E_HOMO, E_LUMO | highest occupied and lowest unoccupied Kohn–Sham eigenvalues | eV | D.5 |
+| E_HOMO | highest occupied Kohn–Sham eigenvalue | eV | D.5 |
+| E_LUMO | lowest unoccupied Kohn–Sham eigenvalue | eV | — (removed in the three-volume edition) |
 | h, h_HF | one-body Hamiltonian −∇²/2m_e + U_1 of a determinant; Hartree–Fock (Fock) operator (D.4 only; bare h is otherwise the Hubble parameter, entry 45) ⚑ | eV | D.4 |
 | ϱ(x, x′) | one-body density matrix Σ_occ ψ_γ(x)ψ_γ*(x′), the kernel of ϱ̂ (x = (r, s)) ⚑ | Å⁻³ | D.4 |
 | λ_γγ′ | Lagrange multipliers of orthonormality (D.4 only; λ is also the exciton label) ⚑ | eV | D.4 |
@@ -409,7 +411,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | H_mv, H_Dar, H_so | mass–velocity, Darwin and spin–orbit one-body terms (subscripts upright and mandatory; H_so lower case in 3.3, 3.5 and D.6, unified at the Chap. 3 merge; Δ_SO and ξ_SO keep the upper-case subscript) ⚑ | eV | 3.5 (H_so: 3.3; D.6 for the sum-rule use) |
 | f₂(ω) | imaginary part of the atomic scattering factor, (π/2)ω df^osc/dω (Henke convention; WE 4.7 only) ⚑ | 1 | 4.3 |
 | Ω_arc | radius of the large semicircle of the Kramers–Kronig contour (Fig. 4.3 only; renamed from Ω_c, which is the cosmological density parameter) ⚑ | eV | 4.3 |
-| φ_tot(q, ω), φ_tot,G, φ_ext,G | total (external + Hartree) potential energy acting on an electron; components at q + G of the total and external potentials (D.7) ⚑ | eV | 4.4 |
+| φ_tot(q, ω) | total (external + Hartree) potential energy acting on an electron ⚑ | eV | 4.4 |
+| φ_tot,G, φ_ext,G | components at q + G of the total and external potentials (D.7) ⚑ | eV | — (removed in the three-volume edition) |
 | δ𝓃_e(q, ω), δ𝓃_e,G | amplitude of the induced electron density δ⟨n_e(q)†⟩/𝓥; its component at q + G | eV³ | 4.4 |
 | R_GG′(q, ω), R̃_GG′ | density-response matrix in reciprocal-lattice vectors (O_a = n_e(q+G), O_b = n_e(q+G′)); its proper part | eV² | 4.4 |
 | R̄, R̄_00 | response with the G = 0 Coulomb term removed; ε_mac = 1 − v_C(q)R̄_00 (bar mandatory; 4.4, 4.6, 4.8, 4.9, D.7, D.12) ⚑ | eV² | 4.4 |
@@ -492,7 +495,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | ε₀ | static dielectric constant ε(0, ω → 0), lattice included: a pure number, never the vacuum permittivity (which appears only as ε₀^SI, entry 2). In the donor Coulomb term −α/(ε₀r) of 7.4 and D.23 it is the static constant of silicon, ε₀ = ε∞ = 11.7 at room temperature (nonpolar; editor ruling App. E), with 11.4 stated in 7.4 as the liquid-helium value of donor spectra and used at millikelvin in 18.5 and 20.1 (Coulomb and field radii, space-charge field) ⚑ | 1 | 5.5 |
 | ω_L, ω_T | longitudinal and transverse optical frequencies at Q → 0 ⚑ | meV | 5.5 |
 | W_κ(q) | Debye–Waller exponent, 2W_κ(q) = q·B_κ·q (only this meaning) ⚑ | 1 | 5.6 |
-| 𝒞_κκ′(R, t), 𝒞_κκ′(t) | displacement correlation function ⟨u_Rκ(t)u_0κ′(0)⟩; 𝒞_κκ′(t) where the cell is clear (script C; was Φ_κκ′(t)) ⚑ | Å² | 5.6 (derived D.15) |
+| 𝒞_κκ′(R, t), 𝒞_κκ′(t) | displacement correlation function ⟨u_Rκ(t)u_0κ′(0)⟩; 𝒞_κκ′(t) where the cell is clear (script C; was Φ_κκ′(t)) ⚑ | Å² | 5.6 (derived D.15 → 5.6) |
 | S_HR | Huang–Rhys factor ⚑ | 1 | 5.6 |
 | γ_Qν, γ^anh_Qν | phonon linewidth (full width); its anharmonic part ⚑ | meV | 5.7 |
 | η_anh | anharmonic small parameter ⚑ | 1 | 5.7 |
@@ -500,7 +503,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | H_el(u) | electronic Hamiltonian at fixed nuclei, T_e + V_ee + V_eN + V_NN (subscript upright, mandatory) | eV | 5.1 (derived D.13) |
 | T_e, V_ee, V_eN, V_NN | electron kinetic energy; electron–electron, electron–nucleus and nucleus–nucleus interaction energies (subscripts mandatory; the volume is script 𝓥, entries 28, 83) ⚑ | eV | 5.1 |
 | Ψ_i(r; u), E_i(u) | adiabatic electronic states (real) and energies at fixed nuclei, eigenstates of H_el(u); E_0(u) = E^ad(u) (arguments mandatory) | —; eV | 5.1 (derived D.13) |
-| Ψ^nuc_i(u), Ψ̃^nuc_i(u) | nuclear wavefunctions of the adiabatic expansion; coefficients of the expansion in the equilibrium states Ψ_i(r; 0) (D.13) (superscript mandatory) | — | 5.1; D.13 (Ψ̃^nuc_i) |
+| Ψ^nuc_i(u) | nuclear wavefunctions of the adiabatic expansion (superscript mandatory) | — | 5.1 |
+| Ψ̃^nuc_i(u) | coefficients of the expansion in the equilibrium states Ψ_i(r; 0) (D.13) (superscript mandatory) | — | — (removed in the three-volume edition) |
 | 𝒩_ji | nonadiabatic coupling operator between adiabatic states j and i, first- and second-derivative (derivative and scalar) couplings, ∝ 1/M_κ (script N with two state labels; 𝒩_F is the density of states, 𝒩_I the neighborhood of E.11) ⚑ | eV | 5.1 (derived D.13; precise 6.1) |
 | ℓ_zp | zero-point length (M_κω)^{-1/2} of the bond coordinate (reduced mass M_κ/2), and the estimate κ_BO a₀ in the power counting (subscript mandatory; ℓ_Qν is the mode length, ℓ₀ the single oscillator's) ⚑ | Å | 5.1 |
 | ω_ph | generic phonon energy in estimates (decoration mandatory, entry 27) ⚑ | meV | 5.1 |
@@ -510,7 +514,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | ⟨u_x²⟩, ⟨u²⟩ | mean-square displacement of an atom along one Cartesian axis (= B_κ^xx); its trace tr B_κ, ⟨u²⟩ = 3⟨u_x²⟩ at a cubic site | Å² | 5.1 (⟨u²⟩: 5.3) |
 | Λ^ac,αβ(Q̂), Λ^ac_ν(Q̂) | acoustic sound-speed matrix, ω² = Λ^acQ² at long wavelength, and its eigenvalues c_ν² (ρ_TΛ^ac is the Christoffel matrix 𝖬 of C.18; superscript mandatory, bare Λ is the final-state class of 8.7) ⚑ | km² s⁻² | 5.2 |
 | D_n(Q), T^αβγ, 𝐚_ê, 𝐚_ê′, 𝐨, ω_o | order-n terms (n = 0, 1, 2) of D^dyn in powers of Q; first moment Σ_RΦ^(2)R^γ of the force constants; acoustic and optical vectors at Γ and an optical frequency at Γ (5.2 long-wave derivation only) ⚑ | eV²; eV Å⁻¹; 1; meV | 5.2 |
-| a_c, K, M₁, M₂, ω_Q±, ω_0+, ω_X | period, spring constant and masses of the diatomic chain; its two branches, the upper branch at Q = 0 and the chain's X-point frequency (WE 5.2 only; K is otherwise the upright zone point) ⚑ | Å; eV Å⁻²; eV; meV | 5.2 |
+| a_c, K, M₁, M₂, ω_Q±, ω_0+ | period, spring constant and masses of the diatomic chain; its two branches and the upper branch at Q = 0 (WE 5.2 only; K is otherwise the upright zone point) ⚑ | Å; eV Å⁻²; eV; meV | 5.2 |
+| ω_X | the chain's X-point frequency (WE 5.2 only) ⚑ | meV | — (removed in the three-volume edition) |
 | Q_D | Debye wavevector (6π²n_at/Ω)^{1/3}, one wavevector per atom (subscript mandatory) | Å⁻¹ | 5.2 |
 | c̄ | Debye-averaged sound speed, 3/c̄³ = Σ_ν⟨c_ν⁻³⟩ (bar mandatory; bare c is the speed of light, c̄_LA the sphere-averaged LA speed) ⚑ | km s⁻¹ | 5.2 (also App. C.18) |
 | g_D(ω) | Debye density of states 9n_atω²/ω_D³ per cell below ω_D (subscript mandatory) | eV⁻¹ | 5.2 |
@@ -529,11 +534,11 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | 𝐃 | electric displacement field ℰ + 𝐏 (Heaviside–Lorentz; bold; also D.14, E.4; the matrix 𝐃 of C.7 and the local 𝐃 of 4.9 are other symbols, D^dyn is the dynamical matrix) ⚑ | eV² | 5.5 |
 | H_ℰ(t) | coupling −eΣu·Z*·ℰ of the nuclei to a uniform macroscopic field (subscript script E) | eV | 5.5 |
 | Z*_Ga, Z*_As, Z* | Born charges of GaAs by species; their common magnitude in a two-atom cubic crystal, Z*_Ga = −Z*_As = Z* (species labels upright) ⚑ | 1 | 5.5 |
-| 𝐮_rel | relative displacement 𝐮₁ − 𝐮₂ of the two sublattices of a diatomic polar crystal (replaces 𝐰, which clashed with w(x), w_p) | Å | 5.5 (also D.14, 6.2) |
-| C^an_κκ′, C^na_κκ′(Q̂), C₀ | analytic (zero-field) and nonanalytic (dipole) zone-center force constants; the single constant of the cubic diatomic crystal (superscripts mandatory; C_ij, C_ijkl are the elastic constants) ⚑ | eV Å⁻² | 5.5 (derived D.14) |
-| 𝐳_ν | mode charge vector Σ_κ e_κν·Z*_κ/√M_κ | eV^{-1/2} | 5.5 (derived D.14) |
-| E^ad_ℰ(u, ℰ) | energy per cell at fixed macroscopic field; E^ad at ℰ = 0 | eV | 5.5 (derived D.14) |
-| ω_Tν, ω_Lν, ω_0ν | transverse and longitudinal zone-center frequencies of polar mode ν (generalized Lyddane–Sachs–Teller relation); frequency of branch ν at Γ without the field (ω_T, ω_L for a single polar mode) ⚑ | meV | 5.5 (derived D.14) |
+| 𝐮_rel | relative displacement 𝐮₁ − 𝐮₂ of the two sublattices of a diatomic polar crystal (replaces 𝐰, which clashed with w(x), w_p) | Å | 5.5 (also D.14 → 5.5, 6.2) |
+| C^an_κκ′, C^na_κκ′(Q̂), C₀ | analytic (zero-field) and nonanalytic (dipole) zone-center force constants; the single constant of the cubic diatomic crystal (superscripts mandatory; C_ij, C_ijkl are the elastic constants) ⚑ | eV Å⁻² | 5.5 (derived D.14 → 5.5) |
+| 𝐳_ν | mode charge vector Σ_κ e_κν·Z*_κ/√M_κ | eV^{-1/2} | 5.5 (derived D.14 → 5.5) |
+| E^ad_ℰ(u, ℰ) | energy per cell at fixed macroscopic field; E^ad at ℰ = 0 | eV | 5.5 (derived D.14 → 5.5) |
+| ω_Tν, ω_Lν, ω_0ν | transverse and longitudinal zone-center frequencies of polar mode ν (generalized Lyddane–Sachs–Teller relation); frequency of branch ν at Γ without the field (ω_T, ω_L for a single polar mode) ⚑ | meV | 5.5 (derived D.14 → 5.5) |
 | V^L(r) | potential energy of an electron in the macroscopic field of a longitudinal phonon, ∇V^L = eℰ (superscript upright L) | eV | D.14 (6.2) |
 | P₁(ω), P_n(ω) | single-phonon distribution of the self response (∝ g_ph(\|ω\|)[n_B(ω) + 1]/ω, unit norm); its n-fold convolution, the n-phonon distribution | eV⁻¹ | 5.6 |
 | p^ph_n | probability that a momentum transfer involves n phonons (Poisson, mean 2W_κ; superscript mandatory, bare p_n is the Gibbs weight of 2.5) ⚑ | 1 | 5.6 |
@@ -556,7 +561,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | ∂_{κα,Q}V_KS | first-order change of the Kohn–Sham potential for a displacement wave of sublattice κ along α (Cartesian index written, as in E.4) | eV Å⁻¹ | 5.4 (moved from 6.2 at the Chap. 5 merge) |
 | Σ^FM, Σ^AH, g^AH | Fan–Migdal and Allen–Heine self-energies; second-order (Allen–Heine) vertex | eV | 6.3 |
 | ε^ren_nk | phonon-renormalized band energy | eV | 6.3 |
-| Π_ν(Q, ω) | phonon self-energy of branch ν (capital Π; never a product sign in the same formula; D.17 drops the labels where one branch is meant) ⚑ | eV² | 6.4 (derived D.17) |
+| Π_ν(Q, ω) | phonon self-energy of branch ν (capital Π; never a product sign in the same formula; D.17 drops the labels where one branch is meant) ⚑ | eV² | 6.4 (derived D.17 → 6.4) |
 | γ^ep_Qν | electron–phonon part of the phonon linewidth, −Im Π_ν(Q, ω_Qν)/ω_Qν, a full width (editor ruling D.17) ⚑ | meV | 6.4 |
 | α²F(ω) | Eliashberg spectral function (one symbol; α here is not the fine-structure constant) ⚑ | 1 | 6.4 |
 | λ_ep | electron–phonon coupling constant 2∫dω α²F(ω)/ω (subscript mandatory) ⚑ | 1 | 6.4 |
@@ -582,18 +587,18 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | p̂_ν | ê_ν·p̂, momentum along a polarization (6.3 only) | eV | 6.3 |
 | Ξ, Q_max | effective deformation constant of one branch, Ξ² averaged over directions; largest emitted wavevector 2(k − m*c) (local to the Cherenkov rate of 6.3; the bare Ξ of C.12 is a velocity measure) ⚑ | eV; eV | 6.3 |
 | m*_d | density-of-states mass (m*_∥m*_⊥²)^{1/3} of one valley, 0.322 m_e in Si (6.3, 6.5, D.18; D.18 renamed from m_e, clash entry 76(a)) | eV (quoted in m_e) | 6.3 |
-| 𝖣_ν(Q, ω), 𝖣 | dressed phonon propagator 2ω_Qν/(ω² − ω²_Qν − Π_ν) (sans-serif; 𝖣₀ the free one; D.17 drops the labels where one branch is meant) | eV⁻¹ | 6.4 (derived D.17) |
-| Π^b_ν(Q, ω), Π^b | phonon bubble in energy units, Π_ν = 2ω_QνΠ^b_ν (D.17 only; superscript b mandatory; Π^b where one branch is meant) | eV | D.17 |
-| ω̃_Qν, ω^ren_Qν | pole ω_Qν + ReΠ_ν/2ω_Qν of the dressed phonon; nonadiabatic (renormalized) frequency, ω_Qν being the adiabatic DFPT one (ω̃ without labels in D.17; ω̃_GG′ of E.3 is the plasmon pole) ⚑ | meV | 6.4 (derived D.17) |
+| 𝖣_ν(Q, ω), 𝖣 | dressed phonon propagator 2ω_Qν/(ω² − ω²_Qν − Π_ν) (sans-serif; 𝖣₀ the free one; D.17 drops the labels where one branch is meant) | eV⁻¹ | 6.4 (derived D.17 → 6.4) |
+| Π^b_ν(Q, ω), Π^b | phonon bubble in energy units, Π_ν = 2ω_QνΠ^b_ν (6.4 only; superscript b mandatory; Π^b where one branch is meant) | eV | 6.4 (moved from D.17, folded into 6.4) |
+| ω̃_Qν, ω^ren_Qν | pole ω_Qν + ReΠ_ν/2ω_Qν of the dressed phonon; nonadiabatic (renormalized) frequency, ω_Qν being the adiabatic DFPT one (ω̃ without labels in D.17; ω̃_GG′ of E.3 is the plasmon pole) ⚑ | meV | 6.4 (derived D.17 → 6.4) |
 | λ_Qν | mode coupling γ^ep_Qν/(2π𝒩_FΩω²_Qν), λ_ep its zone average (subscripts mandatory; bare λ is the exciton label, entry 18) ⚑ | 1 | 6.4 |
-| ⟨…⟩_FS | Fermi-surface average | — | 6.4 (derived D.17) |
+| ⟨…⟩_FS | Fermi-surface average | — | 6.4 (derived D.17 → 6.4) |
 | w(q) | screened empty-core ionic form factor per cell −3e²cos(qr_c)/[Ωq²ε_Lin(q, 0)] of the Al model (6.4 only; w(x), w_p are other symbols) ⚑ | eV | 6.4 |
 | ω_TA, ω_LA, ω_TO, I_TA, I_LA | peak energies and weights of the two-peak α²F model of Al (WE 6.4); in 6.5 ω_TA, ω_TO are the Si TA and TO phonons at k_c, 18.27 and 57.73 meV (labels upright; I is the ionization energy, A_ν the edge coefficient of 6.5) ⚑ | meV | 6.4 (ω_TO: 6.5) |
-| E_band | band-width cutoff of the Fermi-surface average (D.17 only; W is reserved for W_κ, E_cut is the plane-wave cutoff) | eV | D.17 |
-| ê_γ | unit polarization vector of a photon (subscript γ mandatory; ê_ν is the acoustic branch direction) | 1 | 6.5 (also D.18) |
-| 𝐕̂, H_A | total electron velocity operator Σ_j𝐯_j = Σ𝐯_mn c†c (bold, hat); coupling e𝐀·𝐕̂ of a uniform vector potential to the electrons | 1; eV | 6.5 (also D.18) |
-| M^±_cvν(k, Q), M^±_cvν(k, q, Q) | one-electron phonon-assisted amplitude summed over all intermediate bands p, upper sign emission: with two arguments the optical amplitude of the velocity vertex (6.5), with three the dimensionless density amplitude at momentum transfer q (13.2, eq:13.2-M); M^±_cvν(k, Q; ê) the optical amplitude along the polarization ê, the q → 0 limit of (ω/q)M^±(k, q, Q) along ê = q̂ (13.5); the argument count is part of the name (M_κ, M_cell are masses, entry 24) ⚑ | 1 (a velocity); 1 | 6.5 (derived D.18); 13.2 (D.35) |
-| κ_ext | extinction coefficient ε₂/2n_r, ε = (n_r + iκ_ext)² (subscript mandatory; κ is the species index) ⚑ | 1 | 6.5 (also D.18) |
+| E_band | band-width cutoff of the Fermi-surface average (6.4 only; W is reserved for W_κ, E_cut is the plane-wave cutoff) | eV | 6.4 (moved from D.17, folded into 6.4) |
+| ê_γ | unit polarization vector of a photon (subscript γ mandatory; ê_ν is the acoustic branch direction) | 1 | 6.5 (also D.18 → 6.5) |
+| 𝐕̂, H_A | total electron velocity operator Σ_j𝐯_j = Σ𝐯_mn c†c (bold, hat); coupling e𝐀·𝐕̂ of a uniform vector potential to the electrons | 1; eV | 6.5 (also D.18 → 6.5) |
+| M^±_cvν(k, Q), M^±_cvν(k, q, Q) | one-electron phonon-assisted amplitude summed over all intermediate bands p, upper sign emission: with two arguments the optical amplitude of the velocity vertex (6.5), with three the dimensionless density amplitude at momentum transfer q (13.2, eq:13.2-M); M^±_cvν(k, Q; ê) the optical amplitude along the polarization ê, the q → 0 limit of (ω/q)M^±(k, q, Q) along ê = q̂ (13.5); the argument count is part of the name (M_κ, M_cell are masses, entry 24) ⚑ | 1 (a velocity); 1 | 6.5 (derived D.18 → 6.5); 13.2 (D.35) |
+| κ_ext | extinction coefficient ε₂/2n_r, ε = (n_r + iκ_ext)² (subscript mandatory; κ is the species index) ⚑ | 1 | 6.5 (also D.18 → 6.5) |
 | ω_ν, n_ν, A_ν, A_TA, A_TO, n_TA, n_TO | energy and occupation of the phonon of branch ν at Q = k_c; Hall–Bardeen–Blatt coefficient of branch ν (edge-local, 6.5 and D.18; A is the mass number, A(E) the line shape of 5.6) ⚑ | meV; 1; cm⁻¹ eV⁻² | 6.5 |
 | 𝛋_e, 𝛋_h | electron and hole crystal momenta measured from the band extrema (edge-local, 6.5); their kinetic energies are E_e, E_h (6.5, D.18, 8.7; renamed from ε_e, ε_h, clash entry 78; bare κ is the species index, ε_e(q, ω) of A.7 the electron-channel dielectric function) ⚑ | eV | 6.5 |
 | J^ex_ij | exchange constant (Heisenberg convention of the editor ruling; sublattice forms J^ex_AA, J^ex_AB and J^ex(Q) in E.9, J^ex(k) with the magnon wavevector k in 7.1) ⚑ | meV | 7.1 |
@@ -607,13 +612,13 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | E_orb | sum of the two one-electron orbital energies in the Dirac identity of the two-electron problem (7.1 only; renamed from E_0, the seed energy of E.13) ⚑ | eV | 7.1 |
 | Δ_CT | charge-transfer energy of a charge-transfer insulator, Δ_CT < U_H in NiO (one clause; subscript mandatory, entry 14) | eV | 7.1 |
 | d_j, d_Ai, d_Bj, d_Ak, d_Bk | Holstein–Primakoff bosons of the ferromagnet (7.1); of sublattices A and B, and their transforms at wavevector k (7.1, D.19); special cases of the generic d_γ of 2.3 (upright A, B) ⚑ | — | 7.1 |
-| J^ex_AA(k), J^ex_AB(k) | intra- and inter-sublattice exchange sums of a two-sublattice magnet (E.9 writes them at Q) | meV | 7.1 (D.19) |
-| A_k, B_k | diagonal and pair coefficients of the two-sublattice spin-wave Hamiltonian; \|𝐒\|A_k is the diagonal energy of the boson problem of C.7 (A is the mass number, A_ν the edge coefficient of 6.5) ⚑ | meV | 7.1 (D.19) |
+| J^ex_AA(k), J^ex_AB(k) | intra- and inter-sublattice exchange sums of a two-sublattice magnet (E.9 writes them at Q) | meV | 7.1 (D.19 → 7.1) |
+| A_k, B_k | diagonal and pair coefficients of the two-sublattice spin-wave Hamiltonian; \|𝐒\|A_k is the diagonal energy of the boson problem of C.7 (A is the mass number, A_ν the edge coefficient of 6.5) ⚑ | meV | 7.1 (D.19 → 7.1) |
 | ω^M_k | magnon energy (superscript M mandatory; ω_k of E.10 is a vibronic mode) ⚑ | meV | 7.1 |
-| N_s | number of sites per sublattice (subscript upright, mandatory; N is the number of cells) | 1 | 7.1 (D.19) |
-| E_cl, E_gs | classical (fully polarized or Néel) energy of the Heisenberg model; ground-state energy of the linear spin-wave Hamiltonian, E_cl + Σ_k(ω^M_k − \|𝐒\|A_k) (renamed from E_0: E_0 is the seed energy of E.13, E_0(u) the surface of 5.1) ⚑ | eV | 7.1 (E_gs: 7.1, D.19) |
+| N_s | number of sites per sublattice (subscript upright, mandatory; N is the number of cells) | 1 | 7.1 (D.19 → 7.1) |
+| E_cl, E_gs | classical (fully polarized or Néel) energy of the Heisenberg model; ground-state energy of the linear spin-wave Hamiltonian, E_cl + Σ_k(ω^M_k − \|𝐒\|A_k) (renamed from E_0: E_0 is the seed energy of E.13, E_0(u) the surface of 5.1) ⚑ | eV | 7.1 (E_gs: 7.1, D.19 → 7.1) |
 | θ_k | Bogoliubov angle: of the magnon problem, tanh 2θ_k = B_k/A_k (7.1, D.19); of the BCS problem (D.20) (local; θ is an angle defined where it is used) | 1 | 7.1 |
-| ζ_k | type-II J₂-only structure factor (cos k_xa + cos k_ya + cos k_za)/3 (local to 7.1 and D.19, subscript mandatory; renamed from γ_k, since γ_k1, γ_k2 are the quasiparticle operators of 7.2; an exception to entry 47, bare ζ stays the kinetic mixing) ⚑ | 1 | 7.1 (D.19) |
+| ζ_k | type-II J₂-only structure factor (cos k_xa + cos k_ya + cos k_za)/3 (local to 7.1 and D.19, subscript mandatory; renamed from γ_k, since γ_k1, γ_k2 are the quasiparticle operators of 7.2; an exception to entry 47, bare ζ stays the kinetic mixing) ⚑ | 1 | 7.1 (D.19 → 7.1) |
 | S^±(q), S^±_j | transverse ionic spin at wavevector q, Σ_j e^{iq·R_j}S^±_j (D.19 writes S^±(k) with the same sign); raising and lowering components of 𝐒_j | 1 | 7.1 |
 | S^a_tot, S^-_tot | total spin components Σ_jS^a_j (a = x, y, z) and total lowering operator (Goldstone counting; subscript upright) | 1 | 7.1 |
 | Ô_χa(q) | dark-matter-side operator of a spin-dependent coupling −Σ_aÔ_χa(q)s_e,a(q), as Trickle, Zhang and Zurek write it (hat; 𝒪_i are the effective operators of 8.1, O_a(q) the target operators of 4.1) ⚑ | — | 7.1 |
@@ -623,7 +628,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | T_c | critical temperature (Al bulk 1.18 K in 7.2; 1.5 quotes 1.2 K) ⚑ | K | 1.5 (precise 7.2) |
 | V_BCS | BCS pairing constant, a volume times an energy, acting within the shell \|ξ_k\| < ω_D; 𝒩_FV_BCS = λ_ep (subscript mandatory; the volume is script 𝓥, entries 28, 83) ⚑ | eV⁻² (eV Å³) | 7.2 |
 | H_BCS, H_MF | reduced BCS Hamiltonian; its mean-field form (subscripts upright, mandatory, entry 45) | eV | 7.2 (D.20) |
-| E_bind | binding energy of a Cooper pair above a frozen Fermi sea, 2ω_De^{−2/𝒩_FV_BCS} (7.2 only; E_b is the C.7 boson energy and the E.11 barrier) ⚑ | eV | 7.2 |
+| E_bind | binding energy of a Cooper pair above a frozen Fermi sea, 2ω_De^{−2/𝒩_FV_BCS} (7.2 only; E_b is the C.7 boson energy and the E.11 barrier) ⚑ | eV | — (removed in the three-volume edition) |
 | γ_k1, γ_k2 | Bogoliubov quasiparticle operators (two indices mandatory; γ with one state label is the orbital of 2.3, γ_Qν the phonon linewidth) ⚑ | — | 7.2 (D.20) |
 | b_k | pair amplitude ⟨c_−k↓c_k↑⟩, (Δ_BCS/2E_k)tanh(E_k/2T) | 1 | 7.2 (D.20) |
 | \|BCS⟩ | BCS ground state Π_k(u^B_k + v^B_kc†_k↑c†_−k↓)\|0⟩ | — | 7.2 |
@@ -639,7 +644,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | 𝖵_η, 𝖵_j | dressed density and current vertices in Nambu form (sans-serif V, the current vertex bold; \varGamma is reserved for rates, upright Γ for the zone center) ⚑ | 1; 1 | 7.2 (D.21) |
 | 𝖼₂ | phase-channel coefficient of the dressed density vertex, 𝖵_η = η + 𝖼₂𝗌₂, equal to −2iΔ_BCS/ω at q = 0 (sans-serif; bare c is the speed of light) | 1 | 7.2 (D.21) |
 | c_AB | speed of the Anderson–Bogoliubov mode, v_F/√3 in a neutral superconductor (subscript upright, mandatory; bare c is the speed of light) ⚑ | 1 | 7.2 (D.21) |
-| c_kσ, c†_kσ, n_kσ, ψ_σ(r) | electron operators, occupation and field operator with the spin label σ = ↑, ↓ (7.2, D.20, D.21; 2.3 writes the spin label s, ψ̂_s(r)) ⚑ | —; 1; Ω^{-1/2} | 7.2 (D.20) |
+| c_kσ, c†_kσ, ψ_σ(r) | electron operators and field operator with the spin label σ = ↑, ↓ (7.2, D.20, D.21; 2.3 writes the spin label s, ψ̂_s(r)) ⚑ | —; Ω^{-1/2} | 7.2 (D.20) |
+| n_kσ | occupation with the spin label σ = ↑, ↓ (D.21) ⚑ | 1 | — (removed in the three-volume edition) |
 | v_D | Dirac velocity (the literature writes v_F) ⚑ | 1 | 7.3 |
 | Δ_D | Dirac half-gap ⚑ | meV | 7.3 |
 | ε_bg, ε_bg,ii | background (remote-band) dielectric constant; principal components of the background dielectric tensor of an anisotropic material (7.3) | 1 | 7.3 |
@@ -777,7 +783,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | E₀ | onset energy of a flat or gapped branch in 9.2 (local; E_0 of E.13 is the seed energy of a cascade) ⚑ | eV | 9.2 |
 | ○ (tab:9-atlas) | cell mark: allowed at leading order, computed in no section (the eight cells form one row of tab:22-gaps) | — | 9.1 |
 | M_Ge | atomic mass of germanium, in (M_Ge/M_Si)^{1/2}, the ratio of the free-recoil edges of germanium and silicon at equal recoil energy (M_κ of the species; M_Si as in 11.5) | eV | 9.2 |
-| f_crys(q, ω) | crystal form factor, \|f_crys\|² = q³ΩS̄⁰/(4παm_e²) (eq. 10.1-fcrys; Essig et al.'s integral form derived in D.29; A.8 quotes it ahead of 10.1, in terms of S̄ and ε₂) ⚑ | 1 | 10.1 (also D.29) |
+| f_crys(q, ω) | crystal form factor, \|f_crys\|² = q³ΩS̄⁰/(4παm_e²) (eq. 10.1-fcrys; Essig et al.'s integral form derived in D.29; A.8 quotes it ahead of 10.1, in terms of S̄ and ε₂) ⚑ | 1 | 10.1 (also D.29 → 10.1) |
 | r_IP | independent-particle ratio of two responses (sets the mixed-block band) | 1 | 10.4 |
 | c_LA | longitudinal-acoustic sound speed (c_ν of the LA branch; WE 9.2 uses the fastest, Si [111] 9.35 km/s; then the relaxed-lattice step of 10.2) | km s⁻¹ | 9.2 (also 10.2, App. C.18) |
 | 𝒢_rel(𝐪) | lattice term of the static step of an electron-only coupling with a relaxed lattice, 1 − ε_e⁻¹(𝐪,0) − [1 − ε_cl⁻¹(𝐪)] → Ω²_{P,e}/(c_LA q)² (script G; replaces a banned research label; E.16 and F-rows use it) ⚑ | 1 | 10.2 (also E.16) |
@@ -786,7 +792,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | S_ℓ(\|q\|, ω) | cubic-harmonic component of a response | as S | 11.7 |
 | 𝒬 | momentum-transfer magnitude of the relativistic density row of boosted dark matter (the source writes Q) ⚑ | eV | 10.9 |
 | v_χ,max | largest dark-matter speed of a boosted flux | 1 | 10.9 |
-| S̄⁰(q, ω) | independent-particle structure factor averaged over the directions of q (S̄ of A.8 at 𝔗₀; S⁰ of a filled-band semiconductor in eq. 10.1-S0) | eV² | 10.1 (also D.29) |
+| S̄⁰(q, ω) | independent-particle structure factor averaged over the directions of q (S̄ of A.8 at 𝔗₀; S⁰ of a filled-band semiconductor in eq. 10.1-S0) | eV² | 10.1 (also D.29 → 10.1) |
 | L̄(q, ω) | loss function averaged over the directions of q (bar = direction average, as S̄) | 1 | 10.2 |
 | K_n(𝐪) | n-th moment ∫₀^∞dω ωⁿL(𝐪, ω) of the loss function, −1 ≤ n ≤ 1 (italic K with a number subscript; K̄, K^x, K^d, K_pair distinct) ⚑ | eV^{n+1} | 10.2 |
 | η_n^max(q) | maximum over ω ≥ ω_th of ω⁻ⁿη(v_min(q, ω)) (sum-rule bounds on the rate) | as η/ωⁿ | 10.2 |
@@ -798,7 +804,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | ℛ_pl | plasmon production rate per unit target mass (the pole term of L in eq. 10.2-rate) | kg⁻¹ yr⁻¹ | 10.3 |
 | v_th | slowest dark-matter speed that reaches the plasmon, ω₊(q_c)/q_c = v_F + q_c/2m_e (9.54×10⁻³ in Si; a speed, unlike ω_th and E_th) ⚑ | 1 | 10.3 |
 | B⁺_pl(𝐪), ε₂⁺ | phonon branching of a plasmon, ε₂⁺/ε₂ = S⁺/(S⁰ + S⁺) at ω_pl (estimate 10⁻³–10⁻²); the phonon-dressed (S⁺ sector, 8.6) part of ε₂ | 1 | 10.3 |
-| f^L₁, f^L₂ | real and imaginary parts of the Lindhard bracket of Knapen et al., f^L₁ + if^L₂ = −R⁰/2𝒩_F, the braced expression of eq:4.5-lindhard (superscript L mandatory; f₁, f₂ are the atomic scattering factors of 10.7; its q ≪ k_F limit is the fraktur 𝔣_L of 15.2; clash entry 96) | 1 | 10.3 |
+| f^L₁, f^L₂ | real and imaginary parts of the Lindhard bracket of Knapen et al., f^L₁ + if^L₂ = −R⁰/2𝒩_F, the braced expression of eq:4.5-lindhard (superscript L mandatory; f₁, f₂ are the atomic scattering factors of 10.7; its q ≪ k_F limit is the fraktur 𝔣_L of 15.2; clash entry 96) | 1 | — (removed in the three-volume edition) |
 | j_L, j_Ti, 𝐣_T | components of 𝐣_e(𝐪) along q̂ and along ê_i ⊥ q̂ (i = 1, 2); the transverse current (the row j_T of Table 8.3) | 1 | 10.4 (also D.30) |
 | 𝒥^{Ti,β}_e, 𝒥_T | spin current with its velocity index along ê_i; the transverse spin current | 1 | 10.4 (also D.30) |
 | ê_1, ê_2 | orthonormal unit vectors perpendicular to q̂ | 1 | D.30 |
@@ -856,12 +862,12 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | μ_M | transition magnetic moment between χ₂ and χ₁, H = −μ_M𝛔·𝐁 (subscript M mandatory; μ_χe, μ_χT are reduced masses) ⚑ | eV⁻¹ | 10.9 |
 | Λ_d | dipole scale of the operator (1/Λ_d)χ̄₂σ^{μν}χ₁F_μν, μ_M ≃ 2/Λ_d (subscript mandatory; Λ_D distinct) ⚑ | eV | 10.9 |
 | Γ_vac | vacuum decay rate of χ₂ → χ₁γ, μ_M²\|Δ_χ\|³/π (italic \varGamma) | eV | 10.9 |
-| ℛ_IP, ℛ_{RPA+LF}, ℛ_source | rate per unit target mass of the inelastic crystal recoil with the unscreened independent-particle ε₂; the same with the screened random-phase loss function with local fields; rate per unit target mass of boosted dark matter from the density row in its published form (plotted for Limit Checks 10.9a, 10.9b; entry 105) | kg⁻¹ yr⁻¹ | 10.9 |
+| ℛ_IP, ℛ_{RPA+LF}, ℛ_source | rate per unit target mass of the inelastic crystal recoil with the unscreened independent-particle ε₂; the same with the screened random-phase loss function with local fields; rate per unit target mass of boosted dark matter from the density row in its published form (plotted for Limit Checks 10.9a, 10.9b; entry 105) | kg⁻¹ yr⁻¹ | — (removed in the three-volume edition) |
 | ℛ^𝔗 | rate at the central value of a truncation label (as S^𝔗) | kg⁻¹ yr⁻¹ | 10.10 |
 | σ_ln ℛ | Gaussian width of ln ℛ from independent nuisances, (Σ_k ln²(1 + δ_k))^{1/2} | 1 | 10.10 |
 | ν̃, ν̃̄ | final-state fermion of fermionic absorption (named with the operators in 8.1; rates in 10.9); its Dirac conjugate ⚑ | — | 8.1 |
 | κ_η | constant of the light-mediator correction, 3.14 for c → 0 and 3.09 at the sound speed of Si (subscript mandatory; never an index) ⚑ | 1 | 11.1 |
-| c̄_LA | sphere-averaged longitudinal sound speed (Christoffel average) | km s⁻¹ | 11.1 (also App. C.18) |
+| c̄_LA | sphere-averaged longitudinal sound speed (Christoffel average) | km s⁻¹ | App. C.18 (moved from 11.1) |
 | B | bulk modulus (the Rayleigh bound c_LA ≥ √(B/ρ_T); the isothermal B of E.8, renamed from B_bulk in clash entry 72); bare B is never a magnetic field (𝐁₀ is bold) ⚑ | GPa | 11.1 (also App. C.18) |
 | q_BZ | zone-boundary momentum scale of a crystal | keV | 11.1 |
 | W_AB | pairwise mass window of two materials A, B: the contiguous masses with \|δ_AB\| < 0.1 (eq:17.5-window; for the heavy-mediator ranking capped at the smaller m_hi) ⚑ | MeV | 17.5 |
@@ -873,15 +879,18 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | A_cell, m_u | number of nucleons in a primitive cell (per formula unit, Σ_κN_κA_κ, in the per-mass Migdal rate of 12.3); atomic mass unit, 931.494 MeV | 1; eV | 11.1 |
 | q_up,ν, c_LA,max | upper momentum limit min[2m_χ(v_max − c_ν), q_BZ] of branch ν; largest longitudinal sound speed over directions (sets the acoustic edge) | keV; km s⁻¹ | 11.1 |
 | ℛ_light, I₀ | target-independent light-mediator one-phonon rate; halo integral ∫₀^{v_max}u²η(u)du (5.32 × 10⁻⁷ for the standard halo) | kg⁻¹ yr⁻¹; 1 | 11.1 |
-| Δ_C, A_Z, s_Q, p_Q | cubic elastic anisotropy C₁₁ − C₁₂ − 2C₄₄; Zener ratio 2C₄₄/(C₁₁ − C₁₂); direction invariants Σq̂ᵢ²q̂ⱼ² (i < j) and Σq̂ᵢ⁶ − (Σq̂ᵢ⁴)² | GPa; 1 | 11.1 |
-| v_L, v_T, v_m, G_V, G_R | longitudinal, transverse and Debye-mean speeds of an isotropic polycrystal (Anderson convention); Voigt and Reuss shear moduli | km s⁻¹; GPa | 11.1 |
+| s_Q | direction invariant Σq̂ᵢ²q̂ⱼ² (i < j) | 1 | App. C.18 (moved from 11.1) |
+| Δ_C, A_Z, p_Q | cubic elastic anisotropy C₁₁ − C₁₂ − 2C₄₄; Zener ratio 2C₄₄/(C₁₁ − C₁₂); direction invariant Σq̂ᵢ⁶ − (Σq̂ᵢ⁴)² | GPa; 1 | — (removed in the three-volume edition) |
+| v_L, v_T, G_V, G_R | longitudinal and transverse speeds of an isotropic polycrystal; Voigt and Reuss shear moduli | km s⁻¹; GPa | 11.3 (moved from 11.1; caption of fig:11-limit-3b) |
+| v_m | Debye-mean speed of an isotropic polycrystal (Anderson convention) | km s⁻¹ | — (removed in the three-volume edition) |
 | K_η(ω, m_χ) | kinematic factor ∫dq q⁻¹η(v_min) of the light-mediator polar rate | (km s⁻¹)⁻¹ | 11.2 |
 | ℐ_pol | as 𝓘_pol (the tex prints \mathcal{I}) | meV | 11.2 |
 | w^pol_ν, ω̄_pol, ω_Lν, ω_L1, ω_L,max, ω_T,max, γ_L, L_o, L_e | share of branch ν in 1/ε∞ − 1/ε₀; weighted mean longitudinal frequency (renamed from ω̄, which is 5.3's, clash entry 80); longitudinal frequency of branch ν; largest longitudinal and transverse frequencies; full width of a longitudinal line; loss functions of the ordinary and extraordinary rays | 1; meV | 11.2 |
 | c_κ | per-species weight of a density coupling Σ_κ c_κn_κ(q), c₁^{(κ)} in units of Ṽ_N (A_κ for equal couplings to protons and neutrons); in 12.6 it carries the scalar couplings themselves, Z_κg_φpp + (A_κ − Z_κ)g_φnn ⚑ | 1 | 11.3 |
 | 𝔚^(n), 𝔚^(n)_inc, 𝔚^(2),th | exact, incoherent and thermal ω-integrated n-phonon weight per cell (fraktur W) | 1 | 11.3 |
 | 𝔓^(n), δ^coh_n, j_BZ(r) | momentum-resolved self density (upper end of the certified band); coherence correction 𝔚^(n)/𝔚^(n)_inc − 1; zone average of a pair phase | as S; 1; 1 | 11.3 (also D.31) |
-| q_osc, c_min | oscillator momentum (2M_κω₀)^{1/2} of a nucleus in an isotropic well (renamed from q₀, which is αm_e, clash entry 80); lowest acoustic speed | keV; km s⁻¹ | 11.3 |
+| c_min | lowest acoustic speed | km s⁻¹ | 11.3 |
+| q_osc | oscillator momentum (2M_κω₀)^{1/2} of a nucleus in an isotropic well (renamed from q₀, which is αm_e, clash entry 80) | keV | — (removed in the three-volume edition) |
 | D, δD | kick operator E_R + q·p/M_κ (the energy a kick q gives a free particle of momentum p) and its fluctuation (q/M_κ)p_q̂ (D^an, D^dyn of 5.5 keep their superscripts) ⚑ | eV | 11.4 (also 11.5, D.32) |
 | p_q̂, u_q̂, E^kin_κ(q̂), σ_ω | momentum and displacement of a nucleus along q̂; its kinetic energy along q̂, ⟨p_q̂²⟩/2M_κ; impulse (Doppler) width (4E_RE^kin_κ)^{1/2}, (E_R⟨ω⟩)^{1/2} for a harmonic site | eV; Å; eV; eV | 11.4 (σ_ω also 11.5, 16.6, 19.1, D.32) |
 | 𝔣_κ(p) | momentum distribution of nucleus κ, normalized to one (fraktur f; renamed from 𝔫_κ, which is 20.3's, clash entry 80) ⚑ | eV⁻³ | 11.4 (also D.32) |
@@ -928,33 +937,34 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | L_Mig(ω) | Migdal-weighted loss function ∫d³p/(2π)³ Z_ion(p)² L̄(p, ω) (subscript mandatory) | eV³ | 12.3 |
 | 𝓕_Mig(ω) | dimensionless Migdal loss spectrum with the off-diagonal G ≠ G′ terms and the phase e^{i(G−G′)·τ_κ} of the struck nucleus (one with the origin of ε on that atom), L_Mig = Z_ion²𝓕_Mig/Ω (renamed from 𝓕_L; F_L is the static Lindhard function of 4.5) ⚑ | 1 | 12.3 |
 | b, a | q·p/M_κ and p²/2M_κ in the free-recoil bracket (local to 12.3, 12.4) | eV | 12.3 |
-| 𝐅_e | Σ_i∇_iV_eN, minus the total force on the electrons (subscript mandatory; bare F is not used) ⚑ | eV² | 12.3 |
-| P̂^W_I | projector on the occupied Wannier functions centered on nucleus I | 1 | 12.3 |
-| A^W_cv | Migdal amplitude of rigid Wannier following, transition v → c | 1 | 12.3 |
-| W_v | width of the occupied valence manifold (subscript mandatory; W_κ is the Debye–Waller exponent) ⚑ | eV | 12.3 |
-| s^inc_κ(𝐐, ω) | incoherent spectrum of one nucleus, normalized to one, zero-phonon line included (superscript mandatory; s_κ(q) is the nuclear spin density of 8.1) ⚑ | eV⁻¹ | D.33, 12.4 |
+| 𝐅_e | Σ_i∇_iV_eN, minus the total force on the electrons (subscript mandatory; bare F is not used) ⚑ | eV² | — (removed in the three-volume edition) |
+| P̂^W_I | projector on the occupied Wannier functions centered on nucleus I | 1 | — (removed in the three-volume edition) |
+| A^W_cv | Migdal amplitude of rigid Wannier following, transition v → c | 1 | — (removed in the three-volume edition) |
+| W_v | width of the occupied valence manifold (subscript mandatory; W_κ is the Debye–Waller exponent) ⚑ | eV | — (removed in the three-volume edition) |
+| s^inc_κ(𝐐, ω) | incoherent spectrum of one nucleus, normalized to one, zero-phonon line included (superscript mandatory; s_κ(q) is the nuclear spin density of 8.1) ⚑ | eV⁻¹ | 12.4 (moved from D.33; named in 12.1) |
 | 𝓘_k, dσ_κ | inverse moments ∫Δ^{−k}dσ_κ of the force spectrum dσ_κ of one nucleus | eV^{4−k} | 12.5 |
 | E^Mig_k, E_BH | k-th moment of the Migdal spectrum; diagonal Born–Huang energy 𝓘₂/2M_κ | eV^k; eV | 12.5 |
 | δM_IJ | drag-mass tensor between nuclei I and J (trace rule Σ_J δM_IJ = Z_κm_e) | eV | 12.5 |
 | ℛ_rel, c_rel | relativistic finite-nucleus factor of the contact density; its non-logarithmic coefficient of order one | 1 | 12.5 |
-| Z*_at(ω) | free-atom limit of the dynamical Born charge, −m_eω²α_pol(ω)/e² | 1 | 12.6 |
+| Z*_at(ω) | free-atom limit of the dynamical Born charge, −m_eω²α_pol(ω)/e² | 1 | — (removed in the three-volume edition) |
 | ρ_e, ρ_e′ | electron coordinate relative to the nucleus, 𝐫_e − 𝐗, of a many-electron atom (bold; 6.1 has the hydrogen 𝛒) | Å | 12.2 (also 12.5, 12.6, D.34) |
 | ρ_nuc | normalized charge distribution of a nucleus of finite size | Å⁻³ | 12.5, D.34 |
-| α_pol(ω) | dipole polarizability of an atom (Heaviside–Lorentz; atomic units quoted with 4πa₀³) | Å³ | 12.6 |
+| α_pol(ω) | dipole polarizability of an atom (Heaviside–Lorentz; atomic units quoted with 4πa₀³) | Å³ | 16.5 (moved from 12.6) |
 | P_nℓ | Migdal ionization probability of shell nℓ | 1 | 12.2 |
-| j_ℓ | spherical Bessel function | 1 | 12.2 |
+| j_ℓ | spherical Bessel function | 1 | — (removed in the three-volume edition) |
 | m_up | vibrational level on the excited surface of the displaced oscillator (local to WE 12.1) | 1 | 12.1 |
 | E_Λ^el, H_el, H_lat | electronic energy of final-state class Λ; operators that multiply each class by its electronic and lattice energy (local to D.33) | eV | D.33 |
 | S_{κ;GG′}^{ad} | electron-following response between n_κ(Q − G) and n_κ(Q − G′) | eV⁻¹·Å⁻³ | 12.1, D.33 |
 | S_{κ;GG}^{ad} | diagonal element of the electron-following response between n_κ(Q − G) and n_κ(Q − G′) | eV⁻¹·Å⁻³ | 12.1, D.33 |
 | H_χL, H_eL, k_e | dark-matter–lattice and electron–lattice Hamiltonians and electron momentum of Berghaus et al. (literature notation, quoted in 12.4 and D.33) | eV; eV; eV | 12.4 |
-| P̂_occ | projector on the occupied manifold, Σ_I P̂^W_I | 1 | 12.3 |
+| P̂_occ | projector on the occupied manifold, Σ_I P̂^W_I | 1 | — (removed in the three-volume edition) |
 | ω_top | last energy of the loss-function table | eV | 12.3 |
 | μ_χn | dark-matter–nucleon reduced mass (as μ_χN with the nucleon) | eV | 1.3 (also 12.3) |
 | A_e, A_κ, X_e | internal parts of n_e(q) and n_κ(q) after the center-of-mass separation; total electron position Σ_i𝐫_i (local to D.34) | 1; Å | D.34 |
-| H_φ, g_φpp, g_φnn, c̃, σ_φ | scalar–nucleus interaction; scalar couplings to protons and neutrons; common ratio c_κ/M_κ for mass-proportional couplings; scalar absorption cross-section per atom | eV; 1; eV⁻¹; Å² | 12.6 |
+| H_φ, g_φpp, g_φnn, c̃ | scalar–nucleus interaction; scalar couplings to protons and neutrons; common ratio c_κ/M_κ for mass-proportional couplings | eV; 1; eV⁻¹ | 12.6 |
+| σ_φ | scalar absorption cross-section per atom | Å² | — (removed in the three-volume edition) |
 | n̄, p̄ | Dirac adjoints of the neutron and proton fields in ℒ ⊃ φ(g_φpp p̄p + g_φnn n̄n) (local to 12.6) | — | 12.6 |
-| n_r(ω) | refractive index of the medium (subscript mandatory; n alone is a band index) ⚑ | 1 | 6.5 (moved from 12.6 at the Chap. 6 merge; also D.18) |
+| n_r(ω) | refractive index of the medium (subscript mandatory; n alone is a band index) ⚑ | 1 | 6.5 (moved from 12.6 at the Chap. 6 merge; also D.18 → 6.5) |
 | S_ab(𝐪; ω_l, ω_e) | joint response: the response S_ab resolved by the energies given to the lattice and to the electrons, ∫dω_e S_ab(𝐪; ω − ω_e, ω_e) = S_ab(𝐪, ω) (operator subscripts mandatory, S_κκ for the Migdal entry; bare S stays the electron structure factor) ⚑ | S_ab per eV | 12.1 (also D.33) |
 | E^el_f | electronic energy of a final state: 0 in 𝒫_ad, the zero-phonon energy of its excitation otherwise (Ẽ_m for a pair); E_f − E^el_f is the lattice energy | eV | 12.1 (also D.33) |
 | 𝐩 (Migdal) | momentum given to the electrons by the moving nucleus (local to Chap. 12, D.33, D.34 and E.18; the 𝐩 of D.32 is the nuclear momentum) ⚑ | eV | 12.1 |
@@ -970,7 +980,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | C_κ | small-ω coefficient of the dynamical Born charge, Z*_κ(0) − Z*_κ(ω) = C_κω² + O(ω⁴) (E.17 convention, C_κ > 0 in Si); Si, Ge: Ωm_e(ε_∞ − 1)/2e² (subscript κ mandatory; C_ij is the elastic tensor) ⚑ | eV⁻² | 12.6 (E.17) |
 | 𝓔_γ, H_γ | macroscopic electric field of an emitted photon (bold); its coupling −eΣ_I𝐮_I·Z*_κ(ω_γ)·𝓔_γ | —; eV | 12.6 |
 | δc̃_κ | species deviation of the coupling per unit mass, c_κ/M_κ = c̃ + δc̃_κ (also E.18) | eV⁻¹ | 12.6 |
-| σ_γ | photoabsorption cross-section per atom, 𝓃_atσ_γ = ωε₂/n_r | Å² | 12.6 |
+| σ_γ | photoabsorption cross-section per atom, 𝓃_atσ_γ = ωε₂/n_r | Å² | — (removed in the three-volume edition) |
 | N_v (12.6) | number of valence electrons per cell, 8 in Si and Ge (N_v of E.6 counts valence bands) ⚑ | 1 | 12.6 |
 | m_min^ZP, m_min^PA | zero-phonon threshold mass; phonon-assisted onset mass | MeV | 13.1 |
 | L^PA(q, ω) | phonon-assisted loss function | 1 | 13.3 |
@@ -997,7 +1007,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | 𝔱̂_𝐐, 𝔱_mn | one-electron generator of the Ward identity of the amplitude and its matrix elements (fraktur t; s_Q is the direction invariant of 11.1) ⚑ | — | 13.6 (D.37) |
 | g^cm_mnν | comoving electron–phonon vertex g − δg | eV | 13.6 (D.37) |
 | S^WL, S^cl, S^0_ad, S^PA_ad | Williams–Lax average of the structure factor; clamped-nucleus structure factor of the supercell; its adiabatic zero-phonon and phonon-assisted parts | as S | 13.7 |
-| x_j, σ_j, N_m | mass-weighted normal coordinates of the supercell (frequency-ordered), their Gaussian widths, number of modes | —; —; 1 | 13.7 |
+| x_j, σ_j | mass-weighted normal coordinates of the supercell (frequency-ordered), their Gaussian widths | —; — | 13.7 |
+| N_m | number of modes of the supercell | 1 | — (removed in the three-volume edition) |
 | ZPR^na, ZPR^ad, g_O, ω_O, s_m | nonadiabatic and adiabatic zero-point renormalization; optical vertex and phonon energy of the closed form; +1 for an empty, −1 for an occupied intermediate state | eV; eV; eV; 1 | 13.7 |
 | q_ZP | momentum transfer of the joint zero-phonon minimum (1.33 keV in Si) | eV | 13.7 |
 | g^x_λλ′ν, M^±_λν, M^x±_cvν, M^x_ν | exciton–phonon vertex; replica amplitude; amplitude into a free final pair with exciton intermediate states; its value at the extrema | eV; 1; 1; 1 | 13.8 |
@@ -1056,7 +1067,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | g_ion, g_ion,ab | spectroscopic g factor (tensor) of an ion; g_ion = 2 for a pure spin (bare g is the electron–phonon vertex; g_J is the Landé factor of a J multiplet) ⚑ | 1 | 14.3 |
 | ω_Lar | Larmor frequency g_ionμ_B\|𝐁₀\| (electrons, 14.3) or μ_nuc B₀/J_nuc (nuclei, 14.6) | eV | 14.3 |
 | 𝔰_net | net spin per unit cell, ⟨S^z_tot⟩/N (fraktur s) | 1 | 14.3 |
-| ω_Kit, ω_Kit,i, ω_Kit,x, ω_Kit,y, N^dm_i, N^dm_x, N^dm_y, N^dm_z, H_u | Kittel frequency (ω_Kit,xω_Kit,y)^{1/2} of a saturated ellipsoid; its two stiffnesses ω_Lar + (N^dm_i − N^dm_z)ω_M; demagnetizing factors along the axes, sum 1 (superscript mandatory; N is the number of cells); Hamiltonian of the uniform mode (ω_K is the Klein phonon energy) ⚑ | eV; eV; 1; eV | 14.3 |
+| ω_Kit, ω_Kit,i, ω_Kit,x, ω_Kit,y, N^dm_i, N^dm_x, N^dm_y, N^dm_z, H_u | Kittel frequency (ω_Kit,xω_Kit,y)^{1/2} of a saturated ellipsoid; its two stiffnesses ω_Lar + (N^dm_i − N^dm_z)ω_M; demagnetizing factors along the axes, sum 1 (superscript mandatory; N is the number of cells); Hamiltonian of the uniform mode (ω_K is the phonon energy of 18.4) ⚑ | eV; eV; 1; eV | 14.3 |
 | ℛ_peak | event rate per unit target mass on the peak of a magnon line (eq:14.3-peak) | s⁻¹ kg⁻¹ | 14.3 |
 | v_⊥, p_φ⊥, p_φ,x, p_φ,y | dark-matter speed and boson momentum perpendicular to the net-spin axis ẑ; Cartesian components of 𝐩_φ | 1; eV | 14.3 |
 | θ_E (14.3) | angle between the net-spin axis ẑ and 𝐯_E (local to 14.3; θ_E of 1.2 is the angle between v_⊙ and the Earth's axis) ⚑ | rad | 14.3 |
@@ -1072,19 +1083,20 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | S_∥, S_⊥, S_c, θ_m, m̂ | parts of a spin-rotation-invariant response along, across and around the moment direction m̂ (W_∥, W_⊥ are equal-time weights); angle between q̂ and m̂; moment axis of a collinear magnet ⚑ | eV²; rad; 1 | 14.4 |
 | S^neu(𝐪, ω), N_fu | measured magnetic neutron structure factor per formula unit, d²σ/dΩdE′ = (p′_n/p_n)S^neu (superscript mandatory; S_n is 7.2); formula units per cell (N_f is the number of final states) ⚑ | b eV⁻¹; 1 | 14.4 |
 | T_d | temperature at which a neutron spectrum was measured (14.4; T_d of 3.1, 5.4 is the Schoenflies label) ⚑ | K | 14.4 |
-| q_1BZ | zone-edge momentum of the YIG data analysis of Berlin et al., 987 eV = 2π/a for a = 12.56 Å (local to 14.4; 1002 eV with a = 12.375 Å) | eV | 14.4 |
+| q_1BZ | zone-edge momentum of the YIG data analysis of Berlin et al., 987 eV = 2π/a for a = 12.56 Å (local to 14.4; 1002 eV with a = 12.375 Å) | eV | — (removed in the three-volume edition) |
 | 𝗁 | element of the magnetic point group (sans-serif; bare g is the vertex) | — | 14.4 |
 | 𝒢_OA, 𝒢̄_OA, S^R_αβ | antisymmetric (optical-activity) part of the current block, S_{j^αj^β} = S^R_αβ + iε_αβγ𝒢^γ_OA, odd in 𝐪, units of S_jj (eq:14.5-GOA; E.20); direction average of q̂·𝒢_OA; symmetric part of the current block ⚑ | as S_jj | 14.5 |
 | σ^𝖳_a, σ^𝖯_a | sign of row a under time reversal and inversion, 𝖳O_a(𝐪)𝖳⁻¹ = σ^𝖳_aO_a(−𝐪) (local to 14.5) | 1 | 14.5 |
 | S_±, ê_± | helicity-resolved transverse response S_T ∓ q̂·𝒢_OA; helicity vectors (ê₁ ± iê₂)/√2 | as S; 1 | 14.5 |
 | ρ(ω), g_q̂q̂ | rotatory power ω²Re g_q̂q̂/2; projection q̂·g·q̂ of the gyration tensor g_ml of C.17 (local to 14.5; bare g is the vertex) | rad m⁻¹; m | 14.5 |
-| 𝐋^ph_𝐐ν, 𝐋^ph_κ,𝐐ν, L^ph_x, L^ph_z, 𝛍^ph_𝐐ν | phonon angular momentum −iΣe*×e (eq:14.5-Lph; units of ħ), its per-site term and components; its Born-charge magnetic moment Σ(eZ*_κ/2M_κ)𝐋^ph_κ (eq:14.5-muph; E.19 writes L^ph) | 1; 1; μ_N | 14.5 |
+| 𝐋^ph_𝐐ν, 𝐋^ph_κ,𝐐ν, L^ph_z, 𝛍^ph_𝐐ν | phonon angular momentum −iΣe*×e (eq:14.5-Lph; units of ħ), its per-site term and z component; its Born-charge magnetic moment Σ(eZ*_κ/2M_κ)𝐋^ph_κ (eq:14.5-muph; E.19 writes L^ph) | 1; 1; μ_N | 14.5 |
+| L^ph_x | x component of the phonon angular momentum 𝐋^ph_𝐐ν | 1 | — (removed in the three-volume edition) |
 | L_z, J_z | angular momentum 𝐮·J_z𝐩 of the lattice in mass-weighted coordinates; generator of rotations about ẑ acting on each site displacement (local to 14.5) | 1 | 14.5 |
 | 𝒩^ch, 𝖬 | probabilities that a created phonon ends as a detectable chiral phonon, (𝟙 − 𝖬)⁻¹𝐛; matrix of three-phonon branching ratios (14.5, App. E.19) | 1 | 14.5 |
 | H_mol, S_z, ω_meta, D, B₄⁰, O₄⁰ | spin Hamiltonian of a single-molecule magnet (eq:14.5-Hmol); component of the molecular spin along the easy axis; metastable line D(2\|𝐒\| − 1) − ω_Lar (eq:14.5-meta); axial and quartic anisotropy constants; Stevens operator (D local to 14.5; D_an in 14.2, 𝐃 the displacement field) ⚑ | eV; 1; meV; meV; meV; 1 | 14.5 |
 | 𝓃_mol, ω_m,m′, ΔE_Zee, τ_R, τ_0, U | number density of molecules; level difference E_m′ − E_m; Zeeman energy stored in the metastable well; relaxation time over the barrier τ_0 exp[(U − ½ΔE_Zee)/T] and its attempt time; barrier height (local to 14.5; decorated Δ, entry 14) | m⁻³; eV; eV; s; s; eV | 14.5 |
-| ω_soft, γ_soft | soft-mode frequency and damping of the Ginzburg–Landau oscillator (renamed from ω_M, η_M) ⚑ | eV | 14.5 |
-| χ_θ, α_me, α_M, m_P | coefficients of θ𝐏·𝐌, 𝐌·𝐏 and \|∂_t𝐌\|², and polarization stiffness, in the free energy of Røising et al. (eq:14.5-GL only; bare χ is the dark matter) | — | 14.5 |
+| ω_soft, γ_soft | soft-mode frequency and damping of the Ginzburg–Landau oscillator (renamed from ω_M, η_M) ⚑ | eV | — (removed in the three-volume edition) |
+| χ_θ, α_me, α_M, m_P | coefficients of θ𝐏·𝐌, 𝐌·𝐏 and \|∂_t𝐌\|², and polarization stiffness, in the free energy of Røising et al. (eq:14.5-GL only; bare χ is the dark matter) | — | — (removed in the three-volume edition) |
 | R_{s^z𝒥} | retarded response of s^z_e to the spin current 𝒥^αα_e at q = 0 (eq:14.5-cross) | eV² | 14.5 |
 | χ_×, Φ (14.5), τ(T) | amplitude and scaling function of the critical cross response near T_CM, χ_×(T)Φ(ωτ(T)); critical relaxation time (local to 14.5; Φ of 14.6 is the field amplitude) ⚑ | —; 1; s | 14.5 |
 | F_φ(ω), Δω_eq, Φ | energy distribution of the field line; its equivalent width [∫F_φ²]⁻¹, 2.67/t_coh for the standard halo; complex amplitude of the field in the frame rotating at m_φ (Φ_χ is the flux; Φ of 14.5 a local scaling function) ⚑ | eV⁻¹; eV; 1 | 14.6 |
@@ -1103,8 +1115,10 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | d_n, g_d (14.6), Δε | nucleon electric dipole moment g_dφ induced by an axion; EDM coupling; shift d_nE* of each spin level (g_d of WE 8-sectors is a local coupling, revision owed item g) ⚑ | e cm; GeV⁻²; eV | 14.6 |
 | T₁, T₂ | longitudinal and transverse relaxation times of a nuclear-spin ensemble (Bloch equations) | s | 14.6 |
 | 𝔩_e | electron mean free path (fraktur l; renamed from ℓ_mfp so that ℓ keeps the cubic index and ℓ_Qν its meaning) ⚑ | nm | 15.3 |
-| 𝔰_BCS, 𝔤_I, L^nor | BCS correction function (eq:15.1-sBCS; → π²/2y); case-I coherence integral 𝔤_I(y) = S_I/S_n of eq:7.2-pairspec, closed form eq:15.1-gI; normal-state loss function Im[−1/ε_Lin] (the product 𝔤_I L^nor is two symbols) | 1 | 15.1 |
-| L^bare, L^cons, y, 𝔯_ε, δ_𝔰 | loss functions of the bare quasiparticle bubble and of the conserving response (15.1; L^BCS retired); edge variable ω/Δ_BCS; Im ε_Lin/Re ε_Lin on the kinematic edge; Kramers–Kronig shift of Re ε of the bare bubble relative to Re ε_Lin ⚑ | 1 | 15.1, 15.2 |
+| 𝔤_I, L^nor | case-I coherence integral 𝔤_I(y) = S_I/S_n of eq:7.2-pairspec, closed form eq:15.1-gI; normal-state loss function Im[−1/ε_Lin] (the product 𝔤_I L^nor is two symbols) | 1 | 15.1 |
+| 𝔰_BCS | BCS correction function (eq:15.1-sBCS; → π²/2y) | 1 | — (removed in the three-volume edition) |
+| L^cons, y, 𝔯_ε | loss function of the conserving response (15.1; L^BCS retired); edge variable ω/Δ_BCS; Im ε_Lin/Re ε_Lin on the kinematic edge ⚑ | 1 | 15.1, 15.2 |
+| L^bare, δ_𝔰 | loss function of the bare quasiparticle bubble (15.1); Kramers–Kronig shift of Re ε of the bare bubble relative to Re ε_Lin (15.2) ⚑ | 1 | — (removed in the three-volume edition) |
 | R^cons, ε^cons, ε^bare | conserving density response (pair-field ladder, no Coulomb) and the dielectric functions 1 − v_C R^cons, 1 − v_C R^0_ηη | eV²; 1 | 15.1 |
 | M^N_A | amplitude with which the Nambu-channel operator O_A creates a quasiparticle pair (superscript N for Nambu) | 1 | 15.1 |
 | F_μ(ω), 𝔭_μ, 𝔭, ω_μ, s_* | q = 0 pair sum F at angle μ (eq:15.1-F); ω_μ²/4Δ²_BCS, and 𝔭 its generic value in the continuation eq:D.39-Fcont; Doppler-frame pair energy (ω² − v_F²q²μ²)^{1/2}; inverse-square-root point v_F qμ = (ω² − 4Δ²_BCS)^{1/2} (D.39) | 1; 1; 1; eV; eV | 15.1 |
@@ -1113,7 +1127,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | 𝔣_L(𝔴) | Lindhard bracket at q ≪ k_F, 1 − (𝔴/2)ℓ(𝔴), R⁰ = −2𝒩_F 𝔣_L (eq:15.2-Lin, complex for Im 𝔴 > 0) | 1 | 15.2 |
 | 𝔤, δ (15.2, D.39) | absorptive factor Im ε/Im ε_Lin and real-part shift Re ε/Re ε_Lin − 1 of an arbitrary response in the resummation (local to 15.2 and D.39) | 1 | 15.2 |
 | Ω_AB(q) | energy of the Anderson–Bogoliubov mode at finite q, below 2Δ_BCS (\varOmega with subscript mandatory; ω_AB is the Alig–Bloom phonon of E.13) ⚑ | eV | 15.1 |
-| 𝔥(y′), 𝔨(ω), 𝔨̃, δ𝔤(y′), Y_tail | principal-value integrand y′²δ𝔤/(y′ + y); 2𝒩_F/R; 𝔨 − 3ω²/(qv_F)²; 𝔤_I Θ(y′ − 2) − 1; cutoff of the numerical Kramers–Kronig integral (local to D.39) | 1 | D.39 |
+| 𝔥(y′), 𝔨(ω), 𝔨̃, δ𝔤(y′) | principal-value integrand y′²δ𝔤/(y′ + y); 2𝒩_F/R; 𝔨 − 3ω²/(qv_F)²; 𝔤_I Θ(y′ − 2) − 1 (local to D.39) | 1 | D.39 |
+| Y_tail | cutoff of the numerical Kramers–Kronig integral (local to D.39) | 1 | — (removed in the three-volume edition) |
 | D_diff, ξ_coh, ρ_el, d_film | diffusion constant v_F 𝔩_e/3; BCS coherence length v_F/πΔ_BCS (2.4 μm free-electron Al; 1.6 μm tabulated); residual resistivity; film thickness | eV⁻¹; μm; Ω m; nm | 15.3 |
 | ε_sh, ε_a, ε_b | sheet dielectric function of a film thinner than 1/q; dielectric constants of the media on its two sides | 1 | 15.3 |
 | L_s, L_n | loss functions of the superconducting and normal film at the same scattering rate | 1 | 15.3 |
@@ -1138,8 +1153,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | σ_crit, 𝓃₀ | critical cross-section for Born validity in a random medium; mean nucleon number density (the coherent A is in the density; b_χN is per nucleon) | cm²; cm⁻³ | 16.7 |
 | α_ohm, K_b | ohmic coupling of a tunneling defect to conduction electrons, α_ohm = (1/2π²)Σ_σΣ_ν δ̃_ν² with e^{2iδ̃_ν} the eigenvalues of S_R S_L†; its Born-limit coupling K_b = (𝒩_F V_d Ω)², with V_d half the difference of the contact potentials of the two configurations (at ±V_d), so that α_ohm = 4K_b; App. C.20 derives the ohmic rate in α_ohm, and Qureshi's K (cond-mat/9409105) is α_ohm, not K_b ⚑ | 1 | 16.8 (also App. C.20) |
 | T_hi, T_lo | initial and final temperatures of a glass that is cooled (heat-release law) | K | 16.8 |
-| ε_pub | polarization of the Dirac electrons in the published Dirac rates, 1 + ε_D/ε_bg = ε/ε_bg (written ε_r in those sources; ε_r is the glass permittivity) ⚑ | 1 | 16.1 (D.41) |
-| B_D(s) | bracket of the one-loop Dirac dielectric function eq:7.3-eps, ε_D = (g_deg α/6πv_D)B_D (subscript mandatory; bare B is the bulk modulus) ⚑ | 1 | 16.1 (D.41) |
+| ε_pub | polarization of the Dirac electrons in the published Dirac rates, 1 + ε_D/ε_bg = ε/ε_bg (written ε_r in those sources; ε_r is the glass permittivity) ⚑ | 1 | 16.1 (D.41 → 16.1) |
+| B_D(s) | bracket of the one-loop Dirac dielectric function eq:7.3-eps, ε_D = (g_deg α/6πv_D)B_D (subscript mandatory; bare B is the bulk modulus) ⚑ | 1 | 16.1 (D.41 → 16.1) |
 | L_pub, Γ_pub | loss function and absorption rate of the published Dirac construction, ε_bg²L and ε_bg Γ (italic \varGamma) | 1; eV | 16.1 |
 | s_j, c_j | sinh(kd_j/2), cosh(kd_j/2) of layer j of a stack (local to eq:16.2-inplane; bare s is the Dirac invariant; replaces t_j, which is the single-defect strength of 11.6) | 1 | 16.2 |
 | 𝔍, 𝔬, 𝔵 | Frenkel coupling between molecular transitions (exchange kernel between molecules, fraktur J); molecule label; molecular excited-state label (fraktur o, x) ⚑ | eV; —; — | 16.4 |
@@ -1166,12 +1181,14 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | S^Z_ν(k), ŵ_ν, α_abs, ω_IoR | Born-charge structure factor of branch ν; fraction of modes in branch ν; absorption coefficient (α is the fine-structure constant); Ioffe–Regel frequency (IR is reserved for the infrared C^IR) | 1; 1; cm⁻¹; eV | 16.7 |
 | V_opt, b_χN, ξ_c, E_kin, E_n, R_refl | optical potential of a medium; dark-matter–nucleon scattering length; correlation length of density fluctuations; kinetic energy; kinetic energy of motion normal to a face; reflectance (R is the body radius) | eV; eV⁻¹; nm; eV; eV; 1 | 16.7 |
 | V_b, V_d, Ω (16.8) | barrier height of a tunneling defect (also the E.11 barrier, renamed from E_b); half the difference of the contact potentials of the two configurations; contact volume (local to 16.8, D.42) ⚑ | eV; eV; Å³ | 16.7 (16.8) |
-| ω‡, κ_PB, κ_W, T_×, S_inst, T_frz | barrier frequency; parabolic-barrier and Wigner transmission factors; crossover temperature ω‡/2π; instanton action; freezing temperature on cooling | eV; 1; 1; K; 1; K | 16.8 |
+| ω‡, κ_PB, T_×, S_inst, T_frz | barrier frequency; parabolic-barrier transmission factor; crossover temperature ω‡/2π; instanton action; freezing temperature on cooling | eV; 1; K; 1; K | 16.8 |
+| κ_W | Wigner transmission factor | 1 | — (removed in the three-volume edition) |
 | Q̇_TLS, b_br, N_casc, T_coh | heat released by a cooled glass; mean number of releases triggered by one; size of a cascade of releases; coherence temperature of a symmetric defect in an ohmic bath | W; 1; 1; K | 16.8 (b_br, N_casc also 19.6) |
 | Γ_0 | attempt rate of a thermally activated hop, Γ = Γ_0e^{−V_b/T} (harmonic transition-state theory; 10¹³ s⁻¹ as the prefactor of a tunneling rate in 19.6, E.22; italic \varGamma; one row since clash entry 96) | s⁻¹ | 16.8 (also 19.6, E.11, E.22) |
 | J_s^ph, J_s^el | phonon and electron spectral densities of a two-level system (J_s of C.20 with superscripts) | eV | 16.8 |
-| ε_D, ε_D,i, R̃_D, R_DD, F_med, ε_bg,xx, ε_bg,yy | Dirac part −v_C R⁰_D of the dielectric function and its axis-i component (D.41); proper Dirac response; random-phase response of the Dirac electrons alone, R⁰_D/ε_pub; in-medium factor 1/ε_pub of the published rates; principal components of the background tensor | 1; eV²; eV²; 1; 1 | 16.1 (D.41) |
-| V_uc, Π (16.1) | cell volume of the Dirac benchmark of the published rates (60 Å³); photon self-energy ω²(1 − ε_pub) of the published absorption (local to 16.1, D.41) | Å³; eV² | 16.1 |
+| ε_D, ε_D,i, R̃_D, R_DD, F_med, ε_bg,xx, ε_bg,yy | Dirac part −v_C R⁰_D of the dielectric function and its axis-i component (D.41); proper Dirac response; random-phase response of the Dirac electrons alone, R⁰_D/ε_pub; in-medium factor 1/ε_pub of the published rates; principal components of the background tensor | 1; eV²; eV²; 1; 1 | 16.1 (D.41 → 16.1) |
+| Π (16.1) | photon self-energy ω²(1 − ε_pub) of the published absorption (local to 16.1, D.41 → 16.1) | eV² | 16.1 |
+| V_uc | cell volume of the Dirac benchmark of the published rates (60 Å³) | Å³ | — (removed in the three-volume edition) |
 | S_u, ρ_u, 𝓃_u, r_u, F_th | structure factor and mass of one unit (wire, sheet) per unit length or area; units per transverse area or length; position of unit u; thickness factor of a sheet kernel (eq:16.2-thick) | — | 16.2 |
 | R̃_low^D, ε_2D, ε_1D, ε_env, ε̄, S_2D, S_1D, R_1D, D_Dr | proper response of the bands near the Fermi level of a sheet; sheet and tube dielectric functions; dielectric constant around a tube; mean of the two half-space constants; structure factors in two and one dimension; 1D bubble; Drude weight (local to 16.2, 16.3) | — | 16.2 |
 | 𝓃_2D, 𝓃_2D,h, 𝓃_h, ω_p,h, ω_2D,h, v_F,h | areal density; that of the heavy band; heavy-carrier density; heavy plasma frequency in 3D and 2D; heavy Fermi velocity (acoustic plasmon, 16.2) | cm⁻²; cm⁻²; cm⁻³; eV; eV; 1 | 16.2 |
@@ -1179,7 +1196,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | f_QD, ε_eff, c_ξ | dot form factor of Blanco et al. (inverse energy); Maxwell Garnett dielectric function (16.3, lim:16.5a); valley coefficient of the A₁ ground state in valley ξ (16.5) | eV⁻¹; 1; 1 | 16.3 |
 | H_ox,o′x′^F, 𝔍_ox,o′x′, A_ox, F_ox, F_o′x′, f_0x, f_0x^o, ρ_0x^o, d_x, d_x^o, d_λ, r_o, R_o, E_La, E_x′, f_Fr | Frenkel Hamiltonian and coupling in the molecular basis; eigenvector components; vertices; molecular form factors and transition densities; transition dipoles of a molecular state and of an exciton; molecular position and rotation; molecular level of L_a; another molecular level; Frenkel form factor (subscripts 𝔬, 𝔵 fraktur in the tex; 16.4) | — | 16.4 |
 | φ_vo, φ_co | occupied and empty orbitals centered on molecule 𝔬 (molecular basis of 16.4; φ^at_j is an atomic orbital) | Å^{-3/2} | 16.4 |
-| Õ, Õ_a, Õ_b, ñ_e, E_eff, L_eff | host-screened operators and density of a dopant (eq:16.5-SD); local field of Du et al. (as quoted, E_eff/E₀); loss function of the donor effective medium | — | 16.5 |
+| Õ, Õ_a, Õ_b, ñ_e, L_eff | host-screened operators and density of a dopant (eq:16.5-SD); loss function of the donor effective medium | — | 16.5 |
+| E_eff | local field of Du et al. (as quoted, E_eff/E₀) | — | — (removed in the three-volume edition) |
 | ℛ_CC, M_F, M_Li, N_X, μ_χ1, μ_χκ, H_CM, R_CM, P_CM | color-center rate (eq:16.6-ccrate); fluorine and lithium masses; number of excitons; reduced masses with atom 1 and with nucleus κ; center-of-mass Hamiltonian, position and momentum of a molecule | — | 16.6 |
 | H_TLS, τ_x, τ_z, n_LL, χ_res, χ_rel, ω̃, ê_t, v_t, F_fluc, σ_tot | two-level Hamiltonian; Pauli matrices of its eigenstates (τ is imaginary time elsewhere; local to 16.7); projected density in configuration L; resonant and relaxation susceptibilities; wavenumber ω/2πc in cm⁻¹ (tilde mandatory); transverse polarization; transverse sound speed (Sahling's v_t = c_TA); fluctuation form factor; cross-section of a whole body | — | 16.7 |
 | Δ̃_0, W_el, Q_TLS, 𝒪 (16.7) | dressed tunneling amplitude of Qureshi (eq:16.8-qureshi); electron coupling of Meißner et al. (W_el² = 4α_ohm, quoted); heat of a cooled glass (Q̇_TLS); order symbol in eq:16.7-dp | — | 16.8 |
@@ -1188,7 +1206,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | b, x (16.1) | carrier speed (1 − 4Δ_D²/s)^{1/2} in the rest frame of a Dirac pair, in units of v_D; Sommerfeld variable πα̃/b (local to 16.1; b is also a crystal axis of 16.4) | 1 | 16.1 |
 | q_∥, q_⊥, F_⊥(𝐪_⊥) | momentum along the free directions of a sheet or tube and across it; transverse form factor of a confined unit, F_⊥(0) = 1 (sinc for a uniform sheet, J₀(q_⊥r_t) for a shell) | eV; eV; 1 | 16.2 |
 | v_C^2D, v_C^1D, v_C^L | Coulomb kernels of a sheet, e²/[(ε_a + ε_b)q_∥]; of a cylindrical shell, (2α/ε_env)I₀K₀; of a stack of sheets (superscript mandatory) | eV⁻¹ × length (2D, 1D) | 16.2 |
-| R̃^2D, R̃^2D_low, R̃^2D_bg, r_0 | proper response of a sheet per area; its low-energy and remote-band parts; Keldysh length, −R̃^2D_bg = 2r_0q_∥²/e² (r_K is the Klein coefficient of 18.4) ⚑ | eV⁻¹ length⁻²; nm | 16.2 |
+| R̃^2D, R̃^2D_low, R̃^2D_bg, r_0 | proper response of a sheet per area; its low-energy and remote-band parts; Keldysh length, −R̃^2D_bg = 2r_0q_∥²/e² (r_K is the phonon number per pair of 18.4) ⚑ | eV⁻¹ length⁻²; nm | 16.2 |
 | I_0, K_0, K_1 | modified Bessel functions of the first and second kind (argument mandatory; DLMF §10.25; K_b, K_ph are couplings, K(s) the elliptic integral of C.8) ⚑ | 1 | 16.2 (K_1: 16.8, D.42) |
 | g_c | Luttinger charge parameter [1 + N_ch v_C^1D/πv]^{−1/2} of a one-dimensional metal (subscript mandatory; g is the vertex) ⚑ | 1 | 16.2 |
 | m_l, m_h (16.2), v_F,l, k_TF,l, 𝒩_F,l, ω_a, Γ_a, q_s | light and heavy masses of the two-component model (m_h is also the generic hole mass of 3.3); Fermi velocity, Thomas–Fermi wavevector and density of states of the light band; frequency and full width of the acoustic plasmon (italic \varGamma); two-dimensional screening wavevector 2e²𝒩_F,l/(ε_a + ε_b) | m_e; 1; eV; eV⁻¹ cm⁻³; eV; eV; eV | 16.2 |
@@ -1222,12 +1240,13 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | θ_ii | impact-ionization threshold in units of E_g; (2m*_e + m*_h)/(m*_e + m*_h) for parabolic bands (eq:18.1-theta), 1 in the random-k reduction ⚑ | 1 | 18.1 |
 | F_eh | Fano factor of the electron–hole pair number, Var N_eh/⟨N_eh⟩ at large ω (eq:18.2-moments); Si model 0.114 (A_AB = 5.703 eV³), 2.4σ below the measured 0.119 ± 0.002 ⚑ | 1 | 18.2 |
 | ρ_∞ | jamming density of the random-parking (Rényi) limit, 0.74759792 | 1 | 18.2 |
-| k₂; r_K, ω_K | constant of the observed linear law ε_eh ≈ 1.61E_g + k₂; phonon-loss coefficient and phonon energy of the Klein relation (14/5)E_g + r_Kω_K (renamed from r, ω₀ in clash entry 71: ω₀ is the oscillator frequency of 2.5) ⚑ | eV; 1, eV | 18.4 |
+| k₂; r_K, ω_K | constant of the observed linear law ε_eh ≈ 1.61E_g + k₂; mean number of phonons emitted above threshold per pair, and their energy ω_K = ω_AB, in ε_eh = E_g + 2Ē_res + r_Kω_K (renamed from r, ω₀ in clash entry 71: ω₀ is the oscillator frequency of 2.5) ⚑ | eV; 1, eV | 18.4 |
 | 𝒱_<, 𝒱_>, 𝒱_<> | variance terms of F_eh (below and above the impact threshold, and their covariance; calligraphic V, `\mathcal{V}`, not the volume 𝓥 = `\Vol`, entry 83) ⚑ | 1 | 18.2 |
 | P_casc(N_eh\|Λ) | cascade distribution of the pair number for a seed class Λ (working definition at the hand-off of 8.7; computed in 18.3) | 1 | 8.7 (moved from 18.3) |
 | P_seed(E_e, E_h\|𝐪, ω, 𝐯), f_e | seed distribution of the carrier energies handed to the cascade (decorated P); electron share E_e/(ω − E_g) of the energy above the gap (decorated f) | eV⁻²; 1 | 18.3 |
 | 𝔊_t(x; s), m_t(x), v_t(x) | pair-number generating function of the subtree of a carrier of type t at kinetic energy x (18.1's 𝔊 at s = e^{λ_N}); mean and variance of its number of ionizations (m_t, v_t local to 18.3) | 1 | 18.3 |
-| α_RK, N_eh^step | Beta parameter of the Ramanathan–Kurinsky split distribution (they write α; subscript mandatory, α is the fine-structure constant); pair number of the step model 1 + ⌊(ω − E_g)/ε_eh⌋ | 1 | 18.3 |
+| N_eh^step | pair number of the step model 1 + ⌊(ω − E_g)/ε_eh⌋ | 1 | 18.3 |
+| α_RK | Beta parameter of the Ramanathan–Kurinsky split distribution (they write α; subscript mandatory, α is the fine-structure constant) | 1 | — (removed in the three-volume edition) |
 | d_TV(P, Q) | total-variation distance ½Σ_N\|P(N) − Q(N)\| | 1 | 18.3 |
 | 𝔪, 𝖱, P_det(𝖱\|N_eh, 𝔪), P_obs(𝖱\|Λ) | further quantities recorded by a cascade besides N_eh (fraktur m: carrier positions, separate electron and hole counts, phonon spectrum, stored energy; "marks" retired, entry 89); readout record (sans-serif R); detector response; distribution of the recorded quantity (decorated P) | —; —; 1; 1 | 18.3 |
 | 𝓚_c, 𝓚̄_t, δ𝐍_c, 𝐍_term(x), Γ_x, Γ_k, Γ_E | rate density of collision channel c of a cascade particle (script K, `\mathscr{K}`; calligraphic 𝒦 of 8.5 labels phonon content, 𝒦_t of 14.6 is the Fejér kernel, entry 89); its iso-energy average over the states of type t at one kinetic energy (eq:18.1-isoenergy); deposit vector of channel c; deposit of a terminal state; total rate out of state x; momentum-randomizing rate and energy-changing rate Γ_ii + Γ_ph of the energy-only reduction (\varGamma) ⚑ | eV; eV; —; —; eV; eV; eV | 18.1 |
@@ -1243,7 +1262,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | B_h | hole band width at which the hole density of states is cut (12 eV in silicon, 12.6 eV in germanium) | eV | 18.2 |
 | b_N, c_N | constant terms of the mean and variance of the pair number, n̄ = ω/ε_eh + b_N + o(1), Var N_eh = F_ehω/ε_eh + c_N + o(1) | 1 | 18.2 (b_N values: 18.3) |
 | M_t(x) | second moment of an additive deposit of the subtree of a carrier of type t at kinetic energy x (D.43; renamed from s_t, which sat beside the generating-function variable s, entry 89) ⚑ | as deposit² | 18.2 (D.43) |
-| σ_pair, σ_e, σ_h, F_ren, F_park | standard deviation of the cost per pair in the renewal estimate; standard deviations of the residual energies of terminal electrons and holes; renewal (final-state) Fano estimate; random-parking Fano factor 0.0510387 | eV; eV; eV; 1; 1 | 18.2 |
+| F_park | random-parking Fano factor 0.0510387 | 1 | 18.2 |
+| σ_pair, σ_e, σ_h, F_ren | standard deviation of the cost per pair in the renewal estimate; standard deviations of the residual energies of terminal electrons and holes; renewal (final-state) Fano estimate | eV; eV; eV; 1 | — (removed in the three-volume edition) |
 | ϰ, x_cut, S(u), ξ, K_x, K_∞, μ_ren | rate exponent of the approach to the scale-free share law (\varkappa; κ is the species index, entry 89); cut energy of the renewal proof (x_c of 2.4 is a cutoff, entry 89); weight collected on the line of unit u; one step ln(x_{j+1}/x_j); its law at energy x; its scale-free limit; minus the mean step of K_∞ ⚑ | 1; eV; eV⁻¹; 1; —; —; 1 | D.44 |
 | p_ii(E) | probability that the next collision of a carrier at kinetic energy E is an impact ionization, [1 + Γ_ph/Γ_ii]⁻¹ | 1 | 18.3 |
 | k₁ | slope of a straight-line fit ε_eh = k₁E_g + k₂ to measured pair energies | 1 | 18.4 |
@@ -1266,13 +1286,14 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | h_LZ, ΔF_LZ, P_LZ, b_imp, E_coll, 𝒩_exc, ΔY^Mig_q | diabatic coupling at a level crossing; difference of the diabatic slopes; Landau–Zener probability (eq:19.2-LZ); impact parameter and relative energy of a close collision; number of electronic excitations of a recoil; Migdal part of the ionization yield (eq:19.2-Ymig) | eV; eV Å⁻¹; 1; Å; eV; 1; 1 | 19.2 |
 | E_el, F_NR | electronic energy of a recoil (19.2; E_el of 6.1 is the electronic energy of a configuration); Fano factor of the nuclear-recoil charge (first use moved from 20.5) ⚑ | eV; 1 | 19.2 |
 | a_L, c_L, φ_TF, T_n, x_L, f_LSS, s_n, ρ_L, λ_L | Lindhard screening length 0.8853a₀/(√2 Z_κ^{1/3}); reduced-energy constant (ϵ_L = c_LE); Thomas–Fermi screening function; energy transfer to the struck atom; reduced transfer variable ϵ_L sin(θ_s/2); Lindhard's scattering function; reduced nuclear stopping (s_n,ℓ of 11.7 is different); reduced path length πa_L²𝓃_at x; coefficient of the x_L^{1/3} continuation ⚑ | Å; keV⁻¹; 1; eV; 1; 1; 1; 1; 1 | 19.3 |
-| ϵ_d, T^(e)_d, U, U_FP, U_EDFT, W_max | reduced damage energy c_LT_d; damage energy produced by an excited electron; binding energy spent by a struck atom (Sarkis models); its constant part, called Frenkel-pair creation energy by its authors (23.6 eV, a threshold average, not a formation energy); its inner-shell part; largest energy transfer to a free electron (PDG) (local to 19.3) | 1; eV; eV; eV; eV; eV | 19.3 |
+| ϵ_d, T^(e)_d, U | reduced damage energy c_LT_d; damage energy produced by an excited electron; binding energy spent by a struck atom (Sarkis models) (local to 19.3) | 1; eV; eV | 19.3 |
+| U_FP, U_EDFT, W_max | constant part of U, called Frenkel-pair creation energy by its authors (23.6 eV, a threshold average, not a formation energy); its inner-shell part; largest energy transfer to a free electron (PDG) (local to 19.3) | eV; eV; eV | — (removed in the three-volume edition) |
 | f_DF, p_surv | defect fraction 1 − Y_ph of the deposit; survival probability of close Frenkel pairs ⚑ | 1 | 19.4 |
 | P_b, E_st,b, E_FP, N_FP, ξ_d, f_sur | probability that a recoil ends in basin b, and that basin's minimum above the perfect crystal (b a basin index, local to 19.4); mean stored energy of a surviving displacement; number of displaced atoms (eq:19.4-count); displacement-count factor of the screened cross-section (0.70); scale factor of surface electron recoils (Ge datum) | 1; eV; eV; 1; 1; 1 | 19.4 |
 | E_dep, E_pairs, E_prompt, E_esc, E_sens | deposited energy (≡ ω when booked against the reservoirs); energy held by carriers counted from μ_F (free, excitons, trapped, plus the electrostatic energy of uncollected charge); prompt phonon energy E_phon(t_pr); energy carried out of the crystal by unabsorbed quanta (luminescence); energy absorbed at the surfaces (sensor films, holders, bare faces; the signal is a part of it) (eq:19.5-balance) | eV | 19.5 |
 | E_phon(t), ΔE_zp(t), W_bias(t), N_ind | phonon energy above the bath (contains ΔE_zp); zero-point shift of the occupied defect basins (not absorbable); work of the bias source; induced charge in units of e, W_bias = eV_biasN_ind (eq:19.5-Wbias) | eV; eV; eV; 1 | 19.5 |
 | t_win, E_miss, d_NR, d_ER | read window of a phonon sensor; energy not available as phonons by t_win, E_pairs + E_st + E_esc + ΔE_zp; E_miss/ω for nuclear and electron recoils (subscripts mandatory) | s; eV; 1 | 19.5 |
-| Y_ph | phonon-yield ratio: ER-calibrated reconstructed energy of a nuclear recoil over its true energy (eq:19.5-identity); Y_ph(0), its zero-bias value, is the heat quenching (eq:19.5-heatq) ⚑ | 1 | 19.4 (derived 19.5) |
+| Y_ph | phonon-yield ratio: ER-calibrated reconstructed energy of a nuclear recoil over its true energy (eq:19.5-identity); Y_ph(0), its zero-bias value, is the heat quenching (eq:19.5-heatq) ⚑ | 1 | 19.5 (moved from 19.4) |
 | 𝔯_coll, δ_coll, 𝔯′ | collection ratio: collection efficiency of Luke phonons over that of the primary phonons of an electron recoil, ϵ_Luke/ϵ^ER_prim; collection offset 1 − ϵ^NR_prim/ϵ^ER_prim; 𝔯′ = 𝔯_coll/(1 − d_ER) (eq:19.5-calib) (fraktur r) ⚑ | 1 | 19.5 |
 | ϵ, ϵ^NR_prim, ϵ^ER_prim, ϵ_Luke, ϵ_hard, ρ_g | absolute phonon collection efficiencies of all phonons, of the primary phonons of the two recoils, of Luke phonons, of hard primaries (\epsilon, distinct from ε; subscripts mandatory, ϵ_L is Lindhard's reduced energy); ratio of the efficiencies for gap (recombination) phonons and hard primaries (also App. E.25) | 1 | 19.5 |
 | C_cal | calibration coefficient (1 + 𝔯_coll g_Luke f_ion)/(1 + 𝔯_coll g_Luke), the weight of the ER deficit in eq:19.5-first ⚑ | 1 | 19.5 |
@@ -1285,7 +1306,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | E^conf_i, ε^hop_ij, ΔE_zp,ij, ℛ_hop, N_hop, p_i(t) | configurational energy of basin i; configurational energy released in a hop i → j; decrease of the zero-point energy in the hop; hop rate per unit time and released energy (eq:19.6-Rhop); number of hops; occupation of configuration i (p_C, Γ_CB, Γ_C0, Γ_C local to WE 19.6) | eV; eV; eV; eV⁻¹ s⁻¹; 1; 1 | 19.6 |
 | A(ε), E_reorg, ω_acc, n_q, t_obs | line shape of the bath; reorganization energy Σ_kS_HR,kω_k; energy of the accepting mode (renamed from ω_p, the plasma frequency); number of accepted quanta (renamed from p); observation time (Γ_0 is the 16.8 row) | eV⁻¹; eV; eV; 1; s | 19.6 |
 | A_dfn, Δ_dfn, Γ_k², α_P, σ_P, θ_p, c̄, R_0, D_9, τ_tr | defecton hopping amplitude and band width zA_dfn; rate of growth of the mean squared crystal momentum (renamed from ⟨q²⟩, clash entry 91); Pushkarov's constant 1.27; elastic strength relative to a vacancy; Pushkarov's temperature c̄/2a; his mean sound speed; localization radius a(3V_0/Δ_dfn)^{1/4}; T⁻⁹ limit of D; transport time | eV; eV; Å⁻² s⁻¹; 1; 1; K; km s⁻¹; Å; cm² s⁻¹; s | 19.6 |
-| ℛ_TLS, ℛ_LEE, p_LEE, U_rel, E_st,0, f_ph, E_slope | phonon emission rate of two-level systems; rate of excess events; law of single-event energies; relaxable elastic energy; stored energy of grown-in or frozen-in defects; collected fraction of a release; mean release per hop (b_br, N_casc are the 16.8 row) | s⁻¹; s⁻¹; eV⁻¹; eV; eV; 1; eV | 19.6 |
+| ℛ_TLS, ℛ_LEE, p_LEE, U_rel, E_st,0, f_ph | phonon emission rate of two-level systems; rate of excess events; law of single-event energies; relaxable elastic energy; stored energy of grown-in or frozen-in defects; collected fraction of a release (b_br, N_casc are the 16.8 row) | s⁻¹; s⁻¹; eV⁻¹; eV; eV; 1 | 19.6 |
+| E_slope | mean release per hop | eV | — (removed in the three-volume edition) |
 | Y_mod, σ_str, p_rxn, S_HR,rxn, ω_rxn, S_pol | Young's modulus; thermal-mismatch stress (renamed from Y, σ); probability that a capture drives a defect reaction; Huang–Rhys factor and energy of the reaction coordinate; polaron exponent of E.22 | Pa; Pa; 1; 1; eV; 1 | 19.6 |
 | H_cl, 𝐞_κs, T_e,i, n(E) | classical (Weyl) function of the nuclear Hamiltonian Σp²/2M_κ + E^ad (19.1); polarization vector of normal mode s on species κ (= 𝐞_κ(Qν) of 5.3; local to the acceptance test of 19.1); energy given to electron i in one collision (19.3); mean number of further displacements made by a moving atom of energy E, N_FP = 1 + n(T_d) (eq:19.4-count) (local to their sections) | eV; 1; eV; 1 | 19.1 (T_e,i: 19.3; n(E): 19.4) |
 | ε^dfn(𝐤), E^loc, D, D_1, I₀(y), Γ_ij, V_0 | defecton band E^loc − A_dfnΣcos k_ia (eq:19.6-band); energy of the localized defect; defecton diffusion constant (eq:19.6-D; D of 11.4 is the kick operator, D_diff of 15.3 the electron diffusion); diffusion rate of the crystal momentum per Cartesian component, Γ_k²/6; modified Bessel function of order zero (argument mandatory; I₀ of 11.1 is the halo integral); rate of a hop i → j (\varGamma; eq:19.6-master); elastic interaction constant of a point defect, φ = V_0(a/r)³ (local to 19.6) ⚑ | eV; eV; cm² s⁻¹; Å⁻² s⁻¹; 1; s⁻¹; eV | 19.6 |
@@ -1295,7 +1317,8 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | ρ_E(E_ath, t), P_d(y), φ_*(y) | spectral energy density of the athermal phonons (energy per unit E_ath); energy-share distribution of the daughters of one decay, ∫P_d dy = 1; scaling function of eq:20.2-scaling (star mandatory; bare φ is the absorbed boson field, entry 21) ⚑ | 1; 1; 1 | 20.2 |
 | v_3 | direction- and branch-dependent part of the three-phonon vertex of acoustic phonons, V^(3) = (ω₁ω₂ω₃)^{1/2}v_3 (eq:20.2-V3; local) | eV^{-1/2} | 20.2 |
 | f_s | soft fraction of the prompt phonon energy of an electron recoil, ≈ ω_opt/ε_eh (eq:20.2-fs) | 1 | 20.2 |
-| N_mix, v_ph, r_rms | number of isotope scatterings along the scaling trajectory (eq:20.2-Nmix); rms group speed of the mixed branches; rms distance of quasi-diffuse phonons from the event (subscripts mandatory; bare v is the dark-matter speed, v_s the film speed) | 1; km s⁻¹; µm | 20.2 |
+| N_mix, v_ph | number of isotope scatterings along the scaling trajectory (eq:20.2-Nmix); rms group speed of the mixed branches (subscripts mandatory; bare v is the dark-matter speed, v_s the film speed) | 1; km s⁻¹ | 20.2 |
+| r_rms | rms distance of quasi-diffuse phonons from the event (subscript mandatory) | µm | — (removed in the three-volume edition) |
 | Δ_h(t), Δ_soft, E_mem, t_mem | largest total-variation distance between the evolved spectra of births above E_mem; difference of the energy fractions born below E_mem; energy above which births are forgotten by t_mem; time before which nothing is absorbed (eq:20.2-bound; decorated Δ, entry 14; E_m is the intermediate-state energy of 2.4) ⚑ | 1; 1; meV; ns | 20.2 |
 | R_O(E_ath), ρ̂_0, Δρ̂_0 | response of a linear observable O to unit energy born at E_ath, 0 ≤ R_O ≤ 1; birth spectrum normalized to unit energy; NR minus ER birth spectra (eq:20.2-bound) | 1; meV⁻¹; meV⁻¹ | 20.2 |
 | t̄_12, t̄_esc | angle-averaged transmission from medium 1 to 2; film escape probability | 1 | 20.3 |
@@ -1459,7 +1482,7 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | C_ij, C_ijkl | elastic constants in Voigt and Cartesian form (E.4, E.12) ⚑ | GPa | E.4 |
 | c_TA, c_T | transverse-acoustic sound speed (E.4); transverse sound speed of an isotropic model (E.12, whose longitudinal speed is c_LA of 10.2, renamed from c_L in clash entry 72) ⚑ | km s⁻¹ | E.4 (c_T: E.12; c_TA also App. C.18) |
 | 𝔯_scr(𝐪) | screening ratio of the phonon-assisted amplitude, screened over reference, \|M̃\|²/\|M\|² (1 + δ_pair in the 1D model of E.16; 1 + δ_LF + δ_pair in the supercell) (fraktur r; replaces E.16's bare Λ, the final-state class of entry 56; the pair momentum is written 𝐪 + 𝐐 as in 13.4, not bold 𝐏, the polarization) | 1 | E.16 |
-| v₀ (E.16) | contact Coulomb kernel of the one-dimensional two-band test model (E.16 only; v₀ of 1.2 is the halo speed parameter, v₀ of D.7 the head of the Coulomb matrix; clash entry 96) | model units | E.16 |
+| v₀ (E.16) | contact Coulomb kernel of the one-dimensional two-band test model (E.16 only; v₀ of 1.2 is the halo speed parameter, v₀ of D.7 the head of the Coulomb matrix; clash entry 96) | model units | — (removed in the three-volume edition) |
 | g^W, R_e, R_p | real-space (Wannier-gauge) electron–phonon matrix g^W_{m′n′κα}(R_e, R_p); lattice vectors of the electron hop and of the displaced atom (bold) ⚑ | eV Å⁻¹; Å | 6.2 (moved from E.5 at the Chap. 6 merge) |
 | N_W | number of Wannier functions (the literature's J) | 1 | 3.6 (moved from E.5 at the Chap. 3 merge) |
 | N_fine | fine-grid points per direction (renamed from N_f, the number of final states of 2.1) ⚑ | 1 | E.5 |
@@ -1530,15 +1553,16 @@ the flags and the moved first uses; ledgers/check_notation.py checks the tex aga
 | M_D, M_E | direct and exchange matrix elements of the screened interaction of impact ionization (M is a mass, entry 24) ⚑ | eV | E.13 |
 | ω_LO | longitudinal optical phonon energy at the zone center in the Fröhlich width estimate of GaAs (the ω_L of 6.2 for one LO branch, clash entry 100) | meV | E.14 |
 | S_λ(𝐪, ω) | dynamic structure factor of the self-trapped exciton line λ, its vertical creation dressed by a Poisson series of phonons | eV⁻¹ | E.15 |
-| v_χ | speed of a dark-matter particle in units of c, bounding ω ≤ v_χ𝒬 in the boosted recast | 1 | E.16 |
+| v_χ | speed of a dark-matter particle in units of c, bounding ω ≤ v_χ𝒬 in the boosted recast | 1 | — (removed in the three-volume edition) |
 | t_max, S_coh^(2)(𝐪, ω) | time window of the time-domain multiphonon sum; coherent (cross-site) part of the two-phonon structure factor at fixed 𝐪 and ω | eV⁻¹; eV⁻¹ | E.17 |
-| N_core, 𝐩_red, 𝔯_W(𝐪, ω_e) | number of core electrons per atom frozen in the pseudopotential, which move rigidly with the nucleus; reduced (first-zone) momentum whose Umklapp copies 𝐩_red + 𝐆 cover the unreduced momenta; ratio \|A^DFPT\|²/\|A^W\|² of the squared Migdal amplitudes with the true and with the Wannier vertex (fraktur r) | 1; keV; 1 | E.18 |
+| N_core, 𝐩_red | number of core electrons per atom frozen in the pseudopotential, which move rigidly with the nucleus; reduced (first-zone) momentum whose Umklapp copies 𝐩_red + 𝐆 cover the unreduced momenta | 1; keV | E.18 |
+| 𝔯_W(𝐪, ω_e) | ratio \|A^DFPT\|²/\|A^W\|² of the squared Migdal amplitudes with the true and with the Wannier vertex (fraktur r) | 1 | — (removed in the three-volume edition) |
 | P_wall(𝐧̂) | pressure of the reflected dark matter on a face of outward normal 𝐧̂ of a test mass | Pa | E.19 |
 | L_th, 𝖬_λλ′, b_λ, 𝒩^ch_λ | threshold on \|L^ph\| of the long-lived chiral band; mean number of daughters in mode λ′ per decay of mode λ (sans-serif, the entries of 𝖬); indicator of the terminal chiral set, 1 inside and 0 outside; expected number of detectable chiral phonons from one phonon created in mode λ (the entries of 𝒩^ch) | 1 | E.19 |
 | P_K(𝐮), E_K, H_CF(𝐮) | projector on the ground Kramers doublet of a lanthanide ion at displacement 𝐮; energy of that doublet; crystal-field Hamiltonian of the 4f shell | 1; eV; eV | E.19 |
 | R_nℓ(r), j_K, ⟨j_K(q)⟩ | radial function of the open nℓ shell of a magnetic ion; spherical Bessel function of even order K; its radial average ∫r² dr R_nℓ(r)²j_K(qr) | Å^{-3/2}; 1; 1 | E.20 |
 | a_D, v_D,x, v_D,y, v_D,z, ε_bg,zz | Bohr radius of the Dirac exciton; principal Dirac velocities along the crystal axes; zz component of the background dielectric tensor | Å; 1; 1 | E.20 |
-| N_src, N_corr | event counts of the published calculation and of the corrected one, whose ratio rescales a published limit | 1 | E.20 |
+| N_src, N_corr | event counts of the published calculation and of the corrected one, whose ratio rescales a published limit | 1 | — (removed in the three-volume edition) |
 | T_N, T_C | Néel and Curie temperatures of a magnetic target | K | E.20 |
 | 𝐤_ι | wavevector of the conduction minimum of one valley of silicon, \|𝐤_ι\| = k₀ | keV | E.21 |
 | R_OPW(E_kin) | ratio of the ejection factor with the orthogonalized plane wave to that with the plain plane wave, at final kinetic energy E_kin | 1 | E.21 |
