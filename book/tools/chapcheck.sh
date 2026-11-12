@@ -36,4 +36,6 @@ echo "undefined references: $(grep -c 'Reference .* undefined' "$log")"
 grep 'Reference .* undefined' "$log" | sed 's/ on page.*//' | sort | uniq -c | head -40
 echo "multiply defined labels: $(grep -c 'multiply defined' "$log")"
 grep 'multiply defined' "$log" | head
+echo "floats or tables too large for the page: $(grep -c 'Float too large' "$log")"
+grep -n 'Float too large' "$log" | head
 echo "overfull hboxes > 5pt: $(grep -E 'Overfull \\hbox \(([5-9]|[0-9]{2,})\.' "$log" | wc -l)"
