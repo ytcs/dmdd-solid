@@ -9,12 +9,12 @@ The error function and its complement are~\cite[Eqs.~(7.2.1) and (7.2.2)]{olver2
   \operatorname{erf}(x) = \frac{2}{\sqrt\pi}\int_0^x\dd y\,\ee^{-y^2}, \qquad \operatorname{erfc}(x) = 1 - \operatorname{erf}(x) = \frac{2}{\sqrt\pi}\int_x^\infty\dd y\,\ee^{-y^2} .
   \label{eq:C.8-erf}
 \end{equation}
-It is odd, $\operatorname{erf}(-x) = -\operatorname{erf}(x)$, it tends to one as $x \to \infty$ by the Gaussian integral \cref{eq:C.6-gauss}, and its derivative is $(2/\sqrt\pi)\ee^{-x^2}$. Rescaling the variable gives the Gaussian over a finite interval,
+The error function is odd, $\operatorname{erf}(-x) = -\operatorname{erf}(x)$, it tends to one as $x \to \infty$ by the Gaussian integral \cref{eq:C.6-gauss}, and its derivative is $(2/\sqrt\pi)\ee^{-x^2}$. Rescaling the variable gives the Gaussian over a finite interval,
 \begin{equation}
   \int_{y_1}^{y_2}\dd y\,\ee^{-y^2/v_0^2} = \frac{\sqrt\pi\,v_0}{2}\Bigl[\operatorname{erf}\Bigl(\frac{y_2}{v_0}\Bigr) - \operatorname{erf}\Bigl(\frac{y_1}{v_0}\Bigr)\Bigr] ,
   \label{eq:C.8-interval}
 \end{equation}
-which is \cref{eq:D.1-erf}. Higher even powers reduce to it by parts. Since $y\,\ee^{-y^2} = -\tfrac12\dd\ee^{-y^2}/\dd y$,
+which is \cref{eq:D.1-erf}. Integrals with higher even powers of $y$ reduce to \cref{eq:C.8-interval} by parts. Since $y\,\ee^{-y^2} = -\tfrac12\dd\ee^{-y^2}/\dd y$,
 \begin{equation}
   \int_0^x\dd y\,y^2\ee^{-y^2} = -\frac{x}{2}\,\ee^{-x^2} + \frac12\int_0^x\dd y\,\ee^{-y^2} = \frac{\sqrt\pi}{4}\operatorname{erf}(x) - \frac{x}{2}\,\ee^{-x^2} ,
   \label{eq:C.8-y2}
@@ -31,17 +31,17 @@ converges for every $x$, after the terms have grown for $n \lesssim x^2$. At $x 
   \operatorname{erfc}(x) \sim \frac{\ee^{-x^2}}{x\sqrt\pi}\Bigl(1 - \frac{1}{2x^2} + \frac{3}{4x^4} - \frac{15}{8x^6} + \cdots\Bigr) ,
   \label{eq:C.8-asymptotic}
 \end{equation}
-obtained by integrating $\ee^{-y^2} = -(2y)^{-1}\dd\ee^{-y^2}/\dd y$ by parts repeatedly. The series diverges for every $x$, since the $n$th coefficient grows as $(2n - 1)!!/2^n$, but its terms first decrease, and truncated at the smallest term it is accurate to about the size of that term. At $x = v_{\mathrm{esc}}/v_0 = 544/238 = 2.2857$ the leading term is $\ee^{-5.224}/(2.286\sqrt\pi) = 1.329\times10^{-3}$, the next two terms bring it to $1.238\times10^{-3}$, and the exact value is $1.227\times10^{-3}$, so $\operatorname{erf}(2.286) = 0.99877$. Since $\operatorname{erfc}(x) \simeq \ee^{-x^2}/(x\sqrt\pi)$ up to a relative correction $1/(2x^2)$, the fraction of a Gaussian halo beyond the escape speed is small for $v_{\mathrm{esc}} \gg v_0$. The second term of \cref{eq:C.8-y2}, the Gaussian evaluated at the cut, sets the size of the correction, \SI{1.4}{\percent} of the normalization, and together with the erfc it gives the \SI{1.5}{\percent} of \cref{sec:1.2}.
+obtained by integrating $\ee^{-y^2} = -(2y)^{-1}\dd\ee^{-y^2}/\dd y$ by parts repeatedly. The series diverges for every $x$, since the $n$th coefficient grows as $(2n - 1)!!/2^n$, but its terms first decrease, and truncated at the smallest term it is accurate to about the size of that term. At $x = v_{\mathrm{esc}}/v_0 = 544/238 = 2.2857$ the leading term is $\ee^{-5.224}/(2.286\sqrt\pi) = 1.329\times10^{-3}$, the next two terms bring the sum to $1.238\times10^{-3}$, and the exact value is $1.227\times10^{-3}$, so $\operatorname{erf}(2.286) = 0.99877$. Since $\operatorname{erfc}(x) \simeq \ee^{-x^2}/(x\sqrt\pi)$ up to a relative correction $1/(2x^2)$, the fraction of a Gaussian halo beyond the escape speed is small for $v_{\mathrm{esc}} \gg v_0$. The second term of \cref{eq:C.8-y2}, the Gaussian evaluated at the cut, sets the size of the correction that the cut makes to the normalization. The second term is \SI{1.4}{\percent} of the normalization, and together with the erfc it gives the \SI{1.5}{\percent} of \cref{sec:1.2}.
 
 \subsection{Complete elliptic integrals}
 
-An average over one angle of the square root of a linear function of its cosine is not elementary. Let $s$ be the modulus, $0 \le s < 1$, and $s' = (1 - s^2)^{1/2}$. The complete elliptic integrals of the first and second kind are~\cite[Eq.~(19.2.8)]{olver2010nist}
+Averaged over an angle $\phi$, the square root of a linear function of $\cos\phi$ is not elementary. Let $s$ be the modulus, $0 \le s < 1$, and $s' = (1 - s^2)^{1/2}$. The complete elliptic integrals of the first and second kind are~\cite[Eq.~(19.2.8)]{olver2010nist}
 \begin{equation}
   \mathrm{K}(s) = \int_0^{\pi/2}\frac{\dd\theta}{(1 - s^2\sin^2\theta)^{1/2}}, \qquad
   \mathrm{E}(s) = \int_0^{\pi/2}\dd\theta\,(1 - s^2\sin^2\theta)^{1/2} .
   \label{eq:C.8-KE}
 \end{equation}
-The Digital Library of Mathematical Functions (DLMF) writes $k$ for the modulus, which in this book is a crystal momentum; numerical libraries often take the parameter $m = s^2$ as the argument, so that $\mathrm{K}(s)$ is computed as a function of $s^2$. Both integrals equal $\pi/2$ at $s = 0$. We expand the integrand in powers of $s^2\sin^2\theta$ and use $\int_0^{\pi/2}\dd\theta\,\sin^{2n}\theta = (\pi/2)(2n - 1)!!/(2n)!!$. This gives~\cite[Eqs.~(19.5.1) and (19.5.2)]{olver2010nist}
+The Digital Library of Mathematical Functions (DLMF) writes $k$ for the modulus, which in this book is a crystal momentum; numerical libraries often take the parameter $m = s^2$ as the argument, so that $\mathrm{K}(s)$ is computed as a function of $s^2$. Both integrals equal $\pi/2$ at $s = 0$. We expand the integrand in powers of $s^2\sin^2\theta$ and use $\int_0^{\pi/2}\dd\theta\,\sin^{2n}\theta = (\pi/2)(2n - 1)!!/(2n)!!$. The expansion gives~\cite[Eqs.~(19.5.1) and (19.5.2)]{olver2010nist}
 \begin{equation}
   \mathrm{K}(s) = \frac\pi2\Bigl(1 + \frac{s^2}{4} + \frac{9s^4}{64} + \cdots\Bigr), \qquad
   \mathrm{E}(s) = \frac\pi2\Bigl(1 - \frac{s^2}{4} - \frac{3s^4}{64} - \cdots\Bigr) .
@@ -52,19 +52,19 @@ As $s \to 1$, $\mathrm{E}(s) \to 1$, while $\mathrm{K}(s)$ diverges logarithmica
   \mathrm{K}(s) = \ln\frac{4}{s'} + O\Bigl(s'^2\ln\frac{1}{s'}\Bigr) .
   \label{eq:C.8-Klog}
 \end{equation}
-The divergence comes from the end of the interval, $\theta \to \pi/2$, where the integrand behaves as $1/[s'^2 + (\pi/2 - \theta)^2]^{1/2}$ and its integral over a range of order one is $\ln(1/s')$ plus a constant. At $s' = 0.1$, \cref{eq:C.8-Klog} gives $3.689$ against the exact $3.696$; at $s' = 0.01$ they differ by $1\times10^{-4}$.
+The divergence comes from the end of the interval, $\theta \to \pi/2$, where the integrand behaves as $1/[s'^2 + (\pi/2 - \theta)^2]^{1/2}$ and its integral over a range of order one is $\ln(1/s')$ plus a constant. At $s' = 0.1$, \cref{eq:C.8-Klog} gives $3.689$ against the exact $3.696$; at $s' = 0.01$ the approximation and the exact value differ by $1\times10^{-4}$.
 
-The integrals of the form we need reduce to these. For $\mu_0 > |\mu_1|$, the substitution $\phi = 2\theta$ turns $\cos\phi$ into $1 - 2\sin^2\theta$ and $\mu_0 + \mu_1\cos\phi$ into $(\mu_0 + \mu_1)(1 - s^2\sin^2\theta)$ with $s^2 = 2\mu_1/(\mu_0 + \mu_1)$; for $\mu_1 < 0$ the substitution $\phi = \pi - 2\theta$ does the same with $\mu_1 \to -\mu_1$. Hence, with $s = [2|\mu_1|/(\mu_0 + |\mu_1|)]^{1/2}$,
+The integrals of the form we need reduce to $\mathrm{K}$ and $\mathrm{E}$. For $\mu_0 > |\mu_1|$, the substitution $\phi = 2\theta$ turns $\cos\phi$ into $1 - 2\sin^2\theta$ and $\mu_0 + \mu_1\cos\phi$ into $(\mu_0 + \mu_1)(1 - s^2\sin^2\theta)$ with $s^2 = 2\mu_1/(\mu_0 + \mu_1)$; for $\mu_1 < 0$ the substitution $\phi = \pi - 2\theta$ does the same with $\mu_1 \to -\mu_1$. Hence, with $s = [2|\mu_1|/(\mu_0 + |\mu_1|)]^{1/2}$,
 \begin{equation}
   \int_0^\pi\frac{\dd\phi}{(\mu_0 + \mu_1\cos\phi)^{1/2}} = \frac{2\,\mathrm{K}(s)}{(\mu_0 + |\mu_1|)^{1/2}}, \qquad
   \int_0^\pi\dd\phi\,(\mu_0 + \mu_1\cos\phi)^{1/2} = 2(\mu_0 + |\mu_1|)^{1/2}\,\mathrm{E}(s) .
   \label{eq:C.8-reduce}
 \end{equation}
-Integrals of this kind arise when a quantity depends on the distance between a fixed point and a point moving on a circle. The angle between the Earth's galactic velocity and a laboratory axis, \cref{eq:1.2-angle}, has exactly the form $\cos\theta_{\mathrm{lab}} = \mu_0 + \mu_1\cos\phi$ with $\phi$ the sidereal phase. A daily average of a rate that varies as $|\vect{v}_{\mathrm{E}} - v\hat{\vect{n}}|^{\pm1}$ for a fixed speed $v$ along the laboratory axis is an elliptic integral. Logarithmic singularities of the same origin appear in the density of states of a two-dimensional band at a saddle point (\cref{app:C.2}), where $\mathrm{K}$ diverges as in \cref{eq:C.8-Klog}.
+Integrals of this kind arise when a quantity depends on the distance between a fixed point and a point moving on a circle. The angle between the Earth's galactic velocity and a laboratory axis, \cref{eq:1.2-angle}, has exactly the form $\cos\theta_{\mathrm{lab}} = \mu_0 + \mu_1\cos\phi$ with $\phi$ the sidereal phase. For a rate that varies as $|\vect{v}_{\mathrm{E}} - v\hat{\vect{n}}|^{\pm1}$ at a fixed speed $v$ along the laboratory axis, the daily average is an elliptic integral. Logarithmic singularities of the same origin appear in the density of states of a two-dimensional band at a saddle point (\cref{app:C.2}), where $\mathrm{K}$ diverges as in \cref{eq:C.8-Klog}.
 
 \subsection{The Lindhard logarithms}
 
-The independent-particle response of the electron gas (\cref{sec:4.5}) contains logarithms of ratios such as $(u + 1)/(u - 1)$, where $u$ is a combination of $\omega$ and $q$ in units set by the Fermi momentum $k_{\mathrm{F}}$ and the Fermi velocity $v_{\mathrm{F}}$ (\cref{sec:2.5}). We need their behavior on the real axis, where they are real, and their imaginary part when the frequency acquires the $+\ii0^+$ of a retarded function.
+The independent-particle response of the electron gas (\cref{sec:4.5}) contains logarithms of ratios such as $(u + 1)/(u - 1)$, where $u$ is a combination of $\omega$ and $q$ in units set by the Fermi momentum $k_{\mathrm{F}}$ and the Fermi velocity $v_{\mathrm{F}}$ (\cref{sec:2.5}). We need the behavior of these logarithms on the real axis, where they are real, and their imaginary part when the frequency acquires the $+\ii0^+$ of a retarded function.
 
 For real $u$ the function $\ln|(u + 1)/(u - 1)|$ is finite except at $u = \pm1$, where it diverges logarithmically but integrably. The static response contains it in the combination
 \begin{equation}
@@ -73,7 +73,7 @@ For real $u$ the function $\ln|(u + 1)/(u - 1)|$ is finite except at $u = \pm1$,
 \end{equation}
 whose limits are elementary. For $y \to 0$, $\ln[(1 + y)/(1 - y)] = 2(y + y^3/3 + y^5/5 + \dots)$ gives $F_{\mathrm{L}} = 1 - y^2/3 - y^4/15 + O(y^6)$, the long-wavelength limit in which the response tends to the density of states at the Fermi level and Thomas--Fermi screening follows (\cref{sec:4.4}). At $y = 1$, the momentum $2k_{\mathrm{F}}$ that spans the Fermi sphere, $F_{\mathrm{L}} = \tfrac12$, but its derivative diverges as $\tfrac12\ln|1 - y|$: the logarithm has a kink there, the origin of the Kohn anomaly and of Friedel oscillations. For $y \to \infty$, expanding in $1/y$ gives $F_{\mathrm{L}} = 1/(3y^2) + O(y^{-4})$.
 
-At finite frequency the argument becomes complex, and the logarithm needs a branch. Take the principal branch, $\ln z = \ln|z| + \ii\arg z$ with $-\pi < \arg z \le \pi$, which is analytic off the negative real axis. Let $u$ acquire a small positive imaginary part, $u \to u + \ii0^+$, as the retarded prescription $\omega \to \omega + \ii0^+$ requires when $u$ increases with $\omega$. The ratio $(u + 1 + \ii0^+)/(u - 1 + \ii0^+)$ is real and positive for $|u| > 1$. For $|u| < 1$ it is negative: the numerator is positive and the denominator negative, with a small positive imaginary part, so its inverse has a small negative imaginary part and the ratio lies just below the negative real axis. Hence
+At finite frequency the argument becomes complex, and the logarithm needs a branch. Take the principal branch, $\ln z = \ln|z| + \ii\arg z$ with $-\pi < \arg z \le \pi$, which is analytic off the negative real axis. Let $u$ acquire a small positive imaginary part, $u \to u + \ii0^+$, as the retarded prescription $\omega \to \omega + \ii0^+$ requires when $u$ increases with $\omega$. The ratio $(u + 1 + \ii0^+)/(u - 1 + \ii0^+)$ is real and positive for $|u| > 1$. For $|u| < 1$ it is negative: the numerator is positive and the denominator negative, with a small positive imaginary part, so the inverse of the denominator has a small negative imaginary part and the ratio lies just below the negative real axis. Hence
 \begin{equation}
   \ln\frac{u + 1 + \ii0^+}{u - 1 + \ii0^+} = \ln\Bigl|\frac{u + 1}{u - 1}\Bigr| - \ii\pi\,\Theta(1 - |u|) .
   \label{eq:C.8-branch}

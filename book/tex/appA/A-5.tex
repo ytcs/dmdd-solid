@@ -7,7 +7,7 @@ A Bloch state is normalized to one over the whole crystal, and its periodic part
   \int_\Omega\dd^3r\,|u_{n\vect{k}}|^2 = 1 .
   \label{eq:A.5-bloch}
 \end{equation}
-The two normalizations are consistent: $|\psi_{n\vect{k}}|^2 = |u_{n\vect{k}}|^2/N$ is periodic, and $\Vol$ holds $N$ cells. This is the convention of Ref.~\cite[Eq.~(29)]{giustino2017electron}. Ref.~\cite[Eqs.~(3.14) and (3.15)]{essig2016direct} writes the same states as $\Vol^{-1/2}\sum_{\vect{G}}u_n(\vect{k}+\vect{G})\ee^{\ii(\vect{k}+\vect{G})\cdot\vect{r}}$ with $\sum_{\vect{G}}|u_n(\vect{k}+\vect{G})|^2 = 1$; its plane-wave coefficients are the Fourier components of our $u_{n\vect{k}}$ times $\Omega^{1/2}$.
+The two normalizations are consistent: $|\psi_{n\vect{k}}|^2 = |u_{n\vect{k}}|^2/N$ is periodic, and $\Vol$ holds $N$ cells. Ref.~\cite[Eq.~(29)]{giustino2017electron} uses the same normalization. Ref.~\cite[Eqs.~(3.14) and (3.15)]{essig2016direct} writes the same states as $\Vol^{-1/2}\sum_{\vect{G}}u_n(\vect{k}+\vect{G})\ee^{\ii(\vect{k}+\vect{G})\cdot\vect{r}}$ with $\sum_{\vect{G}}|u_n(\vect{k}+\vect{G})|^2 = 1$; the plane-wave coefficients $u_n(\vect{k}+\vect{G})$ are the Fourier components of our $u_{n\vect{k}}$ times $\Omega^{1/2}$.
 
 \subsection{Periodic gauge}
 
@@ -30,12 +30,12 @@ The matrix element of $\ee^{\ii\vect{q}\cdot\vect{r}}$ between Bloch states, the
 \end{equation}
 The second form follows from \cref{eq:A.5-bloch}: the phases $\ee^{-\ii(\vect{k}+\vect{q})\cdot\vect{r}}\ee^{\ii\vect{q}\cdot\vect{r}}\ee^{\ii\vect{k}\cdot\vect{r}}$ cancel, the integrand is periodic, and the factor $1/N$ cancels the $N$ cells. When $\vect{k}+\vect{q}$ lies outside the first zone it is folded back, $\vect{k}+\vect{q} = \vect{k}' + \vect{G}$ with $\vect{k}'$ in the zone, and by \cref{eq:A.5-periodic} the vertex becomes $\int_\Omega u^*_{m\vect{k}'}\ee^{\ii\vect{G}\cdot\vect{r}}u_{n\vect{k}}$: the Umklapp vector stays in the plane wave. The vertex is of order one and carries no factor of $N$ (\cref{app:A.3}). In the notation of Ref.~\cite[Eq.~(3.16)]{essig2016direct}, $\rho_{mn}(\vect{k},\vect{q}) = f_{[n\vect{k},m\vect{k}',\vect{G}]}$ with $\vect{q} = \vect{k}' - \vect{k} + \vect{G}$; Ref.~\cite[Eq.~(B2)]{knapen2021dark} defines the same integral over the unit cell, divided by $\Omega$, for $u$ normalized to $\Omega$ rather than to one.
 
-At small $q$ and $m \neq n$, the vertex reduces to a velocity matrix element. Expanding $\ee^{\ii\vect{q}\cdot\vect{r}} \simeq 1 + \ii\vect{q}\cdot\vect{r}$ and using $\langle m|\vect{r}|n\rangle = -\ii\,\vect{v}_{mn}/(\varepsilon_m - \varepsilon_n)$, which follows from $\ii[H,\vect{r}] = \vect{v}$ for $m\neq n$,
+At small $q$ and $m \neq n$, the vertex reduces to a velocity matrix element. The position matrix element $\langle m|\vect{r}|n\rangle = -\ii\,\vect{v}_{mn}/(\varepsilon_m - \varepsilon_n)$ follows from $\ii[H,\vect{r}] = \vect{v}$ for $m\neq n$. Expanding $\ee^{\ii\vect{q}\cdot\vect{r}} \simeq 1 + \ii\vect{q}\cdot\vect{r}$ and inserting the position matrix element gives
 \begin{equation}
   \rho_{mn}(\vect{k},\vect{q}) \xrightarrow{\;q\to0\;} \frac{\vect{q}\cdot\vect{v}_{mn}(\vect{k})}{\varepsilon_{m\vect{k}} - \varepsilon_{n\vect{k}}}, \qquad m \neq n,
   \label{eq:A.5-optical}
 \end{equation}
-with $\vect{v}_{mn}(\vect{k}) = \langle\psi_{m\vect{k}}|\vect{v}|\psi_{n\vect{k}}\rangle$ (\cref{sec:3.2}). The velocity is $\vect{p}/m_e$ for a local potential; a nonlocal pseudopotential adds $\ii[V_{\mathrm{NL}},\vect{r}]$, where $V_{\mathrm{NL}}$ is its nonlocal part, and the momentum matrix elements of a code must then be corrected before they are used as velocities (\cref{app:E.7}).
+with $\vect{v}_{mn}(\vect{k}) = \langle\psi_{m\vect{k}}|\vect{v}|\psi_{n\vect{k}}\rangle$ (\cref{sec:3.2}). The velocity is $\vect{p}/m_e$ for a local potential; a nonlocal pseudopotential adds $\ii[V_{\mathrm{NL}},\vect{r}]$, where $V_{\mathrm{NL}}$ is the nonlocal part of the pseudopotential, and the momentum matrix elements of a code must then be corrected before they are used as velocities (\cref{app:E.7}).
 
 \subsection{Gauge consistency}
 
@@ -45,7 +45,7 @@ Under a change of gauge $\psi_{n\vect{k}} \to \ee^{\ii\theta_n(\vect{k})}\psi_{n
   \vect{v}_{mn}(\vect{k}) \to \ee^{\ii[\theta_n(\vect{k}) - \theta_m(\vect{k})]}\vect{v}_{mn}(\vect{k}),
   \label{eq:A.5-gauge}
 \end{equation}
-consistently with \cref{eq:A.5-optical}. A first-order rate contains $|\rho_{mn}|^2$ and does not depend on the gauge. A second-order amplitude does not have this protection: it sums products such as $g_{cm\nu}\rho_{mv}$ over intermediate bands $m$ (\cref{sec:6.5}), and each product is gauge-covariant only if both factors were computed from the same set of states. Every quantity that enters one amplitude, the vertex $\rho$, the electron--phonon vertex $g$ of \cref{app:A.6} and any tensor interpolated with Wannier functions, is therefore computed in one gauge, with one set of gauge matrices $U(\vect{k})$. Codes that diagonalize at each $\vect{k}$ independently assign random phases, and independent runs for $\rho$ and $g$ do not share them. Projector-augmented-wave and ultrasoft inputs need the augmentation term in $\rho$ at every $\vect{q}$, or $\rho_{nn}(\vect{k},0) = 1$ fails (\cref{sec:3.5}).
+consistently with \cref{eq:A.5-optical}. A first-order rate contains $|\rho_{mn}|^2$ and does not depend on the gauge. A second-order amplitude can depend on the gauge: it sums products such as $g_{cm\nu}\rho_{mv}$ over intermediate bands $m$ (\cref{sec:6.5}), and each product is gauge-covariant only if both factors were computed from the same set of states. Every quantity that enters one amplitude is therefore computed in one gauge, with one set of gauge matrices $U(\vect{k})$: the vertex $\rho$, the electron--phonon vertex $g$ of \cref{app:A.6} and any tensor interpolated with Wannier functions. Codes that diagonalize at each $\vect{k}$ independently assign random phases, and independent runs for $\rho$ and $g$ do not share these phases. Projector-augmented-wave and ultrasoft inputs need the augmentation term in $\rho$ at every $\vect{q}$, or $\rho_{nn}(\vect{k},0) = 1$ fails (\cref{sec:3.5}).
 
 \subsection{Wannier functions and band labels}
 
@@ -54,7 +54,7 @@ Wannier functions are built from the Bloch states of one gauge~\cite[Eqs.~(10) a
   w_n(\vect{r} - \vect{R}) = \frac{1}{\sqrt N}\sum_{\vect{k}\in\mathrm{BZ}}\ee^{-\ii\vect{k}\cdot\vect{R}}\sum_m U_{mn}(\vect{k})\,\psi_{m\vect{k}}(\vect{r}).
   \label{eq:A.5-wannier}
 \end{equation}
-They are orthonormal over the crystal, and $w_n$ has dimension $\Omega^{-1/2}$ when it is localized within a few cells. The real-space Hamiltonian $H^W(\vect{R})$ and the interpolated vertices are the matrix elements between them (\cref{sec:3.6}).
+They are orthonormal over the crystal, and $w_n$ has dimension $\Omega^{-1/2}$ when it is localized within a few cells. The real-space Hamiltonian $H^W(\vect{R})$ and the interpolated vertices are the matrix elements between Wannier functions (\cref{sec:3.6}).
 
 With spin--orbit coupling, Bloch states are two-component spinors, $u_{n\vect{k}}$ carries a spin index, and \cref{eq:A.5-rho} includes the sum over it; each band then holds one electron per $\vect{k}$, and the spin factor 2 of the independent-particle formulas is dropped (\cref{app:A.7}). Without spin--orbit coupling the states are spin-degenerate, the band index runs over spatial bands only, and the factor 2 is written explicitly. A degenerate subspace has no preferred basis, so only quantities summed over it, such as $\sum_{m}|\rho_{mn}|^2$ over the degenerate partners $m$, are compared between codes.
 

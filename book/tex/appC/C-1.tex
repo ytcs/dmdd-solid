@@ -1,6 +1,6 @@
 \section{Fourier transforms and delta functions}\label{app:C.1}
 
-Fermi's golden rule rests on one limit: the function $\sin^2(\xi t/2)/\xi^2$ of \cref{eq:2.1-Pstatic} grows in height as $t^2$ and shrinks in width as $1/t$, and at long times it acts on smooth functions as $(\pi t/2)\,\delta(\xi)$ (\cref{eq:2.1-deltalimit}). \Cref{sec:2.1} used the limit and the integral $\int\dd u\,\sin^2u/u^2 = \pi$ behind it; \cref{sec:2.2} used the rule for a delta function of a function. This section proves them, together with the Fourier identities that the rest of the book uses, in the conventions of \cref{app:A.3}.
+Fermi's golden rule rests on one limit: the function $\sin^2(\xi t/2)/\xi^2$ of \cref{eq:2.1-Pstatic} grows in height as $t^2$ and shrinks in width as $1/t$, and at long times it acts on smooth functions as $(\pi t/2)\,\delta(\xi)$ (\cref{eq:2.1-deltalimit}). \Cref{sec:2.1} used the limit and the integral $\int\dd u\,\sin^2u/u^2 = \pi$ behind it; \cref{sec:2.2} used the rule for a delta function of a function. This section proves the limit, the integral and the rule for a delta function of a function, together with the Fourier identities that the rest of the book uses, in the conventions of \cref{app:A.3}.
 
 \subsection{Delta functions as limits}
 
@@ -9,19 +9,19 @@ A delta function is defined by what it does under an integral. For every test fu
   \int_{-\infty}^{\infty}\dd x\;\delta(x)\,w(x) = w(0) .
   \label{eq:C.1-delta}
 \end{equation}
-No ordinary function does this; $\delta$ is a distribution, a linear rule that assigns a number to each test function~\cite[Sect.~1.16]{olver2010nist}. In physics it always appears as the limit of ordinary functions that become tall and narrow, and the useful question is when and how fast such a limit is reached.
+No ordinary function does this; $\delta$ is a distribution, a linear rule that assigns a number to each test function~\cite[Sect.~1.16]{olver2010nist}. In physics it always appears as the limit of ordinary functions that become tall and narrow, and the useful question is when and how fast the limit is reached.
 
-The basic construction takes any integrable $f(u)$ with $\int\dd u\,f(u) = 1$ and squeezes it, $f_t(x) = t\,f(tx)$. The area stays one while the width shrinks as $1/t$. With $u = tx$,
+The basic construction takes any integrable $f(u)$ with $\int\dd u\,f(u) = 1$ and squeezes it, $f_t(x) = t\,f(tx)$. The area of $f_t$ stays one while its width shrinks as $1/t$. With $u = tx$,
 \begin{equation*}
   \int\dd x\,f_t(x)\,w(x) = \int\dd u\,f(u)\,w(u/t) \;\longrightarrow\; w(0)\int\dd u\,f(u) = w(0) \qquad (t\to\infty),
 \end{equation*}
-because $w(u/t) \to w(0)$ at every fixed $u$, and $|f(u)\,w(u/t)| \le |f(u)|\max|w|$ lets the limit pass under the integral (dominated convergence). The family $f_t$ therefore tends to $\delta$. Three members recur in this book: the Gaussian $f(u) = \ee^{-u^2/2}/\sqrt{2\pi}$, which describes a broadened line on a computational grid (\cref{app:C.2}); the Lorentzian $f(u) = \pi^{-1}/(1 + u^2)$, which describes a decaying state (\cref{sec:2.4,app:C.4}); and the function of the golden rule, $f(u) = (2/\pi)\sin^2(u/2)/u^2$.
+because $w(u/t) \to w(0)$ at every fixed $u$, and $|f(u)\,w(u/t)| \le |f(u)|\max|w|$ lets the limit pass under the integral (dominated convergence). The family $f_t$ therefore tends to $\delta$. Three members recur in this book: the Gaussian $f(u) = \ee^{-u^2/2}/\sqrt{2\pi}$, which describes a broadened line on a computational grid (\cref{app:C.2}); the Lorentzian $f(u) = \pi^{-1}/(1 + u^2)$, which describes a decaying state (\cref{sec:2.4,app:C.4}); and the golden-rule function, $f(u) = (2/\pi)\sin^2(u/2)/u^2$.
 
-How fast the limit is reached depends on the tails of $f$. Expanding $w(u/t)$ in powers of $u/t$, an even $f$ with a finite second moment $\langle u^2\rangle_f$ gives $w(0) + \tfrac12 w''(0)\langle u^2\rangle_f/t^2$, a correction of relative order $1/t^2$. The Gaussian is of this kind. The Lorentzian and the golden-rule function fall off only as $1/u^2$, and their second moments diverge. The expansion then fails: their corrections are of order $1/t$, and they are set by the values of $w$ far from the origin, not by its curvature at the origin. \Cref{eq:C.1-sincorr} below gives the correction for the golden-rule function and \cref{app:C.4} the one for the Lorentzian.
+How fast the limit is reached depends on the tails of $f$. For an even $f$ with a finite second moment $\langle u^2\rangle_f$, expanding $w(u/t)$ in powers of $u/t$ gives $w(0) + \tfrac12 w''(0)\langle u^2\rangle_f/t^2$, and the correction to $w(0)$ is of relative order $1/t^2$. The Gaussian is of this kind. The Lorentzian and the golden-rule function fall off only as $1/u^2$, and their second moments diverge. The expansion then fails: their corrections are of order $1/t$, and they are set by the values of $w$ far from the origin, not by its curvature at the origin. \Cref{eq:C.1-sincorr} below gives the correction for the golden-rule function and \cref{app:C.4} the one for the Lorentzian.
 
 \subsection{The golden-rule limit}
 
-The golden-rule limit needs two integrals, $\int_0^\infty\dd u\,\sin u/u = \pi/2$ and $\int\dd u\,\sin^2u/u^2 = \pi$. The Dirichlet integral follows from a convergence factor. Since $\int_0^\infty\dd u\,\ee^{-su}\sin u = 1/(1 + s^2)$ for $s > 0$, and $1/u = \int_0^\infty\dd s\,\ee^{-su}$ for $u > 0$,
+The golden-rule limit needs two integrals, the Dirichlet integral $\int_0^\infty\dd u\,\sin u/u = \pi/2$ and $\int\dd u\,\sin^2u/u^2 = \pi$. The Dirichlet integral follows from a convergence factor. Since $\int_0^\infty\dd u\,\ee^{-su}\sin u = 1/(1 + s^2)$ for $s > 0$, and $1/u = \int_0^\infty\dd s\,\ee^{-su}$ for $u > 0$,
 \begin{equation*}
   \int_0^\infty\dd u\,\frac{\sin u}{u} = \int_0^\infty\dd s\int_0^\infty\dd u\,\ee^{-su}\sin u = \int_0^\infty\frac{\dd s}{1 + s^2} = \frac{\pi}{2} .
 \end{equation*}
@@ -30,30 +30,30 @@ The exchange of the two integrals is legitimate because the double integral conv
   \int_{-\infty}^{\infty}\dd u\,\frac{\sin^2u}{u^2} = \Bigl[-\frac{\sin^2u}{u}\Bigr]_{-\infty}^{\infty} + \int_{-\infty}^{\infty}\dd u\,\frac{\sin 2u}{u} = \pi ,
   \label{eq:C.1-sinsq}
 \end{equation}
-where the last integral is the Dirichlet integral with $u \to 2u$. This is the integral quoted in \cref{sec:2.1}. The central lobe, $|u| < \pi$, holds \SI{90.3}{\percent} of it.
+where the last integral is the Dirichlet integral with $u \to 2u$. \Cref{eq:C.1-sinsq} is the integral quoted in \cref{sec:2.1}. The central lobe of the integrand, $|u| < \pi$, holds \SI{90.3}{\percent} of the integral.
 
 Write $\sin^2(\xi t/2) = (1 - \cos\xi t)/2$ and split off $w(0)$:
 \begin{equation*}
   \int\dd\xi\,\frac{\sin^2(\xi t/2)}{\xi^2}\,w(\xi)
   = w(0)\,\frac{\pi t}{2} + \frac12\int\dd\xi\,\frac{w(\xi) - w(0)}{\xi^2} - \frac12\int\dd\xi\,\cos(\xi t)\,\frac{w(\xi) - w(0)}{\xi^2} .
 \end{equation*}
-The first term uses \cref{eq:C.1-sinsq} with $u = \xi t/2$. In the other two, $w(\xi) - w(0) = w'(0)\xi + O(\xi^2)$ near the origin. The odd part $w'(0)\xi$ makes the integrand odd and singular as $1/\xi$, and the two sides cancel if the integral is taken symmetrically about $\xi = 0$; the remainder is integrable. The second term is then a constant, the Hadamard finite part of $\int\dd\xi\,w(\xi)/\xi^2$ defined in \cref{eq:2.4-fp}. The third term tends to zero as $t \to \infty$: the integral of a rapidly oscillating cosine against an integrable function vanishes in the limit (the Riemann--Lebesgue lemma~\cite[Eq.~(1.8.10)]{olver2010nist}), and the singular odd part contributes nothing by symmetry. Hence
+The first term uses \cref{eq:C.1-sinsq} with $u = \xi t/2$. In the other two, $w(\xi) - w(0) = w'(0)\xi + O(\xi^2)$ near the origin. The odd part $w'(0)\xi$ makes the integrand odd and singular as $1/\xi$, and the contributions from the two sides of $\xi = 0$ cancel if the integral is taken symmetrically about $\xi = 0$; the $O(\xi^2)$ term leaves an integrable integrand. The second term is then a constant, the Hadamard finite part of $\int\dd\xi\,w(\xi)/\xi^2$ defined in \cref{eq:2.4-fp}. The third term tends to zero as $t \to \infty$: the integral of a rapidly oscillating cosine against an integrable function vanishes in the limit (the Riemann--Lebesgue lemma~\cite[Eq.~(1.8.10)]{olver2010nist}), and the singular odd part contributes nothing by symmetry. Hence
 \begin{equation}
   \int\dd\xi\,\frac{\sin^2(\xi t/2)}{\xi^2}\,w(\xi) = \frac{\pi t}{2}\,w(0) + \frac12\operatorname{fp}\!\int\dd\xi\,\frac{w(\xi)}{\xi^2} + o(1) \qquad (t\to\infty),
   \label{eq:C.1-sincorr}
 \end{equation}
-where $o(1)$ stands for terms that vanish as $t\to\infty$. Dividing by $\pi t/2$ proves \cref{eq:2.1-deltalimit}. For a $w$ that varies on an energy scale $\delta_w$, the finite part is of size $w(0)/\delta_w$, so the relative correction is of order $1/(t\,\delta_w)$, the estimate quoted in \cref{sec:2.1}. A constant $w$ has finite part zero, and then the area $\pi t/2$ is exact at every $t$.
+where $o(1)$ stands for terms that vanish as $t\to\infty$. Dividing by $\pi t/2$ proves \cref{eq:2.1-deltalimit}. For a $w$ that varies on an energy scale $\delta_w$, the finite part is of size $w(0)/\delta_w$, so the correction relative to the leading term is of order $1/(t\,\delta_w)$, the estimate quoted in \cref{sec:2.1}. A constant $w$ has finite part zero, and then the area $\pi t/2$ is exact at every $t$.
 
-The time derivative of \cref{eq:2.1-Pstatic} brings in $\sin(\xi t)/\xi$, which has area $\pi$ at every $t > 0$ by the Dirichlet integral. It is not absolutely integrable, so the dominated-convergence argument does not apply, but the same splitting does. With $w(\xi) = w(0) + [w(\xi) - w(0)]$, the first part gives $\pi w(0)$. The second gives $\int\dd\xi\,\sin(\xi t)\,[w(\xi) - w(0)]/\xi$, whose integrand is a sine times a function that is finite at the origin. It vanishes as $t\to\infty$ by the Riemann--Lebesgue lemma (at large $|\xi|$, where $w(0)/\xi$ is not integrable, the oscillation of the sine still makes the contribution vanish). Hence
+The time derivative of \cref{eq:2.1-Pstatic} brings in $\sin(\xi t)/\xi$, which has area $\pi$ at every $t > 0$ by the Dirichlet integral. The function $\sin(\xi t)/\xi$ is not absolutely integrable, so the dominated-convergence argument does not apply, but splitting off $w(0)$ as above still works. With $w(\xi) = w(0) + [w(\xi) - w(0)]$, the first part gives $\pi w(0)$. The second gives $\int\dd\xi\,\sin(\xi t)\,[w(\xi) - w(0)]/\xi$, whose integrand is a sine times a function that is finite at the origin. This integral vanishes as $t\to\infty$ by the Riemann--Lebesgue lemma (at large $|\xi|$, where $w(0)/\xi$ is not integrable, the oscillation of the sine still makes the contribution vanish). Hence
 \begin{equation}
   \frac{\sin\xi t}{\xi} \;\longrightarrow\; \pi\,\delta(\xi) \qquad (t\to\infty) .
   \label{eq:C.1-sinc}
 \end{equation}
-The convergence is weaker than for $\sin^2(\xi t/2)/\xi^2$. The function changes sign, its absolute area grows as $\ln t$, and the limit holds only under an integral against a smooth function. This is why \cref{sec:2.1} reads the rate off the probability, whose kernel is positive, as well as off its derivative.
+The convergence is weaker than for $\sin^2(\xi t/2)/\xi^2$. The function $\sin(\xi t)/\xi$ changes sign, its absolute area grows as $\ln t$, and the limit holds only under an integral against a smooth function. Because of this weaker convergence, \cref{sec:2.1} reads the rate off the probability, whose kernel is positive, as well as off the time derivative of the probability.
 
 \subsection{Delta functions of functions}
 
-Let $g(x)$ be smooth with simple roots $x_i$, that is $g(x_i) = 0$ and $g'(x_i) \neq 0$. Near each root $g(x) \approx g'(x_i)(x - x_i)$, and a delta function of $g$ is supported only at the roots. Changing the variable to $y = g(x)$ in a small interval around $x_i$, with $\dd x = \dd y/|g'(x)|$ (the absolute value because the orientation of the interval is restored after the substitution),
+Let $g(x)$ be smooth with simple roots $x_i$, that is $g(x_i) = 0$ and $g'(x_i) \neq 0$. Near each root $g(x) \approx g'(x_i)(x - x_i)$, and a delta function of $g$ is supported only at the roots. Changing the variable to $y = g(x)$ in a small interval around $x_i$, with $\dd x = \dd y/|g'(x)|$ (the absolute value appears because the orientation of the interval is restored after the substitution),
 \begin{equation*}
   \int_{x_i - \epsilon}^{x_i + \epsilon}\dd x\,\delta(g(x))\,w(x) = \int\dd y\,\delta(y)\,\frac{w(x(y))}{|g'(x(y))|} = \frac{w(x_i)}{|g'(x_i)|} .
 \end{equation*}
@@ -62,14 +62,14 @@ Summing over the roots,
   \delta(g(x)) = \sum_i\frac{\delta(x - x_i)}{|g'(x_i)|} .
   \label{eq:C.1-deltag}
 \end{equation}
-Two cases appear in \cref{chap:2}. The scaling rule $\delta(cx) = \delta(x)/|c|$ is the case of one root. Energy conservation in elastic scattering, $\delta(p'^2/2\mu_{\chi e} - p^2/2\mu_{\chi e})$ with $p, p' \ge 0$, has the root $p' = p$ with $g'(p) = p/\mu_{\chi e}$ and gives $(\mu_{\chi e}/p)\,\delta(p' - p)$, as used in \cref{sec:2.2}. A double root, where $g'(x_i) = 0$, makes the right side infinite; it signals that the delta function must be kept inside a larger integral, as happens at the van Hove singularities of a density of states (\cref{app:C.2}).
+Two cases appear in \cref{chap:2}. The scaling rule $\delta(cx) = \delta(x)/|c|$ is the case of one root. Energy conservation in elastic scattering, $\delta(p'^2/2\mu_{\chi e} - p^2/2\mu_{\chi e})$ with $p, p' \ge 0$, has the root $p' = p$ with $g'(p) = p/\mu_{\chi e}$ and gives $(\mu_{\chi e}/p)\,\delta(p' - p)$, as used in \cref{sec:2.2}. A double root, where $g'(x_i) = 0$, makes the right side of \cref{eq:C.1-deltag} infinite; it signals that the delta function must be kept inside a larger integral, as happens at the van Hove singularities of a density of states (\cref{app:C.2}).
 
-In three dimensions $\delta^3(\vect{x}) = \delta(x_1)\delta(x_2)\delta(x_3)$. The analogue of \cref{eq:C.1-deltag} for a scalar function of a vector is an integral over the surface on which it vanishes,
+In three dimensions $\delta^3(\vect{x}) = \delta(x_1)\delta(x_2)\delta(x_3)$. The analogue of \cref{eq:C.1-deltag} for a scalar function of a vector is an integral over the surface on which the function vanishes,
 \begin{equation}
   \int\dd^3k\,\delta(g(\vect{k}))\,w(\vect{k}) = \int_{g(\vect{k}) = 0}\frac{\dd S}{|\nabla g(\vect{k})|}\,w(\vect{k}) ,
   \label{eq:C.1-surface}
 \end{equation}
-which follows from \cref{eq:C.1-deltag} applied along the direction normal to the surface at each of its points, with $\dd S$ the element of area. \Cref{app:C.2} uses it for densities of states.
+which follows from \cref{eq:C.1-deltag} applied along the normal to the surface at each point, with $\dd S$ the element of area. \Cref{app:C.2} uses \cref{eq:C.1-surface} for densities of states.
 
 \subsection{Fourier identities}
 
@@ -79,7 +79,7 @@ The transforms of \cref{eq:A.3-space,eq:A.3-time} are inverse to each other beca
   \int\dd^3r\,\ee^{\ii\vect{q}\cdot\vect{r}} = (2\pi)^3\,\delta^3(\vect{q}) .
   \label{eq:C.1-complete}
 \end{equation}
-The first is the golden-rule limit once more. The integral over a finite window, $\int_{-T/2}^{T/2}\dd t\,\ee^{\ii\omega t} = 2\sin(\omega T/2)/\omega$, tends to $2\pi\delta(\omega)$ as $T\to\infty$ by \cref{eq:C.1-sinc} with $\xi = \omega$ and $t = T/2$. The second is the product of three copies of the first. Inserting the inverse transform of $O(\vect{q})$ into the forward transform of \cref{eq:A.3-space} and using \cref{eq:C.1-complete} returns $O(\vect{q})$, which proves that the two transforms are inverse to each other. The transform of $\delta^3(\vect{r} - \vect{r}_0)$ is $\ee^{\ii\vect{q}\cdot\vect{r}_0}$, which is how the density operator \cref{eq:A.3-ne} arises from point particles, and the transform of a derivative is $\int\dd^3r\,\ee^{\ii\vect{q}\cdot\vect{r}}\nabla O = -\ii\vect{q}\,O(\vect{q})$ after an integration by parts. Hence $-\nabla^2 \to q^2$, the step that solves the static field equations of \cref{app:C.9}.
+The first identity is the golden-rule limit once more. The integral over a finite window, $\int_{-T/2}^{T/2}\dd t\,\ee^{\ii\omega t} = 2\sin(\omega T/2)/\omega$, tends to $2\pi\delta(\omega)$ as $T\to\infty$ by \cref{eq:C.1-sinc} with $\xi = \omega$ and $t = T/2$. The second identity is the product of three copies of the first. Inserting the inverse transform of $O(\vect{q})$ into the forward transform of \cref{eq:A.3-space} and using \cref{eq:C.1-complete} returns $O(\vect{q})$, which proves that the two transforms are inverse to each other. The transform of $\delta^3(\vect{r} - \vect{r}_0)$ is $\ee^{\ii\vect{q}\cdot\vect{r}_0}$, and the density operator \cref{eq:A.3-ne} of point particles is a sum of these phases. The transform of a derivative is $\int\dd^3r\,\ee^{\ii\vect{q}\cdot\vect{r}}\nabla O = -\ii\vect{q}\,O(\vect{q})$ after an integration by parts. Hence $-\nabla^2 \to q^2$, the step that solves the static field equations of \cref{app:C.9}.
 
 Parseval's theorem and the convolution theorem follow from \cref{eq:C.1-complete}. Inserting the inverse transforms of $f$ and $g$ into $\int\dd^3r\,f^*(\vect{r})\,g(\vect{r})$ and doing the $\vect{r}$ integral first gives Parseval's theorem,
 \begin{equation}
@@ -91,11 +91,11 @@ and in one dimension of time $\int\dd t\,f^*(t)g(t) = \int\dd\omega\,f^*(\omega)
   (f\ast g)(\vect{q}) = f(\vect{q})\,g(\vect{q}) .
   \label{eq:C.1-conv}
 \end{equation}
-The Helm form factor of \cref{sec:2.2} is an example: a uniform sphere smeared by a Gaussian is the convolution of the two densities, and its transform is the product of $3j_1(qR_{\mathrm{nuc}})/(qR_{\mathrm{nuc}})$ (\cref{app:C.3}) and the Gaussian factor $\ee^{-q^2s_{\mathrm{skin}}^2/2}$ (\cref{app:C.6}).
+The Helm form factor of \cref{sec:2.2} is an example: a uniform sphere smeared by a Gaussian is the convolution of the two densities, and the transform of the smeared sphere is the product of $3j_1(qR_{\mathrm{nuc}})/(qR_{\mathrm{nuc}})$ (\cref{app:C.3}) and the Gaussian factor $\ee^{-q^2s_{\mathrm{skin}}^2/2}$ (\cref{app:C.6}).
 
 The time form of \cref{eq:C.1-conv} explains the structure of response functions. A causal response is a convolution in time of a response kernel with the applied field, and in frequency it becomes a product. The kernel vanishes for negative times, and its transform $\int_0^\infty\dd t\,\ee^{\ii\omega t}(\cdots)$ converges only with a factor $\ee^{-0^+t}$, a decay slower than any physical time scale. For a kernel that oscillates at a single transition energy $\Delta E = E_f - E_i$, as in \cref{app:A.3},
 \begin{equation}
   -\ii\int_0^\infty\dd t\,\ee^{\ii(\omega - \Delta E)t - 0^+t} = \frac{1}{\omega - \Delta E + \ii0^+} ,
   \label{eq:C.1-causal}
 \end{equation}
-which is the origin of the infinitesimal $\ii0^+$ in every energy denominator of this book (\cref{app:A.3,sec:2.4}). \Cref{app:C.4} gives its meaning as a distribution and \cref{app:C.5} the analyticity it implies.
+which is the origin of the infinitesimal $\ii0^+$ in every energy denominator of this book (\cref{app:A.3,sec:2.4}). \Cref{app:C.4} gives the meaning of the right side of \cref{eq:C.1-causal} as a distribution, and \cref{app:C.5} the analyticity that this causal form implies.

@@ -1,19 +1,19 @@
 \section{Complex analysis for response functions}\label{app:C.5}
 
-A response cannot precede its cause, and this single fact fixes the real part of every response function once its imaginary part is known at all frequencies. The dielectric function of silicon at zero frequency, for example, follows from its measured absorption spectrum. Contour integration and the residue theorem are assumed; \cref{sec:4.1,sec:4.7} use the results.
+A response cannot precede its cause. Causality alone fixes the real part of every response function once the imaginary part is known at all frequencies. The dielectric function of silicon at zero frequency, for example, follows from its measured absorption spectrum. Contour integration and the residue theorem are assumed; \cref{sec:4.1,sec:4.7} use the results.
 
 \subsection{Causality and analyticity}
 
-Let $R(t)$ be a retarded response: the change of an observable at time $t$ caused by a unit impulse at $t = 0$, so that $R(t) = 0$ for $t < 0$. The response function of \cref{eq:A.7-R} is of this kind. With the time convention of \cref{app:A.3}, its transform is
+Let $R(t)$ be a retarded response: the change of an observable at time $t$ caused by a unit impulse at $t = 0$, so that $R(t) = 0$ for $t < 0$. The response function of \cref{eq:A.7-R} is of this kind. With the time convention of \cref{app:A.3}, the transform of $R(t)$ is
 \begin{equation}
   R(z) = \int_0^\infty\dd t\,\ee^{\ii zt}R(t), \qquad z = \omega + \ii y .
   \label{eq:C.5-Rz}
 \end{equation}
-For $y > 0$ the factor $\ee^{\ii zt} = \ee^{\ii\omega t}\ee^{-yt}$ decays, and the integral converges for any $R(t)$ that grows no faster than a polynomial. Differentiating under the integral with respect to $z$ is then allowed, so $R(z)$ is analytic in the upper half plane. The physical response at real $\omega$ is the boundary value $R(\omega + \ii0^+)$, which is the $0^+$ prescription of \cref{eq:C.1-causal}. For $y < 0$ the integral diverges, and the function on the lower half plane is defined, if at all, by analytic continuation. In the spectral (Lehmann) form \cref{eq:A.7-lehmann}, each term is $1/(z - \Delta E)$ with real $\Delta E$, analytic everywhere except on the real axis. Inserted with $z = \omega + \ii0^+$, every pole lies below the axis of real $\omega$, as \cref{app:A.3} requires.
+For $y > 0$ the factor $\ee^{\ii zt} = \ee^{\ii\omega t}\ee^{-yt}$ decays, and the integral converges for any $R(t)$ that grows no faster than a polynomial. Differentiating under the integral with respect to $z$ is then allowed, so $R(z)$ is analytic in the upper half plane. The physical response at real $\omega$ is the boundary value $R(\omega + \ii0^+)$, which is the $0^+$ prescription of \cref{eq:C.1-causal}. For $y < 0$ the integral diverges, and the function on the lower half plane is defined, if at all, by analytic continuation. In the spectral (Lehmann) form \cref{eq:A.7-lehmann}, each term is $1/(z - \Delta E)$ with real $\Delta E$, analytic everywhere except on the real axis. With $z = \omega + \ii0^+$, every pole of the Lehmann form lies below the axis of real $\omega$, as \cref{app:A.3} requires.
 
 \subsection{Spectral representation}
 
-The Lehmann form makes the structure of $R(z)$ explicit. By \cref{eq:C.4-SP}, the imaginary part of each term on the real axis is a delta function, and the response is recovered from it by
+The Lehmann form makes the structure of $R(z)$ explicit. By \cref{eq:C.4-SP}, the imaginary part of each term on the real axis is a delta function, and $R$ is recovered from $\Imag R$ by
 \begin{equation}
   R(z) = \int\dd\omega'\,\frac{\varrho_R(\omega')}{z - \omega'}, \qquad \varrho_R(\omega) = -\frac{1}{\pi}\Imag R(\omega + \ii0^+) ,
   \label{eq:C.5-spectral}
@@ -45,24 +45,24 @@ Most responses have a definite symmetry under $\omega \to -\omega$. If the respo
   \Imag R(\omega) = -\frac{2\omega}{\pi}\operatorname{PV}\!\int_0^\infty\dd\omega'\,\frac{\Real R(\omega')}{\omega'^2 - \omega^2} .
   \label{eq:C.5-KKhalf}
 \end{equation}
-For the first, the negative half axis contributes
+For the first relation, the negative half axis contributes
 \begin{equation*}
   \int_0^\infty\dd\omega'\,\frac{\Imag R(-\omega')}{-\omega' - \omega} = \int_0^\infty\dd\omega'\,\frac{\Imag R(\omega')}{\omega' + \omega} ,
 \end{equation*}
-and $1/(\omega' - \omega) + 1/(\omega' + \omega) = 2\omega'/(\omega'^2 - \omega^2)$; the second follows in the same way with the even real part.
+and $1/(\omega' - \omega) + 1/(\omega' + \omega) = 2\omega'/(\omega'^2 - \omega^2)$; the second relation follows in the same way with the even real part.
 
 \subsection{Direct and inverse dielectric functions}
 
 The relations hold for any function that is analytic in the upper half plane and falls off at large $|z|$. Three functions of \cref{sec:4.4} are candidates, and the conditions differ.
 
-The inverse dielectric function obeys them in the form $\varepsilon^{-1} - 1$, because $\varepsilon^{-1} - 1 = v_{\mathrm{C}} R_{ee}$ for the electron channel (\cref{app:A.7}) is itself a retarded response: the induced potential caused by an external one. With $L = -\Imag\varepsilon^{-1}$ and \cref{eq:C.5-KKhalf} at $\omega = 0$,
+The inverse dielectric function obeys the Kramers--Kronig relations in the form $\varepsilon^{-1} - 1$, because $\varepsilon^{-1} - 1 = v_{\mathrm{C}} R_{ee}$ for the electron channel (\cref{app:A.7}) is itself a retarded response: the induced potential caused by an external one. With $L = -\Imag\varepsilon^{-1}$ and \cref{eq:C.5-KKhalf} at $\omega = 0$,
 \begin{equation}
   1 - \Real\varepsilon^{-1}(\vect{q}, 0) = \frac{2}{\pi}\int_0^\infty\dd\omega'\,\frac{L(\vect{q},\omega')}{\omega'} .
   \label{eq:C.5-screening}
 \end{equation}
 In a metal, static screening is perfect at long wavelength, $\varepsilon^{-1}(\vect{q}\to0, 0) = 0$, and the loss function then obeys $\int_0^\infty\dd\omega\,L/\omega = \pi/2$, the perfect-screening sum rule checked on the electron gas in \cref{sec:4.5}.
 
-The dielectric function itself obeys them in the form $\varepsilon - 1$ only if $\varepsilon$ has no zeros in the upper half plane, since $1/\varepsilon$ must be analytic there for $\varepsilon - 1 = 1/\varepsilon^{-1} - 1$ to be. Zeros of $\varepsilon$ are self-sustained oscillations, and in the upper half plane they would grow in time; a stable medium has none. In a crystal with a gap $\varepsilon$ is also finite at $\omega = 0$, and
+The dielectric function itself obeys the relations in the form $\varepsilon - 1$ only if $\varepsilon$ has no zeros in the upper half plane, since $1/\varepsilon$ must be analytic there for $\varepsilon - 1 = 1/\varepsilon^{-1} - 1$ to be analytic. Zeros of $\varepsilon$ are self-sustained oscillations, and in the upper half plane they would grow in time; a stable medium has none. In a crystal with a gap $\varepsilon$ is also finite at $\omega = 0$, and
 \begin{equation}
   \varepsilon_1(\omega) - 1 = \frac{2}{\pi}\operatorname{PV}\!\int_0^\infty\dd\omega'\,\frac{\omega'\varepsilon_2(\omega')}{\omega'^2 - \omega^2} ,
   \label{eq:C.5-KKeps}
@@ -73,7 +73,7 @@ At large frequency every electron responds as if free, $\varepsilon(\omega) \to 
 
 \subsection{Matsubara frequencies and analytic continuation}
 
-At finite temperature, many-body perturbation theory computes response and Green's functions on the imaginary axis, at the bosonic Matsubara frequencies $\ii\omega^{\mathrm{B}}_j = 2\pi\ii jT$ or the fermionic ones $\ii\omega^{\mathrm{F}}_j = (2j + 1)\pi\ii T$, with integer $j$ (\cref{sec:4.7}). Frequency sums and analytic continuation connect these values with the real axis.
+At finite temperature, many-body perturbation theory computes response and Green's functions on the imaginary axis, at the bosonic Matsubara frequencies $\ii\omega^{\mathrm{B}}_j = 2\pi\ii jT$ or the fermionic ones $\ii\omega^{\mathrm{F}}_j = (2j + 1)\pi\ii T$, with integer $j$ (\cref{sec:4.7}). Frequency sums and analytic continuation connect the values at these frequencies with the real axis.
 
 The Bose function $n_{\mathrm{B}}(z) = 1/(\ee^{\beta z} - 1)$, continued to complex $z$, has poles at $z = \ii\omega^{\mathrm{B}}_j$; near each, $\ee^{\beta z} \simeq 1 + \beta(z - \ii\omega^{\mathrm{B}}_j)$, so the residue is $1/\beta = T$. For a function $g(z)$ that is analytic near the imaginary axis and falls off faster than $1/|z|$, the sum $T\sum_jg(\ii\omega^{\mathrm{B}}_j)$ is therefore the integral of $n_{\mathrm{B}}(z)g(z)/2\pi\ii$ around small circles enclosing the poles of $n_{\mathrm{B}}$. Merging the circles and opening the contour to infinity, where the integrand vanishes, leaves the poles $z_{\mathrm{p}}$ of $g$, traversed in the opposite sense:
 \begin{equation}
@@ -85,6 +85,6 @@ The fermionic form uses $n_{\mathrm{F}}(z) = 1/(\ee^{\beta z} + 1)$, whose resid
 \begin{equation*}
   T\sum_j\frac{1}{\omega_0^2 + (\omega^{\mathrm{B}}_j)^2} = \frac{n_{\mathrm{B}}(\omega_0)}{2\omega_0} + \frac{1 + n_{\mathrm{B}}(\omega_0)}{2\omega_0} = \frac{2n_{\mathrm{B}}(\omega_0) + 1}{2\omega_0} .
 \end{equation*}
-Up to the factor $1/M$, this is the thermal mean-square displacement of an oscillator of mass $M$, whose growth with temperature, by the factor $2n_{\mathrm{B}} + 1$, was found directly in \cref{we:2-oscillator}. \Cref{app:D.10} uses \cref{eq:C.5-matsum} for the sums that diagrams produce.
+Up to the factor $1/M$, this sum is the thermal mean-square displacement of an oscillator of mass $M$. The growth of the displacement with temperature, by the factor $2n_{\mathrm{B}} + 1$, was found directly in \cref{we:2-oscillator}. \Cref{app:D.10} uses \cref{eq:C.5-matsum} for the sums that diagrams produce.
 
-Suppose a function is computed at the Matsubara frequencies, $R(\ii\omega^{\mathrm{B}}_j)$. It is turned into the retarded function by finding the function $R(z)$ that is analytic off the real axis, agrees with the computed values at every $\ii\omega^{\mathrm{B}}_j$ with $j > 0$, and falls off at infinity, and then setting $z = \omega + \ii0^+$. For an expression in closed form this is a substitution, $\ii\omega^{\mathrm{B}}_j \to \omega + \ii0^+$, made after every occupation factor has been simplified with $\ee^{\ii\beta\omega^{\mathrm{B}}_j} = 1$. The order of these steps matters. The function $(\ee^{\beta z} - 1)\,h(z)$, for any analytic $h$, vanishes at every bosonic Matsubara frequency, so infinitely many analytic functions take the same values on the Matsubara points. The condition that $R(z)$ falls off at large $|z|$ removes them all, since $\ee^{\beta z}$ grows along the real axis, and the continuation is unique~\cite{baym1961determination}. The spectral representation \cref{eq:C.5-spectral} is the form in which uniqueness is manifest: it defines one function on the whole plane off the real axis, equal to the Matsubara function on the imaginary axis and to the retarded function just above the real axis. Numerical data on the imaginary axis are a harder case. Continuation then amplifies small errors exponentially, and a rational (Pad\'e) fit to the Matsubara values, the usual tool, must be checked against sum rules such as \cref{eq:A.7-fsum}.
+Suppose a function is computed at the Matsubara frequencies, $R(\ii\omega^{\mathrm{B}}_j)$. It is turned into the retarded function by finding the function $R(z)$ that is analytic off the real axis, agrees with the computed values at every $\ii\omega^{\mathrm{B}}_j$ with $j > 0$, and falls off at infinity, and then setting $z = \omega + \ii0^+$. For an expression in closed form the continuation is a substitution, $\ii\omega^{\mathrm{B}}_j \to \omega + \ii0^+$, made after every occupation factor has been simplified with $\ee^{\ii\beta\omega^{\mathrm{B}}_j} = 1$. The order of these steps matters. The function $(\ee^{\beta z} - 1)\,h(z)$, for any analytic $h$, vanishes at every bosonic Matsubara frequency, so infinitely many analytic functions take the same values on the Matsubara points. The condition that $R(z)$ falls off at large $|z|$ removes all the functions $(\ee^{\beta z} - 1)\,h(z)$, since $\ee^{\beta z}$ grows along the real axis, and the continuation is unique~\cite{baym1961determination}. The spectral representation \cref{eq:C.5-spectral} is the form in which uniqueness is manifest: it defines one function on the whole plane off the real axis, equal to the Matsubara function on the imaginary axis and to the retarded function just above the real axis. Numerical data on the imaginary axis are a harder case. Continuation then amplifies small errors exponentially, and a rational (Pad\'e) fit to the Matsubara values, the usual tool, must be checked against sum rules such as \cref{eq:A.7-fsum}.

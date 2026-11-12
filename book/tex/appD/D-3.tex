@@ -4,13 +4,13 @@ This section derives the exponential decay of a discrete state coupled to a cont
 
 \subsection*{Exact amplitude equation}
 
-A discrete state $|i\rangle$ of energy $E_i$ is coupled by a constant perturbation $H'$ to a set of states $|f\rangle$ of energies $E_f$, which become a continuum with density $\mathcal{D}_f(E)$ as the volume grows. We assume $H'_{ii} = 0$ and $H'_{ff'} = 0$: the perturbation only connects $i$ with the continuum. A nonzero $H'_{ii}$ is a first-order shift and can be put into $E_i$; couplings within the continuum are left out of this model. With $\xi_f = E_f - E_i$, the amplitude equations \cref{eq:2.1-exact} are
+A discrete state $|i\rangle$ of energy $E_i$ is coupled by a constant perturbation $H'$ to a set of states $|f\rangle$ of energies $E_f$; the states $|f\rangle$ become a continuum with density $\mathcal{D}_f(E)$ as the volume grows. We assume $H'_{ii} = 0$ and $H'_{ff'} = 0$: the perturbation only connects $i$ with the continuum. A nonzero $H'_{ii}$ is a first-order shift and can be put into $E_i$; couplings within the continuum are left out of this model. With $\xi_f = E_f - E_i$, the amplitude equations \cref{eq:2.1-exact} are
 \begin{equation}
   \ii\,\dot c_i(t) = \sum_f H'_{if}\,\ee^{-\ii\xi_ft}\,c_f(t), \qquad
   \ii\,\dot c_f(t) = H'_{fi}\,\ee^{\ii\xi_ft}\,c_i(t),
   \label{eq:D.3-amp}
 \end{equation}
-with $c_i(0) = 1$ and $c_f(0) = 0$. The second equation integrates to $c_f(t) = -\ii H'_{fi}\int_0^t\dd t'\,\ee^{\ii\xi_ft'}c_i(t')$. Inserting this into the first gives a closed equation for $c_i$,
+with $c_i(0) = 1$ and $c_f(0) = 0$. The second equation integrates to $c_f(t) = -\ii H'_{fi}\int_0^t\dd t'\,\ee^{\ii\xi_ft'}c_i(t')$. Inserting this solution into the first equation gives a closed equation for $c_i$,
 \begin{equation}
   \begin{aligned}
   \dot c_i(t) &= -\int_0^t\dd t'\,K(t - t')\,c_i(t'), \\
@@ -18,11 +18,11 @@ with $c_i(0) = 1$ and $c_f(0) = 0$. The second equation integrates to $c_f(t) = 
   \end{aligned}
   \label{eq:D.3-kernel}
 \end{equation}
-No approximation has been made. The kernel $K$ is the Fourier transform of the product $\mathcal{D}_f\overline{|H'_{fi}|^2}$, which varies on the energy scale $E_{\mathrm{w}}$ of \cref{sec:2.1}. It therefore decays on the time scale $1/E_{\mathrm{w}}$: the continuum has a memory of that length. For the flat continuum of \cref{we:2-continuum}, with $\mathcal{D}_f\overline{|H'_{fi}|^2} = \varGamma_i/2\pi$ on $|E - E_i| < E_{\mathrm{w}}/2$ and zero outside, $K(t - t') = (\varGamma_i/\pi)\sin[E_{\mathrm{w}}(t - t')/2]/(t - t')$, which starts at $\varGamma_iE_{\mathrm{w}}/2\pi$ and oscillates away within a few $1/E_{\mathrm{w}}$.
+No approximation has been made. The kernel $K$ is the Fourier transform of the product $\mathcal{D}_f\overline{|H'_{fi}|^2}$, which varies on the energy scale $E_{\mathrm{w}}$ of \cref{sec:2.1}. The kernel therefore decays on the time scale $1/E_{\mathrm{w}}$: the continuum has a memory of that length. For the flat continuum of \cref{we:2-continuum}, with $\mathcal{D}_f\overline{|H'_{fi}|^2} = \varGamma_i/2\pi$ on $|E - E_i| < E_{\mathrm{w}}/2$ and zero outside, $K(t - t') = (\varGamma_i/\pi)\sin[E_{\mathrm{w}}(t - t')/2]/(t - t')$, which starts at $\varGamma_iE_{\mathrm{w}}/2\pi$ and oscillates away within a few $1/E_{\mathrm{w}}$.
 
 \subsection*{The Markov approximation}
 
-At times short compared with $1/E_{\mathrm{w}}$, $c_i$ has barely changed and $\dot c_i \approx -t\,K(0)$, so $|c_i|^2 \approx 1 - K(0)t^2$: the decay starts quadratically, which is the short-time behavior of \cref{we:2-continuum}. At later times, the integral in \cref{eq:D.3-kernel} only receives contributions from $t - t' \lesssim 1/E_{\mathrm{w}}$. Suppose that $c_i$ changes little over that interval, as it does when its decay rate is small compared with $E_{\mathrm{w}}$. We can then replace $c_i(t')$ by $c_i(t)$ and extend the lower limit of the integral to $-\infty$:
+At times short compared with $1/E_{\mathrm{w}}$, $c_i$ has barely changed and $\dot c_i \approx -t\,K(0)$, so $|c_i|^2 \approx 1 - K(0)t^2$: the decay starts quadratically, with the short-time behavior found in \cref{we:2-continuum}. At later times, the integral in \cref{eq:D.3-kernel} only receives contributions from $t - t' \lesssim 1/E_{\mathrm{w}}$. Suppose that $c_i$ changes little over that interval, as it does when its decay rate is small compared with $E_{\mathrm{w}}$. We can then replace $c_i(t')$ by $c_i(t)$ and extend the lower limit of the integral to $-\infty$:
 \begin{equation*}
   \dot c_i(t) = -c_i(t)\int_{-\infty}^{t}\dd t'\,K(t - t') .
 \end{equation*}
@@ -35,20 +35,20 @@ The remaining integral is a sum of terms $\int_{-\infty}^{t}\dd t'\,\ee^{-\ii\xi
   \end{split}
   \label{eq:D.3-markov}
 \end{equation}
-where $\varGamma_i$ is the golden-rule rate \cref{eq:2.1-total} and $\Delta E_i$ the level shift of \cref{eq:2.4-WW}. The equation $\dot c_i = -(\varGamma_i/2 + \ii\Delta E_i)c_i$ integrates to \cref{eq:2.4-WW}. The approximation requires $\varGamma_i \ll E_{\mathrm{w}}$, the condition under which the golden-rule window of \cref{eq:2.1-window} exists, and holds for $t \gg 1/E_{\mathrm{w}}$. The memory of the continuum is then short compared with the lifetime, and the probability to decay in the next instant is the same at every time, which defines an exponential law.
+where $\varGamma_i$ is the golden-rule rate \cref{eq:2.1-total} and $\Delta E_i$ the level shift of \cref{eq:2.4-WW}. The equation $\dot c_i = -(\varGamma_i/2 + \ii\Delta E_i)c_i$ integrates to \cref{eq:2.4-WW}. The Markov approximation requires $\varGamma_i \ll E_{\mathrm{w}}$, the condition under which the golden-rule window of \cref{eq:2.1-window} exists, and holds for $t \gg 1/E_{\mathrm{w}}$. The memory of the continuum is then short compared with the lifetime, and the probability to decay in the next instant is the same at every time; a constant decay probability per instant defines an exponential law.
 
 \subsection*{The resolvent and the corrections}
 
-The size of the corrections follows from an exact solution of \cref{eq:D.3-kernel} by Laplace transform. With $\tilde c_i(s) = \int_0^\infty\dd t\,\ee^{-st}c_i(t)$ for $\Real s > 0$, the convolution becomes a product, $s\tilde c_i - 1 = -\tilde K(s)\tilde c_i$, with $\tilde K(s) = \sum_f|H'_{fi}|^2/(s + \ii\xi_f)$. With an energy variable $z = \ii s$, measured from $E_i$, which lies in the upper half plane,
+The size of the corrections to the Markov approximation follows from an exact solution of \cref{eq:D.3-kernel} by Laplace transform. With $\tilde c_i(s) = \int_0^\infty\dd t\,\ee^{-st}c_i(t)$ for $\Real s > 0$, the convolution becomes a product, $s\tilde c_i - 1 = -\tilde K(s)\tilde c_i$, with $\tilde K(s) = \sum_f|H'_{fi}|^2/(s + \ii\xi_f)$. Define an energy variable $z = \ii s$, measured from $E_i$; for $\Real s > 0$ it lies in the upper half plane. Then
 \begin{equation}
   \tilde c_i = \frac{\ii}{z - R(z)}, \qquad R(z) = \sum_f\frac{|H'_{fi}|^2}{z - \xi_f} ,
   \label{eq:D.3-resolvent}
 \end{equation}
-and $c_i(t) = (2\pi)^{-1}\int\dd z\,\ee^{-\ii zt}\,\ii/(z - R(z))$ along a line just above the real axis~\cite[Chap.~III]{cohentannoudji1998atom}. The function $R(z)$ is analytic off the real axis; just above the axis, by \cref{eq:2.4-SP}, $R(x + \ii0^+) = \operatorname{PV}\sum_f|H'_{fi}|^2/(x - \xi_f) - \ii\pi\sum_f|H'_{fi}|^2\delta(x - \xi_f)$, which at $x = 0$ is $\Delta E_i - \ii\varGamma_i/2$. Continued below the axis through the continuum, $z - R(z)$ has a zero near $z_{\mathrm{p}} = \Delta E_i - \ii\varGamma_i/2$, as long as $R$ changes little over a range $\varGamma_i$ around $z = 0$. Closing the contour in the lower half plane picks up this pole, which gives
+and $c_i(t) = (2\pi)^{-1}\int\dd z\,\ee^{-\ii zt}\,\ii/(z - R(z))$ along a line just above the real axis~\cite[Chap.~III]{cohentannoudji1998atom}. The function $R(z)$ is analytic off the real axis; just above the axis, by \cref{eq:2.4-SP}, $R(x + \ii0^+) = \operatorname{PV}\sum_f|H'_{fi}|^2/(x - \xi_f) - \ii\pi\sum_f|H'_{fi}|^2\delta(x - \xi_f)$, which at $x = 0$ is $\Delta E_i - \ii\varGamma_i/2$. When $R$ is continued below the axis through the continuum, $z - R(z)$ has a zero near $z_{\mathrm{p}} = \Delta E_i - \ii\varGamma_i/2$, as long as $R$ changes little over a range $\varGamma_i$ around $z = 0$. Closing the contour in the lower half plane picks up the pole of $\tilde c_i$ at this zero and gives
 \begin{equation*}
   c_i(t) = r_{\mathrm{p}}\,\ee^{-\ii z_{\mathrm{p}}t} + c_i^{\mathrm{cut}}(t), \qquad r_{\mathrm{p}} = \frac{1}{1 - R'(z_{\mathrm{p}})} ,
 \end{equation*}
-plus the contribution $c_i^{\mathrm{cut}}$ of the branch points at the edges of the continuum. Since $R'$ is of order $\varGamma_i/E_{\mathrm{w}}$, the residue $r_{\mathrm{p}}$ of the pole differs from one by a relative amount of that order, and so does the decay rate, which becomes $\varGamma_i/(1 - R')$ when $R$ is expanded to first order about $z = 0$. For the flat continuum, $R(z) = (\varGamma_i/2\pi)\ln[(z + E_{\mathrm{w}}/2)/(z - E_{\mathrm{w}}/2)]$; just above $z = 0$ this is $-\ii\varGamma_i/2$, so the shift vanishes, and $R'(0) = 2\varGamma_i/(\pi E_{\mathrm{w}})$. In \cref{we:2-continuum}, $\varGamma_i/E_{\mathrm{w}} = 0.01$ and $R'(0) = 0.0064$. The survival probability is then $r_{\mathrm{p}}^2\ee^{-\varGamma_it/(1 - R')}$, which at $t = 1/\varGamma_i$ exceeds $\ee^{-1}$ by $0.0023$, \SI{0.4}{\percent} of the depletion: this is the deviation from $1 - \ee^{-\varGamma_it}$ that the exact solution of that model shows once the short-time transient has died out. The branch-point contribution falls off as a power of $1/(E_{\mathrm{w}}t)$ with a prefactor of order $\varGamma_i/E_{\mathrm{w}}$. It overtakes the exponential only after many lifetimes, when the survival probability is already exponentially small, and it affects no rate in this book.
+plus the contribution $c_i^{\mathrm{cut}}$ of the branch points at the edges of the continuum. Since $R'$ is of order $\varGamma_i/E_{\mathrm{w}}$, the residue $r_{\mathrm{p}}$ of the pole differs from one by a relative amount of that order, and so does the decay rate, which becomes $\varGamma_i/(1 - R')$ when $R$ is expanded to first order about $z = 0$. For the flat continuum, $R(z) = (\varGamma_i/2\pi)\ln[(z + E_{\mathrm{w}}/2)/(z - E_{\mathrm{w}}/2)]$; just above $z = 0$ the function $R$ equals $-\ii\varGamma_i/2$, so the level shift vanishes, and $R'(0) = 2\varGamma_i/(\pi E_{\mathrm{w}})$. In \cref{we:2-continuum}, $\varGamma_i/E_{\mathrm{w}} = 0.01$ and $R'(0) = 0.0064$. The survival probability is then $r_{\mathrm{p}}^2\ee^{-\varGamma_it/(1 - R')}$, which at $t = 1/\varGamma_i$ exceeds $\ee^{-1}$ by $0.0023$, or \SI{0.4}{\percent} of the depletion. The exact solution for the flat continuum of \cref{we:2-continuum} deviates from the depletion $1 - \ee^{-\varGamma_it}$ by this amount once the short-time transient has died out. The branch-point contribution falls off as a power of $1/(E_{\mathrm{w}}t)$ with a prefactor of order $\varGamma_i/E_{\mathrm{w}}$. It overtakes the exponential only after many lifetimes, when the survival probability is already exponentially small, and it affects no rate in this book.
 
 \subsection*{The line shape}
 
@@ -57,7 +57,7 @@ With \cref{eq:2.4-WW}, the amplitude of a final state is
   c_f(t) = -\ii H'_{fi}\int_0^t\dd t'\,\ee^{\ii(\xi_f - \Delta E_i)t' - \varGamma_it'/2}
   \;\xrightarrow{\;t\to\infty\;}\; \frac{H'_{fi}}{E_f - E_i - \Delta E_i + \ii\varGamma_i/2} ,
 \end{equation*}
-whose square is \cref{eq:2.4-lorentz}. This Lorentzian is the natural line shape of the emitted radiation when the continuum is that of the photon modes~\cite{weisskopf1930berechnung}.
+whose square is \cref{eq:2.4-lorentz}. This Lorentzian is the natural line shape of the emitted radiation when the continuum consists of the photon modes~\cite{weisskopf1930berechnung}.
 
 \subsection*{A decaying intermediate state}
 
@@ -65,7 +65,7 @@ Finally, let a state $|i\rangle$ be coupled weakly, by a constant $H_1$, to a st
 \begin{equation*}
   \dot c_m(t) = -\ii\,(H_1)_{mi}\,\ee^{\ii(E_m - E_i)t} - \Bigl(\frac{\varGamma_{\mathrm{w}}}{2} + \ii\Delta E_m\Bigr)c_m(t) ,
 \end{equation*}
-in which the decay term is the Markov form of the coupling to the continuum, valid under the same conditions as before. Its solution with $c_m(-\infty) = 0$ is
+in which the decay term is the Markov form of the coupling to the continuum, valid under the conditions of the Markov approximation. The solution of this equation with $c_m(-\infty) = 0$ is
 \begin{equation}
   c_m(t) = -\ii\,(H_1)_{mi}\int_{-\infty}^t\dd t_2\,\ee^{\ii(E_m - E_i)t_2}\,\ee^{-(\varGamma_{\mathrm{w}}/2 + \ii\Delta E_m)(t - t_2)}
   = \frac{(H_1)_{mi}\,\ee^{\ii(E_m - E_i)t}}{E_i - \tilde E_m + \ii\varGamma_{\mathrm{w}}/2} ,
@@ -76,4 +76,4 @@ with $\tilde E_m = E_m + \Delta E_m$. The free propagation $\ee^{-\ii E_m(t - t_
   c_f(t) = -\ii\int_{-\infty}^t\dd t_1\,(H_2)_{fm}\,\ee^{\ii(E_f - E_m)t_1}\,c_m(t_1)
   = -\ii\,\frac{(H_2)_{fm}(H_1)_{mi}}{E_i - \tilde E_m + \ii\varGamma_{\mathrm{w}}/2}\int_{-\infty}^t\dd t_1\,\ee^{\ii(E_f - E_i)t_1} ,
 \end{equation*}
-which has the form of the second-order amplitude of \cref{sec:2.4} with the replacement \cref{eq:2.4-width}, and leads to \cref{eq:2.4-golden2} for the rate. The derivation needs a weak drive, $|(H_1)_{mi}| \ll |E_i - \tilde E_m + \ii\varGamma_{\mathrm{w}}/2|$, so that the population $|c_m|^2$ stays small and $i$ is not depleted; on resonance this reads $|(H_1)_{mi}| \ll \varGamma_{\mathrm{w}}/2$. It also evaluates $\varGamma_{\mathrm{w}}$ and $\Delta E_m$ at the energy of $m$. Strictly, the resolvent gives them at the energy $E_i$ at which $m$ is passed through. The two agree when the decay continuum of $m$ varies little between $E_m$ and $E_i$, which always holds near resonance, where the width matters.
+which has the form of the second-order amplitude of \cref{sec:2.4} with the replacement \cref{eq:2.4-width}, and leads to \cref{eq:2.4-golden2} for the rate. The derivation needs a weak drive, $|(H_1)_{mi}| \ll |E_i - \tilde E_m + \ii\varGamma_{\mathrm{w}}/2|$, so that the population $|c_m|^2$ stays small and $i$ is not depleted; on resonance the condition reads $|(H_1)_{mi}| \ll \varGamma_{\mathrm{w}}/2$. The derivation also evaluates $\varGamma_{\mathrm{w}}$ and $\Delta E_m$ at the energy $E_m$ of $m$, whereas strictly the resolvent gives them at the energy $E_i$ at which $m$ is passed through. The values at $E_m$ and at $E_i$ agree when the decay continuum of $m$ varies little between $E_m$ and $E_i$, a condition that always holds near resonance, where the width matters.
