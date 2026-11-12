@@ -1,8 +1,8 @@
 """Chapter map of Chap. 15 (fig:15-map): superconductors, from the BCS state and conserving response of Sect. 7.2
-and the master rate of Sect. 8.2 through the conserving density response, the bare quasiparticle bubble and the
-Lindhard function (Sect. 15.1), the resummed edge (15.2), films and disorder (15.3) and absorption (15.4).
+and the master rate of Sect. 8.2 through the conserving density response, the case-I factor with normal screening and the
+Lindhard function (Sect. 15.1), the kinematic edge (15.2), films and disorder (15.3) and absorption (15.4).
 Style of Fig. 1.8 via figscripts/chapmap.py.  No numbers are plotted; tags give section numbers and the Limit Check
-numbers the chapter plans in order (Limit Check 15.1 = lim:15.1a, 15.2 = lim:15.2a, 15.3 = lim:15.4a).
+numbers the chapter plans in order (Limit Check 15.1 = lim:15.1a, 15.2 = lim:15.4a).
 Rerun if the later sections change their boxes.  Output: tex/figures/ch15/map15.pdf.
 """
 import os
@@ -22,27 +22,27 @@ N = {
     "cons": dict(x=X, y=y(1), w=W, title="Conserving density response", h=H2,
                  body="quasiparticle bubble + pair-field ladder," "\n" "screened by the Coulomb interaction",
                  tag="Sect. 15.1; Limit Check 15.1"),
-    "bare": dict(x=X, y=y(2), w=W, title="Bare quasiparticle bubble", h=H2,
-                 body="case-I coherence factor in Im$\\,\\varepsilon$;" "\n" "first-order shift of Re$\\,\\varepsilon$",
+    "bare": dict(x=X, y=y(2), w=W, title=r"Case-I factor, $\mathfrak{g}_{\mathrm{I}}L^{\mathrm{nor}}$", h=H2,
+                 body="case-I coherence factor in Im$\\,\\varepsilon$;" "\n" "screening of the normal metal",
                  tag="Sect. 15.1"),
     "lin": dict(x=X, y=y(3), w=W, title="Lindhard loss function", h=H2,
                 body="normal metal, no gap;" "\n" "pair breaking as electron-hole pairs",
                 tag="Sect. 15.1"),
     "abs": dict(x=XR, y=y(0), w=WR, shade="light", title="Absorption", h=H2,
                 body="Mattis-Bardeen and" "\n" "phonon-assisted (Holstein)",
-                tag="Sect. 15.4; Limit Check 15.3"),
+                tag="Sect. 15.4; Limit Check 15.2"),
     "edge": dict(x=XR, y=y(1), w=WR, shade="light", title="Kinematic edge", h=H2,
-                 body="screening resummed on" "\n" r"the line $q = \omega/v_{\mathrm{max}}$",
-                 tag="Sect. 15.2; Limit Check 15.2"),
+                 body="conserving response on" "\n" r"the line $q = \omega/v_{\mathrm{max}}$",
+                 tag="Sect. 15.2"),
     "film": dict(x=XR, y=y(2), w=WR, shade="light", title="Films and disorder", h=H2,
                  body="relaxation-time forms;" "\n" "the dirty limit",
                  tag="Sect. 15.3"),
 }
 E = [
     ("in", "cons", "density row of the master rate;" "\n" "time-dependent mean field"),
-    ("cons", "bare", "drop the pair-field ladder"),
+    ("cons", "bare", "drop the ladder, keep" "\n" r"the normal Re$\,\varepsilon$"),
     ("bare", "lin", r"$\Delta_{\mathrm{BCS}} \to 0$"),
-    ("cons", "edge", "resum the" "\n" "screening", dict(start="right", end="left", side="above")),
+    ("cons", "edge", "on the" "\n" "edge", dict(start="right", end="left", side="above")),
     ("cons", "abs", "current vertex," "\n" r"$q \to 0$", dict(start="right", end="left", side="left", sfrac=0.75,
                                                              efrac=0.4, dx=0.1, dy=0.3)),
     ("cons", "film", "add impurity" "\n" "scattering", dict(start="right", end="left", side="below", sfrac=0.25,

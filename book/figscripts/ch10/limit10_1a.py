@@ -194,7 +194,7 @@ plt.rcParams.update({"font.size": 9, "axes.labelsize": 9, "legend.fontsize": 7.5
                      "font.family": "serif", "mathtext.fontset": "cm"})
 fig, ax = plt.subplots(figsize=(4.6, 3.0))
 norm = (wgt * S0).max()
-ax.plot(Q, wgt * S0 / norm, "k-", lw=1.4, marker="o", ms=2.5, label=r"unscreened (crystal form factor)")
+ax.plot(Q, wgt * S0 / norm, "k-", lw=1.4, marker="o", ms=2.5, label=r"independent particles")
 ax.plot(Q, wgt * Srpa / norm, color="0.45", ls=":", lw=1.3, label=r"screened, $1/|\varepsilon|^2$ only")
 ax.plot(Q, wgt * Slf / norm, color="C3", ls="--", lw=1.4, marker="s", ms=2.5, label=r"screened, with local fields")
 # validity: shade q where |LF/IP - 1| < 0.1 (none within the plotted range on (5,3,1) at 5 eV; STYLE fallback then marks the

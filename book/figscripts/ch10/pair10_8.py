@@ -203,7 +203,6 @@ def main():
     ax = axs[2]
     ax.loglog(mk / 1e3, absa, color="k", lw=1.0, label="absorption")
     ax.loglog(mk / 1e3, compa, color="C0", lw=1.2, label="dark Compton")
-    ax.loglog(mk / 1e3, compa3, color="C0", lw=0.8, ls="--", label="dark Compton,\npublished form")
     ax.set_ylabel(r"$\mathcal{R}/g_{aee}^2$  [kg$^{-1}$ yr$^{-1}$]")
     ax.set_title("(c) axion-like particle", fontsize=10.5)
     ax.legend(fontsize=10, frameon=False, loc="upper right")

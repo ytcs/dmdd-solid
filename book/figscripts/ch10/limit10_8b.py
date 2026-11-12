@@ -4,9 +4,8 @@ Panel (a) vector: the non-relativistic seagull rate sigma v = zeta^2 sigma_Th om
   compton10_8.py to be the exact tree-level QED result at every x = m/m_e (Dirac traces, 1e-12).  Leading correction
   1 - (5/8) x^3 (series of compton10_8.py); also the seagull with the exact two-body omega' = m(m + 2m_e)/2(m + m_e).
   Shaded: ratio within 1 % of one (x < 0.32).
-Panel (b) axion-like particle: arXiv:2109.08168 Eq. (3) over the tree-level rate e^2 g^2 m^2 (m + 2m_e) /
-  [16 pi m_e^2 (m + m_e)^3] (eq:10.8-alpC, compton10_8.py); and the spin-seagull rate (eq:10.8-alpNR) over it.
-  No shading: Eq. (3) differs from the tree-level result by (m + 2m_e)/(m + m_e) at every x.
+Panel (b) axion-like particle: the spin-seagull rate (eq:10.8-alpNR) over the tree-level rate
+  e^2 g^2 m^2 (m + 2m_e) / [16 pi m_e^2 (m + m_e)^3] (eq:10.8-alpC, compton10_8.py).
 Output: tex/figures/ch10/limit10_8b.pdf.
 """
 import os
@@ -48,9 +47,8 @@ def main():
     ax.legend(fontsize=8, frameon=False, loc="lower left")
     ax = axs[1]
     ax.semilogx(x, np.ones_like(x), color="k", lw=0.9, label="tree level")
-    ax.semilogx(x, Fa_3 / Fa_ex, color="C0", lw=1.3, label=r"published form: $(m_\phi + 2m_e)/(m_\phi + m_e)$")
-    ax.semilogx(x, Fa_nr / Fa_ex, color="C0", lw=0.8, ls="--", label="spin seagull, NR recoil")
-    ax.set_ylim(0.2, 2.2)
+    ax.semilogx(x, Fa_nr / Fa_ex, color="C0", lw=1.3, ls="--", label="spin seagull, NR recoil")
+    ax.set_ylim(0.2, 1.2)
     ax.set_xlabel(r"$x = m_\phi/m_e$")
     ax.set_title("(b) axion-like particle", fontsize=9)
     ax.legend(fontsize=8, frameon=False, loc="lower left")

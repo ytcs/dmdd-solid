@@ -64,8 +64,6 @@ def main():
     first = 1 + 2 * (1 - eps.real)
     ax = axs[0]
     ax.loglog(m, ratio, color="C3", lw=1.2, label=r"in medium / vacuum, $1/|\varepsilon|^2$")
-    hi = m >= 20.0
-    ax.loglog(m[hi], first[hi], color="0.4", lw=0.8, ls="--", label=r"first order, $1 + 2(1 - \varepsilon_1)$")
     ax.axhline(1.0, color="k", lw=0.8, label=r"vacuum mixing, $\zeta^2\sigma_1$")
     ok = np.abs(ratio - 1) <= 0.1
     m_asym = m[np.where(~ok)[0].max() + 1]          # the asymptotic region only (a sliver near 12.4 eV also passes)

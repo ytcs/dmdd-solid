@@ -5,7 +5,6 @@ function of q/q_c with q_c = 2.60 keV (exact zero of eps_Lin on the continuum ed
   * literature pole formula: L = (pi omega_pl/2) Z_L delta(omega - omega_pl) with omega_pl^2 = omega_p^2 + (3/5)q^2 v_F^2
     and Z_L = 1 - (3/5) q^2 v_F^2/omega_p^2 (Kozaczuk-Lin arXiv:2003.12077 Eqs. (5), (7)); first moment over the f-sum
     = omega_pl^2 Z_L/omega_p^2, drawn up to its own cutoff 2.24 keV where omega_pl meets omega_+ = q v_F + q^2/2m_e;
-    the constant optical line shape used up to 5 keV by Kurinsky et al. arXiv:2002.06937 Eqs. (4), (14) has share 1;
   * fuller result: the pole of the exact Lindhard function, 2 omega_pl/(omega_p^2 d eps_1/d omega), ending at q_c;
   * halo reach: first moment of L below omega = q v_max (m_chi -> infinity, the widest reach), for the gas (Lindhard
     continuum; the pole is above the reach) and for the silicon RPA + LF tables (valence f-sum, omega_p = 16.6 eV).
@@ -55,7 +54,6 @@ plt.rcParams.update({"font.size": 9, "font.family": "serif", "mathtext.fontset":
 fig, ax = plt.subplots(figsize=(4.6, 2.9))
 ax.axvspan(0, 1, color="0.9", lw=0)
 ax.semilogy(x_f, sh_f, color="k", lw=1.0, ls="--", label=r"pole formula, $Z_L$, quadratic $\omega_{\mathrm{pl}}$")
-ax.semilogy([0, 5000 / QC], [1, 1], color="0.5", lw=0.8, ls=":", label="optical line shape to 5 keV")
 ax.semilogy(x_ex, sh_ex, color="k", lw=1.4, label="pole of the Lindhard function")
 ax.semilogy(xg, reach_gas, color="C0", lw=1.2, label=r"gas, $\omega \leq qv_{\max}$")
 sel = q <= 3 * QC

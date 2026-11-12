@@ -306,10 +306,6 @@ def main():
             ax[0].fill_between(w, np.abs(zz[0]) - bm, np.abs(zz[0]) + bm, color=col[name], alpha=0.15, lw=0)
         else:
             ax[0].plot(w, np.abs(zstar(name, w)[0]), color=col[name], lw=1.4, label=name)
-        for (lab, Z, A, au) in MAT[name]["sites"]:
-            if name == "GaAs" and lab == "As":
-                continue
-            ax[0].plot(w, np.abs(zatom(au, w)), color=col[name], lw=0.9, ls="--")
     ax[0].set_xscale("log"); ax[0].set_yscale("log")
     ax[0].set_xlabel(r"photon energy $\omega_\gamma$ (eV)")
     ax[0].set_ylabel(r"$|Z^*_\kappa(\omega_\gamma)|$")
@@ -319,8 +315,7 @@ def main():
     m = 100e6
     for name in ["Si", "GaAs"]:
         w, cr, at = res[(m, name)]
-        ax[1].plot(w, cr, color=col[name], lw=1.4, label=f"{name}, crystal")
-        ax[1].plot(w, at, color=col[name], lw=0.9, ls="--", label=f"{name}, atoms")
+        ax[1].plot(w, cr, color=col[name], lw=1.4, label=name)
         if name == "GaAs":
             ax[1].fill_between(w, res[(m, name, "dn")], res[(m, name, "up")], color=col[name], alpha=0.15, lw=0)
     ax[1].set_xscale("log"); ax[1].set_yscale("log")

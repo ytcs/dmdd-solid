@@ -103,7 +103,7 @@ def main():
     ax.axvspan(0, 0.1, color="0.9", lw=0)
     ax.fill_between(vv, (1 - vv**2)**2, 1, color="C0", alpha=0.08, lw=0)
     ax.plot(vv, (1 - vv**2)**2, color="C0", lw=0.8, ls=":", label=r"bound $(1 - v^2)^2$")
-    ax.axhline(1, color="0.45", lw=0.8, label="source form")
+    ax.axhline(1, color="0.45", lw=0.8, label="without retardation factor")
     ax.plot(vs, rh, color="C3", lw=1.6, ls=(0, (6, 2)), label="exact density row, heavy")
     ax.plot(vs, rl, color="C3", lw=1.2, ls="--", label="exact density row, light")
     ax.plot(vs, rt, color="k", lw=1.2, ls="-.", label="density + transverse, light")

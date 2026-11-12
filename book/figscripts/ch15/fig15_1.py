@@ -53,7 +53,6 @@ for ax, q, lab in zip(axs, qs, "ab"):
     ax.axvline(2 * D * 1e3, color="0.6", lw=0.6, ls=":")
     ax.plot(ws * 1e3, L[:, 3], color="k", lw=1.0, label=r"Lindhard $L^{\mathrm{nor}}$")
     ax.plot(ws * 1e3, L[:, 2], color="#1f5fa8", lw=1.0, label=r"$\mathfrak{g}_{\mathrm{I}}L^{\mathrm{nor}}$")
-    ax.plot(ws * 1e3, L[:, 1], color="#c0392b", lw=1.0, ls="--", label="bare bubble")
     ax.plot(ws * 1e3, L[:, 0], color="#c0392b", lw=1.6, label="conserving")
     ax.set_xlim(0, ws[-1] * 1e3)
     ax.set_ylim(0, 1.15 * np.max(L[ws <= wmax]))

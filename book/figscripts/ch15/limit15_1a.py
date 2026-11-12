@@ -82,10 +82,9 @@ fig, ax = plt.subplots(figsize=(4.6, 3.1))
 ax.axvspan(ylo, 50, color="0.88", lw=0)
 cols = ["#c0392b", "#1f5fa8", "k"]
 labs = ["bare bubble", r"$\mathfrak{g}_{\mathrm{I}}L^{\mathrm{nor}}$", r"Lindhard $L^{\mathrm{nor}}$"]
-for j in range(3):
+for j in (1, 2):
     ax.plot(ys, res[1.0][:, j], color=cols[j], lw=1.4, label=labs[j])
     ax.plot(ys, res[4.0][:, j], color=cols[j], lw=0.9, ls="--")
-ax.plot(ys, res[1.0][:, 3], color=cols[0], lw=1.0, ls=":", label="first order")
 ax.axhline(1, color="0.5", lw=0.6)
 ax.set_xscale("log")
 ax.set_xlim(2, 50)
