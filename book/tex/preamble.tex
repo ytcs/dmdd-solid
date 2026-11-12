@@ -59,4 +59,16 @@
     title={Worked example \theworkedexample: #1}]}{\end{tcolorbox}\par\medskip}
 \crefname{workedexample}{Worked example}{Worked examples}
 \setlength{\emergencystretch}{1.5em}% third pass only for paragraphs that would otherwise overflow
+% Cross-volume references. Chapter numbers and appendix letters run through the three volumes, so a reference to
+% another volume prints as an ordinary number. xref/<jobname>.tex holds the labels of the other two volumes
+% (written by tools/xref.py from their .aux files); a label defined in this volume always wins.
+\makeatletter
+\newcommand{\xrlabel}[2]{\@ifundefined{r@#1}{\global\@namedef{r@#1}{#2}}{}}
+\providecommand{\xreffile}{xref/\jobname.tex}
+\AtBeginDocument{\InputIfFileExists{\xreffile}{}{}}
+% Volume title page and driver helpers: \volume{I}{1}{Foundations}
+\newcommand{\volume}[3]{\def\volnumeral{#1}\def\volid{#2}\def\voltitle{#3}%
+  \title{Dark Matter Detection in Solids\\[2.5ex]{\LARGE Volume #1}\\[1.5ex]{\LARGE #3}}%
+  \author{Claude\\[0.5ex]{\normalsize Edited by To Chin Yu}}\date{}}
+\makeatother
 \input{macros}
