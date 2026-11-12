@@ -18,6 +18,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import volumes as V  # noqa: E402
 
 SRC = V.TEX / "appB" / "B-1.tex"
+# First-use labels of the one-volume edition whose sections were folded into chapters in the three-volume edition.
+MOVED = {"app:D.15": "sec:5.6", "app:D.17": "sec:6.4", "app:D.18": "sec:6.5", "app:D.19": "sec:7.1",
+         "app:D.29": "sec:10.1", "app:D.41": "sec:16.1"}
 NUM = {"vol1": "I", "vol2": "II", "vol3": "III"}
 
 
@@ -31,6 +34,7 @@ def main():
     if stray:
         sys.exit("rows without a first-use label:\n" + "\n".join(stray))
     home = V.label_home()
+    dropped = set()
     for vol in V.VOLS:
         order = {}      # label -> (chapter index, position in chapter)
         chlabel = []
@@ -44,8 +48,12 @@ def main():
         by_ch = defaultdict(list)
         for k, row in enumerate(rows):
             lab = re.findall(r"\\labelcref\{([^}]+)\}", row)[-1]
+            if lab in MOVED:
+                row = row.replace("\\labelcref{%s}" % lab, "\\labelcref{%s}" % MOVED[lab])
+                lab = MOVED[lab]
             if lab not in home:
-                sys.exit(f"label {lab} of a symbol row is in no volume")
+                dropped.add(row)
+                continue
             if lab in order:
                 ci, pos = order[lab]
                 by_ch[ci].append((pos, k, row))
@@ -67,6 +75,10 @@ def main():
         out += tail
         (V.TEX / "appB" / f"B-1-{vol}.tex").write_text("\n".join(out) + "\n")
         print(f"{vol}: {n} symbol rows in {len(by_ch)} groups")
+    if dropped:
+        print(f"{len(dropped)} rows dropped: first-use section no longer exists (update NOTATION.md and rerun gen_B1.py)")
+        for row in sorted(dropped):
+            print("   ", row[:120])
 
 
 if __name__ == "__main__":
