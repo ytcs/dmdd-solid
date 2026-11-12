@@ -4,9 +4,9 @@
 
 | Volume | Title | Contents | Pages |
 |---|---|---|---|
-| I | Foundations | Chaps. 1–8 (light dark matter; transition rates; electrons in crystals, with density-functional theory; linear response; lattice dynamics; electron–phonon coupling; magnets, superconductors, Dirac materials and defects; the response framework); Apps. A (conventions), B (notation), C (mathematical tools), D (long derivations) | 602 |
+| I | Foundations | Chaps. 1–8 (light dark matter; transition rates; electrons in crystals, with density-functional theory; linear response; lattice dynamics; electron–phonon coupling; magnets, superconductors, Dirac materials and defects; the response framework); Apps. A (conventions), B (notation), C (mathematical tools), D (long derivations) | 600 |
 | II | Signals and Detection | Part Signals: Chaps. 9–17 (channel atlas; electronic and lattice excitations; Migdal effect; phonon-assisted electron recoil; magnetic excitations; superconductors; novel targets; comparison across channels). Part Detection: Chaps. 18–22 (ionization yield; low-energy nuclear recoils; readout; exclusion limits and next targets; open problems); Apps. A, B, E (long derivations), F (index of literature formulas) | 806 |
-| III | Computations | Part Methods: Chaps. 23–29 (DFT in practice; pseudopotentials and core states; phonons from first principles; dielectric response and form factors; Wannier interpolation; magnets, superconductors and defects; recoils, transport and cascades). Part Specifications: Chaps. 30–33 (lattice and special targets; electronic and mixed channels; detector response and inputs; libraries and open calculations); Apps. A, B | 248 |
+| III | Computations | Part Methods: Chaps. 23–29 (DFT in practice; pseudopotentials and core states; phonons from first principles; dielectric response and form factors; Wannier interpolation; magnets, superconductors and defects; recoils, transport and cascades). Part Specifications: Chaps. 30–33 (lattice and special targets; electronic and mixed channels; detector response and inputs; libraries and open calculations); Apps. A, B | 246 |
 
 The one-volume edition (commit 7696d03, 1842 pages) is superseded. Build: `./build.sh [OUTDIR]`; releases in releases/vol*.pdf.
 
