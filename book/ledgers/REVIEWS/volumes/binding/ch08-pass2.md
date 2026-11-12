@@ -13,13 +13,13 @@ Method. I reread every paragraph of the nine files whole, changed or not: body t
 | ch08.tex | 6 (16.7) | 6 (16.5) | 1 |
 | s8-1.tex | 83 (20.7) | 79 (19.6) | 17 |
 | s8-2.tex | 70 (19.4) | 65 (18.0) | 15 |
-| s8-3.tex | 83 (20.2) | 80 (19.4) | 19 |
-| s8-4.tex | 98 (23.2) | 89 (20.9) | 22 |
+| s8-3.tex | 83 (20.2) | 79 (19.2) | 19 |
+| s8-4.tex | 98 (23.2) | 90 (21.2) | 22 |
 | s8-5.tex | 94 (25.7) | 92 (25.1) | 15 |
-| s8-6.tex | 133 (21.1) | 125 (19.7) | 31 |
-| s8-7.tex | 86 (23.2) | 82 (22.1) | 12 |
-| s8-8.tex | 81 (23.4) | 77 (22.1) | 15 |
-| total | 734 | 695 | 147 |
+| s8-6.tex | 133 (21.1) | 126 (19.9) | 31 |
+| s8-7.tex | 86 (23.2) | 83 (22.3) | 12 |
+| s8-8.tex | 81 (23.4) | 77 (22.1) | 14 |
+| total | 734 | 697 | 146 |
 
 Most of the ranker's remaining flags are definite noun phrases with a named antecedent, and long sentences that carry math. I read them and left them as they are, as the first pass did.
 
@@ -64,8 +64,9 @@ Other recurring repairs:
 
 - s8-1:22. Rewriting "Dark matter with an electric dipole moment that couples through a photon-like mediator" kept the original scope: "when it couples through a photon-like mediator" stays on the electric-dipole clause and does not spread to the magnetic-dipole and anapole clauses.
 - s8-6:118. "Whether the split … means anything depends on where ω lies" became "The split … may or may not mean anything, depending on where ω lies". This keeps the possibility that the split has no meaning, which "the meaning of the split depends …" would have dropped.
-- s8-7:116. "The identification of the prompt pair with the out-state … is derived only within …" became "The prompt pair is identified with the out-state … only within …". The restriction to time-dependent mean-field linear response is kept.
+- s8-7:116. "The identification of the prompt pair with the out-state … is derived only within …" (a 10-word subject) became "We have derived the identification of the prompt pair with the out-state … only within …". Both the restriction to time-dependent mean-field linear response and the word *derived* are kept.
 - s8-4:149. "there" became "at \SI{3}{eV}", repeating the energy that the previous sentence states. invariant.py reports this only as a repeat count, not as a STOP.
+- Self-check after an advisor read of my own diffs. Five rewrites had created new attachment problems, and I fixed them: s8-1:87, s8-3:76, s8-4:32, s8-6:155 and s8-8:83. Three had shifted a claim's strength, and I restored it: s8-3:33 ("sensitive to an approximation", not "reveal any"), s8-6:72 ("Where a Migdal amplitude and an electron recoil reach the same final state, their interference …") and s8-7:116. Two splits had left new sentences opening on *It*; s8-4:124 and s8-6:194 are now joined by semicolons. s8-8:24 was reverted to the original, since its 12-word subject is plain coordinated nouns with no clause. In s8-4:71, Sect. 10.2 bounds the electronic rate, so "the sum-rule bound on the electronic rate" is the right binding.
 - Left as they are:
   - short restrictive relatives in subjects of at most about seven words, e.g. "Papers that normalize their states relativistically quote …" (s8-1:20) and "A phonon line that itself cuts the diagram in two is not a Coulomb line" (s8-4:139);
   - the reviewer's accepted "the phonon energies that are read off its thresholds" (s8-5:3);
@@ -73,7 +74,7 @@ Other recurring repairs:
 
 ## Checks
 
-- invariant.py 60cc72c on all nine files, after the last edit: 0 STOP. The `note` lines are repeat counts of existing items and the `\cref`s that the first pass added. This pass adds no `\cref`, symbol, number or label that was not already in the file.
+- invariant.py 60cc72c on all nine files, after the last edit: 0 STOP. The `note` lines are repeat counts of existing items and the `\cref`s that the first pass added. This pass adds one `\cref` to an existing label, `\cref{eq:8.1-omega}` at s8-1:193 ("With the energy of χ₂ expanded …, \cref{eq:8.1-omega} becomes"), which replaces a gerund subject. It adds no symbol, number or label that was not already in the file.
 - Lint (BANNED-TERMS): each file was compared with its own pre-pass copy, and I added no new hit. Two LONG-SENT hits that my edits created were removed:
   - s8-3 "We collect …": the pronoun was restored, since it binds to the subject of the previous clause;
   - s8-4 spin-current clause: the sentence was split at the semicolon.
