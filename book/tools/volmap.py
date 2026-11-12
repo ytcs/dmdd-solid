@@ -29,7 +29,8 @@ def rows(build):
         for line in text:
             if line.startswith("\\newlabel{") and "@cref}" in line:
                 g = groups(line[len("\\newlabel"):])
-                kind[g[0][:-5]] = re.match(r"\{?\[([a-z]+)\]", g[1]).group(1)
+                m = re.search(r"\[([^\]]+)\]", g[1])
+                kind[g[0][:-5]] = m.group(1) if m else ""
         for line in text:
             if not line.startswith("\\newlabel{"):
                 continue
