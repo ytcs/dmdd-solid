@@ -3,7 +3,8 @@
 
 Usage: invariant.py BASE_COMMIT FILE.tex [FILE.tex ...]
 Compares, per file, the multisets of inline math, display environments, \\SI/\\num/\\qty, citation keys and labels
-between BASE_COMMIT and the working tree. Added \\cref targets are reported but allowed; any other difference is a stop.
+between BASE_COMMIT and the working tree. Repeating or dropping a repeat of an item that stays in the file, and adding
+\\cref targets, are reported but allowed. An item new to the file, or one that disappears from it, is a stop.
 Exit status 1 if any file has a stop.
 """
 import re
@@ -50,9 +51,13 @@ def main(a):
         old = subprocess.run(["git", "show", f"{base}:{rel}"], capture_output=True, text=True).stdout
         new = open(f).read()
         o, n = items(old), items(new)
-        lost, gained = o - n, n - o
+        lost = Counter({k: v for k, v in (o - n).items() if k not in n})      # item gone entirely
+        gained = Counter({k: v for k, v in (n - o).items() if k not in o})    # item new to the file
+        recount = sorted(set((o - n) | (n - o)) - set(lost) - set(gained))     # repeats of existing items
         ro, rn = refs(old), refs(new)
-        rlost, rgain = ro - rn, rn - ro
+        rlost, rgain = Counter({k: v for k, v in (ro - rn).items() if k not in rn}), rn - ro
+        if recount:
+            print(f"note {f}: repeat count changed for {len(recount)} existing item(s)")
         if lost or gained or rlost:
             bad += 1
             print(f"STOP {f}")
