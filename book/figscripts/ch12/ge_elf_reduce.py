@@ -4,7 +4,7 @@
 Source (public data, not computed here): S. Knapen, J. Kozaczuk, T. Lin, Phys. Rev. D 104, 015031 (2021),
 arXiv:2101.08275, Sect. III B (GPAW, 3d electrons in the frozen core, scissor to the measured gap); distributed with
 DarkELF (arXiv:2104.12786), github.com/tongylin/DarkELF commit 2f01cd5501d8f9c0dfdc3a011973dab9da718498, files
-data/Ge/Ge_gpaw_noLFE.dat and data/Ge/Ge_gpaw_withLFE.dat (downloaded 2026-11-02, 47 MB each, not kept).
+data/Ge/Ge_gpaw_noLFE.dat and data/Ge/Ge_gpaw_withLFE.dat (47 MB each, not kept).
 Columns: omega [eV], k [eV], eps1, eps2.  Same reduction as figscripts/ch10/si_elf_reduce.py: r_RPA = Im(-1/eps_noLF),
 r_LF = Im(-1/eps_LF), r_IP = eps2_noLF, averaged over |q| in 100-eV bins from 400 eV to 22.6 keV.
 Output: figscripts/ch12/ge_elf_binned.npz.   Usage: python ge_elf_reduce.py <dir with the two .dat files>

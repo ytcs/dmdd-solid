@@ -14,8 +14,8 @@ below a few keV, but not the large-p tails that matter here.
 
 Kinematic openings (vertical lines): a transition from a shell at depth E_core below the valence-band maximum needs
 omega >= E_g + E_core, hence q >= omega / v_max (Eq. 1.3-vmin with q/2m_chi > 0), v_max = 2.650e-3 (Sect. 1.3).
-E_core relative to the valence maximum, X-Ray Data Booklet Table 1-1 (Williams 2009), extract in
-sources/3.5/xdb_table1-1.txt: Si 2p3/2 99.42 (quoted 99.4), 2s 149.7 (quoted 150), 1s 1839 eV; Ge 3d5/2 29.2
+E_core relative to the valence maximum, X-Ray Data Booklet Table 1-1 (Williams 2009):
+Si 2p3/2 99.42 (quoted 99.4), 2s 149.7 (quoted 150), 1s 1839 eV; Ge 3d5/2 29.2
 (quoted 29), 3p3/2 120.8, 3s 180.1, 2p3/2 1217.0 eV. Gaps 1.17 eV (Si) and 0.744 eV (Ge), low temperature (Sect. 3.3).
 Unit: 1 bohr^-1 = alpha m_e = 3.72894 keV (CODATA).
 """

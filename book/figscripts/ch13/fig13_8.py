@@ -13,8 +13,8 @@ Model inputs (all as in fig13_5.py, Sect. 13.5, a labelled model, not a computat
   w_TA = 18.27 meV, w_TO = 57.73 meV (Macfarlane et al. 1958; Sect. 6.5); C_TA : C_TO = 5.5 : 4.0 (Rajkanan et al. 1979 via
   Stanford et al. arXiv:2010.15844 after Eq. (4)).
   E_x^b = 14.7 meV (Shaklee and Nahory 1970; Sect. 4.9), the same for the heavy- and light-hole copies (simplification).
-  One overall scale per model, fitted to the measured 300 K absorption (Franta et al. 2017, book/sources/4.4/
-  si_franta_300K.yml) by the geometric mean of data/model on 1.18 <= w <= 1.30 eV, exactly as in fig13_5.py.
+  One overall scale per model, fitted to the measured 300 K absorption (Franta et al. 2017, refractiveindex.info
+  Franta-300K.yml) by the geometric mean of data/model on 1.18 <= w <= 1.30 eV, exactly as in fig13_5.py.
 Comparison at T -> 0: the fit of Stanford et al. to their 0.5 K data (arXiv:2010.15844 Eqs. (4)-(7)): alpha =
   sum_i C_i c0 (w - E_g1 - w_i)^2 with c0 = 325 eV^-2 cm^-1, E_g1(0) = 1.134 eV, C_TA = 5.5, C_TO = 4.0 (second indirect gap
   2.5 eV and the direct term negligible below 1.4 eV); their lowest photon energy is 1.21 eV (1028 nm).
@@ -133,7 +133,7 @@ for xm in (-14.7, -10, -5, -3.675):
 
 # ------------------------------------------------------------- data and fitted scales (as fig13_5.py)
 rows = []
-for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
     p = line.split()
     if len(p) == 3:
         try:

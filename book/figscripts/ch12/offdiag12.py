@@ -1,6 +1,6 @@
 """Off-diagonal G != G' elements of the inverse dielectric matrix in the crystal Migdal rate of silicon (Sect. 12.3,
-eq:12.1-Skk, eq:12.3-FL; DEFERRED-COMPUTE "Off-diagonal eps^-1_GG' in the crystal Migdal rate"; editor-notes R1').
-A cheap model bracket, not the first-principles calculation (which stays deferred).
+eq:12.1-Skk, eq:12.3-FL).
+A cheap model bracket, not the first-principles calculation (which is not done here).
 
 Question: by how much does the full matrix change the soft-limit Migdal rate relative to the diagonal-only form the book
 uses (Limit 12.3a: diagonal of eps^-1 with local fields)?
@@ -36,7 +36,7 @@ Validation printed: (iii)/(ii) total and p-resolved against limit12_3a.log (1.35
   3 q_BZ); model per-p weight and P_Mig(E_R = 100 eV) against the KKL table (mig12: 6.1e-3 with Z_ion(p)).
 Run: NK=8 GM=19 python3 offdiag12.py > run.log   (env NK, GM, NC, ETA, ECUT, QG0, ROTCHECK, CHUNK, NTH, ZFIX). offdiag12.log
   collects the 11 runs of the convergence study (NK 4-10, |G|^2 <= 11-35, ECUT 21-40, ETA 0.15/0.3) with a summary table
-  and the extrapolation used in ledgers/REVIEWS/ch12/editor-notes.md. Main run NK=8 GM=19: about 16 min on one core.
+  and the extrapolation of the convergence study. Main run NK=8 GM=19: about 16 min on one core.
 """
 import os
 NTH = os.environ.get("NTH", "4")

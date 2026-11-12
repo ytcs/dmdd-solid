@@ -21,7 +21,7 @@ Sources compared (arXiv:2109.08168v2, PDF equation numbers):
 Non-relativistic forms derived in the text:
   vector (seagull, NR recoil): sigma v = zeta^2 sigma_Th omega'/(m (1 + omega'/me)),  omega' + omega'^2/2me = m
   ALP (spin seagull):          sigma v = e^2 g^2 m omega' / (8 pi me^4 (1 + omega'/me)), same omega'
-Silicon and germanium numbers: XCOM photoelectric cross sections (sources/10.8/xcom_si.txt, xcom_ge.txt), Z/A
+Silicon and germanium numbers: NIST XCOM photoelectric cross sections (files xcom_si.txt, xcom_ge.txt), Z/A
   from standard atomic weights (Si 28.0855, Ge 72.630); rho_chi = 0.3 GeV cm^-3 (Sect. 1.2).
 Output: printed log (compton10_8.log).
 """
@@ -232,7 +232,7 @@ def main():
     uamu_g = 1.66053907e-24
     rho_chi = 0.3e6  # keV cm^-3
     for el, Z, A, fn_ in (("Si", 14, 28.0855, "xcom_si.txt"), ("Ge", 32, 72.630, "xcom_ge.txt")):
-        d = np.loadtxt(f"/home/user/dmdd-solid/book/sources/10.8/{fn_}", comments="#")
+        d = np.loadtxt(f"/home/user/dmdd-solid/book/figscripts/data/10.8/{fn_}", comments="#")
         Emev, coh, incoh, pe = d[:, 0], d[:, 1], d[:, 2], d[:, 3]
         mupe = np.exp(np.interp(np.log(0.1), np.log(Emev), np.log(pe)))     # cm^2/g at 100 keV
         mu_inc = np.exp(np.interp(np.log(0.1), np.log(Emev), np.log(incoh)))
@@ -262,7 +262,7 @@ def extra():
     """Numbers quoted in the text that are not printed above."""
     EK_GE = 11103.0          # eV, Ge K edge (XCOM)
     print(f"\nomega_C = Ge K binding (11.1 keV) at m = {(EK_GE + np.sqrt(EK_GE**2 + 2*EK_GE*ME))/1e3:.1f} keV")
-    d = np.loadtxt("/home/user/dmdd-solid/book/sources/10.8/xcom_si.txt", comments="#")
+    d = np.loadtxt("/home/user/dmdd-solid/book/figscripts/data/10.8/xcom_si.txt", comments="#")
     Emev, tot = d[:, 0], d[:, 6]
     wg = 91.817e-3
     mu = np.exp(np.interp(np.log(wg), np.log(Emev), np.log(tot)))

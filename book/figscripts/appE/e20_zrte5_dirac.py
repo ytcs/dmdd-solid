@@ -1,4 +1,4 @@
-"""App. E.20: Dirac numbers of ZrTe5 for the measured-structure row of Sect. 16.1 (editor ruling E3).
+"""App. E.20: Dirac numbers of ZrTe5 for the measured-structure row of Sect. 16.1.
 
 Inputs (Sect. 16.1, sec:16.1-zrte5): half-gap 11.8 meV, principal velocities 1.1e-3, 4.5e-4, 1.0e-3 (units of c),
 background tensor 308.4, 20.75, 126.1, g_deg = 2. The relaxed-cell row (15.6 meV; 11, 4.4, 9.1 x 1e-4) is evaluated

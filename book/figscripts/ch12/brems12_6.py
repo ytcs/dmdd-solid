@@ -23,17 +23,17 @@ Formulas (Sect. 12.6)
       v_min = (w + q^2/2M_kappa)/q + q/2m_chi  (the prefactor structure of mig12.rate_free).
 Inputs and their sources
   Halo, eta(v_min), constants: ../ch10/rate10_2.py (v0, v_esc, v_E = 238, 544, 250.5 km/s; rho_chi = 0.3 GeV cm^-3).
-  Silicon eps(w), 300 K: Franta et al. 2017 (book/sources/4.4/si_franta_300K.yml) through ../ch10/abs10_7.eps_si.
+  Silicon eps(w), 300 K: Franta et al. 2017 (refractiveindex.info Franta-300K.yml) through ../ch10/abs10_7.eps_si.
       a = 5.431 A (Sect. 3.1).  Transparent range used: 0.1-1.1 eV (indirect gap 1.12 eV at 300 K).
   Germanium n(w), 293 K: H. H. Li, J. Phys. Chem. Ref. Data 9, 561 (1980), refractiveindex.info file Ge/nk/Li-293K.yml
-      (CC0), copy in book/sources/12.6/ge_li_293K.yml; 1.9-18 um, i.e. 0.069-0.653 eV; eps = n^2. a = 5.658 A.
+      (CC0); 1.9-18 um, i.e. 0.069-0.653 eV; eps = n^2. a = 5.658 A.
   GaAs n(w), 22 C: Skauli et al., J. Appl. Phys. 94, 6447 (2003), refractiveindex.info Ge... file GaAs/nk/Skauli.yml
-      (CC0), copy in book/sources/12.6/gaas_skauli.yml; valid 0.97-17 um, i.e. 0.073-1.28 eV; used to 1.27 eV.  The last Sellmeier
+      (CC0); valid 0.97-17 um, i.e. 0.073-1.28 eV; used to 1.27 eV.  The last Sellmeier
       term (pole at 36.9 um, the TO phonon) is the lattice part; it is kept in n_r and removed from the electronic
       eps of the sum rule.  a = 5.638 A, Z*(0) = 2.11 (WE 5.1, from the measured LO-TO splitting), masses 69.723
       and 74.922 u (Sect. 5.5).
   Atomic polarizabilities (a.u.): Si 37.3, Ga 50, Ge 40, As 30, the recommended values of Schwerdtfeger and Nagle,
-      Mol. Phys. 117, 1200 (2019), 2023 update (copy of the table in book/sources/12.6/schwerdtfeger2023_table.txt).
+      Mol. Phys. 117, 1200 (2019), 2023 update of the table.
   Si Migdal probability at E_R = 100 eV: 6.1e-3 (Sect. 12.3, mig12.py), for comparison only.
 Output: tex/figures/ch12/fig12_5.pdf
 """
@@ -56,7 +56,7 @@ U = 931.49410e6
 A0 = 0.529177                  # bohr in A
 M_N = 939.0e6                  # nucleon mass in mu_n, as mig12.py
 FIG = os.path.join(BOOK, "tex", "figures", "ch12")
-SRC = os.path.join(BOOK, "sources", "12.6")
+SRC = os.path.join(BOOK, "figscripts", "data", "12.6")
 LAM2W = 1.239841984            # eV um
 
 

@@ -11,12 +11,12 @@ Inputs and their sources
   Model spectra: fig4_11_data.npz (Cohen-Bergstresser empirical pseudopotential, Phys. Rev. 141, 789 (1966); 12^3
      shifted grid, 4 valence + 3 conduction bands, Lorentzian broadening 0.15 eV, Tamm-Dancoff).
   Measured optical constants of crystalline silicon at 300 K: Franta et al., Appl. Surf. Sci. 421, 405 (2017),
-     copy in book/sources/4.4/si_franta_300K.yml, read as in fig4_7.py; eps = (n + i k)^2.  Measured peaks E1 3.42 eV
+     refractiveindex.info file Franta-300K.yml, read as in fig4_7.py; eps = (n + i k)^2.  Measured peaks E1 3.42 eV
      (height 36) and E2 4.24 eV (height 46), as asserted in fig4_7.py.
   Sect. 4.6 values (fig4_7_data.npz, 20^3 grid, 26 conduction bands, 0.10 eV): eps_inf IP 11.45, RPA+LF 10.22, ALDA 10.81.
   Wannier-Mott numbers: Rydberg alpha^2 m_e/2 = 13.6057 eV and a_0 = 0.529177 A (CODATA 2022);
      silicon: measured exciton binding 14.7 meV (Shaklee and Nahory, Phys. Rev. Lett. 24, 942 (1970)), eps_inf = 11.7
-     (Franta 2017; NOTATION editor ruling), a = 5.431 A, valley masses 0.916 / 0.191 and heavy-hole masses 0.277 [100] /
+     (Franta 2017; book convention), a = 5.431 A, valley masses 0.916 / 0.191 and heavy-hole masses 0.277 [100] /
      0.718 [111] (Table 3.1), |G_111| = sqrt(3) 2 pi/a;
      GaAs: m* = 0.067, gamma_1 = 6.98 (Table 3.1, Vurgaftman et al. 2001), a = 5.653 A (room temperature, caption of
      fig:3-ge-gaas in Sect. 3.3), eps_inf = 10.88 (measured, Lockwood et al. 2005, lockwood2005optical, as in Sect. 5.5),
@@ -89,7 +89,7 @@ for k in ("herm", "errip", "errdy", "tda"):
     print(f"  check {k}: {float(d[k]):.3g}")
 
 rows = []
-for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
     p = line.split()
     if len(p) == 3:
         try:

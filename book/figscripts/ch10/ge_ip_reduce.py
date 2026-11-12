@@ -6,7 +6,7 @@ Source (public data, not computed here)
   of germanium from GPAW (TB09 functional, scissor to the measured gap at T = 0, 12^3 k points, 70 bands, plane-wave
   cutoff 500 eV, i.e. |k| < 22 keV; the 3d electrons are in the frozen core).  Distributed with DarkELF
   (arXiv:2104.12786), github.com/tongylin/DarkELF, commit 2f01cd5501d8f9c0dfdc3a011973dab9da718498, file
-  data/Ge/Ge_gpaw_noLFE.dat (downloaded 2026-11-02; 47 MB, not kept).  Columns: omega [eV], k [eV], eps1, eps2.
+  data/Ge/Ge_gpaw_noLFE.dat (47 MB, not kept).  Columns: omega [eV], k [eV], eps1, eps2.
   Without local fields eps2 is the independent-particle eps2 of the valence electrons (Sect. 4.6), so the valence
   structure factor is S = (2q^2/e^2) eps2 and, per atom, S_at = q^2 Omega eps2 / (8 pi^2 alpha) (two atoms per cell).
 

@@ -12,8 +12,7 @@ Inputs and their sources
   Optical constants n, k of float-zone crystalline silicon at 300 K from 4 meV to 40 eV: D. Franta, A. Dubroka, C. Wang,
      A. Giglia, J. Vohanka, P. Franta and I. Ohlidal, Appl. Surf. Sci. 421, 405 (2017), doi:10.1016/j.apsusc.2017.02.021.
      This is a Kramers-Kronig-consistent dispersion model fitted to ellipsometric and spectrophotometric measurements,
-     tabulated by the authors; file Franta-300K.yml of the refractiveindex.info database (CC0), downloaded 2026-11-02,
-     copy in book/sources/4.4/si_franta_300K.yml.  Columns: wavelength (um), n, k.  eps = (n + i k)^2.
+     tabulated by the authors; file Franta-300K.yml of the refractiveindex.info database (CC0).  Columns: wavelength (um), n, k.  eps = (n + i k)^2.
      The data are optical (transverse) at q -> 0; L = eps_2/|eps|^2 uses eps^T = eps at q -> 0 (Sect. 4.4).
 Modelling choices
   Worked example 4.9: eps^{-1}(q, w) = 1 + w_p^2/(w^2 - w_q^2 + i g w), w_q^2 = w_L^2 + (q^2/2m_e)^2,
@@ -81,7 +80,7 @@ close(Ebar, 17.4, 3e-3, "E_bar [eV]")
 
 print("Tabulated optical constants of Si at 300 K")
 rows = []
-for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
     p = line.split()
     if len(p) == 3:
         try:

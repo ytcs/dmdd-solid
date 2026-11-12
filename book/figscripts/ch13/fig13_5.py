@@ -14,8 +14,8 @@ free pairs, parabolic bands, constant matrix elements, two branches:
   w_TA = 18.27 meV, w_TO = 57.73 meV (Macfarlane et al. 1958, theta = 212 K and 670 K; Sect. 6.5).
   branch weights C_TA : C_TO = 5.5 : 4.0 (Rajkanan, Singh and Shewchun 1979, as quoted by Stanford et al.,
            arXiv:2010.15844, text after Eq. (4)).
-  one overall scale A, fitted to the measured 300 K absorption (Franta et al. 2017, refractiveindex.info Franta-300K.yml,
-           book/sources/4.4/si_franta_300K.yml) by the geometric mean of data/model on 1.18 eV <= w <= 1.30 eV.
+  one overall scale A, fitted to the measured 300 K absorption (Franta et al. 2017, refractiveindex.info Franta-300K.yml)
+           by the geometric mean of data/model on 1.18 eV <= w <= 1.30 eV.
 Temperature dependence of the branch strength (sizing only): Stanford et al. (arXiv:2010.15844, Eqs. (6), (7)) fit
   A_1(T) = c0 exp(-c1 T), c1 = 1.7e-3 /K, to measurements at 0.5, 5, 77 and 295 K with an effective gap of 1.134 eV.
 Excitonic thresholds (Sect. 6.5): E_x^b = 14.7 meV below the free-pair ones.
@@ -179,7 +179,7 @@ for T in (77.0, 295.0):
 
 # ---------------------------------------------------------------- measured 300 K data and the scale
 rows = []
-for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
     p = line.split()
     if len(p) == 3:
         try:

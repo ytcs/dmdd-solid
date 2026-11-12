@@ -16,7 +16,7 @@ Inputs and their sources
   Lindhard function: eq:D.8-Rz (complex z), eq:D.8-Re and eq:D.8-Im (real omega) of App. D.8.
   Mermin function: eq:D.9-R of App. D.9.
   Silicon optical data (Worked example 4.10): Franta et al., Appl. Surf. Sci. 421, 405 (2017), file Franta-300K.yml of
-     the refractiveindex.info database (CC0), copy in book/sources/4.4/si_franta_300K.yml, as in fig4_5.py.
+     the refractiveindex.info database (CC0), as in fig4_5.py.
 Modelling choices
   The undamped RPA plasmon below q_c is a delta function; panel (a) draws it as a line, not as a colour.
   Panel (b) uses gamma_rel = 1.0 eV = 0.06 omega_p for the Mermin function and the naive substitution (an illustrative
@@ -246,7 +246,7 @@ close(LN / LD, 2.0, 2e-2, "naive/Drude tail ratio at q -> 0")
 
 print("Worked example 4.10: silicon data")
 rows = []
-for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
     p = line.split()
     if len(p) == 3:
         try:

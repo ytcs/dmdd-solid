@@ -30,7 +30,7 @@ Part B. Internal backgrounds below 1 keV: allowed beta shapes with the non-relat
   (W, p in units of m_e, R = 1.2 A^(1/3) fm in units of hbar/m_e c; Hayen et al. arXiv:1709.07530 Eq. (6); a constant prefactor
   cancels in the fraction f below 1 keV);
   unique-n-th-forbidden shape factor
-  sum_k p^2k q^2(n-k) / [(2k+1)! (2n-2k+1)!]; decay data from ENSDF via the IAEA Live Chart (sources/21.7/*.csv).
+  sum_k p^2k q^2(n-k) / [(2k+1)! (2n-2k+1)!]; decay data from ENSDF via the IAEA Live Chart of Nuclides.
 Part C. Fig. 21.6 (leaders per channel, full pool against survivors).
 """
 import os

@@ -44,7 +44,7 @@ Coherent against counting readout (Sect. 17.2-coherent): thermal occupation n_B(
   Delta_omega_eq = 2.67 m v0^2 (Sect. 14.6); background-free counting when N_th < 0.05 (Lamoreaux et al., Eq. (20)), with
   3 signal quanta (their Eq. (19)); linear readout at the weak-signal threshold t = 2.71 of Sect. 14.6, t = N_sig^2/(N_coh (n_B+1)^2).
 Handover GaAs -> Si (WE 17.2): equal rate per kg needs L_GaAs/rho_GaAs = L_Si/rho_Si, with L = eps_2/|eps|^2 ~ n alpha (hbar c/omega)/n^4
-  below a gap (eps_2 << eps_1); GaAs n at 22 C from the Skauli dispersion formula (book/sources/12.6/gaas_skauli.yml), Si n from
+  below a gap (eps_2 << eps_1); GaAs n at 22 C from the Skauli dispersion formula (Skauli et al., J. Appl. Phys. 94, 6447 (2003)), Si n from
   Franta 300 K; rho_GaAs = 5.361 (Sect. 11.8), rho_Si = 2.33 g/cm^3.
 """
 import os

@@ -12,7 +12,7 @@ Gaps of panel (a) are written to fig3_7.log (run: python3 fig3_7.py > fig3_7.log
 
 Panel (b) and the PBE numbers: the representative first-principles calculation (App. E.1), qe_ch03.py, cache qe_ge_gaas.npz: Quantum ESPRESSO
 7.6, PBE, SG15 norm-conserving pseudopotentials, 60 Ry, Gamma-centred 12^3 density grid, measured room-temperature
-lattice constants a = 5.658 A (Ge) and 5.653 A (GaAs) (editor ruling, Sect. 3.3).
+lattice constants a = 5.658 A (Ge) and 5.653 A (GaAs) (Sect. 3.3).
   Ge: spin-orbit coupling included (fully relativistic Ge_ONCV_PBE_FR-1.0.upf, two-component spinors). PBE closes the
       gap of germanium; the run uses cold smearing (0.002 Ry). Energies from the Gamma_8 valence level. A scalar-
       relativistic run (Ge_ONCV_PBE-1.2.upf, no spin-orbit coupling) and an 80 Ry check are printed for comparison.

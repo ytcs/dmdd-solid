@@ -18,10 +18,10 @@ Inputs and their sources
   Constants, halo density, silicon density, unit conversions: as rate10_2.py (CODATA 2018; rho_chi = 0.3 GeV cm^-3,
      rho_T = 2.33 g cm^-3, Sect. 1.2).  m_Si = 28.0855 u, N_A = 6.02214076e23.
   Optical constants of float-zone silicon at 300 K, 4 meV - 40 eV: Franta et al., Appl. Surf. Sci. 421, 405 (2017),
-     refractiveindex.info file Franta-300K.yml (CC0), copy in book/sources/4.4/si_franta_300K.yml, read as fig4_5.py;
+     refractiveindex.info file Franta-300K.yml (CC0), read as fig4_5.py;
      eps = (n + i k)^2.
   Above 40 eV: atomic scattering factors f1, f2 of Henke, Gullikson and Davis, At. Data Nucl. Data Tables 54, 181
-     (1993), CXRO file si.nff, copy in book/sources/4.3/si_henke.nff;  
+     (1993), CXRO file si.nff;  
      with n_at the atomic density; written as eps_1 = 1 - C f1/w^2, eps_2 = C f2/w^2,
      C = 4 pi alpha n_at/m_e (dilute-medium form, first order in n_at).  Splice at 40 eV (printed below).
   Low-temperature edge of silicon (Sect. 6.5, Macfarlane et al. 1958): gap 1.17 eV, omega_TA = 18.27 meV, exciton
@@ -51,7 +51,7 @@ WSPLICE = 40.0
 
 def franta():
     rows = []
-    for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+    for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
         p = line.split()
         if len(p) == 3:
             try:
@@ -65,7 +65,7 @@ def franta():
 
 
 def henke():
-    d = np.loadtxt(os.path.join(BOOK, "sources", "4.3", "si_henke.nff"), skiprows=1)
+    d = np.loadtxt(os.path.join(BOOK, "figscripts", "data", "4.3", "si_henke.nff"), skiprows=1)
     d = d[d[:, 1] > -9000]
     w, f1, f2 = d.T
     C = E2 * N_AT / ME

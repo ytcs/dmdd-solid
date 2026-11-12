@@ -1,4 +1,4 @@
-# Coherent zero-phonon Migdal response vs eq:8.3-boostward in the local-pseudopotential Si model (from ledgers/REVIEWS/ch12/erratum-migdal-scripts/run_coh.py).
+# Coherent zero-phonon Migdal response vs eq:8.3-boostward in the local-pseudopotential Si model.
 import numpy as np, sys, time
 from migcoh12 import *
 NK=int(sys.argv[2]) if len(sys.argv)>2 else 6

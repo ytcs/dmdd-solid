@@ -1,78 +1,37 @@
 #!/usr/bin/env python3
-"""Symbol coverage check: every symbol printed in the accepted tex has a row in book/NOTATION.md.
+"""Symbol coverage check: every symbol printed in the tex of the book has a row in book/NOTATION.md.
 
-Written 2026-11-02 for the ledger merge of Chapters 1-2 and Appendix A (brief: briefs/ledger-merge-ch01-02.md).
+Usage (from book/ or anywhere; paths are resolved from this file):
+    python3 tools/check_notation.py [--bare] [--files GLOB ...] [--min N]
+GLOB patterns are relative to tex/; the default is ch01/*.tex ch02/*.tex appA/*.tex. For the whole book:
+    python3 tools/check_notation.py --files 'ch*/*.tex' 'app*/*.tex'
+--bare also lists the bare Latin letters that have no row; --min N reports only gaps with at least N uses.
+Exit status 1 when gaps are found, 0 otherwise. figscripts/appB/gen_B1.py imports the tokenizer of this file.
 
 What it does
 - Builds the set of NOTATION symbols from the Symbol column of book/NOTATION.md (every comma- or semicolon-separated item, arguments
-  dropped), normalized to a key  base[_sub][^sup]  (Unicode Greek, accents as combining marks, bold dropped, script/calligraphic kept).
+  such as (q, ω) or [𝓃] dropped), normalized to a key  base[_sub][^sup]  (Unicode Greek, accents as combining marks, bold Latin
+  dropped, bold Greek read as the plain letter, script/calligraphic/sans-serif/fraktur kept). A slash or semicolon inside braces
+  belongs to the name (p_{1/2}).
 - Extracts the math of the tex files ($...$, \\(...\\), \\[...\\], equation/align/gather/multline environments, starred or not), drops
   \\text{...}, \\label{...}, \\cref{...}, units (\\mathrm{...} that is not a sub- or superscript), and tokenizes it into symbols: a Latin
   letter, a Greek command, a typography macro of tex/macros.tex, or an accented/alphabet-wrapped letter (\\bar, \\tilde, \\hat, \\op,
   \\vect, \\bm, \\mathcal, \\mathscr, \\nd, \\mathsf, \\mathfrak), with its sub- and superscripts.
 - A token matches when its key, or its key without a superscript (powers, daggers and primes are not part of a name), is a NOTATION
-  key; a token whose subscript is only state/band/species indices (i, f, n, m, k, s, gamma, kappa, ...) matches a NOTATION row with the
-  same base and an index subscript.
+  key; a token whose subscript is only state/band/species/spin indices (i, f, n, m, k, s, σ, η, γ, κ, ...; offsets δ, Δ, ±; an
+  ellipsis) matches a NOTATION row with the same base and an index subscript.
 - Also accepted without a row: operators and constants in IGNORE (π, ∂, ∇, ħ); Kronecker deltas (δ with two or more index characters);
-  any subscript on the bases of ANY_SUB (𝒮_O, 𝒟_{f_T}); a hat on a letter that has a row (its unit vector or operator); a dot (time
-  derivative); \\overline{...} is read as an average of its contents; ⟨σv⟩ is one symbol (its σ is not a bare σ).
-- Tokens listed in LOCAL are symbols the SEAM files declare local to one passage ("no ledger row needed"); LITERATURE lists notation
-  that the text quotes from a cited paper (for App. B.2), globally or per file ((file, symbol) keys). Both are reported apart.
+  any subscript on the bases of ANY_SUB (𝒮_O, 𝒟_{f_T}); Cartesian components on COMPONENT_BASES (k_x) and TENSOR_BASES (C_xxxx,
+  σ_zz, S_xx); row labels in the subscripts of the response matrices on RESPONSE_BASES (S_{n_Mn_M}, R̃_{aZ}); a hat on a letter that
+  has a row (its unit vector or operator), with index or component subscripts; a dot (time derivative); \\overline{...} is read as an
+  average of its contents; ⟨σv⟩ is one symbol (its σ is not a bare σ).
+- LOCAL lists symbols local to one passage that need no NOTATION row; LITERATURE lists notation that the text quotes from a cited
+  paper (for App. B.2). Both are keyed by symbol (everywhere) or by (file, symbol) (one tex file only), and are reported apart.
 - Bare (undecorated) Latin letters are generic (coordinates, dummies, indices) unless NOTATION has a row for them; they are reported
   only with --bare.
 
 Macro-level extraction is feasible for decorated symbols and Greek letters; bare one-letter Latin symbols cannot be told apart from
 dummy variables by a script, and are checked by grep (see --bare).
-
-Extended at the Chap. 3 merge (2026-11-02; NOTATION clash entry 74(h)): LOCAL and LITERATURE entries may be keyed (file, symbol);
-bold Greek letters of NOTATION are read as plain letters; a slash inside braces belongs to the name (p_{1/2}); δ, Δ, ±, ∓, ∥, ⊥ may
-appear in index subscripts; Cartesian components are accepted on COMPONENT_BASES only.
-
-Extended at the Chap. 5 merge (2026-11-02; NOTATION clash entry 75(h)): a bracket argument is dropped from a row symbol (E_H[𝓃]);
-an ellipsis may appear in an index list; Cartesian components of the tensors on TENSOR_BASES (C_xxxx, σ_zz); index and component
-subscripts on hatted unit vectors (Q̂_i, Q̂_x).
-
-Extended at the Chap. 7 merge (2026-11-02; NOTATION clash entry 77(h)): sans-serif V, c, s (𝖵_η, 𝖼₂, 𝗌_a of 7.2 and D.21); the
-spin label σ and the Nambu channel label η in index subscripts.
-
-Extended at the Chap. 8 merge (2026-11-02; NOTATION clash entry 78(h)): row labels in the subscripts of the response matrices S, R,
-R̃, 𝓜 and 𝔇 (the charge row Z, the nucleon row N, e, n_M, 𝐠, 𝒥, 𝒯, j_T: R̃_{aZ}, R̃_{n_eZ}, S_{n_Mn_M}, 𝓜³_{eκ}, 𝔇_{n_en_e}).
-
-Extended at the Chap. 10 merge (2026-11-02; NOTATION clash entry 79(h)): the longitudinal current row L in the subscripts of the
-response matrices (S_{nj_L}, S_{j_Lj_L} of D.30); the file-keyed entries of 79(e), (f).
-
-Extended at the Chap. 12 merge (2026-11-03; NOTATION clash entry 82(h)): a semicolon inside braces belongs to the name, so the row
-S_{κ;GG′}^{ad} is one key (it was split at ";" and reported as a false gap); the bare W of e^{−2W} in 12.1 and 12.4 is file-keyed LOCAL.
-
-Extended at the Chap. 14 merge (2026-11-06; NOTATION clash entry 85(h)): Cartesian components of the response tensors S_ab and
-𝔇_ab and of the strain tensor X_αβ of 14.2 (S_xx, S_yz, S^(2m)_zz, 𝔇_zz, X_xz) on TENSOR_BASES; sans-serif Q (𝖰_obs of 14.6); the
-file-keyed entries of 85(f) (D.38 operators at k = ±q_r, Cartesian components of s_e, the δ/Δ splits Δω_eq and ΔE_Zee).
-
-Extended at the Chap. 17 merge (2026-11-06; NOTATION clash entry 88(c)): file-keyed entries for the material labels of 17.2 and 17.5
-(L_Si, ρ_Si, ℛ_C, ℛ_Si, W_C,Si), the Δ split of Δω_eq in 17.2 and the Summary, and the Debye-Waller W of 17.1 and 17.3.
-
-Extended at the Chap. 18 merge (2026-11-06; NOTATION clash entry 90): file-keyed entries for the locals of D.43 and D.44 declared in
-SEAM 18.1/18.2, the type labels e, h on rows with a type subscript (𝔓_e, v_e, v_h), product-state subscripts x′_j, and GW in math.
-
-Extended at the Chap. 19 merge (2026-11-06; NOTATION clash entry 91(d)): file-keyed entries for the Δ splits (ΔE_zp, ΔE_zp,ij,
-ΔF_LZ), the joint subscript d_NR,ER and the WE 19.6 locals p_C, Γ_C, Γ_C0, Γ_CB, E^conf_C.
-
-Extended at the Chap. 21 merge (2026-11-07; NOTATION clash entry 93(e)): sans-serif R, f, g, t (𝖱_FC, 𝖿_u0, 𝗀_λ, 𝗍_ϑ); an isotope label
-in a subscript (b_{^{210}Pb} → b_²¹⁰Pb); a hat stacked on an accented letter (the best fit of σ̄_e in D.47).
-
-Extended at the Chap. 22 merge (2026-11-07; NOTATION clash entry 94(f)): the file-keyed entry for GW set in math in 22.1.
-
-Extended at the App. B, C, E post-revision fixes (2026-11-07; NOTATION clash entry 100): sans-serif M (𝖬_ik of C.18, 𝖬_λλ′ of
-E.19); file-keyed entries for B.1 (the list of symbols renders NOTATION rows, so its tokens that the tokenizer splits or reads
-without their decoration are not new symbols), for the literature column of B.2, and for labels on existing rows in C.11, C.13,
-C.15, C.17, C.19, E.14, E.19 and E.21; σ_ℛ (σ_{ln ℛ}, \\ln dropped inside a subscript) everywhere.
-
-Extended at the final notation pass (2026-11-07; NOTATION clash entry 105): file-keyed entries for App. F (tex/appF/F-rows.tex):
-the source symbols that its rows quote or map on purpose (σ̄_n, V_cell, f̄_d, m_d, D_d, Δ_d, σ_NC, f̂_ℓm, T_ℓm, W_ℓm, D^ij_d, F_M,
-ε_S, Z_r, k_inst, F_unc, Γ_md), Y_ℓ0 (Y_ℓm at m = 0) and the Δ splits Δω_eq, ΔE_zp.
-
-Usage: python3 check_notation.py [--bare] [--files GLOB ...] [--min N]
-Default files: tex/ch01/*.tex, tex/ch02/*.tex, tex/appA/*.tex. Exit status 1 when gaps are found.
 """
 import re
 import sys
@@ -101,12 +60,12 @@ SYMS = {"to": "→", "rightarrow": "→", "prime": "′", "dagger": "†", "ast"
 SCRIPT = {c: s for c, s in zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵")}
 SCRIPT_LOWER = {c: chr(0x1D4EA + i) for i, c in enumerate("abcdefghijklmnopqrstuvwxyz")}  # bold script, as NOTATION writes 𝓃
 SANS = {"G": "𝖦", "A": "𝖠", "F": "𝖥", "D": "𝖣", "L": "𝖫"}  # sans-serif functions of Chap. 4 and App. D (\GF, \SpecA)
-# sans-serif Nambu objects of 7.2 and D.21 (dressed vertices 𝖵_η, 𝖵_j; phase coefficient 𝖼₂; matrices 𝗌₁, 𝗌₂, 𝗌_a): Chap. 7 merge
+# sans-serif Nambu objects of 7.2 and D.21 (dressed vertices 𝖵_η, 𝖵_j; phase coefficient 𝖼₂; matrices 𝗌₁, 𝗌₂, 𝗌_a)
 SANS.update({"V": "𝖵", "c": "𝖼", "s": "𝗌"})
-SANS.update({"Q": "𝖰"})  # 𝖰, 𝖰_obs of 14.6 (Chap. 14 merge)
-SANS.update({"R": "𝖱", "f": "𝖿", "g": "𝗀", "t": "𝗍"})  # 𝖱_FC, 𝖿_u0, 𝗀_λ, 𝗍_ϑ of 21.2, 21.4, D.46, D.47 (Chap. 21 merge)
-SANS.update({"M": "𝖬"})  # 𝖬_ik(Q̂) of C.18 and 𝖬_λλ′ of E.19 (App. B, C, E post-revision fixes, clash entry 100)
-# \mathscr capitals are the bold-script letters NOTATION writes (𝓜¹), distinct from \mathcal (ℳ); added at the Chap. 4 merge
+SANS.update({"Q": "𝖰"})  # 𝖰, 𝖰_obs of 14.6
+SANS.update({"R": "𝖱", "f": "𝖿", "g": "𝗀", "t": "𝗍"})  # 𝖱_FC, 𝖿_u0, 𝗀_λ, 𝗍_ϑ of 21.2, 21.4, D.46, D.47
+SANS.update({"M": "𝖬"})  # 𝖬_ik(Q̂) of C.18 and 𝖬_λλ′ of E.19
+# \mathscr capitals are the bold-script letters NOTATION writes (𝓜¹), distinct from \mathcal (ℳ)
 SCRIPT_BOLD = {c: chr(0x1D4D0 + i) for i, c in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
 FRAK = {c: chr(0x1D504 + i) for i, c in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
 FRAK.update({"C": "ℭ", "H": "ℌ", "I": "ℑ", "R": "ℜ", "Z": "ℨ"})
@@ -115,7 +74,7 @@ ACCENT = {"bar": "\u0304", "tilde": "\u0303", "widetilde": "\u0303", "hat": "\u0
           "op": "\u0302", "dot": "", "check": "\u030C"}  # a dot is a time derivative, not a new symbol
 # typography macros of tex/macros.tex (and book-wide shorthands) -> NOTATION spelling
 MACROS = {"Eg": "E_g", "mchi": "m_χ", "vmin": "v_min", "sigmae": "σ̄_e", "FDM": "F_DM", "GF": "𝖦", "SpecA": "𝖠", "hbar": "ħ",
-          "Vol": "𝓥"}  # \Vol = \mathscr{V}, the normalization volume (NOTATION clash entry 83)
+          "Vol": "𝓥"}  # \Vol = \mathscr{V}, the normalization volume
 # commands that are operators, spacing or structure, never symbols
 SKIP = set("""frac dfrac tfrac sqrt left right big Big bigg Bigg bigl bigr Bigl Bigr biggl biggr middle sum int iint iiint oint prod
 lim max min sup inf sin cos tan cot sinh cosh tanh exp ln log arg det Re Im Tr Real Imag operatorname dd ee ii quad qquad
@@ -133,39 +92,39 @@ cases pmatrix bmatrix matrix aligned split gathered substack sb sp mkern mskip h
 lt gt le ge nexists sharp flat natural top bot imath jmath Im Re wp mho prec succ preceq succeq perp parallel""".split())
 # Characters of a pure index subscript: state, band, spin, species, Lorentz, Cartesian and momentum labels.
 INDEX_CHARS = set("ijfnmklsγκνμIJNPRTABabcvkqQGp′'αβ,+−-̃ _0123456789→↑↓[]()*")
-# Offsets and signs inside index subscripts (H_{k₀+δk}, u_{n,k+Δk}, U_{±G₁}, ε_±), and ∥, ⊥: added at the Chap. 3 merge.
+# Offsets and signs inside index subscripts (H_{k₀+δk}, u_{n,k+Δk}, U_{±G₁}, ε_±), and ∥, ⊥.
 INDEX_CHARS |= set("δΔ±∓∥⊥")
-# An ellipsis inside an index list (Φ^{(n)}_{i₁…iₙ}, κκ′…κ′′): added at the Chap. 5 merge.
+# An ellipsis inside an index list (Φ^{(n)}_{i₁…iₙ}, κκ′…κ′′).
 INDEX_CHARS |= set("…")
 # Spin labels σ (c_kσ, n_kσ, ψ_σ of 7.2, D.20, D.21) and the Nambu channel label η (R⁰_ηη, K_ηη, O_η of 7.2, D.21; the
-# matrices 𝗌₁, 𝗌₂, 𝗌_a read as s1, s2, sa in a subscript): added at the Chap. 7 merge.
+# matrices 𝗌₁, 𝗌₂, 𝗌_a read as s1, s2, sa in a subscript).
 INDEX_CHARS |= set("ση")
 # Operators, constants and derivatives: never symbols of NOTATION.
 IGNORE = {"π", "∂", "∇", "ħ"}
 # Kronecker deltas: δ with two indices or momenta in the subscript.
 KRONECKER = re.compile(r"^δ_.{2,}$")
 # Bases whose subscript names an operator or state (𝒮_O, 𝒮_{n_e(q)}, 𝒟_{f_T}): any subscript is accepted when the base has a row.
-ANY_SUB = {"𝒮", "𝒟", "ℱ"}  # ℱ_R of C.2 (lattice components, written ℱ_{R = ...}): Chap. 3 merge
-# Cartesian components (k_x, p_z, k_∥, k_⊥) of the vectors that have a row: accepted on these bases only (Chap. 3 merge), so that
+ANY_SUB = {"𝒮", "𝒟", "ℱ"}  # ℱ_R of C.2 (lattice components, written ℱ_{R = ...})
+# Cartesian components (k_x, p_z, k_∥, k_⊥) of the vectors that have a row: accepted on these bases only, so that
 # named subscripts such as E_x (exchange energy) still need their own row.
 COMPONENT_BASES = {"k", "p", "q", "r", "v", "u"}
 COMPONENT_CHARS = set("xyzαβ∥⊥,")
-# Cartesian components of tensors whose row has index subscripts (C_xxxx, C_xxyy of C_ijkl; σ_zz, σ_iz of σ_ij): Chap. 5 merge
-# (App. C.18). Only these bases, so that a named subscript such as E_x still needs its own row.
+# Cartesian components of tensors whose row has index subscripts (C_xxxx, C_xxyy of C_ijkl; σ_zz, σ_iz of σ_ij)
+# of App. C.18. Only these bases, so that a named subscript such as E_x still needs its own row.
 TENSOR_BASES = {"C", "σ"}
-# S_ab, 𝔇_ab and the strain tensor X_αβ of 14.2: S_xx, S_yz, S^(2m)_zz, 𝔇_zz, X_xz (Chap. 14 merge, clash entry 85(h))
+# S_ab, 𝔇_ab and the strain tensor X_αβ of 14.2: S_xx, S_yz, S^(2m)_zz, 𝔇_zz, X_xz
 TENSOR_BASES |= {"S", "𝔇", "X"}
 TENSOR_CHARS = set("xyz") | INDEX_CHARS
-# Row labels in the subscripts of response matrices (Chap. 8 merge, NOTATION clash entry 78(h)): S, R, R̃, 𝓜 and 𝔇 carry the
+# Row labels in the subscripts of response matrices: S, R, R̃, 𝓜 and 𝔇 carry the
 # names of the target rows they couple (S_{n_Mn_M}, S_{B𝐠}, S_{n𝒥}, R̃_{aZ}, R̃_{n_eZ}, R̃_{𝒯_eZ}, R̃_{j_TZ}, 𝓜³_{eκ}, 𝔇_{n_en_e}):
 # the charge row Z (at 𝐪 + 𝐆), the nucleon row N, electrons e, the mass density n_M, the momentum density 𝐠, the spin current 𝒥,
 # the kinetic-energy density 𝒯 and the transverse current j_T. Only these bases, so that a named subscript elsewhere needs a row.
 RESPONSE_BASES = {"S", "R", "R\u0303", "𝓜", "𝔇"}
 RESPONSE_CHARS = INDEX_CHARS | set("ZNeMgn𝒥𝒯T")
-# The longitudinal current row j_L (S_{nj_L}, S_{j_Lj_L}, S_{j_Lj_Ti} of D.30): added at the Chap. 10 merge (clash entry 79(h)).
+# The longitudinal current row j_L (S_{nj_L}, S_{j_Lj_L}, S_{j_Lj_Ti} of D.30).
 RESPONSE_CHARS |= set("L")
 # Literature notation quoted in the text (what a cited paper writes), which belongs in App. B.2, not in NOTATION.
-# (Since the Chap. 3 merge, α_D is also the key of the Dirac-matrix row 𝛂_D, β_D, γ_D; 1.4's quote of Essig et al.'s α_D then
+# (α_D is also the key of the Dirac-matrix row 𝛂_D, β_D, γ_D; 1.4's quote of Essig et al.'s α_D then
 # matches that row, and it stays literature notation by the NOTATION note.)
 LITERATURE = {
     "α_D": "1.4 quotes Essig et al.'s dark fine-structure constant", "F_Yμν": "A.9 quotes the hypercharge field strength",
@@ -174,15 +133,15 @@ LITERATURE = {
     ("appA/A-7.tex", "Π"): "A.7 quotes the literature's Π for the polarization",
     ("ch03/s3-2.tex", "f_[nk,mk′,GU]"): "3.2 quotes Essig et al.'s vertex f_[nk, mk′, G]",
     ("appC/C-18.tex", "μ"): "C.18 quotes the Lamé shear modulus μ = C_44 (and λ = C_12) of the elasticity literature",
-    # Chap. 6 and App. D.16-D.18 merge (2026-11-02; NOTATION clash entry 76(e))
+    # Chap. 6 and App. D.16-D.18
     ("appD/D-17.tex", "W_e"): "D.17 quotes Giustino's W_e(ω) − W_e(0) of Ref. Eq. (140) (nonadiabatic subtraction)",
-    # Chap. 8 and App. D.24-D.28 merge (2026-11-02; NOTATION clash entry 78(e))
+    # Chap. 8 and App. D.24-D.28
     ("ch08/s8-2.tex", "Π_φφ"): "8.2 quotes Mitridate et al.'s in-medium self-energy Π_φφ = Σ g*gR (Eqs. (20)-(22))",
     ("ch08/s8-4.tex", "Π_φA"): "8.4 quotes Mitridate et al.'s mixing self-energies Π_φA, Π_Aφ, Π_AA (Eqs. (20)-(22))",
     ("ch08/s8-4.tex", "Π_Aφ"): "8.4 quotes Mitridate et al.'s mixing self-energies Π_φA, Π_Aφ, Π_AA (Eqs. (20)-(22))",
     ("ch08/s8-4.tex", "Π_AA"): "8.4 quotes Mitridate et al.'s photon self-energy Π_AA (Eqs. (20)-(22))",
     ("appD/D-28.tex", "Π"): "D.28 quotes the orthogonal projector Π of Panati, Spohn and Teufel (Thm 2.1); the book writes 𝒫_ad",
-    # Chap. 10 and App. D.29-D.30 merge (2026-11-02; NOTATION clash entry 79(e))
+    # Chap. 10 and App. D.29-D.30
     ("appD/D-30.tex", "W"): "D.30 relates the book's rows to Catena et al.'s crystal responses W̄₁-W̄₅ (2105.02233 Eqs. (10), (11), (D2))",
     ("ch10/s10-4.tex", "W"): "10.4 quotes Catena et al.'s crystal responses W̄₁-W̄₅ (2105.02233)",
     ("appD/D-29.tex", "V_cell"): "D.29 quotes Essig et al.'s cell volume V_cell in their Eq. (3.17) (the book writes Ω)",
@@ -193,14 +152,14 @@ LITERATURE = {
     ("ch10/s10-9.tex", "σ_χe"): "10.9 quotes Liang et al.'s dark-matter-electron cross-section in the boosted-flux formula",
     ("ch10/s10-9.tex", "σ_e"): "10.9 quotes Dror et al.'s name σ_e for the book's σ_F",
     ("ch10/s10-9.tex", "χ̄_2"): "10.9 quotes Baryakhtar et al.'s dipole operator χ̄₂σ^{μν}χ₁F_μν (Eqs. (2.1), (2.2))",
-    # App. B, C, E post-revision fixes (2026-11-07; NOTATION clash entry 100): B.2 sets the literature's symbols in its first column
+    # App. B: B.1 renders NOTATION rows; B.2 sets the literature's symbols in its first column
     ("appB/B-1.tex", "χ̄_2"): "B.1 row Λ_d quotes the dipole operator χ̄₂σ^{μν}χ₁F_μν of 10.9 (Baryakhtar et al.)",
     ("appB/B-2.tex", "λ_TF"): "B.2 literature column: the Thomas-Fermi length λ_TF for the book's 1/k_TF",
     ("appB/B-2.tex", "g_χ"): "B.2 literature column: mediator couplings g_χ, g_e for the book's y_χ, y_e",
     ("appB/B-2.tex", "Ω_D"): "B.2 literature column: the Wannier-spread split Ω_D + Ω_OD for the book's Ω̃_W",
     ("appB/B-2.tex", "Ω_OD"): "B.2 literature column: the Wannier-spread split Ω_D + Ω_OD for the book's Ω̃_W",
     ("appB/B-2.tex", "V_cell"): "B.2 literature column: the cell volume V_cell for the book's Ω",
-    # Final notation pass (2026-11-07; NOTATION clash entry 105): App. F rows that quote a source's notation on purpose
+    # App. F rows that quote a source's notation on purpose
     ("appF/F-rows.tex", "σ\u0304_n"): "F row 11.1b (Light-mediator single-phonon rate) quotes Griffin et al.'s σ̄_n at m_χv₀ in its Source column (the book writes σ_p)",
     ("appF/F-rows.tex", "V_cell"): "F row 11.2a quotes Knapen et al.'s C_F² ∝ 1/V_cell (the book writes Ω; as D.29, B.2)",
     ("appF/F-rows.tex", "f\u0304_d"): "F row 11.3a maps Campbell-Deem et al.'s f̄_d, m_d, D_d to the book's c_κ, M_κ, g_ph,κ/3",
@@ -220,7 +179,7 @@ LITERATURE = {
     ("appF/F-rows.tex", "Γ_md"): "F row 20.2b names Hernandez et al.'s Γ_md for the book's g_md (\"written with Γ_md ... in the source\")",
 }
 
-# Symbols the SEAM files declare local to one passage (no ledger row needed), keyed as the script normalizes them.
+# Symbols local to one passage that need no NOTATION row, keyed as the script normalizes them.
 LOCAL = {
     "ℐ": "1.2 local bracket ℐ(v_E)", "K_sp": "D.1 shorthand", "e_cut": "D.1 shorthand", "I_1": "D.1 shorthand",
     "I_2": "D.1 shorthand", "I_3": "D.1 shorthand", "y": "dummy (1.2, 1.3)", "s": "1.3 edge expansion / 2.3 spin / 1.1 entropy (rows)",
@@ -232,7 +191,7 @@ LOCAL = {
     "ϱ_k": "D.9 δϱ_k, row 'δϱ_k(t), δϱ^loc_k' (the tokenizer splits δ)",
     "ϱ_k^loc": "D.9 δϱ^loc_k, row 'δϱ_k(t), δϱ^loc_k' (the tokenizer splits δ)",
     "ϱ^loc": "D.9 δϱ^loc, row 'δϱ_k(t), δϱ^loc_k' (the tokenizer splits δ)",
-    # Chap. 3, App. C.1-C.8, D.4-D.5 merge (2026-11-02): local to one file, keyed (file, symbol); checked before LITERATURE
+    # Chap. 3, App. C.1-C.8, D.4-D.5: local to one file, keyed (file, symbol); checked before LITERATURE
     ("ch03/s3-1.tex", "r_Ne"): "3.1 electron positions r_1 ... r_{N_e} (index N_e)",
     ("ch03/s3-2.tex", "ε_G1/2"): "WE 3.3 band energy at k = G_1/2 (local)",
     ("ch03/s3-3.tex", "ε_hh,lh"): "3.3 heavy- and light-hole branches of eq:3.3-holes (band labels hh, lh)",
@@ -245,7 +204,7 @@ LOCAL = {
     ("appC/C-6.tex", "μ"): "C.6 Gaussian parameter μ of e^{−μx² + ηx} (bare, C.6 only; editor decision App. C; no keyed row)",
     ("appC/C-7.tex", "N\u0303"): "C.7 number operator of the transformed modes (local)", ("appC/C-7.tex", "P̃"): "C.7 pair operator of the transformed modes (local)",
     ("appC/C-7.tex", "Ψ̃"): "C.7 vector of transformed operators (local)", ("appC/C-7.tex", "W"): "C.7 bold generic matrix 𝐖 (row '𝐌, 𝐀, …')",
-    # Chap. 5, App. D.13-D.15 and C.18 merge (2026-11-02; NOTATION clash entry 75(f))
+    # Chap. 5, App. D.13-D.15 and C.18
     ("ch05/s5-4.tex", "T_d"): "5.4 point-group label of the Si site (Schoenflies)",
     ("ch05/s5-6.tex", "μ"): "5.6 uses the Gaussian parameters μ, η of eq:C.6-gauss (bare, C.6 editor decision; no keyed row)",
     ("ch05/s5-7.tex", "X_d"): "5.7 Cartesian label d of X_a in the SCHA variation (row 'X_a, X̄_a'; labels a-d local)",
@@ -254,10 +213,10 @@ LOCAL = {
     ("ch05/s5-7.tex", "𝒞"): "5.7 'expanded in 𝒞', shorthand for 𝒞_κκ′(t) in one sentence",
     ("appD/D-13.tex", "k_e"): "D.13 solvable model: spring constant of the electron (k_e, K_N, ω_e, ω_BO, x, p, X, P local)",
     ("appD/D-13.tex", "ω_BO"): "D.13 solvable model: Born-Oppenheimer frequency (K_N/M)^{1/2} (local)",
-    # Chap. 6 and App. D.16-D.18 merge (2026-11-02; NOTATION clash entry 76(f))
+    # Chap. 6 and App. D.16-D.18
     ("appD/D-17.tex", "Π"): "D.17 Π_ν with the labels dropped in one sentence (row Π_ν(Q, ω))",
     ("appD/D-17.tex", "ω̃"): "D.17 pole ω̃_Qν with the labels dropped (row 'ω̃_Qν, ω^ren_Qν')",
-    # Chap. 7 and App. D.19-D.23 merge (2026-11-02; NOTATION clash entry 77(f))
+    # Chap. 7 and App. D.19-D.23
     ("ch07/s7-1.tex", "a_qr^†"): "7.1 a†_k at k = q_r, the first-zone part of q (rows a_kν and q_r)",
     ("ch07/s7-1.tex", "ω_qr^M"): "7.1 ω^M_k at k = q_r, the first-zone part of q (rows ω^M_k and q_r)",
     ("ch07/s7-1.tex", "s_e,x"): "7.1 Cartesian component of s_e(q) (row s_e(q))",
@@ -268,7 +227,7 @@ LOCAL = {
     ("appD/D-22.tex", "W"): "D.22 unitary matrix W = M_1/m of the uniqueness argument (W, m local)",
     ("appD/D-23.tex", "μ"): "D.23 integration variable μ (a cosine) of ⟨1/r⟩ (local)",
     ("appD/D-23.tex", "k_zone"): "D.23 a momentum of the size of the zone, in the order estimate 1/(a*k_zone) (local)",
-    # Chap. 8 and App. D.24-D.28 merge (2026-11-02; NOTATION clash entry 78(f))
+    # Chap. 8 and App. D.24-D.28
     ("appD/D-24.tex", "v_t"): "D.24 target velocity (𝐤 + 𝐤′)/2m in the reduction of v^⊥ (local)",
     ("appD/D-24.tex", "u\u0304"): "D.24 Dirac spinors u, ū of the bilinears (as the C.15 locals u(p, s))",
     ("appD/D-24.tex", "W"): "D.24 bold 𝐖 = Σ_j c^{(N_j)}𝐒_j, the nucleon-spin sum of the Wigner-Eckart step (W, w local)",
@@ -291,17 +250,17 @@ LOCAL = {
     ("ch08/s8-4.tex", "e_κL^*"): "WE 8.6 polarization vector e_κν(Q) of the LO mode, ν = L (row e_κν)",
     ("ch08/s8-6.tex", "Ψ̃^nuc"): "8.6 widetilde over the product Ψ^nucΨ_j: the dressed (superadiabatic) state U_n(Ψ^nucΨ_j) (rows Ψ^nuc_i, U_n)",
     ("appD/D-28.tex", "Ψ̃^nuc"): "D.28 widetilde over the product Ψ^nucΨ_j: the dressed (superadiabatic) state (rows Ψ^nuc_i, U_n)",
-    # Chap. 10 and App. D.29-D.30 merge (2026-11-02; NOTATION clash entry 79(f))
+    # Chap. 10 and App. D.29-D.30
     ("ch10/s10-7.tex", "D_3d"): "10.7 point-group label of sapphire (Schoenflies)",
     ("ch10/s10-9.tex", "u\u0304"): "10.9 Dirac spinors u, ū of the dark-matter current (as the C.15 locals u(p, s))",
     ("ch10/s10-8.tex", "μ"): "10.8 Lorentz index μ of ∂_μ, (p − p̄)^μ, γ^μ, ε^μ (an index, not the reduced mass)",
     ("ch10/s10-9.tex", "y_χν"): "10.9 y_χν̃ of row 'm_med, y_ee, y_χν̃' (the tokenizer drops the tilde inside a subscript)",
     ("ch10/s10-10.tex", "σ_ℛ"): "10.10 σ_{ln ℛ} of row 'σ_ln ℛ' (the tokenizer drops \\ln inside a subscript)",
-    # Chap. 12 and App. D.33-D.34 merge (2026-11-03; NOTATION clash entry 82(f))
+    # Chap. 12 and App. D.33-D.34
     ("ch12/s12-1.tex", "W"): "12.1 names e^{−2W} of eq:5.6-W, the Debye-Waller exponent (row W_κ(q))",
     ("ch12/s12-4.tex", "W"): "12.4 names e^{−2W} of eq:5.6-W, the Debye-Waller exponent (row W_κ(q))",
     ("ch10/s10-8.tex", "ℳ\u0304"): "10.8 spin-averaged squared amplitude |ℳ̄|² of dark Compton scattering (row ℳ; bar = spin average)",
-    # Chap. 14 and App. D.38 merge (2026-11-06; NOTATION clash entry 85(f))
+    # Chap. 14 and App. D.38
     ("appD/D-38.tex", "A_qr"): "D.38 A_k at k = q_r (rows A_k, q_r)",
     ("appD/D-38.tex", "B_qr"): "D.38 B_k at k = q_r (rows B_k, q_r)",
     ("appD/D-38.tex", "a_-qr1"): "D.38 magnon operator a_kν at k = −q_r, branch 1 (rows a_kν, q_r)",
@@ -329,7 +288,7 @@ LOCAL = {
     ("ch14/s14-6.tex", "𝒦_tint"): "14.6 𝒦_t at t = t_int (rows 𝒦_t, t_int)",
     ("ch14/s14-4.tex", "W"): "14.4 names e^{−2W(k+G)}, the Debye-Waller exponent (row W_κ(q))",
     ("ch14/s14-5.tex", "μ^ph"): "14.5 𝛍^ph_𝐐ν with the labels dropped (row 𝛍^ph_𝐐ν)",
-    # Chap. 17 merge (2026-11-06; NOTATION clash entry 88(c)): material labels on existing symbols and the Δ split of Δω_eq
+    # Chap. 17: material labels on existing symbols and the Δ split of Δω_eq
     ("ch17/s17-2.tex", "ω_eq"): "17.2 Δω_eq of 14.6 (the tokenizer splits Δ; row 'F_φ(ω), Δω_eq, Φ')",
     ("ch17/s17-summary.tex", "ω_eq"): "Ch17 Summary Δω_eq of 14.6 (the tokenizer splits Δ; row 'F_φ(ω), Δω_eq, Φ')",
     ("ch17/s17-2.tex", "L_Si"): "WE 17.2 loss function L of silicon (material label on row L)",
@@ -339,7 +298,7 @@ LOCAL = {
     ("ch17/s17-5.tex", "W_C,Si"): "WE 17.5 window W_AB of diamond and silicon (row W_AB)",
     ("ch17/s17-1.tex", "W"): "17.1 names e^{−2W} of eq:5.6-W and 2W(q_max), the Debye-Waller exponent (row W_κ(q))",
     ("ch17/s17-3.tex", "W"): "17.3 names 2W, the Debye-Waller exponent (row W_κ(q))",
-    # Chap. 18 merge (2026-11-06; NOTATION clash entry 90): symbols the SEAM files declare local to D.43, D.44 and one passage,
+    # Chap. 18 and App. D.43-D.44: symbols local to D.43, D.44 and one passage,
     # type labels e, h on rows with a type subscript t, and the method name GW set in math
     ("ch18/s18-1.tex", "W"): "18.1 the method name GW set in math (row W^scr)",
     ("ch18/s18-4.tex", "W"): "18.4 the method name GW set in math (row W^scr)",
@@ -364,7 +323,7 @@ LOCAL = {
     ("ch18/s18-3.tex", "v_e"): "18.3 subtree variance v_t of an electron (type label on row v_t)",
     ("ch18/s18-3.tex", "v_h"): "18.3 subtree variance v_t of a hole (type label on row v_t)",
     ("ch18/s18-3.tex", "P_no"): "WE 18.3 probability that a lone carrier escapes ionization (local)",
-    # Chap. 19 merge (2026-11-06; NOTATION clash entry 91(d)): Delta splits, a joint subscript, WE 19.6 locals.
+    # Chap. 19: Delta splits, a joint subscript, WE 19.6 locals.
     ("ch19/s19-5.tex", "E_zp"): "19.5 ΔE_zp (the tokenizer splits Δ; row 'E_phon(t), ΔE_zp(t), W_bias(t), N_ind')",
     ("ch19/s19-6.tex", "E_zp"): "19.6 ΔE_zp of 19.5 (the tokenizer splits Δ; row 'E_phon(t), ΔE_zp(t), …')",
     ("appD/D-45.tex", "E_zp"): "D.45 ΔE_zp of 19.5 (the tokenizer splits Δ; row 'E_phon(t), ΔE_zp(t), …')",
@@ -376,9 +335,9 @@ LOCAL = {
     ("ch19/s19-6.tex", "Γ_C0"): "WE 19.6 recombination rate of the close pair (local, entry 91(d))",
     ("ch19/s19-6.tex", "Γ_CB"): "WE 19.6 hop rate close pair → separated pair (local, entry 91(d))",
     ("ch19/s19-6.tex", "E_C^conf"): "WE 19.6 configurational energy of the close pair (local, entry 91(d); row E^conf_i)",
-    # Chap. 22 merge (2026-11-07; NOTATION clash entry 94(f)): the method name GW set in math
+    # Chap. 22: the method name GW set in math
     ("ch22/s22-1.tex", "W"): "22.1 the method name GW set in math (row W^scr)",
-    # App. B, C, E post-revision fixes (2026-11-07; NOTATION clash entry 100)
+    # App. B, C, E
     "σ_ℛ": "σ_{ln ℛ} of row 'σ_ln ℛ' (the tokenizer drops \\ln inside a subscript; 10.10, 11.9, 21.4, B.1)",
     ("appB/B-1.tex", "E_Zee"): "B.1 renders ΔE_Zee of row '𝓃_mol, …, ΔE_Zee' (the tokenizer splits Δ)",
     ("appB/B-1.tex", "E_zp"): "B.1 renders ΔE_zp of row 'E_phon(t), ΔE_zp(t), …' (the tokenizer splits Δ)",
@@ -403,7 +362,7 @@ LOCAL = {
     ("appE/E-14.tex", "E\u0303"): "E.14 energy Ẽ_m of the zero-phonon final state with the label dropped (row 'Ẽ_m, z_qp(m)' of 8.6)",
     ("appE/E-19.tex", "𝒩_λ′^ch"): "E.19 𝒩^ch_λ at λ′ (row '… 𝒩^ch_λ')",
     ("appE/E-21.tex", "k_ι′"): "E.21 valley wavevector 𝐤_ι at ι′ (row 𝐤_ι)",
-    # Final notation pass (2026-11-07; NOTATION clash entry 105): App. F labels and Δ splits on existing rows
+    # App. F labels and Δ splits on existing rows
     ("appF/F-rows.tex", "Y_ℓ0"): "F row 11.7a: Y_ℓm at m = 0 (row 'f̂_gal(s), Y_ℓm, …' of 11.7)",
     ("appF/F-rows.tex", "ω_eq"): "F row 14.6c: Δω_eq of 14.6 (the tokenizer splits Δ; row 'F_φ(ω), Δω_eq, Φ')",
     ("appF/F-rows.tex", "E_zp"): "F row 19.5a: ΔE_zp of 19.5 (the tokenizer splits Δ; row 'E_phon(t), ΔE_zp(t), …')",
@@ -451,7 +410,7 @@ def read_group(s, i):
 def norm_script(t):
     """Normalize the TeX of a sub- or superscript to NOTATION's plain spelling."""
     t = re.sub(r"\\(mathrm|text|textrm|mathit|rm|mathsf|mathbf|operatorname|textup|bm|vect|boldsymbol)\s*", "", t)
-    t = re.sub(r"\{\{([^{}]*)\}\}", r"{\1}", t)  # \bar{\mathrm{r}} -> \bar{r} (Chap. 4 merge)
+    t = re.sub(r"\{\{([^{}]*)\}\}", r"{\1}", t)  # \bar{\mathrm{r}} -> \bar{r}
     t = re.sub(r"\\(mathcal|mathscr)\s*\{?([A-Za-z])\}?", lambda m: (SCRIPT if m.group(2).isupper() else SCRIPT_LOWER).get(m.group(2), m.group(2)), t)
     t = re.sub(r"\\op(?![A-Za-z])\s*\{?([A-Za-z])\}?", lambda m: m.group(1) + "\u0302", t)
     t = re.sub(r"\\(tilde|bar|hat)\s*\{?([A-Za-z])\}?", lambda m: m.group(2) + ACCENT[m.group(1)], t)
@@ -490,7 +449,7 @@ for i, c in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 for i, c in enumerate("abcdefghijklmnopqrstuvwxyz"):
     BOLD[chr(0x1D41A + i)] = c
 BOLD["𝛔"] = "σ"
-# bold Greek (𝛂_D, 𝛕_κ, 𝛜_kj, 𝛈): read as the plain letter, as the tex tokenizer drops \boldsymbol (Chap. 3 merge)
+# bold Greek (𝛂_D, 𝛕_κ, 𝛜_kj, 𝛈): read as the plain letter, as the tex tokenizer drops \boldsymbol
 for i, c in enumerate("αβγδεζηθικλμνξοπρςστυφχψω"):
     BOLD[chr(0x1D6C2 + i)] = c
 
@@ -521,10 +480,10 @@ def parse_unicode_symbol(s):
     s = s.strip("|⟨⟩").strip()
     s = "".join(BOLD.get(c, c) for c in s)
     s = s.translate(SUBDIG)
-    s = re.sub(r"\[[^\[\]]*\]$", "", s).strip()  # drop a functional argument (E_H[𝓃], K_s[𝓃]; Chap. 5 merge)
+    s = re.sub(r"\[[^\[\]]*\]$", "", s).strip()  # drop a functional argument (E_H[𝓃], K_s[𝓃])
     s = re.sub(r"\((?:[^()]|\([^()]*\))*\)$", "", s).strip()  # drop the argument
     s = re.sub(r"^d(?=[ΩℛΓσ])", "", s)  # dΩ_q, dℛ/dω
-    s = re.split(r"/(?![^{]*\})", s)[0]  # a slash inside braces is part of the name (p_{1/2}, d_{5/2}; Chap. 3 merge)
+    s = re.split(r"/(?![^{]*\})", s)[0]  # a slash inside braces is part of the name (p_{1/2}, d_{5/2})
     s = s.split(" ")[0]
     if not s:
         return None
@@ -575,7 +534,7 @@ def take(s):
 
 
 def split_semicolons(s):
-    """Split at ';' outside braces only: S_{κ;GG′}^{ad} keeps its subscript whole (Chap. 12 merge)."""
+    """Split at ';' outside braces only: S_{κ;GG′}^{ad} keeps its subscript whole."""
     out, d, cur = [], 0, ""
     for ch in s:
         if ch == "{":
@@ -739,7 +698,7 @@ def candidates(k):
         if sp and all(c in INDEX_CHARS for c in sp):
             out.append(b0 + "_" + sp)  # raised Lorentz indices: F^μν -> F_μν
     if "_" in k:
-        # a named subscript followed by index subscripts (φ_ext,G′, K_full,cvk^x, 𝓃_e,G): the named row (Chap. 4 merge)
+        # a named subscript followed by index subscripts (φ_ext,G′, K_full,cvk^x, 𝓃_e,G): the named row
         bs, rest = k.split("_", 1)
         sb, _, sp = rest.partition("^")
         parts = sb.split(",")
@@ -753,7 +712,7 @@ def candidates(k):
         sp2 = sp.replace("†", "").replace("*", "")
         if sp2 != sp:
             out.append(b + ("^" + sp2 if sp2 else ""))
-    # Chap. 21 merge: an isotope label in a subscript (b_{^{210}Pb}) is spelled with superscript digits in NOTATION (b_²¹⁰Pb);
+    # an isotope label in a subscript (b_{^{210}Pb}) is spelled with superscript digits in NOTATION (b_²¹⁰Pb);
     # a hat stacked on an accented letter (the best fit of σ̄_e, D.47) is the hat on a letter that has a row
     sup = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
     iso = re.sub(r"_\^(\d+)", lambda m: "_" + m.group(1).translate(sup), k)
@@ -761,7 +720,7 @@ def candidates(k):
         out.append(iso)
     if "\u0302" in k:
         out.append(k.replace("\u0302", ""))
-    # the sans-serif letters added at the Chap. 21 merge keep their earlier serif reading as a fallback (𝖱_𝔬 of 16.4 read as R_o)
+    # the sans-serif R, f, g, t keep their serif reading as a fallback (𝖱_𝔬 of 16.4 read as R_o)
     for a, g in (("R", "𝖱"), ("f", "𝖿"), ("g", "𝗀"), ("t", "𝗍")):
         if k.startswith(g):
             out.append(a + k[len(g):])
@@ -817,7 +776,7 @@ def main(argv):
             stem = unicodedata.normalize("NFD", b)[0] + k[len(b):]
             if any(c in nk for c in candidates(stem)):
                 continue
-            # a unit vector's index or Cartesian components (Q̂_i, Q̂_x of C.18): the rules for the stem (Chap. 5 merge)
+            # a unit vector's index or Cartesian components (Q̂_i, Q̂_x of C.18): the rules for the stem
             b0 = unicodedata.normalize("NFD", b)[0]
             if sub and "^" not in k and (b0 in bases_indexed or b0 in bare_rows) and (
                     is_index_sub(sub) or set(sub) <= COMPONENT_CHARS):

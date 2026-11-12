@@ -11,7 +11,7 @@ Inputs and their sources
      Rydberg energy I_H = alpha^2 m_e / 2 = 13.6057 eV, atomic mass unit 931.49410 MeV.
   Silicon valence density n_e = 2.00e23 cm^-3 (App. A.2 of the book; 8 electrons per 40.05 A^3 cell); all 14 electrons
      per atom: 3.5 times that.  Si atomic mass 28.0855 u.
-  Measured electronic dielectric constant of Si: eps_inf = 11.7 (book convention, editor ruling).
+  Measured electronic dielectric constant of Si: eps_inf = 11.7 (book convention).
   Band gap E_g = 1.17 eV, the low-temperature gap (book convention, Sect. 1.3).
   Hartree-Fock total energy of the Si atom E_HF = -288.854 hartree (Roothaan-Hartree-Fock tables of Bunge, Barrientos
      and Bunge, At. Data Nucl. Data Tables 53, 113 (1993)); virial theorem <T> = -E for a Coulomb Hamiltonian.
@@ -22,7 +22,7 @@ Inputs and their sources
      sigma_threshold = 6.30e-18 cm^2, checked below.]
   Hydrogen 2p form factor at q0 = alpha m_e (Sect. 2.2 closed form): |f_{1s->2p}|^2 = 72 (q a0)^2 / (9/4 + q^2 a0^2)^6.
   Henke, Gullikson and Davis, At. Data Nucl. Data Tables 54, 181 (1993), tables as distributed by CXRO
-     (https://henke.lbl.gov/optical_constants/sf/si.nff, downloaded 2026-11-02, copy in book/sources/4.3/si_henke.nff):
+     (https://henke.lbl.gov/optical_constants/sf/si.nff):
      columns E (eV), f1, f2.  Tables' convention: f2(E) = (pi/2) E df/dE, so df/dE = 2 f2 / (pi E) per atom.
      Used from 30 eV (lower bound chosen for this book; the 1993 paper covers 50 eV - 30 keV and the distributed file
      starts at 10 eV) to 30 keV; the region above 30 keV is a power-law extrapolation of the last decade.
@@ -172,7 +172,7 @@ close(qx, 251, rtol=1e-2, name="q where 3q/4kF = q^2/(2 m E_g) (eV)")
 close((100.0**2 / (2 * me * 1.17)) / (3 * 100.0 / (4 * kF_si)), 0.40, rtol=2e-2, name="gap bound / free gas at q = 100 eV")
 
 print("== Worked example 4.7: silicon from the Henke tables")
-d = np.loadtxt(os.path.join(BOOK, "sources", "4.3", "si_henke.nff"), skiprows=1)
+d = np.loadtxt(os.path.join(BOOK, "figscripts", "data", "4.3", "si_henke.nff"), skiprows=1)
 E, f2 = d[:, 0], d[:, 2]
 sel = E >= 30.0
 E, f2 = E[sel], f2[sel]

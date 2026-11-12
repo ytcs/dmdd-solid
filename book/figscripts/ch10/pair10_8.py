@@ -17,7 +17,7 @@ Inputs
   Kinetic-row spectrum S_TT(0, w): si_scalar10_7.npz (empirical pseudopotential model of Sect. 4.6, 16^3 k points,
      0.05 eV bins; smoothed by the same 5-bin running mean as Fig. 10.6).  A model, not a prediction for silicon.
   G_F = 1.1663788e-5 GeV^-2 (CODATA 2018) as the reference coupling.
-  Photon cross sections above 30 keV: NIST XCOM (sources/10.8/xcom_si.txt); dark-photon absorption there
+  Photon cross sections above 30 keV: NIST XCOM (file xcom_si.txt); dark-photon absorption there
      R = (rho_chi/m) zeta^2 (mu_PE/rho) (eps -> 1; within 1e-4 of 1 above 1 keV); below 30 keV abs10_7 (Henke).
   Dark Compton: arXiv:2109.08168 Eq. (2) (exact tree level, compton10_8.py), all 14 electrons (n_e/rho_T = Z/(A u)),
      Si A = 28.0855; K edge 1.839 keV (XCOM).  ALP: corrected tree-level form (compton10_8.py) and Eq. (3).
@@ -74,7 +74,7 @@ def bauer_xi():
 
 
 def xcom(path="xcom_si.txt"):
-    d = np.loadtxt(os.path.join(BOOK, "sources", "10.8", path), comments="#")
+    d = np.loadtxt(os.path.join(BOOK, "figscripts", "data", "10.8", path), comments="#")
     return d[:, 0] * 1e6, d[:, 2], d[:, 3]          # eV, incoherent, photoelectric (cm^2/g)
 
 

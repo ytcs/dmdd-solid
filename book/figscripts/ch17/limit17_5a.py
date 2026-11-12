@@ -10,9 +10,9 @@ integral of the measured q -> 0 loss function, with the core background of the d
 
 Data (both as used in Sects. 4.3, 4.4 and 10.7):
   0 - 35 eV: optical constants of float-zone silicon at 300 K, Franta et al., Appl. Surf. Sci. 421, 405 (2017) (refractiveindex.info
-     file Franta-300K.yml, copy in book/sources/4.4/si_franta_300K.yml; columns wavelength (um), n, k; eps = (n + i k)^2).
-  35 eV - 30 keV: Henke, Gullikson and Davis, At. Data Nucl. Data Tables 54, 181 (1993), CXRO table si.nff (copy in
-     book/sources/4.3/si_henke.nff; columns E, f1, f2 per atom).  eps = 1 - (omega_a^2/omega^2)(f1 - i f2),
+     file Franta-300K.yml; columns wavelength (um), n, k; eps = (n + i k)^2).
+  35 eV - 30 keV: Henke, Gullikson and Davis, At. Data Nucl. Data Tables 54, 181 (1993), CXRO table si.nff
+     (columns E, f1, f2 per atom).  eps = 1 - (omega_a^2/omega^2)(f1 - i f2),
      omega_a^2 = e^2 n_at/m_e, n_at = 5.00e22 cm^-3 (8 atoms per (5.431 A)^3).  This is the standard first-order relation
      n = 1 - delta - i beta with delta, beta = r_e lambda^2 n_at (f1, f2)/(2 pi), eps = 1 - 2 delta - 2 i beta.
   Modelling choices: the join at 35 eV (the two data sets differ there by the amount printed below); the L-edge position 99.8 eV
@@ -50,7 +50,7 @@ print("n_at = %.4e cm^-3, omega_a^2 = %.3f eV^2, 14 omega_a^2 = (%.2f eV)^2" % (
 # Franta
 lam, n, k = [], [], []
 inside = False
-for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
     s = line.strip()
     if s.startswith("data: |"):
         inside = True
@@ -73,7 +73,7 @@ Lf = epsf.imag / np.abs(epsf)**2
 print("Franta: %d points, %.3g - %.2f eV" % (len(wf), wf.min(), wf.max()))
 
 # Henke
-d = np.loadtxt(os.path.join(BOOK, "sources", "4.3", "si_henke.nff"), skiprows=1)
+d = np.loadtxt(os.path.join(BOOK, "figscripts", "data", "4.3", "si_henke.nff"), skiprows=1)
 wh, f1, f2 = d[:, 0], d[:, 1], d[:, 2]
 selh = f1 > -9000
 wh, f1, f2 = wh[selh], f1[selh], f2[selh]

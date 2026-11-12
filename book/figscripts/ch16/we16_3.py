@@ -1,6 +1,6 @@
 """Worked example 16.3 (we:16-depol): the depolarization factor 9|eps_in|^2/|eps_in + 2 eps_out|^2 of a PbS dot in fused silica.
 
-Inputs (public data; files kept in book/sources/16.3/):
+Inputs (public data):
   PbS   n^2 - 1 = 15.9 lam^2/(lam^2 - 0.77^2) + 133.2 lam^2/(lam^2 - 141^2)  (lam in micrometres, 3.5-10 um, 300 K):
         Zemel, Jensen and Schoolar, Phys. Rev. 140, A330 (1965), with the second term from the Handbook of Optics,
         as tabulated in the refractiveindex.info database (rii_PbS_Zemel.yml).  Below the bulk gap (0.41 eV), eps real.

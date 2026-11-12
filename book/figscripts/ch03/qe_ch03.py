@@ -19,7 +19,7 @@ Calculation (App. E.1, worked example we:E-si-bands, at the measured lattice con
   - cutoff 60 Ry for the states, 240 Ry for the density; Gamma-centred 12^3 grid for the self-consistent density;
     fixed occupations (insulators); Ge with spin-orbit coupling is (PBE-)metallic and uses Marzari-Vanderbilt cold
     smearing of 0.002 Ry; conv_thr 1e-12 Ry;
-  - lattice constants (room temperature, Sect. 3.3 / editor ruling): Si 5.431 A, Ge 5.658 A, GaAs 5.653 A; diamond /
+  - lattice constants (room temperature, Sect. 3.3): Si 5.431 A, Ge 5.658 A, GaAs 5.653 A; diamond /
     zincblende, ibrav = 2;
   - bands non-self-consistently at explicit k lists (cartesian, units 2pi/a).
   qe_si_tm.npz     Si LDA and PBE gaps with a Troullier-Martins pair generated in each functional (ld1.x), which

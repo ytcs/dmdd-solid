@@ -2,7 +2,7 @@
 bracket, and the oscillator-strength content of its continuum.  Prints every number of the text, the F row and the
 footnote-free misprint sentence.  Natural units; energies in eV, lengths in Angstrom, hbar c = 1973.2698 eV A.
 
-Source formulas (read from the arXiv v1 full text, sources/16.5/2212.04504.html.txt):
+Source formulas (read from the arXiv v1 full text of 2212.04504):
   Eq. (10)  W(q, w) = (2 pi)^2 alpha n_D /(q^2 |eps|^2) sum_k delta(E_k - E_i - w) |<k| e^{-i q.r} |i>|^2;
   Eq. (12)  W = (E_eff/E_0)^2 [2^10 pi^2 alpha m* n_D a*^4 / (3 |eps|^2)]
               (3 q~ + k~^2 + 1) exp[-(2/k~) atan(2k~/(q~^2 - k~^2 + 1))] / {[(q~+k~)^2+1]^3 [(q~-k~)^2+1]^3 [1 - e^{-2pi/k~}]},

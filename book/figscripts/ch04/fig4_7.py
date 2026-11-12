@@ -12,9 +12,9 @@ Output: tex/figures/ch04/fig4_7.pdf
 Inputs and their sources
   Model spectra: fig4_7_data.npz (Cohen-Bergstresser empirical pseudopotential, Phys. Rev. 141, 789 (1966)).
   Measured optical constants of crystalline silicon at 300 K: Franta et al., Appl. Surf. Sci. 421, 405 (2017),
-     file Franta-300K.yml of the refractiveindex.info database (CC0), copy in book/sources/4.4/si_franta_300K.yml,
+     file Franta-300K.yml of the refractiveindex.info database (CC0),
      read as in fig4_5.py; eps = (n + i k)^2; optical (transverse) data equal the longitudinal ones at q -> 0.
-  Book values: eps_inf = 11.7 (Franta 2017; NOTATION editor ruling); PBE density-functional-perturbation value 13.04
+  Book values: eps_inf = 11.7 (Franta 2017; book convention); PBE density-functional-perturbation value 13.04
      (Sect. 3.4, App. E.1); silicon valence density 2.00e23 cm^-3, r_s = 2.0, k_F = 3.57 keV, k_TF = 4.12 keV,
      q_0 = alpha m_e = 3.73 keV, Lindhard eps(q_0, 0) = 2.10 (Sects. 4.4, 4.5).
   Electron-gas exchange-correlation: Slater exchange and Perdew-Zunger correlation (as in fig4_7_data.py).
@@ -46,7 +46,7 @@ print(f"model: NK = {int(d['NK'])}^3, NG = {int(d['NG'])} (check {int(d['NGc'])}
 
 # ------------------------------------------------------------------ measured data
 rows = []
-for line in open(os.path.join(BOOK, "sources", "4.4", "si_franta_300K.yml")):
+for line in open(os.path.join(BOOK, "figscripts", "data", "4.4", "si_franta_300K.yml")):
     p = line.split()
     if len(p) == 3:
         try:

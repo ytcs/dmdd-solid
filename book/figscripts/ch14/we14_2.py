@@ -11,7 +11,7 @@ Inputs (sources):
   a = 12.3750 A: Nakatsuka, Yoshiasa and Takeno, Acta Cryst. B 51, 737 (1995) (state/DATA-ADDENDA.csv, YIG a_exp);
   rho_T = 5.17 g/cm^3, c_TA = 3.843e5 cm/s, B_2 = 6.96e6 erg/cm^3, 4 pi M_s = 1750 G, exchange stiffness
      D_sw = 2 mu_B x 5.17e-9 Oe cm^2: Rueckriegel et al., PRB 89, 184413 (2014), arXiv:1402.6575, Eqs. (2.13),
-     (3.7), (3.15), (3.16) and the text after Eq. (2.4) (sources/14.2/1402.6575.txt).
+     (3.7), (3.15), (3.16) and the text after Eq. (2.4).
   mu_B = 5.7883818e-5 eV/T; hbar = 6.582119569e-16 eV s; hbar c = 197.3269804 eV nm; u = 931.494e6 eV;
   1 erg = 6.241509e11 eV; c = 2.99792458e10 cm/s (CODATA).
 Check: the rotating-wave gap 2 g is compared with the exact eigenvalues of the full quadratic boson Hamiltonian of the

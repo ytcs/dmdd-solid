@@ -9,7 +9,7 @@ Model (modelling choices, also named in the caption):
     omega_k = |S| sqrt(A_k^2 - B_k^2), A_k = J_AB(0) - J_AA(0) + J_AA(k), B_k = J_AB(k).
 Inputs (sources):
   J2 = 19.01 meV, J1 = -1.37 meV in the convention H^{1,2} = J S1.S2 per pair (same as the book's):
-     Hutchings and Samuelsen, PRB 6, 3447 (1972), abstract (sources/7.1/hutchings1972_abstract.txt).
+     Hutchings and Samuelsen, PRB 6, 3447 (1972), abstract.
   Measured (same abstract, 78 K): initial slope ~250 meV A, maximum ~117 meV.
   a = 4.17 A, experimental lattice constant of NiO: Fischer et al., PRB 80, 014408 (2009), Table I.
   hbar c = 1973.2698 eV A; c = 299792.458 km/s (CODATA).

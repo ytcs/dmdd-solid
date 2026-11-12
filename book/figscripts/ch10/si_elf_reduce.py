@@ -6,8 +6,8 @@ Source (public data, not computed here)
   of silicon in the random-phase approximation from GPAW (J. Enkovaara et al., J. Phys.: Condens. Matter 22, 253202
   (2010)), with and without local-field effects.  Distributed with the DarkELF package (S. Knapen, J. Kozaczuk, T. Lin,
   Phys. Rev. D 105, 015014 (2022), arXiv:2104.12786), github.com/tongylin/DarkELF, commit
-  2f01cd5501d8f9c0dfdc3a011973dab9da718498, files data/Si/Si_gpaw_noLFE.dat and data/Si/Si_gpaw_withLFE.dat
-  (downloaded 2026-11-02).  Columns: omega [eV], k [eV], eps1, eps2; 96 energies from 0 to 89.2 eV and 2094 values of
+  2f01cd5501d8f9c0dfdc3a011973dab9da718498, files data/Si/Si_gpaw_noLFE.dat and data/Si/Si_gpaw_withLFE.dat.
+  Columns: omega [eV], k [eV], eps1, eps2; 96 energies from 0 to 89.2 eV and 2094 values of
   |q| from 0 to 22.5 keV.
   * noLFE: eps = eps_00 (head of the RPA dielectric matrix).  Its eps2 is the independent-particle eps2 exactly
     (Sect. 4.6), so  IP:  S = (2q^2/e^2) eps2_noLF,   RPA:  L = eps2/|eps|^2 of the same file.

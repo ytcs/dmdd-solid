@@ -16,8 +16,8 @@ Model (modelling choices, also named in the caption):
   Averages over k: uniform grid shifted by half a step in the cube |k_i| < 2 pi/a, which is one period of A_k, B_k^2
   (it holds four zones of one sublattice). Panel (b) samples 3e6 random wavevectors in the same cell.
 Inputs (sources):
-  J2 = 19.01 meV, J1 = -1.37 meV (book convention): Hutchings and Samuelsen, PRB 6, 3447 (1972), abstract
-     (sources/7.1/hutchings1972_abstract.txt), as in Sect. 7.1 (fig7_1.py).
+  J2 = 19.01 meV, J1 = -1.37 meV (book convention): Hutchings and Samuelsen, PRB 6, 3447 (1972), abstract,
+     as in Sect. 7.1 (fig7_1.py).
   a = 4.17 A: Fischer et al., PRB 80, 014408 (2009), Table I, as in Sect. 7.1.
   v_max = 2.650e-3 (Sect. 1.3); NiO magnon speed 1.39e-4 (J2 only, worked example 7.2, fig7_1.py).
 Checks printed: J2-only Delta S equals the simple-cubic antiferromagnet value (each type-II sublattice set of the fcc

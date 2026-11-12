@@ -590,7 +590,7 @@ EXPLICIT = {
     "x*_max": r"x^{*}_{\mathrm{max}}",
     "𝔚^(2),th": r"\mathfrak{W}^{(2),\mathrm{th}}",
     "σ_ln ℛ": r"\sigma_{\ln\mathcal{R}}",
-    # App. B post-revision check (2026-11-07, items 9, 11): the piezoelectric tensor e^{\mathrm{pz}} (an "e^" would be read as
+    # the piezoelectric tensor e^{\mathrm{pz}} (an "e^" would be read as
     # the exponential) and the Yukawa coupling y_{\chi\tilde\nu} (the tilde would start a new factor), spelled as in 6.2, 10.9
     "e^pz_αβγ": r"e^{\mathrm{pz}}_{\alpha\beta\gamma}",
     "e^pz_zzz": r"e^{\mathrm{pz}}_{zzz}",
@@ -687,7 +687,7 @@ TEXT_FIX = {
     "𝗑_abc†_ac_b": "𝗑_ab c†_a c_b",
     "O(m_ev⁴)": "O(m_e v⁴)",
     "∫₀^∞dω": "∫₀^∞ dω",
-    # post-revision check of App. B (2026-11-07): juxtaposed factors that the converter split at the wrong letter
+    # juxtaposed factors that the converter split at the wrong letter
     "v_C + v_CRv_C": "v_C + v_C R v_C",
     "𝐮·J_z𝐩": "𝐮·J_z 𝐩",
     "exp(α_dd† − α_d*d)": "exp(α_d d† − α_d* d)",
@@ -702,7 +702,7 @@ RAW_FIX = {
     "(km s⁻¹)²": r"$(\mathrm{km}\,\mathrm{s}^{-1})^{2}$",
     "(readout unit)² × time": r"(readout unit)$^{2}$ $\times$ time",   # 𝒮_sig, 𝒮_n of 14.6
     "of stream a of": r"of stream $a$ of",   # ξ_a of 21.2: the index a, not the article (post-revision check, item 14)
-    # final residuals (2026-11-07): a precomposed accented letter used as a symbol printed as a text letter
+    # a precomposed accented letter used as a symbol printed as a text letter
     "diagonalizes ô)": r"diagonalizes $\hat{o}$)",
     "M^±_cvν(k, Q; ê)": r"$M^{\pm}_{cv\nu}(\vect{k}, \vect{Q}; \hat{e})$",
 }
@@ -1132,8 +1132,8 @@ def drop_dashed_symbols(sym, fu):
 
 
 # ----------------------------------------------------------------------------------------------------------- scope notes
-# Symbols with two meanings in different parts of the book that the editor accepted as local reuse (App. B review, editor ruling
-# B3; NOTATION clash entry 96). B.1 lists both meanings; the local one carries a scope note. Key: the symbol as NOTATION spells
+# Symbols with two meanings in different parts of the book, kept as local reuse (NOTATION clash entry 96).
+# B.1 lists both meanings; the local one carries a scope note. Key: the symbol as NOTATION spells
 # it (None: the whole row) and the first-use section of its row; value: the labels of the sections where that meaning is used.
 SCOPE = [
     ("E_p", "3.2", "sec:3.2"),                      # on-site p energy; E_p of 2.1 is the relativistic energy

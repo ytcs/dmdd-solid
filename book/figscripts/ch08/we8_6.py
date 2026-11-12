@@ -19,7 +19,7 @@ Inputs and sources
   Worked example 5.6.
 - Atomic masses (u): 69Ga 68.925573528, 71Ga 70.924702554, 75As 74.921594562,
   AME2020 (Wang et al., Chin. Phys. C 45, 030003 (2021)), file mass_1.mas20.txt
-  of the AMDC, downloaded 2026-11-02.
+  of the AMDC.
 - Isotopic abundances of natural Ga: 69Ga 0.60108, 71Ga 0.39892 (IUPAC 2013,
   Meija et al., Pure Appl. Chem. 88, 293 (2016); CIAAW table). As is
   monoisotopic (75As).

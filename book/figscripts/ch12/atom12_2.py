@@ -3,15 +3,14 @@
 Published tables used (no atomic structure is computed in this book):
   * Ibe, Nakano, Shoji and Suzuki, arXiv:1707.07258 (FAC, single-electron, dipole order):
       Table II (Ge, Xe): excitation probabilities p^d(nl -> n'l') and integrated ionization probabilities per (n, l)
-      at q_e = m_e x 1e-3; ancillary files Ge.dat, Xe.dat (sources/12.2/ibe_anc/): dp^c/dE_e in eV^-1 at q_e = 1 eV,
+      at q_e = m_e x 1e-3; ancillary files Ge.dat, Xe.dat: dp^c/dE_e in eV^-1 at q_e = 1 eV,
       "not divided by 2 pi" (note added); the probability per eV at q_e is (q_e/1 eV)^2 (dp^c/dE_e)/(2 pi).
-  * Cox, Dolan, McCabe and Quiney, arXiv:2208.12222, data release (Zenodo 10.5281/zenodo.7659176,
-      sources/12.2/cox_migdal/): Dirac-Hartree-Fock, exclusive single ionization per orbital, dP/dE in keV^-1,
+  * Cox, Dolan, McCabe and Quiney, arXiv:2208.12222, data release (Zenodo 10.5281/zenodo.7659176): Dirac-Hartree-Fock, exclusive single ionization per orbital, dP/dE in keV^-1,
       E_e in keV; *_dipole.txt at v = 1e-3 (dipole order), *_DM.txt all multipoles L <= 10 on a velocity grid.
       Their v is the recoil velocity with q_e = m_e v.
   * Hydrogen: exact (closed forms of Sects. 2.2, 6.1 and numerical radial integrals below).
   * Helium 1s2 1S -> 1snp 1P oscillator strengths and energies: NIST ASD (Kramida et al.),
-      sources/12.2/nist_asd_HeI_resonance.tsv (n = 2..10, accuracy AAA); n > 10 by the n^-3 tail.
+      He I resonance series (n = 2..10, accuracy AAA); n > 10 by the n^-3 tail.
 
 Masses: atomic weights 28.0855 (Si), 72.630 (Ge), 131.293 (Xe) times u = 931.49410242 MeV (the book's Si value 26.162 GeV).
 """
@@ -20,7 +19,7 @@ import numpy as np
 from scipy.special import eval_genlaguerre, gammaln, spherical_jn
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.path.join(HERE, "..", "..", "sources", "12.2")
+SRC = os.path.join(HERE, "..", "data", "12.2")
 ME = 510998.95
 ALPHA = 1 / 137.035999084
 HARTREE = ME * ALPHA**2            # 27.2114 eV

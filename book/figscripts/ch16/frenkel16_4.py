@@ -5,7 +5,7 @@ Run directly to print the model checks (log: frenkel16_4.log).  Used by we16_4.p
 Model and inputs (every number sourced or named as a modelling choice):
   crystal      anthracene, P2_1/a, a = 8.5526, b = 6.0158, c = 11.1720 A, beta = 124.596 deg, Z = 2, carbon fractional
                coordinates of the molecule at the origin from Brock and Dunitz, Acta Cryst. B 46, 795 (1990), as deposited
-               in the Crystallography Open Database, entry 5000168 (book/sources/16.4/COD-5000168.cif).  The second molecule
+               in the Crystallography Open Database, entry 5000168 (file COD-5000168.cif).  The second molecule
                is the image under (1/2 - x, 1/2 + y, -z), a twofold rotation about b plus the translation (a + b)/2.
                Cartesian frame: x along a, y along b, z along c' = a x b (perpendicular to a and b).
   orbitals     Hueckel pi orbitals on the 14 carbons, nearest-neighbour resonance integral beta_mn = -0.63 hbar^2/(m_e x_mn^2)
@@ -39,7 +39,7 @@ import numpy as np
 from scipy.special import erf, erfc
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.path.join(HERE, "..", "..", "sources", "16.4")
+SRC = os.path.join(HERE, "..", "data", "16.4")
 
 # ---- constants --------------------------------------------------------------------------------------------------
 ALPHA = 1 / 137.035999084

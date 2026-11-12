@@ -11,7 +11,7 @@ Inputs (book values; sources in the comments):
   Phi^(2) = 13.6 eV/A^2, Phi^(3) = -41.5 eV/A^3 along the [111] bond coordinate (Sect. 5.1, 5.7)
   bond length 2.352 A (Sect. 11.3, mph11.log); shortest phonon period 2 pi/omega_opt, measured omega_opt = 64.1 meV
   (Sect. 5.7), PBE 63.6 meV
-  E_g = 1.17 eV, physical low-T Si gap (Sect. 3.3; Ch10 editor ruling)
+  E_g = 1.17 eV, physical low-T Si gap (Sect. 3.3)
   E_d(Si): 12.5 eV <111>, 20 eV <100>, 36 eV direction average for a Frenkel pair (DFT MD, Holmstrom et al.,
            as in Sect. 7.4); measured 12.9 +- 0.6 eV (Loferski-Rappaport, Sect. 7.4)
   v_max = 794.5 km/s = 2.650e-3 c (Sect. 1.3 halo; phon11.py)

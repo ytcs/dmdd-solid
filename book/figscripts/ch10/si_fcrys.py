@@ -5,8 +5,8 @@ Source
          definition Eq. (3.17), rate Eq. (3.13), binning Eq. (4.1) (500 bins of 0.1 eV in E_e, 900 bins of 0.02 alpha m_e in q),
          numerical form Eq. (4.4) (k weights summing to 2, QE convention, Eq. (4.2)); PBE bands, ultrasoft pseudopotentials,
          scissor to E_g = 1.11 eV (Sect. 4.1), 4 valence and 52 conduction bands, 70 Ry, 243 k points (Sect. 4.2).
-         The tabulation was released with the paper's public analysis code (QEdark analysis notebooks, file Si_f2.txt;
-         copy in book/sources/10.1/). Layout: first line "900 500", then 450000 numbers, E index fastest after the
+         The tabulation was released with the paper's public analysis code (QEdark analysis notebooks, file Si_f2.txt).
+         Layout: first line "900 500", then 450000 numbers, E index fastest after the
          notebook's reshape (np.resize(..., (nE, nq)) then transpose -> T[iq, iE]).
 Normalization (inferred from the released notebook and checked three ways)
   The notebook computes, per 0.1 eV energy point E_m = m dE and per q point q_i = i dq,
@@ -29,7 +29,7 @@ import os
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TABLE = os.path.join(HERE, "..", "..", "sources", "10.1", "Si_f2.txt")
+TABLE = os.path.join(HERE, "..", "data", "10.1", "Si_f2.txt")
 
 NQ, NE = 900, 500
 ALPHA_TAB, ME_TAB = 1 / 137.0, 0.511e6          # notebook constants, define the table's q unit

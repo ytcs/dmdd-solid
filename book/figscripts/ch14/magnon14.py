@@ -11,8 +11,8 @@ Model (named in the captions and the text):
   One-magnon weight of App. D.38 (eq:D.38-weight): w_q = |S| (A_q - B_q) / omega_q with B_q = J_AB(q) evaluated at
   the full momentum transfer q (not reduced to the zone), which carries the sublattice phase exp(i G.delta).
 Inputs (sources):
-  J2 = 19.01 meV, J1 = -1.37 meV (book convention): Hutchings and Samuelsen, PRB 6, 3447 (1972), abstract
-     (sources/7.1/hutchings1972_abstract.txt), as eq:7.1-NiO.
+  J2 = 19.01 meV, J1 = -1.37 meV (book convention): Hutchings and Samuelsen, PRB 6, 3447 (1972), abstract,
+     as eq:7.1-NiO.
   a = 4.17 A: Fischer et al., PRB 80, 014408 (2009), Table I (as Sect. 7.1). |S| = 1 for Ni2+ (Sect. 7.1).
   Ni2+ <j0> analytic fit A exp(-a s^2) + B exp(-b s^2) + C exp(-c s^2) + D, s = q/(4 pi) in A^-1:
      (0.0163, 35.8826, 0.3916, 13.2233, 0.6052, 4.3388, -0.0133): P. J. Brown, International Tables for

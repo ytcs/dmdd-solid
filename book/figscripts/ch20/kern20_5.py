@@ -60,8 +60,8 @@ Inputs (book values and sources)
     shape A (one carrier speed): number density ~ E^2 on [0, E_max], <E_L> = 3 E_max/4, energy share below x (x/E_max)^4;
     shape B (spread of speeds): number density flat on [0, 2 <E_L>], energy share below x (x / 2<E_L>)^2.
   Operating point: <E_L> = 0.84 meV for silicon electrons at 1 V/cm, from a carrier-transport Monte Carlo (CMPMC,
-    campaign record DC-83, validated; 20.1's balance estimate 1.09 meV is higher by construction).  The Monte Carlo
-    gives 0.84 / 1.90 / 4.62 meV for silicon electrons at 1 / 10 / 100 V/cm (code/DC-83/out/test_luke_ntl.txt); the
+    validated; 20.1's balance estimate 1.09 meV is higher by construction).  The Monte Carlo
+    gives 0.84 / 1.90 / 4.62 meV for silicon electrons at 1 / 10 / 100 V/cm; the
     scan 0.75-4.7 meV used below is a parametric range that includes germanium (0.755 meV at 1 V/cm).
   Germanium near-surface Luke phonons ~300 GHz (electrons) and ~700 GHz (holes), Hertel & Pyle 1109.4343 Sect. 1,
     i.e. 1.24 and 2.90 meV (comparison marks only).

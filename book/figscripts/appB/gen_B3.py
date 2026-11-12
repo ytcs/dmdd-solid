@@ -75,8 +75,7 @@ EXPANSION_FALLBACK = {
     "XCOM": "photon cross-section database of NIST", "ZBL": "Ziegler--Biersack--Littmark",
     "CNT": "carbon nanotube", "TB09": "meta-GGA functional of Tran and Blaha (2009)",
 }
-# Expansions that replace the one found in the text, where the text names the authors rather than the thing named
-# (App. B review, accuracy.md section 2; editor ruling B4).
+# Expansions that replace the one found in the text, where the text names the authors rather than the thing named.
 EXPANSION_OVERRIDE = {
     "HSE": "hybrid functional of Heyd, Scuseria and Ernzerhof",
     "PBE": "generalized-gradient functional of Perdew, Burke and Ernzerhof",

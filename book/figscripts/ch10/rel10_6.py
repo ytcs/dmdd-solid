@@ -5,7 +5,7 @@ Natural units; energies in eV. Run time a few seconds once core10_6_orbitals.npz
 Inputs
   [orbitals] core10_6.py (ld1.x all-electron atoms, PBE, scalar-relativistic; Fig. 3.10 files). <p^2> of a shell is
      int p^4 phi^2 dp with phi normalized to int p^2 phi^2 dp = 1; <v^2> = <p^2>/m_e^2.
-  [binding] X-Ray Data Booklet Table 1-1 (sources/3.5/xdb_table1-1.txt): Ge 3d5/2 29.2, 3d3/2 29.8 eV (splitting 0.6 eV,
+  [binding] X-Ray Data Booklet Table 1-1 (Williams 2009): Ge 3d5/2 29.2, 3d3/2 29.8 eV (splitting 0.6 eV,
      centroid 29.44 eV).
   [vertex] eq:C.15-vertex: exp(iq.r) -> exp(iq.r)[1 - q^2/8m^2 + (i/4m^2) sigma.(q x p)].
   [scalar] eq:8.1-scalar and eq:C.15-bilinears: psibar psi = n_e - T_e/m_e, relative correction <v^2>/2.

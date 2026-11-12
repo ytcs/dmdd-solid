@@ -20,8 +20,8 @@ omega >= E_g + E_core; no Fermi factor; no orthogonalization (its size is printe
 Accessible electrons per atom: N_acc_nl(q) = int_{E_g + E_core}^{q v_max} S_at_nl(q, omega) domega, the window that dark
 matter of any mass allows at momentum transfer q (eq:1.3-vmin with q/2m_chi -> 0), v_max = 2.650e-3 (Sect. 1.2).
 
-Binding energies relative to the valence maximum: X-Ray Data Booklet Table 1-1 (Williams 2009), extract
-../../sources/3.5/xdb_table1-1.txt: Si 2p 99.42/99.82 (centroid 99.55), 2s 149.7, 1s 1839 eV; Ge 3d 29.2/29.8
+Binding energies relative to the valence maximum: X-Ray Data Booklet Table 1-1 (Williams 2009):
+Si 2p 99.42/99.82 (centroid 99.55), 2s 149.7, 1s 1839 eV; Ge 3d 29.2/29.8
 (centroid 29.44), 3p 120.8/124.9 (centroid 122.2), 3s 180.1, 2p 1217.0/1248.1 (centroid 1227.4), 2s 1414.6 eV.
 Gaps: 1.17 eV (Si) and 0.744 eV (Ge), low temperature (Sect. 3.3).
 """
