@@ -200,7 +200,6 @@ out(f"    lowest band takes >= 1 % of the one-phonon rate for m_chi >= {res[kb, 
 ax.semilogx(res[:, 0], res[:, 2], color="C3", lw=0.8, ls=":")
 ax.semilogx(res[big, 0], res[big, 2], color="C3", lw=1.3, label="created, lowest band")
 ax.semilogx(res[:, 0], res[:, 1], color="C0", lw=1.3, ls="--", label="created, all branches")
-ax.plot([4.2], [0.07], "s", color="k", ms=4, mfc="w", label="quoted (other force constants)")
 ax.set_xlim(0.1, 5)
 ax.set_xticks([0.1, 0.3, 1, 3]); ax.set_xticklabels(["0.1", "0.3", "1", "3"]); ax.minorticks_off()
 ax.set_ylim(0, 0.42)
