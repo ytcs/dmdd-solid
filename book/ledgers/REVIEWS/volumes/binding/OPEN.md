@@ -15,3 +15,4 @@
 - ch12 s12-3:130 'the second [difference]', s12-5:163 'Until both are computed' left; s12-6:123 'The nucleon amplitude' and Summary last sentence - check
 - ch09 s9-1 'The dark photon ... does not' elliptical, 'correction of order p^2<u^2>' args left; ch15 s15-2 display in subject left; s15-3 'Both are open' resolved as config-average of loss fn and loss fn of averaged eps - check
 - ch08 naming: 'rows' of response matrix introduced at s8-1:26; s8-4:7 matrix index now 'reciprocal-lattice vector'; s8-2:85 'which' read as D_ab; interpretive s8-2:27, s8-2:135, s8-1:159 - check
+- ch14 s14-1:9 'sublattice that maps A onto B' attachment; s14-5:17 'the first that differs' no comparand; tab:14-nuisances cell 'Magnetic anisotropy near the gap' -> 'near the mass edge'? (inside tabular; guard sees whole table) - reviewer decides
