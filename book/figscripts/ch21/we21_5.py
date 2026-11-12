@@ -2,7 +2,7 @@
 
 Setup (illustrative searches, not real data)
   m_chi = 10 MeV, heavy mediator, book halo (App. A.8; [B] arXiv:2105.00599 Table 1), rho = 0.3 GeV/cm^3.
-  Silicon response: tabulated crystal form factor of Essig et al. (arXiv:1509.01598, Eqs. (3.13), (3.17)) via
+  Silicon response: the random-phase loss function with local fields of the Knapen-Kozaczuk-Lin tables (si_elf_binned.npz, Sect. 10.2) via
   figscripts/ch21/hib21.py; one-pair bin of the energy-only cascade of Sect. 18.3 (hib21.pbin,
   E_g = 1.160 eV, eps_eh = 3.749 eV), the bin that sets the standard-halo limit at 10 MeV in Sect. 21.2. r = expected count per kg yr per unit sigma_e.
   Exposure A: 1 kg yr, N_obs = 0, no background.  Exposure B: 4 kg yr, N_obs = 3, known background 2.5.

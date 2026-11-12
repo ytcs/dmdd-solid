@@ -5,9 +5,9 @@ Objects (book notation, App. C.12 and Sect. 21.2):
                             measure Xi = (rho_chi sigma_e / m_chi) f d^3v (so that int dXi Theta(|v|-u0)/|v| = eta-tilde(u0)),
   step column  A_n(v)       = |v| k_n(v) for an angle-averaged response: the count in bin n for eta-tilde(u) = Theta(v - u)
                             (one unit of eta-tilde, in yr^-1, below the speed v); A_n has units of yr for an exposure in kg yr.
-Electron-recoil channel of silicon, heavy mediator (F_DM = 1), from the tabulated crystal form factor of Essig et al.
-  [E16] R. Essig et al., JHEP 05 (2016) 046, arXiv:1509.01598, Eqs. (3.13), (3.17) (lim:10.1a), loaded and normalized by
-        figscripts/ch10/si_fcrys.py (its docstring gives the normalization checks). Rate per unit eta-tilde:
+Electron-recoil channel of silicon, heavy mediator (F_DM = 1), from the random-phase loss function with local fields of the Knapen-Kozaczuk-Lin tables (si_elf_binned.npz, Sect. 10.2),
+  written as the crystal form factor of [E16] R. Essig et al., arXiv:1509.01598, Eqs. (3.13), (3.17) (lim:10.1a) by
+        figscripts/ch10/si_resp.py, from the tables' gap 1.17 eV (SI_RESP=essig: the Essig et al. table). Rate per unit eta-tilde:
         N_n = Expo * alpha m_e^2 / (M_cell mu^2) * sum_{omega in bin n} d omega sum_q dq / q^2 |f_crys|^2 eta-tilde(v_min),
         v_min = omega/q + q/2m (eq:1.3-vmin). Replacing eta-tilde by Theta(v - v_min) gives A_n(v).
 Pair bins: the energy-only cascade of Sect. 18.3, the book's calibrated model (E_g = 1.160 eV at 123 K, eps_eh = 3.749 eV),
@@ -17,7 +17,7 @@ Pair bins: the energy-only cascade of Sect. 18.3, the book's calibrated model (E
   up to 2.4 eV); for E above 21.16 eV the weights of N <= 3 are set to zero (P(3) = 8e-4 at 21.16 eV
   and falling); entries below 1e-6 (round-off of the root-of-unity extraction, down to
   -1e-16) are set to zero.  Caveats (stated in the text): the cascade gap 1.160 eV
-  against the table scissor 1.11 eV, and a seed computed at q0 along [100] applied at all q.
+  against the tables' gap 1.17 eV, and a seed computed at q0 along [100] applied at all q.
   The step model eq:1.5-step (E_g = 1.11 eV, eps_eh = 3.6 eV, Sect. 1.5) is kept as MODEL = "step" for comparison.
 Halo for comparisons: the book's standard halo (App. A.8; Baxter et al. arXiv:2105.00599 Table 1), eta in the closed form of
   App. D.1 at v_E^ref = 250.5 km/s (figscripts/ch21/halo21.py, eta_shm).
@@ -43,7 +43,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, "..", "ch10"))
 sys.path.insert(0, os.path.join(HERE, "..", "ch11"))
-from si_fcrys import load, ALPHA, ME, M_CELL, Q0, DE  # noqa: E402
+from si_resp import load, ALPHA, ME, M_CELL, Q0, DE  # noqa: E402
 import halo21 as H  # noqa: E402
 
 CKM = 299792.458

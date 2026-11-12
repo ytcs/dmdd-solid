@@ -7,11 +7,12 @@ Output tex/figures/ch21/limit21_2a.pdf; every number in limit21_2a.log.
 
 Set-up
   m_chi = 2 MeV, heavy mediator; exposure 1 kg yr; bins: one and two pairs of the energy-only cascade of Sect. 18.3
-  (hib21.pbin; E_g = 1.160 eV, eps_eh = 3.749 eV); the three-pair bin opens only above 614 km/s at 2 MeV with a column
-  250 times below the one-pair column at v_max (fig21_2.log) and never binds, so it is left out; N_up = ln 30 = 3.401 per
+  (hib21.pbin; E_g = 1.160 eV, eps_eh = 3.749 eV); the three-pair bin opens only above 612 km/s at 2 MeV with a column
+  206 times below the one-pair column at v_max (fig21_2.log) and never binds, so it is left out; N_up = ln 30 = 3.401 per
   bin (as fig21_2.py).
   Kernel (hib21.py): k_n(v, vhat) = K0_n(v) + sum_{l=4,6,8} K_l,n(v) Y^c_l(vhat) in crystal axes; isotropic part from the
-  tabulated form factor of Essig et al., direction dependence from the model ratios a_l of Sect. 11.7 (labelled model).
+  tabulated RPA + LF loss function (hib21.py), direction dependence from the model ratios a_l of Sect. 11.7 (labelled model)
+  applied to that angle average.
   Laboratory: latitude 45 deg N, crystal [100] east, [010] north, [001] up (WE 11.8). A stream of laboratory velocity v
   (Earth-centred, non-rotating axes; v_E fixed, |v_E| = 250.5 km/s at declination 47.5 deg, no annual motion) of
   declination dec is seen along the crystal directions of local_dir(dec, H) over the hour angle H; the time-integrated count is

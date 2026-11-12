@@ -1,7 +1,7 @@
 """Fig. 21.1 (fig:21-kernel): rate kernel k(v) of the silicon electron-recoil channel (heavy mediator, sigma_e = 1e-37 cm^2)
 at m_chi = 1, 10 and 100 MeV, with the laboratory speed distributions of the standard halo and of a debris flow.
 Output: tex/figures/ch21/fig21_1.pdf and fig21_1.log (every number quoted from the figure).
-Kernel: kernel21.py (tabulated form factor of Essig et al. [E16], App. D.29 normalization, onset 1.2 eV).
+Kernel: kernel21.py (RPA + LF loss function of the Knapen-Kozaczuk-Lin tables, Sect. 10.2, from their gap 1.17 eV).
 Halo: standard halo at v_E^ref ([B] Table 1; eq:1.2-Fspeed); debris flow of Kuhlen, Lisanti and Spergel [KLS] Eq. (7),
 v_flow = 340 km/s, at v_E^ref (halo21.py).
 """
@@ -34,7 +34,7 @@ for m, ls in [(1e6, "-."), (1e7, "-"), (1e8, "--")]:
     ax.semilogy(v, k, color=cols[m], ls=ls, lw=1.3, label=f"{m/1e6:g} MeV")
     vt = vth(m)
     say(f"m = {m/1e6:g} MeV: prefactor {prefactor(m):.3e} /kg/yr; kernel opens at v = {vt:.1f} km/s "
-        f"(sqrt(2*1.2 eV/m) = {np.sqrt(2*1.2/m)*CKM:.1f}; sqrt(2*1.15 eV/m) = {np.sqrt(2*1.15/m)*CKM:.1f})")
+        f"(sqrt(2*1.17 eV/m) = {np.sqrt(2*1.17/m)*CKM:.1f})")
     for vv in [300.0, 400.0, 500.0, 600.0, 700.0, 794.5]:
         say(f"    k({vv:.0f} km/s) = {float(kernel(m, vv)):.3e} /kg/yr")
     # check: int F k dv equals sum w eta
@@ -42,7 +42,7 @@ for m, ls in [(1e6, "-."), (1e7, "-"), (1e8, "--")]:
     Re = rate_eta(m, lambda u: eta_shm(u))
     say(f"    SHM rate: int F_chi k dv = {Rk:.4e}; P sum w eta = {Re:.4e} /kg/yr (ratio {Rk/Re:.4f})")
 ax.set_xlim(0, 820)
-ax.set_ylim(3e2, 5e6)
+ax.set_ylim(1e0, 2e6)
 ax.set_xlabel(r"dark-matter speed $v$ (km/s)")
 ax.set_ylabel(r"$k(v)$ (kg$^{-1}$ yr$^{-1}$)")
 ax.axvline(VMAX, color="0.5", lw=0.6)

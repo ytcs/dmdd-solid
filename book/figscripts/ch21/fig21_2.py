@@ -85,7 +85,7 @@ for ax, m, lab in zip(axes, (2e6, 10e6), ("(a)", "(b)")):
         ax.plot(u, bnd[n] / sc, lw=0.8, ls=(0, (3, 2)), color="0.55")
         k = np.isfinite(bnd[n])
         if k.any():
-            pos = {2e6: {1: (470, 0.45), 2: (690, 1.6)}, 10e6: {1: (440, 1.45), 2: (330, 0.45), 3: (455, 1.3)}}[m]
+            pos = {2e6: {1: (470, 0.45), 2: (690, 1.6)}, 10e6: {1: (440, 1.45), 2: (330, 0.45), 3: (640, 0.6)}}[m]
             if n in pos:
                 jj = np.argmin(np.abs(u - pos[n][0]))
                 ax.text(u[jj], bnd[n][jj] / sc * pos[n][1], f"{n} pair" + ("s" if n > 1 else ""), fontsize=7,

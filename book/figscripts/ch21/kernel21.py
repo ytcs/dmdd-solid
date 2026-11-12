@@ -1,4 +1,4 @@
-"""Rate kernel of the silicon electron-recoil channel from the tabulated crystal form factor (Sect. 21.1; used by
+"""Rate kernel of the silicon electron-recoil channel from the tabulated loss function (Sect. 21.1; used by
 fig21_1.py and we21_1.py).
 
 For an angle-averaged response the kernel of eq:21.1-functional depends on the speed only,
@@ -8,7 +8,9 @@ For an angle-averaged response the kernel of eq:21.1-functional depends on the s
 which follows from lim:10.1a (Essig et al. [E16] Eqs. (3.13), (3.17) per unit target mass) with eta(v_min) replaced by
 Theta(v - v_min)/v, the integrand of eq:1.3-eta. Then R = int dv F_chi(v) k(v) for any speed distribution, and
 R = P * sum_bins w_bin eta(v_min,bin) for any eta, w_bin = dq d omega F^2 |f|^2 / q^2.
-Table: figscripts/ch10/si_fcrys.py (normalization and its checks); onset 1.2 eV (scissor gap 1.11 eV of [E16]).
+Table: the random-phase loss function with local fields of the Knapen-Kozaczuk-Lin tables (si_elf_binned.npz, Sect. 10.2),
+  written as |f_crys|^2 = Omega q^5 L / (8 pi^2 alpha^2 m_e^2) (eq:A.8-fcrys, eq:4.4-SL) by figscripts/ch10/si_resp.py;
+  from the tables' gap 1.17 eV.  SI_RESP=essig gives the Essig et al. table (figscripts/ch10/si_fcrys.py) for comparison.
 Halo inputs: rho_chi = 0.3 GeV/cm^3 ([B] Table 1).
 """
 import os
@@ -17,7 +19,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "ch10"))
-from si_fcrys import load, ALPHA, ME, M_CELL, Q0, DE  # noqa: E402
+from si_resp import load, ALPHA, ME, M_CELL, Q0, DE  # noqa: E402
 
 RHO = 0.3e9                    # eV/cm^3 [B]
 SIG = 1e-37                    # cm^2, illustrative (as WE 10.1)

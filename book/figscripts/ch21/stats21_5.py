@@ -7,7 +7,7 @@ Sources
   [B]   D. Baxter et al., arXiv:2105.00599, Table 1: book halo v0 = 238, v_esc = 544 km/s, v_E^ref = 250.5 km/s (App. A.8).
   [E16] R. Essig et al., JHEP 05 (2016) 046, arXiv:1509.01598, App. B: halo v0 = 230, v_esc = 600, v_E = 240 km/s,
         rho = 0.4 GeV/cm^3 (the convention of that paper; quoted in the book as a published convention).
-  Silicon response: the tabulated crystal form factor of [E16] via figscripts/ch21/hib21.py (heavy mediator, pair bins of the
+  Silicon response: the random-phase loss function with local fields of the Knapen-Kozaczuk-Lin tables (si_elf_binned.npz, Sect. 10.2) via figscripts/ch21/hib21.py (heavy mediator, pair bins of the
   energy-only cascade of Sect. 18.3, hib21.pbin: E_g = 1.160 eV, eps_eh = 3.749 eV), as in Sect. 21.2.
 
 Sections of the log

@@ -41,7 +41,7 @@ R_df_eta = rate_eta(M, lambda u: eta_df(u))
 R_df_quad = np.trapezoid(fspeed_df(v) * kernel(M, v), v)
 for vv in [150.0, 200.0, 300.0, 400.0, 500.0, 590.0]:
     say(f"  C({vv:.0f} km/s) = {float(cumulative(M, vv)):.4e}; k = {float(kernel(M, vv)):.4e} /kg/yr")
-say(f"C at v_max = {float(cumulative(M, VMAX)):.4e} (the WE 10.1 integral uses eta instead: 0.652)")
+say(f"C at v_max = {float(cumulative(M, VMAX)):.4e}")
 say(f"Cbar over the window = {Cbar:.4e}")
 vk = np.trapezoid(v * kernel(M, v), v) / (hi - lo)
 say(f"mean of v k(v) over the window = {vk:.4e} km/s /kg/yr; divided by v_flow: {vk/V_FLOW:.4e} /kg/yr")
@@ -51,7 +51,7 @@ say(f"R_DF from (P/v_flow) Cbar = {R_df_kernel:.4e}; from int F_DF k dv = {R_df_
 vs = np.linspace(0.5, VMAX, 400001)
 R_shm_kernel = np.trapezoid(fspeed_shm(vs) * kernel(M, vs), vs)
 R_shm = rate_eta(M, lambda u: eta_shm(u))
-say(f"R_SHM from int F_SHM k dv = {R_shm_kernel:.4e}; from P sum w eta = {R_shm:.4e} /kg/yr (WE 10.1: 1.60e5)")
+say(f"R_SHM from int F_SHM k dv = {R_shm_kernel:.4e}; from P sum w eta = {R_shm:.4e} /kg/yr")
 say(f"per particle: R_DF / R_SHM = {R_df_eta/R_shm:.4f}")
 R_mix = (1 - EPS_DF) * R_shm + EPS_DF * R_df_eta
 say(f"mixed halo, eps = {EPS_DF}: R = {1-EPS_DF:.2f} x {R_shm:.4e} + {EPS_DF:.2f} x {R_df_eta:.4e} = {R_mix:.4e} /kg/yr; "
@@ -101,7 +101,10 @@ vEt = vE_of_t(tt)
 for mm in [10e6, 1e6]:
     vm_, w_ = __import__("kernel21").bins(mm)
     sel = w_ > 0
-    eavg = np.mean([eta_shm(vm_[sel], ve) for ve in vEt], axis=0)
+    eavg = np.zeros(sel.sum())
+    for ve in vEt:
+        eavg += eta_shm(vm_[sel], ve)
+    eavg /= len(vEt)
     Ravg = prefactor(mm) * np.sum(w_[sel] * eavg * CKM)
     Rref = rate_eta(mm, lambda u: eta_shm(u))
     say(f"m = {mm/1e6:g} MeV heavy: year-averaged SHM rate {Ravg:.4e} vs v_E^ref {Rref:.4e}; ratio {Ravg/Rref:.4f}")
