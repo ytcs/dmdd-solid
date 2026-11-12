@@ -150,7 +150,7 @@ ax.fill_between(x, np.maximum(lo, 1e-3), hi, color="C0", alpha=0.18, lw=0, label
 ax.plot(x, hi, color="C0", lw=0.8)
 ax.plot(x, np.maximum(lo, 1e-3), color="C0", lw=0.8)
 ax.plot(x, 1 + x, "k--", lw=1.1, label=r"no cross term, $1 + r$")
-ax.plot(x, np.ones_like(x), color="C3", lw=1.4, label=r"electron at rest, $\varGamma_A$")
+ax.plot(x, np.ones_like(x), color="C3", lw=1.4, label=r"static electron (formula of the box)")
 ax.axvspan(1e-3, rcut, color="0.85", lw=0)
 rIP = out[10e6][0]
 rmed_lo, rmed_hi = rIP * out[10e6][1] * 0.7, rIP * out[10e6][1] * 1.3
