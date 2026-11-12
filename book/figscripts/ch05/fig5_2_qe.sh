@@ -8,7 +8,7 @@
 # (acoustic sum rule imposed, 'crystal'), matdyn -> (i) frequencies on a list of Q points along
 # Gamma-X, X'-K-Gamma (the [110] line from X' = (1,1,0)2pi/a), Gamma-L, written by fig5_2_qpath.py;
 # (ii) density of states on a 48^3 grid (tetrahedra), 0.25 cm^-1 bins.
-# Run: bash code/run-heavy.sh SEC5.2-QE bash fig5_2_qe.sh     (work directory /root/work/5.2)
+# Run: bash book/tools/qe/run-heavy.sh SEC5.2-QE bash fig5_2_qe.sh     (work directory /root/work/5.2)
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 W=/root/work/5.2; mkdir -p $W; cd $W

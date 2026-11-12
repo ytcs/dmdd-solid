@@ -14,4 +14,4 @@ particle or a condensed-matter background.
 - (c) a condensed-matter theorist who knows DFT and many-body theory but no dark-matter physics.
 
 Persona (a) sets the pace. Personas (b) and (c) flag condescension and errors in their own field.
-- **Also assumed (user, 2026-11-01):** a basic idea of what dark matter is and why it is searched for; the book does not re-argue the evidence at length.
+- **Also assumed:** a basic idea of what dark matter is and why it is searched for; the book does not re-argue the evidence at length.

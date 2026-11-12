@@ -260,5 +260,5 @@ Each "before" is quoted from the current text. Each "after" keeps the physics, t
 - **Citations.** The book cites the specific equation (`\cite[Eq.~(9)]{…}`). The models cite whole references.
 - **Enthusiasm.** Lin's exclamation marks and "But wait" suit a lecture. The book allows one per chapter at most, in a worked example or a closing sentence.
 
-## Moves Lin never makes (calibration, 2026-11-03)
+## Moves Lin never makes
 Figurative stand-ins for technical words ("pull", "silence", "fingerprint", "the data tell us"), and stacked negations that delay the positive statement ("never … anything except"). See prose-review pattern 25.

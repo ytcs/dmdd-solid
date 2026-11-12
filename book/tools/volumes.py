@@ -2,8 +2,8 @@
 """Source map of the three volumes: which chapter file and which section file belongs to which volume.
 
 Read from tex/vol{1,2,3}.tex and the chapter drivers they \\input. Used by tools/xref.py, tools/split_B1.py
-and tools/volmap.py. Labels are stable identifiers (sec:3.4, app:E.14, app:D.29 keep the numbers of the
-one-volume edition); the printed number comes from the build.
+and tools/chapcheck.sh. Labels are stable identifiers and need not match the printed number, which comes from
+the build.
 """
 import re
 from pathlib import Path

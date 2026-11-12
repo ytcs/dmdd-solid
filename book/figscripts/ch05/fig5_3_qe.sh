@@ -12,7 +12,7 @@
 #     for the 6^3 grid also with asr='no' (sum rule not imposed).
 # (3) Direct ph.x at three points on none of the grids (fig5_3_qpath.OFFGRID), same settings as the 6^3 run
 #     (tr2_ph = 1e-16), reading a copy of the 5.2 ground state: the test of the interpolation.
-# Run: bash code/run-heavy.sh SEC5.4-QE bash fig5_3_qe.sh     (work directory /root/work/5.4, deleted after parsing)
+# Run: bash book/tools/qe/run-heavy.sh SEC5.4-QE bash fig5_3_qe.sh     (work directory /root/work/5.4, deleted after parsing)
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd)
 SRC=/root/work/5.2

@@ -163,4 +163,26 @@ After:
 "Collisions between the two molecules have enough energy for the reaction but rarely the right orientation, so the uncatalysed reaction is slow. A catalyst supplies the orientation. The catalyst binds one molecule into an intermediate complex that has the reactive orientation but not yet the charge distribution of the product. Transferring a proton then converts the intermediate complex into the product. The intermediate complex is never isolated; it enters the reaction rate through the activation barrier, which is the difference between the energy of the intermediate complex and the energy of the reactants."
 Every definite noun phrase has an explicit antecedent; no pronoun has two candidates; the object has one name; every relational noun carries its arguments; no sentence needs a second parse.
 
+**Editing pitfalls seen when repairing pattern 27** (check every repair against them):
+- *Meaning loss when restating a negated pair.* Rewriting "conserves A but not B … conserves both" as "same A, different B" can drop the claim that B is not conserved, or shift a reference point. State each claim explicitly and check that the content is unchanged.
+- *One name, two referents.* After naming an object, check every other use of that name in the section and chapter; a name already used for a different object must not be reused.
+- *Over-repair.* A pronoun with one candidate that is the subject of the previous clause is correct; replacing it with a repeated noun ("the principal-value part … ; the principal-value part …") makes the prose robotic.
+- *Strength drift.* Adding "therefore", "since", "about", "only", or dropping "at least", "about", a width or a range, changes the claim.
+- *New garden paths and heavy subjects.* A rebinding that moves a clause or a gerund in front of the verb trades one failure for another.
+- *Invented names.* "This procedure", "this causal form" for objects the text never named; use the existing term or the object itself.
+
 Writer rule: after drafting a paragraph, list for every sentence its pointers and their antecedents; rewrite any pointer with zero or several candidates. Reviewer rule: read the paragraph whole (binding failures cross sentence boundaries, so sentence-by-sentence patching does not fix them) and report each failure with the pointer, its candidates and the rewrite. `scripts/binding.py` ranks candidate sentences; it misses many failures and does not replace the read.
+
+### 28. Word- and phrase-level tells (catalogue)
+These recur in machine-written technical prose; `scripts/tells.py` flags candidates of each. Keep a contrast or a technical use only where it carries content.
+- **Cleft and pseudo-cleft openers:** "What X needs is Y", "What remains is …". Say it directly.
+- **Negation framing:** "X, not Y", "not X but Y", "does little more than", "nothing but". State the positive fact; keep a contrast in one clause only where the reader would otherwise assume the wrong thing ("an estimate, not a bound").
+- **Metaphor verbs and figurative nouns for technical statements:** sits, lives in, carries the weight, earns its place, pays off, turns on, buys, the price of, takes over, kicks in, enters the picture, the story, the catch, the upshot, the bottom line. Use the technical verb: is, is given by, dominates above, depends on.
+- **Reader-directed and process phrases:** "the one fact a reader needs", "what a reader needs", "read one at a time"; sentences that justify a choice to a reviewer.
+- **Evaluations without content:** remarkably, crucially, notably, of course, indeed, in fact, it turns out, the key point, no accident; aphoristic one-line summaries.
+- **Paired verdict adjectives and figurative praise:** "sufficient but loose", "exact but slow"; honest, clean, sharp, tidy, elegant, powerful, rich structure.
+- **Count-teasers and colon reveals:** "Two consequences follow.", "The answer: …". Name the consequences; state the answer.
+- **Sentence-final emphatics:** "… at all.", "… on its own.", "… in its own right."
+- **Double negatives and stacked hedges:** "not unlike", "not without"; "may perhaps", "could possibly".
+- **Uniform rhythm:** long runs of sentences of the same length and shape, including runs of very short declaratives (which also produce pattern 27 chains).
+- **Stilted connectives and nominalisations:** thereby, whereby, hence chains, "respectively" pairings, "in order to"; a noun where a verb would do.

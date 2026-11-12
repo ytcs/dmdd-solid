@@ -1,6 +1,0 @@
-# Editor task: ledger merge for Chapter 3 and App. C.1–C.8, C.10–C.20, D.4, D.5
-Follow the procedure of briefs/ledger-merge-ch01-02.md. Merge the proposed rows (including revision blocks) of ledgers/SEAMS/3.1.md … 3.6.md, C-b.md and C-c.md (C.10–C.20 rows), the D.4 and D.5 rows of D-a.md, and the App. C.1–C.8 rows (in SEAMS C-*.md if present) into NOTATION.md, GLOSSARY.md, ledgers/CONCEPTS.md, ledgers/CLAIMS.md and INDEX.md. Rename clashes per NOTATION and the editor rulings, and keep every row consistent with the revised tex (grep it).
-- Do NOT add rows that exist already: ε_xc, ε_x, v_x and H_mv are dated 3.4/3.5. Unify H_SO vs H_so (s3-5 vs D.6) on the form NOTATION already lists, and fix the minority file.
-- SPINE.md: set 3.1–3.6, C.1–C.8 and D.4–D.5 to ACCEPTED. C.10–C.20 remain DRAFTED, because they are reviewed with their chapters.
-- Run ledgers/check_notation.py on tex/ch03, appC/C-1..C-8 and appD/D-4..D-5, fill the gaps, and run ledgers/check_concepts.py until it reports 0 violations.
-Other agents edit tex/ch05, ch06, ch07 and appE E.14+, and also append to NOTATION.md now and then. Use exact, small Edit replacements and re-read before each. Do not commit. Final message ≤ 8 lines.

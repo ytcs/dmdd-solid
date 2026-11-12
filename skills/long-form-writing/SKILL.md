@@ -185,6 +185,23 @@ Rules:
   - a full mock-reader pass of each part by fresh persona agents.
 - Reviews produce reports. The editor issues revision briefs, and nothing is fixed silently.
 
+### Language rounds on an existing text
+A pass that changes only the language (removing machine tells, fixing sentence construction) runs as follows.
+- **Pilot first.** Edit one section yourself, have an independent agent review it, and put two or three of its
+  before/after pairs (good and bad) into the editors' brief as calibration.
+- **Editors** work one unit (a chapter or a few) each and read every paragraph whole, flagged or not;
+  `scripts/tells.py` and `scripts/binding.py` only rank where to look first. Each editor runs
+  `scripts/content_guard.py <base> <files>` (no symbol, number, citation or label may appear in or disappear
+  from a file), the lint and a compile, and logs the most instructive changes.
+- **Independent reviewers**, who did not edit the unit, check every changed sentence for fidelity (claim,
+  strength, qualifiers, the facts), for pattern 27 and for over-repair, and they sample at least one
+  unchanged paragraph in ten for misses. A unit with more than 2 misses per 1000 words gets a second pass.
+  Reviewers form their own view of the diff before reading the editors' logs.
+- **Content problems found on the way** are not fixed by editors: each is written up (location, old text,
+  proposed text, evidence) and goes through a proposal and an independent review before it is applied.
+- **Detector counts are not the measure of success.** A ranker count barely moves when antecedents are
+  named; report before/after examples and the reviewers' miss rates instead.
+
 ## 5. Correctness
 
 - The derivation verifier redoes every non-definitional step from the previous line. It uses sympy for
@@ -228,3 +245,6 @@ reason.
 - `references/standalone-scrub.md`: what "standalone public document" means in practice.
 - `templates/`: writer brief, seam file, review report, spine entry.
 - `scripts/lint.py`: prose, style and banned-term lint for LaTeX or Markdown sources.
+- `scripts/tells.py`: word- and phrase-level machine tells (pattern 28); candidates, not verdicts.
+- `scripts/binding.py`: sentence-construction ranker for pattern 27 (needs spaCy and an English model).
+- `scripts/content_guard.py`: checks that a language-only edit left math, numbers, citations and labels unchanged.

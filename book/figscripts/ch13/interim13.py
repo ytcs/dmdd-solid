@@ -210,7 +210,7 @@ for m, eps, rc, rl in ((0.41, 0.015, 0.023, 0.023), (0.42, 0.066, 0.24, 0.56), (
     out("    %.2f MeV (eps %.3f eV): factor %.3f; ratios %.3g/%.3g -> %.3g/%.3g" % (m, eps, f, rc, rl, rc * f, rl * f))
 
 # rate model of the estimate, rerun with both datasets
-RIN = "/home/user/dmdd-solid/code/COMP-PAER/out/rate_in.json"
+RIN = str(__import__("pathlib").Path(__file__).resolve().parent / "data" / "rate_in.json")
 D = json.load(open(RIN))
 qF, Fc = np.array(D["qF"]), np.array(D["F"])
 qE, Edirs = np.array(D["qE"]), np.array(D["Emin_dirs"])

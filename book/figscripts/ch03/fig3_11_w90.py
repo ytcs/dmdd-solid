@@ -29,7 +29,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = "/root/work/S36"
-RUN = "/home/user/dmdd-solid/code/run-heavy.sh"
+RUN = "/home/user/dmdd-solid/book/tools/qe/run-heavy.sh"
 PSEUDO_DIR = "/root/pseudo/sg15"
 PSEUDO = "Si_ONCV_PBE-1.2.upf"
 A = 5.431                      # Angstrom, Sect. 3.1 (room temperature, CODATA 2022)

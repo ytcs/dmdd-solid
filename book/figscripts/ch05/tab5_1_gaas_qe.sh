@@ -9,7 +9,7 @@
 # and q2r/matdyn add the long-range dipole term), q2r with zasr='crystal', matdyn:
 #  (i) frequencies at Gamma (along [100], LO and TO), X = (1,0,0)2pi/a and L = (1/2,1/2,1/2)2pi/a;
 #  (ii) total and atom-projected density of states on a 32^3 grid (tetrahedra), 0.25 cm^-1 bins.
-# Run: bash code/run-heavy.sh SEC5.3-QE bash tab5_1_gaas_qe.sh   (work directory /root/work/5.3)
+# Run: bash book/tools/qe/run-heavy.sh SEC5.3-QE bash tab5_1_gaas_qe.sh   (work directory /root/work/5.3)
 set -euo pipefail
 W=/root/work/5.3; mkdir -p $W; cd $W
 PS=/root/pseudo/sg15

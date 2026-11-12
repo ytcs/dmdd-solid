@@ -7,7 +7,7 @@ Writes the small caches read by the plotting scripts (all < 1 MB):
   qe_ge_gaas.npz   Ge PBE with spin-orbit coupling (and scalar-relativistic, for comparison), GaAs PBE: bands on the
                    same path, band edges, GaAs Gamma-valley curvature points, Ge 80 Ry check
   qe_si_lda.npz    Si LDA bands on L-G-X with the fine G-X scan, and the 80 Ry and 16^3 checks
-Work files go to /root/work/F3/ only; every pw.x run goes through code/run-heavy.sh (one heavy job at a time).
+Work files go to /root/work/F3/ only; every pw.x run goes through book/tools/qe/run-heavy.sh (one heavy job at a time).
 
 Calculation (App. E.1, worked example we:E-si-bands, at the measured lattice constants):
   - Quantum ESPRESSO 7.6 (conda-forge build, /root/mamba/envs/qe), pw.x, plane waves, norm-conserving SG15 ONCV
@@ -36,7 +36,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = "/root/work/F3"
-RUN = "/home/user/dmdd-solid/code/run-heavy.sh"
+RUN = "/home/user/dmdd-solid/book/tools/qe/run-heavy.sh"
 PSEUDO_DIR = "/root/pseudo/sg15"
 BOHR = 0.529177210903          # Angstrom (CODATA 2018)
 HA = 27.211386245988           # eV

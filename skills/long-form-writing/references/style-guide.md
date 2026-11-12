@@ -54,6 +54,9 @@ available (e.g. Springer's svmono class and "Instructions for Authors"), they ta
   argument.
 
 ## Figures and tables
+- No figure or table may land between the parts of a boxed environment (worked example, key result, check
+  box) that breaks across pages. Hold deferred floats while a box is set and release them when it ends, and
+  forbid top floats on the page where a box ends; verify on every build by recording each box's page span.
 - Every figure and table is cited in the text before it appears, and is numbered by chapter (Fig. 3.4,
   Table 3.1).
 - Captions stand alone: a reader who sees only the figure and caption knows what is plotted, in what

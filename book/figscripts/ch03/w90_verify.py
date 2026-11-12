@@ -22,7 +22,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = "/root/work/F3W"
-RUN = "/home/user/dmdd-solid/code/run-heavy.sh"
+RUN = "/home/user/dmdd-solid/book/tools/qe/run-heavy.sh"
 A = 5.431
 ECUT = 60
 NB = 20

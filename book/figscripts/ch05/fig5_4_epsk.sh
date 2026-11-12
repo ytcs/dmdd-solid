@@ -4,7 +4,7 @@
 # ecutwfc = 60 Ry, measured a = 5.638 A [Csonka et al., PRB 79, 155107 (2009), Table II, as in Table E.1]),
 # with Gamma-centered 12^3 ... 28^3 k grids (NKS="12 16" by default; run again with NKS="20 24 28"); ph.x with trans=.false., epsil=.true. (eps_inf and Z* = dF/dE only).
 # The 8^3 values come from the full phonon run of tab5_1_gaas_qe.sh.
-# Run: bash code/run-heavy.sh SEC5.5-EPSK bash fig5_4_epsk.sh   (work directory /root/work/5.5)
+# Run: bash book/tools/qe/run-heavy.sh SEC5.5-EPSK bash fig5_4_epsk.sh   (work directory /root/work/5.5)
 set -euo pipefail
 W=/root/work/5.5; mkdir -p $W; cd $W
 PS=/root/pseudo/sg15

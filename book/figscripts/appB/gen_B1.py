@@ -11,17 +11,10 @@ Steps
    meaning; cut a long meaning of a one-symbol row at its first top-level semicolon.
 3. Render symbols in LaTeX math with the book's macros (tex/macros.tex). Sub- and superscript typography (upright or italic,
    e.g. v_{\\mathrm{esc}} but \\mu_{\\chi e}) is read from the accepted tex itself: every math token of tex/ch*/ and tex/app*/ is
-   tokenized (with the tokenizer of ledgers/check_notation.py) and the most frequent spelling of each (base, script) is used.
+   tokenized (with the tokenizer of tools/check_notation.py) and the most frequent spelling of each (base, script) is used.
    Symbols that do not convert mechanically are in EXPLICIT. Anything left unconverted is logged.
 4. First use: the first section number of the cell, turned into \\labelcref{sec:N.M} or \\labelcref{app:X.n} when that label
    exists in tex/**/*.tex (checked here); otherwise printed as plain text and logged.
-Revised 2026-11-07 after the App. B accuracy review (ledgers/REVIEWS/appB/accuracy.md, editor rulings B1, B3): a section number
-counts as editorial only as a pointer, never as a decimal value; a multi-symbol row keeps its clause count; equation labels leave
-the clause, not the clause itself; "(14.5)" in a symbol cell is dropped; Σ is a sum in a meaning; the imaginary unit, \\operatorname
-names, primes after an index list, and bold vector letters follow the tex (per first-use file); scope notes (SCOPE) mark the
-accepted local reuse of a symbol.
-Revised 2026-11-07 after the post-revision check (ledgers/REVIEWS/appCEB-postrev-check.md, items 9-14): e^pz and y_χν̃ in EXPLICIT;
-a lone < or > is a script (E_<, E_>); ∗ between factors is \ast; a value list after "= 0," stays in the math; "stream a" is math.
 5. Group by the chapter of first use (Chaps. 1-22, then Apps. A, C, D, E, F); within a group, sort by first-use section and then
    by the order of the rows in NOTATION.md, which is the order in which the symbols were introduced within a section.
 """
@@ -38,7 +31,7 @@ NOTATION = BOOK / "NOTATION.md"
 OUT = TEX / "appB" / "B-1.tex"
 LOG = HERE / "gen_B1.log"
 
-sys.path.insert(0, str(BOOK / "ledgers"))
+sys.path.insert(0, str(BOOK / "tools"))
 sys.dont_write_bytecode = True
 import check_notation as cn  # noqa: E402  (tokenizer of the accepted tex; read-only use)
 
