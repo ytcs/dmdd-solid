@@ -44,7 +44,7 @@
 - **Basis positions:** bold 𝛕_κ; plain τ is imaginary time. Basis structure factor S^{bas}(G).
 
 ## Titles, deferrals and organizing equations (user, 2026-11-02)
-- Titles name the content in the field's terms. Bad: "The event rate and its factors", "What gravity fixes". Good: "The master equation of direct detection", "Inputs from cosmology". Test: a reader can predict the section's central result from the title and find it in an index.
+- Titles name the content in the field's terms. Bad: "The event rate and its factors", "What gravity fixes". Good: "The master equation of direct detection", "Gravitational evidence and the mass range". Test: a reader can predict the section's central result from the title and find it in an index.
 - No self-narrating or provenance sentences ("We state it here without derivation, in the form of Ref. [1, Eq. (8)]"). When a derivation is deferred, point inside the book: "We will derive this in the chapters that follow."
 - Organizing equations whose parts the text discusses one by one carry underbrace labels (halo, coupling, target, kinematics).
 - **Information content (governing rule):** every sentence and title must carry concrete information. Apply the deletion test (prose-review pattern 0): if deleting a sentence loses no fact, number, equation, definition, named object or argument step, cut it or make it name the thing.
