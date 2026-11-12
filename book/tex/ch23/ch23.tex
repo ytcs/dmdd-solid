@@ -1,8 +1,19 @@
 \chapter{Density-functional theory}\label{chap:23}
 
+A dark-matter rate in silicon needs a few dozen numbers about the crystal: a gap good to tens of meV, a loss function out to \SI{100}{eV}, density vertices at momentum transfers of tens of keV, electron--phonon couplings on grids of $10^9$ points, and the energy a struck atom leaves behind. Almost none of them is measured everywhere it is needed. Each is computed by a method with its own approximation, numerical parameters and typical failure. \Crefrange{chap:23}{chap:29} follow each method through one calculation, almost always of silicon, so that a number in the text can be traced to what it neglects and to the check that would expose it. \Crefrange{chap:30}{chap:33} go the other way and specify, quantity by quantity, the calculation behind each number a rate uses, with its inputs, its method and its convergence targets. Every method is placed on the truncation label $\mathfrak{T}$ of \cref{sec:8.5}, whose components include the Born--Oppenheimer order $n_B$, the electron--phonon order $n_g$, the anharmonic order $n_A$, the thermal order $n_T$, the many-body approximation $\mathcal{X}$, the lattice regime $\mathcal{K}$ (one phonon, multiphonon or impulse) and the Migdal regime $\mathfrak{M}$; a calculation at clamped nuclei, with independent particles and no phonons, sits at its base point $\mathfrak{T}_0$.
+
+The calculation at the base point is density-functional theory. It turns the Coulomb Hamiltonian of \cref{eq:2.3-HC} into a problem of independent electrons in an effective potential, and it computes the potential $U(\vect{r})$ of \cref{sec:3.2} from the electrons themselves instead of fitting it. The bands and wavefunctions behind computed dark-matter rates come from it, and the gap is its best-known failure: a density-functional calculation of silicon puts the gap at about \SI{0.5}{eV}, less than half the measured \SI{1.17}{eV}. Since the threshold mass of \cref{eq:1.3-mmin} is proportional to the gap, the error enters the reach directly: the computed gap would put the reach of a silicon detector at \SI{0.15}{MeV} instead of \SI{0.33}{MeV}.
+
 \input{ch23/s3-4}
 \input{ch23/D-4}
 \input{ch23/D-5}
 \input{ch23/E-1}
 \input{ch23/E-3}
+
+\section*{Summary}
+
+The effective potential of a crystal comes from the many-electron problem (\cref{sec:3.4}). Hartree--Fock exchange is unscreened and opens the gap far too wide; the Kohn--Sham equations of density-functional theory reproduce the ground-state density and energy, and with local or semilocal functionals give good lattice constants, band shapes and masses. Their eigenvalues are not quasiparticle energies, however, and the Kohn--Sham gap of silicon is about half the measured one, the band-gap problem. A gap of \SI{0.52}{eV} would put the threshold mass at \SI{0.148}{MeV} instead of \SI{0.333}{MeV}. The standard repair, a scissor shift of the conduction bands, leaves the density vertex unchanged and rescales interband velocities by the ratio of corrected to Kohn--Sham transition energies. A measured gap already contains the zero-point renormalization, and a scissor to it must not add that renormalization a second time.
+
+Every numerical parameter of the calculation is converged on the quantity that is used, not on the total energy: the $8^3$ grid that converges the energy of silicon to \SI{2}{meV} per atom leaves $\varepsilon_\infty$ nine percent too high (\cref{app:E.1}). A scissor, the hybrid functional HSE and a one-shot $G_0W_0$ calculation give the silicon gap to about \SI{0.1}{eV} of one another (\cref{app:E.3}). That spread, and the screening, $\varepsilon_\infty$ of 13.0 computed against 11.7 measured, are the theory uncertainties that this chapter leaves in an electronic rate of silicon.
+
 \printbibliography[heading=subbibliography]
