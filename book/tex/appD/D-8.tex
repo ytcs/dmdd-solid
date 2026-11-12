@@ -1,6 +1,6 @@
 \section{The Lindhard function at zero temperature}\label{app:D.8}
 
-The density response of free electrons at $T = 0$ is a ratio of logarithms in $\omega$ and $q$, first written down by Lindhard~\cite{lindhard1954properties}. \Cref{sec:4.5} uses it for the valence electrons of silicon, where it fixes the static screening, the plasmon and the continuum of electron--hole pairs. This section evaluates it in closed form for any complex frequency in the upper half plane, takes the boundary value on the real axis, and checks the result against the structure factor of \cref{we:4-gas}, the f-sum rule and the static limit of \cref{app:C.8}. The derivation follows Ref.~\cite[Chap.~4]{giuliani2005quantum} in the notation of \cref{sec:4.2,sec:4.7}.
+The density response of free electrons at $T = 0$ is a ratio of logarithms in $\omega$ and $q$, first written down by Lindhard~\cite{lindhard1954properties}. \Cref{sec:4.5} uses it for the valence electrons of silicon, where it fixes the static screening, the plasmon and the continuum of electron--hole pairs. The derivation follows Ref.~\cite[Chap.~4]{giuliani2005quantum} in the notation of \cref{sec:4.2,sec:4.7}.
 
 \subsection*{The angular and radial integrals}
 
@@ -19,7 +19,7 @@ with $v_{\mathrm{F}} = k_{\mathrm{F}}/m_e$. Then $z \mp \Delta_{\vect{k}} = qv_{
 \begin{equation*}
   R^0(q,z) = \frac{m_ek_{\mathrm{F}}^2}{2\pi^2q}\int_0^1\dd\tilde{k}\;\tilde{k}\left[\ln\frac{\nu_- + \tilde{k}}{\nu_- - \tilde{k}} - \ln\frac{\nu_+ + \tilde{k}}{\nu_+ - \tilde{k}}\right] .
 \end{equation*}
-The radial integral is the one met in the exchange energy of \cref{app:D.4}. The antiderivative found there, $\tfrac12(\tilde{k}^2 - w^2)\ln[(w + \tilde{k})/(w - \tilde{k})] + w\tilde{k}$, holds for complex $w$, since the derivative was taken without using reality. Evaluated between $0$ and $1$ it gives
+The radial integral is the one of the exchange energy in \cref{app:D.4}. Its antiderivative, $\tfrac12(\tilde{k}^2 - w^2)\ln[(w + \tilde{k})/(w - \tilde{k})] + w\tilde{k}$, holds for complex $w$, since the derivative is taken without using reality. Evaluated between $0$ and $1$ it gives
 \begin{equation*}
   \mathcal{I}(w) = \int_0^1\dd\tilde{k}\;\tilde{k}\ln\frac{w + \tilde{k}}{w - \tilde{k}} = w + \frac{1 - w^2}{2}\,\ell(w), \qquad \ell(w) = \ln\frac{w + 1}{w - 1} ,
 \end{equation*}
@@ -55,14 +55,14 @@ Above it, up to $\omega_+$, only the step of $\nu_-$ is on, and with $k_{\mathrm
 \end{equation*}
 Outside the band $\omega_- < \omega < \omega_+$ the imaginary part vanishes: no electron--hole pair has that energy at that momentum. The two forms are $-\tfrac12$ times the linear and parabolic forms of the structure factor $S^0$ in \cref{we:4-gas}, which is the fluctuation--dissipation theorem \cref{eq:4.2-fdt} at $T = 0$, $S^0 = -2\Imag R^0$ for $\omega > 0$. The two calculations are independent: \cref{we:4-gas} counted the transitions with a delta function, and here they appear as the jump of a logarithm across its cut.
 
-\subsection*{Static, small-$q$ and high-frequency limits}
+\subsection*{Static and small-$q$ limits}
 
 \emph{Static response.} At $\omega = 0$, $\nu_\pm = \pm y$. The logarithm of the modulus is odd, $\ln|(1 - y)/(-1 - y)| = -\ln|(1 + y)/(1 - y)|$, so the two terms in the bracket of \cref{eq:D.8-Re} add, and $(k_{\mathrm{F}}/4q)\cdot2 = 1/4y$:
 \begin{equation}
   R^0(q,0) = -2\mathcal{N}_{\mathrm{F}}\left[\frac12 + \frac{1 - y^2}{4y}\ln\Bigl|\frac{1 + y}{1 - y}\Bigr|\right] = -2\mathcal{N}_{\mathrm{F}}\,F_{\mathrm{L}}\!\left(\frac{q}{2k_{\mathrm{F}}}\right) ,
   \label{eq:D.8-static}
 \end{equation}
-with $F_{\mathrm{L}}$ of \cref{eq:C.8-FL}. The static response is negative, as it must be, since an attractive potential piles up electrons. As $q \to 0$, $F_{\mathrm{L}} \to 1$ and $R^0 \to -2\mathcal{N}_{\mathrm{F}}$: a slowly varying potential shifts the local Fermi level, and the density follows with the full density of states of both spins. The Thomas--Fermi screening of \cref{sec:4.4} follows, $1 - v_{\mathrm{C}}R^0 = 1 + k_{\mathrm{TF}}^2/q^2$ with $k_{\mathrm{TF}}^2 = 2e^2\mathcal{N}_{\mathrm{F}}$. At $q = 2k_{\mathrm{F}}$ the derivative of $F_{\mathrm{L}}$ diverges logarithmically (\cref{app:C.8}).
+with $F_{\mathrm{L}}$ of \cref{eq:C.8-FL}.
 
 \emph{Small momentum at fixed $\omega/qv_{\mathrm{F}}$.} For $y \to 0$ at fixed $\nu$, $\mathcal{I}(\nu - y) - \mathcal{I}(\nu + y) = -2y\,\mathcal{I}'(\nu) + O(y^3)$. The derivative is $\mathcal{I}'(w) = 1 - w\,\ell(w) + \tfrac12(1 - w^2)\ell'(w)$, and with $\ell'(w) = -2/(w^2 - 1)$ the last term is $1$, so $\mathcal{I}'(w) = 2 - w\,\ell(w)$. Hence
 \begin{equation}
@@ -70,16 +70,3 @@ with $F_{\mathrm{L}}$ of \cref{eq:C.8-FL}. The static response is negative, as i
   \label{eq:D.8-smallq}
 \end{equation}
 This is the response of a Fermi surface to a long-wavelength disturbance, the semiclassical limit in which the recoil $q^2/2m_e$ is negligible against $qv_{\mathrm{F}}$. For $0 < \omega < qv_{\mathrm{F}}$ the imaginary part is $-\pi\mathcal{N}_{\mathrm{F}}\,\omega/(qv_{\mathrm{F}})$, which equals $-m_e^2\omega/2\pi q$, the linear form above; above $qv_{\mathrm{F}}$ it vanishes.
-
-\emph{High frequency.} For $|\nu| \gg 1$, outside the continuum, the logarithm has the expansion $\ell(w) = 2(w^{-1} + w^{-3}/3 + w^{-5}/5 + \dots)$, and the powers $w^{+1}$ and $w^{-1}$ cancel in $\mathcal{I}$: $\mathcal{I}(w) = \tfrac23w^{-1} + \tfrac{2}{15}w^{-3} + O(w^{-5})$. With $(\nu - y)^{-1} - (\nu + y)^{-1} = (2y/\nu^2)(1 + y^2/\nu^2 + \dots)$ and $(\nu - y)^{-3} - (\nu + y)^{-3} = 6y/\nu^4 + \dots$,
-\begin{equation}
-  R^0(q,z) = \frac{\nd_eq^2}{m_ez^2}\left[1 + \frac{\tfrac35q^2v_{\mathrm{F}}^2 + (q^2/2m_e)^2}{z^2} + O(z^{-4})\right] ,
-  \label{eq:D.8-highfreq}
-\end{equation}
-where $\nd_e = k_{\mathrm{F}}^3/3\pi^2$ has been used in $m_ek_{\mathrm{F}}/(3\pi^2\nu^2) = \nd_eq^2/(m_ez^2)$. The leading term is the free-particle tail of \cref{eq:C.5-highfreq}, whose coefficient is fixed by the f-sum rule: at high frequency every electron responds as if it were alone. The correction holds the mean square velocity of the sea, $\tfrac35v_{\mathrm{F}}^2$, and the recoil, and in the random-phase approximation it is what makes the plasmon disperse (\cref{sec:4.5}).
-
-\emph{The f-sum rule.} The tail \cref{eq:D.8-highfreq} and the analyticity of \cref{eq:D.8-Rz} already imply $\int_0^\infty\dd\omega\,\omega\,\Imag R^0 = -\pi\nd_eq^2/2m_e$, by the argument of \cref{app:C.5}. For $q > 2k_{\mathrm{F}}$ the integral is also elementary. Only the parabolic form contributes, and with $s = m_e\omega/q - q/2$, which runs from $-k_{\mathrm{F}}$ to $k_{\mathrm{F}}$,
-\begin{equation*}
-  \int_0^\infty\dd\omega\;\omega\,\Imag R^0 = -\frac{q}{4\pi m_e}\int_{-k_{\mathrm{F}}}^{k_{\mathrm{F}}}\dd s\,\Bigl(s + \frac{q}{2}\Bigr)\bigl(k_{\mathrm{F}}^2 - s^2\bigr) = -\frac{q^2k_{\mathrm{F}}^3}{6\pi m_e} = -\frac{\pi\nd_eq^2}{2m_e} ,
-\end{equation*}
-since the odd part of the integrand drops out.

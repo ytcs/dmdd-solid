@@ -1,6 +1,6 @@
 \section{The dielectric matrix}\label{app:D.7}
 
-This section carries out the matrix algebra behind the dielectric matrix \cref{eq:4.4-epsGG} and the macroscopic dielectric function \cref{eq:4.4-epsmac} of \cref{sec:4.4}. It covers the inversion of the matrix Dyson equation, the macroscopic average, the equivalent form of $\varepsilon_{\mathrm{mac}}$ with the long-range Coulomb term removed, the limit $\vect{q} \to 0$, and the two conventions for the matrix. The treatment follows Refs.~\cite{adler1962quantum,wiser1963dielectric} and \cite{onida2002electronic}.
+This section carries out the matrix algebra behind the dielectric matrix \cref{eq:4.4-epsGG} and the macroscopic dielectric function \cref{eq:4.4-epsmac} of \cref{sec:4.4}. The treatment follows Refs.~\cite{adler1962quantum,wiser1963dielectric} and \cite{onida2002electronic}.
 
 \subsection*{Inversion}
 
@@ -19,20 +19,6 @@ That these are inverse matrices follows from the push-through identity $v(\mathb
   \mathbf{1} + vR = \mathbf{1} + (\mathbf{1} - v\tilde R)^{-1}v\tilde R = (\mathbf{1} - v\tilde R)^{-1}\bigl[(\mathbf{1} - v\tilde R) + v\tilde R\bigr] = (\mathbf{1} - v\tilde R)^{-1} .
 \end{equation*}
 The order of the factors matters. In element form, $\varepsilon_{\vect{G}\vect{G}'} = \delta_{\vect{G}\vect{G}'} - v_{\vect{G}}\tilde R_{\vect{G}\vect{G}'}$: the Coulomb factor carries the row index, the wavevector at which the potential is produced. This is \cref{eq:4.4-epsGG}.
-
-\subsection*{The macroscopic average}
-
-A field that varies slowly on the scale of the cell has, at wavevector $\vect{q} \to 0$, only the component $\vect{G}' = 0$. The total potential it produces has components at every $\vect{G}$, $\phi_{\mathrm{tot},\vect{G}} = (\varepsilon^{-1})_{\vect{G}\vect{0}}\,\phi_{\mathrm{ext},\vect{0}}$, which describe how the field inside the cell follows the electron density. The average over a cell of $\ee^{-\ii(\vect{q}+\vect{G})\cdot\vect{r}}$ vanishes for $\vect{G} \neq 0$ (\cref{eq:A.3-periodic}), so the macroscopic total potential is the component $\vect{G} = 0$ alone. The macroscopic dielectric function, the ratio of external to macroscopic total potential, is therefore
-\begin{equation}
-  \varepsilon_{\mathrm{mac}} = \frac{\phi_{\mathrm{ext},\vect{0}}}{\phi_{\mathrm{tot},\vect{0}}} = \frac{1}{(\varepsilon^{-1})_{\vect{0}\vect{0}}} .
-  \label{eq:D.7-mac}
-\end{equation}
-The head $\varepsilon_{\vect{0}\vect{0}}$ answers a different question: the external potential needed at $\vect{G} = 0$ to produce a total potential that has only a $\vect{G} = 0$ component. No macroscopic external field produces such a total potential in a crystal, and $\varepsilon_{\vect{0}\vect{0}}$ is not what an experiment measures. The head of the inverse is obtained from the block inversion \cref{eq:C.7-block} with the upper-left block of size one. By \cref{eq:C.7-head},
-\begin{equation}
-  \varepsilon_{\mathrm{mac}} = \varepsilon_{\vect{0}\vect{0}} - \sum_{\vect{G},\vect{G}'\neq0}\varepsilon_{\vect{0}\vect{G}}\,\bigl[(\varepsilon_{\neq0})^{-1}\bigr]_{\vect{G}\vect{G}'}\,\varepsilon_{\vect{G}'\vect{0}} ,
-  \label{eq:D.7-head}
-\end{equation}
-with $\varepsilon_{\neq0}$ the block with $\vect{G}, \vect{G}' \neq 0$. The sum is the local-field correction. It vanishes when the wings $\varepsilon_{\vect{0}\vect{G}}$ and $\varepsilon_{\vect{G}\vect{0}}$ vanish, that is, when a uniform potential induces no density modulated on the scale of the cell, as in a homogeneous system.
 
 \subsection*{The long-range term removed}
 
@@ -58,7 +44,7 @@ At small $q$ the head $v_{\mathrm{C}}(q) = e^2/q^2$ diverges, while $v_{\vect{G}
 \begin{equation*}
   \tilde R_{\vect{0}\vect{0}} = O(q^2), \qquad \tilde R_{\vect{0}\vect{G}},\ \tilde R_{\vect{G}\vect{0}} = O(q), \qquad \tilde R_{\vect{G}\vect{G}'} = O(1) .
 \end{equation*}
-The head of the dielectric matrix, $\varepsilon_{\vect{0}\vect{0}} = 1 - (e^2/q^2)\tilde R_{\vect{0}\vect{0}}$, is then finite. Of the wings, $\varepsilon_{\vect{0}\vect{G}} = -(e^2/q^2)\tilde R_{\vect{0}\vect{G}}$ diverges as $1/q$ and $\varepsilon_{\vect{G}\vect{0}} = -v_{\vect{G}}\tilde R_{\vect{G}\vect{0}}$ vanishes as $q$, and their product in \cref{eq:D.7-head} is finite. So is $\varepsilon_{\mathrm{mac}}$, as \cref{eq:D.7-macbar} shows directly, since $\bar R$ contains no singular kernel. The finite limits depend on the direction $\hat{\vect{q}}$, through the factors $\hat{\vect{q}}\cdot\langle f|\vect{j}_e(\vect{0})|i\rangle$. This is the longitudinal projection $\hat{\vect{q}}\cdot\varepsilon\cdot\hat{\vect{q}}$ of the optical tensor of \cref{sec:4.4}, which in a cubic crystal does not depend on $\hat{\vect{q}}$ (\cref{app:C.3}). A code computes the head and wings analytically in $\hat{\vect{q}}$ from velocity matrix elements, the optical limit of \cref{app:E.6}, rather than at a small finite $q$. A metal differs: its intraband transitions have $E_f - E_i \to 0$, which makes $\tilde R_{\vect{0}\vect{0}}$ tend to a constant at $\omega = 0$, and $\varepsilon_{\mathrm{mac}}$ diverges as $1/q^2$, the perfect screening of \cref{sec:4.4}.
+The head of the dielectric matrix, $\varepsilon_{\vect{0}\vect{0}} = 1 - (e^2/q^2)\tilde R_{\vect{0}\vect{0}}$, is then finite. Of the wings, $\varepsilon_{\vect{0}\vect{G}} = -(e^2/q^2)\tilde R_{\vect{0}\vect{G}}$ diverges as $1/q$ and $\varepsilon_{\vect{G}\vect{0}} = -v_{\vect{G}}\tilde R_{\vect{G}\vect{0}}$ vanishes as $q$, and their product in the local-field correction of \cref{sec:4.4} is finite. So is $\varepsilon_{\mathrm{mac}}$, as \cref{eq:D.7-macbar} shows directly, since $\bar R$ contains no singular kernel. The finite limits depend on the direction $\hat{\vect{q}}$, through the factors $\hat{\vect{q}}\cdot\langle f|\vect{j}_e(\vect{0})|i\rangle$. This is the longitudinal projection $\hat{\vect{q}}\cdot\varepsilon\cdot\hat{\vect{q}}$ of the optical tensor of \cref{sec:4.4}, which in a cubic crystal does not depend on $\hat{\vect{q}}$ (\cref{app:C.3}). A code computes the head and wings analytically in $\hat{\vect{q}}$ from velocity matrix elements, the optical limit of \cref{app:E.6}, rather than at a small finite $q$. A metal differs: its intraband transitions have $E_f - E_i \to 0$, which makes $\tilde R_{\vect{0}\vect{0}}$ tend to a constant at $\omega = 0$, and $\varepsilon_{\mathrm{mac}}$ diverges as $1/q^2$, the perfect screening of \cref{sec:4.4}.
 
 \subsection*{Symmetrized and unsymmetrized matrices}
 
