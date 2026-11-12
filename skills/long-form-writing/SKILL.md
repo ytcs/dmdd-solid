@@ -48,7 +48,10 @@ Everything below guards against one or the other.
    the register of named human-written expositions (REGISTER.md). The register check is part of every prose review.
 4. **Concision.** Book, part, chapter and section titles are short noun phrases naming their content.
    There are no subtitles (unless the publisher requires one), no punchline or clever titles, and no
-   epigraphs or quotations. Sentences are short and to the point; every sentence carries information.
+   epigraphs or quotations. Every sentence carries information and parses in one pass: each pronoun or other pointer has exactly one
+   antecedent, written as a noun phrase in the same or the previous sentence, and a technical object keeps
+   one name throughout (prose-review pattern 27). Do not split a sentence when the new sentence would
+   have to open on a pointer back.
    Content is arranged so that each section is motivated by what precedes it and each step follows from
    the last.
 5. **Pedagogy for the stated reader.** Write for the persona in the project's `READER.md`, by default a

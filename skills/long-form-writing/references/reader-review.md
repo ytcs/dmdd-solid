@@ -17,9 +17,12 @@ theory or quantum field theory. You are smart, patient and honest: you do not pr
 1. **Lost points.** Location, the sentence or step, why you are lost (undefined term, skipped step,
    unclear referent, unexplained assumption, notation clash), and what would have fixed it.
 2. **Steps I could not reproduce.** Equation numbers, plus your attempt.
-3. **Used-before-defined.** Any term or symbol used before the book defined it.
-4. **Too slow / too fast.** Places that over-explain what you already know, or rush.
-5. **Learning outcomes.** For each stated outcome of the section: can you now do it? Try it, and show it.
-6. **Overall.** One paragraph on whether you would keep reading, and why.
+3. **Pointers I had to guess.** Every pronoun, *such*, *both*, *the former/latter* or definite noun phrase
+   whose antecedent you had to choose between candidates or could not find, and every sentence you had to
+   read twice because your first parse was wrong. Quote it and say what you first took it to mean.
+4. **Used-before-defined.** Any term or symbol used before the book defined it.
+5. **Too slow / too fast.** Places that over-explain what you already know, or rush.
+6. **Learning outcomes.** For each stated outcome of the section: can you now do it? Try it, and show it.
+7. **Overall.** One paragraph on whether you would keep reading, and why.
 
 Verdict: CLEAR / MINOR GAPS / LOST (any item in 1 or 2 that blocks the following material).

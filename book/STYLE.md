@@ -67,3 +67,13 @@ Name things by their technical words: gravity, not "pull"; null result, not "sil
 
 ## No looped restatement (user directive 2026-11-03; prose-review pattern 26)
 Every paragraph adds at least one fact, number or consequence not already on the page. Do not restate a key result in prose after its box, or re-explain a derivation once it is done. A subsection ends on its last new fact, not on a recap; only the chapter Summary recaps. Before reporting, list the new facts paragraph by paragraph and cut any paragraph whose list is empty or repeats earlier ones.
+
+## Sentence construction: binding and parse depth (user directive 2026-11-12; prose-review pattern 27)
+The book's main machine construction is syntactic: sentences that need more than one parse, and pointers (*it*, *its*, *this*, *such*, *both*, *that of*, *the former*, definite noun phrases) without exactly one antecedent. Rules:
+- Every pointer has exactly one antecedent, written as a noun phrase, in the same or the previous sentence. Repeat the noun when a pronoun has two candidates.
+- A technical object has one name. Give it the field's term once and repeat exactly that term; never vary it for elegance.
+- Relational nouns carry their arguments: the difference between what and what, the shift of what, what is missing from what.
+- Introduce an object before using it with *the*.
+- No reduced relative clause that reads as a main verb, no subject heavier than about eight words, no chain of three or more prepositional phrases, no apposition that defines its head noun.
+- Splitting a sentence must not create a sentence that opens on a pointer back; merging must not create a sentence that needs a second parse.
+`python3 ../skills/long-form-writing/scripts/binding.py FILE.tex` ranks candidate sentences; it misses many failures, so read every paragraph whole.

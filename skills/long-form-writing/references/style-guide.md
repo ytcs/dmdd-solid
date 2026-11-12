@@ -39,6 +39,12 @@ available (e.g. Springer's svmono class and "Instructions for Authors"), they ta
 
 ## Text
 - Choose one spelling convention (American or British) and keep to it.
+- Sentence construction (prose-review pattern 27): every pronoun, *such*, *both*, *the former/latter* and
+  definite noun phrase has exactly one antecedent, written as a noun phrase, in the same or the previous
+  sentence. Repeat the noun rather than risk two candidates. A technical object keeps one name. Relational
+  nouns (*difference*, *mismatch*, *shift*, *missing*, *in between*) carry their arguments. No reduced
+  relatives that read as a main verb, no subject heavier than about eight words, no chain of three or more
+  prepositional phrases.
 - Use "we" for the author and reader working together. Avoid "I". Avoid addressing the reader as "you",
   unless the style sheet allows it.
 - Abbreviations are defined at first use in each chapter if chapters may be read independently, and

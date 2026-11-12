@@ -34,6 +34,8 @@ For each result: derived here, or cited (public source, equation number).
 - STYLE.md, NOTATION.md and GLOSSARY.md are authoritative. Match the voice in REGISTER.md (the project's register model). Propose new symbols and terms; do not invent
   silently.
 - Never mention the production process. Avoid every pattern in BANNED-TERMS.txt.
+- Sentence construction: every pointer has one antecedent noun phrase in the same or previous sentence;
+  one name per technical object; no garden paths (prose-review pattern 27). Run `scripts/binding.py`.
 - Show every step. If a step is long, move it to an appendix and point to it.
 
 ## Deliverables
