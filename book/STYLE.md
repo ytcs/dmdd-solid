@@ -20,7 +20,7 @@
 ## Structure and devices
 - Literature formulas recovered as limits go in the `limitbox` environment: the formula with a one-line source citation, a comparison plot (literature formula vs the fuller result against the controlling parameter, validity region shaded, leading correction visible), and one sentence on what breaks down outside it. No 'Source/Chain/Validity/Leading correction' procedure list in the box; the chain is in the text and the formal record is in Appendix F (user directive).
 - Key results in `keyresult`; worked examples in `workedexample`.
-- Computational connection: where a material quantity first appears, a short passage in the running text says how it is computed and points to Appendix E; no dedicated "how to compute" subsection.
+- Computational connection: where a material quantity first appears, a short passage in the running text says how it is computed and points to the method chapters of Volume III (Chaps. 23–29); no dedicated "how to compute" subsection.
 - Running example: silicon. Contrasts: GaAs (polar, direct), Ge (heavier, indirect), Al (superconductor), NiO (antiferromagnet), one Dirac material.
 
 ## Citations
