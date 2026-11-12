@@ -6,7 +6,7 @@ with d = v_Ga/M_Ga - v_As/M_As the mass-weighted difference of the site coupling
   solid:  longitudinal-residue site coupling v = Z - Z*/eps_inf with the measured Z* = 2.11, eps_inf = 10.88 (Sect. 11.2, WE 5.6);
           (Z*/eps_inf varied by +-1 %, the precision of the splitting route of Sect. 11.2, moves the rate by -8.7 % / +9.0 %;
           printed, not drawn: on the log scale the band is narrower than the line.)
-  dashed: rigid-ion structure of Mitridate et al., arXiv:2308.06314 v1, Eqs. (40)-(41), with ionic charges Q = +-3
+  (not drawn) rigid-ion structure of Mitridate et al., arXiv:2308.06314 v1, Eqs. (40)-(41), with ionic charges Q = +-3
           (N_Ga,e = 28, N_As,e = 36, text after their Eq. (44)): site coupling Z - Q/eps_inf.
   dotted: residue coupling with the PBE inputs of Sect. 5.5, Z* = 2.094, eps_inf = 13.70.
 L(omega): damped one-branch dielectric function (abs11_8.GAAS_ARGS), widths 1e-2 x frequency (modelling choice of 2308.06314,
@@ -47,7 +47,6 @@ print("5 gamma_L window: %.2f to %.2f meV" % ((A.WL - 5 * gL) * 1e3, (A.WL + 5 *
 fig, ax = plt.subplots(figsize=(4.6, 3.0))
 ax.axvspan((A.WL - 5 * gL) * 1e3, (A.WL + 5 * gL) * 1e3, color="0.88", lw=0)
 ax.semilogy(m * 1e3, R0, color="k", lw=1.2, label=r"residue, $Z - Z^*/\varepsilon_\infty$")
-ax.semilogy(m * 1e3, Rrig, color="k", lw=1.0, ls="--", label=r"rigid ions, $Z - Q/\varepsilon_\infty$")
 ax.semilogy(m * 1e3, Rpbe, color="k", lw=1.0, ls=":", label=r"residue, PBE $Z^*$, $\varepsilon_\infty$")
 ax.set_xlabel(r"$m_\phi$ [meV]")
 ax.set_ylabel(r"events / (kg yr $g_{\phi ee}^2$)")
