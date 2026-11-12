@@ -26,3 +26,4 @@
 - appE D-30:57 CONTENT? 'inversion maps q back to -q' (should be -q -> q) - possible erratum; block names unified (singlet/triplet/cross/current block)
 - ch21 s21-4 'along the other axis' unnamed; names: 'closed form at v_E^ref', 'standard-halo rate/curve'
 - ch18 see ch18.md Unresolved (fig:18-tree cref; s18-3:97 reading; s18-5:62 exciton 'drifts as a whole' CONTENT?; tab:18-nuisances)
+- ch20 see ch20.md (s20-3:37 'the one critical angle' vs two angles CONTENT?)
