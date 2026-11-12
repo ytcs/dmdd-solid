@@ -28,3 +28,70 @@ Checked and left: dups pair 22 (ch03/s3-3:203 vs ch23/s3-4:148): the worked exam
 chapcheck (private outdirs /tmp/e2e-ch23 … /tmp/e2e-ch26): ch23, ch24, ch25, ch26 exit 0, no undefined references, no multiply defined labels, no float too large. Lint on changed files: no blocking hits; the one long-sentence warning in a sentence I touched (E-5:41) fixed by splitting.
 
 Left for others (details in E2E-vol3-notes.md): ch27 opening repeats ch23 opening and ch23/ch24 Summaries; ch33 opening repeats the ch23 Summary and the stale truncation-label claim; s11-8:97 → eq:5.5-LOTO so that the E-4 LO–TO display can go; ch26 (and ch27, ch28) have no Summary; number mismatches SG15 r_c 1.89/1.88 Å and LDA a 5.401/5.403 Å listed, not fixed.
+
+## Block ch27–ch30 (block reader)
+
+Read first: openings and Summaries of Chaps. 1–26, E2E-vol3-dups.txt, E2E-undefined-labels.txt (no label of that list occurs in ch27–ch30; a scan of every \cref target of the block found none missing), E2E-vol3-structure.md (findings on this block applied where they lie inside it).
+
+Words before/after: ch27 6590 → 6319; ch28 4216 → 4161; ch29 9622 → 9509; ch30 13472 → 13382; block 33900 → 33371 (−1.6 %; the unit passes had trimmed these chapters already, and the cuts here are cross-chapter repeats).
+
+Changes:
+- ch27/ch27.tex (opening): cut sentence 1 (repeated the ch23 opening) and the last sentence (ε∞ 13.0 vs 11.7 and the vertex beyond 1/r_c: the ch23 and ch24 Summaries). The kept sentence on the independent-particle form factor is preceded by one connective sentence. r_c is now defined at its first use, E-7.tex:52.
+- ch27/E-6.tex:68 (bound excitons): the Wannier–Mott derivation of μ_x, a_x and the k spacing repeated ch04/s4-9.tex:72; cut to the radius and the zone fraction with \cref{sec:4.9}; the grid conclusion stays.
+- ch27/E-6.tex:77: removed "We check each setting against the estimates of this section." (narration).
+- ch27/E-7.tex:58: the description of the pseudo-wavefunction inside r_c (sec:3.5, E-2) cut to "The pseudo vertex is reliable only for q r_c ≪ 1 (sec:3.5)".
+- ch27/E-7.tex:69 (core shells): the shell binding energies (99.4, 99.8, 150, 1839 eV) and the kinematic derivation of the openings repeated ch24/s3-5.tex:103–107; cut to the openings of Si 2p and Ge 3d with \cref{sec:3.5}.
+- ch27/E-7.tex:76: the Griffin test of atomic against reconstructed orbitals (stated in ch24/E-2.tex:54) cut to one clause with \cref{app:E.2}; the net 1s shifts 0.26 % and 1.46 % (we:3-Zalpha) cut, the (Zα)² sizes kept with the pointer.
+- ch27/E-7.tex:112: removed "the number quoted at the start of this section".
+- ch28/ch28.tex (opening): cut the sentence on exchange-constant and Eliashberg uncertainties, which E-9.tex:3 states with its numbers.
+- ch28/E-9.tex:3: cut "These two cases mark the range of what first-principles methods deliver ..." (no content).
+- ch28/E-10.tex:3, 40: the 17.5–63.5 eV range is now said to be that of the Stillinger–Weber potential at its first mention; the second mention is replaced by the overshoot of 4–6 eV along ⟨111⟩ from sec:19.1-md.
+- ch29/ch29.tex (opening): cut "and placed on the truncation label ... so that a number in the text can be traced to what it neglects and to the check that would expose it" (repeated the ch23 opening; structure finding on the truncation label).
+- ch29/E-11.tex:3: cut "The atoms leave the region where the force constants of sec:5.2 apply" (said in the ch29 opening).
+- ch29/E-11.tex:103 (pitfalls): the sentence on potentials that agree on elastic constants and disagree on thresholds repeated ch19/s19-1.tex:99; replaced by \cref{sec:19.1-md}.
+- ch29/E-12.tex:61: the G4CMP lumped-film escape factor exp(−4d_f/l_f) and its explanation, removed from Chap. 20, replaced by the absorption probability P_abs of \cref{eq:20.3-pabs}.
+- ch29/E-13.tex:64–71 (single-parameter model): the Ramanathan–Kurinsky Monte Carlo planes ε_eh = 1.7E_g + 0.084A + 1.3, F = −0.028E_g + 0.0015A + 0.14 and their values 3.71 eV and 0.115 removed (dominated, as in Chap. 18). The text now says which calibration it quotes: the original A_AB = 5.2 (source units) for the ionization probabilities, and the calibration A_AB = 5.703 eV³ of sec:18.4 (eq:18.4-AAB) for the comparison with the measured Fano factor, F_eh = 0.114, 2.4σ low. The model is pointed to as the free-particle limit of the random-k cascade of sec:18.1. tab:E-cascade-si: caption and model row follow (model 3.749 eV fitted, 0.114). No number changed.
+- ch29/E-13.tex:85 (pitfalls): "the agreement of the cascade of sec:18.4 with the single-parameter model" read as a self-comparison, since sec:18.4 is that model; retargeted to the full-band cascade of sec:18.3-fullband, which gives the same F_eh = 0.114. Author to confirm.
+- ch30/ch30.tex (opening): "This chapter and the two after it specify, quantity by quantity," → "\Crefrange{chap:30}{chap:32} specify ..., with the methods of \crefrange{chap:23}{chap:29}" (structure findings on the openings).
+- ch30/E-14.tex:3: cut the restatement of the ch30 opening (the 0.333–0.405 MeV window, "known only to a factor of ten"); the paragraph now starts from the estimate.
+- ch30/E-16.tex:17: the off-axis minima of the zero-phonon edge (dups pair 22 with ch13/s13-9.tex:13) cut to the angle range with \cref{sec:13.9}.
+- ch30/E-18.tex:3: cut the clause on the coherent zero-phonon Migdal part (in the ch30 opening and in the subsection "Coherent zero-phonon Migdal response").
+- ch30/E-18.tex:23: the ω² expansion of the on-site force constant at imaginary frequency (dups pair 16 with ch12/s12-5.tex:46) cut to a pointer to sec:12.5; the five-point fit stays.
+- Terminology: "many-body nuisance" → "many-body theory uncertainty" (E-15.tex:7, E-18.tex:23); "reported as the nuisance" → "as the theory uncertainty" (E-15.tex:45, 49); "local-field nuisance" → "local-field uncertainty" (E-18.tex:33). No other use in the block; the label tab:12-nuisances is unchanged.
+
+Sentences written not built from existing text: ch27.tex:3 "The bands and wavefunctions of \cref{chap:23,chap:24} reach an electron-recoil rate through the density vertices."; ch29/E-12.tex:61 "An incident phonon is absorbed with the probability $P_{\mathrm{abs}}$ of \cref{eq:20.3-pabs} and otherwise escapes back into the substrate."; ch30.tex:3 the clause "with the methods of \crefrange{chap:23}{chap:29}". All other new wording is assembled from sentences of s4-9, s3-5, E-2, s12-5, s18-1, s18-4, s19-1 and the ch18 Summary.
+
+Checked and left: tab:E-md-si (E-11) recaps the section but is cited from ch19/s19-1.tex:99, so it stays; tab:E-transport-si and tab:E-cascade-si stay with it (structure finding 17, uniformity is the lead's call). E-9.tex:39 (J_2 from 11 to 27 meV) repeats the ch7 Summary but is the methods home of the number; kept.
+
+chapcheck (private outdirs /tmp/e2e-ch27 … /tmp/e2e-ch30): ch27, ch28, ch29, ch30 exit 0, no undefined references, no multiply defined labels, no float too large. Overfull hboxes (ch28 1, ch29 1, ch30 2) are in lines not touched here (E-9:21, tab:E-cascade-si plasmon row, E-15:11, E-18:31). Lint on changed files: no blocking hit; long-sentence warnings in edited sentences split.
+
+Left for others (details in E2E-vol3-notes.md): plasmon 16.6 vs 16.4 eV (E-13 vs E-24); E-6:44 "local fields small in the rate" against sec:10.2, ch21, sec:8.8; δ_LF against ε_mac in eq:E.16-dLF vs head-only in s13-4; SW threshold 17.5 vs 18 eV; ch23 opening gap "0.5 eV"; dups to cut in ch32.tex:3 and ch33/s22-1.tex:15, 79; no Summaries in Chaps. 27–30; order of ch30/ch31.
+
+## Block ch31–ch33 (block reader)
+
+Read first: openings and Summaries of Chaps. 1–30, E2E-vol3-dups.txt, E2E-undefined-labels.txt (no label of that list occurs in ch31–ch33; every \cref target of the block exists in tex/), E2E-vol3-structure.md.
+
+Words before/after: ch31 15489 → 15370; ch32 11443 → 11312; ch33 8352 → 8220; block 35284 → 34902 (−1.1 %). The unit passes had already cut the removed-model specifications (ch30-33.md, second pass); this pass found no specification left whose Volume II model is gone (grepped: Klein, Ramanathan–Kurinsky, modified Lindhard, bare bubble, Landau multiferroic, Wigner correction, effective-mass envelope, form-factor and electron-gas rates; the remaining mentions are checks or data that Chaps. 15, 16, 18, 19 keep).
+
+Terminology ("nuisance"): E-17 (3: "reported as the uncertainty", "is the uncertainty until it exists", "spread as the uncertainty"), E-19 ("method uncertainty", "uncertainty of the correction"), E-20 ("so that stage gives only an estimate of the theory uncertainty"), E-25 ("uncertainty of the contrasts"), E-27 ("theory uncertainty"), s21-6 ("uncertainty tables" ×2, "uncertainty template", "uncertainty of the approximations", schema row "Nuisances" → "Theory uncertainties", worked-example run-in "Uncertainty.", "The theory uncertainty that remains"; "its nuisance parameter ϑ_k" → "its parameter ϑ_k in the likelihood of \cref{sec:21.4}"), s22-1 ("uncertainty budgets"). No "nuisance" left in the block.
+
+Changes:
+- ch32/ch32.tex (opening): cut the acceptance rule and "quantity by quantity ..." (dups pair ch30:3/ch32:3, kept in ch30); joined the methods pointer to the cost sentence.
+- ch33/ch33.tex (Summary): replaced. The old one restated Chaps. 23–25 (8^3 grid / nine percent, the three bookkeeping rules) and the ch32 cost range (dups pair ch23:17/ch33:9, structure finding 1). The new one condenses Sects. 33.1–33.2: what a library stores and why, the 22 channels by class, the calculation-limited group and tab:22-calc, the data- and theory-limited groups.
+- ch33/s22-1.tex: opening sentence on MeV masses and v_max (Vol I kinematics) cut; germanium check in tab:22-calc reduced to the band check of app:E.14 (numbers stood in E-14:56); germanium paragraph: the hybrid/4s-shift numbers (E-14:58, E-1:143) cut to a pointer; Sect. 33.2.3: the three class definitions (repeat of sec:16.9-limits, dups pair s16-9:37) cut to a pointer, fig:22-limits caption "as defined in the text" → "as defined in \cref{sec:16.9-limits}"; we:22-fsum: the δ_NL definition replaced by a pointer to app:E.14.
+- ch31/E-17.tex: the redisplay of eq:11.3-weight (label eq:E.17-Wn, one user, in E-17) cut to a sentence citing eq:11.3-weight; first paragraph: "for Si, Ge and GaAs these come from one DFPT calculation each" cut (said in the ch31 opening).
+- ch31/E-19.tex:3: ", and only exact static moments bound the answer" cut (ch31 opening and E-19:15).
+- ch31/E-20.tex: exclusion of the edge cells retargeted sec:15.1 → sec:15.2 (where the exclusion is made, s15-2:75); "(\cref{app:E.9})" added after DFT+U (structure finding 11).
+- ch31/E-22.tex:25: the arithmetic of ln(Γ0 t)=47.2 and the two-parabola 27.5 (given in s19-6:27–29) cut to the two numbers with a pointer to sec:19.6.
+- ch32/E-23.tex: "Dense tracks" and "Track recombination" retargeted sec:19.1 → sec:18.5,sec:19.5 (earlier note); first sentence rephrased so that it no longer repeats the ch32 opening (structure finding 10).
+- ch32/E-24.tex:59: the binomial thinning formulas (eq:18.5-thin) cut to a pointer.
+- ch32/E-25.tex: the space-charge numbers (s20-1:142, dups pair) cut; ", which fixes the size law" cut (s19-6:181, dups pair).
+- Labels removed: eq:E.17-Wn (no reference outside E-17; tex/xref/all.tex keeps it until the next build).
+
+Sentences written, not built from existing text: ch33 Summary (all of it condensed from s21-6:3, 7, 19 and s22-1:116–120; new wording: "Since a limit can be reproduced and recast only from the response tables it was computed with, ...", "Their calculations are specified, and \cref{tab:22-calc} orders them ...", "In the data-limited channels no calculation substitutes for a measurement of the sample or the detector.", "... the next step is a new method."); ch32.tex "These calculations use the methods of \cref{chap:29}, and their costs run from ..."; s22-1 "\Cref{fig:22-limits} sorts every channel of the book by theory, calculation and data, the three classes by which \cref{sec:16.9-limits} sorts the novel targets."; s22-1 "... which neither a hybrid functional nor a shift of the 4s-like orbitals gets right together (\cref{app:E.14})"; E-17 "... the n-phonon weight is the lattice sum \cref{eq:11.3-weight}, per cell, and its ratio δ^coh_n(q) to the incoherent weight is the exact coherence correction ..."; E-22 "For a silicon close pair in one year this is λ_tun ≤ 23.6 in the strong-coupling regime, against a two-parabola estimate of 27.5 (\cref{sec:19.6}), ..."; E-23 "In silicon a binary collision with a valence electron creates an electron–hole pair only above the recoil energy ..."; E-24 "A capture probability shared by every carrier changes ε_eh and F_eh by \cref{eq:18.5-thin}."; E-20 "so that stage gives only an estimate of the theory uncertainty".
+
+Checked and left: dups pairs E-14:86/s22-1:79 (worked example kept, move proposed in the notes) and s19-6:181/E-25:29 (specification intro kept, one clause cut). Numbers checked consistent across the volume: Z*/ε∞ = 0.194 (2.11/10.88), (1+θ_ii)Eg = 2.32 eV with θ_ii = 1, λ_tun 23.6/27.5/14 %, attraction ×1.28 = 1 + δ_X(0.28), 27 pairs at 3.75 eV, 8.43 km/s.
+
+chapcheck (/tmp/e2e-ch31, -ch32, -ch33): all exit 0, 0 undefined, 0 multiply defined, 0 floats too large; ch32 keeps its one pre-existing overfull hbox. Lint on changed files: only LONG-SENT warnings, none in a sentence I wrote (two split).
+
+Left for others: see "Notes from block reader ch31–ch33" in E2E-vol3-notes.md (we:22-fsum placement, shared-base order, missing Summaries of Chaps. 31–32, c_κ^* in eq:11.3-weight, ch31 methods pointer).

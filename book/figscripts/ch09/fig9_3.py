@@ -56,7 +56,6 @@ CLASS = OrderedDict([
     ("10.7a", ("X", r"no medium $\to$ measured $\varepsilon$", r"boson mass $m_\phi$")),
     ("10.7b", ("TM", "", r"upper cutoff of the spectral sum")),
     ("10.8a", ("KH", "", r"line width over the kinetic energy of the pair")),
-    ("10.8b", ("DM", "", r"boson mass over electron mass")),
     ("10.9d", ("X", r"no medium $\to$ measured $\varepsilon$", r"splitting over the valence plasma frequency")),
     ("11.1a", ("LW", "", r"$q/q_{\mathrm{BZ}}$")),
     ("11.1b", ("KH", "", r"dark-matter mass over the acoustic edge")),

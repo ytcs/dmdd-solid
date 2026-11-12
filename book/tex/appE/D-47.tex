@@ -1,23 +1,19 @@
-\section{Theory nuisances in a profile likelihood}\label{app:D.47}
+\section{Nuisance parameters in a profile likelihood}\label{app:D.47}
 
-An exclusion limit computed with every truncation at its central value moves when a truncation moves, and the profile likelihood of \cref{eq:8.8-like} penalizes that motion through its constraint terms. Here we derive the three statements \cref{sec:21.4-like} uses: how far the limit moves per unit of each nuisance, \cref{eq:21.4-beta}; the theory band that follows when the nuisances are independent and standard normal, \cref{eq:21.4-band}; and the cost of profiling them in the Neyman construction of \cref{sec:21.4-like}, of second order in their sizes, \cref{eq:21.4-profile}.
+An exclusion limit computed with every truncation at its central value moves when a truncation moves, and the profile likelihood of \cref{eq:8.8-like} penalizes that motion through its constraint terms. Here we derive the three statements \cref{sec:21.4-like} uses: how far the limit moves per unit of each nuisance parameter, \cref{eq:21.4-beta}; the theory band that follows when the nuisance parameters are independent and standard normal, \cref{eq:21.4-band}; and the cost of profiling them in the Neyman construction of \cref{sec:21.4-like}, of second order in their sizes, \cref{eq:21.4-profile}.
 
-\subsection{The limit at fixed nuisances}
+\subsection{The limit at fixed nuisance parameters}
 
-In bin $j$ the expected count is $N_j(\sigmae,\vartheta) = \sigmae s_j(\vartheta) + N_{\mathrm{bkg},j}$, with $s_j = N_{\mathrm{sig},j}/\sigmae$ the signal per unit cross-section of \cref{eq:21.4-Nsig}. The theory nuisances act only on $s_j$. Up to terms independent of the parameters, the Poisson part of $-2\ln\mathsf{L}$ is $\sum_j\ell_j(N_j)$ with
+In bin $j$ the expected count is $N_j(\sigmae,\vartheta) = \sigmae s_j(\vartheta) + N_{\mathrm{bkg},j}$, with $s_j = N_{\mathrm{sig},j}/\sigmae$ the signal per unit cross-section of \cref{eq:21.4-Nsig}. The theory nuisance parameters act only on $s_j$. Up to terms independent of the parameters, the Poisson part of $-2\ln\mathsf{L}$ is $\sum_j\ell_j(N_j)$ with
 \begin{equation*}
   \ell_j(N) = 2\bigl(N - N_{\mathrm{obs},j}\ln N\bigr) , \qquad \ell_j'(N) = 2\Bigl(1 - \frac{N_{\mathrm{obs},j}}{N}\Bigr) .
 \end{equation*}
-We consider data that show no excess, so that the best fit lies at $\hat{\bar\sigma}_e = 0$, the case of an exclusion. Then the best fit does not depend on the theory nuisances, which multiply a signal that vanishes there, and at fixed $\vartheta$ the one-sided statistic of \cref{app:C.14} is
+We consider data that show no excess, so that the best fit lies at $\hat{\bar\sigma}_e = 0$, the case of an exclusion. Then the best fit does not depend on the nuisance parameters, which multiply a signal that vanishes there, and at fixed $\vartheta$ the one-sided statistic of \cref{app:C.14} is
 \begin{equation}
   \mathsf{t}_\vartheta(\sigmae) = \sum_j\Bigl[\ell_j\bigl(\sigmae s_j(\vartheta) + N_{\mathrm{bkg},j}\bigr) - \ell_j(N_{\mathrm{bkg},j})\Bigr] .
   \label{eq:D.47-tfix}
 \end{equation}
-The limit $\sigmae^{\mathrm{up}}(\vartheta)$ is where $\mathsf{t}_\vartheta$ reaches the threshold $\mathsf{t}^*$ of the construction. Differentiating $\mathsf{t}_\vartheta(\sigmae^{\mathrm{up}}(\vartheta)) = \mathsf{t}^*$ with respect to $\vartheta_k$ at fixed threshold gives
-\begin{equation*}
-  \frac{\partial\ln\sigmae^{\mathrm{up}}}{\partial\vartheta_k} = -\frac{\partial\mathsf{t}_\vartheta/\partial\vartheta_k}{\partial\mathsf{t}_\vartheta/\partial\ln\sigmae}
-  = -\frac{\sum_j\ell_j'\,\sigmae s_j\,\partial\ln s_j/\partial\vartheta_k}{\sum_j\ell_j'\,\sigmae s_j} .
-\end{equation*}
+The limit $\sigmae^{\mathrm{up}}(\vartheta)$ is where $\mathsf{t}_\vartheta$ reaches the threshold $\mathsf{t}^*$ of the construction. Differentiating $\mathsf{t}_\vartheta(\sigmae^{\mathrm{up}}(\vartheta)) = \mathsf{t}^*$ implicitly with respect to $\vartheta_k$ at fixed threshold gives $\partial\ln\sigmae^{\mathrm{up}}/\partial\vartheta_k$ as minus the average of $\partial\ln s_j/\partial\vartheta_k$ over the bins, weighted with $\ell_j'\,\sigmae s_j$.
 In the power form \cref{eq:8.8-M}, the bin signal is an integral of the spectrum times $\prod_k(1 + \delta_k)^{\vartheta_k}$, so at $\vartheta = 0$ the logarithmic derivative $\partial\ln s_j/\partial\vartheta_k$ is the average of $\ln(1 + \delta_k)$ over the signal in the bin, which we write $\ln(1 + \bar\delta_{k,j})$. For a normalization template it is exact; for a tilt it holds at first order, and a finite step is used in practice. Hence \cref{eq:21.4-beta}, with the weights
 \begin{equation}
   a_j = \frac{\ell_j'\,N_{\mathrm{sig},j}}{\sum_i\ell_i'\,N_{\mathrm{sig},i}}\bigg|_{\sigmae = \sigmae^{\mathrm{up}}(0)} , \qquad \sum_ja_j = 1 .
@@ -27,7 +23,7 @@ A bin with no events has $\ell_j' = 2$, so for zero counts $a_j$ is the share of
 
 \subsection{The theory band}
 
-To first order in the nuisances, $\ln\sigmae^{\mathrm{up}}(\vartheta) = \ln\sigmae^{\mathrm{up}}(0) + \sum_k\beta_k\vartheta_k$. With independent standard-normal $\vartheta_k$ the right side is Gaussian with mean $\ln\sigmae^{\mathrm{up}}(0)$ and variance $\sigma_\beta^2 = \sum_k\beta_k^2$, which is \cref{eq:21.4-band}. The envelope that sets one nuisance at a time to $\pm1$ moves the limit by $\ee^{\pm|\beta_k|}$.
+To first order in the nuisance parameters, $\ln\sigmae^{\mathrm{up}}(\vartheta) = \ln\sigmae^{\mathrm{up}}(0) + \sum_k\beta_k\vartheta_k$. With independent standard-normal $\vartheta_k$ the right side is Gaussian with mean $\ln\sigmae^{\mathrm{up}}(0)$ and variance $\sigma_\beta^2 = \sum_k\beta_k^2$, which is \cref{eq:21.4-band}. The envelope that sets one parameter at a time to $\pm1$ moves the limit by $\ee^{\pm|\beta_k|}$.
 
 \subsection{The cost of profiling}
 
@@ -46,7 +42,7 @@ The minimum lies at $Q'(x - y) = 2y/\sigma_\beta^2$, the conditional best fit
 \end{equation}
 a shift of the signal toward smaller values, since the data show no excess.
 
-The Neyman construction of \cref{sec:21.4-like} evaluates the probability of the outcomes at least as extreme as the observed one with the nuisances at this best fit. The expected counts are then those of the nominal model at the shifted cross-section $\ee^{x - y}$, and the probability equals $1 - \mathrm{CL}$ where the shifted cross-section is the nominal limit, $x - y = x_0$. With \cref{eq:D.47-yhat} at $x_{\mathrm{p}} = x_0 + O(\sigma_\beta^2)$,
+The Neyman construction of \cref{sec:21.4-like} evaluates the probability of the outcomes at least as extreme as the observed one with the nuisance parameters at this best fit. The expected counts are then those of the nominal model at the shifted cross-section $\ee^{x - y}$, and the probability equals $1 - \mathrm{CL}$ where the shifted cross-section is the nominal limit, $x - y = x_0$. With \cref{eq:D.47-yhat} at $x_{\mathrm{p}} = x_0 + O(\sigma_\beta^2)$,
 \begin{equation*}
   x_{\mathrm{p}} - x_0 = \tfrac12\sigma_\beta^2\,Q'(x_0) + O(\sigma_\beta^4) ,
 \end{equation*}

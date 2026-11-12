@@ -78,3 +78,52 @@ Left for the lead
 - Consistency, PBE gap of silicon: ch03/s3-3.tex:29 (fig:3-si-bands caption) and :44 give 0.557 / 0.56 eV for the PBE calculation of app:E.1 at the measured lattice constant; ch04/s4-7.tex:121 and the ch04 Summary (s4-9.tex:166) give 0.602 eV with no lattice constant stated (ch23/s3-4.tex:84 gives "0.56 to 0.60 eV"). Not a typo; suggest s4-7 state the setting of the 0.602 eV or use the 0.557 eV of fig:3-si-bands.
 - Volume shape: none found. Sect. 4.7-4.8 (Green's functions, diagrams) serve the BSE of 4.9 and the e-ph self-energy of 6.3; they belong here. D-6, D-10, D-11, D-12 hold derivations the chapter does not give and stay.
 - Outside-block dup pairs: see E2E-vol1-notes.md (A-5, C-2, ch23; no action needed).
+
+## Block ch07, ch08, appD D-20 to D-28
+Read in full: openings and Summaries of Chaps. 1-6; ch07 (all), ch08 (all), D-20 ... D-28.
+Words: ch07 20400 -> 20399; ch08 39074 -> 39123 (+49, terminology and the one definition of "nuisance parameter"); D-20 ... D-28 15366 -> 15064 (-302). chapcheck: ch07, ch08, appD exit 0, no undefined references, no multiply defined labels, no float too large (the overfull hboxes in s7-4 come from citations that chapcheck leaves undefined). No label of E2E-undefined-labels.txt is cited in the block.
+
+### Changes
+- Terminology (Sect. 8.8 keeps "nuisance parameter", now defined once at its first use, s8-8 subsection 1): bare "nuisance" replaced sentence by sentence by "uncertainty", "truncation uncertainty", "normalization/threshold uncertainty", "many-body uncertainty" or "nuisance parameter" (where it is the likelihood parameter). Titles: "The nuisance of a truncation" -> "The uncertainty of a truncation"; "Nuisances in the likelihood" -> "Nuisance parameters in the likelihood"; we:8-lf-nuisance "The local-field nuisance ..." -> "The local-field uncertainty ..."; caption of tab:8-nuisances "Nuisance types" -> "Types of truncation uncertainty". Outside 8.8: ch08.tex map caption ("become theory uncertainties"), s8-3:29 and :180, s8-5:112. Labels unchanged.
+- dup s7-2:185 / D-21:32: the $\vect{q} = 0$ bubbles are displayed once, in s7-2, which now carries the label eq:D.21-q0 (moved from D-21; only reference was s7-2, now \cref{app:D.21}). D-21 keeps the trace algebra and the gap-equation step; cut its repeat of the particle-hole-symmetry assumption and of the bare $q = 0$ weight and first moment (eq:7.2-violation).
+- dup s8-2:25 / D-25:33: D-25 no longer repeats "the two orders differ by ..."; D-25 also loses the closing sentences of the classical-field subsection (conditions $t \gg t_{\mathrm{coh}}$ and the 1 ns number, stated in s8-2).
+- dup s8-3:99 / D-26:42: reviewed, kept: eq:D.26-M3 is the general $s \ne s'$ form that eq:8.3-M3 needs.
+- D-20: mean-field error and gap-equation steps shortened to what sec:7.2 does not state. D-22: Lorentz-invariance sentence shortened; last sentence (hard cutoff vs subtraction, stated in s7-3) cut. D-23: valley degeneracy and A1/E/T2 qualitative sentences shortened to pointers (stated in s7-4).
+- Symbols (plain typos of \Vol, same derivation): s7-2:175 "$/4V$" -> "$/4\Vol$" (as in D-21); s8-3:39 "$VS_{ab}$" -> "$\Vol S_{ab}$" twice.
+- Summary s8-8: in-medium factor "770" -> "$|\varepsilon|^2 = 761$", the value of s8-4.
+- Prose: "Note that" cut (s7-1:45, s7-2:76); "of course" cut (s8-5:72).
+- Figures: map08.py, fig8_3.py edited and rerun (see notes file).
+
+### Sentences written (not built from existing text)
+- s8-8: "In the likelihood the truncation is represented by a \emph{nuisance parameter} $\vartheta_k$, a parameter that is fitted together with the cross-section without being itself the quantity sought. It interpolates between the two responses."
+- s8-3:29 "and constrains the theory uncertainties of \cref{sec:8.8}"; s8-3:180 "constrain the uncertainties that \cref{sec:8.8} assigns to truncations"; s8-8 "How much does a theory uncertainty cost a limit?"
+- D-21: "With $F(\omega)$ of \cref{sec:7.2}, ... which gives the bubbles \cref{eq:D.21-q0}."
+- D-22: "The cutoff breaks the Lorentz invariance of the response, its dependence on $\vect{q}$ and $\omega$ through $q^2$ and $s$ alone, only in these neglected terms."
+- D-23: "At the order of \cref{eq:7.4-EMT} the six valley states $F_j\psi_{c\vect{k}_j}$ of silicon are degenerate (\cref{sec:7.4}). They couple ..."; "The $A_1$ state has the largest density at the core, ...; the $E$ and $T_2$ states have nodes there."
+
+### Left for others (details in E2E-vol1-notes.md)
+- Later-side duplicates in Vol II: ch10/s10-7:104, ch09/s9-1:71-75, ch11/s11-2:55, ch12/s12-1:84, ch22/s22-2:19.
+- Proposal: move Sect. 8.7 to Chap. 18 and the likelihood subsection of Sect. 8.8 to Sect. 21.4.
+- Check 761 vs 774 (s8-4:149 arithmetic).
+
+## Block ch05, ch06, appD/D-13, D-14, D-16 (E2E Volume I)
+
+Words before/after: 52020 / 51363 (-657, -1.3 %). Changed files: ch05/s5-3 3994→3986, s5-5 3854→3851, s5-7 4632→4612; ch06/s6-1 3802→3696, s6-3 5192→5156, s6-5 5384→5376; appD/D-13 1385→1140, D-14 506→404, D-16 1351→1222. Other files unchanged.
+chapcheck: ch05 exit 0 (50 pp), ch06 exit 0 (45 pp), appD exit 0 (60 pp); no undefined references, no multiply defined labels, no float too large. The 4 overfull hboxes in ch05 and 4 in appD are in lines not touched here. Lint: no hit in a touched sentence (two LONG-SENT hits introduced by my edits were split). No "nuisance" in the block; no cited label from E2E-undefined-labels.txt.
+
+Changes
+- D-13: removed the subsection "Clamped-nuclei states" (eq:D.13-expand, the first-order equivalence of the two bases), which repeated s5-1 (eq:5.1-expand and the dressed-states sentence) and s6-1 (derivation of H_ep, screening, equivalence of the two bases). Label eq:D.13-expand removed; its only reference (s5-1) retargeted to eq:6.1-Hep.
+- D-14: cut the closing display eq:D.14-frohlich (identical to the keyresult eq:6.2-frohlich) and its commentary on 1/ε∞ − 1/ε0 (stated in s6-2 after the keyresult); the derivation now ends on \cref{eq:6.2-frohlich}. Only reference (s5-5:149) retargeted to eq:6.2-frohlich. Section and labels app:D.14, eq:D.14-gL kept (cited from ch11 and appB).
+- D-16: cut the restatement of the expansion and of H_ep/H^(2) (given in s6-3), the first paragraph of "The adiabatic limit" (the steps of s6-3), the closing paragraph on off-site second derivatives (stated in s6-3 after eq:6.3-ria), and the Volume III pointer to app:D.5.
+- s6-1: cut the opening pointer to app:D.13 (s5-1 opening already gives it); cut the sentence restating the κ_BO^6 / m_e/M nonadiabatic shift (keyresult of s5-1); cut the restatement of the mixing amplitude and of ω_ph/E_g = 0.055 (s5-1, eq:5.1-mixing and we:5-kappa), keeping the metal / Migdal-theorem content with a pointer to sec:5.1; removed the app:D.13 tag after the Taylor-series sentence (subsection removed).
+- s5-1: app:E.8 (Vol III) for the 60 meV zero-point gap shift → sec:6.3; app:D.13 → sec:6.1 for the dressed-states statement.
+- s5-3: removed the repeat of the 4^3-grid values 0.050/0.081 Å (given in we:5-kappa); the convergence comparison points there.
+- s5-5: fixed "…\label{eq:5.5-LOTO}\end{equation} The difference" (comma then capital) to "and the difference"; eq:D.14-frohlich → eq:6.2-frohlich.
+- s5-7: deleted "\Cref{app:E.8} describes the practice." (Addendum 3; the eq:E.8-* pointers that carry formulas stay); Summary sentence on Z*²/ε∞ condensed (it repeated the last sentence of we:5-lst).
+- s6-3: Luke phonons pointer app:E.12 (Monte Carlo, Vol III) → sec:20.1 (physics of drifting carriers); deleted the pointer to we:E-zpr after a sentence that states the rule itself; trimmed the paragraph after eq:6.3-smear that restated the Debye–Waller naming convention and probability reading of sec:5.6.
+- s6-5: opening pointer for phonon-assisted boson absorption chap:8 → sec:13.8 (where it is worked out); cut a clause in we:6-siedge repeating the exciton-kink statement of the same section.
+
+Sentences written that are not built from existing text: none beyond connective fragments ("These values and those of the $4^3$ grid of \cref{we:5-kappa} differ …"; "a probability that multiplies a rate at the momentum transfer of the scattering"; "What is left is the Fröhlich vertex \cref{eq:6.2-frohlich}"; "so a rate that needs $Z^{*2}/\varepsilon_\infty$ takes $\varepsilon_\infty$ from experiment").
+
+Duplicate list (E2E-vol1-dups.txt): all three pairs of this block have the later side outside it (appA, ch26 ×2); written to the notes file.
+Problems left for others: see E2E-vol1-notes.md, block ch05/ch06.
