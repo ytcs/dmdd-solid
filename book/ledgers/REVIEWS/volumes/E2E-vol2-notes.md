@@ -39,3 +39,19 @@
 - ch16/s16-1.tex Sect. 16.1.2 (published Dirac construction, lim:16.1a, published numbers of we:16-factor, red/gray curves of fig16_1): kept as the record of the remote-band screening that moves ZrTe5 reaches by 5200–6400; lead may still decide to cut it to the key result eq:16.1-ratio (would need ch09/tab9-3 row lim:16.1a and fig16_1.py rerun).
 - ch17/s17-2.tex Sect. 17.2.3 (counting against linear readout, eq:17.2-ratio, ~900 words) is readout physics; consider moving to the readout chapters of Part "Detection" (Chap. 20/21) and leaving a pointer in 17.2.
 - ch17/s17-4.tex: Sect. 17.4 derives the Migdal–phonon-assisted cross term at length (eq:17.4-Mmig, eq:17.4-Sek) for an effect it finds 3 orders below the window uncertainties; structural reader/lead may want it condensed to the key results eq:17.4-lock, eq:17.4-rate and the electron-following cell.
+
+## From block reader Chaps. 20-22 + appE/D-46, D-47
+- ch33/s22-1.tex:17 caption of tab:22-calc: "the remaining calculation steps are in \cref{tab:22-gaps}". tab:22-gaps is now an index (gap, home section, class); the steps stand in the home sections. Suggest "...are stated in the sections indexed by \cref{tab:22-gaps}".
+- appF/F-rows.tex: row of lim:20.1c (published Fano correction of Ramanathan and Ernst, Eqs. (A6)-(A7)) to remove; the box is gone.
+- figscripts/ch20/map20.py / figures/ch20/map20.pdf: if the map draws a lim:20.1c tag, regenerate without it (caption already updated).
+- ch21 (fig:21-kernel, fig:21-hib, we:21-debris, we:21-stream, lim:21.2a, we:21-combine) is built on the angle-averaged independent-particle crystal form factor table of Essig et al., which the ch10 pass removed as a dominated rate model (we:10-rate, lim:10.1a). I retargeted the references to sec:10.10-manybody, eq:10.1-fcrys and fig:10-fcrys. The worked numbers (1.60e5 /kg/yr at 10 MeV etc.) stay valid as the IP tabulation; lead to decide whether ch21 examples should be recomputed from the screened (RPA+LF) tables. That would be new numbers, so I did not do it.
+- tab:21-dominant kept although it re-tabulates the channel budgets: ch33/s22-1.tex:75,107 cite it.
+- ch20 chapcheck: 2 overfull hboxes > 5pt (not in text I touched).
+- Dup pair ch20/s20-1.tex:142 vs ch32/E-25.tex:17 (vol3): ch20 is first in reading order and keeps it; the Vol III side should point back.
+
+## From block ch09–ch10
+- tex/ch10/s10-6.tex Sect. 10.6.5 (sec:10.6-fsum, ~600 words): relativistic shifts of the f-sum rule (orbit–orbit commutator derivation, eq:10.6-oo) for a −0.24/−0.76 % shift; a single-derivation section I left whole under the no-cut-of-unique-derivation rule. Lead may condense to the δ_mv and δ_oo results and the 0.8 % precision statement.
+- tex/ch09/s9-2.tex l.14: overfull hbox 46 pt (pre-existing, Flat-onset paragraph).
+- Any later removal of a Limit Check in Chaps. 10–17 (e.g. lim:16.1a, considered by the ch16–17 reader) needs a rerun of figscripts/ch09/fig9_3.py (1 s; regenerates tab9-3 and fig9_3) and the counts in s9-4 (two paragraphs) and s9-summary; the script prints all of them.
+- tex/ch09: the atlas now lists 57 channels by section; a section removed elsewhere would leave a dangling \ref in tab:9-atlas (all resolve today).
+- tex/figures/ch10/limit10_8b.pdf is no longer used (lim:10.8b removed); can be deleted with its script.
