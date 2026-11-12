@@ -192,3 +192,36 @@ Carriers of later events can drive defect reactions without heat. A capture or r
   \label{eq:19.6-prxn}
 \end{equation}
 and the stimulated rate is the capture rate times $p_{\mathrm{rxn}}$. It enters \cref{eq:19.6-master} as a time-dependent rate, so \cref{eq:19.6-sumrule} still holds. The Huang--Rhys factor, the mode energy and the barrier of real defects, with the change of charge state, are not computed.
+
+\subsection{Uncertainty budget of the nuclear-recoil response}\label{sec:19.6-budget}
+
+\Cref{tab:19-nuisances} collects the truncations and inputs of the chapter with their sizes.
+\begin{table}[tbp]
+  \caption{Uncertainty budget of the low-energy nuclear-recoil response. Classes and bases as in \cref{tab:10-nuisances}; ``delayed'' moves energy in time without changing the prompt yield.}
+  \label{tab:19-nuisances}
+  \centering\scriptsize\setlength{\tabcolsep}{3pt}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.35\linewidth}>{\raggedright\arraybackslash}p{0.09\linewidth}>{\raggedright\arraybackslash}p{0.10\linewidth}@{}}
+    \toprule
+    Truncation or input & Type & Size & Basis & Section \\
+    \midrule
+    Classical propagation of the kicked Wigner ensemble & tilt & misses the third cumulant (share $\propto x_R^{-1/2}$) and quantum effects after the kick & computed & \cref{sec:19.1} \\
+    Regime boundaries of the recoil dynamics & threshold & silicon 0.41, \SI{0.54}{eV}; 12.5--\SI{36}{eV}; 0.87--\SI{4.6}{keV}, at a criterion of 0.1 & est. & \cref{sec:19.1} \\
+    Machine-learned surface along the recoil path & threshold; normali\-zation & thresholds to the \SI{0.7}{eV} step width; a few tenths of an eV per defect & input spread & \cref{sec:19.1} \\
+    Charge below the binary threshold & normali\-zation; threshold & silicon yield 0.10 at \SI{100}{eV}; close-collision kernel not computed & unsized & \cref{sec:19.2} \\
+    Migdal part of a measured yield & normali\-zation & 2.3--$4.4\times10^{-4}$ in $Y_q$, at most \SI{0.4}{\percent} at \SI{100}{eV} & computed & \cref{sec:19.2} \\
+    Lindhard quenching below a few keV & normali\-zation & data 8--\SI{38}{\percent} below the formula at 0.1--\SI{3.9}{keV}; soft-collision continuation $+$\SI{13}{\percent} at \SI{1}{keV} & input spread; model & \cref{sec:19.3} \\
+    Prefactor of the displacement count & normali\-zation & 0.70 (screened) against 0.8 (formula) and 1 (hard spheres) & computed & \cref{sec:19.4} \\
+    Stored share of a nuclear recoil & normali\-zation (heat) & at most 0.055 (Si; 0.049 with the measured pair energy) and 0.064 (Ge), \SI{95}{\percent} C.L., under (a)--(e); Si 0.081 at $\mathfrak{r}_{\mathrm{coll}} = 0.9$ & input spread & \cref{sec:19.5} \\
+    Gap energy unreturned in the read window & normali\-zation (heat) & $Y_{\mathrm{ph}}(0) = 1.407$ at \SI{100}{eV} with none returned; \SI{1}{\percent} needs at most 3.5--\SI{4.1}{\percent} unreturned & computed & \cref{sec:19.5} \\
+    Collection ratio of Luke phonons & normali\-zation & 1.128 alone reproduces the silicon datum; transport estimate 0.81--1.02 & computed & \cref{sec:19.5} \\
+    Pair energy adopted by the reconstruction & normali\-zation & $-0.0064$ in $Y_{\mathrm{ph}}$ at \SI{4}{V}, growing with bias & computed & \cref{sec:19.5} \\
+    Collection offset from recombination phonons & normali\-zation & $\rho_g - 1 = 0.21$ gives the silicon deficit beyond the pair-energy offset & est. & \cref{sec:19.5} \\
+    Collection ratio constant between two biases & normali\-zation & residual $(\dd\mathfrak{r}_{\mathrm{coll}}/\dd V_{\mathrm{bias}})\Delta V_{\mathrm{bias}}$ & unsized & \cref{sec:19.5} \\
+    Zero-point change of the defect basins & normali\-zation (heat) & below \SI{0.1}{eV} per defect; widens the bounds by about $10^{-3}$ & est. & \cref{sec:19.5} \\
+    Release of close pairs at millikelvin & delayed & frozen if weakly coupled; else needs an exponent 14 (Si) or \SI{6}{\percent} (Al) below the two-parabola value & est. & \cref{sec:19.6} \\
+    Single releases in a phonon readout & new support & close pair 1.70--\SI{1.88}{eV} at a collected fraction of 0.25 & model & \cref{sec:19.6} \\
+    Defecton and crowdion transport & delayed & $T^{-9}$ law within \SI{10}{\percent} for $T \ge 0.28\,\Delta_{\mathrm{dfn}}$; crowdion barrier $-$\SI{22}{\percent} at $d_{\mathrm{kink}} = a_{\mathrm{ch}}$ & model & \cref{sec:19.6} \\
+    Rate of the low-energy excess & new support & relaxable elastic energy and branching ratio not computed & unsized & \cref{sec:19.6} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
