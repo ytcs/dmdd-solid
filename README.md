@@ -1,6 +1,6 @@
 # dmdd-solid: dark-matter direct detection in solids
 
-The theory, formulae and numbers for dark-matter scattering and absorption in crystals and other solid targets, with the book that derives them: *book/releases/book-full.pdf* (22 chapters, appendices A–F, 1842 pages). The work began as a research campaign on phonon-assisted electron recoil (PAER) in silicon and germanium and grew to cover the electronic, lattice, magnetic, superconducting and detector-response channels.
+The theory, formulae and numbers for dark-matter scattering and absorption in crystals and other solid targets, with the book that derives them, in three volumes: *book/releases/vol1-foundations.pdf*, *vol2-signals-and-detection.pdf* and *vol3-computations.pdf* (33 chapters, appendices A–F; see book/VOLUMES.md). The work began as a research campaign on phonon-assisted electron recoil (PAER) in silicon and germanium and grew to cover the electronic, lattice, magnetic, superconducting and detector-response channels.
 
 **Status (2026-11-09).** The book is complete. Most of the heavy numerical work it specifies has not been run: **OWED.md** tracks every calculation still owed.
 
@@ -27,7 +27,7 @@ Start with STATEMENT.md (goal and tiers), DONE.md (done condition and verificati
 | referees/<round>/ | isolated hostile referee reports |
 | literature/ | priority check and the literature map (surveys/dm-solid-state-scattering.md is the field survey) |
 | code/ | scripts behind every number (short, rerunnable) |
-| book/ | the book: tex/, figscripts/, ledgers/, releases/book-full.pdf; resume point in book/RESUME.md |
+| book/ | the book in three volumes: tex/vol{1,2,3}.tex, figscripts/, ledgers/, releases/vol*.pdf; build with book/build.sh; structure and label map in book/VOLUMES.md; resume point in book/RESUME.md |
 | surveys/ | the field surveys the campaign started from |
 | skills/ | the protocols the work ran under: breakthrough-maths (research campaign, with scripts/lit.py for literature) and long-form-writing (book production) |
 | state/SOTA.md | what is currently established, with status per claim |
