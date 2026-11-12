@@ -5,8 +5,8 @@ tex/figures/ch18/fig18_3.pdf and fig18_3.log. Every plotted number is in casc18_
 Model choices (named in the caption): energy-only random-k cascade of Sect. 18.1 with the silicon constants of Sect. 18.2
 (E_g = 1.160 eV, omega_AB = 63 meV, A_AB = 5.703 eV^3, W_h = 12 eV, theta_ii = 1; si_cascade18.py); dark-matter seed = independent-
 particle pair weights of the density at q0 = alpha m_e along [100] in the empirical-pseudopotential bands; photon seed =
-optical limit of the same bands; both used at the same excess energy omega - E_g; Ramanathan-Kurinsky splits of
-2004.10709 Eq. (7) with alpha = 1 and the limits alpha -> 0, infinity; step model eq:1.5-step with eps_eh = 3.749 eV.
+optical limit of the same bands; both used at the same excess energy omega - E_g; fixed splits of the energy
+(uniform, equal, all to one carrier; Sect. 18.3, sec:18.3-limits); step model eq:1.5-step with eps_eh = 3.749 eV.
 """
 import os
 import json
@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "..", "tex", "figures", "ch18", "fig18_3.pdf")
 d = json.load(open(os.path.join(HERE, "casc18_3.json")))["P10"]
 rows = [("DM", r"dark matter, $q_0$", "C0"), ("photon", "photon", "C1"),
-        ("uniform", r"split $\alpha_{\mathrm{RK}} = 1$", "C2"), ("equal", r"equal split", "C4"),
+        ("uniform", r"uniform split", "C2"), ("equal", r"equal split", "C4"),
         ("all1", r"all to one", "C3"), ("step", "step model", "0.35")]
 N = np.arange(1, 5)
 fig, ax = plt.subplots(figsize=(6.0, 3.6))

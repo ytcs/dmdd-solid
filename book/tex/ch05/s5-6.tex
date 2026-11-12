@@ -10,7 +10,24 @@ For a classical Gaussian variable $x$ with zero mean, the average of $\ee^{\ii q
 \begin{equation*}
   \langle\ee^{\op{A}}\rangle = \ee^{\langle\op{A}^2\rangle/2} ,
 \end{equation*}
-which is Bloch's identity, \cref{eq:C.6-bloch}; \cref{app:D.15} proves it. Expanded in powers of $\op{A}$, it is Wick's theorem: the average of $\op{A}^{2n}$ is the sum over the $(2n)!/(2^nn!)$ ways of pairing the $2n$ factors, each pair worth $\langle\op{A}^2\rangle$.
+which is Bloch's identity, \cref{eq:C.6-bloch}. Expanded in powers of $\op{A}$, it is Wick's theorem: the average of $\op{A}^{2n}$ is the sum over the $(2n)!/(2^nn!)$ ways of pairing the $2n$ factors, each pair worth $\langle\op{A}^2\rangle$.
+
+Take one oscillator, $H = \omega_0(d^\dagger d + \tfrac12)$ as in \cref{app:C.6}, in thermal equilibrium at temperature $T = 1/\beta$, with $n_{\mathrm{B}} = n_{\mathrm{B}}(\omega_0)$, and let $\op{A} = \eta_1d + \eta_2d^\dagger$ with arbitrary complex $\eta_1$ and $\eta_2$, so that $\op{A}$ need not be Hermitian. Consider $F(\theta) = \langle\ee^{\theta\op{A}}\rangle$ as a function of a real parameter $\theta$. The proof uses two facts. The commutators $[\op{A}, d] = -\eta_2$ and $[\op{A}, d^\dagger] = \eta_1$ are numbers. By \cref{eq:C.6-hadamard}, the transformation by $\ee^{\theta\op{A}}$ therefore only shifts the ladder operators,
+\begin{equation*}
+  d\,\ee^{\theta\op{A}} = \ee^{\theta\op{A}}\,(d + \theta\eta_2), \qquad d^\dagger\,\ee^{\theta\op{A}} = \ee^{\theta\op{A}}\,(d^\dagger - \theta\eta_1) .
+\end{equation*}
+The cyclic property of the trace, in turn, moves a ladder operator past the Boltzmann factor at a known cost, as in the proof of Wick's theorem in \cref{app:D.11}: $d\,\ee^{-\beta H} = \ee^{-\beta\omega_0}\ee^{-\beta H}d$, since removing a quantum lowers $H$ by $\omega_0$, and $d^\dagger\ee^{-\beta H} = \ee^{+\beta\omega_0}\ee^{-\beta H}d^\dagger$. As a result, $\langle\ee^{\theta\op{A}}d\rangle = \Tr[d\,\ee^{-\beta H}\ee^{\theta\op{A}}]/\mathcal{Z} = \ee^{-\beta\omega_0}\langle d\,\ee^{\theta\op{A}}\rangle$, and combined with the shift,
+\begin{equation*}
+  \langle d\,\ee^{\theta\op{A}}\rangle = \ee^{-\beta\omega_0}\langle d\,\ee^{\theta\op{A}}\rangle + \theta\eta_2F(\theta), \qquad
+  \langle d\,\ee^{\theta\op{A}}\rangle = \frac{\theta\eta_2F(\theta)}{1 - \ee^{-\beta\omega_0}} = \theta\eta_2\,(n_{\mathrm{B}} + 1)\,F(\theta) .
+\end{equation*}
+The same steps for $d^\dagger$ give $\langle d^\dagger\ee^{\theta\op{A}}\rangle = \ee^{\beta\omega_0}\langle d^\dagger\ee^{\theta\op{A}}\rangle - \theta\eta_1F(\theta)$, and $\langle d^\dagger\ee^{\theta\op{A}}\rangle = \theta\eta_1\,n_{\mathrm{B}}\,F(\theta)$. The derivative of $F$ is then
+\begin{equation*}
+  F'(\theta) = \eta_1\langle d\,\ee^{\theta\op{A}}\rangle + \eta_2\langle d^\dagger\ee^{\theta\op{A}}\rangle = \theta\,\eta_1\eta_2\,(2n_{\mathrm{B}} + 1)\,F(\theta) = \theta\,\langle\op{A}^2\rangle\,F(\theta) ,
+\end{equation*}
+since $\langle\op{A}^2\rangle = \eta_1\eta_2\langle dd^\dagger + d^\dagger d\rangle = \eta_1\eta_2(2n_{\mathrm{B}} + 1)$, the averages of $d^2$ and $d^{\dagger2}$ being zero. With $F(0) = 1$ the solution is $F(\theta) = \ee^{\theta^2\langle\op{A}^2\rangle/2}$, which at $\theta = 1$ is Bloch's identity. For several independent modes in thermal equilibrium, $\op{A} = \sum_\gamma\op{A}_\gamma$ is a sum of commuting pieces, one per mode, the exponential factorizes, and the average in the Gibbs state of \cref{sec:2.5} factorizes too. The exponents add, and $\sum_\gamma\langle\op{A}_\gamma^2\rangle = \langle\op{A}^2\rangle$, because the cross terms $\langle\op{A}_\gamma\op{A}_{\gamma'}\rangle = \langle\op{A}_\gamma\rangle\langle\op{A}_{\gamma'}\rangle$ vanish for $\gamma \ne \gamma'$. The identity therefore holds for any $\op{A}$ linear in the operators of a set of harmonic modes.
+
+The hypotheses are the ones the proof used. The operator must be linear in $d$ and $d^\dagger$, so that its commutators are numbers, and the state must be the thermal state of a quadratic Hamiltonian, so that the trace moves each ladder operator at the cost of a number. In an anharmonic crystal neither holds exactly. The logarithm of $\langle\ee^{\op{A}}\rangle$ is then a series in the cumulants of $\op{A}$, of which the harmonic crystal has only the second. The anharmonic terms of \cref{sec:5.7} make the fourth cumulant nonzero, and the Debye--Waller exponent acquires a correction that grows with temperature faster than $T$.
 
 With $\op{A} = \ii\vect{q}\cdot\vect{u}_{\vect{R}\kappa}$, $\langle\op{A}^2\rangle = -\langle(\vect{q}\cdot\vect{u}_{\vect{R}\kappa})^2\rangle = -\sum_{\alpha\beta}q^\alpha B^{\alpha\beta}_\kappa q^\beta$, with the displacement tensor $B_\kappa$ of \cref{eq:5.3-B}.
 \begin{keyresult}[Debye--Waller factor]
@@ -59,7 +76,11 @@ For a nucleus $\kappa$ of a harmonic crystal in thermal equilibrium,
   = \ee^{-2W_\kappa(\vect{q})}\;\ee^{\vect{q}\cdot\mathcal{C}_{\kappa\kappa}(t)\cdot\vect{q}} ,
   \label{eq:5.6-gen}
 \end{equation}
-with $2W_\kappa$ of \cref{eq:5.6-W} and $\mathcal{C}_{\kappa\kappa}(t)$ of \cref{eq:5.6-C}. For two nuclei in different cells or sublattices, the prefactor is $\ee^{-W_\kappa - W_{\kappa'}}$ and the correlation is $\mathcal{C}_{\kappa\kappa'}(\vect{R},t)$ (\cref{eq:D.15-gen}).
+with $2W_\kappa$ of \cref{eq:5.6-W} and $\mathcal{C}_{\kappa\kappa}(t)$ of \cref{eq:5.6-C}. For two nuclei in different cells or sublattices, by the same steps,
+\begin{equation}
+  \bigl\langle\ee^{-\ii\vect{q}\cdot\vect{u}_{\vect{R}\kappa}(t)}\,\ee^{\ii\vect{q}\cdot\vect{u}_{\vect{0}\kappa'}(0)}\bigr\rangle = \ee^{-W_\kappa(\vect{q}) - W_{\kappa'}(\vect{q})}\;\ee^{\vect{q}\cdot\mathcal{C}_{\kappa\kappa'}(\vect{R},t)\cdot\vect{q}} ,
+  \label{eq:D.15-gen}
+\end{equation}
 \end{keyresult}
 This is the starting point of the theory of neutron scattering from crystals~\cite[App.~N]{ashcroft1976solid}, \cite[Chaps.~3 and~4]{lovesey1984theorynuclear}.
 The left side equals one at $t = 0$, and so does the right side, since $\vect{q}\cdot\mathcal{C}_{\kappa\kappa}(0)\cdot\vect{q} = 2W_\kappa$. The single-nucleus form, \cref{eq:5.6-gen}, is the \emph{self} part of the nuclear response, in which the same nucleus scatters at both times. The full structure factor of the crystal adds the pairs of different nuclei, whose phases $\ee^{\ii\vect{q}\cdot(\vect{R} + \vect{\tau}_\kappa - \vect{\tau}_{\kappa'})}$ produce the Bragg peaks and the crystal-momentum conservation of the single-phonon amplitude of \cref{sec:5.3}; \cref{sec:11.3} builds the complete response from both.

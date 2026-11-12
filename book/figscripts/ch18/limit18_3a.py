@@ -1,10 +1,10 @@
-"""Limit Check 18.3a (lim:18.3a, fig:18-limit-a): the step model and the Ramanathan-Kurinsky split distributions against
+"""Limit Check 18.3a (lim:18.3a, fig:18-limit-a): the step model and the fixed splits of the energy against
 the cascade seeded with the resolved dark-matter final states, in silicon, as a function of the deposit omega.
 
 y = total-variation distance (1/2) sum_N |P_model(N) - P_DM(N)| between the pair-number distribution of each phenomenological
 seed and that of the dark-matter seed at q0 = alpha m_e (both run through the same energy-only cascade of Sect. 18.1 with
-the silicon constants of Sect. 18.2). Curves: step model (eq:1.5-step, eps_eh = 3.749 eV); Ramanathan-Kurinsky splits
-(2004.10709 Eq. (7)) alpha -> infinity (equal split), alpha = 1 (uniform) and alpha -> 0 (all to one), hole above W_h
+the silicon constants of Sect. 18.2). Curves: step model (eq:1.5-step, eps_eh = 3.749 eV); fixed splits
+equal, uniform and all to one carrier, hole above W_h
 dropped; the photon (q -> 0) split of the same band model, the seed a photon calibration measures.
 Shading: dark gray, omega below 4.37 eV, where the step model is within 0.1 of the dark-matter seed (and so are the
 alpha = 1 and alpha -> infinity splits); light gray, omega above 12.95 eV, where the alpha = 1 and alpha -> infinity
@@ -31,9 +31,9 @@ ax.axvspan(om[0], lo, color="0.80", lw=0)
 ax.axvspan(hi, om[-1], color="0.90", lw=0)
 ax.axhline(0.1, color="0.5", lw=0.6, ls=":")
 ax.plot(om, f["step"], color="0.25", lw=1.2, label="step model")
-ax.plot(om, f["equal"], color="C4", lw=1.2, label=r"R–K, equal split ($\alpha_{\mathrm{RK}}\to\infty$)")
-ax.plot(om, f["uniform"], color="C2", lw=1.2, label=r"R–K, uniform ($\alpha_{\mathrm{RK}} = 1$)")
-ax.plot(om, f["all1"], color="C3", lw=1.0, ls="--", label=r"R–K, all to one ($\alpha_{\mathrm{RK}}\to0$)")
+ax.plot(om, f["equal"], color="C4", lw=1.2, label="equal split")
+ax.plot(om, f["uniform"], color="C2", lw=1.2, label="uniform split")
+ax.plot(om, f["all1"], color="C3", lw=1.0, ls="--", label="all to one carrier")
 ax.plot(om, f["photon"], color="C1", lw=1.6, label=r"photon seed ($q\to0$)")
 ax.set_xlim(om[0], om[-1])
 ax.set_ylim(0, 1.18)

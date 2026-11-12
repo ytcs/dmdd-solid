@@ -1,13 +1,11 @@
 \section{Standard-halo integrals}\label{app:D.1}
 
-This section evaluates the averages of the standard halo model used in \cref{sec:1.2,sec:1.3}: the normalization $N_{\mathrm{esc}}$, the laboratory speed distribution $F_\chi(v)$, the mean inverse speed $\langle 1/v\rangle$, the mean speed $\langle v\rangle$ and the function $\eta(\vmin)$ for every $\vmin$. The galactic-frame distribution is $f_{\mathrm{gal}}(\vect{v}_{\mathrm{gal}}) = N_{\mathrm{esc}}^{-1}\ee^{-v_{\mathrm{gal}}^2/v_0^2}\Theta(v_{\mathrm{esc}} - v_{\mathrm{gal}})$, and the laboratory distribution is $f_\chi(\vect{v}) = f_{\mathrm{gal}}(\vect{v} + \vect{v}_{\mathrm{E}})$ (\cref{eq:1.2-fgal,eq:1.2-flab}). Throughout, $v_{\mathrm{E}} = |\vect{v}_{\mathrm{E}}|$ at the time of interest, and we assume $0 < v_{\mathrm{E}} < v_{\mathrm{esc}}$; the values of \cref{app:A.8} give $v_{\mathrm{E}}/v_{\mathrm{esc}} \le 0.49$. Only two integrals are needed:
-\begin{gather}
-  \int_{y_1}^{y_2} \ee^{-y^2/v_0^2}\,\dd y = \frac{\sqrt{\pi}\,v_0}{2}\left[\operatorname{erf}\!\left(\frac{y_2}{v_0}\right) - \operatorname{erf}\!\left(\frac{y_1}{v_0}\right)\right],
-  \label{eq:D.1-erf}\\
-  \int_{y_1}^{y_2} y\,\ee^{-y^2/v_0^2}\,\dd y = \frac{v_0^2}{2}\left[\ee^{-y_1^2/v_0^2} - \ee^{-y_2^2/v_0^2}\right].
-  \label{eq:D.1-gauss}
-\end{gather}
-\Cref{eq:D.1-erf} is the definition of the error function (\cref{app:C.8}); \cref{eq:D.1-gauss} is elementary, since $y\,\ee^{-y^2/v_0^2}$ is the derivative of $-\tfrac12 v_0^2\ee^{-y^2/v_0^2}$.
+This section evaluates the averages of the standard halo model used in \cref{sec:1.2,sec:1.3}: the normalization $N_{\mathrm{esc}}$, the laboratory speed distribution $F_\chi(v)$, the mean inverse speed $\langle 1/v\rangle$ and the function $\eta(\vmin)$ for every $\vmin$. The galactic-frame distribution is $f_{\mathrm{gal}}(\vect{v}_{\mathrm{gal}}) = N_{\mathrm{esc}}^{-1}\ee^{-v_{\mathrm{gal}}^2/v_0^2}\Theta(v_{\mathrm{esc}} - v_{\mathrm{gal}})$, and the laboratory distribution is $f_\chi(\vect{v}) = f_{\mathrm{gal}}(\vect{v} + \vect{v}_{\mathrm{E}})$ (\cref{eq:1.2-fgal,eq:1.2-flab}). Throughout, $v_{\mathrm{E}} = |\vect{v}_{\mathrm{E}}|$ at the time of interest, and we assume $0 < v_{\mathrm{E}} < v_{\mathrm{esc}}$; the values of \cref{app:A.8} give $v_{\mathrm{E}}/v_{\mathrm{esc}} \le 0.49$. Only one integral is needed:
+\begin{equation}
+  \int_{y_1}^{y_2} \ee^{-y^2/v_0^2}\,\dd y = \frac{\sqrt{\pi}\,v_0}{2}\left[\operatorname{erf}\!\left(\frac{y_2}{v_0}\right) - \operatorname{erf}\!\left(\frac{y_1}{v_0}\right)\right].
+  \label{eq:D.1-erf}
+\end{equation}
+\Cref{eq:D.1-erf} is the definition of the error function (\cref{app:C.8}).
 
 \subsection*{Normalization}
 
@@ -48,32 +46,5 @@ where the upper limits are those of $F_\chi$. There are three branches.
 
 \emph{(iii) $\vmin \ge v_{\mathrm{esc}} + v_{\mathrm{E}}$.} No particle is fast enough: $\eta(\vmin) = 0$.
 
-\emph{Checks.} At $\vmin = v_{\mathrm{esc}} - v_{\mathrm{E}}$ both \cref{eq:D.1-eta1,eq:D.1-eta2} give $(\sqrt{\pi}v_0/2)[\operatorname{erf}(v_{\mathrm{esc}}/v_0) - \operatorname{erf}((v_{\mathrm{esc}} - 2v_{\mathrm{E}})/v_0)] - 2v_{\mathrm{E}}\ee^{-v_{\mathrm{esc}}^2/v_0^2}$ inside the braces, so $\eta$ is continuous. At $\vmin = v_{\mathrm{esc}} + v_{\mathrm{E}}$ \cref{eq:D.1-eta2} vanishes, which matches branch (iii). At $\vmin = 0$ the two error functions in \cref{eq:D.1-eta1} are $\operatorname{erf}(v_{\mathrm{E}}/v_0)$ and $\operatorname{erf}(-v_{\mathrm{E}}/v_0) = -\operatorname{erf}(v_{\mathrm{E}}/v_0)$, and $\eta(0)$ is \cref{eq:1.2-inv}. Differentiating either branch with $\dd\operatorname{erf}(x)/\dd x = (2/\sqrt{\pi})\ee^{-x^2}$ gives $\dd\eta/\dd\vmin = -F_\chi(\vmin)/\vmin$, as the definition requires. Without the cut ($v_{\mathrm{esc}}\to\infty$, $N_{\mathrm{esc}}\to\pi^{3/2}v_0^3$) branch (i) becomes $[\operatorname{erf}((\vmin + v_{\mathrm{E}})/v_0) - \operatorname{erf}((\vmin - v_{\mathrm{E}})/v_0)]/(2v_{\mathrm{E}})$, the mean inverse speed of a shifted Maxwellian above $\vmin$.
+\emph{Checks.} At $\vmin = v_{\mathrm{esc}} - v_{\mathrm{E}}$ both \cref{eq:D.1-eta1,eq:D.1-eta2} give $(\sqrt{\pi}v_0/2)[\operatorname{erf}(v_{\mathrm{esc}}/v_0) - \operatorname{erf}((v_{\mathrm{esc}} - 2v_{\mathrm{E}})/v_0)] - 2v_{\mathrm{E}}\ee^{-v_{\mathrm{esc}}^2/v_0^2}$ inside the braces, so $\eta$ is continuous. At $\vmin = v_{\mathrm{esc}} + v_{\mathrm{E}}$ \cref{eq:D.1-eta2} vanishes, which matches branch (iii). At $\vmin = 0$ the two error functions in \cref{eq:D.1-eta1} are $\operatorname{erf}(v_{\mathrm{E}}/v_0)$ and $\operatorname{erf}(-v_{\mathrm{E}}/v_0) = -\operatorname{erf}(v_{\mathrm{E}}/v_0)$, and $\eta(0)$ is \cref{eq:1.2-inv}. Differentiating either branch with $\dd\operatorname{erf}(x)/\dd x = (2/\sqrt{\pi})\ee^{-x^2}$ gives $\dd\eta/\dd\vmin = -F_\chi(\vmin)/\vmin$, as the definition requires. For the parameters of \cref{app:A.8}, a direct numerical quadrature of $\int\dd^3 v\,f_\chi$ with the weights $1$ and $1/v$ reproduces $1$ and \cref{eq:1.2-inv} to better than $10^{-6}$ in relative terms. Without the cut ($v_{\mathrm{esc}}\to\infty$, $N_{\mathrm{esc}}\to\pi^{3/2}v_0^3$) branch (i) becomes $[\operatorname{erf}((\vmin + v_{\mathrm{E}})/v_0) - \operatorname{erf}((\vmin - v_{\mathrm{E}})/v_0)]/(2v_{\mathrm{E}})$, the mean inverse speed of a shifted Maxwellian above $\vmin$.
 
-\subsection*{Mean speed}
-
-The mean speed is $\langle v\rangle = \int_0^{v_{\mathrm{esc}} + v_{\mathrm{E}}} v\,F_\chi(v)\,\dd v = K_{\mathrm{sp}}(I_1 - I_2 - I_3)$. The three integrals are
-\begin{gather*}
-  I_1 = \int_0^{v_{\mathrm{esc}} + v_{\mathrm{E}}} v^2\ee^{-(v - v_{\mathrm{E}})^2/v_0^2}\dd v,\qquad
-  I_2 = \int_0^{v_{\mathrm{esc}} - v_{\mathrm{E}}} v^2\ee^{-(v + v_{\mathrm{E}})^2/v_0^2}\dd v,\\
-  I_3 = \ee^{-v_{\mathrm{esc}}^2/v_0^2}\int_{v_{\mathrm{esc}} - v_{\mathrm{E}}}^{v_{\mathrm{esc}} + v_{\mathrm{E}}} v^2\,\dd v.
-\end{gather*}
-We substitute $y = v - v_{\mathrm{E}}$ in $I_1$ and $y = v + v_{\mathrm{E}}$ in $I_2$:
-\begin{equation*}
-  I_1 - I_2 = \int_{-v_{\mathrm{E}}}^{v_{\mathrm{esc}}}(y + v_{\mathrm{E}})^2\ee^{-y^2/v_0^2}\dd y - \int_{v_{\mathrm{E}}}^{v_{\mathrm{esc}}}(y - v_{\mathrm{E}})^2\ee^{-y^2/v_0^2}\dd y.
-\end{equation*}
-On the common interval $v_{\mathrm{E}} < y < v_{\mathrm{esc}}$ the integrands differ by $(y + v_{\mathrm{E}})^2 - (y - v_{\mathrm{E}})^2 = 4v_{\mathrm{E}}y$; on $-v_{\mathrm{E}} < y < v_{\mathrm{E}}$ only the first integral contributes, and its term $2v_{\mathrm{E}}y$ is odd and drops out. Hence
-\begin{equation*}
-  I_1 - I_2 = 4v_{\mathrm{E}}\int_{v_{\mathrm{E}}}^{v_{\mathrm{esc}}}y\,\ee^{-y^2/v_0^2}\dd y + 2\int_0^{v_{\mathrm{E}}}y^2\ee^{-y^2/v_0^2}\dd y + 2v_{\mathrm{E}}^2\int_0^{v_{\mathrm{E}}}\ee^{-y^2/v_0^2}\dd y.
-\end{equation*}
-The first integral is $\tfrac12 v_0^2(\ee^{-v_{\mathrm{E}}^2/v_0^2} - \ee^{-v_{\mathrm{esc}}^2/v_0^2})$ by \cref{eq:D.1-gauss}. The second, by the integration by parts used for $N_{\mathrm{esc}}$ with $v_{\mathrm{esc}}$ replaced by $v_{\mathrm{E}}$, is $(\sqrt{\pi}v_0^3/4)\operatorname{erf}(v_{\mathrm{E}}/v_0) - \tfrac12 v_0^2v_{\mathrm{E}}\ee^{-v_{\mathrm{E}}^2/v_0^2}$. The third is $(\sqrt{\pi}v_0/2)\operatorname{erf}(v_{\mathrm{E}}/v_0)$. Collecting,
-\begin{equation*}
-  I_1 - I_2 = v_{\mathrm{E}}v_0^2\,\ee^{-v_{\mathrm{E}}^2/v_0^2} - 2v_{\mathrm{E}}v_0^2\,\ee^{-v_{\mathrm{esc}}^2/v_0^2} + \sqrt{\pi}\,v_0\left(\frac{v_0^2}{2} + v_{\mathrm{E}}^2\right)\operatorname{erf}\!\left(\frac{v_{\mathrm{E}}}{v_0}\right).
-\end{equation*}
-The last integral is elementary: $I_3 = \ee^{-v_{\mathrm{esc}}^2/v_0^2}[(v_{\mathrm{esc}} + v_{\mathrm{E}})^3 - (v_{\mathrm{esc}} - v_{\mathrm{E}})^3]/3 = \ee^{-v_{\mathrm{esc}}^2/v_0^2}\,2v_{\mathrm{E}}(v_{\mathrm{esc}}^2 + v_{\mathrm{E}}^2/3)$. Combining the two terms proportional to $\ee^{-v_{\mathrm{esc}}^2/v_0^2}$ into $-2v_{\mathrm{E}}\ee^{-v_{\mathrm{esc}}^2/v_0^2}(v_0^2 + v_{\mathrm{esc}}^2 + v_{\mathrm{E}}^2/3)$ gives \cref{eq:1.2-vmean}.
-
-\emph{Check.} Without the cut, $K_{\mathrm{sp}} = 1/(\sqrt{\pi}\,v_0v_{\mathrm{E}})$ and
-\begin{equation*}
-  \langle v\rangle = \frac{v_0}{\sqrt{\pi}}\ee^{-v_{\mathrm{E}}^2/v_0^2} + \left(v_{\mathrm{E}} + \frac{v_0^2}{2v_{\mathrm{E}}}\right)\operatorname{erf}\!\left(\frac{v_{\mathrm{E}}}{v_0}\right),
-\end{equation*}
-which tends to $2v_0/\sqrt{\pi}$, the mean speed of the Maxwellian, as $v_{\mathrm{E}}\to0$ (expand $\operatorname{erf}x = (2/\sqrt{\pi})(x - x^3/3 + \dots)$), and to $v_{\mathrm{E}}$ for $v_{\mathrm{E}} \gg v_0$, as it must. For the parameters of \cref{app:A.8}, a direct numerical quadrature of $\int\dd^3 v\,f_\chi$ with the weights $1$, $1/v$ and $v$ reproduces $1$, \cref{eq:1.2-inv} and \cref{eq:1.2-vmean} to better than $10^{-6}$ in relative terms.
