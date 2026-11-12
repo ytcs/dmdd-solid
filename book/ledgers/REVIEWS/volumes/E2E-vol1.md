@@ -47,3 +47,34 @@ Sentences written (not assembled from existing text): C-2 "The Poisson summation
 Checks: chapcheck appA (/tmp/e2e-appA), appC (/tmp/e2e-appC), appD (/tmp/e2e-appD-apps): exit 0, 0 undefined references, 0 multiply defined labels, 0 floats too large (overfull hboxes 2, 1, 5, none in edited text). Lint on the 8 changed files: 0 blocking; one LONG-SENT left in C-6 in an untouched sentence.
 
 Left for others: see E2E-vol1-notes.md (C sections that serve only Vols II/III; s13-9 and s14-4 repeats of C.17 and C.19; italic V for \Vol in A-5 and A-7; app:D.17 in generated B-1).
+
+## Block ch03, ch04, appD D-6 to D-12
+Read: openings and Summaries of Chaps. 1-2; every file of tex/ch03, tex/ch04 and appD D-6 to D-12 in order. No "nuisance" in the block; no reference to a label of E2E-undefined-labels.txt.
+
+Words: 69277 before, 68840 after (-437, 0.6 %). Changed: ch03/s3-1 4279->4278, s3-3 5757->5738; ch04/s4-1 4230->4172, s4-2 3915->3863, s4-3 4341->4327, s4-4 5202->5125, s4-5 4673->4640, s4-6 3900->3865; appD D-7 956->935, D-8 1103->1038, D-9 1473->1411. Other files unchanged.
+
+Changes
+- s3-3.tex:24: deleted "Detectors run at millikelvin ... the value 1.11 eV of \cref{we:1-mmin} is the one commonly used in projections." we:1-mmin (ch01) now uses 1.17 eV, so the pointer was false; the low-temperature gap is stated in the same paragraph.
+- s3-3.tex:224: the closing sentence ("a potential U(r) that is derived rather than fitted") led into the old Sect. 3.4, which is now Chap. 23; added ", the Kohn--Sham potential of \cref{chap:23}".
+- s3-1.tex:170: dropped the parenthetical \cref{sec:3.5} (Vol. III); the chapter map caption already points to Chap. 24 for the core region (Addendum 3).
+- s4-1.tex:76: cut the paragraph on how R_ee of silicon is computed (KS states, RPA/TDDFT, pointers to sec:3.4 and app:E.6). It interrupted the frequency-dependence thread and repeated s4-2.tex:86 and s4-4.tex:49; s4-2:86 keeps the statement with one Vol. III pointer.
+- s4-4.tex:49: cut the paragraph "The dielectric function of silicon is computed from Kohn--Sham states ...": the KS/RPA/kernel route is s4-2:86 and Sect. 4.6, the overestimate of eps_inf by semilocal functionals is s4-6:39 with the number 13.04, the tests against optics and EELS are s4-4:92.
+- s4-2.tex:111: dropped the repeated formula (2pi/V)|<n_e(q)>|^2 delta(omega) of the elastic term (given at s4-2:58).
+- s4-2.tex:144 and we:4-hydrogen: cut the sentence recalling how Sect. 2.2 identified the gas-of-atoms S (said again two lines below), and the unlabeled display of the hydrogen-gas rate, which is eq:2.2-bound; the sentence now reads "... inserted into eq:2.5-golden it gives n_T times the sigma_T v of one atom, eq:2.2-bound."
+- s4-3.tex:168: cut "We want to know over which energies each part of the sum is collected." (announcement).
+- s4-5.tex:44: the paragraph on the crystal Lehmann sum duplicated Sect. 4.6; cut to its last fact (the gas tests the codes), with a pointer to Sect. 4.6.
+- s4-6.tex:145 (we:4-siepsinf): cut the last sentence, which restated the "about a quarter" spread already given at s4-6:138.
+- dup pair s4-5:30 / D-8:60: removed the redisplay of the static Lindhard limit in D-8 (label eq:D.8-static deleted; its only reference, s4-5:30, retargeted to \cref{app:D.8}); D-8 keeps the step and points to eq:4.5-static.
+- D-8.tex:56: cut the restatement that eq:D.8-Im is -1/2 times S^0 of we:4-gas via the FDT (said at s4-5:28); kept the remark that the two calculations are independent.
+- dup pair s4-5:146 / D-9:90: cut the D-9 redisplay of the Drude function and conductivity and the repeated f-sum discussion (both in s4-5:146-151); D-9 keeps the q->0 step and the large-omega tail step in two sentences.
+- D-7.tex:115: cut "A code computes the head and wings analytically ..." (said at s4-6:41).
+- dup pair s4-8:7 / D-11:16: read; the chapter states the expansion, D-11 derives it. No cut.
+
+Sentences written that are not built from existing text: ", the Kohn--Sham potential of \cref{chap:23}" (s3-3); "The crystal bubble of \cref{sec:4.6} is computed on a grid of k points, over a finite number of bands and with a broadening in place of i0^+." (s4-5, condensed from the cut sentences); "The many-body definition produces its structure factor directly." (s4-2, from the cut sentence); "\Cref{we:4-gas} found the same forms by counting the transitions with a delta function; here they appear as the jump of a logarithm across its cut." (D-8); "The result is \cref{eq:4.5-static}." (D-8); the two-sentence D-9 replacement. All reread against the prose-review patterns.
+
+Checks: chapcheck ch03 (/tmp/e2e-ch03), ch04 (/tmp/e2e-ch04), appD (/tmp/e2e-appD-0304): exit 0, 0 undefined references, 0 multiply defined labels, 0 floats too large (overfull hboxes 1, 3, 4, none in edited sentences). Lint on the 11 changed files: 0 blocking; remaining hits (EQ-PUNCT, LONG-SENT) are in untouched sentences.
+
+Left for the lead
+- Consistency, PBE gap of silicon: ch03/s3-3.tex:29 (fig:3-si-bands caption) and :44 give 0.557 / 0.56 eV for the PBE calculation of app:E.1 at the measured lattice constant; ch04/s4-7.tex:121 and the ch04 Summary (s4-9.tex:166) give 0.602 eV with no lattice constant stated (ch23/s3-4.tex:84 gives "0.56 to 0.60 eV"). Not a typo; suggest s4-7 state the setting of the 0.602 eV or use the 0.557 eV of fig:3-si-bands.
+- Volume shape: none found. Sect. 4.7-4.8 (Green's functions, diagrams) serve the BSE of 4.9 and the e-ph self-energy of 6.3; they belong here. D-6, D-10, D-11, D-12 hold derivations the chapter does not give and stay.
+- Outside-block dup pairs: see E2E-vol1-notes.md (A-5, C-2, ch23; no action needed).

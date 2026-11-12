@@ -13,3 +13,9 @@
 - **appA/A-5.tex:5 (`\int_V`) and appA/A-7.tex:21 (`VS_{ab}`)**: italic V where the normalization volume `\Vol` (script V) is meant; macros.tex reserves italic V for a potential. Plain typos, not changed because Appendix A symbols are frozen for this pass; lead to decide.
 - **ch05/s5-6.tex:61-65 vs appC/C-6.tex**: the product formula `eq:C.6-product` and its application to u_κ(t), u_κ(0) were given in both; the C-6 application paragraph is cut to a pointer (log). No action needed.
 - **appB/B-1.tex:1502-1503** (generated) still points to `app:D.17`, listed in E2E-undefined-labels.txt; the symbol-list generator needs the retarget.
+
+## From block ch03, ch04, appD D-6 to D-12
+- **dup pair ch03/s3-2.tex:7 / appA/A-5.tex:3** (Bloch normalization): ch03 is first; A-5 is the conventions home and states the same normalization as a convention. Suggest leaving A-5 as the reference statement or cutting its prose to the displays with a \cref{eq:3.2-bloch}; nothing to change in ch03.
+- **dup pair ch03/s3-1.tex:126 / appC/C-2.tex:30** (lattice sum): C-2 already cites eq:3.1-latticesum and adds the infinite-crystal form; s3-1:139 points to C.2. No action needed.
+- **dup pair ch03/s3-3.tex:203 / ch23/s3-4.tex:148**: ch23 reruns the we:3-kc bound with the LDA gap and cites we:3-kc; the repeat is the point there. No action needed.
+- **ch03/s3-3.tex:24 (removed)**: the sentence "the value 1.11 eV of \cref{we:1-mmin} is the one commonly used in projections" pointed at a worked example that no longer uses 1.11 eV. Volume II (ch10/s10-9.tex:18, ch17/s17-1.tex:15, ch33/s21-6.tex:53) explains 1.11 eV as the step-model gap of the tabulated loss functions, so no fact is lost; no action needed.
