@@ -1,77 +1,34 @@
 \section{BCS gap and coherence factors}\label{app:D.20}
 
-An attraction between electrons of opposite momentum and spin within $\omega_{\mathrm{D}}$ of the Fermi surface, however weak, makes the Fermi sea unstable. The electrons bind into pairs, and a gap $\Delta_{\mathrm{BCS}}$ opens in the spectrum of single-particle excitations. This section solves the model of Bardeen, Cooper and Schrieffer~\cite{bardeen1957theory} in mean field and derives the gap equation and its solutions at zero temperature and at $T_c$. Their ratio is $\pi\ee^{-\gamma_{\mathrm{E}}} = 1.764$, with $\gamma_{\mathrm{E}}$ Euler's constant. We then compute the matrix elements of the density and the spin density between the ground state and the excited states, the coherence factors. The interaction is the one that \cref{sec:7.2} derives from phonon exchange; the Bogoliubov algebra is that of \cref{app:C.7}.
+\subsection*{The mean field}
 
-\subsection*{The model and its mean field}
-
-The reduced Hamiltonian keeps only the pairs $(\vect{k}\!\uparrow, -\vect{k}\!\downarrow)$ of zero total momentum:
-\begin{equation}
-  H_{\mathrm{BCS}} = \sum_{\vect{k}\sigma}\xi_{\vect{k}}\,c^\dagger_{\vect{k}\sigma}c_{\vect{k}\sigma} - \frac{V_{\mathrm{BCS}}}{\Vol}{\sum_{\vect{k}\vect{k}'}}'c^\dagger_{\vect{k}\uparrow}c^\dagger_{-\vect{k}\downarrow}c_{-\vect{k}'\downarrow}c_{\vect{k}'\uparrow} ,
-  \label{eq:D.20-H}
-\end{equation}
-with $\xi_{\vect{k}} = \xi_{-\vect{k}}$ the band energy from the chemical potential, $V_{\mathrm{BCS}} > 0$ the strength of the attraction, and the prime restricting both $|\xi_{\vect{k}}|$ and $|\xi_{\vect{k}'}|$ to less than $\omega_{\mathrm{D}}$. Define the pair amplitude $b_{\vect{k}} = \langle c_{-\vect{k}\downarrow}c_{\vect{k}\uparrow}\rangle$ and the gap
-\begin{equation}
-  \Delta_{\mathrm{BCS}} = \frac{V_{\mathrm{BCS}}}{\Vol}{\sum_{\vect{k}}}'b_{\vect{k}} ,
-  \label{eq:D.20-Delta}
-\end{equation}
-which we take real by a choice of the overall phase of the state. Write each pair operator as its average plus a fluctuation, $c_{-\vect{k}\downarrow}c_{\vect{k}\uparrow} = b_{\vect{k}} + (c_{-\vect{k}\downarrow}c_{\vect{k}\uparrow} - b_{\vect{k}})$, and drop the product of two fluctuations. For the reduced interaction, in which one pair couples to all $\sim N$ others with strength $\propto 1/\Vol$, the dropped term vanishes relative to the kept ones as $\Vol \to \infty$. What remains is
+In the reduced Hamiltonian \cref{eq:7.2-HBCS}, with $\xi_{\vect{k}} = \xi_{-\vect{k}}$, write each pair operator as its average plus a fluctuation, $c_{-\vect{k}\downarrow}c_{\vect{k}\uparrow} = b_{\vect{k}} + (c_{-\vect{k}\downarrow}c_{\vect{k}\uparrow} - b_{\vect{k}})$, and drop the product of two fluctuations. For the reduced interaction, in which one pair couples to all $\sim N$ others with strength $\propto 1/\Vol$, the dropped term vanishes relative to the kept ones as $\Vol \to \infty$. What remains is
 \begin{equation*}
   H_{\mathrm{MF}} = {\sum_{\vect{k}}}'\Bigl[\xi_{\vect{k}}\bigl(c^\dagger_{\vect{k}\uparrow}c_{\vect{k}\uparrow} + c^\dagger_{-\vect{k}\downarrow}c_{-\vect{k}\downarrow}\bigr) - \Delta_{\mathrm{BCS}}\bigl(c^\dagger_{\vect{k}\uparrow}c^\dagger_{-\vect{k}\downarrow} + c_{-\vect{k}\downarrow}c_{\vect{k}\uparrow}\bigr)\Bigr] + \frac{\Vol\Delta_{\mathrm{BCS}}^2}{V_{\mathrm{BCS}}} ,
 \end{equation*}
-plus the unpaired states outside the shell. For each $\vect{k}$ this is \cref{eq:C.7-Hfermion} with $c_1 = c_{\vect{k}\uparrow}$, $c_2 = c_{-\vect{k}\downarrow}$, $\xi_0 = \xi_{\vect{k}}$ and $g_0 = \Delta_{\mathrm{BCS}}$.
+plus the unpaired states outside the shell. For each $\vect{k}$ this is \cref{eq:C.7-Hfermion} with $c_1 = c_{\vect{k}\uparrow}$, $c_2 = c_{-\vect{k}\downarrow}$, $\xi_0 = \xi_{\vect{k}}$ and $g_0 = \Delta_{\mathrm{BCS}}$. By \cref{app:C.7}, the operators \cref{eq:7.2-gamma} with $u^{\mathrm{B}}_{\vect{k}} = \cos\theta_{\vect{k}}$, $v^{\mathrm{B}}_{\vect{k}} = \sin\theta_{\vect{k}}$, are fermions, and the pair terms drop out of $H_{\mathrm{MF}}$ when $\tan2\theta_{\vect{k}} = \Delta_{\mathrm{BCS}}/\xi_{\vect{k}}$. Then $\cos2\theta_{\vect{k}} = \xi_{\vect{k}}/E_{\vect{k}}$ and $\sin2\theta_{\vect{k}} = \Delta_{\mathrm{BCS}}/E_{\vect{k}}$, which gives \cref{eq:7.2-E}. The quasiparticle $\gamma^\dagger_{\vect{k}1}$ carries momentum $\vect{k}$ and spin up, $\gamma^\dagger_{\vect{k}2}$ momentum $-\vect{k}$ and spin down.
 
-\subsection*{Bogoliubov quasiparticles}
-
-By \cref{app:C.7}, the operators
-\begin{equation}
-  \gamma_{\vect{k}1} = u^{\mathrm{B}}_{\vect{k}}\,c_{\vect{k}\uparrow} - v^{\mathrm{B}}_{\vect{k}}\,c^\dagger_{-\vect{k}\downarrow}, \qquad
-  \gamma_{\vect{k}2} = u^{\mathrm{B}}_{\vect{k}}\,c_{-\vect{k}\downarrow} + v^{\mathrm{B}}_{\vect{k}}\,c^\dagger_{\vect{k}\uparrow} ,
-  \label{eq:D.20-gamma}
-\end{equation}
-with $u^{\mathrm{B}}_{\vect{k}} = \cos\theta_{\vect{k}}$, $v^{\mathrm{B}}_{\vect{k}} = \sin\theta_{\vect{k}}$, are fermions, and the pair terms drop out of $H_{\mathrm{MF}}$ when $\tan2\theta_{\vect{k}} = \Delta_{\mathrm{BCS}}/\xi_{\vect{k}}$. Then $\cos2\theta_{\vect{k}} = \xi_{\vect{k}}/E_{\vect{k}}$, $\sin2\theta_{\vect{k}} = \Delta_{\mathrm{BCS}}/E_{\vect{k}}$, and
-\begin{equation}
-  \begin{gathered}
-  H_{\mathrm{MF}} = {\sum_{\vect{k}}}'E_{\vect{k}}\bigl(\gamma^\dagger_{\vect{k}1}\gamma_{\vect{k}1} + \gamma^\dagger_{\vect{k}2}\gamma_{\vect{k}2}\bigr) + \text{const}, \qquad
-  E_{\vect{k}} = \bigl(\xi_{\vect{k}}^2 + \Delta_{\mathrm{BCS}}^2\bigr)^{1/2}, \\
-  (u^{\mathrm{B}}_{\vect{k}})^2 = \frac12\Bigl(1 + \frac{\xi_{\vect{k}}}{E_{\vect{k}}}\Bigr), \quad
-  (v^{\mathrm{B}}_{\vect{k}})^2 = \frac12\Bigl(1 - \frac{\xi_{\vect{k}}}{E_{\vect{k}}}\Bigr) .
-  \end{gathered}
-  \label{eq:D.20-E}
-\end{equation}
-The quasiparticle $\gamma^\dagger_{\vect{k}1}$ carries momentum $\vect{k}$ and spin up, $\gamma^\dagger_{\vect{k}2}$ momentum $-\vect{k}$ and spin down. Far above the Fermi surface $u^{\mathrm{B}} \to 1$ and it is an electron, far below $v^{\mathrm{B}} \to 1$ and it is a hole, and at the Fermi surface it is an equal mixture with energy $\Delta_{\mathrm{BCS}}$. The ground state, annihilated by all $\gamma$, is the BCS state $\prod_{\vect{k}}(u^{\mathrm{B}}_{\vect{k}} + v^{\mathrm{B}}_{\vect{k}}c^\dagger_{\vect{k}\uparrow}c^\dagger_{-\vect{k}\downarrow})|0\rangle$. To see this, note that $\gamma_{\vect{k}1}$ commutes with the factors of the product at other wavevectors, which contain fermion operators in pairs, and act on the factor at $\vect{k}$. With $u = u^{\mathrm{B}}_{\vect{k}}$, $v = v^{\mathrm{B}}_{\vect{k}}$, $c_{\vect{k}\uparrow}|0\rangle = 0$, $c_{\vect{k}\uparrow}c^\dagger_{\vect{k}\uparrow}c^\dagger_{-\vect{k}\downarrow}|0\rangle = c^\dagger_{-\vect{k}\downarrow}|0\rangle$ and $(c^\dagger_{-\vect{k}\downarrow})^2 = 0$,
+The ground state, annihilated by all $\gamma$, is the BCS state \cref{eq:7.2-BCS}. To see this, note that $\gamma_{\vect{k}1}$ commutes with the factors of the product at other wavevectors, which contain fermion operators in pairs, and act on the factor at $\vect{k}$. With $u = u^{\mathrm{B}}_{\vect{k}}$, $v = v^{\mathrm{B}}_{\vect{k}}$, $c_{\vect{k}\uparrow}|0\rangle = 0$, $c_{\vect{k}\uparrow}c^\dagger_{\vect{k}\uparrow}c^\dagger_{-\vect{k}\downarrow}|0\rangle = c^\dagger_{-\vect{k}\downarrow}|0\rangle$ and $(c^\dagger_{-\vect{k}\downarrow})^2 = 0$,
 \begin{equation*}
   \bigl(uc_{\vect{k}\uparrow} - vc^\dagger_{-\vect{k}\downarrow}\bigr)\bigl(u + vc^\dagger_{\vect{k}\uparrow}c^\dagger_{-\vect{k}\downarrow}\bigr)|0\rangle = uv\,c^\dagger_{-\vect{k}\downarrow}|0\rangle - vu\,c^\dagger_{-\vect{k}\downarrow}|0\rangle = 0 .
 \end{equation*}
-In the same way $\gamma_{\vect{k}2}$ yields $-uv\,c^\dagger_{\vect{k}\uparrow}|0\rangle + vu\,c^\dagger_{\vect{k}\uparrow}|0\rangle = 0$, the minus sign from moving $c_{-\vect{k}\downarrow}$ past $c^\dagger_{\vect{k}\uparrow}$. Since $\dd E/\dd\xi = \xi/E$, each energy $E > \Delta_{\mathrm{BCS}}$ is reached from the two values $\xi = \pm(E^2 - \Delta_{\mathrm{BCS}}^2)^{1/2}$, an electronlike and a holelike state. With $\mathcal{N}_{\mathrm{F}}$ constant over the shell, the quasiparticles of one spin orientation have the density of states per volume
-\begin{equation}
-  \mathcal{N}_{\mathrm{qp}}(E) = 2\mathcal{N}_{\mathrm{F}}\,\frac{E}{\sqrt{E^2 - \Delta_{\mathrm{BCS}}^2}}\,\Theta(E - \Delta_{\mathrm{BCS}}) ,
-  \label{eq:D.20-dos}
-\end{equation}
-which tends to $2\mathcal{N}_{\mathrm{F}}$, the density of electron and hole excitations of the normal metal at energy $E$, when $\Delta_{\mathrm{BCS}} \to 0$. The states removed from the gap pile up at its edge, where the density diverges as $(E - \Delta_{\mathrm{BCS}})^{-1/2}$.
+In the same way $\gamma_{\vect{k}2}$ yields $-uv\,c^\dagger_{\vect{k}\uparrow}|0\rangle + vu\,c^\dagger_{\vect{k}\uparrow}|0\rangle = 0$, the minus sign from moving $c_{-\vect{k}\downarrow}$ past $c^\dagger_{\vect{k}\uparrow}$.
 
 \subsection*{The gap equation}
 
-The gap must reproduce itself. Inverting \cref{eq:D.20-gamma}, $c_{\vect{k}\uparrow} = u\gamma_{\vect{k}1} + v\gamma^\dagger_{\vect{k}2}$ and $c_{-\vect{k}\downarrow} = u\gamma_{\vect{k}2} - v\gamma^\dagger_{\vect{k}1}$, with the subscripts on $u$ and $v$ omitted. In thermal equilibrium the quasiparticles are independent fermions of energy $E_{\vect{k}}$, so $\langle\gamma^\dagger\gamma\rangle = n_{\mathrm{F}}(E_{\vect{k}})$, and
+Inverting \cref{eq:7.2-gamma}, $c_{\vect{k}\uparrow} = u\gamma_{\vect{k}1} + v\gamma^\dagger_{\vect{k}2}$ and $c_{-\vect{k}\downarrow} = u\gamma_{\vect{k}2} - v\gamma^\dagger_{\vect{k}1}$, with the subscripts on $u$ and $v$ omitted. In thermal equilibrium the quasiparticles are independent fermions of energy $E_{\vect{k}}$, so $\langle\gamma^\dagger\gamma\rangle = n_{\mathrm{F}}(E_{\vect{k}})$, and
 \begin{equation*}
   b_{\vect{k}} = \langle c_{-\vect{k}\downarrow}c_{\vect{k}\uparrow}\rangle = uv\bigl[\langle\gamma_{\vect{k}2}\gamma^\dagger_{\vect{k}2}\rangle - \langle\gamma^\dagger_{\vect{k}1}\gamma_{\vect{k}1}\rangle\bigr] = uv\,[1 - 2n_{\mathrm{F}}(E_{\vect{k}})] = \frac{\Delta_{\mathrm{BCS}}}{2E_{\vect{k}}}\tanh\frac{E_{\vect{k}}}{2T} .
 \end{equation*}
-Inserting this into \cref{eq:D.20-Delta}, dividing by $\Delta_{\mathrm{BCS}} \ne 0$, and replacing $\Vol^{-1}\sum_{\vect{k}}$ by $\mathcal{N}_{\mathrm{F}}\int\dd\xi$ over the shell,
-\begin{equation}
-  \frac{1}{\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}}} = \int_0^{\omega_{\mathrm{D}}}\dd\xi\,\frac{\tanh\bigl(\sqrt{\xi^2 + \Delta_{\mathrm{BCS}}^2}/2T\bigr)}{\sqrt{\xi^2 + \Delta_{\mathrm{BCS}}^2}} .
-  \label{eq:D.20-gap}
-\end{equation}
-The right side decreases with both $\Delta_{\mathrm{BCS}}$ and $T$. It diverges logarithmically as both go to zero, so a solution exists for every $V_{\mathrm{BCS}} > 0$: the instability of the Fermi sea needs no threshold, because the pair states near the Fermi surface have a constant density at arbitrarily small energy.
-
-At $T = 0$, $\tanh = 1$ and the integral is $\operatorname{arsinh}(\omega_{\mathrm{D}}/\Delta_{\mathrm{BCS}})$. Hence
-\begin{equation}
+Inserting this into \cref{eq:7.2-Delta}, dividing by $\Delta_{\mathrm{BCS}} \ne 0$, and replacing $\Vol^{-1}\sum_{\vect{k}}$ by $\mathcal{N}_{\mathrm{F}}\int\dd\xi$ over the shell gives the gap equation of \cref{eq:7.2-gap}. Its right side decreases with both $\Delta_{\mathrm{BCS}}$ and $T$. At $T = 0$, $\tanh = 1$ and the integral is $\operatorname{arsinh}(\omega_{\mathrm{D}}/\Delta_{\mathrm{BCS}})$. Hence
+\begin{equation*}
   \Delta_{\mathrm{BCS}}(0) = \frac{\omega_{\mathrm{D}}}{\sinh[1/(\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}})]} \simeq 2\omega_{\mathrm{D}}\,\ee^{-1/(\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}})} ,
-  \label{eq:D.20-Delta0}
-\end{equation}
-the exponential form being valid for weak coupling, $\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}} \ll 1$. The gap is nonanalytic in the coupling and could not be found at any finite order of perturbation theory.
+\end{equation*}
+the exponential form being valid for weak coupling, $\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}} \ll 1$.
 
 \subsection*{The critical temperature}
 
-At $T_c$ the gap closes, and \cref{eq:D.20-gap} with $\Delta_{\mathrm{BCS}} = 0$ fixes $T_c$:
+At $T_c$ the gap closes, and the gap equation with $\Delta_{\mathrm{BCS}} = 0$ fixes $T_c$:
 \begin{equation*}
   \frac{1}{\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}}} = \int_0^{\omega_{\mathrm{D}}}\dd\xi\,\frac{\tanh(\xi/2T_c)}{\xi} .
 \end{equation*}
@@ -81,20 +38,14 @@ The integral is evaluated through the Matsubara expansion of the hyperbolic tang
   = \sum_{j=0}^\infty\frac{2}{\pi}\,\frac{\arctan[X/(j + \frac12)]}{j + \frac12}, \qquad X = \frac{\omega_{\mathrm{D}}}{2\pi T} ,
 \end{equation*}
 where the terms $j$ and $-j - 1$ were combined and $\omega^{\mathrm{F}}_j = 2\pi T(j + \frac12)$. Split $(2/\pi)\arctan(X/y) = \Theta(X - y) + r(y/X)$, with $r(t) = (2/\pi)\arctan(1/t) - \Theta(1 - t)$. The step function cuts the sum at $j + \frac12 < X$. The remainder, for $X \gg 1$, becomes the integral $\int_0^\infty\dd t\,r(t)/t$, which vanishes. On $t < 1$, $r(t) = -(2/\pi)\arctan t$; on $t > 1$, $r(t) = (2/\pi)\arctan(1/t)$; and the substitution $t \to 1/t$ maps one piece onto minus the other. The truncated sum is a sum over odd integers, $\sum_{j=0}^{J}(j + \frac12)^{-1} = 2(H_{2J+2} - \frac12H_{J+1})$ with the harmonic numbers $H_n = \sum_{m=1}^n1/m = \ln n + \gamma_{\mathrm{E}} + O(1/n)$, which gives $\ln J + \gamma_{\mathrm{E}} + 2\ln2$ for $J \simeq X \gg 1$. Altogether the integral is $\ln(4\ee^{\gamma_{\mathrm{E}}}X) = \ln(2\ee^{\gamma_{\mathrm{E}}}\omega_{\mathrm{D}}/\pi T)$, with corrections of order $(T/\omega_{\mathrm{D}})^2$, and
-\begin{equation}
+\begin{equation*}
   T_c = \frac{2\ee^{\gamma_{\mathrm{E}}}}{\pi}\,\omega_{\mathrm{D}}\,\ee^{-1/(\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}})} = 1.134\,\omega_{\mathrm{D}}\,\ee^{-1/(\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}})} .
-  \label{eq:D.20-Tc}
-\end{equation}
-Dividing \cref{eq:D.20-Delta0} by \cref{eq:D.20-Tc}, the unknown $\omega_{\mathrm{D}}$ and the exponential cancel:
-\begin{equation}
-  \frac{\Delta_{\mathrm{BCS}}(0)}{T_c} = \pi\,\ee^{-\gamma_{\mathrm{E}}} = 1.764 .
-  \label{eq:D.20-ratio}
-\end{equation}
-The ratio is universal within the model, independent of the coupling, the cutoff and the material; deviations measure the strength and the retardation of the real interaction, which Eliashberg theory treats (\cref{app:E.9}). Already at $\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}} = 0.2$ the numerical solution of \cref{eq:D.20-gap} has $\Delta_{\mathrm{BCS}}(0)/T_c = 1.7639$.
+\end{equation*}
+Dividing $\Delta_{\mathrm{BCS}}(0)$ by $T_c$, the unknown $\omega_{\mathrm{D}}$ and the exponential cancel, which gives the ratio of \cref{eq:7.2-gap}. Already at $\mathcal{N}_{\mathrm{F}}V_{\mathrm{BCS}} = 0.2$ the numerical solution of the gap equation has $\Delta_{\mathrm{BCS}}(0)/T_c = 1.7639$.
 
 \subsection*{Coherence factors}
 
-A probe couples to the electrons through a one-body operator, and the superconducting state answers with matrix elements that mix the electron and hole parts of the quasiparticles. Take the density, $n_e(\vect{q}) = \sum_{\vect{k}\sigma}c^\dagger_{\vect{k}+\vect{q},\sigma}c_{\vect{k}\sigma}$, and the $z$ component of the spin density, $s^z_e(\vect{q}) = \frac12\sum_{\vect{k}}(c^\dagger_{\vect{k}+\vect{q}\uparrow}c_{\vect{k}\uparrow} - c^\dagger_{\vect{k}+\vect{q}\downarrow}c_{\vect{k}\downarrow})$, \cref{eq:7.1-se} in second quantization. Write $u = u^{\mathrm{B}}_{\vect{k}}$, $v = v^{\mathrm{B}}_{\vect{k}}$ and primes for $\vect{k}' = \vect{k} + \vect{q}$. With the inverted \cref{eq:D.20-gamma},
+For the density $n_e(\vect{q})$ and the spin density $s^z_e(\vect{q})$ of \cref{sec:7.2}, write $u = u^{\mathrm{B}}_{\vect{k}}$, $v = v^{\mathrm{B}}_{\vect{k}}$ and primes for $\vect{k}' = \vect{k} + \vect{q}$. With the inverted \cref{eq:7.2-gamma},
 \begin{equation*}
   c^\dagger_{\vect{k}'\uparrow}c_{\vect{k}\uparrow} = u'u\,\gamma^\dagger_{\vect{k}'1}\gamma_{\vect{k}1} + u'v\,\gamma^\dagger_{\vect{k}'1}\gamma^\dagger_{\vect{k}2} + v'u\,\gamma_{\vect{k}'2}\gamma_{\vect{k}1} + v'v\,\gamma_{\vect{k}'2}\gamma^\dagger_{\vect{k}2} .
 \end{equation*}
@@ -102,20 +53,4 @@ For the spin-down part, relabel $\vect{k} \to -\vect{k} - \vect{q}$, so that $\s
 \begin{equation*}
   c^\dagger_{-\vect{k}\downarrow}c_{-\vect{k}'\downarrow} = uu'\,\gamma^\dagger_{\vect{k}2}\gamma_{\vect{k}'2} - uv'\,\gamma^\dagger_{\vect{k}2}\gamma^\dagger_{\vect{k}'1} - vu'\,\gamma_{\vect{k}1}\gamma_{\vect{k}'2} + vv'\,\gamma_{\vect{k}1}\gamma^\dagger_{\vect{k}'1} .
 \end{equation*}
-Collect the terms by process. The term that creates two quasiparticles, $\gamma^\dagger_{\vect{k}'1}\gamma^\dagger_{\vect{k}2}$, comes with $u'v$ from spin up and, after $-\gamma^\dagger_{\vect{k}2}\gamma^\dagger_{\vect{k}'1} = \gamma^\dagger_{\vect{k}'1}\gamma^\dagger_{\vect{k}2}$, with $uv'$ from spin down. The term that scatters a quasiparticle from $\vect{k}$ to $\vect{k}'$, $\gamma^\dagger_{\vect{k}'1}\gamma_{\vect{k}1}$, comes with $uu'$ from spin up and, after $\gamma_{\vect{k}1}\gamma^\dagger_{\vect{k}'1} = -\gamma^\dagger_{\vect{k}'1}\gamma_{\vect{k}1}$ for $\vect{q} \ne 0$, with $-vv'$ from spin down. The density adds the two spins and the spin density subtracts them, so
-\begin{equation}
-  \begin{aligned}
-  n_e(\vect{q}):&\quad \text{creation } u'v + v'u, \qquad \text{scattering } uu' - vv' ,\\
-  s^z_e(\vect{q}):&\quad \text{creation } \tfrac12(u'v - v'u), \qquad \text{scattering } \tfrac12(uu' + vv') .
-  \end{aligned}
-  \label{eq:D.20-coh}
-\end{equation}
-The scattering of the second branch, $\gamma^\dagger_{\vect{k}2}\gamma_{\vect{k}'2}$, has the same factors. Expressed through the energies, with \cref{eq:D.20-E} and $2uv = \Delta_{\mathrm{BCS}}/E$,
-\begin{equation}
-  (uu' \mp vv')^2 = \frac12\Bigl(1 + \frac{\xi\xi' \mp \Delta_{\mathrm{BCS}}^2}{EE'}\Bigr), \qquad
-  (uv' \pm vu')^2 = \frac12\Bigl(1 - \frac{\xi\xi' \mp \Delta_{\mathrm{BCS}}^2}{EE'}\Bigr) ,
-  \label{eq:D.20-cohE}
-\end{equation}
-with the upper signs for the density, a perturbation even under time reversal (case I), and the lower signs for the spin density, odd under time reversal (case II), in the terminology of Ref.~\cite{tinkham2004introduction}. At $T = 0$ only creation acts on the ground state. Its weight for the density, at the threshold $\xi = \xi' = 0$, is $\frac12(1 + 1) = 1$. Multiplied by the divergent density \cref{eq:D.20-dos} of both quasiparticles, it makes the pair-breaking absorption of the density jump at $\omega = 2\Delta_{\mathrm{BCS}}$. For the spin density it is $\frac12(1 - 1) = 0$, and the absorption rises continuously. Scattering needs thermally excited quasiparticles and is weighted by $n_{\mathrm{F}}(E)[1 - n_{\mathrm{F}}(E')]$.
-
-The same algebra shows what goes wrong at $\vect{q} = 0$. There the creation factor of the density is $2uv = \Delta_{\mathrm{BCS}}/E_{\vect{k}}$, not zero: the operator $n_e(0) = \op{N}_e$ appears to break pairs. The total number of electrons commutes with $H_{\mathrm{BCS}}$ and cannot excite anything, but it does not commute with $H_{\mathrm{MF}}$, which creates and destroys pairs. The mean-field states are not eigenstates of $\op{N}_e$, and a response computed with independent quasiparticles violates charge conservation and the f-sum rule. The spin density at $\vect{q} = 0$ has creation factor $\frac12(uv - vu) = 0$: total $S^z$ commutes with $H_{\mathrm{MF}}$, and the bare quasiparticle response to a spin probe is conserving. \Cref{app:D.21} repairs the density response.
+Collect the terms by process. The term that creates two quasiparticles, $\gamma^\dagger_{\vect{k}'1}\gamma^\dagger_{\vect{k}2}$, comes with $u'v$ from spin up and, after $-\gamma^\dagger_{\vect{k}2}\gamma^\dagger_{\vect{k}'1} = \gamma^\dagger_{\vect{k}'1}\gamma^\dagger_{\vect{k}2}$, with $uv'$ from spin down. The term that scatters a quasiparticle from $\vect{k}$ to $\vect{k}'$, $\gamma^\dagger_{\vect{k}'1}\gamma_{\vect{k}1}$, comes with $uu'$ from spin up and, after $\gamma_{\vect{k}1}\gamma^\dagger_{\vect{k}'1} = -\gamma^\dagger_{\vect{k}'1}\gamma_{\vect{k}1}$ for $\vect{q} \ne 0$, with $-vv'$ from spin down. The density adds the two spins and the spin density subtracts them, which gives \cref{eq:7.2-coh}. The scattering of the second branch, $\gamma^\dagger_{\vect{k}2}\gamma_{\vect{k}'2}$, has the same factors. Expressed through the energies, with \cref{eq:7.2-E}, the squares are \cref{eq:7.2-cohE}.
