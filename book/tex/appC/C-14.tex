@@ -16,7 +16,7 @@ When a parameter is measured with a Gaussian error, for example an estimate $\ha
   \mathsf{L}(N_{\mathrm{sig}}) \propto \exp\Bigl[-\frac{(\hat N - N_{\mathrm{sig}})^2}{2\sigma_{\hat N}^2}\Bigr] .
   \label{eq:C.14-gauss}
 \end{equation}
-The Poisson likelihood takes this form at large counts. Expanding $\ln\mathsf{L}$ of \cref{eq:C.14-poisson} to second order about its maximum, at $N_{\mathrm{sig}} + N_{\mathrm{bkg}} = N_{\mathrm{obs}}$, gives $\ln\mathsf{L} = \mathrm{const} - (N_{\mathrm{sig}} + N_{\mathrm{bkg}} - N_{\mathrm{obs}})^2/(2N_{\mathrm{obs}})$, a Gaussian of width $N_{\mathrm{obs}}^{1/2}$. The cubic term of the expansion is smaller by a factor of order $N_{\mathrm{obs}}^{-1/2}$ at one standard deviation from the maximum, so the Gaussian form needs tens of events, not a few.
+The Poisson likelihood takes this form at large counts. Expanding $\ln\mathsf{L}$ of \cref{eq:C.14-poisson} to second order about its maximum, at $N_{\mathrm{sig}} + N_{\mathrm{bkg}} = N_{\mathrm{obs}}$, gives $\ln\mathsf{L} = \mathrm{const} - (N_{\mathrm{sig}} + N_{\mathrm{bkg}} - N_{\mathrm{obs}})^2/(2N_{\mathrm{obs}})$, a Gaussian of width $N_{\mathrm{obs}}^{1/2}$. The cubic term of the expansion is smaller by a factor of order $N_{\mathrm{obs}}^{-1/2}$ at one standard deviation from the maximum, so the Gaussian form needs tens of events.
 
 \subsection{The likelihood ratio and intervals}
 
@@ -38,7 +38,7 @@ The asymptotic rule fails at small counts, the regime of dark-matter limits. Wit
 
 \subsection{Nuisance parameters and the profile likelihood}
 
-The predicted counts depend on quantities that are not of interest but are not known exactly: a background normalization, an efficiency, or the size of a truncation in the theory (\cref{sec:8.8}). Each becomes a \emph{nuisance parameter} $\vartheta$ in the likelihood, usually with a constraint term that encodes what is known about it from a calibration or from a computed next order. The \emph{profile likelihood} replaces each nuisance parameter by its best value at fixed $N_{\mathrm{sig}}$,
+The predicted counts depend on quantities of no direct interest that are known only approximately: a background normalization, an efficiency, or the size of a truncation in the theory (\cref{sec:8.8}). Each becomes a \emph{nuisance parameter} $\vartheta$ in the likelihood, usually with a constraint term that encodes what is known about it from a calibration or from a computed next order. The \emph{profile likelihood} replaces each nuisance parameter by its best value at fixed $N_{\mathrm{sig}}$,
 \begin{equation}
   \mathsf{t}_{\mathrm{p}}(N_{\mathrm{sig}}) = -2\ln\frac{\mathsf{L}\bigl(N_{\mathrm{sig}}, \hat{\hat\vartheta}(N_{\mathrm{sig}})\bigr)}{\mathsf{L}(\hat N_{\mathrm{sig}}, \hat\vartheta)} ,
   \label{eq:C.14-profile}
@@ -65,4 +65,4 @@ Comparisons follow from the same draws. The probability that material $A$ outper
   P(A \succ B) = \Phi\Bigl(\frac{\Delta}{(\sigma_A^2 + \sigma_B^2 - 2r\sigma_A\sigma_B)^{1/2}}\Bigr) .
   \label{eq:C.14-pairwise}
 \end{equation}
-With $\Delta = 0.3$, $\sigma_A = 0.2$, $\sigma_B = 0.25$ and $r = 0$, $P(A \succ B) = \Phi(0.94) = 0.83$. A positive correlation, as arises when both materials are computed with the same method and share its error, shrinks the variance of the difference and sharpens the comparison; a ratio of two such outputs is more certain than either. The sampling error of an estimated probability $p$ is $[p(1 - p)/N_{\mathrm{MC}}]^{1/2}$, at most 0.0035 for $N_{\mathrm{MC}} = 2\times10^4$. All such probabilities are conditional on the input distributions: they propagate the assigned widths faithfully, but they cannot be more reliable than the widths themselves.
+With $\Delta = 0.3$, $\sigma_A = 0.2$, $\sigma_B = 0.25$ and $r = 0$, $P(A \succ B) = \Phi(0.94) = 0.83$. A positive correlation, as arises when both materials are computed with the same method and share its error, shrinks the variance of the difference and sharpens the comparison; a ratio of two such outputs is more certain than either. The sampling error of an estimated probability $p$ is $[p(1 - p)/N_{\mathrm{MC}}]^{1/2}$, at most 0.0035 for $N_{\mathrm{MC}} = 2\times10^4$. All such probabilities are conditional on the input distributions: they propagate the assigned widths, but they cannot be more reliable than the widths themselves.
