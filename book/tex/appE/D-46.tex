@@ -1,6 +1,6 @@
 \section{Halo-independent bounds by linear programming}\label{app:D.46}
 
-We derive the stream kernel $\mathsf{k}_i(\vect{w})$ and its multipole form \cref{eq:21.2-multipole}, and we prove the halo-independent bound \cref{eq:21.2-hib} of a response that depends only on the speed, the bound with a defective certificate \cref{eq:21.2-defect}, and the leakage of a final-state split, \cref{eq:21.2-fsleak}. The linear-programming facts it uses, weak duality, the mass bound and the discretization bracket, are those of \cref{app:C.12}.
+We derive the stream kernel $\mathsf{k}_i(\vect{w})$ and its multipole form \cref{eq:21.2-multipole}, and we prove the halo-independent bound \cref{eq:21.2-hib} of a response that depends only on the speed, the bound with a defective certificate \cref{eq:21.2-defect}, and the leakage of a final-state split, \cref{eq:21.2-fsleak}. The derivation uses three linear-programming facts from \cref{app:C.12}: weak duality, the mass bound and the discretization bracket.
 
 \subsection{The stream kernel}
 
@@ -14,12 +14,12 @@ The kernel of one stream follows from \cref{eq:21.1-kernel}. Write the response,
 \begin{equation*}
   s_i(\vect{q},\omega) = \bar s_i(q,\omega)\Bigl[1 + \sum_{\ell \ge 1}\sum_ma^i_{\ell m}(q,\omega)\,Y_{\ell m}(\hat{\vect{q}})\Bigr] ,
 \end{equation*}
-with $\bar s_i$ its average over directions. For a stream of velocity $\vect{v}$ in crystal axes, the energy delta function $\delta(\omega - \vect{q}\cdot\vect{v} + q^2/2\mchi)$, written at fixed $|\vect{q}|$, is $(qv)^{-1}\delta(\hat{\vect{q}}\cdot\hat{\vect{v}} - \vmin/v)$ with $\vmin = \omega/q + q/2\mchi$ (\cref{eq:1.3-vmin}). It restricts $\hat{\vect{q}}$ to a circle of half-opening $\arccos(\vmin/v)$ about $\hat{\vect{v}}$. Expanding the delta function in Legendre polynomials of $\hat{\vect{q}}\cdot\hat{\vect{v}}$ and projecting with the addition theorem \cref{eq:C.3-addition} gives the integral of a harmonic over that circle,
+with $\bar s_i$ its average over directions. For a stream of velocity $\vect{v}$ in crystal axes, the energy delta function $\delta(\omega - \vect{q}\cdot\vect{v} + q^2/2\mchi)$, written at fixed $|\vect{q}|$, is $(qv)^{-1}\delta(\hat{\vect{q}}\cdot\hat{\vect{v}} - \vmin/v)$ with $\vmin = \omega/q + q/2\mchi$ (\cref{eq:1.3-vmin}). The delta function restricts $\hat{\vect{q}}$ to a circle of half-opening $\arccos(\vmin/v)$ about $\hat{\vect{v}}$. Expanding the delta function in Legendre polynomials of $\hat{\vect{q}}\cdot\hat{\vect{v}}$ and projecting with the addition theorem \cref{eq:C.3-addition} gives the integral of a harmonic over that circle,
 \begin{equation}
   \int\dd^2\hat{\vect{q}}\;\delta\bigl(\hat{\vect{q}}\cdot\hat{\vect{v}} - x\bigr)\,Y_{\ell m}(\hat{\vect{q}}) = 2\pi\,P_\ell(x)\,Y_{\ell m}(\hat{\vect{v}}) \qquad (|x| \le 1) .
   \label{eq:D.46-circle}
 \end{equation}
-Doing the angular integral of $\int\dd^3q/(2\pi)^3$ with it, the kernel of one stream is
+Doing the angular integral of $\int\dd^3q/(2\pi)^3$ with \cref{eq:D.46-circle} gives the kernel of one stream,
 \begin{equation*}
   \varGamma_i(\vect{v}) = \frac1v\int\dd\omega\int\frac{q\,\dd q}{4\pi^2}\,\bar s_i(q,\omega)\Bigl[1 + \sum_{\ell \ge 1}\sum_ma^i_{\ell m}(q,\omega)\,P_\ell\Bigl(\frac{\vmin}{v}\Bigr)Y_{\ell m}(\hat{\vect{v}})\Bigr]\Theta(v - \vmin) ,
 \end{equation*}
@@ -39,7 +39,7 @@ The objective is $\tilde\eta(u_0) = \int\mathsf{f}_{u_0}\dd\Xi$ with $\mathsf{f}
   \tilde\eta_{\max}(u_0) = \frac{N_j^{\mathrm{up}}}{\mathcal{A}_j(u_0)} = \min_i\frac{N_i^{\mathrm{up}}}{\mathcal{A}_i(u_0)} .
   \label{eq:D.46-hib}
 \end{equation}
-\emph{Primal.} One stream at a laboratory speed $u_0$, in any allowed direction, with $\Xi$-mass $\xi_1 = u_0N_j^{\mathrm{up}}/\mathcal{A}_j(u_0)$, produces $\xi_1\mathsf{k}_i(u_0) = N_j^{\mathrm{up}}\mathcal{A}_i(u_0)/\mathcal{A}_j(u_0) \le N_i^{\mathrm{up}}$ counts in every bin, with equality in bin $j$, and has $\tilde\eta(u_0) = \xi_1/u_0 = N_j^{\mathrm{up}}/\mathcal{A}_j(u_0)$. \emph{Dual.} Take $\lambda_j = 1/\mathcal{A}_j(u_0)$ and $\lambda_i = 0$ for $i \ne j$. The dual function $\mathsf{g}_\lambda(v) = \mathcal{A}_j(v)/[v\,\mathcal{A}_j(u_0)] - \Theta(v - u_0)/v$ is nonnegative below $u_0$, where the subtracted term vanishes, and at and above $u_0$, where $\mathcal{A}_j(v) \ge \mathcal{A}_j(u_0)$ by \cref{eq:D.46-monotone}. So $\boldsymbol\lambda$ is a certificate, and its value $\lambda_jN_j^{\mathrm{up}}$ equals the primal value. By weak duality, \cref{eq:C.12-certificate}, both are optimal. The optimal stream lies where $\mathsf{g}_\lambda = 0$, at $v = u_0$, and only the saturated bin carries a dual weight, as complementary slackness requires (\cref{app:C.12}).
+\emph{Primal.} One stream at a laboratory speed $u_0$, in any allowed direction, with $\Xi$-mass $\xi_1 = u_0N_j^{\mathrm{up}}/\mathcal{A}_j(u_0)$, produces $\xi_1\mathsf{k}_i(u_0) = N_j^{\mathrm{up}}\mathcal{A}_i(u_0)/\mathcal{A}_j(u_0) \le N_i^{\mathrm{up}}$ counts in every bin, with equality in bin $j$, and has $\tilde\eta(u_0) = \xi_1/u_0 = N_j^{\mathrm{up}}/\mathcal{A}_j(u_0)$. \emph{Dual.} Take $\lambda_j = 1/\mathcal{A}_j(u_0)$ and $\lambda_i = 0$ for $i \ne j$. The dual function $\mathsf{g}_\lambda(v) = \mathcal{A}_j(v)/[v\,\mathcal{A}_j(u_0)] - \Theta(v - u_0)/v$ is nonnegative below $u_0$, where the subtracted term vanishes, and at and above $u_0$, where $\mathcal{A}_j(v) \ge \mathcal{A}_j(u_0)$ by \cref{eq:D.46-monotone}. So $\boldsymbol\lambda$ is a certificate, and its value $\lambda_jN_j^{\mathrm{up}}$ equals the primal value. By weak duality, \cref{eq:C.12-certificate}, the stream and the certificate are both optimal. The optimal stream lies where $\mathsf{g}_\lambda = 0$, at $v = u_0$, and only the saturated bin carries a dual weight, as complementary slackness requires (\cref{app:C.12}).
 
 Monotonicity is used only in the dual; for a column that decreases somewhere, the minimum over bins of the single-bin values \cref{eq:C.12-onebin} is only an upper estimate of the optimum. With a time-dependent $\vect{v}_{\mathrm{E}}(t)$ a stream has no single laboratory speed, and the reduction holds bin by bin in time only where $|\vect{v}_{\mathrm{E}}|$ changes little over a bin.
 
@@ -63,7 +63,7 @@ The same inequality handles a kernel that is computed with negative pieces. Let 
 \begin{equation*}
   \sum_i\lambda_i\mathsf{k}_i \ge \mathsf{f} - \delta_h - \sum_i\lambda_i\mathsf{l}_i ,
 \end{equation*}
-so \cref{eq:D.46-defect} holds for the nonnegative kernel with $\delta_{\mathrm{cert}} = \delta_h + \sup_{\operatorname{supp}\mathsf{f}}\sum_i\lambda_i\mathsf{l}_i$, and with $\kappa_{\mathrm{v}}$ replaced by its lower estimate $\min_{\operatorname{supp}\mathsf{f}}\max_i(\tilde{\mathsf{k}}_i - \mathsf{l}_i)$. This is \cref{eq:21.2-defect}.
+so \cref{eq:D.46-defect} holds for the nonnegative kernel with $\delta_{\mathrm{cert}} = \delta_h + \sup_{\operatorname{supp}\mathsf{f}}\sum_i\lambda_i\mathsf{l}_i$, and with $\kappa_{\mathrm{v}}$ replaced by its lower estimate $\min_{\operatorname{supp}\mathsf{f}}\max_i(\tilde{\mathsf{k}}_i - \mathsf{l}_i)$. With these replacements \cref{eq:D.46-defect} is \cref{eq:21.2-defect}.
 
 \subsection{Leakage of a final-state split}
 
@@ -75,14 +75,14 @@ at each $\vect{q}$, with one phonon energy for brevity; a spread of phonon energ
 \begin{equation*}
   [s_i]_- \le |\Delta P_i(\omega)|\,\max\bigl([s^0]_-, [s^+]_-\bigr) .
 \end{equation*}
-Both parts are needed, since $\Delta P_i$ takes both signs across an interior bin, where $P_i(E)$ first rises and then falls. Seeding the phonon-dressed pair with the probability of its zero-phonon partner, $s_i^{\mathrm{c}} = P_i(\omega)(s^0 + s^+)$, gives a response that is never negative, and it differs from $s_i$ by $|\Delta P_i|\,|s^+|$. That difference, inserted in the stream kernel in place of $s_i$, is the $\mathsf{l}_i$ of the previous subsection.
+Both negative parts, $[s^0]_-$ and $[s^+]_-$, are needed, since $\Delta P_i$ takes both signs across an interior bin, where $P_i(E)$ first rises and then falls. Seeding the phonon-dressed pair with the probability of its zero-phonon partner, $s_i^{\mathrm{c}} = P_i(\omega)(s^0 + s^+)$, gives a response that is never negative, and it differs from $s_i$ by $|\Delta P_i|\,|s^+|$. That difference, inserted in the stream kernel in place of $s_i$, is the $\mathsf{l}_i$ of the previous subsection.
 
-Its size follows from the variation of $P_i$. For a function of bounded variation and $0 < h \le \omega_{\mathrm{max}}$, $|P_i(E) - P_i(E - h)| \le \int_{E-\omega_{\mathrm{max}}}^{E}|\dd P_i|$; integrating over $E$ and exchanging the integrals,
+The size of $\mathsf{l}_i$ follows from the variation of $P_i$. For a function of bounded variation and $0 < h \le \omega_{\mathrm{max}}$, $|P_i(E) - P_i(E - h)| \le \int_{E-\omega_{\mathrm{max}}}^{E}|\dd P_i|$; integrating over $E$ and exchanging the integrals gives
 \begin{equation}
   \int\dd\omega\,|\Delta P_i(\omega)| \le \omega_{\mathrm{max}}\operatorname{TV}(P_i) \le 2\,\omega_{\mathrm{max}} ,
   \label{eq:D.46-tv}
 \end{equation}
-where $\operatorname{TV}$ is the total variation. The last step assumes that the number of pairs is stochastically ordered in the energy of the seed: $P(N_{\mathrm{eh}} \ge n|E)$ does not decrease with $E$ for any $n$. Then $P_i(E) = P(N_{\mathrm{eh}} \ge n_i|E) - P(N_{\mathrm{eh}} > n_i'|E)$ for a bin of pair numbers $n_i \le N_{\mathrm{eh}} \le n_i'$ is a difference of two nondecreasing functions with values in $[0, 1]$, and its total variation is at most 2, exactly 2 for the step model \cref{eq:1.5-step}. Let the bin have the width $\Delta_i = \int\dd\omega\,P_i(\omega)$, which is $\varepsilon_{\mathrm{eh}}$ for the step model and, for the cascade of \cref{sec:18.3}, tends to it for bins well above threshold, and let its signal be $\int\dd\omega\,P_i(s^0 + s^+) = \Delta_i\langle s^0 + s^+\rangle_i$, with $\langle\,\rangle_i$ the average weighted with $P_i$. Since $\Delta P_i$ vanishes outside the support of $P_i$ widened by $\omega_{\mathrm{max}}$, \cref{eq:D.46-tv} bounds the misassigned weight at fixed $\vect{q}$ by
+where $\operatorname{TV}$ is the total variation. The last step assumes that the number of pairs is stochastically ordered in the energy of the seed: $P(N_{\mathrm{eh}} \ge n|E)$ does not decrease with $E$ for any $n$. Then $P_i(E) = P(N_{\mathrm{eh}} \ge n_i|E) - P(N_{\mathrm{eh}} > n_i'|E)$ for a bin of pair numbers $n_i \le N_{\mathrm{eh}} \le n_i'$ is a difference of two nondecreasing functions with values in $[0, 1]$, and its total variation is at most 2, exactly 2 for the step model \cref{eq:1.5-step}. Let the bin have the width $\Delta_i = \int\dd\omega\,P_i(\omega)$, which is $\varepsilon_{\mathrm{eh}}$ for the step model and, for the cascade of \cref{sec:18.3}, tends to $\varepsilon_{\mathrm{eh}}$ for bins well above threshold. Let the signal of the bin be $\int\dd\omega\,P_i(s^0 + s^+) = \Delta_i\langle s^0 + s^+\rangle_i$, with $\langle\,\rangle_i$ the average weighted with $P_i$. Since $\Delta P_i$ vanishes outside the support of $P_i$ widened by $\omega_{\mathrm{max}}$, \cref{eq:D.46-tv} bounds the misassigned weight at fixed $\vect{q}$ by
 \begin{equation}
   \frac{\int\dd\omega\,|s_i - s_i^{\mathrm{c}}|}{\Delta_i\,\langle s^0 + s^+\rangle_i} \le \frac{2\,\omega_{\mathrm{max}}}{\Delta_i}\,\varrho^{\mathrm{leak}}_i , \qquad
   \varrho^{\mathrm{leak}}_i = \frac{\sup|s^+|}{\langle s^0 + s^+\rangle_i} ,

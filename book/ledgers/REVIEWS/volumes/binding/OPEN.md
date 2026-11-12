@@ -22,3 +22,4 @@
 - ch11 judgment: s11-1:144 'Above that' -> q_BZ/2v_max (0.42 MeV); s11-3:106 names TDS subsection; s11-2:149 LST 1.4% spelled out. CONTENT: s11-5:3 exact moments 'which anharmonicity cannot change' (form vs values) - possible erratum
 - ch13 'margin' now only delta_w ('distance' for E_min-omega); s13-9:77 'reproduces the two powers' unresolved; tab:13-window/tab:13-nuisances cell 'carries half of it'; 5 picked readings in ch13 log
 - ch17 'lattice ceiling' (s17-1) undefined; tab:17-fom cell 'L(q,omega) in the window' -> 'kinematic window' (tables now editable); s17-6 'the two nuclear channels' unnamed; names: 'kinematic window', 'remainder', 'the two couplings' unified
+- ch19 s19-5:65 'equal when both are zero' (only when?) - claim; s19-3:134 long base sentence
