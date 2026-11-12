@@ -1,0 +1,14 @@
+- ch03 s3-3:188 "A photon is the opposite extreme ... Scattering dark matter lies in between": extremes never named (needs restructuring; for vol I reviewer)
+- ch03 s3-4:84 "pass close to all of them" scope unclear (GW squares vs squares+circles)
+- ch03 s3-2:155 cites sec:3.6 (not in ch03; resolves elsewhere) - check target
+- ch01 interpretations to verify: s1-1 "coupling between the two" -> "electron-phonon coupling"; s1-3 L202 "Both factors" -> "the prefactor and the quadratic power of delta"; s1-4 L34 added "relative to q^2"
+- ch01 s1-3 L161 CONTENT: 1/qv called "the derivative" of the delta argument; is the inverse modulus of the derivative -> errata
+- ch04 s4-5 L168 'the rest above' unresolved (needs a number not in text)
+- ch05 s5-6:42 STOP intended: "Debye-Waller exponent" W -> 2W (consistency with rest of book) - verify
+- ch05 fig5_1 caption "from the fit" ambiguous (two fits); s5-2:50 "both kinds of branch" left
+- appA A-8:13 reading to confirm: "one or the other" -> "annual mean of |v_E(t)| or |v_sun|"
+- appB generator: 6 proposed wordings in binding/appA-appB.md (B-1 intro "that section", "listed there"; "that of" in cells theta_X, delta_X, n_2D heavy band, z_qp) -> apply in gen_B1.py / split_B1.py
+- ch07 s7-2:31 'both of the same order' ambiguous (as each other vs as lambda_ep) - decide
+- ch06 s6-3:177 'for the same reason' two candidates (left); s6-2:3 changed to 'The screened vertex' - verify
+- appC C-4:76 'its value at x0' (width vs delta term) - author choice; C-12:61 'the resulting leakage' may clash with Sect 21.2 'leakage'
+- appD D-24:97 'This is the order-v^2 term' antecedent is a formula fragment (left)
