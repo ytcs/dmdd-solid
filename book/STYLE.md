@@ -3,7 +3,7 @@
 ## House
 - Springer monograph conventions on the LaTeX `book` class (tex/preamble.tex). British or American: **American spelling** throughout.
 - Voice: "we" for author and reader together; never "I"; do not address the reader as "you".
-- **No exercises, problems, checkpoints or tasks for the reader. Nothing is left to the reader** (user directive). Every step is written out in the text or in Appendix D, and the text points to it. Worked examples are demonstrations.
+- **No exercises, problems, checkpoints or tasks for the reader. Nothing is left to the reader** (user directive). Every step is written out in the text or in a derivation appendix, and the text points to it. Worked examples are demonstrations. Exception (user, 2026-11-12): in the long-derivation appendix of Volume II, a tedious but conceptually simple step (bookkeeping, expanding to a stated order, a standard integral, a limit check) may be named with its result instead of written out.
 - No epigraphs, no subtitles, no colon titles. Titles are short noun phrases.
 - Each chapter opens with a short introductory (motivational, transitional) paragraph and closes with a summary section; then its references.
 
