@@ -385,7 +385,7 @@ Three-volume edition (2026-11-12): symbols no longer used in the tex have first 
 | Σ | electron self-energy (with decorations Σ^FM, Σ^AH from 6.3) ⚑ | eV | 4.7 |
 | τ | imaginary time, 0 ≤ τ ≤ β ⚑ | eV⁻¹ | 4.7 |
 | ω^F_j, ω^B_j | fermionic (2j + 1)πT and bosonic 2jπT Matsubara frequencies (superscript mandatory) ⚑ | eV | 4.7 |
-| z_qp | quasiparticle residue; z_qp(n, 𝐤) that of the one-electron state n𝐤 (13.7, renamed from z_nk) ⚑ | 1 | 4.7 (z_qp(n, 𝐤): 13.7) |
+| z_qp | quasiparticle residue; z_qp(n, 𝐤) the residue of the one-electron state n𝐤 (13.7, renamed from z_nk) ⚑ | 1 | 4.7 (z_qp(n, 𝐤): 13.7) |
 | W^scr, W^scr,R | screened Coulomb interaction v_C + v_CRv_C = ε^{-1}v_C, in a crystal the matrix (ε^{-1})_GG′v_C(\|q + G′\|) (superscript mandatory); W^scr,R its retarded form; time-ordered when written with a real argument and no further superscript; evaluated at any (q, ω), complex where pairs are open, e.g. W^scr(q + Q, ω ∓ ω_Qν) on the final pair (8.4, 13.4) ⚑ | eV⁻² | 4.8 |
 | A^λ_{cvk}, E_λ, λ | exciton envelope, exciton energy, exciton label: eigenpairs of the transition-basis BSE with K^x (no G = 0 term), which depend on q ⚑ | 1; eV | 4.9 |
 | E_x^b, a_x, μ_x | exciton binding energy, radius, reduced mass of the Wannier–Mott (hydrogenic) exciton ⚑ | eV; Å; m_e | 4.9 |
@@ -693,7 +693,7 @@ Three-volume edition (2026-11-12): symbols no longer used in the tex have first 
 | 𝒫_ad, 𝒫_0, 𝒫_+ | projectors on the electron-following, zero-phonon electronic and phonon-dressed electronic sectors ⚑ | 1 | 8.6 |
 | Λ, P_Λ, P_Λ′ | final-state class and its projector (classes refine the sectors 𝒫_ad, 𝒫_0, 𝒫_+; Λ′ a second class) ⚑ | — | 8.7 |
 | S(q, ω; Λ) | final-state-resolved response | eV² | 8.7 |
-| ϑ_k, ϑ_𝒳 | nuisance parameter of truncation k: ϑ_k = 0 the formula, ϑ_k = 1 its next order, standard-normal constraint e^{−ϑ_k²/2}; ϑ_𝒳 that of the many-body approximation (θ is an angle, Θ the Heaviside function) ⚑ | 1 | 8.8 |
+| ϑ_k, ϑ_𝒳 | nuisance parameter of truncation k: ϑ_k = 0 the formula, ϑ_k = 1 its next order, standard-normal constraint e^{−ϑ_k²/2}; ϑ_𝒳 the nuisance parameter of the many-body approximation (θ is an angle, Θ the Heaviside function) ⚑ | 1 | 8.8 |
 | v̄_χ, v̄_χ,z | mean dark-matter velocity (𝐩 + 𝐩′)/2m_χ = 𝐯 − 𝐪/2m_χ; its component along the magnetization (bar mandatory; v_χ,max is the largest speed of a boosted flux) ⚑ | 1 | 8.1 (also D.24, 8.2) |
 | c_i^{(s)}(q) | coefficient of 𝒪_i for target particle s ∈ {e, p, n} or nucleus κ, non-relativistic normalization, c₁^{(e)} = Ṽ; the relativistic coefficient of A.9 is 4m_χm_e c₁^{(e)} (superscript mandatory; c_n(t) of 2.1 keeps its time argument, c_j of 7.4 is a valley coefficient) ⚑ | eV⁻² | 8.1 |
 | 𝐒_χ, \|𝐒_χ\| | dark-matter spin operator; its spin quantum number (as \|𝐒\| of 7.1) | 1 | 8.1 |
@@ -766,7 +766,7 @@ Three-volume edition (2026-11-12): symbols no longer used in the tex have first 
 | P(N_eh \| q, ω, v) | pair-number distribution at fixed momentum transfer, energy and velocity | 1 | 8.7 |
 | E_e, E_h | kinetic energies of the electron and the hole of a prompt pair, measured from the band edges (renamed from ε_e, ε_h; 6.5, 8.7 and D.18 unified, clash entry 78) ⚑ | eV | 8.7 |
 | 𝔗_k⁺ | label one step further along axis k of 𝔗 (next nonvanishing order, next many-body approximation, next multiphonon term) | — | 8.8 |
-| ΔS_k, δ_k, δ_𝒳 | next-order difference S^{𝔗_k⁺} − S^𝔗 and its fractional size, the template of nuisance parameter k; δ_𝒳 that of the many-body approximation (subscript mandatory; bare δ is the delta function, ΔS the spin reduction of 14.1) ⚑ | eV²; 1 | 8.8 |
+| ΔS_k, δ_k, δ_𝒳 | next-order difference S^{𝔗_k⁺} − S^𝔗 and its fractional size, the template of nuisance parameter k; δ_𝒳 the fractional size for the many-body approximation, the template of ϑ_𝒳 (subscript mandatory; bare δ is the delta function, ΔS the spin reduction of 14.1) ⚑ | eV²; 1 | 8.8 |
 | δE_k | edge shift produced by the next order of truncation k (threshold nuisance parameter) ⚑ | meV | 8.8 |
 | δ′_k | fractional size of the next correction to a new-support piece ⚑ | 1 | 8.8 |
 | r_j(m_χ; ϑ) | rate per unit cross-section into detector bin j at nuisance parameters ϑ (extends r(m_χ) of 1.5; argument mandatory) ⚑ | cm⁻² kg⁻¹ yr⁻¹ | 8.8 |
@@ -1191,7 +1191,7 @@ Three-volume edition (2026-11-12): symbols no longer used in the tex have first 
 | V_uc | cell volume of the Dirac benchmark of the published rates (60 Å³) | Å³ | — (removed in the three-volume edition) |
 | S_u, ρ_u, 𝓃_u, r_u, F_th | structure factor and mass of one unit (wire, sheet) per unit length or area; units per transverse area or length; position of unit u; thickness factor of a sheet kernel (eq:16.2-thick) | — | 16.2 |
 | R̃_low^D, ε_2D, ε_1D, ε_env, ε̄, S_2D, S_1D, R_1D, D_Dr | proper response of the bands near the Fermi level of a sheet; sheet and tube dielectric functions; dielectric constant around a tube; mean of the two half-space constants; structure factors in two and one dimension; 1D bubble; Drude weight (local to 16.2, 16.3) | — | 16.2 |
-| 𝓃_2D, 𝓃_2D,h, 𝓃_h, ω_p,h, ω_2D,h, v_F,h | areal density; that of the heavy band; heavy-carrier density; heavy plasma frequency in 3D and 2D; heavy Fermi velocity (acoustic plasmon, 16.2) | cm⁻²; cm⁻²; cm⁻³; eV; eV; 1 | 16.2 |
+| 𝓃_2D, 𝓃_2D,h, 𝓃_h, ω_p,h, ω_2D,h, v_F,h | areal density; heavy-band areal density; heavy-carrier density; heavy plasma frequency in 3D and 2D; heavy Fermi velocity (acoustic plasmon, 16.2) | cm⁻²; cm⁻²; cm⁻³; eV; eV; 1 | 16.2 |
 | r_t, Φ_wf, N_C, M_PW, M_OPW, E_QD, E_conf, φ_QD | tube radius; work function; carbon atoms per unit mass; plane-wave and orthogonalized transition amplitudes of ejection; dot gap ΔE_QD; confinement energy; dot volume fraction (φ, local to 16.3) | nm; eV; kg⁻¹; —; eV; eV; 1 | 16.3 |
 | f_QD, ε_eff, c_ξ | dot form factor of Blanco et al. (inverse energy); Maxwell Garnett dielectric function (16.3, lim:16.5a); valley coefficient of the A₁ ground state in valley ξ (16.5) | eV⁻¹; 1; 1 | 16.3 |
 | H_ox,o′x′^F, 𝔍_ox,o′x′, A_ox, F_ox, F_o′x′, f_0x, f_0x^o, ρ_0x^o, d_x, d_x^o, d_λ, r_o, R_o, E_La, E_x′, f_Fr | Frenkel Hamiltonian and coupling in the molecular basis; eigenvector components; vertices; molecular form factors and transition densities; transition dipoles of a molecular state and of an exciton; molecular position and rotation; molecular level of L_a; another molecular level; Frenkel form factor (subscripts 𝔬, 𝔵 fraktur in the tex; 16.4) | — | 16.4 |
