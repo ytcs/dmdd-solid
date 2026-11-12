@@ -36,24 +36,30 @@ Accepted with comment (no change): A-5:48 "is gauge independent only under a con
 
 ## Recall (Job 2)
 
-Sampled unchanged paragraphs: about 1 in 8 of the unchanged paragraphs of every file, spread evenly (66 paragraphs). On top of that came every ranker-flagged pronoun or definite sentence in unchanged paragraphs of all of App. A and of the files the ranker flags most densely (C-3, C-15, C-17, D-13, D-21, D-27).
+Sampled unchanged paragraphs: about 1 in 8 of the unchanged paragraphs of every file, spread evenly (66 paragraphs). On top of that came every ranker-flagged pronoun or definite sentence in unchanged paragraphs of all of App. A and of the files the ranker flags most densely (C-3, C-15, C-17, D-21, D-27). D-13 has one unchanged paragraph of prose (l. 18, 24 words), and it was read.
+
+Paragraphs sampled (file:line): A-1:7, A-1:43, A-2:21, A-2:34, A-3:15, A-3:69, A-4:3, A-4:20, A-5:14, A-5:59, A-6:9, A-7:3, A-7:49, A-7:59, A-8:7, A-8:17, A-9:5; B-2:8; C-1:7, C-2:12, C-3:7, C-3:23, C-3:33, C-3:58, C-3:93, C-4:7, C-5:21, C-5:63, C-6:14, C-6:69, C-7:3, C-7:65, C-8:3, C-9:3, C-9:57, C-10:12, C-10:62, C-11:12, C-11:46, C-12:7, C-13:3, C-14:7, C-14:37, C-15:7, C-15:36, C-15:45, C-15:72, C-16:21, C-17:13, C-17:15, C-17:19, C-17:36, C-17:46, C-17:71, C-17:78, C-17:85, C-18:7, C-18:64, C-19:14, C-20:7, C-20:36, C-20:89; D-1:3, D-2:3, D-3:3, D-6:3, D-7:3, D-8:3, D-9:7, D-10:3, D-11:16, D-12:7, D-13:18, D-14:9, D-16:3, D-20:5, D-21:9, D-21:21, D-22:12, D-23:9, D-24:3, D-25:3, D-25:46, D-26:27, D-27:9, D-27:36, D-27:49, D-27:55, D-27:67, D-27:71, D-27:81, D-28:7.
 
 | Appendix | Words sampled | Misses | Per 1000 words |
 |---|---|---|---|
-| App. A | 951 | 0 | 0.0 |
+| App. A | 951 | 1 | 1.1 |
 | App. B | 31 | 0 | 0.0 |
-| App. C | 2861 | 5 | 1.7 |
-| App. D | 1865 | 1 | 0.5 |
-| **Total** | **5708** | **6** | **1.1** |
+| App. C | 2861 | 8 | 2.8 |
+| App. D | 1889 | 1 | 0.5 |
+| **Total** | **5732** | **10** | **1.7** |
 
-No appendix exceeds 2 per 1000 words, so none needs a second pass. App. C is the closest to the limit.
+**App. C exceeds 2 misses per 1000 words (2.8) and needs a second pass.** The misses cluster in plural pronouns (*they*, *their*) whose intended antecedent is the subject two sentences back, and in *that of*. A second reader should check those two constructions in every file C-1 to C-20. Apps. A, B and D are below the limit. For calibration: the pilot reviewer found about 3 per 1000 in untouched text. The block's lower overall rate partly reflects reference-heavy material (appendix openings that list sources and sections), not only clean prose.
 
 Misses fixed:
 
 | file:line | text | fix | failure |
 |---|---|---|---|
+| A-4:20 | "…its reciprocal-lattice part G_q labels an Umklapp component; both are needed" | "…both parts are needed" | *both* picks from two clause subjects, not one coordinated noun phrase |
+| C-3:33 | "…of most quantum-mechanics texts: Y_00 = …, …. They are orthonormal on the sphere and complete" | "The spherical harmonics are orthonormal on the sphere and complete" | *They*: the only plural noun in the previous sentence is "texts"; the intended antecedent is two sentences back |
+| C-9:3 | "…needs two results …: the potential … and the field redefinition …. Both follow from Lagrangian densities" | "Both results follow from Lagrangian densities" | *both* picks from the previous sentence (same ruling as A-4:20) |
 | C-13:3 | "The mathematics is that of an interval order, …, and of the heights of its elements." | "The construction uses an interval order, a partial order built from intervals, and the heights of its elements." | *that of* with no coordinated antecedent |
 | C-17:15 | "GaAs has 4̄3m (T_d), that of the regular tetrahedron." | "…, the full symmetry of the regular tetrahedron." | *that of* pointing to a noun of the previous sentence |
+| C-17:19 | "Vectors, tensors and functions of direction each carry one: the matrices describe how their components mix" | "…describe how the components of these objects mix" | *their*: nearest plural is "the matrices"; intended the vectors, tensors and functions |
 | C-17:78 | "…commutes with the Hamiltonian, so the states can be chosen as its eigenstates." | "…as eigenstates of $g$." | *its*: nearest candidate is the Hamiltonian; intended g |
 | C-19:14 | "a pattern of magnetic poles whose demagnetizing field cancels it exactly" | "…cancels the magnetization exactly" | *it*: pattern or magnetization |
 | C-20:7 | "Their energies differ by the asymmetry Δ_as" | "The energies of the two configurations differ by the asymmetry Δ_as" | *Their*: Pauli matrices (nearest) or configurations |
