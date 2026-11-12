@@ -1322,8 +1322,8 @@ def main():
         r"{\footnotesize",
         r"\setlength{\tabcolsep}{4pt}",
         r"\renewcommand{\arraystretch}{1.12}",
-        r"\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.52\textwidth}"
-        r">{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}p{0.06\textwidth}@{}}",
+        r"\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.50\textwidth}"
+        r">{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.06\textwidth}@{}}",
         r"\toprule",
         r"Symbol & Meaning & Units & Sect. \\",
         r"\midrule",
