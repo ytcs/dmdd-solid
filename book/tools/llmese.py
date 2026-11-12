@@ -75,7 +75,10 @@ def scan(path):
 
 
 def main(argv):
-    if argv and argv[0] == "--files":
+    if not argv or argv[0] in ("-h", "--help"):
+        print(__doc__)
+        return
+    if argv[0] == "--files":
         for f in argv[1:]:
             for i, k, ctx in scan(Path(f)):
                 print(f"{f}:{i}\t{k}\t{ctx}")
