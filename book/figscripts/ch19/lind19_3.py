@@ -1,5 +1,4 @@
-"""Lindhard quenching of silicon recoils (Sect. 19.3): Fig. 19.3 (fig:19-yields), Limit Check 19.3a (lim:19.3a,
-fig:19-limit-lindhard) and every Lindhard number printed in Sect. 19.3.
+"""Lindhard quenching of silicon recoils (Sect. 19.3): Limit Check 19.3a (lim:19.3a, fig:19-limit-lindhard) and every Lindhard number printed in Sect. 19.3.
 Log: lind19_3.log.  Run: python lind19_3.py > lind19_3.log  (under a minute).
 
 Model (Sect. 19.3, eq:19.3-simple): Lindhard's simplified integral equation for the mean energy given to atomic motion,
@@ -22,8 +21,6 @@ Inputs and their sources
      = pi a^2 f(x) dx/x^2.  Unscreened check: phi = 1 gives f = 1/(2x) (Rutherford).
   Silicon yield data: Albakry et al. (SuperCDMS), arXiv:2303.02196 Table II (total uncertainties).
   Power-law fit of the same paper: Y = 0.302 (E_R/10 keV)^0.261 (text below its Fig. 3).
-  Constant-binding ansatz: 2001.06503 Eq. (13), nu = nu_L(eps) + C0 eps^(1/2) + C1 + u, eps = eps_R - u, with Table 3
-     (Si): C0 = 9.1e-3, C1 = 3.33e-5, U = 0.15 keV, u = c_L U; yield (eps + u - nu)/(eps + u) (Eq. (2)); k = Lindhard's.
   Binary threshold E_R,th = 352 eV (Sect. 19.2).
 Numerics: forward integration on a log grid in eps (1e-9 .. 30, 6000 points), trapezoid in the implicit right end,
 the right-end term affine in nu'(eps_i) and solved exactly; x-integral on a geometric grid (400 points) in x/eps from
@@ -46,9 +43,6 @@ A0, E2G = 0.529177, 14.39965
 kL = 0.133 * Z**(2 / 3) / np.sqrt(A)
 aL = 0.8853 * A0 / (np.sqrt(2) * Z**(1 / 3))
 cL = aL / (2 * Z**2 * E2G) * 1e3          # keV^-1
-Zz = 12**0.23 + 14**0.23
-print(f"ZBL-convention reduced energy (Z1 = 12, Z2 = 14; 2209.04503): C = 16.2616/(Z Z1 Z2) = {16.2616/(Zz*12*14):.5f} keV^-1, "
-      f"ratio to Lindhard's {16.2616/(Zz*12*14)/(0.8853*A0/(np.sqrt(2)*Z**(1/3))/(2*Z**2*E2G)*1e3):.4f}")
 print(f"k_L = {kL:.4f};  a_L = {aL:.5f} A;  eps/E = {cL:.5f} keV^-1  (11.5 Z^-7/3 = {11.5*Z**(-7/3):.5f} keV^-1)")
 
 # ---------------- Thomas-Fermi screening function by shooting
@@ -256,37 +250,17 @@ data = np.array([  # E_R [keV], Y, +err, -err  (2303.02196 Table II)
     [0.89, 0.127, 0.031, 0.015],
     [2.33, 0.173, 0.044, 0.019],
     [3.91, 0.236, 0.055, 0.009]])
-def ansatz(ER):
-    """2001.06503 Eq. (13) with Table 3 (Si)."""
-    C0, C1, U = 9.1e-3, 3.33e-5, 0.15
-    uu = cL * U
-    eR = cL * np.asarray(ER, float)
-    e = eR - uu
-    out = np.full_like(eR, np.nan)
-    m = e > 0
-    nuL = e[m] / (1 + kL * (3 * e[m]**0.15 + 0.7 * e[m]**0.6 + e[m]))
-    nub = nuL + C0 * np.sqrt(e[m]) + C1 + uu
-    out[m] = (e[m] + uu - nub) / (e[m] + uu)
-    out[out < 0] = np.nan
-    return out
 def powlaw(ER):
     return 0.302 * (np.asarray(ER) / 10.0)**0.261
 
 print("\nAt the energies of the silicon data (2303.02196 Table II):")
-print("  E_R/keV   eps       Y_meas (+/-)          y_L(param)  y_num   meas/y_L   ansatz(U=0.15 keV)  power law")
+print("  E_R/keV   eps       Y_meas (+/-)          y_L(param)  y_num   meas/y_L   power law")
 for ER, Y, ep, em in data:
     e = cL * ER
-    an = ansatz(np.array([ER]))[0]
-    print(f"  {ER:5.2f}   {e:.5f}  {Y:.3f} (+{ep:.3f}/-{em:.3f})   {yL(e):.4f}     {ynum_at(e):.4f}  {Y/yL(e):.3f}      {an:.4f}             {powlaw(ER):.4f}")
+    print(f"  {ER:5.2f}   {e:.5f}  {Y:.3f} (+{ep:.3f}/-{em:.3f})   {yL(e):.4f}     {ynum_at(e):.4f}  {Y/yL(e):.3f}      {powlaw(ER):.4f}")
 for ER in (0.01, 0.03, 0.05, 0.352, 1.0, 4.0, 10.0):
     e = cL * ER
-    print(f"  E_R = {ER*1e3:6.0f} eV: eps = {e:.3e}, y_L = {yL(e):.4f}, y_num = {ynum_at(e):.4f}, ansatz = {ansatz(np.array([ER]))[0]:.4f}")
-# cutoff of the ansatz on a fine grid
-Eg = np.linspace(0.2, 0.5, 300001)
-an = ansatz(Eg)
-ok = np.where(np.isfinite(an))[0][0]
-print(f"  constant-binding ansatz: yield reaches zero at E_R = {Eg[ok]*1e3:.1f} eV (2U = 300 eV)")
-print(f"  k = 0.161 (2001.06503 Table 4): y_L at 1 keV = {yL(cL*1.0, 0.161):.4f}; at 10 keV = {yL(cL*10, 0.161):.4f}")
+    print(f"  E_R = {ER*1e3:6.0f} eV: eps = {e:.3e}, y_L = {yL(e):.4f}, y_num = {ynum_at(e):.4f}")
 print(f"  power-law fit through Lindhard at 10 keV: y_L(10 keV) = {yL(cL*10):.4f} (paper: 0.302)")
 
 # electronic stopping implied by k_L for Si in Si
@@ -296,29 +270,6 @@ for ER in (0.1, 1.0, 10.0):
     Se = kL * np.sqrt(e)                                  # d eps / d rho
     dEdx = Se / (cL * 1e-3) * np.pi * aL**2 * n_at        # eV/A
     print(f"  electronic stopping of a Si ion in Si from k_L at E_R = {ER} keV: {dEdx:.3f} eV/A")
-
-# ---------------- Fig. 19.3: yields against data
-E = np.geomspace(0.03, 30, 600)
-fig, ax = plt.subplots(figsize=(6.0, 3.8))
-ax.plot(E, yL(cL * E), color="k", lw=1.5, label=r"Lindhard, $k_L = 0.146$")
-ax.plot(E, yL(cL * E, 0.161), color="k", lw=1.0, ls=":", label=r"Lindhard, $k_L = 0.161$")
-ax.plot(E, ansatz(E), color="C3", lw=1.3, ls="--", label=r"constant binding, $U = 0.15$ keV")
-ax.plot(E, powlaw(E), color="C0", lw=1.0, ls="-.", label=r"power law of Ref. (measured fit)")
-ax.errorbar(data[:, 0], data[:, 1], yerr=[data[:, 3], data[:, 2]], fmt="o", ms=4, color="C0", capsize=2,
-            label="silicon data, 0.1–3.9 keV")
-ax.axvline(0.352, color="0.5", lw=0.7, ls=(0, (2, 2)))
-ax.text(0.37, 0.37, r"$E_{R,\mathrm{th}}$", fontsize=8, color="0.3")
-ax.set_xscale("log")
-ax.set_xlim(0.03, 30)
-ax.set_ylim(0, 0.4)
-ax.set_xlabel(r"recoil energy $E_R$ (keV)")
-ax.set_ylabel(r"ionization yield $Y_q$")
-h, l = ax.get_legend_handles_labels()
-l[3] = "power-law fit to the data"
-ax.legend(h, l, fontsize=7.5, loc="lower right", frameon=False)
-fig.tight_layout()
-fig.savefig(os.path.join(OUT, "fig19_3.pdf"))
-plt.close(fig)
 
 # ---------------- Limit Check 19.3a: ratios against E_R
 E = np.geomspace(0.01, 100, 800)
@@ -332,7 +283,6 @@ ax.plot(E, r1, color="k", lw=1.5, label="formula / solution of its integral equa
 dr = data[:, 1] / yL(cL * data[:, 0])
 ax.errorbar(data[:, 0], dr, yerr=[data[:, 3] / yL(cL * data[:, 0]), data[:, 2] / yL(cL * data[:, 0])],
             fmt="o", ms=4, color="C0", capsize=2, label="silicon data / formula")
-ax.plot(E, ansatz(E) / yL(cL * E), color="C3", lw=1.2, ls="--", label=r"constant binding $U$ / formula")
 ax.axhline(1, color="0.4", lw=0.6)
 ax.axvline(0.352, color="0.5", lw=0.7, ls=(0, (2, 2)))
 ax.text(0.33, 0.13, r"$E_{R,\mathrm{th}}$", fontsize=8, color="0.3", ha="right")
@@ -348,4 +298,4 @@ ax.legend(fontsize=7.5, loc="upper left", frameon=False)
 fig.tight_layout()
 fig.savefig(os.path.join(OUT, "limit19_3a.pdf"))
 plt.close(fig)
-print("\nwrote fig19_3.pdf, limit19_3a.pdf")
+print("\nwrote limit19_3a.pdf")

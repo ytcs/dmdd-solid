@@ -58,6 +58,11 @@ One standard for all content: does this passage belong in the best complete trea
 - **Tables** (user: "There are also a few very long out of bounds tables that might worth consider trimming"). Long tables that list every variant, every candidate material, every examined case or every nuisance with prose in each cell are a target: keep the rows and columns a reader needs to use the result, move a one-line conclusion into the text if that is all the table says, and remove rows that belong to removed models. A table that overflows its page (chapcheck prints "Float too large") must be trimmed until it fits, or split into a longtable only if every row stays needed.
 - Appendix F (the literature table) has been reduced by the lead editor to a short index; do not edit it, just list removed Limit Check labels.
 
+## Addendum 3 (user directive, 2026-11-12): light forward citations
+"we should keep forward citation light though, the reader already implicitly understands the existence of volume III so we don't need to cite it ad tedium if not helpful"
+
+A reference forward into a later volume (Volume I → II or III, Volume II → III) stays only where a reader would actually follow it: the first time in a chapter that a computed material quantity is used and the text says how it is obtained (one pointer, at that place), or where the text states a result whose derivation or numbers live only there. Delete the rest: repeated parenthetical pointers to the same Volume III section, "(\cref{app:E.n})" tags after every mention of a computed quantity, "the specification is in …", "computed as described in …", lists of Volume III sections in chapter openings, summaries and open-problem paragraphs, and forward pointers whose target merely repeats the sentence. Within one volume, \cref to a later chapter follows the same test. Deleting a pointer is never a reason to add text; close the sentence up.
+
 ## Size
 The one-volume text had already been through prose reviews, so do not expect to halve anything. A careful pass typically removes 5–12 % of a unit's words; duplicated derivations and recaps are where the pages are. A unit that shrinks by less than 3 % has probably not been read closely; one that shrinks by more than 20 % has probably lost content. Report the word count before and after (`cat <files> | wc -w`).
 

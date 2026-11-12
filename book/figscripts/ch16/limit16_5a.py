@@ -5,11 +5,11 @@ fuller result is the loss function of the effective medium, L = Im[-1/eps_eff], 
 y = eps^D/(3 eps_host) (Clausius-Mossotti / Maxwell Garnett form; Sect. 16.3 uses the same form for dots).
 
 Plot: x = n_D (cm^-3), 1e13 - 3e18; y = L_full/L_lin.  Donor model of donor16_5.py: central-cell ground state (r_c = 3.2 A,
-1s at the measured 45.59 meV; 'CC0.10') solid, effective-mass envelope ('EMT') dashed; curves at m_phi = 60 meV
+1s at the measured 45.59 meV; 'CC0.10'); curves at m_phi = 60 meV
 (continuum) and at the 1s(A1) -> 2p0 line centre, 34.11 meV, with full widths 0.034 cm^-1 (4.2 ueV, the narrowest
 measured width, in 28Si, quoted by Vinh et al., arXiv:0812.0148, p. 5) and 0.1 meV (an illustrative concentration-broadened
 line).  Dotted: the expansion 1 - 4 Re y + 4(3 Re y^2 - Im y^2) for the continuum curve and the line at 4.2 ueV.
-Shading: grey where the 60 meV ratio is within 10 % of one (both ground states); hatched n_D >= 0.3 n_c with
+Shading: grey where the 60 meV ratio is within 10 % of one; hatched n_D >= 0.3 n_c with
 n_c = 3e18 cm^-3, the metal-insulator density of uncompensated Si:P quoted by Du et al. (Sect. II, ">~ 3e18").
 Continuum: Gaussian sigma 1.5 meV on the box-discretized states (donorspec16_5.py).
 """
@@ -33,7 +33,7 @@ SIG = 1.5
 NC = 3e18
 W2P0 = 45.59 - 11.48
 
-mods = {"CC0.10": S.model("CC0.10"), "EMT": S.model("EMT")}
+mods = {"CC0.10": S.model("CC0.10")}
 nD = np.geomspace(1e13, 3e18, 400)
 
 
@@ -72,14 +72,14 @@ for lab in ("60 meV", "2p0, 4.2 ueV"):
     lead = 1 - 4 * y.real + 4 * (3 * y.real**2 - y.imag**2)
     ax.plot(nD, lead, color=cols[lab], ls=":", lw=1.0)
 ax.axhline(1, color="k", lw=0.6)
-# validity: 60 meV within 10 % for both ground states
+# validity: 60 meV within 10 %
 ok = np.minimum.reduce([np.abs(curves[(k, "60 meV")][0] - 1) for k in mods]) * 0 + \
     np.maximum.reduce([np.abs(curves[(k, "60 meV")][0] - 1) for k in mods])
 edge = nD[np.argmax(ok > 0.1)] if np.any(ok > 0.1) else nD[-1]
 ax.axvspan(nD[0], edge, color="0.88", zorder=0)
 ax.axvspan(0.3 * NC, nD[-1], facecolor="none", edgecolor="0.5", hatch="///", lw=0, zorder=0)
 ax.text(np.sqrt(0.3 * NC * 3e18), 0.6, "impurity\nband", fontsize=6.5, color="0.3", ha="center", va="center", bbox=dict(fc="white", ec="none", pad=0.5))
-print(f"shaded: 60 meV ratio within 10 % for both ground states below n_D = {edge:.2e} cm^-3")
+print(f"shaded: 60 meV ratio within 10 % below n_D = {edge:.2e} cm^-3")
 ax.set_xscale("log")
 ax.set_xlim(nD[0], nD[-1])
 ax.set_ylim(0, 1.6)

@@ -10,7 +10,8 @@ transmission of V(q) = V sech^2(q/L) (Landau-Lifshitz):
   P(E) = sinh^2(pi k L) / [sinh^2(pi k L) + cosh^2((pi/2) sqrt(8 m V L^2 - 1))],  k = sqrt(2 m E).
 Parameters of the source (its Sect. III.1): L = 0.66047 a_0, m = 1836 m_e, V = 72/(m pi^2 L^2) (atomic units);
 then w = sqrt(2V/(m L^2)), V/w = 6/pi, 8 m V L^2 = 576/pi^2.
-Plotted: approximate/exact against T/T_x.  Grey: classical TST x kappa_W within 10 % of exact (T >= T_10).
+Plotted: approximate/exact against T/T_x.  Grey: classical TST x kappa_PB within 10 % of exact (T >= T_10pb).
+Wigner's kappa_W (the first two terms of kappa_PB) is computed for the log only and not drawn.
 """
 import os
 import numpy as np
@@ -95,9 +96,8 @@ for tt in (2.0, 3.0):
 
 plt.rcParams.update({"font.size": 9, "font.family": "serif", "mathtext.fontset": "cm"})
 fig, ax = plt.subplots(figsize=(4.6, 3.0))
-ax.axvspan(T10, TT[-1], color="0.88", lw=0)
+ax.axvspan(T10pb, TT[-1], color="0.88", lw=0)
 ax.plot(TT, cl / ex, "k-", lw=1.0, label=r"classical, $\kappa = 1$")
-ax.plot(TT, rW, "C0", lw=1.4, label=r"Wigner $\kappa_{\mathrm{W}}$")
 ax.plot(TT, rPB, "C3", lw=1.4, label=r"parabolic $\kappa_{\mathrm{PB}}$")
 ax.plot(TT, rI, "C2", lw=1.4, label="instanton")
 ax.axvline(1, color="0.5", lw=0.6, ls=":")

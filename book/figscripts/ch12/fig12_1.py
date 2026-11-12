@@ -15,9 +15,9 @@ Inputs (all reused, nothing recomputed from first principles):
     p <= 22.5 keV, omega <= 89 eV, valence electrons only, scissor gap 1.11 eV.
   s(Q, omega_l), 2W(Q): incoherent T = 0 self response of a Si nucleus from the PBE/DFPT phonon density of states of Sect. 5.2,
     by FFT of the generating function: figscripts/ch11/imp11.spectrum (Sect. 11.3, 11.4); 2W = Q^2 <u_x^2>, <u_x^2> = 2.446e-3 A^2.
-  M = 28.0855 u (natural Si), alpha = 1/137.036, Z = 4 (valence charge of the pseudo-ion, Coulomb tail -Z e^2/p^2, Sect. 6.2).
-Modelling choices (stated in the caption): valence electrons only, point pseudo-ion of charge 4 (no core form factor Z_ion(p),
-Sect. 12.3), diagonal of the dielectric matrix only (no off-diagonal local-field terms in the vertex), Condon approximation in
+  M = 28.0855 u (natural Si), alpha = 1/137.036; vertex -Z_ion(p) e^2/p^2 with the valence ionization factor Z_ion(p) of
+  eq:12.3-Zion (free-atom core form factor), from mig12.z_ion.
+Modelling choices (stated in the caption): valence electrons only, ion charge Z_ion(p), diagonal of the dielectric matrix only (no off-diagonal local-field terms in the vertex), Condon approximation in
 the crystal frame (lattice factor at |q - p|), lattice final states on the ground surface, incoherent lattice response, T = 0.
 Runtime: about 20 s.
 """
@@ -32,12 +32,13 @@ from matplotlib.colors import LogNorm
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "ch11"))
 import imp11 as I  # noqa: E402
+sys.path.insert(0, HERE)
+import mig12 as MG  # noqa: E402
 
 OUT = os.path.join(HERE, "..", "..", "tex", "figures", "ch12")
 os.makedirs(OUT, exist_ok=True)
 
 ALPHA = 1 / 137.035999
-Z = 4.0
 M = I.M                              # eV, 28.0855 u
 Q = 50e3                             # eV
 
@@ -46,6 +47,7 @@ d = np.load(os.path.join(HERE, "..", "ch10", "si_elf_binned.npz"))
 pg, we, L = d["q"], d["omega"], d["lf"]          # eV, eV, L[omega, p]
 wp = np.gradient(pg)                              # trapezoid-like weights on the nonuniform p grid
 ww = np.gradient(we)
+Z2p = MG.z_ion(pg)**2                             # Z_ion(p)^2 on the p grid
 
 # ---- lattice response on a grid of |q - p| ----------------------------------------------------------------------------
 DWL = 1e-3                                         # 1-meV bins in omega_l
@@ -74,12 +76,12 @@ ang = wm * xm**2                                    # weights of the mu integral
 A_plus = np.einsum("pm,pml->pl", ang[None, :] * np.ones_like(P), S_qp)  # (p, omega_l)
 A_zero = (ang[None, :] * E_qp).sum(axis=1)          # (p,)
 A_soft = (ang).sum() * np.ones_like(pg)             # soft limit: lattice factor of unit weight at Q = q
-C = 4 * ALPHA * Z**2 * Q**2 / (M**2 * 4 * np.pi**2)
+C = 4 * ALPHA * Q**2 / (M**2 * 4 * np.pi**2)
 with np.errstate(divide="ignore", invalid="ignore"):
     pref = np.where(we > 0, C / we**4, 0.0)        # eV^-4 ... per omega_e
-Jp = pref[:, None] * np.einsum("p,ep,pl->el", wp * pg**2, L, A_plus)   # d2P/domega_e domega_l, eV^-2  [omega_e, omega_l]
-J0 = pref * ((wp * pg**2 * A_zero)[None, :] * L).sum(axis=1)            # dP/domega_e of the zero-phonon line, eV^-1
-Js = pref * ((wp * pg**2 * A_soft)[None, :] * L).sum(axis=1)            # soft-limit marginal, eV^-1
+Jp = pref[:, None] * np.einsum("p,ep,pl->el", wp * pg**2 * Z2p, L, A_plus)   # d2P/domega_e domega_l, eV^-2  [omega_e, omega_l]
+J0 = pref * ((wp * pg**2 * Z2p * A_zero)[None, :] * L).sum(axis=1)            # dP/domega_e of the zero-phonon line, eV^-1
+Js = pref * ((wp * pg**2 * Z2p * A_soft)[None, :] * L).sum(axis=1)            # soft-limit marginal, eV^-1
 
 Pplus = (Jp.sum(axis=1) * DWL * ww).sum()
 Pzero = (J0 * ww).sum()
