@@ -8,13 +8,7 @@ By \cref{eq:21.1-exposure}, a target of mass $M_{\mathrm{det}}$ counts in bin $i
 \begin{equation*}
   N_i = \frac{M_{\mathrm{det}}t_{\mathrm{exp}}\,\rho_\chi}{\mchi\,\rho_T}\int\dd^3w\,f_{\mathrm{gal}}(\vect{w})\,\bigl\langle\varGamma_i\bigl(\vect{w} - \vect{v}_{\mathrm{E}}(t)\bigr)\bigr\rangle_t ,
 \end{equation*}
-with $\vect{w}$ the galactic-frame velocity, $\varGamma_i$ the rate kernel \cref{eq:21.1-kernel} with $P_{\mathrm{casc}}(N_{\mathrm{eh}}|\Lambda)$ replaced by the probability $P(i|\Lambda)$ that a final state of class $\Lambda$ ends in bin $i$, and its argument rotated into crystal axes at each time. For a coupling through the density, $\mathfrak{D}_{ee} = \pi\sigmae\FDM^2/\mu_{\chi e}^2$ (\cref{eq:1.4-Vsq}) is proportional to $\sigmae$, and so is $\varGamma_i$. We therefore set
-\begin{equation}
-  \dd\Xi(\vect{w}) = \frac{\rho_\chi\sigmae}{\mchi}\,f_{\mathrm{gal}}(\vect{w})\,\dd^3w , \qquad
-  \mathsf{k}_i(\vect{w}) = \frac{M_{\mathrm{det}}t_{\mathrm{exp}}}{\rho_T\,\sigmae}\,\bigl\langle\varGamma_i\bigl(\vect{w} - \vect{v}_{\mathrm{E}}(t)\bigr)\bigr\rangle_t ,
-  \label{eq:D.46-stream}
-\end{equation}
-so that $N_i = \int\mathsf{k}_i\,\dd\Xi$. The measure $\Xi$ is nonnegative and is supported on the ball $\mathcal{B} = \{|\vect{w}| \le v_{\mathrm{esc}}\}$; its total mass, $\rho_\chi\sigmae/\mchi$, is not known and is left free. The kernel does not contain $\sigmae$, and $\mathsf{k}_i(\vect{w})$ is the count that a single stream of unit $\Xi$-mass at $\vect{w}$ would produce. In a laboratory speed $v = |\vect{w} - \vect{v}_{\mathrm{E}}|$, the mean inverse speed of \cref{eq:1.3-eta} becomes $\int\Theta(v - u_0)\,v^{-1}\,\dd\Xi = \rho_\chi\sigmae\eta(u_0)/\mchi = \tilde\eta(u_0)$, the combination of \cref{app:A.8}.
+with $\vect{w}$ the galactic-frame velocity, $\varGamma_i$ the rate kernel \cref{eq:21.1-kernel} with $P_{\mathrm{casc}}(N_{\mathrm{eh}}|\Lambda)$ replaced by the probability $P(i|\Lambda)$ that a final state of class $\Lambda$ ends in bin $i$, and its argument rotated into crystal axes at each time. For a coupling through the density, $\mathfrak{D}_{ee} = \pi\sigmae\FDM^2/\mu_{\chi e}^2$ (\cref{eq:1.4-Vsq}) is proportional to $\sigmae$, and so is $\varGamma_i$. With the measure $\Xi$ and the stream kernel $\mathsf{k}_i$ of \cref{eq:21.2-stream}, therefore, $N_i = \int\mathsf{k}_i\,\dd\Xi$, and the kernel does not contain $\sigmae$. The total mass of $\Xi$, $\rho_\chi\sigmae/\mchi$, is not known and is left free.
 
 The kernel of one stream follows from \cref{eq:21.1-kernel}. Write the response, contracted with $\mathfrak{D}$ and weighted with $P(i|\Lambda)$, as $s_i(\vect{q},\omega) = \sum_\Lambda\sum_{a,b}\mathfrak{D}_{ab}S_{ab}(\vect{q},\omega;\Lambda)P(i|\Lambda)$, for a coupling that depends on $|\vect{q}|$ only, and expand it in real spherical harmonics in crystal axes,
 \begin{equation*}
@@ -29,17 +23,11 @@ For $\ell = 0$ it is the factor $2\pi$ of the angular average in \cref{sec:1.3}.
 \begin{equation*}
   \varGamma_i(\vect{v}) = \frac1v\int\dd\omega\int\frac{q\,\dd q}{4\pi^2}\,\bar s_i(q,\omega)\Bigl[1 + \sum_{\ell \ge 1}\sum_ma^i_{\ell m}(q,\omega)\,P_\ell\Bigl(\frac{\vmin}{v}\Bigr)Y_{\ell m}(\hat{\vect{v}})\Bigr]\Theta(v - \vmin) ,
 \end{equation*}
-which for $a^i_{\ell m} = 0$ is \cref{eq:21.1-gammav}. For a cubic crystal $\sum_ma^i_{\ell m}Y_{\ell m} = a^i_\ell Y^{\mathrm{c}}_\ell$, with $Y^{\mathrm{c}}_\ell$ the cubic harmonics of \cref{app:C.3}, $\ell = 0, 4, 6, 8, 10$ (one harmonic per $\ell$ below $\ell = 12$; from $\ell = 12$ on, two or more harmonics of each $\ell$ carry their own coefficients), and inserting the kernel in \cref{eq:D.46-stream} gives \cref{eq:21.2-multipole}. A pair with $\vmin$ close to $v$ is reached only by momentum transfers almost parallel to the stream, $P_\ell \to 1$, and carries the full anisotropy of the response. A pair with $\vmin \ll v$ is reached on a wide circle, and its anisotropy is averaged by $P_\ell(\vmin/v)$.
+which for $a^i_{\ell m} = 0$ is \cref{eq:21.1-gammav}. For a cubic crystal $\sum_ma^i_{\ell m}Y_{\ell m} = a^i_\ell Y^{\mathrm{c}}_\ell$, with $Y^{\mathrm{c}}_\ell$ the cubic harmonics of \cref{app:C.3}, $\ell = 0, 4, 6, 8, 10$ (one harmonic per $\ell$ below $\ell = 12$; from $\ell = 12$ on, two or more harmonics of each $\ell$ carry their own coefficients), and inserting the kernel in \cref{eq:21.2-stream} gives \cref{eq:21.2-multipole}.
 
 \subsection{The step column and the bound}
 
-Let the response be independent of $\hat{\vect{q}}$, let $\vect{v}_{\mathrm{E}}$ be constant over the exposure, and write the stream in the laboratory as $\vect{v} = \vect{w} - \vect{v}_{\mathrm{E}}$. Then $\mathsf{k}_i$ depends only on $v = |\vect{v}|$,
-\begin{equation}
-  \mathsf{k}_i(v) = \frac{\mathcal{A}_i(v)}{v} , \qquad
-  \mathcal{A}_i(v) = \frac{M_{\mathrm{det}}t_{\mathrm{exp}}}{\rho_T\,\sigmae}\int\dd\omega\int\frac{q\,\dd q}{4\pi^2}\,\bar s_i(q,\omega)\,\Theta\bigl(v - \vmin(q,\omega)\bigr) .
-  \label{eq:D.46-column}
-\end{equation}
-The \emph{step column} $\mathcal{A}_i(v)$ is the count in bin $i$ for the step $\tilde\eta(u) = \Theta(v - u)$, one unit of $\tilde\eta$ below the speed $v$; it is $M_{\mathrm{det}}t_{\mathrm{exp}}\,v\varGamma_i(v)/\rho_T\sigmae$ in the notation of \cref{sec:21.1}. Its derivative replaces $\Theta$ by $\delta(v - \vmin)$,
+Let the response be independent of $\hat{\vect{q}}$, let $\vect{v}_{\mathrm{E}}$ be constant over the exposure, and write the stream in the laboratory as $\vect{v} = \vect{w} - \vect{v}_{\mathrm{E}}$. Then $\mathsf{k}_i$ depends only on $v = |\vect{v}|$, $\mathsf{k}_i(v) = \mathcal{A}_i(v)/v$, with the step column $\mathcal{A}_i(v)$ of \cref{eq:21.2-column}. Its derivative replaces $\Theta$ by $\delta(v - \vmin)$,
 \begin{equation}
   \frac{\dd\mathcal{A}_i}{\dd v} = \frac{M_{\mathrm{det}}t_{\mathrm{exp}}}{\rho_T\,\sigmae}\int\dd\omega\int\frac{q\,\dd q}{4\pi^2}\,\bar s_i(q,\omega)\,\delta\bigl(v - \vmin(q,\omega)\bigr) \ge 0 ,
   \label{eq:D.46-monotone}
@@ -100,5 +88,5 @@ where $\operatorname{TV}$ is the total variation. The last step assumes that the
   \varrho^{\mathrm{leak}}_i = \frac{\sup|s^+|}{\langle s^0 + s^+\rangle_i} ,
   \label{eq:D.46-fsleak}
 \end{equation}
-with the supremum over that widened support.
-and the same with $\max([s^0]_-, [s^+]_-)$ in place of $|s^+|$ for the negative part of $s_i$ alone. For a response averaged over the directions of $\vect{q}$, the stream kernel at fixed $q$ is an integral of $s_i$ over the window of $\omega$ that the speed reaches, \cref{eq:D.46-column}, and \cref{eq:D.46-fsleak} bounds $\mathsf{l}_i$ relative to $\mathsf{k}_i$ wherever the window covers the bin. For a directional response the delta function fixes $\omega$ on each $\vect{q}$, and $\mathsf{l}_i$ is computed pointwise, in the same pass over the response as the kernel itself (\cref{app:E.27}).
+with the supremum over that widened support,
+and the same with $\max([s^0]_-, [s^+]_-)$ in place of $|s^+|$ for the negative part of $s_i$ alone. For a response averaged over the directions of $\vect{q}$, the stream kernel at fixed $q$ is an integral of $s_i$ over the window of $\omega$ that the speed reaches, \cref{eq:21.2-column}, and \cref{eq:D.46-fsleak} bounds $\mathsf{l}_i$ relative to $\mathsf{k}_i$ wherever the window covers the bin. For a directional response the delta function fixes $\omega$ on each $\vect{q}$, and $\mathsf{l}_i$ is computed pointwise, in the same pass over the response as the kernel itself (\cref{app:E.27}).
