@@ -109,29 +109,17 @@ CLASS = OrderedDict([
     ("17.5a", ("TM", "", r"upper limit of the $f$-sum integral")),
 ])
 
-# Rows of App. F marked "(no box)" in Chaps. 10-17, keyed by a fragment of their first column:
-# (section, axis, step)
-NOBOX = OrderedDict([
-    ("Phonon-assisted electron-recoil rate", ("13.3", "ng", r"$2 \to 4$")),
-    ("Inverse temperature transfer", ("13.5", "TM", "")),
-    ("Nonadiabatic correction to the zero-point", ("13.7", "TM", "")),
-    ("Longitudinal and transverse spin weights", ("14.1", "TM", "")),
-    ("First BCS correction to the screening", ("15.1", "X", r"first order $\to$ resummed")),
-    ("Drude and Mermin loss functions", ("15.3", "TM", "")),
-    ("Impurity-assisted (Mattis--Bardeen)", ("15.4", "TM", "")),
-    ("Spin-current absorption", ("15.4", "TM", "")),
-    ("Interband response of a semiconducting nanotube", ("16.3", "X", r"RPA $\to$ BSE")),
-    ("depolarization factor", ("16.3", "TM", "")),
-])
+# Appendix F is a short index of the workhorse formulas; it has no "(no box)" rows, so no hollow chips.
+NOBOX = OrderedDict()
 
 # Strings Sect. 9.4 quotes from the home sections, with the file that must contain them.
 QUOTES = [
-    ("appF/F-rows.tex", r"0.05 of the unscreened value at the kinematic edge ($0.55\,q_0$), 0.22 at $q_0$"),
-    ("appF/F-rows.tex", r"$q$-integrated 0.47 at \SI{5}{eV}"),
+    ("ch10/s10-2.tex", r"screening cuts the response to 0.05 of the independent-particle value, and at $q_0$ to 0.22"),
+    ("ch10/s10-2.tex", r"the screened rate at \SI{5}{eV} is 0.47 of the independent-particle one"),
     ("ch10/s10-2.tex", r"carries more than $10^4$ times the electronic rate"),
-    ("appF/F-rows.tex", r"within \SI{10}{\percent} for $x_R \ge 2.3$ ($q \ge \SI{70}{keV}$)"),
+    ("ch11/s11-4.tex", r"within \SI{10}{\percent} for $x_R \ge 2.3$, or $E_R \ge \SI{93}{meV}$ and $q \ge \SI{70}{keV}$"),
     ("ch01/s1-3.tex", r"Gray: $E_R \ge 9\omega_0 = \SI{0.54}{eV}$"),
-    ("appF/F-rows.tex", r"$2\langle\omega_{\mathrm{ph}}^2\rangle/\omega_e^2 = 2.9\times10^{-3}$ at the Si gap"),
+    ("ch12/s12-4.tex", r"$2\langle\omega_{\mathrm{ph}}^2\rangle/\omega_e^2 = \num{2.9e-3}$"),
 ]
 
 AXES = ["nB", "ng", "nA", "X", "nT", "K", "M", "nD"]
@@ -163,7 +151,7 @@ for ch in range(10, 18):
             i += 1
             boxes[m.group(2)] = m.group(1)
             NUM[m.group(2)] = f"{ch}.{i}"
-AUX = "/tmp/claude-0/build-ch09rev/main.aux"  # optional cross-check against a build of the book
+AUX = os.path.join(BOOK, "build", "vol2.aux")  # optional cross-check against a build of the book
 if os.path.exists(AUX):
     aux = open(AUX).read()
     for k, n in NUM.items():
@@ -183,35 +171,22 @@ log("Part II Limit Checks (Chaps. 10-17) found in the tex:", len(boxes))
 per_ch = Counter(k.split(".")[0] for k in boxes)
 log("  per chapter:", ", ".join(f"Ch{c}: {per_ch[c]}" for c in sorted(per_ch, key=int)))
 
-# ---------------------------------------------------------------- read App. F
+# ---------------------------------------------------------------- read App. F (index only; logged, not required)
 ft = open(os.path.join(TEX, "appF", "F-rows.tex")).read()
-body = ft.split("\\endfoot", 1)[1].split("\\end{longtable}")[0]
-rows = [r.strip() for r in body.split("\\midrule") if r.strip()]
+body = ft.split("\\endlastfoot", 1)[1].split("\\end{longtable}")[0]
+rows = [r.strip() for r in re.split(r"\\\\\s*\n", body) if r.strip()]
 
 
 def section_of(row):
-    m = re.findall(r"\\cref\{sec:(\d+)\.(\d+)\}\s*\\\\\s*$", row.strip())
+    m = re.findall(r"\\cref\{sec:(\d+)\.(\d+)\}\s*$", row.strip())
     return (int(m[-1][0]), int(m[-1][1])) if m else None
 
 
 part2 = [r for r in rows if section_of(r) and 10 <= section_of(r)[0] <= 17]
-nobox_rows = [r for r in part2 if "(no box)" in r]
+named = set(re.findall(r"lim:(\d+\.\d+[a-z])", " ".join(r.split("&")[0] for r in part2)))
+assert named <= set(boxes), named - set(boxes)   # every box Appendix F names exists
 log("App. F rows, all chapters:", len(rows))
-log("App. F rows with home in Chaps. 10-17:", len(part2))
-log("  of which marked (no box):", len(nobox_rows))
-log("  with an unsized leading correction (\\Fsize{unsized}):", sum("\\Fsize{unsized}" in r for r in part2))
-log("  boxed rows (Part II rows minus no-box rows):", len(part2) - len(nobox_rows))
-boxed_rows = [r for r in part2 if "(no box)" not in r]
-unnamed = [r.split("&")[0][:60] for r in boxed_rows if "lim:" not in r.split("&")[0]]
-assert not unnamed, unnamed       # every boxed Part II row names its Limit Check in column 1
-named = set(re.findall(r"lim:(\d+\.\d+[a-z])", " ".join(r.split("&")[0] for r in boxed_rows)))
-assert named == set(boxes), (named ^ set(boxes))
-log("  boxed rows naming their Limit Check in column 1:", len(boxed_rows) - len(unnamed),
-    "; distinct Limit Checks named:", len(named))
-for r in nobox_rows:
-    hits = [k for k in NOBOX if k in r]
-    assert len(hits) == 1, (r[:80], hits)
-assert len(NOBOX) == len(nobox_rows)
+log("App. F rows with home in Chaps. 10-17:", len(part2), "; Limit Checks they name:", len(named))
 log("Limit Checks outside Part II (Chaps. 1-8, 18-21), for reference:",
     sum(len(re.findall(r"\\begin\{limitbox\}", open(f).read()))
         for f in glob.glob(os.path.join(TEX, "ch0[1-8]", "*.tex")) + glob.glob(os.path.join(TEX, "ch1[89]", "*.tex"))
@@ -249,12 +224,13 @@ with open(os.path.join(TEX, "ch09", "tab9-3.tex"), "w") as T:
     cap = ("\\caption{The Limit Checks of \\crefrange{chap:10}{chap:17}, by chapter. Controlling parameter: the "
            "variable on the horizontal axis of the box. Leading correction: the component of the truncation label "
            "$\\mathfrak{T}$ of \\cref{eq:8.5-label} along which the comparison result lies one step from the "
-           "formula, with the step; where the step is not along a component, the kind of qualifier it expands in. "
-           "Formulas recovered as limits without a box are listed in \\cref{tab:F-rows}.}\\label{tab:9-limitchecks}\\\\\n")
+           "formula, with the step; where the step is not along a component, the kind of qualifier it expands in."
+           "}\\label{tab:9-limitchecks}\\\\\n")
     T.write(cap)
     head = ("\\toprule\nLimit Check & Formula & Controlling parameter & Leading correction \\\\\n\\midrule\n")
     T.write(head + "\\endfirsthead\n" + head + "\\endhead\n\\bottomrule\n\\endfoot\n")
-    for ch in range(10, 18):
+    chs = [ch for ch in range(10, 18) if any(k.startswith(f"{ch}.") for k in CLASS)]
+    for ch in chs:
         T.write(f"\\multicolumn{{4}}{{@{{}}l}}{{\\emph{{\\Cref{{chap:{ch}}}}}}} \\\\\n")
         for k, (ax, step, par) in sorted(CLASS.items(), key=lambda kv: natkey(NUM[kv[0]])):
             if not k.startswith(f"{ch}."):
@@ -262,7 +238,7 @@ with open(os.path.join(TEX, "ch09", "tab9-3.tex"), "w") as T:
             title = boxes[k]
             lead = f"{AXIS_TEX[ax]}: {step}" if ax in AXES else GROUP_TEX[ax]
             T.write(f"\\ref{{lim:{k}}} & {title} & {par} & {lead} \\\\\n")
-        if ch < 17:
+        if ch != chs[-1]:
             T.write("\\addlinespace\n")
     T.write("\\end{longtable}\n}\n")
 log("Wrote tex/ch09/tab9-3.tex with", len(CLASS), "rows")
@@ -350,16 +326,12 @@ for g in GROUPS:
         chip(i * W_COL, top - 0.15 - r * H_ROW, k, ch, hol)
 
 # legend, two rows
-for j, ch in enumerate(range(10, 18)):
+for j, ch in enumerate([c for c in range(10, 18) if any(k.startswith(f"{c}.") for k in CLASS)]):
     xx = 0.2 + (j % 5) * 2.0
     yy = -0.55 - 0.32 * (j // 5)
     ax.add_patch(FancyBboxPatch((xx, yy - 0.1), 0.28, 0.2, boxstyle="round,pad=0,rounding_size=0.05",
                                 fc=PAL[ch], ec=PAL[ch]))
     ax.text(xx + 0.36, yy, f"Chap. {ch}", va="center", fontsize=6.3)
-xx, yy = 0.2 + 3 * 2.0, -0.87
-ax.add_patch(FancyBboxPatch((xx, yy - 0.1), 0.28, 0.2, boxstyle="round,pad=0,rounding_size=0.05",
-                            fc="white", ec="0.3"))
-ax.text(xx + 0.36, yy, "formula of Appendix F without a Limit Check (home section)", va="center", fontsize=6.3)
 out = os.path.join(TEX, "figures", "ch09", "fig9_3.pdf")
 fig.savefig(out, bbox_inches="tight")
 log("Wrote", os.path.relpath(out, BOOK))

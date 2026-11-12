@@ -79,7 +79,7 @@ box(0.3, 2.15, 11.4, 1.2, "Quanta", r"$N_{\mathrm{eh}}$ pairs; phonon energy; en
 arrow(3.0, y3, 3.0, 3.35)
 arrow(9.0, y3, 9.0, 3.35)
 box(0.3, 0.03, 5.4, 1.82, "Readout", "charge drift, phonon and" "\n" "quasiparticle sensors", "Chap. 20", shade="0.98")
-box(6.3, 0.03, 5.4, 1.82, "Counts and limits", "rate assembly, nuisances," "\n" "exclusion limits", "Chap. 21", shade="0.98")
+box(6.3, 0.03, 5.4, 1.82, "Counts and limits", "rate assembly, nuisance parameters," "\n" "exclusion limits", "Chap. 21", shade="0.98")
 arrow(3.0, 2.15, 3.0, 1.85)
 arrow(5.7, 0.94, 6.3, 0.94)
 

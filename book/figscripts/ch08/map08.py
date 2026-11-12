@@ -28,7 +28,7 @@ N = {
     "ex": dict(x=XR, y=y(1.55), w=WR, shade="light", title="Exact relations",
                body="interference bound; moments;" "\n" "Ward identities", tag="Sect. 8.3", h=1.15),
     "unc": dict(x=XR, y=y(3.55), w=WR, shade="light", title="Uncertainty structure",
-                body="truncations and many-body" "\n" "spreads as nuisance parameters", tag="Sect. 8.8", h=1.15),
+                body="truncations and many-body" "\n" "spreads as theory uncertainties", tag="Sect. 8.8", h=1.15),
 }
 E = [
     ("ops", "mrf", "sum over species and operators"),
