@@ -32,6 +32,23 @@
 \setcounter{secnumdepth}{2}
 \setcounter{tocdepth}{1}
 % Boxed environments
+% Boxes and floats. Page span of every box (worked example, Limit Check, key result), written to the aux file. tools/floatsplit.py
+% reads it to find floats that land between the parts of a box broken across pages.
+\makeatletter
+\newcount\bx@n\newcount\bx@depth
+\newcommand\bx@write[2]{\begingroup\edef\x{\endgroup\noexpand\protected@write\noexpand\@auxout{}{\noexpand\string\noexpand#1{#2}{\noexpand\thepage}}}\x}
+% While an outermost box is being set, floats waiting in \@deferlist are held back, so that none is placed at the top
+% of the page on which a broken box continues; they are released when the box ends, and no float that comes after
+% the box may go to the top of the page on which the box ends.
+\gdef\bx@held{}
+\newcommand\bx@hold{\ifnum\bx@depth=\@ne\global\let\bx@held\@deferlist\global\let\@deferlist\@empty\fi}
+\newcommand\bx@release{\ifnum\bx@depth=\@ne\xdef\@deferlist{\bx@held\@deferlist}\global\let\bx@held\@empty\suppressfloats[t]\fi}
+\newcommand\bx@start{\global\advance\bx@n\@ne\global\advance\bx@depth\@ne\bx@hold
+  \expandafter\xdef\csname bx@id@\the\bx@depth\endcsname{\the\bx@n}\bx@write\bxspanstart{\the\bx@n}}
+\newcommand\bx@end{\ifnum\bx@depth>\z@\bx@write\bxspanend{\csname bx@id@\the\bx@depth\endcsname}\bx@release\global\advance\bx@depth\m@ne\fi}
+\AtBeginDocument{\immediate\write\@auxout{\string\providecommand\string\bxspanstart[2]{}\string\providecommand\string\bxspanend[2]{}}}
+\tcbset{every box/.append style={before app={\bx@start},after pre={\bx@end}}}
+\makeatother
 % Limit boxes: \begin{limitbox}[Title][lim:N.Mx] ... \end{limitbox}; numbered "Limit Check N.M" (user ruling: "Limit" clashed with exclusion limits) within the chapter.
 % The second optional argument is a \label for the box counter; a bare \label at the start of the body also
 % works (before any \captionof, which relabels to the figure). Refer with \cref{lim:...} -> "Limit Check N.M".

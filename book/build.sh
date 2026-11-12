@@ -24,4 +24,5 @@ for v in vol1 vol2 vol3; do
     "$(pdfinfo "$out/$v.pdf" | awk '/^Pages/{print $2}')" \
     "$(grep -c 'Reference .* undefined' "$out/$v.log")" "$(grep -c 'Citation .* undefined' "$out/$v.log")"
 done
+python3 "$here/tools/floatsplit.py" "$out" || true
 exit $status
