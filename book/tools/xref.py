@@ -45,8 +45,8 @@ def read_aux(path):
         if len(g) != 2:
             continue
         name, data = g
-        if name.endswith("@cref"):
-            labs[name] = "{%s}{[1][1][]1}" % groups(data)[0]
+        if name.endswith("@cref"):                  # hyperref appends three empty fields; keep them for \crefrange
+            labs[name] = "{%s}{[1][1][]1}" % groups(data)[0] + "".join("{%s}" % x for x in groups(data)[2:])
             continue
         f = groups(data)
         if len(f) == 5:
