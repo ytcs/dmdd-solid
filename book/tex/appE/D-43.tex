@@ -1,6 +1,6 @@
 \section{The cascade generating functional}\label{app:D.43}
 
-The backward equation \cref{eq:18.1-backward} gives every statistic of the deposits of a hot-carrier cascade from the kernels of its collisions. The notation is that of \cref{sec:18.1-branching}; \cref{app:C.11} gives the discrete branching process on which the argument is modeled.
+The backward equation \cref{eq:18.1-backward} gives every deposit statistic of a hot-carrier cascade from the collision kernels. The notation is that of \cref{sec:18.1-branching}; \cref{app:C.11} gives the discrete branching process on which the argument is modeled.
 
 \subsection{The process}
 
@@ -21,7 +21,7 @@ and averaging over the first collision with its density $\mathscr{K}_c/\varGamma
   \mathfrak{G}_x(\vect{\lambda}) = \sum_c\int\dd x'_1\cdots\dd x'_m\;\frac{\mathscr{K}_c(x \to x'_1\dots x'_m)}{\varGamma_x}\;\ee^{\vect{\lambda}\cdot\delta\vect{N}_c}\prod_{j=1}^m\mathfrak{G}_{x'_j}(\vect{\lambda}) .
   \label{eq:D.43-firststep}
 \end{equation}
-Multiplied by $\varGamma_x$, \cref{eq:D.43-firststep} is \cref{eq:18.1-backward}. For an integer deposit and $s = \ee^\lambda$ it is \cref{eq:C.11-functional}, with $p_c$ the integrated branching ratio and the average over products written as an integral. The waiting time has dropped out, since $\vect{N}$ does not depend on when the collisions happen. If only deposits made before a time $t$ are counted, the same conditioning, now on whether the first collision comes before $t$, gives the backward Kolmogorov equation
+Multiplied by $\varGamma_x$, \cref{eq:D.43-firststep} is \cref{eq:18.1-backward}. For an integer deposit and $s = \ee^\lambda$ it is \cref{eq:C.11-functional}, with $p_c$ the integrated branching ratio and the average over products written as an integral. The waiting time has dropped out, since $\vect{N}$ does not depend on when the collisions happen. If only deposits made before a time $t$ are counted, we apply the same conditioning to whether the first collision comes before $t$ and obtain the backward Kolmogorov equation
 \begin{equation*}
   \partial_t\mathfrak{G}_x(\vect{\lambda},t) = -\varGamma_x\mathfrak{G}_x(\vect{\lambda},t) + \sum_c\int\dd x'_1\cdots\dd x'_m\;\mathscr{K}_c\;\ee^{\vect{\lambda}\cdot\delta\vect{N}_c}\prod_j\mathfrak{G}_{x'_j}(\vect{\lambda},t) ,
 \end{equation*}
@@ -48,7 +48,7 @@ The deposits of a cascade of finite energy are bounded, so $\mathfrak{G}_x$ is s
 \end{align}
 the vector form of \cref{eq:C.11-mean,eq:C.11-second}, with covariances between different deposits in the off-diagonal entries.
 
-The covariance matrix $\mathbf{C}_x = \mathbf{M}_x - \vect{m}_x\vect{m}_x^{\mathrm{T}}$ obeys a recursion without cancellations. With $\vect{Z}_c = \delta\vect{N}_c + \sum_j\vect{m}_j$ the mean deposit given the first collision, subtracting $\vect{m}_x\vect{m}_x^{\mathrm{T}}$ from \cref{eq:D.43-second} and using \cref{eq:D.43-mean} gives
+The covariance matrix $\mathbf{C}_x = \mathbf{M}_x - \vect{m}_x\vect{m}_x^{\mathrm{T}}$ obeys a recursion without cancellations. Let $\vect{Z}_c = \delta\vect{N}_c + \sum_j\vect{m}_j$ be the mean deposit given the first collision. Subtracting $\vect{m}_x\vect{m}_x^{\mathrm{T}}$ from \cref{eq:D.43-second} and using \cref{eq:D.43-mean} gives
 \begin{equation}
   \varGamma_x\,\mathbf{C}_x = \sum_c\Bigl\langle\sum_j\mathbf{C}_j + (\vect{Z}_c - \vect{m}_x)(\vect{Z}_c - \vect{m}_x)^{\mathrm{T}}\Bigr\rangle_c ,
   \label{eq:D.43-cov}
@@ -57,7 +57,7 @@ the law of total covariance: the covariance of the cascade is the average covari
 
 \subsection{The energy-only recursions}
 
-Under the energy-only reduction the state is the type $t$ and the kinetic energy $x$, and there are two channels. Impact ionization, at the iso-energy rate $\varGamma_{\mathrm{ii},t}(x)$, leads to $(t, x_1)$, $(t, x_2)$, $(\bar t, x_3)$ on the plane $x_1 + x_2 + x_3 = x - \Eg$. Emission of a phonon of energy $\omega_{\mathrm{AB}}$, at the rate $\varGamma_{\mathrm{ph},t}(x)$, leads to $(t, x - \omega_{\mathrm{AB}})$. Let $p_t(x) = \varGamma_{\mathrm{ii},t}/(\varGamma_{\mathrm{ii},t} + \varGamma_{\mathrm{ph},t})$ be the probability that the next collision ionizes. For one entry $Y$ of $\vect{N}$, with deposits $d_{\mathrm{ii}}$ per ionization, $d_{\mathrm{ph}}$ per emission and $d_<(x)$ at the terminal state, write $m_t(x)$ and $M_t(x)$ for its first and second moments. In the random-$k$ form the products have the density $\rho_t(x_1)\rho_t(x_2)\rho_{\bar t}(x_3)/\mathfrak{P}_t(y)$ of \cref{eq:18.1-phase}, with $y = x - \Eg$. With $P_t = \rho_tm_t$, $S_t = \rho_tM_t$ and $*$ the convolution on $[0, \infty)$, the averages over the products are convolutions:
+Under the energy-only reduction the state is the type $t$ and the kinetic energy $x$, and there are two channels. Impact ionization, at the iso-energy rate $\varGamma_{\mathrm{ii},t}(x)$, leads to $(t, x_1)$, $(t, x_2)$, $(\bar t, x_3)$ on the plane $x_1 + x_2 + x_3 = x - \Eg$. Emission of a phonon of energy $\omega_{\mathrm{AB}}$, at the rate $\varGamma_{\mathrm{ph},t}(x)$, leads to $(t, x - \omega_{\mathrm{AB}})$. Let $p_t(x) = \varGamma_{\mathrm{ii},t}/(\varGamma_{\mathrm{ii},t} + \varGamma_{\mathrm{ph},t})$ be the probability that the next collision ionizes. Consider one entry $Y$ of $\vect{N}$, with deposits $d_{\mathrm{ii}}$ per ionization, $d_{\mathrm{ph}}$ per emission and $d_<(x)$ at the terminal state. Write $m_t(x)$ and $M_t(x)$ for the first and second moments of $Y$. In the random-$k$ form the products have the density $\rho_t(x_1)\rho_t(x_2)\rho_{\bar t}(x_3)/\mathfrak{P}_t(y)$ of \cref{eq:18.1-phase}, with $y = x - \Eg$. With $P_t = \rho_tm_t$, $S_t = \rho_tM_t$ and $*$ the convolution on $[0, \infty)$, the averages over the products are convolutions:
 \begin{gather*}
   \Bigl\langle\sum_jm_j\Bigr\rangle = \frac{[2P_t*\rho_t*\rho_{\bar t} + \rho_t*\rho_t*P_{\bar t}](y)}{\mathfrak{P}_t(y)} , \qquad
   \Bigl\langle\sum_jM_j\Bigr\rangle = \frac{[2S_t*\rho_t*\rho_{\bar t} + \rho_t*\rho_t*S_{\bar t}](y)}{\mathfrak{P}_t(y)} , \\
